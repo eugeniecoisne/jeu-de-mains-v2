@@ -1,0 +1,81 @@
+// CSS MENU //
+
+#sideMenu {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 19em;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 60px;
+  display: none;
+
+  .menu-icon {
+    padding-right: 0.6em;
+    color: $light-blue;
+    font-size: 1.2em;
+  }
+}
+
+#sideMenu.open {
+  background-color: white;
+  transition: all 0.75s ease-out;
+  z-index: 1;
+  display: block;
+}
+
+#sideMenu ul {
+  margin-top: 5em;
+  list-style-type: none;
+}
+
+
+#sideMenu li {
+  font-size: 1em;
+  padding: 1em 0 1em 2em;
+  font-weight: 500;
+  a {
+    text-decoration: none;
+    color: $dark-blue;
+  }
+}
+
+#sideMenu #menuClose {
+  width: 3.2em;
+  position: absolute;
+  right: 1em;
+  top: 1.5em;
+}
+
+
+// RESPONSIVE DESIGN MENU //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  #sideMenu {
+    width: 100vw;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 765px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
