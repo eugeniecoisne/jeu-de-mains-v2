@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <%= simple_form_for(@profile) do |f| %>
+        <%= f.input :last_name %>
+        <%= f.input :first_name %>
+        <%= f.input :address %>
+        <%= f.input :zip_code %>
+        <%= f.input :city %>
+        <%= f.input :phone_number %>
+        <%= f.input :company %>
+        <%= f.input :siret_number %>
+        <%= f.input :website %>
+        <%= f.input :instagram %>
+        <%= f.input :description %>
+        <%= f.submit 'Valider' %>
+      <% end %>
+      <%= link_to 'Annuler', profile_path(@profile), class: 'btn btn-danger mt-2'  %>
+    </div>
+  </div>
+</div>

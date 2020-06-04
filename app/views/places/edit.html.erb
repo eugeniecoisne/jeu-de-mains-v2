@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <%= simple_form_for(@place) do |f| %>
+
+        <%= f.input :name %>
+        <%= f.input :address %>
+        <%= f.input :zip_code %>
+        <%= f.input :city %>
+        <%= f.input :description %>
+        <%= f.input :phone_number %>
+        <%= f.input :email %>
+        <%= f.input :ephemeral %>
+        <%= f.input :siret_number %>
+        <%= f.input :website %>
+        <%= f.input :instagram %>
+
+        <%= f.submit 'Valider' %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

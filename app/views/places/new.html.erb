@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <%= simple_form_for(@place) do |f| %>
+        <div class="form-group select required place_user">
+          <label class="select required" for="place_user_id">Utilisateur</label>
+          <select class="form-control select required" name="place[user_id]" id="place_user_id">
+            <% @users.sort_by { |user| user.profile.company }.each do |user| %>
+              <option value="<%= user.id %>"><%= user.profile.company %></option>
+            <% end %>
+          </select>
+        </div>
+
+        <%= f.input :name %>
+        <%= f.input :address %>
+        <%= f.input :zip_code %>
+        <%= f.input :city %>
+        <%= f.input :description %>
+        <%= f.input :phone_number %>
+        <%= f.input :email %>
+        <%= f.input :ephemeral %>
+        <%= f.input :siret_number %>
+        <%= f.input :website %>
+        <%= f.input :instagram %>
+
+        <%= f.submit 'Valider' %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

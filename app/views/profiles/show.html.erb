@@ -1,0 +1,19 @@
+<h2>views/profiles/show</h2>
+
+<h3>Profile de <%= @profile.last_name %> <%= @profile.first_name %></h3>
+
+<ul>
+  <li>Nom : <%= @profile.last_name %></li>
+  <li>Prénom : <%= @profile.first_name %></li>
+  <li>Adresse : <%= "#{@profile.address}, #{@profile.zip_code} #{@profile.city}" %></li>
+  <li>Téléphone : <%= @profile.phone_number %></li>
+  <li>Société : <%= @profile.company %></li>
+  <li>SIRET : <%= @profile.siret_number %></li>
+  <li>Site internet : <%= @profile.website %></li>
+  <li>Instagram : <%= @profile.instagram %></li>
+  <li>Description : <%= @profile.description %></li>
+</ul>
+
+<% if policy(@profile).update? %>
+  <%= link_to 'Mettre à jour', edit_profile_path(@profile) %>
+<% end %>
