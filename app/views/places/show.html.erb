@@ -1,0 +1,19 @@
+<h2>views/places/show</h2>
+
+<h3>Lieu : <%= @place.name %></h3>
+
+<ul>
+  <li>Nom : <%= @place.name %></li>
+  <li>Adresse : <%= "#{@place.address}, #{@place.zip_code} #{@place.city}" %></li>
+  <li>Description : <%= @place.description %></li>
+  <li>Téléphone : <%= @place.phone_number %></li>
+  <li>Email : <%= @place.email %></li>
+  <li>Ephémère : <%= @place.ephemeral %></li>
+  <li>SIRET : <%= @place.siret_number %></li>
+  <li>Site internet : <%= @place.website %></li>
+  <li>Instagram : <%= @place.instagram %></li>
+</ul>
+
+<% if policy(@place).update? %>
+  <%= link_to 'Mettre à jour', edit_place_path(@place) %>
+<% end %>
