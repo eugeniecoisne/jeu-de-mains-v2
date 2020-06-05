@@ -1,3 +1,60 @@
 <div class="homebanner", id="homebanner-margintop", style="background-image: url(<%= image_path "homebanner-image-1.jpg" %>)">
   <h1 class="col-6 ml-5">Détendez-vous, apprenez et rencontrez grâce aux ateliers créatifs près de chez vous</h1>
 </div>
+
+<div class="home-container">
+
+  <!-- JEU DE MAINS PRESENTATION -->
+
+  <div class="home-steps-presentation">
+    <div class="home-step-presentation">
+      <%= image_tag "check.svg", alt: "réservation" %>
+      <h3>Réservez votre atelier créatif sur jeudemains.com</h3>
+      <p>Couture, tricot, art floral, cosmétique, broderie, paper art et plein d'autres encore !</p>
+    </div>
+    <div class="home-step-presentation">
+      <%= image_tag "shop.svg", alt: "boutique" %>
+      <h3>Rendez-vous sur le lieu de l'atelier</h3>
+      <p>où vous attendent un animateur, des participants enthousiastes et tout le nécessaire pour fabriquer l'objet prévu !</p>
+    </div>
+    <div class="home-step-presentation">
+      <%= image_tag "making.svg", alt: "faire soi-même" %>
+      <h3>Détendez-vous pendant la durée de l'atelier</h3>
+      <p>et laissez-vous guider par les conseils et étapes prodigués par l'animateur.</p>
+    </div>
+    <div class="home-step-presentation">
+      <%= image_tag "final-product.svg", alt: "produit final" %>
+      <h3>Repartez avec votre création unique</h3>
+      <p>réalisée avec vos dix doigts !</p>
+    </div>
+  </div>
+
+  <!-- TRENDS SELECTION -->
+
+  <div class="home-selection-cards">
+    <div class="home-selection-card" id="home-selection-first">
+      <%= image_tag "selection-summer", alt: "summer selection" %>
+      <div class="home-selection-text">
+        <div>
+          <span>Ça sent bon l’été</span>
+          <p>Ateliers couture de maillot de bain, customisation de lunettes de soleil, broderie de pochette de plage… Découvrez notre sélection <em>Ça sent bon l’été</em></p>
+        </div>
+        <div>
+          <a href="#" class="home-selection-btn">Voir la sélection</a>
+        </div>
+      </div>
+    </div>
+    <div class="home-selection-card" id="home-selection-second">
+      <%= image_tag "selection-masque", alt: "mask selection" %>
+      <div class="home-selection-text">
+        <div>
+          <span>Bal masqué</span>
+          <p>Le masque est devenu un indispensable dans nos vies alors que diriez-vous de coudre votre propre masque ? Découvrez notre sélection d’ateliers couture de masques en tissu</p>
+        </div>
+        <div>
+          <a href="#" class="home-selection-btn">Voir la sélection</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
