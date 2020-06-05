@@ -1,12 +1,77 @@
-.navbar-lewagon {
+// CSS NAVBAR //
+
+.navbar-jdm {
   justify-content: space-between;
-  background: white;
 }
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
+.navbar-brand img {
+  width: 8em;
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+.navbar-buttons {
+
+  #all-workshops {
+    height: 3rem;
+    margin-right: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $dark-blue;
+    font-weight: 700;
+    font-size: 1.2em;
+  }
+  #all-workshops:hover {
+    color: white;
+  }
+  #menuButton {
+    transition: background 0.45s ease, border 0.45s ease;
+    height: 3rem;
+    width: 3.2rem;
+    font-size: 1.8em;
+    color: $dark-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #menuButton:hover {
+    color: white;
+  }
+}
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .navbar-buttons {
+    #all-workshops {
+    display: none;
+    }
+  }
+  .navbar-brand img {
+  width: 6.5em;
+  }
+}
+
+// RESPONSIVE DESIGN NAVBAR //
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 765px) {
+  .navbar-buttons {
+    #all-workshops {
+    display: none;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
 }
