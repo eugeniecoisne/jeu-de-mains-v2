@@ -1,0 +1,73 @@
+<h2><%= @workshop.title %></h2>
+
+<h2>views/workshops/show</h2>
+
+<ul>
+  <li>Intitulé : <%= @workshop.title %></li>
+  <li>Programme : <%= @workshop.program %></li>
+  <li>Produit final : <%= @workshop.final_product %></li>
+  <li>Thématique : <%= @workshop.thematic %></li>
+  <li>Niveau : <%= @workshop.level %></li>
+  <li>Durée : <%= @workshop.duration %></li>
+  <li>Prix : <%= @workshop.price %></li>
+  <li>Statut : <%= @workshop.status %></li>
+  <li>Capacité : <%= @workshop.capacity %></li>
+</ul>
+
+<h2>Atelier animé par :</h2>
+<% if @animator.present? %>
+  <p><%= link_to @animator.user.profile.company, profile_path(@animator.user) %></p>
+<% else %>
+  <p>Cet atelier n'a pas encore d'animateur.</p>
+<% end %>
+
+<% if policy(@workshop).update? %>
+  <%= link_to 'Mettre à jour', edit_workshop_path(@workshop) %>
+  <%= link_to 'Ajouter une session', new_workshop_session_path(@workshop) %>
+  <% if @animator.present? %>
+    <%= link_to 'Modifier animateur', edit_animator_path(@animator) %>
+  <% else %>
+    <%= link_to 'Ajouter un animateur', new_workshop_animator_path(@workshop) %>
+  <% end %>
+<% end %>
+
+<h2>Sessions associées à cet atelier</h2>
+
+<ul>
+  <% @workshop.sessions.each do |session| %>
+    <li><%= session.date %> - Début : <%= session.start_at %> - Capacité : <%= session.capacity %></li>
+  <% end %>
+</ul>
+
+<h2>Réserver cet atelier</h2>
+
+<%= simple_form_for(@booking) do |f| %>
+  <div class="form-group select required">
+    <select class="form-control select required" name="session" id="session_id">
+      <option value="" disabled selected>Sélectionner une date</option>
+      <% @workshop.sessions.sort_by { |session| session.date }.each do |session| %>
+        <option value="<%= session.id %>"><%= session.date.strftime('%d/%m/%Y') %> - Début : <%= session.start_at %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="form-group select required">
+    <select class="form-control select required" name="quantity" id="workshop_level">
+        <option value="" disabled selected>Nombre de place(s)</option>
+    </select>
+  </div>
+  <%= f.submit 'Réserver' %>
+<% end %>
+
+<h2>Commentaires sur cet atelier</h2>
+
+<ul>
+  <% @workshop.reviews.each do |review| %>
+    <li>
+      <ul>
+        <li>Note: <%= review.rating %></li>
+        <li>Avis: <%= review.content %></li>
+      </ul>
+    </li>
+  <% end %>
+</ul>
+

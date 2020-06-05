@@ -1,0 +1,9 @@
+<h2>Tous nos animateurs</h2>
+
+<h2>views/profiles/index</h2>
+
+<ul>
+  <% @profiles.each do |profile| %>
+    <li><%= link_to "#{profile.last_name} #{profile.first_name}", profile_path(profile) %></li>
+  <% end %>
+</ul>

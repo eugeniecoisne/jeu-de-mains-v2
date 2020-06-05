@@ -1,0 +1,9 @@
+<h2>Tous nos lieux</h2>
+
+<h2>views/places/index</h2>
+
+<ul>
+  <% @places.each do |place| %>
+    <li><%= link_to place.name, place_path(place) %></li>
+  <% end %>
+</ul>

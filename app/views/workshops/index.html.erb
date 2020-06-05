@@ -1,0 +1,9 @@
+<h2>Tous nos ateliers</h2>
+
+<h2>views/workshops/index</h2>
+
+<ul>
+  <% @workshops.each do |workshop| %>
+    <li><%= link_to workshop.title, workshop_path(workshop) %></li>
+  <% end %>
+</ul>

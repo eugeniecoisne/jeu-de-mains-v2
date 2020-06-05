@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <%= simple_form_for([@booking, @review]) do |f| %>
+
+        <%= f.input :rating %>
+        <%= f.input :content %>
+
+        <%= f.submit 'Valider' %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

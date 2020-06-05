@@ -1,6 +1,11 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: %i(show edit update)
 
+  def index
+    @profiles = policy_scope(Profile).where(role: 'animateur')
+    authorize @profiles
+  end
+
   def show
   end
 
@@ -24,6 +29,6 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:last_name, :first_name, :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description)
+    params.require(:profile).permit(:last_name, :first_name, :address, :zip_code, :city, :phone_number, :company, :siret_number, :website, :instagram, :description)
   end
 end

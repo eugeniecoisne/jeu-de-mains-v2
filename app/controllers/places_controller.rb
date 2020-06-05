@@ -1,6 +1,11 @@
 class PlacesController < ApplicationController
   before_action :set_place, only: %i(show edit update)
 
+  def index
+    @places = policy_scope(Place)
+    authorize @places
+  end
+
   def show
   end
 
