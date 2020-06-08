@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AnimatedByTest < ActiveSupport::TestCase
+class AnimatorTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

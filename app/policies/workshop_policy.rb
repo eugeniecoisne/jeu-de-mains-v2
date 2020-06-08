@@ -1,4 +1,4 @@
-class PlacePolicy < ApplicationPolicy
+class WorkshopPolicy < ApplicationPolicy
 
   def index?
     true
@@ -9,7 +9,7 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    user.profile.role == 'organisateur' || user.admin?
   end
 
   def new?
@@ -17,7 +17,7 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def update?
-    record.user == user || user.admin?
+    record.place.user == user || user.admin?
   end
 
   def edit?

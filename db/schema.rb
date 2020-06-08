@@ -10,19 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_04_133128) do
+ActiveRecord::Schema.define(version: 2020_06_05_150245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "animated_by", force: :cascade do |t|
+  create_table "animators", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "workshop_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "db_status"
-    t.index ["user_id"], name: "index_animated_by_on_user_id"
-    t.index ["workshop_id"], name: "index_animated_by_on_workshop_id"
+    t.index ["user_id"], name: "index_animators_on_user_id"
+    t.index ["workshop_id"], name: "index_animators_on_workshop_id"
   end
 
   create_table "bookings", force: :cascade do |t|
@@ -133,8 +133,8 @@ ActiveRecord::Schema.define(version: 2020_06_04_133128) do
     t.index ["place_id"], name: "index_workshops_on_place_id"
   end
 
-  add_foreign_key "animated_by", "users"
-  add_foreign_key "animated_by", "workshops"
+  add_foreign_key "animators", "users"
+  add_foreign_key "animators", "workshops"
   add_foreign_key "bookings", "sessions"
   add_foreign_key "bookings", "users"
   add_foreign_key "places", "users"

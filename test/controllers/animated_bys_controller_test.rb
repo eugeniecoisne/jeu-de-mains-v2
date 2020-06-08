@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AnimatedBysControllerTest < ActionDispatch::IntegrationTest
+class AnimatorsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

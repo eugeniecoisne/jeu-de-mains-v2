@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <%= simple_form_for([@workshop, @animator]) do |f| %>
+        <div class="form-group select required animator_user">
+          <label class="select required" for="animator_user_id">Animateur</label>
+          <select class="form-control select required" name="animator[user_id]" id="animator_user_id">
+            <% @users.sort_by { |user| user.profile.company }.each do |user| %>
+              <option value="<%= user.id %>"><%= user.profile.company %> - <%= "#{user.profile.last_name} #{user.profile.first_name}" %></option>
+            <% end %>
+          </select>
+        </div>
+
+        <%= f.submit 'Valider' %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

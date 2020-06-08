@@ -16,4 +16,19 @@
 
 <% if policy(@profile).update? %>
   <%= link_to 'Mettre à jour', edit_profile_path(@profile) %>
+  <h2>Vos réservations</h2>
+
+  <ul>
+    <% @profile.user.bookings.each do |booking| %>
+      <li>
+        <%= "Booking n°#{booking.id}" %> -
+        <% if booking.reviews.present? %>
+          Commentaire posté !
+        <% else %>
+          <%= link_to 'Ecrire un commentaire', new_booking_review_path(booking) %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 <% end %>
+

@@ -1,15 +1,7 @@
-class PlacePolicy < ApplicationPolicy
-
-  def index?
-    true
-  end
-
-  def show?
-    true
-  end
+class AnimatorPolicy < ApplicationPolicy
 
   def create?
-    user.admin?
+    user || user.admin?
   end
 
   def new?
@@ -17,7 +9,7 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def update?
-    record.user == user || user.admin?
+    record.workshop.place.user == user || user.admin
   end
 
   def edit?

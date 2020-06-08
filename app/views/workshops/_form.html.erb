@@ -1,0 +1,29 @@
+<%= simple_form_for(workshop) do |f| %>
+
+  <div class="form-group select required workshop_place">
+    <label class="select required" for="workshop_place_id">Lieu</label>
+    <select class="form-control select required" name="workshop[place_id]" id="workshop_place_id">
+      <% if workshop.place.present? %>
+        <option value="<%= workshop.place.id %>" selected><%= workshop.place.name %></option>
+        <option value="" disabled>----------</option>
+      <% end %>
+        <option value=""></option>
+      <% @places.sort_by { |place| place.name }.each do |place| %>
+        <option value="<%= place.id %>"><%= place.name %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <%= f.input :title %>
+  <%= f.input :program %>
+  <%= f.input :final_product %>
+  <%= f.input :thematic %>
+  <%= f.input :level %>
+  <%= f.input :duration %>
+  <%= f.input :price %>
+  <%= f.input :capacity %>
+  <%= f.input :status %>
+
+  <%= f.submit 'Valider' %>
+
+<% end %>

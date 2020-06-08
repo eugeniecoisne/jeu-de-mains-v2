@@ -1,2 +1,0 @@
-class AnimatedBysController < ApplicationController
-end
