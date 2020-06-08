@@ -13,11 +13,10 @@ class AnimatorsController < ApplicationController
     authorize @animator
     @animator.workshop = Workshop.find(params[:workshop_id])
     @animator.user = User.find(params[:animator][:user_id])
-    @animator.db_status = 'actif'
     if @animator.save
       redirect_to workshop_path(@animator.workshop)
     else
-      @users = User.all.where(role: 'animateur')
+      @users = User.all.select { |user| user.profile.role == 'animateur' }
       render 'new'
     end
   end
@@ -27,14 +26,10 @@ class AnimatorsController < ApplicationController
   end
 
   def update
-    @workshop = @animator.workshop
-    @animator.update!(db_status: 'inactif')
-    @new_animator = Animator.new
-    @new_animator.workshop = @workshop
-    @new_animator.user = User.find(params[:animator][:user_id])
-    @new_animator.db_status = 'actif'
-    if @new_animator.save
-      redirect_to workshop_path(@new_animator.workshop)
+    @user = User.find(params[:animator][:user_id])
+    @animator.update(user: @user)
+    if @animator.save
+      redirect_to workshop_path(@animator.workshop)
     else
       @users = User.all.select { |user| user.profile.role == 'animateur' }
       render 'edit'

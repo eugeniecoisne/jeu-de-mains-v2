@@ -8,7 +8,7 @@ class WorkshopsController < ApplicationController
 
   def show
     @booking = Booking.new
-    @animator = @workshop.animators.find_by(db_status: 'actif')
+    @animator = @workshop.animators.first
   end
 
   def edit
