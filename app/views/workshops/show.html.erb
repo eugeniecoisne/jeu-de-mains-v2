@@ -1,7 +1,5 @@
 <h2><%= @workshop.title %></h2>
 
-<h2>views/workshops/show</h2>
-
 <ul>
   <li>Intitulé : <%= @workshop.title %></li>
   <li>Programme : <%= @workshop.program %></li>
@@ -12,6 +10,15 @@
   <li>Prix : <%= @workshop.price %></li>
   <li>Statut : <%= @workshop.status %></li>
   <li>Capacité : <%= @workshop.capacity %></li>
+  <li>Photos :
+    <% if @workshop.photos.attached? %>
+      <% @workshop.photos.each do |photo| %>
+        <%= cl_image_tag photo.key, alt: "photo de l'atelier", height: 60, width: 60, crop: :fill %>
+      <% end %>
+    <% else %>
+      <%= image_tag "profile-picture.png", alt: "photo de l'atelier", height: 60, width: 60 %>
+    <% end %>
+  </li>
 </ul>
 
 <h2>Atelier animé par :</h2>

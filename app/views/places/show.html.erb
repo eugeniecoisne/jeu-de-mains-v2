@@ -12,6 +12,13 @@
   <li>SIRET : <%= @place.siret_number %></li>
   <li>Site internet : <%= @place.website %></li>
   <li>Instagram : <%= @place.instagram %></li>
+  <li>Photo :
+    <% if @place.photo.attached? %>
+      <%=cl_image_tag @place.photo.key, alt: "photo du lieu", height: 40, width: 40, crop: :fill %>
+    <% else %>
+      <%= image_tag "profile-picture.png", alt: "photo du lieu", height: 40, width: 40 %>
+    <% end %>
+    </li>
 </ul>
 
 <% if policy(@place).update? %>
