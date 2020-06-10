@@ -1,80 +1,160 @@
-<h2><%= @workshop.title %></h2>
+<!-- WORKSHOP SHOW -->
 
-<ul>
-  <li>Intitulé : <%= @workshop.title %></li>
-  <li>Programme : <%= @workshop.program %></li>
-  <li>Produit final : <%= @workshop.final_product %></li>
-  <li>Thématique : <%= @workshop.thematic %></li>
-  <li>Niveau : <%= @workshop.level %></li>
-  <li>Durée : <%= @workshop.duration %></li>
-  <li>Prix : <%= @workshop.price %></li>
-  <li>Statut : <%= @workshop.status %></li>
-  <li>Capacité : <%= @workshop.capacity %></li>
-  <li>Photos :
-    <% if @workshop.photos.attached? %>
-      <% @workshop.photos.each do |photo| %>
-        <%= cl_image_tag photo.key, alt: "photo de l'atelier", height: 60, width: 60, crop: :fill %>
-      <% end %>
-    <% else %>
-      <%= image_tag "profile-picture.png", alt: "photo de l'atelier", height: 60, width: 60 %>
+<div class="container-ws-show">
+
+  <!-- BOOKING-->
+
+  <div class="container-ws-show-booking">
+    <h3>Réserver l’atelier<br>“<%= @workshop.title %>"</h3>
+
+    <%= simple_form_for(@booking) do |f| %>
+      <div class="form-group select required">
+        <select class="form-control select required" name="session" id="session_id">
+          <option value="" disabled selected>Sélectionner une date</option>
+          <% @workshop.sessions.sort_by { |session| session.date }.each do |session| %>
+            <option value="<%= session.id %>"><%= session.date.strftime('%d/%m/%Y') %> - Début : <%= session.start_at %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="form-group select required">
+        <select class="form-control select required" name="quantity" id="workshop_level">
+            <option value="" disabled selected>Nombre de place(s)</option>
+        </select>
+      </div>
+      <div class="d-flex ws-price">
+        <h4><%= @workshop.price %> €</h4>
+        <span>/pers</span>
+      </div>
+      <%= f.submit 'Réserver', class: "white-btn" %>
     <% end %>
-  </li>
-</ul>
-
-<h2>Atelier animé par :</h2>
-<% if @animator.present? %>
-  <p><%= link_to @animator.user.profile.company, profile_path(@animator.user) %></p>
-<% else %>
-  <p>Cet atelier n'a pas encore d'animateur.</p>
-<% end %>
-
-<% if policy(@workshop).update? %>
-  <%= link_to 'Mettre à jour', edit_workshop_path(@workshop) %>
-  <%= link_to 'Ajouter une session', new_workshop_session_path(@workshop) %>
-  <% if @animator.present? %>
-    <%= link_to 'Modifier animateur', edit_animator_path(@animator) %>
-  <% else %>
-    <%= link_to 'Ajouter un animateur', new_workshop_animator_path(@workshop) %>
-  <% end %>
-<% end %>
-
-<h2>Sessions associées à cet atelier</h2>
-
-<ul>
-  <% @workshop.sessions.each do |session| %>
-    <li><%= session.date %> - Début : <%= session.start_at %> - Capacité : <%= session.capacity %></li>
-  <% end %>
-</ul>
-
-<h2>Réserver cet atelier</h2>
-
-<%= simple_form_for(@booking) do |f| %>
-  <div class="form-group select required">
-    <select class="form-control select required" name="session" id="session_id">
-      <option value="" disabled selected>Sélectionner une date</option>
-      <% @workshop.sessions.sort_by { |session| session.date }.each do |session| %>
-        <option value="<%= session.id %>"><%= session.date.strftime('%d/%m/%Y') %> - Début : <%= session.start_at %></option>
-      <% end %>
-    </select>
   </div>
-  <div class="form-group select required">
-    <select class="form-control select required" name="quantity" id="workshop_level">
-        <option value="" disabled selected>Nombre de place(s)</option>
-    </select>
-  </div>
-  <%= f.submit 'Réserver' %>
-<% end %>
 
-<h2>Commentaires sur cet atelier</h2>
+  <!-- WORKSHOP SHOW LEFT-SIDE-->
 
-<ul>
-  <% @workshop.reviews.each do |review| %>
-    <li>
+  <div class="container-ws-show-carousel-and-infos">
+
+    <!-- WORKSHOP SHOW CAROUSEL-->
+
+    <%= render 'ws-show-carousel' %>
+
+    <!-- WORKSHOP SHOW INFORMATIONS-->
+
+    <div class="ws-show-informations">
+      <div class="ws-show-informations-title">
+        <h2><%= @workshop.title %></h2>
+      </div>
+
+      <!-- WORKSHOP SHOW INFORMATIONS ORGANIZERS-->
+
+      <div class="ws-show-informations-organizers">
+        <div>
+          <span>Chez <%= link_to @workshop.place.user.profile.company, place_path(@workshop.place) %></span>
+          <span><%= @workshop.place.address %> <%= @workshop.place.zip_code %> <%= @workshop.place.city %></span>
+        </div>
+        <div>
+          <% if @animator.present? %>
+            <span>Animé par <%= link_to @animator.user.profile.company, profile_path(@animator.user) %></span>
+          <% else %>
+            <span>Animé par <%= link_to @workshop.place.user.profile.company, place_path(@workshop.place) %></span>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- WORKSHOP SHOW INFORMATIONS PROGRAM-->
+
+      <div class="ws-show-informations-program">
+        <h4>Programme de l'atelier</h4>
+        <p><%= @workshop.program %></p>
+      </div>
+
+      <div class="ws-show-informations-tags">
+        <div class="d-flex align-items-center mr-3">
+          <i class="fas fa-tag mr-1"></i>
+          <span><%= @workshop.level %></span>
+        </div>
+        <div class="d-flex align-items-center">
+          <i class="fas fa-tag mr-1"></i>
+          <span>
+            <% if @workshop.duration%60 == 0 %>
+              <%= @workshop.duration/60 %>h
+            <% else %>
+              <%= @workshop.duration/60 %>h<%= @workshop.duration%60 %>
+            <% end %>
+          </span>
+        </div>
+        <div class="d-flex align-items-center">
+          <i class="fas fa-tag mr-1"></i>
+          <span><%= @workshop.thematic %></span>
+        </div>
+      </div>
+
+      <div class="ws-show-informations-final-product">
+        <h4>Vous repartez avec</h4>
+        <p><%= @workshop.final_product %></p>
+      </div>
+
+      <!-- WORKSHOP SHOW INFORMATIONS REVIEWS-->
+
+      <div class="ws-show-informations-reviews">
+        <div class= "ws-show-informations-reviews-title">
+          <h4>Avis sur l'atelier</h4>
+          <p>Note moyenne : <strong>4,5 /5</strong> (<%= @workshop.reviews.count %> avis)</p>
+        </div>
+        <div class= "reviews-cards">
+          <% if @workshop.reviews.present? %>
+            <% @workshop.reviews.each do |review| %>
+              <div class="review-card">
+                <div class="review-card-stars">
+                  <% review.rating.times do %>
+                    <i class="fas fa-star"></i>
+                  <% end %>
+                  <% (5 - review.rating).times do %>
+                    <i class="far fa-star"></i>
+                  <% end %>
+                </div>
+                <div class="review-card-message">
+                  <p><%= review.content %></p>
+                </div>
+                <div class="review-card-author">
+                  <p><span><%= review.user.profile.first_name %> <%= review.user.profile.last_name[0].capitalize %>.</span> - le <%= review.created_at.strftime("%d/%m/%Y") %></p>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+
+      <br><br>
+      <h3>------------</h3>
+      <h3>A supprimer plus tard :</h3>
       <ul>
-        <li>Note: <%= review.rating %></li>
-        <li>Avis: <%= review.content %></li>
+        <li>Thématique : <%= @workshop.thematic %></li>
+        <li>Niveau : <%= @workshop.level %></li>
+        <li>Durée : <%= @workshop.duration %></li>
+        <li>Prix : <%= @workshop.price %></li>
+        <li>Statut : <%= @workshop.status %></li>
+        <li>Capacité : <%= @workshop.capacity %></li>
       </ul>
-    </li>
-  <% end %>
-</ul>
 
+      <% if policy(@workshop).update? %>
+        <%= link_to 'Mettre à jour', edit_workshop_path(@workshop) %>
+        <%= link_to 'Ajouter une session', new_workshop_session_path(@workshop) %>
+        <% if @animator.present? %>
+          <%= link_to 'Modifier animateur', edit_animator_path(@animator) %>
+        <% else %>
+          <%= link_to 'Ajouter un animateur', new_workshop_animator_path(@workshop) %>
+        <% end %>
+      <% end %>
+
+      <h3>Sessions associées à cet atelier</h3>
+
+      <ul>
+        <% @workshop.sessions.each do |session| %>
+          <li><%= session.date %> - Début : <%= session.start_at %> - Capacité : <%= session.capacity %></li>
+        <% end %>
+      </ul>
+
+    </div>
+  </div>
+</div>

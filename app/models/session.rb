@@ -12,13 +12,4 @@ class Session < ApplicationRecord
     end
     capacity - counter
   end
-
-  def capacity
-    if @capacity.nil?
-      workshop.capacity
-    else
-      @capacity
-    end
-  end
-
 end
