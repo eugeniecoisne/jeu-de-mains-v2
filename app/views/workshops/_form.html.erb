@@ -23,6 +23,7 @@
   <%= f.input :price %>
   <%= f.input :capacity %>
   <%= f.input :status %>
+  <%= f.input :photos, as: :file, input_html: { multiple: true } %>
 
   <%= f.submit 'Valider' %>
 

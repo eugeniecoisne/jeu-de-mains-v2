@@ -13,6 +13,7 @@
         <%= f.input :website %>
         <%= f.input :instagram %>
         <%= f.input :description %>
+        <%= f.input :photo, as: :file %>
         <%= f.submit 'Valider' %>
       <% end %>
       <%= link_to 'Annuler', profile_path(@profile), class: 'btn btn-danger mt-2'  %>

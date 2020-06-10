@@ -12,6 +12,13 @@
   <li>Site internet : <%= @profile.website %></li>
   <li>Instagram : <%= @profile.instagram %></li>
   <li>Description : <%= @profile.description %></li>
+  <li>Photo :
+    <% if @profile.photo.attached? %>
+      <%=cl_image_tag @profile.photo.key, alt: "photo de profil", height: 40, width: 40, crop: :fill %>
+    <% else %>
+      <%= image_tag "profile-picture.png", alt: "photo de profil", height: 40, width: 40 %>
+    <% end %>
+    </li>
 </ul>
 
 <% if policy(@profile).update? %>
