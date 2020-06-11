@@ -12,4 +12,5 @@ class Session < ApplicationRecord
     end
     capacity - counter
   end
+
 end

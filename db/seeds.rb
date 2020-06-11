@@ -578,6 +578,7 @@ workshop1_session1 = Session.new(
   start_at: '14h00'
 )
 workshop1_session1.workshop = workshop1
+workshop1_session1.capacity = workshop1_session1.workshop.capacity
 workshop1_session1.save!
 
 workshop1_session2 = Session.new(
@@ -585,6 +586,7 @@ workshop1_session2 = Session.new(
   start_at: '10h00'
 )
 workshop1_session2.workshop = workshop1
+workshop1_session2.capacity = workshop1_session1.workshop.capacity
 workshop1_session2.save!
 
 
@@ -598,6 +600,7 @@ workshop3_session1 = Session.new(
   start_at: '10h00'
 )
 workshop3_session1.workshop = workshop3
+workshop3_session1.capacity = workshop3_session1.workshop.capacity
 workshop3_session1.save!
 
 workshop3_session2 = Session.new(
@@ -605,6 +608,7 @@ workshop3_session2 = Session.new(
   start_at: '17h00'
 )
 workshop3_session2.workshop = workshop3
+workshop3_session2.capacity = workshop3_session2.workshop.capacity
 workshop3_session2.save!
 
 
@@ -615,6 +619,7 @@ workshop4_session1 = Session.new(
   start_at: '18h00'
 )
 workshop4_session1.workshop = workshop4
+workshop4_session1.capacity = workshop4_session1.workshop.capacity
 workshop4_session1.save!
 
 workshop4_session2 = Session.new(
@@ -622,6 +627,7 @@ workshop4_session2 = Session.new(
   start_at: '18h00'
 )
 workshop4_session2.workshop = workshop4
+workshop4_session2.capacity = workshop4_session2.workshop.capacity
 workshop4_session2.save!
 
 
@@ -632,6 +638,7 @@ workshop5_session1 = Session.new(
   start_at: '15h00'
 )
 workshop5_session1.workshop = workshop5
+workshop5_session1.capacity = workshop5_session1.workshop.capacity
 workshop5_session1.save!
 
 workshop5_session2 = Session.new(
@@ -639,6 +646,7 @@ workshop5_session2 = Session.new(
   start_at: '15h00'
 )
 workshop5_session2.workshop = workshop5
+workshop5_session2.capacity = workshop5_session2.workshop.capacity
 workshop5_session2.save!
 
 workshop5_session3 = Session.new(
@@ -646,6 +654,7 @@ workshop5_session3 = Session.new(
   start_at: '15h00'
 )
 workshop5_session3.workshop = workshop5
+workshop5_session3.capacity = workshop5_session3.workshop.capacity
 workshop5_session3.save!
 
 
@@ -656,6 +665,7 @@ workshop6_session1 = Session.new(
   start_at: '17h00'
 )
 workshop6_session1.workshop = workshop6
+workshop6_session1.capacity = workshop6_session1.workshop.capacity
 workshop6_session1.save!
 
 puts "Sessions atelier lettering & aquarelle 2"
@@ -664,6 +674,7 @@ workshop7_session1 = Session.new(
   start_at: '17h00'
 )
 workshop7_session1.workshop = workshop7
+workshop7_session1.capacity = workshop7_session1.workshop.capacity
 workshop7_session1.save!
 
 puts "Sessions atelier lettering & aquarelle 3"
@@ -672,6 +683,7 @@ workshop8_session1 = Session.new(
   start_at: '17h00'
 )
 workshop8_session1.workshop = workshop8
+workshop8_session1.capacity = workshop8_session1.workshop.capacity
 workshop8_session1.save!
 
 puts "Sessions atelier lettering & aquarelle 4"
@@ -680,6 +692,7 @@ workshop9_session1 = Session.new(
   start_at: '18h00'
 )
 workshop9_session1.workshop = workshop9
+workshop9_session1.capacity = workshop9_session1.workshop.capacity
 workshop9_session1.save!
 
 workshop9_session2 = Session.new(
@@ -687,6 +700,7 @@ workshop9_session2 = Session.new(
   start_at: '18h00'
 )
 workshop9_session2.workshop = workshop9
+workshop9_session2.capacity = workshop9_session2.workshop.capacity
 workshop9_session2.save!
 
 
@@ -697,6 +711,7 @@ workshop10_session1 = Session.new(
   start_at: '18h00'
 )
 workshop10_session1.workshop = workshop10
+workshop10_session1.capacity = workshop10_session1.workshop.capacity
 workshop10_session1.save!
 
 workshop10_session2 = Session.new(
@@ -704,6 +719,7 @@ workshop10_session2 = Session.new(
   start_at: '18h00'
 )
 workshop10_session2.workshop = workshop10
+workshop10_session2.capacity = workshop10_session2.workshop.capacity
 workshop10_session2.save!
 
 workshop10_session3 = Session.new(
@@ -711,6 +727,7 @@ workshop10_session3 = Session.new(
   start_at: '18h00'
 )
 workshop10_session3.workshop = workshop10
+workshop10_session3.capacity = workshop10_session3.workshop.capacity
 workshop10_session3.save!
 
 puts "Sessions atelier cosmetique zero dechet 2"
@@ -719,6 +736,7 @@ workshop11_session1 = Session.new(
   start_at: '15h00'
 )
 workshop11_session1.workshop = workshop11
+workshop11_session1.capacity = workshop11_session1.workshop.capacity
 workshop11_session1.save!
 
 workshop11_session2 = Session.new(
@@ -726,6 +744,7 @@ workshop11_session2 = Session.new(
   start_at: '15h00'
 )
 workshop11_session2.workshop = workshop11
+workshop11_session2.capacity = workshop11_session2.workshop.capacity
 workshop11_session2.save!
 
 puts "Sessions atelier beauté visage"
@@ -734,6 +753,7 @@ workshop12_session1 = Session.new(
   start_at: '12h00'
 )
 workshop12_session1.workshop = workshop12
+workshop12_session1.capacity = workshop12_session1.workshop.capacity
 workshop12_session1.save!
 
 workshop12_session2 = Session.new(
@@ -741,6 +761,7 @@ workshop12_session2 = Session.new(
   start_at: '12h00'
 )
 workshop12_session2.workshop = workshop12
+workshop12_session2.capacity = workshop1_session2.workshop.capacity
 workshop12_session2.save!
 
 puts "--------------------------------"
