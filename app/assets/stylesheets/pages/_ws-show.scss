@@ -1,0 +1,99 @@
+.container-ws-show {
+  margin: 3em;
+}
+
+.container-ws-show-carousel-and-infos {
+  width: 60%;
+}
+
+.container-ws-show-booking {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5em;
+  border-radius: 0.3em;
+  background-color: $light-blue;
+  width: 32%;
+  height: 30em;
+  top: 8.3em;
+  right: 3em;
+  position: fixed;
+  z-index: 0;
+  h3 {
+    color: white;
+    margin-bottom: 2em;
+  }
+  .white-btn {
+    font-size: 1.4em;
+    border-width: 0.13em;
+    margin-top: 1.5em;
+  }
+  h4 {
+    color: white;
+  }
+  span {
+    color: white;
+    padding-left: 0.1em;
+  }
+  .ws-price {
+    margin-top: 2em;
+  }
+}
+
+.ws-show-informations {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2em;
+  margin-top: 2em;
+  h2 {
+    color: $dark-blue;
+  }
+  h4 {
+    color: $light-blue;
+    text-transform: uppercase;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.ws-show-informations-reviews-title {
+  margin-bottom: 1em;
+}
+
+
+// RESPONSIVE WORKSHOP SHOW //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .container-ws-show {
+  margin: 1em;
+  }
+  .container-ws-show-carousel-and-infos {
+    width: 100%;
+  }
+  .container-ws-show-booking {
+    display: none;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 765px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
+

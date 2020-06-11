@@ -377,6 +377,7 @@ workshop4.place = place2
 animator1 = Animator.new
 animator1.workshop = workshop4
 animator1.user = julieweaves_user
+animator1.save!
 workshop4.save!
 
 # APPARTEMENT DU SLOW - JULIE WEAVES - TISSAGE MURAL
@@ -399,6 +400,7 @@ workshop5.place = place6
 animator2 = Animator.new
 animator2.workshop = workshop5
 animator2.user = julieweaves_user
+animator2.save!
 workshop5.save!
 
 # PETITE EPICERIE LIEU 1 - AMELIE'S WORKSHOP - LETTERING & AQUARELLE
@@ -420,6 +422,7 @@ workshop6.place = place3
 animator3 = Animator.new
 animator3.workshop = workshop6
 animator3.user = amelie_user
+animator3.save!
 workshop6.save!
 
 # PETITE EPICERIE LIEU 2 - AMELIE'S WORKSHOP - LETTERING & AQUARELLE
@@ -441,6 +444,7 @@ workshop7.place = place4
 animator4 = Animator.new
 animator4.workshop = workshop7
 animator4.user = amelie_user
+animator4.save!
 workshop7.save!
 
 # PETITE EPICERIE LIEU 3 - AMELIE'S WORKSHOP - LETTERING & AQUARELLE
@@ -459,9 +463,10 @@ En 2e temps, elle vous initiera à l'aquarelle, pour apprendre à dessiner et pe
   verified: true
   )
 workshop8.place = place5
-animator4 = Animator.new
-animator4.workshop = workshop8
-animator4.user = amelie_user
+animator5 = Animator.new
+animator5.workshop = workshop8
+animator5.user = amelie_user
+animator5.save!
 workshop8.save!
 
 # HAPPY FOLK - AMELIE'S WORKSHOP - LETTERING & AQUARELLE
@@ -480,9 +485,10 @@ En 2e temps, elle vous initiera à l'aquarelle, pour apprendre à dessiner et pe
   verified: true
   )
 workshop9.place = place2
-animator5 = Animator.new
-animator5.workshop = workshop9
-animator5.user = amelie_user
+animator6 = Animator.new
+animator6.workshop = workshop9
+animator6.user = amelie_user
+animator6.save!
 workshop9.save!
 
 # APPARTEMENT DU SLOW - MY HOME FACTORY - COSMETIQUES SOLIDES
@@ -504,9 +510,10 @@ Tous les ingrédients et le matériel sont fournis. Cet atelier est réalisé da
   verified: true
   )
 workshop10.place = place6
-animator6 = Animator.new
-animator6.workshop = workshop10
-animator6.user = homefactory_user
+animator7 = Animator.new
+animator7.workshop = workshop10
+animator7.user = homefactory_user
+animator7.save!
 workshop10.save!
 
 # LA PETITE EPICERIE - MY HOME FACTORY - COSMETIQUES SOLIDES
@@ -528,9 +535,10 @@ Tous les ingrédients et le matériel sont fournis. Cet atelier est réalisé da
   verified: true
   )
 workshop11.place = place3
-animator7 = Animator.new
-animator7.workshop = workshop11
-animator7.user = homefactory_user
+animator8 = Animator.new
+animator8.workshop = workshop11
+animator8.user = homefactory_user
+animator8.save!
 workshop11.save!
 
 # APPARTEMENT DU SLOW - MY HOME FACTORY - CREME VISAGE ET SERUM
@@ -553,9 +561,10 @@ Tous les ingrédients et le matériel sont fournis. Cet atelier est réalisé da
   verified: true
   )
 workshop12.place = place6
-animator8 = Animator.new
-animator8.workshop = workshop12
-animator8.user = homefactory_user
+animator9 = Animator.new
+animator9.workshop = workshop12
+animator9.user = homefactory_user
+animator9.save!
 workshop12.save!
 
 
