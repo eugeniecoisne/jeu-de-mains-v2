@@ -1,10 +1,37 @@
+// CSS - WORKSHOP - SHOW
+
+// MAIN CONTAINERS
+
 .container-ws-show {
-  margin: 3em;
+  width: 65%;
 }
 
-.container-ws-show-carousel-and-infos {
-  width: 60%;
+.container-ws-show-infos {
+  margin-top: 1.5em;
+  margin-right: 3em;
+  margin-left: 3em;
 }
+
+// MOBILE BOOKING
+
+.booking-mobile-button {
+  display: none;
+  background-color: $dark-blue;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 0.6em 0.5em;
+  color: white;
+  font-weight: 600;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+#hideShowInformation.inactive {
+  display: none;
+}
+
+// BOOKING BOX
 
 .container-ws-show-booking {
   display: flex;
@@ -12,10 +39,10 @@
   justify-content: center;
   padding: 2.5em;
   border-radius: 0.3em;
-  background-color: $light-blue;
+  background-color: $green;
   width: 32%;
   height: 30em;
-  top: 8.3em;
+  top: 5.95em;
   right: 3em;
   position: fixed;
   z-index: 0;
@@ -38,16 +65,98 @@
   .ws-price {
     margin-top: 2em;
   }
+  #bookingExit {
+    display: none;
+  }
 }
 
-.ws-show-informations {
+.ws-show-informations-title {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  h2 {
+    color: $dark-blue;
+    margin-bottom: 0;
+  }
+}
+
+.ws-show-informations-organizers {
+  background-size: cover;
+  background-position: top;
+  padding: 3em 0em 0em 0em;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  a {
+    text-decoration: none;
+    color: white;
+    font-weight: bolder;
+  }
+  img {
+    object: cover;
+  }
+}
+
+.ws-show-informations-place {
+  margin-top: 0.5em;
+  display: flex;
+  img {
+    height: 8em;
+  }
+  #ws-show-place {
+    padding-left: 1.3em;
+    padding-top: 1em;
+  }
+}
+
+.ws-show-informations-animator {
+  margin-top: 1em;
+  text-align: right;
+  display: flex;
+  align-items: flex-end;
+  span {
+    padding-right: 1.5em;
+    padding-bottom: 2em;
+  }
+  img {
+    height: 10em;
+  }
+}
+
+.ws-show-informations-program {
+  p {
+    padding-bottom: 0.6em;
+  }
+}
+
+.ws-show-informations-tags {
+  display: flex;
+  i {
+    color: $orange;
+    font-size: 1.5em;
+    padding-right: 0.25em;
+  }
+  .informations-tag {
+    display: flex;
+    align-items: center;
+    padding: 0.15em 0.7em;
+    background-color: $orange;
+    color: white;
+    font-weight: 600;
+    border-radius: 0.4em;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 80%;
+    margin-right: 0.4em;
+    text-transform: uppercase;
+  }
+}
+
+// REVIEWS
+
+.ws-show-informations-program-reviews {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 2em;
   margin-top: 2em;
-  h2 {
-    color: $dark-blue;
-  }
   h4 {
     color: $light-blue;
     text-transform: uppercase;
@@ -58,34 +167,201 @@
 }
 
 .ws-show-informations-reviews-title {
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
+}
+
+// LINKS TO ORGANIZERS
+
+.ws-show-link-to-organizers {
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0.7em;
+  .ws-show-organizer-link {
+    padding: 0.2em 0.7em;
+    background-color: $green;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+    border: 0.05em solid $green;
+  }
+  .ws-show-organizer-link:hover {
+    background-color: transparent;
+    color: $green;
+  }
+  a {
+    text-decoration: none;
+  }
+
+}
+
+// EMPTY DIV FOR MOBILE DESIGN
+
+.ws-show-empty-div {
+  display: none;
 }
 
 
 // RESPONSIVE WORKSHOP SHOW //
 
 // Smallest device
-@media (min-width: 100px) and (max-width: 575px) {
+@media (min-width: 100px) and (max-width: 765px) {
+
+  // containers
   .container-ws-show {
-  margin: 1em;
-  }
-  .container-ws-show-carousel-and-infos {
     width: 100%;
   }
   .container-ws-show-booking {
     display: none;
+  }
+  // booking
+  .booking-mobile-button {
+    display: block;
+  }
+  .booking-mobile-button.inactive {
+    display: none;
+  }
+  #bookingExit.active {
+    display: block;
+    width: 3.5em;
+    position: absolute;
+    right: 1.2em;
+    top: 1.5em;
+
+  }
+  .container-ws-show-booking.active {
+    display: block;
+    right: unset;
+    width: 100vw;
+    height: 100vh;
+    top: unset;
+    border-radius: unset;
+    padding-top: 7em;
+    font-size: 85%;
+    text-align: center;
+    .ws-price {
+      justify-content: center;
+    }
+    h3 {
+      margin-bottom: 1.2em;
+    }
+  }
+
+  // information box
+  .container-ws-show-infos {
+    margin: 0em;
+    font-size: 84%;
+    h2 {
+      font-size: 1.4em;
+    }
+  }
+  .ws-show-informations-title {
+    margin-top: 1em;
+    margin-right: 1.3em;
+    margin-left: 1.3em;
+  }
+
+  // information about organizers
+  .ws-show-informations-organizers {
+    font-size: 90%;
+    padding: 4em 0 0 0;
+  }
+  .ws-show-informations-place {
+    margin-top: -0.5em;
+    img {
+      height: 5em;
+    }
+    #ws-show-place {
+      padding-top: 0;
+    }
+  }
+  .ws-show-informations-animator {
+    img {
+      height: 8em;
+    }
+  }
+
+  // reviews
+  .ws-show-informations-program-reviews {
+    margin-right: 1.3em;
+    margin-left: 1.3em;
+  }
+
+  // links to organizers
+  .ws-show-link-to-organizers {
+    grid-template-columns: 1fr;
+  }
+
+  // empty div for mobile only
+  .ws-show-empty-div {
+    height: 6em;
+    display: block;
   }
 }
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 765px) {
 
+  .container-ws-show-infos {
+    margin: 0em;
+    font-size: 95%;
+    h2 {
+      font-size: 1.8em;
+    }
+  }
+  .ws-show-informations-organizers {
+    font-size: 100%;
+  }
 }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
+  .container-ws-show-infos {
+    margin-top: 1.5em;
+    margin-right: 1.5em;
+    margin-left: 1.5em;
+    h2 {
+      font-size: 1.5em;
+    }
+  }
+  .ws-show-link-to-organizers {
+    grid-template-columns: 1fr;
+  }
+  .ws-show-informations-organizers {
+    font-size: 95%;
+  }
+  .ws-show-informations-place {
+    img {
+      height: 6em;
+    }
+  }
+  .ws-show-informations-animator {
+    img {
+      height: 8em;
+    }
+  }
 
+  .container-ws-show-booking {
+    padding: 1.5em;
+    width: 33%;
+    height: 25em;
+    right: 1.5em;
+    h3 {
+      font-size: 1.2em;
+      margin-bottom: 1em;
+    }
+    .white-btn {
+      font-size: 1.2em;
+      margin-top: 1em;
+    }
+    .ws-price {
+      margin-top: 1.5em;
+    }
+  }
 }
+
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199px)  {
