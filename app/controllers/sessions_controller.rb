@@ -25,14 +25,6 @@ class SessionsController < ApplicationController
     render json: @number
   end
 
-  def capacity
-    if @capacity.nil?
-      @workshop.capacity
-    else
-      @capacity
-    end
-  end
-
   private
 
   def session_params
