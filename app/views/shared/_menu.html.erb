@@ -1,25 +1,3 @@
-<!-- NAVBAR -->
-
-<div class="navbar navbar-expand-sm navbar-light navbar-jdm">
-  <%= link_to root_path, class: "navbar-brand" do %>
-    <%= image_tag "logo-jdm-dark-blue.svg", alt: "logo jeu de mains" %>
-  <% end %>
-
-  <div class="navbar-buttons d-flex">
-    <ul class="navbar-nav mr-auto align-items-center">
-      <li class="nav-item active">
-        <%= link_to "Tous les ateliers", workshops_path, class: "nav-link", id: "all-workshops" %>
-      </li>
-
-      <li class="nav-item">
-        <%= link_to "#", class: "nav-link button", id: "menuButton" do %>
-          <i class="fas fa-bars"></i>
-        <% end %>
-      </li>
-    </ul>
-  </div>
-</div>
-
 <!-- MENU TOGGLE -->
 
 <div id="sideMenu">

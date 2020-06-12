@@ -12,7 +12,17 @@
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
   </head>
   <body>
-    <%= render 'shared/navbar' %>
+    <!-- NAVBAR -->
+    <% if controller.controller_name == 'pages' %>
+      <%= render 'shared/navbar-homepage' %>
+    <% else %>
+      <%= render 'shared/navbar-allpages' %>
+    <% end %>
+
+    <!-- MENU -->
+    <%= render 'shared/menu' %>
+
+    <!-- FLASHES -->
     <%= render 'shared/flashes' %>
     <%= yield %>
 

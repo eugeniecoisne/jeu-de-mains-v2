@@ -2,51 +2,107 @@
 
 .navbar-jdm {
   justify-content: space-between;
+  .navbar-nav {
+    align-items: center;
+  }
+  .nav-link {
+    font-weight: 600;
+    padding-right: unset !important;
+    padding-left: unset !important;
+    padding-top: 0.35em;
+    padding-bottom: 0.3em;
+  }
 }
 
-.navbar-brand img {
+.navbar-jdm-other {
+  background-color: $blue;
+}
+
+.navbar-brand-homepage img {
   width: 8em;
 }
 
-.navbar-buttons {
+.navbar-brand-other img {
+  width: 6em;
+}
 
-  #all-workshops {
-    height: 3rem;
-    margin-right: 1em;
-    display: flex;
+
+
+#all-workshops {
+  margin-right: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+#menuButton {
+  height: 3rem;
+  width: 3.2rem;
+  font-size: 1.8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-buttons-homepage {
+  display: flex;
+  .navbar-nav {
     align-items: center;
-    justify-content: center;
+  }
+  #all-workshops {
     color: $dark-blue;
-    font-weight: 700;
-    font-size: 1.2em;
+    border-bottom: 0.1em solid transparent;
   }
   #all-workshops:hover {
-    color: white;
+    border-color: $blue;
   }
   #menuButton {
-    transition: background 0.45s ease, border 0.45s ease;
-    height: 3rem;
-    width: 3.2rem;
-    font-size: 1.8em;
     color: $dark-blue;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: 0.06em solid transparent;
   }
   #menuButton:hover {
-    color: white;
+    border-color: $blue;
   }
 }
 
+.navbar-buttons-other {
+  display: flex;
+  .navbar-nav {
+    align-items: center;
+  }
+  #all-workshops {
+    color: white;
+    font-size: 1.1em;
+    border-bottom: 0.1em solid transparent;
+  }
+  #all-workshops:hover {
+    border-bottom: 0.1em solid white;
+  }
+  #menuButton {
+    color: white;
+    border: transparent 0.06em solid;
+  }
+  #menuButton:hover {
+    border-color: white;
+  }
+}
+
+
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
-  .navbar-buttons {
-    #all-workshops {
+  #all-workshops {
     display: none;
-    }
   }
-  .navbar-brand img {
-  width: 6.5em;
+  .navbar-brand-homepage img {
+    width: 7em;
+  }
+  .navbar-brand-other img {
+    width: 5em;
+  }
+  .navbar-jdm {
+    padding: 0.5em;
   }
 }
 
@@ -54,10 +110,8 @@
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 765px) {
-  .navbar-buttons {
-    #all-workshops {
+  #all-workshops {
     display: none;
-    }
   }
 }
 

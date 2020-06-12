@@ -1,8 +1,12 @@
-// Specific CSS for home-page
+// CSS - HOMEPAGE
+
+// CONTAINER
 
 .home-container {
   margin: 1.5em;
 }
+
+// EXPLANATIONS ABOUT THE PLATFORM FOR BTOC
 
 .home-steps-presentation {
   margin: 1em;
@@ -31,6 +35,8 @@
     font-size: 0.9em;
   }
 }
+
+// CARDS LINKING TO SELECTIONS OF WORKSHOPS
 
 .home-selection-cards {
   display: grid;
@@ -68,7 +74,7 @@
     border-bottom: 0.17em solid white;
     color: white;
     font-weight: 600;
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', sans-serif;
     text-decoration: none;
   }
   a:hover {
@@ -87,6 +93,7 @@
 #home-selection-second {
   background-color: $blue;
 }
+
 
 // RESPONSIVE HOMEPAGE//
 
@@ -162,12 +169,9 @@
       object-fit: cover;
     }
   }
-
 }
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
-
-}
+@media (min-width: 1200px) {}
 
 
