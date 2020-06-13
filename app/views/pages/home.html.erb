@@ -1,5 +1,12 @@
 <div class="homebanner", id="homebanner-margintop", style="background-image: url(<%= image_path "homebanner-image-1.jpg" %>)">
   <h1 class="col-6 ml-5">Détendez-vous, apprenez et rencontrez grâce aux ateliers créatifs près de chez vous</h1>
+  <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+    <%= f.input :keyword, equired: false, label: false, placeholder: "Que recherchez-vous ?" %>
+    <%= f.input :place, required: false, label: false, placeholder: "Code postal / Ville" %>
+    <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker"}, label: "A partir du" %>
+    <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, label: "Jusqu'au" %>
+    <%= f.submit "Rechercher", class: "btn btn-primary" %>
+  <% end %>
 </div>
 
 <div class="home-container">
