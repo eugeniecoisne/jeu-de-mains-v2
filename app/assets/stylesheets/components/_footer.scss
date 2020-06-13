@@ -1,0 +1,134 @@
+.footer {
+  padding: 2em 10em 1em 10em;
+  background-color: $light-gray2;
+  width: 100vw !important;
+  position: absolute;
+  z-index: 2;
+  a {
+    color: $dark-blue;
+    text-decoration: none;
+  }
+}
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr 3fr 1.5fr;
+  grid-gap: 1.5em;
+  font-size: 90%;
+  font-weight: 500;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.footer-brand {
+  img {
+    width: 10em;
+  }
+}
+
+.footer-social-networks {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  span {
+    font-weight: 500;
+    color: $dark-blue;
+  }
+  a {
+    color: $dark-blue;
+    font-size: 160%;
+  }
+}
+
+.footer-copyright {
+  margin-top: 2em;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.8em;
+}
+
+
+// RESPONSIVE FOOTER //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .footer {
+    padding: 2em 2em 2em 2em;
+  }
+  .footer-columns {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+  }
+  .footer-column {
+    justify-content: flex-start;
+  }
+  .footer-social-networks {
+    justify-content: flex-start;
+    padding-left: 2em;
+    border-left: 0.1em solid $dark-blue;
+  }
+  .footer-brand {
+    display: none;
+  }
+  .footer-copyright {
+    font-size: 0.9em;
+    text-align: left;
+  }
+  .footer-faq-column {
+    padding-left: 2em;
+    border-left: 0.1em solid $dark-blue;
+    margin-bottom: 1em;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 765px) {
+  .footer {
+    padding: 2em 2em 1em 2em;
+    font-size: 90%;
+  }
+  .footer-columns {
+    grid-template-columns: 2fr 2fr 2fr 3fr 0.5fr;
+    grid-gap: 1em;
+  }
+  .footer-brand {
+    img {
+      width: 8em;
+    }
+  }
+  .footer-follow-title {
+    display: none;
+  }
+  .footer-instagram-facebook {
+    display: flex;
+    flex-direction: column;
+    a {
+      font-size: 140%;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+  .footer {
+    padding: 2em 2em 1em 2em;
+    font-size: 90%;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+  .footer {
+    padding: 2em 5em 1em 5em;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
+
