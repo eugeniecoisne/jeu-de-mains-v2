@@ -7,9 +7,34 @@
 }
 
 .container-ws-show-infos {
-  margin-top: 1.5em;
   margin-right: 3em;
   margin-left: 3em;
+}
+
+// BACK BUTTON
+
+.ws-show-back-button {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+  a {
+    text-decoration: none;
+    color: $dark-blue;
+  }
+  a:hover {
+    color: $blue;
+  }
+  span {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: 'Montserrat', 'sans-serif';
+    font-size: 90%;
+  }
+  i {
+    padding-right: 1em;
+    font-size: 80%;
+  }
 }
 
 // MOBILE BOOKING
@@ -42,7 +67,7 @@
   background-color: $green;
   width: 32%;
   height: 30em;
-  top: 5.95em;
+  top: 7.73em;
   right: 3em;
   position: fixed;
   z-index: 0;
@@ -143,7 +168,7 @@
     color: white;
     font-weight: 600;
     border-radius: 0.4em;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', 'sans-serif';
     font-size: 80%;
     margin-right: 0.4em;
     text-transform: uppercase;
@@ -216,6 +241,20 @@
   .container-ws-show-booking {
     display: none;
   }
+
+  // back button
+  .ws-show-back-button {
+    margin: 0;
+    padding-left: 1em;
+    position: absolute;
+    top: 5.5em;
+    text-shadow: 0px 2px 4px #00000080;
+    z-index: 2;
+    a {
+      color: $light-gray;
+    }
+  }
+
   // booking
   .booking-mobile-button {
     display: block;
@@ -256,6 +295,9 @@
     h2 {
       font-size: 1.4em;
     }
+    p {
+      font-weight: 500;
+    }
   }
   .ws-show-informations-title {
     margin-top: 1em;
@@ -267,6 +309,10 @@
   .ws-show-informations-organizers {
     font-size: 90%;
     padding: 4em 0 0 0;
+    font-weight: 500;
+    a {
+      font-weight: 700;
+    }
   }
   .ws-show-informations-place {
     margin-top: -0.5em;
@@ -319,7 +365,6 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
   .container-ws-show-infos {
-    margin-top: 1.5em;
     margin-right: 1.5em;
     margin-left: 1.5em;
     h2 {
