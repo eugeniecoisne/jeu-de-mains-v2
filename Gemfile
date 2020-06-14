@@ -17,6 +17,8 @@ gem 'uglifier'
 gem 'webpacker'
 gem 'pundit'
 gem 'cloudinary', '~> 1.12.0'
+gem 'pg_search', '~> 2.3.0'
+gem 'devise-i18n'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
