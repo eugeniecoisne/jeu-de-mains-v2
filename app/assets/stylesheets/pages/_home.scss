@@ -8,8 +8,16 @@
 
 // EXPLANATIONS ABOUT THE PLATFORM FOR BTOC
 
+.home-steps-title {
+  color: $blue;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-top: 2.5em;
+}
 .home-steps-presentation {
   margin: 1em;
+  margin-top: 2em;
   margin-bottom: 2em;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -61,13 +69,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  span {
+  h2 {
     font-weight: 600;
-    font-size: 1.6em;
+    font-size: 1.5em;
   }
-  p {
-    font-size: 0.9em;
+  h3 {
+    font-size: 0.8em;
     font-weight: 500;
+    padding-bottom: 0.5em;
   }
   a {
     padding-bottom: 0.3em;
@@ -84,14 +93,22 @@
 }
 
 #home-selection-first {
-  background-color: $green;
+  background-color: $blue;
   img {
     object-position: top;
   }
 }
 
 #home-selection-second {
-  background-color: $blue;
+  background-color: $green;
+}
+
+#home-thematic-first {
+  background-color: $green;
+}
+
+#home-thematic-second {
+  background-color: $light-blue;
 }
 
 
@@ -106,20 +123,24 @@
     grid-template-columns: 1fr;
   }
   .home-selection-card {
-    height: 25em;
+    height: auto;
     flex-direction: column;
     img {
-    height: 50%;
+    height: 12em;
     object-fit: cover;
     }
   }
   .home-selection-text {
   margin-top: 0.5em;
-    span {
-    font-size: 1.3em;
+  height: auto;
+    h2 {
+      font-size: 1.4em;
+    }
+    h3 {
+      font-size: 0.9em;
     }
     a {
-      font-size: 0.9em;
+      font-size: 1em;
     }
   }
 }

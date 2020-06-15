@@ -1,0 +1,137 @@
+// CSS PAGE INDEX WORKSHOPS
+
+// CONTAINERS
+
+.index-ws-container {
+
+}
+
+.index-ws-search-filters-container {
+  margin: 2em;
+}
+
+// SEARCH & FILTERS
+
+.index-ws-search {
+  width: 20em;
+  position: relative;
+  .fa-search {
+    position: absolute;
+    top: 0.7em;
+    left: 1em;
+    color: $gray-placeholder;
+  }
+  #search_keyword {
+    padding-left: 2.5em;
+  }
+}
+
+.index-ws-filters {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.index-ws-filter {
+  border-radius: 3em;
+  width: auto;
+  border: 0.03em $green solid;
+  padding: 0.4em 1em;
+  font-size: 0.9em;
+  font-weight: 500;
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
+  background-color: $light-gray3;
+  .fa-check {
+    font-size: 75%;
+    padding-left: 0.4em;
+    color: $green;
+  }
+}
+
+#moreFilters {
+  background-color: transparent;
+  border-color: $gray;
+}
+
+// CARDS
+
+.index-ws-cards-map-container {
+  padding: 2em;
+  background-color: $light-gray2;
+  h1 {
+    font-size: 1.2em;
+    color: $blue;
+    margin-bottom: 1.5em;
+    font-weight: 600;
+  }
+  span {
+    color: $dark-blue;
+  }
+}
+
+.index-ws-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 1em;
+}
+
+
+// RESPONSIVE WORKSHOP INDEX //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .index-ws-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  .index-ws-search-filters-container {
+    margin: 1em;
+  }
+  .index-ws-search {
+    width: 100%;
+  }
+  .index-ws-cards-map-container {
+    padding: 0.8em;
+    h1 {
+      font-size: 1em;
+      font-weight: 700;
+    }
+  }
+  #index-ws-card-place-desktop {
+    display: none;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 765px) {
+  .index-ws-cards {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0.8em;
+  }
+  #index-ws-card-place-desktop {
+    display: none;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+  .index-ws-cards {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  #index-ws-card-place-desktop {
+    display: none;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+  #index-ws-card-place-mobile {
+    display: none;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  #index-ws-card-place-mobile {
+    display: none;
+  }
+}

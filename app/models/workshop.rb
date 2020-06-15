@@ -27,4 +27,13 @@ class Workshop < ApplicationRecord
     dates
   end
 
+  def rating
+    ratings = []
+    average = 0
+    if reviews.present?
+      reviews.each { |review| ratings << review.rating }
+      average = ratings.sum.fdiv(reviews.count).round(2)
+    end
+  end
+
 end

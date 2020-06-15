@@ -1,9 +1,85 @@
-<h2>Tous nos ateliers</h2>
+<!-- WORKSHOPS INDEX -->
 
-<h2>views/workshops/index</h2>
+<div class="index-ws-container">
 
-<ul>
-  <% @workshops.each do |workshop| %>
-    <li><%= link_to workshop.title, workshop_path(workshop) %></li>
-  <% end %>
-</ul>
+  <!-- WORKSHOPS INDEX SEARCH & FILTERS -->
+
+  <div class="index-ws-search-filters-container">
+    <div class="index-ws-search">
+      <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+        <i class="fas fa-search"></i>
+        <%= f.input :keyword, required: false, label: false, placeholder: "Nouvelle recherche" %>
+      <% end %>
+    </div>
+    <div class="index-ws-filters">
+      <div class="index-ws-filter" id="index-ws-thematic-filter">
+        Autour du fil
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="index-ws-filter" id="index-ws-place-filter">
+        Paris
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="index-ws-filter" id="index-ws-date-filter">
+        23/06/2020
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="index-ws-filter" id="moreFilters">
+        Plus de filtres
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKSHOPS INDEX CARDS RESULTS -->
+  <div class= "index-ws-cards-map-container">
+    <% if @workshops %>
+      <h1>Nous avons trouvé <span><%= @workshops.count %> ateliers créatifs</span> correspondant à votre recherche</h1>
+
+      <div class= "index-ws-cards">
+        <% @workshops.each do |workshop| %>
+
+          <div class="ws-card" id="index-ws-card">
+            <%= link_to(workshop, data: { turbolinks: false }) do  %>
+              <div class="ws-card-image-and-rating" id="index-ws-card-image-and-rating">
+                <div class="ws-card-rating" id="index-ws-card-rating">
+                  <i class="fas fa-star"></i><span><%= workshop.rating %></span>
+                </div>
+                <%= render "ws-index-carousel", workshop: workshop %>
+              </div>
+              <div class="ws-card-infos" id="index-ws-card-infos">
+                <div>
+                  <div class="ws-card-place" id="index-ws-card-place-desktop">
+                    <% if workshop.place.name.size > 25 %>
+                      <h3><%= workshop.place.name[0..24] %>...</h3>
+                    <% else %>
+                      <h3><%= workshop.place.name %></h3>
+                    <% end %>
+                  </div>
+                  <div class="ws-card-place" id="index-ws-card-place-mobile">
+                    <% if workshop.place.name.size > 17 %>
+                      <h3><%= workshop.place.name[0..16] %>...</h3>
+                    <% else %>
+                      <h3><%= workshop.place.name %></h3>
+                    <% end %>
+                  </div>
+                  <div class="ws-card-title" id="index-ws-card-title">
+                    <h2><%= workshop.title %></h2>
+                  </div>
+                </div>
+                <div class="ws-card-price" id="index-ws-card-price">
+                  <%= workshop.price %> €
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+    <% else %>
+      <div class="index-ws-no-result">
+        Nous n'avons pas trouvé de résultat pour votre recherche...
+      </div>
+    <% end %>
+  </div>
+
+</div>

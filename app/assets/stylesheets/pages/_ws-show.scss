@@ -80,8 +80,10 @@
     border-width: 0.13em;
     margin-top: 1.5em;
   }
-  h4 {
+  #ws-booking-price {
     color: white;
+    font-weight: 600;
+    font-size: 1.2em;
   }
   span {
     color: white;
@@ -98,9 +100,11 @@
 .ws-show-informations-title {
   margin-top: 2em;
   margin-bottom: 1em;
-  h2 {
+  h1 {
     color: $dark-blue;
     margin-bottom: 0;
+    font-weight: 700;
+    font-size: 1.8em;
   }
 }
 
@@ -182,9 +186,11 @@
   grid-template-columns: 1fr;
   grid-gap: 2em;
   margin-top: 2em;
-  h4 {
+  h2 {
     color: $light-blue;
     text-transform: uppercase;
+    font-size: 1.3em;
+    font-weight: 600;
   }
   p {
     margin: 0;
@@ -240,6 +246,7 @@
   }
   .container-ws-show-booking {
     display: none;
+    z-index: 3;
   }
 
   // back button
@@ -292,7 +299,7 @@
   .container-ws-show-infos {
     margin: 0em;
     font-size: 84%;
-    h2 {
+    h1 {
       font-size: 1.4em;
     }
     p {
@@ -353,8 +360,8 @@
   .container-ws-show-infos {
     margin: 0em;
     font-size: 95%;
-    h2 {
-      font-size: 1.8em;
+    h1 {
+      font-size: 1.5em;
     }
   }
   .ws-show-informations-organizers {
@@ -367,7 +374,7 @@
   .container-ws-show-infos {
     margin-right: 1.5em;
     margin-left: 1.5em;
-    h2 {
+    h1 {
       font-size: 1.5em;
     }
   }
@@ -393,7 +400,7 @@
     width: 33%;
     height: 25em;
     right: 1.5em;
-    h3 {
+    h2 {
       font-size: 1.2em;
       margin-bottom: 1em;
     }

@@ -1,34 +1,34 @@
-<div id="wsShowCarousel" class="carousel slide" data-ride="carousel">
+<div id="wsIndexCarousel_<%= workshop.id %>" class="carousel slide" data-interval="false">
 
   <div class="carousel-inner">
-    <% if @workshop.photos.attached? %>
-      <% @workshop.photos.each_with_index do |photo, index| %>
+    <% if workshop.photos.attached? %>
+      <% workshop.photos.each_with_index do |photo, index| %>
         <% if index == 0 %>
-          <div class="ws-show-carousel-item carousel-item active">
+          <div class="ws-index-carousel-item carousel-item active">
         <% else %>
-          <div class="ws-show-carousel-item carousel-item">
+          <div class="ws-index-carousel-item carousel-item">
         <% end %>
             <%= cl_image_tag photo.key, alt: "Photo-atelier" %>
           </div>
       <% end %>
     <% else %>
-      <div class="ws-show-carousel-item carousel-item active">
+      <div class="ws-index-carousel-item carousel-item active">
         <%= image_tag "profile-picture.png", alt: "Photo-atelier" %>
       </div>
-      <div class="ws-show-carousel-item carousel-item">
+      <div class="ws-index-carousel-item carousel-item">
         <%= image_tag "profile-picture.png", alt: "Photo-atelier" %>
       </div>
-      <div class="ws-show-carousel-item carousel-item">
+      <div class="ws-index-carousel-item carousel-item">
         <%= image_tag "profile-picture.png", alt: "Photo-atelier" %>
       </div>
     <% end %>
   </div>
 
-  <a class="carousel-control-prev" href="#wsShowCarousel" role="button" data-slide="prev">
+  <a class="carousel-control-prev" href="#wsIndexCarousel_<%= workshop.id %>" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Précédent</span>
   </a>
-  <a class="carousel-control-next" href="#wsShowCarousel" role="button" data-slide="next">
+  <a class="carousel-control-next" href="#wsIndexCarousel_<%= workshop.id %>" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Suivant</span>
   </a>
