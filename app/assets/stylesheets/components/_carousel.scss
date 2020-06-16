@@ -6,6 +6,14 @@
   }
 }
 
+.ws-index-carousel-item {
+  img {
+    width: 100%;
+    height: 11em;
+    object-fit: cover;
+  }
+}
+
 // RESPONSIVE CAROUSEL //
 
 // Smallest device
@@ -13,6 +21,11 @@
   .ws-show-carousel-item {
     img {
       height: 18em;
+    }
+  }
+  .ws-index-carousel-item {
+    img {
+      height: 8em;
     }
   }
 }

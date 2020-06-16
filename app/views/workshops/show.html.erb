@@ -27,7 +27,7 @@
         </select>
       </div>
       <div class="d-flex ws-price">
-        <h4><%= @workshop.price %> €</h4>
+        <span id="ws-booking-price"><%= @workshop.price %> €</span>
         <span>/pers</span>
       </div>
       <%= f.submit 'Je réserve', class: "white-btn" %>
@@ -57,7 +57,7 @@
   <!-- WORKSHOP SHOW TITLE-->
 
   <div class="ws-show-informations-title">
-    <h2><%= @workshop.title %></h2>
+    <h1><%= @workshop.title %></h1>
   </div>
 
   <!-- WORKSHOP SHOW INFORMATIONS ORGANIZERS-->
@@ -86,7 +86,7 @@
   <div class="ws-show-informations-program-reviews">
 
     <div class="ws-show-informations-program">
-      <h4>Programme de l'atelier</h4>
+      <h2>Programme de l'atelier</h2>
       <p><%= @workshop.program %></p>
       <div class="ws-show-informations-tags">
         <i class="fas fa-tag"></i>
@@ -103,7 +103,7 @@
     </div>
 
     <div class="ws-show-informations-final-product">
-      <h4>Vous repartez avec</h4>
+      <h2>Vous repartez avec</h2>
       <p><%= @workshop.final_product %></p>
     </div>
 
@@ -111,8 +111,8 @@
 
     <div class="ws-show-informations-reviews">
       <div class= "ws-show-informations-reviews-title">
-        <h4>Avis sur l'atelier</h4>
-        <p>Note moyenne : <strong>4,5 /5</strong> (<%= @workshop.reviews.count %> avis)</p>
+        <h2>Avis sur l'atelier</h2>
+        <p>Note moyenne : <strong><%= @workshop.rating %> /5</strong> (<%= @workshop.reviews.count %> avis)</p>
       </div>
       <div class= "reviews-cards">
         <% if @workshop.reviews.present? %>
@@ -173,6 +173,6 @@
         <%= link_to 'Ajouter un animateur', new_workshop_animator_path(@workshop) %>
       <% end %>
     <% end %>
-    <div class="ws-show-empty-div"></div>
   </div>
+  <div class="ws-show-empty-div"></div>
 </div>
