@@ -67,7 +67,7 @@
   background-color: $green;
   width: 32%;
   height: 30em;
-  top: 7.73em;
+  top: 7.95em;
   right: 3em;
   position: fixed;
   z-index: 0;
@@ -104,7 +104,7 @@
     color: $dark-blue;
     margin-bottom: 0;
     font-weight: 700;
-    font-size: 1.8em;
+    font-size: 1.5em;
   }
 }
 
@@ -159,6 +159,7 @@
 
 .ws-show-informations-tags {
   display: flex;
+  flex-wrap: wrap;
   i {
     color: $orange;
     font-size: 1.5em;
@@ -175,6 +176,7 @@
     font-family: 'Montserrat', 'sans-serif';
     font-size: 80%;
     margin-right: 0.4em;
+    margin-bottom: 0.5em;
     text-transform: uppercase;
   }
 }

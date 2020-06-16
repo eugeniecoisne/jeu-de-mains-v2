@@ -1,17 +1,21 @@
 .ws-card {
   overflow: hidden;
   background: white;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
   position: relative;
   border-radius: 0.3em;
   height: 20em;
 }
 
-.ws-card-rating {
+.ws-card-tags {
+  display: flex;
   position: absolute;
   top: 0.6em;
   left: 0.6em;
   z-index: 1;
+}
+
+.ws-card-tag {
   padding: 0.15em 0.4em;
   border-radius: 0.2em;
   background-color: white;
@@ -20,17 +24,29 @@
   align-items: center;
   justify-content: center;
   font-size: 90%;
-
   .fa-star {
     color: $light-blue;
   }
   span {
     margin-top: 0.1em;
-    padding-left: 0.3em;
-    color: $blue;
-    font-weight: 700;
     font-family: "Montserrat", "sans-serif";
     font-size: 0.9em;
+  }
+}
+
+.ws-card-rating {
+  margin-right: 0.4em;
+  span {
+    color: $dark-blue;
+    font-weight: 700;
+    padding-left: 0.3em;
+  }
+}
+
+.ws-card-ephemeral {
+  span {
+    color: $light-blue;
+    font-weight: 600;
   }
 }
 
@@ -73,6 +89,15 @@
 @media (min-width: 100px) and (max-width: 575px) {
   .ws-card {
     height: 16em;
+  }
+  .ws-card-tags {
+    top: 0.4em;
+    left: 0.4em;
+  }
+  .ws-card-tag {
+    span {
+      font-size: 0.8em;
+    }
   }
   .ws-card-infos {
     height: 8em;

@@ -29,10 +29,10 @@ class Workshop < ApplicationRecord
 
   def rating
     ratings = []
-    average = 0
+    @average = 0
     if reviews.present?
       reviews.each { |review| ratings << review.rating }
-      average = ratings.sum.fdiv(reviews.count).round(2)
+      @average = ratings.sum.fdiv(reviews.count).round(2)
     end
   end
 

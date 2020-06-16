@@ -12,10 +12,8 @@
   justify-content: space-between;
   padding-bottom: 60px;
   display: none;
-
   .menu-icon {
     padding-right: 0.6em;
-    color: $light-blue;
     font-size: 1.2em;
   }
 }
@@ -25,6 +23,7 @@
   transition: all 0.75s ease-out;
   z-index: 4;
   display: block;
+  position: fixed;
 }
 
 #sideMenu ul {
@@ -39,9 +38,34 @@
   font-weight: 500;
   a {
     text-decoration: none;
-    color: $dark-blue;
   }
 }
+
+.menu-blue-icon {
+  color: $light-blue;
+}
+
+.menu-blue-link {
+  color: $dark-blue;
+}
+
+.menu-red-icon {
+  color: $red;
+}
+
+.menu-red-link {
+  color: $dark-red;
+}
+
+.menu-green-icon {
+  color: $light-green;
+}
+
+.menu-green-link {
+  color: $dark-green;
+}
+
+
 
 #sideMenu #menuClose {
   width: 3.2em;
