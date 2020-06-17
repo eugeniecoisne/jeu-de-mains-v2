@@ -33,7 +33,7 @@
   <!-- WORKSHOPS INDEX CARDS RESULTS -->
   <div class= "index-ws-cards-map-container">
     <% if @workshops %>
-      <h1>Nous avons trouvé <span><%= @workshops.count %> ateliers créatifs</span> correspondant à votre recherche</h1>
+      <h1>Nous avons trouvé <span id="index-ws-title-strong"><%= @workshops.count %> ateliers créatifs</span> correspondant à votre recherche</h1>
 
       <div class= "index-ws-cards">
         <% @workshops.each do |workshop| %>
@@ -41,11 +41,21 @@
           <div class="ws-card" id="index-ws-card">
             <%= link_to(workshop, data: { turbolinks: false }) do  %>
               <div class="ws-card-image-and-rating" id="index-ws-card-image-and-rating">
-                <div class="ws-card-rating" id="index-ws-card-rating">
-                  <i class="fas fa-star"></i><span><%= workshop.rating %></span>
+                <div class="ws-card-tags" id="index-ws-card-tags">
+                  <% if workshop.rating %>
+                    <div class="ws-card-tag ws-card-rating" id="index-ws-card-rating">
+                      <i class="fas fa-star"></i><span><%= workshop.rating %></span>
+                    </div>
+                  <% end %>
+                  <% if workshop.place.ephemeral == true %>
+                    <div class="ws-card-tag ws-card-ephemeral" id="index-ws-card-ephemeral">
+                      <span>éphémère</span>
+                    </div>
+                  <% end %>
                 </div>
                 <%= render "ws-index-carousel", workshop: workshop %>
               </div>
+
               <div class="ws-card-infos" id="index-ws-card-infos">
                 <div>
                   <div class="ws-card-place" id="index-ws-card-place-desktop">

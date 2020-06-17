@@ -6,44 +6,51 @@
     <ul class="list-group list-group-flush">
       <% if user_signed_in? %>
         <li class="list-group-item">
-          <i class="far fa-eye menu-icon"></i>
-          <%= link_to "Voir tous les ateliers", workshops_path %>
+          <i class="far fa-eye menu-icon menu-blue-icon"></i>
+          <%= link_to "Voir tous les ateliers", workshops_path, class: "menu-blue-link" %>
         </li>
         <li class="list-group-item">
-          <i class="fas fa-map-marker-alt menu-icon"></i>
-          <%= link_to "Découvrir les lieux", places_path %>
+          <i class="fas fa-map-marker-alt menu-icon menu-blue-icon"></i>
+          <%= link_to "Découvrir les lieux", places_path, class: "menu-blue-link" %>
         </li>
         <li class="list-group-item">
-          <i class="fas fa-graduation-cap menu-icon"></i>
-          <%= link_to "Découvrir les animateurs", profiles_path %>
+          <i class="fas fa-graduation-cap menu-icon menu-blue-icon"></i>
+          <%= link_to "Découvrir les animateurs", profiles_path, class: "menu-blue-link" %>
         </li>
         <li class="list-group-item">
-          <i class="fas fa-plus menu-icon"></i>
-          <%= link_to "Proposer mon atelier", new_workshop_path %>
+          <i class="fas fa-plus menu-icon menu-blue-icon"></i>
+          <%= link_to "Proposer mon atelier", new_workshop_path, class: "menu-blue-link" %>
         </li>
         <li class="list-group-item">
-          <i class="far fa-calendar-check menu-icon"></i>
-          <%= link_to "Mon tableau de bord", profile_path(current_user.profile) %>
+          <i class="far fa-calendar-check menu-icon menu-blue-icon"></i>
+          <%= link_to "Mon tableau de bord", profile_path(current_user.profile), class: "menu-blue-link" %>
         </li>
         <li class="list-group-item">
-          <i class="far fa-user menu-icon"></i>
-          <%= link_to "Mon compte", "#" %>
+          <i class="far fa-user menu-icon menu-blue-icon"></i>
+          <%= link_to "Mon compte", "#", class: "menu-blue-link" %>
         </li>
         <li class="list-group-item">
-          <i class="fas fa-sign-out-alt menu-icon"></i>
-          <%= link_to "Me déconnecter", destroy_user_session_path, method: :delete, id: "log-out-menu" %>
+          <i class="fas fa-sign-out-alt menu-icon menu-red-icon"></i>
+          <%= link_to "Me déconnecter", destroy_user_session_path, method: :delete, id: "log-out-menu", class: "menu-red-link" %>
         </li>
+
       <% else %>
         <li class="list-group-item">
-          <i class="far fa-eye menu-icon"></i>
-          <%= link_to "Voir tous les ateliers", workshops_path %>
+          <i class="far fa-eye menu-icon menu-blue-icon"></i>
+          <%= link_to "Voir tous les ateliers", workshops_path, class: "menu-blue-link" %>
         </li>
         <li class="list-group-item">
-          <i class="fas fa-plus menu-icon"></i>
-          <%= link_to "Proposer mon atelier", new_workshop_path %>
+          <i class="fas fa-plus menu-icon menu-blue-icon"></i>
+          <%= link_to "Proposer mon atelier", new_workshop_path, class: "menu-blue-link" %>
         </li>
-        <li class="list-group-item"><%= link_to "Se connecter", new_user_session_path %></li>
-        <li class="list-group-item"><%= link_to "S'inscrire", new_user_registration_path %></li>
+        <li class="list-group-item">
+          <i class="fas fa-sign-in-alt menu-icon menu-green-icon"></i>
+          <%= link_to "Me connecter", new_user_session_path, class: "menu-green-link" %>
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-user-plus menu-icon menu-green-icon"></i>
+          <%= link_to "M'inscrire", new_user_registration_path, class: "menu-green-link" %>
+        </li>
       <% end %>
     </ul>
   </div>

@@ -14,7 +14,8 @@
   <!-- JEU DE MAINS PRESENTATION -->
 
   <h2 class="home-steps-title">Réservez et profitez de votre atelier créatif en toute simplicité</h2>
-  <div class="home-steps-presentation">
+
+  <div class="home-steps-presentation-desktop">
     <div class="home-step-presentation">
       <%= image_tag "check.svg", alt: "réservation" %>
       <h3>Réservez votre atelier créatif sur jeudemains.com</h3>
@@ -35,6 +36,14 @@
       <h3>Repartez avec votre création unique</h3>
       <p>réalisée avec vos dix doigts !</p>
     </div>
+  </div>
+
+  <div class="home-steps-presentation-tablet">
+    <%= render "home-step-carousel-tablet" %>
+  </div>
+
+  <div class="home-steps-presentation-mobile">
+    <%= render "home-step-carousel-mobile" %>
   </div>
 
   <!-- TRENDS SELECTION -->
@@ -97,18 +106,65 @@
 
   <!-- WORKSHOP CARDS -->
 
-  <div class="home-ws-cards">
+  <div class="home-ws-cards-container">
 
-    <h2>Les ateliers favoris</h2>
-    <h3>Découvrez ici nos ateliers les mieux notés par la communauté Jeu de Mains</h3>
-    <div class="home-ws-cards-best-ratings">
+    <div>
+      <h2 class="home-ws-cards-title">Les ateliers favoris</h2>
+      <h3 class="home-ws-cards-subtitle">Découvrez ici nos ateliers les mieux notés par la communauté Jeu de Mains</h3>
 
+      <div class="home-ws-cards home-ws-cards-best-ratings">
+        <% @workshops.first(6).each do |workshop| %>
+          <div class="ws-card" id="home-ws-card">
+            <%= link_to(workshop, data: { turbolinks: false }) do  %>
+              <div class="ws-card-image-and-rating" id="home-ws-card-image-and-rating">
+                <div class="ws-card-tags" id="home-ws-card-tags">
+                  <% if workshop.rating %>
+                    <div class="ws-card-tag ws-card-rating" id="home-ws-card-rating">
+                      <i class="fas fa-star"></i><span><%= workshop.rating %></span>
+                    </div>
+                  <% end %>
+                  <% if workshop.place.ephemeral == true %>
+                    <div class="ws-card-tag ws-card-ephemeral" id="home-ws-card-ephemeral">
+                      <span>éphémère</span>
+                    </div>
+                  <% end %>
+                </div>
+                <%= render "workshops/ws-index-carousel", workshop: workshop %>
+              </div>
+
+              <div class="ws-card-infos" id="home-ws-card-infos">
+                <div>
+                  <div class="ws-card-place" id="home-ws-card-place-desktop">
+                    <% if workshop.place.name.size > 25 %>
+                      <h3><%= workshop.place.name[0..24] %>...</h3>
+                    <% else %>
+                      <h3><%= workshop.place.name %></h3>
+                    <% end %>
+                  </div>
+                  <div class="ws-card-place" id="home-ws-card-place-mobile">
+                    <% if workshop.place.name.size > 17 %>
+                      <h3><%= workshop.place.name[0..16] %>...</h3>
+                    <% else %>
+                      <h3><%= workshop.place.name %></h3>
+                    <% end %>
+                  </div>
+                  <div class="ws-card-title" id="home-ws-card-title">
+                    <h2><%= workshop.title %></h2>
+                  </div>
+                </div>
+                <div class="ws-card-price" id="home-ws-card-price">
+                  <%= workshop.price %> €
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
 
-    <h2>C’est maintenant ou jamais !</h2>
-    <h3>Réservez les dernières places disponibles des prochaines dates</h3>
-    <div class="home-ws-cards-last-minute">
-
+    <div>
+      <h2 class="home-ws-cards-title">C’est maintenant ou jamais !</h2>
+      <h3 class="home-ws-cards-subtitle">Réservez les dernières places disponibles des prochaines dates</h3>
     </div>
   </div>
   <div>

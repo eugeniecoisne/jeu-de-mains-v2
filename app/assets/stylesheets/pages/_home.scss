@@ -11,17 +11,31 @@
 .home-steps-title {
   color: $blue;
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.5em;
   font-weight: 600;
   margin-top: 2.5em;
 }
-.home-steps-presentation {
+.home-steps-presentation-desktop {
   margin: 1em;
   margin-top: 2em;
   margin-bottom: 2em;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 4em;
+}
+
+.home-steps-presentation-tablet {
+  margin: 1em;
+  .home-step-presentation {
+    padding-bottom: 3em;
+  }
+}
+
+.home-steps-presentation-mobile {
+  margin: 1em;
+  .home-step-presentation {
+    padding-bottom: 3em;
+  }
 }
 
 .home-step-presentation {
@@ -112,12 +126,42 @@
 }
 
 
+// FAVORITE WS AND LAST MINUTE WS CARDS
+
+.home-ws-cards-container {
+  .home-ws-cards-title {
+    color: $blue;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-top: 2.5em;
+  }
+  .home-ws-cards-subtitle {
+    font-weight: 500;
+    text-align: center;
+    font-size: 1em;
+  }
+}
+
+.home-ws-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  overflow: hidden;
+  height: 20.5em;
+  grid-gap: 1em;
+}
+
+
+
 // RESPONSIVE HOMEPAGE//
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
-  .home-steps-presentation {
-    grid-template-columns: 1fr;
+  .home-steps-presentation-desktop {
+    display: none;
+  }
+  .home-steps-presentation-tablet {
+    display: none;
   }
   .home-selection-cards {
     grid-template-columns: 1fr;
@@ -143,15 +187,22 @@
       font-size: 1em;
     }
   }
+  #home-ws-card-place-desktop {
+    display: none;
+  }
+  .home-ws-cards {
+    grid-template-columns: 1fr 1fr;
+    height: 16.5em;
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 765px) {
-  .home-steps-presentation {
-    grid-template-columns: 1fr 1fr;
+  .home-steps-presentation-desktop {
+    display: none;
   }
-  .home-selection-cards {
-    grid-template-columns: 1fr;
+  .home-steps-presentation-mobile {
+    display: none;
   }
   .home-selection-card {
   height: 15em;
@@ -160,14 +211,18 @@
       height: auto;
       object-fit: cover;
     }
+  }
+  #home-ws-card-place-desktop {
+    display: none;
+  }
+  .home-ws-cards {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0.8em;
   }
 }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
-  .home-steps-presentation {
-    grid-template-columns: 1fr 1fr;
-  }
   .home-selection-cards {
     grid-template-columns: 1fr;
   }
@@ -178,6 +233,18 @@
       height: auto;
       object-fit: cover;
     }
+  }
+  .home-steps-presentation-desktop {
+    display: none;
+  }
+  .home-steps-presentation-mobile {
+    display: none;
+  }
+  #home-ws-card-place-desktop {
+    display: none;
+  }
+  .home-ws-cards {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
 
@@ -190,9 +257,31 @@
       object-fit: cover;
     }
   }
+  .home-steps-presentation-mobile {
+    display: none;
+  }
+  .home-steps-presentation-tablet {
+    display: none;
+  }
+  #home-ws-card-place-mobile {
+    display: none;
+  }
+  .home-ws-cards {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
 }
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+  .home-steps-presentation-mobile {
+    display: none;
+  }
+  .home-steps-presentation-tablet {
+    display: none;
+  }
+  #home-ws-card-place-mobile {
+    display: none;
+  }
+}
 
 
