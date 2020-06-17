@@ -2,26 +2,23 @@ class WorkshopsController < ApplicationController
   before_action :set_workshop, only: %i(show edit update)
 
   def index
-    @workshops = policy_scope(Workshop).where(status: 'en ligne')
     if params[:search].present?
-      @workshops = @workshops.global_search("#{params[:search][:keyword]}") if params[:search][:keyword].present?
-      @workshops = @workshops.global_search("#{params[:search][:place]}") if params[:search][:place].present?
       if params[:search][:starts_at].present? && params[:search][:ends_at].present?
         dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.strptime(params[:search][:ends_at], '%Y-%m-%d')).to_a
-        @workshops.select do |workshop|
-          workshop.dates.any? { |date| dates.include?(date) }
-        end
+        @workshops = policy_scope(Workshop).where(status: 'en ligne').select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }
       elsif params[:search][:starts_at].present?
-        @workshops = @workshops.global_search(Date.strptime(params[:search][:starts_at], '%Y-%m-%d'))
+        @workshops = policy_scope(Workshop).where(status: 'en ligne').global_search(Date.strptime(params[:search][:starts_at], '%Y-%m-%d'))
       elsif params[:search][:ends_at].present?
-        @workshops = @workshops.global_search(Date.strptime(params[:search][:ends_at], '%Y-%m-%d'))
+        @workshops = policy_scope(Workshop).where(status: 'en ligne').global_search(Date.strptime(params[:search][:ends_at], '%Y-%m-%d'))
       else
-        @workshops
+        @workshops = policy_scope(Workshop).where(status: 'en ligne')
       end
+      @workshops = @workshops.select { |workshop| workshop.thematic == params[:search][:keyword] } if params[:search][:keyword].present?
+      @workshops = @workshops.select { |workshop| workshop.place.city == params[:search][:place] } if params[:search][:place].present?
     else
-      @workshops
+      @workshops = policy_scope(Workshop).where(status: 'en ligne')
     end
-    authorize @workshops
+    # authorize @workshops
   end
 
   def show

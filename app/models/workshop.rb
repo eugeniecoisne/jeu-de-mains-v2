@@ -10,6 +10,8 @@ class Workshop < ApplicationRecord
   validates :thematic, inclusion: { in: ['Autour du fil', 'Végétal', 'Papier & Lettering', 'Céramique & Modelage', 'Bijoux', 'Cosmétique & Entretien', 'Dessin & peinture', 'Meuble & Décoration'] }
   validates :level, inclusion: { in: ['Débutant', 'Intermédiaire', 'Avancé'] }
 
+  THEMATICS = ['Autour du fil', 'Végétal', 'Papier & Lettering', 'Céramique & Modelage', 'Bijoux', 'Cosmétique & Entretien', 'Dessin & peinture', 'Meuble & Décoration']
+
   include PgSearch::Model
     pg_search_scope :global_search,
       against: [ :title, :program, :final_product, :thematic ],
