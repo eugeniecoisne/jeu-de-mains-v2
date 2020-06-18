@@ -53,17 +53,56 @@
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 765px) {
-
+  .homebanner {
+    padding: 3em 0 0 0;
+    height: 34em;
+    justify-content: center;
+  }
+  .homebanner-title {
+    width: 50%;
+    margin-left: 2.5em;
+    h1 {
+      font-size: 1.6em;
+    }
+    h2 {
+      margin-bottom: 2em;
+    }
+  }
 }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
-
+  .homebanner {
+    padding-right: 0em;
+    padding-left: 0em;
+    height: 32em;
+  }
+  .homebanner-title {
+    width: 40%;
+    margin-left: 2.5em;
+    h1 {
+      font-size: 1.8em;
+    }
+    h2 {
+      margin-bottom: 4em;
+    }
+  }
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199px)  {
-
+  .homebanner {
+    padding-right: 2em;
+    padding-left: 2em;
+    height: 32em;
+  }
+  .homebanner-title {
+    width: 35%;
+    margin-left: 3em;
+    h2 {
+      margin-bottom: 4em;
+    }
+  }
 }
 
 // Extra large devices (large desktops, 1200px and up)
