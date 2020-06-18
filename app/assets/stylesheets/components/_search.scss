@@ -54,11 +54,6 @@
   .datepicker_start_date {
     border-right: 1px solid $gray;
   }
-  .search-button-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
   .search-button {
     margin-top: 1px;
     height: 75px;
@@ -70,6 +65,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    border: none;
     input {
       display: none;
     }

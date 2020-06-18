@@ -13,12 +13,9 @@
           <%= f.input :place, required: false, label: "À", prompt: "Toutes les villes", collection: Place.cities.sort %>
           <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date"}, placeholder: "À tout moment", label: "À partir du" %>
           <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
-          <div class="search-button-container">
-            <div class="search-button">
-              <i class="fas fa-search"></i>
-              <%= f.submit "" %>
-            </div>
-          </div>
+          <button type="submit" class="search-button">
+            <i class="fas fa-search"></i>
+          </button>
         </div>
       <% end %>
     </div>
