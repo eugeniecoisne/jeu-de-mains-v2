@@ -1,0 +1,139 @@
+.home-search-container {
+  margin: 0 5em;
+  margin-bottom: -2.7em;
+}
+
+.home-search {
+  box-shadow: rgba(139, 159, 196, 0.3) 0px 0.2rem 0.4rem 0px;
+  background-color: white;
+  border-radius: 5px;
+  height: 6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .simple_form {
+    margin: 0.5em 0.5em;
+    width: 100%;
+
+    label {
+      position: relative;
+      top: 2.8em;
+      left: 0.7em;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 0.9em;
+      color:$light-blue;
+      padding-left: 0.35rem;
+      letter-spacing: 0.03em;
+    }
+
+    label:hover {
+      color: $blue;
+    }
+  }
+  .form-group {
+    height: 100%;
+    margin-top: -1.8em;
+  }
+  .form-control {
+    height: 100%;
+    padding-top: 1.4em;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: unset;
+    background-color: transparent;
+  }
+  #search_keyword {
+    border-right: 1px solid $gray;
+  }
+  #search_place {
+    border-right: 1px solid $gray;
+  }
+  .datepicker_start_date {
+    border-right: 1px solid $gray;
+  }
+  .search-button {
+    margin-top: 1px;
+    height: 75px;
+    width: 75px;
+    background-color: $light-blue;
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    input {
+      display: none;
+    }
+    .fa-search {
+      color: white;
+      font-size: 1.4em;
+    }
+  }
+  .search-button:hover {
+    background-color: $blue;
+  }
+}
+
+.home-search-inputs-and-submit {
+  display: grid;
+  grid-template-columns: 3fr 3fr 3fr 3fr 1.1fr;
+}
+
+// RESPONSIVE SEARCH //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .home-search-container {
+    margin: 0 1em;
+  }
+  .home-search-inputs-and-submit {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .home-search {
+    height: 20.5em;
+    .search-button {
+      height: 2em;
+      width: 100%;
+      .fa-search {
+        font-size: 1.1em;
+      }
+    }
+    #search_keyword {
+      border: none;
+    }
+    #search_place {
+      border: none;
+    }
+    .datepicker_start_date {
+      border: none;
+    }
+
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 765px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
+
