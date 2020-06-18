@@ -1,13 +1,72 @@
 .homebanner {
   background-size: cover;
   background-position: center;
-  height: 34em;
+  height: 36em;
   margin-top: -6em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 4em;
 
+}
+
+.homebanner-title {
+  margin-left: 5em;
+  width: 30%;
   h1 {
-    padding-top: 5em;
-    color: white;
+    color: $white;
     font-weight: 600;
     font-size: 2em;
+    text-align: left;
   }
+  h2 {
+    color: $white;
+    font-size: 1.2em;
+    margin-bottom: 7em;
+    font-weight: 500;
+  }
+}
+
+// RESPONSIVE BANNER //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .homebanner {
+    padding: 0;
+    height: 40em;
+    justify-content: center;
+  }
+  .homebanner-title {
+    margin-left: 0;
+    margin-top: 3em;
+    margin-bottom: 1em;
+    padding: 0 1.5em;
+    width: 90%;
+    h1 {
+      font-size: 1.4em;
+    }
+    h2 {
+      display: none;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 765px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
 }

@@ -1,12 +1,28 @@
 <div class="homebanner", id="homebanner-margintop", style="background-image: url(<%= image_path "homebanner-image-1.jpg" %>)">
-  <h1>Détendez-vous, apprenez et rencontrez grâce aux ateliers créatifs près de chez vous</h1>
-  <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-    <%= f.input :keyword, required: false, label: false, collection: Workshop::THEMATICS %>
-    <%= f.input :place, required: false, label: false, collection: Place.cities.sort %>
-    <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker"}, label: "A partir du" %>
-    <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, label: "Jusqu'au" %>
-    <%= f.submit "Rechercher", class: "btn btn-primary" %>
-  <% end %>
+
+  <div class="homebanner-title">
+    <h1>Offrez-vous un moment de détente créative</h1>
+    <h2>Grâce à la nouvelle plateforme de réservation d'ateliers créatifs jeudemains.com</h2>
+  </div>
+
+  <div class="home-search-container">
+    <div class="home-search">
+      <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+        <div class="home-search-inputs-and-submit">
+          <%= f.input :keyword, required: false, label: "Type d'atelier", prompt: "Tous types", collection: Workshop::THEMATICS %>
+          <%= f.input :place, required: false, label: "À", prompt: "Toutes les villes", collection: Place.cities.sort %>
+          <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date"}, placeholder: "À tout moment", label: "À partir du" %>
+          <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
+          <div class="search-button-container">
+            <div class="search-button">
+              <i class="fas fa-search"></i>
+              <%= f.submit "" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <div class="home-container">
