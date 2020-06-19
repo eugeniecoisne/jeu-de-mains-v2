@@ -16,3 +16,64 @@
   transition: all 0.5s ease-out;
   color: white;
 }
+
+.back-button {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+  a {
+    text-decoration: none;
+    color: $dark-blue;
+  }
+  a:hover {
+    color: $blue;
+  }
+  span {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: 'Montserrat', 'sans-serif';
+    font-size: 90%;
+  }
+  i {
+    padding-right: 1em;
+    font-size: 80%;
+  }
+}
+
+// RESPONSIVE BUTTON //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .ws-show-back-button {
+    margin: 0;
+    padding-left: 1em;
+    position: absolute;
+    top: 5.5em;
+    text-shadow: 0px 2px 4px #00000080;
+    z-index: 2;
+    a {
+      color: $light-gray;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 765px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}

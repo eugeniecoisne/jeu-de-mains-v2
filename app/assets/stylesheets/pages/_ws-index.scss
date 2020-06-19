@@ -128,6 +128,9 @@
   #index-ws-card-place-mobile {
     display: none;
   }
+  .index-ws-cards {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
 }
 
 // Extra large devices (large desktops, 1200px and up)

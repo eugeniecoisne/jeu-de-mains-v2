@@ -1,0 +1,121 @@
+.public-profile-header {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: center;
+  margin-bottom: 1em;
+
+  .public-profile-picture {
+    img {
+      border-radius: 50%;
+      width: 15rem;
+      height: 15rem;
+      object-fit: cover;
+      border: 1px solid $blue;
+    }
+  }
+
+  .public-profile-name {
+    h1 {
+      font-size: 1.8em;
+      font-weight: 600;
+      color: $blue;
+    }
+  }
+
+  .public-profile-header-text {
+    margin-left: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    a {
+      text-decoration: none;
+      color: $dark-gray;
+    }
+    i {
+      color: $blue;
+      padding-right: 0.3em;
+    }
+  }
+  .public-profile-instagram {
+    i {
+      font-size: 1.2em;
+    }
+  }
+}
+
+.public-profile-main-figures {
+  background-size: cover;
+  background-position: top;
+  padding: 6em 25em 2em 25em;
+  margin-top: -5em;
+  margin-right: -3em;
+  margin-left: -3em;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  text-align: center;
+  img {
+    object: cover;
+  }
+  #number {
+    font-size: 2.5em;
+    font-weight: 600;
+  }
+  #icon {
+    font-size: 2.3em;
+  }
+  #text {
+    font-size: 1.1em;
+    font-weight: 500;
+  }
+  .public-profile-number-of-ws {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .public-profile-participants-nb {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .public-profile-member-since {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+.public-profile-about-ws-reviews {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+}
+
+.about-ws-reviews-box {
+  margin: 2em;
+  .profile-title {
+    font-size: 1.3em;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: $light-blue;
+    margin-bottom: 1em;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.public-profile-our-ws-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+  .ws-card-place {
+    h3 {
+      color: $orange;
+    }
+  }
+}
+

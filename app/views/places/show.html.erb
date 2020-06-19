@@ -1,26 +1,153 @@
-<h2>views/places/show</h2>
+<!-- PLACE SHOW -->
 
-<h3>Lieu : <%= @place.name %></h3>
+<div class="place-show-container">
 
-<ul>
-  <li>Nom : <%= @place.name %></li>
-  <li>Adresse : <%= "#{@place.address}, #{@place.zip_code} #{@place.city}" %></li>
-  <li>Description : <%= @place.description %></li>
-  <li>Téléphone : <%= @place.phone_number %></li>
-  <li>Email : <%= @place.email %></li>
-  <li>Ephémère : <%= @place.ephemeral %></li>
-  <li>SIRET : <%= @place.siret_number %></li>
-  <li>Site internet : <%= @place.website %></li>
-  <li>Instagram : <%= @place.instagram %></li>
-  <li>Photo :
-    <% if @place.photo.attached? %>
-      <%=cl_image_tag @place.photo.key, alt: "photo du lieu", height: 40, width: 40, crop: :fill %>
-    <% else %>
-      <%= image_tag "profile-picture.png", alt: "photo du lieu", height: 40, width: 40 %>
+  <!-- BACK BUTTON -->
+
+  <div class="back-button">
+    <%= link_to :back do %>
+      <i class="fas fa-chevron-left"></i>
+      <span>Retour</span>
     <% end %>
-    </li>
-</ul>
+  </div>
 
+  <!-- HEADER PROFILE -->
+
+  <div class="public-profile-header">
+    <div class="public-profile-picture">
+      <% if @place.photo.attached? %>
+        <%= cl_image_tag @place.photo.key, alt: "photo du lieu" %>
+      <% else %>
+        <%= image_tag "profile-picture.png", alt: "photo du lieu" %>
+      <% end %>
+    </div>
+    <div class="public-profile-header-text">
+      <div class="public-profile-name">
+        <h1><%= @place.name %></h1>
+      </div>
+      <div class="public-profile-address">
+        <%= link_to "https://www.google.fr/maps/search/#{@place.address}, #{@place.zip_code} #{@place.city.upcase}", target: "_blank" do %>
+          <i class="fas fa-map-marker-alt"></i>
+          <%= "#{@place.address}, #{@place.zip_code} #{@place.city.capitalize}" %>
+        <% end %>
+      </div>
+      <div class="public-profile-phone-number">
+        <i class="fas fa-phone-alt"></i>
+        <%= @place.phone_number %>
+      </div>
+      <div class="public-profile-website">
+        <%= link_to @place.website do %>
+          <i class="fas fa-globe"></i>
+          <%= @place.website.sub(/https\:\/\//,'').sub(/(www.)/,'').sub(/\/$/,'') %>
+        <% end %>
+      </div>
+      <div class="public-profile-instagram">
+        <%= link_to @place.instagram do %>
+          <i class="fab fa-instagram"></i>
+          <%= @place.instagram.sub(/https\:\/\//,'').sub(/www.instagram.com\//,'').sub(/\/$/,'') %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN FIGURES PROFILE -->
+
+  <div class="public-profile-main-figures" style="background-image: url(<%= image_path "vague.svg" %>)">
+    <div class="public-profile-number-of-ws">
+      <span id="number"><%= @place.workshops.count %></span>
+      <span id="text">ateliers proposés</span>
+    </div>
+    <div class="public-profile-participants-nb">
+      <% participants_number = 0 %>
+      <% @place.workshops.each do |workshop| %>
+        <% workshop.sessions.each do |session| %>
+          <% session.bookings.each do |booking| %>
+            <% participants_number += booking.quantity %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <span id="number"><%= participants_number %></span>
+      <span id="text">participants accueillis</span>
+    </div>
+    <div class="public-profile-member-since">
+      <span id="icon"><i class="fas fa-user-clock"></i></span>
+      <span id="text">membre depuis <%= @place.created_at.year %></span>
+    </div>
+  </div>
+
+  <!-- ABOUT / WS CARDS / REVIEWS -->
+
+  <div class="public-profile-about-ws-reviews">
+    <div class="public-profile-about about-ws-reviews-box">
+      <h2 class="public-profile-about-title profile-title">À propos</h2>
+      <div class="public-profile-about-text">
+        <p><%= @place.description %></p>
+      </div>
+    </div>
+
+    <div class="public-profile-our-ws about-ws-reviews-box">
+      <h2 class="public-profile-our-ws-title profile-title">Nos ateliers</h2>
+      <div class="public-profile-our-ws-cards">
+
+        <% @place.workshops.each do |workshop| %>
+
+          <div class="ws-card" id="index-ws-card">
+            <%= link_to(workshop, data: { turbolinks: false }) do  %>
+              <div class="ws-card-image-and-rating">
+                <div class="ws-card-tags">
+                  <% if workshop.rating %>
+                    <div class="ws-card-tag ws-card-rating">
+                      <i class="fas fa-star"></i><span><%= workshop.rating %></span>
+                    </div>
+                  <% end %>
+                  <% if workshop.place.ephemeral == true %>
+                    <div class="ws-card-tag ws-card-ephemeral">
+                      <span>éphémère</span>
+                    </div>
+                  <% end %>
+                </div>
+                <%= render "workshops/ws-index-carousel", workshop: workshop %>
+              </div>
+
+              <div class="ws-card-infos">
+                <div>
+                  <div class="ws-card-title">
+                    <h2><%= workshop.title %></h2>
+                  </div>
+                  <% if workshop.animators.first %>
+                    <div class="ws-card-place">
+                      <h3>Avec <%= workshop.animators.first.user.profile.company %></h3>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="ws-card-price">
+                  <%= workshop.price %> €
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="public-profile-reviews about-ws-reviews-box">
+      <h2 class="public-profile-reviews-title profile-title">Avis sur nos ateliers</h2>
+      <div class="public-profile-reviews-cards">
+        <p>reviews</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p><br><br></p>
+<p>----------------------------------------------</p>
+<p>Ephémère : <%= @place.ephemeral %></p>
 <% if policy(@place).update? %>
   <%= link_to 'Mettre à jour', edit_place_path(@place) %>
 <% end %>
