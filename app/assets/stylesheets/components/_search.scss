@@ -119,17 +119,61 @@
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 765px) {
+  .home-search-container {
+    margin-left: 2em;
+    margin-right: 2em;
+  }
+  .home-search-inputs-and-submit {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 2em;
+  }
+  .home-search {
+    height: 12em;
+    .search-button {
+      margin-top: 1em;
+      height: 2em;
+      width: 210%;
+      .fa-search {
+        font-size: 1.1em;
+      }
+    }
+    #search_keyword {
+      border: none;
+    }
+    #search_place {
+      border: none;
+    }
+    .datepicker_start_date {
+      border: none;
+    }
 
+  }
 }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
-
+  .home-search-container {
+    margin-left: 2em;
+    margin-right: 2em;
+  }
+  .home-search {
+    .form-control {
+      font-size: 0.95em;
+      cursor: pointer;
+      border: none;
+      border-radius: unset;
+      background-color: transparent;
+    }
+  }
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199px)  {
-
+  .home-search-container {
+    margin-left: 2em;
+    margin-right: 2em;
+  }
 }
 
 // Extra large devices (large desktops, 1200px and up)

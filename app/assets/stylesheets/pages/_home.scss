@@ -167,7 +167,7 @@
     display: none;
   }
   .home-steps-title {
-    margin-top: 4em;
+    margin-top: 2.5em;
   }
   .home-selection-cards {
     grid-template-columns: 1fr;
@@ -200,6 +200,14 @@
   .home-ws-cards {
     grid-template-columns: 1fr 1fr;
   }
+  .home-ws-cards-container {
+    .home-ws-cards-title {
+      margin-top: 2.5em;
+    }
+    .home-ws-cards-subtitle {
+      margin-bottom: 1.5em;
+    }
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -209,6 +217,9 @@
   }
   .home-steps-presentation-mobile {
     display: none;
+  }
+  .home-steps-title {
+    margin-top: 3em;
   }
   .home-selection-card {
   height: 20em;
