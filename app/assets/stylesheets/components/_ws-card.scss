@@ -76,11 +76,28 @@
   }
 }
 
+.ws-card-price-and-city {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
 .ws-card-price {
   color: $dark-blue;
   font-weight: 700;
   font-size: 1.1em;
   font-family: "Montserrat", "sans-serif";
+}
+
+.ws-card-city {
+  color: $green;
+  .fa-map-marker-alt {
+    font-size: 0.8em;
+  }
+  #city-name {
+    font-size: 0.7em;
+    font-weight: 500;
+  }
 }
 
 // RESPONSIVE WORKSHOP CARDS //

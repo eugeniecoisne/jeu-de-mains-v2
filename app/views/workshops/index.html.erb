@@ -76,8 +76,18 @@
                     <h2><%= workshop.title %></h2>
                   </div>
                 </div>
-                <div class="ws-card-price" id="index-ws-card-price">
-                  <%= workshop.price %> €
+                <div class="ws-card-price-and-city" id="index-ws-card-price-and-city">
+                  <div class="ws-card-price" id="index-ws-card-price">
+                    <%= workshop.price %> €
+                  </div>
+                  <div class="ws-card-city" id="index-ws-card-city">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <% if workshop.place.city.size >= 11 %>
+                      <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
+                    <% else %>
+                      <span id="city-name"><%= workshop.place.city.capitalize %></span>
+                    <% end %>
+                  </div>
                 </div>
               </div>
             <% end %>
