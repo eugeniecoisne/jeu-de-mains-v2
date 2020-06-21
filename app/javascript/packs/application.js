@@ -18,6 +18,7 @@ document.addEventListener('turbolinks:load', () => {
   });
   initMenu();
   initPlaces();
-  initBooking();
   initMapbox();
+  initBooking();
+
 });
