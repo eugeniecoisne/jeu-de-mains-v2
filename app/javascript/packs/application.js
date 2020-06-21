@@ -9,6 +9,7 @@ import { French } from "flatpickr/dist/l10n/fr.js";
 import { initMenu } from '../plugins/init_menu';
 import { initPlaces } from '../plugins/init_places';
 import { initBooking } from '../plugins/init_booking';
+import { initMapbox } from '../plugins/init_mapbox';
 
 document.addEventListener('turbolinks:load', () => {
   flatpickr(".datepicker", {
@@ -18,4 +19,5 @@ document.addEventListener('turbolinks:load', () => {
   initMenu();
   initPlaces();
   initBooking();
+  initMapbox();
 });

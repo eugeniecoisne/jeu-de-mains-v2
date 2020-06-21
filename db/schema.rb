@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_09_102029) do
+ActiveRecord::Schema.define(version: 2020_06_21_115341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,8 @@ ActiveRecord::Schema.define(version: 2020_06_09_102029) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "db_status"
     t.boolean "verified", default: false
+    t.float "latitude"
+    t.float "longitude"
     t.index ["user_id"], name: "index_places_on_user_id"
   end
 
