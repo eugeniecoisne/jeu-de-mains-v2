@@ -1,4 +1,5 @@
 class WorkshopsController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i(index)
   before_action :set_workshop, only: %i(show edit update)
 
   def index
@@ -19,6 +20,16 @@ class WorkshopsController < ApplicationController
       @workshops = policy_scope(Workshop).where(status: 'en ligne')
     end
     # authorize @workshops
+
+    @places_geo = Place.where(id: @workshops.pluck(:place_id))
+
+    @markers = @places_geo.map do |place|
+      {
+        lat: place.latitude,
+        lng: place.longitude
+      }
+    end
+
   end
 
   def show
