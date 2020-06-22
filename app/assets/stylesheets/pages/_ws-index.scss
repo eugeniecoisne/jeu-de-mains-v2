@@ -56,8 +56,13 @@
 // CARDS
 
 .index-ws-cards-map-container {
-  padding: 2em;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
   background-color: $light-gray2;
+}
+
+.index-ws-left-side {
+  padding: 2em;
   h1 {
     font-size: 1.2em;
     color: $blue;
@@ -71,7 +76,7 @@
 
 .index-ws-cards {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-row-gap: 2em;
   grid-column-gap: 1em;
 }
@@ -105,7 +110,7 @@
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 765px) {
   .index-ws-cards {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-column-gap: 0.8em;
   }
   #index-ws-card-place-desktop {
@@ -116,7 +121,7 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
   .index-ws-cards {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
   #index-ws-card-place-desktop {
     display: none;
@@ -129,7 +134,7 @@
     display: none;
   }
   .index-ws-cards {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
