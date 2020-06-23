@@ -2,8 +2,10 @@
 
 .navbar-jdm {
   justify-content: space-between;
+  align-items: start;
   .navbar-nav {
     align-items: center;
+    padding-top: 0.3em;
   }
   .nav-link {
     font-weight: 600;
@@ -34,16 +36,18 @@
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 #menuButton {
   height: 3rem;
-  width: 3.2rem;
-  font-size: 1.8em;
+  width: 3.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  img {
+    width: 3.5em;
+  }
 }
 
 .navbar-buttons-homepage {
@@ -53,17 +57,9 @@
   }
   #all-workshops {
     color: $dark-blue;
-    border-bottom: 0.1em solid transparent;
-  }
-  #all-workshops:hover {
-    border-color: $blue;
   }
   #menuButton {
-    color: $dark-blue;
-    border: 0.06em solid transparent;
-  }
-  #menuButton:hover {
-    border-color: $blue;
+
   }
 }
 
@@ -81,8 +77,10 @@
     border-bottom: 0.1em solid white;
   }
   #menuButton {
-    color: white;
-    border: transparent 0.06em solid;
+    border: transparent 0.1em solid;
+    img {
+      width: 2.8em;
+    }
   }
   #menuButton:hover {
     border-color: white;
@@ -103,6 +101,9 @@
   }
   .navbar-jdm {
     padding: 0.5em;
+    .navbar-nav {
+      padding-top: 0.1em;
+    }
   }
 }
 

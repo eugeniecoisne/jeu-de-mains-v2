@@ -2,6 +2,13 @@
 
 <div class="index-ws-container">
 
+  <button id="mapButton" class="index-ws-map-and-list-button">
+    <i class="fas fa-map-marked-alt"></i>
+  </button>
+  <button id="listButton" class="index-ws-map-and-list-button inactive">
+    <i class="fas fa-list-ul"></i>
+  </button>
+
   <!-- WORKSHOPS INDEX SEARCH & FILTERS -->
 
   <div class="index-ws-search-filters-container">
@@ -103,8 +110,8 @@
         </div>
       <% end %>
     </div>
-    <div id="map"
-             style="width: 100%; height: 100vh; position: sticky; top: 0;"
+    <div id="map" class="ws-map"
+             style="width: 100%; height: 100vh; top: 0;"
              data-markers="<%= @markers.to_json %>"
              data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
     </div>

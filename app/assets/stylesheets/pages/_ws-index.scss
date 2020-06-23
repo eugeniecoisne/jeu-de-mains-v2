@@ -1,5 +1,37 @@
 // CSS PAGE INDEX WORKSHOPS
 
+// MAP BUTTON
+
+.index-ws-map-and-list-button {
+  border-radius: 50%;
+  border: none;
+  width: 2.2em;
+  height: 2.2em;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0.2rem 0.4rem 0px;
+  font-size: 1.3em;
+  position: fixed;
+  bottom: 2vh;
+  right: 2vh;
+  z-index: 2;
+}
+
+#listButton {
+  color: $blue;
+  background-color: $white;
+}
+
+#listButton.inactive {
+  display: none;
+}
+
+#mapButton {
+  color: white;
+  background-color: $blue;
+}
+#mapButton.inactive {
+  display: none;
+}
+
 // CONTAINERS
 
 .index-ws-container {
@@ -7,7 +39,7 @@
 }
 
 .index-ws-search-filters-container {
-  margin: 2em;
+  margin: 1em 2em;
 }
 
 // SEARCH & FILTERS
@@ -82,6 +114,8 @@
 }
 
 
+
+
 // RESPONSIVE WORKSHOP INDEX //
 
 // Smallest device
@@ -96,11 +130,29 @@
     width: 100%;
   }
   .index-ws-cards-map-container {
-    padding: 0.8em;
+    display: block;
+    padding: 0.8em 0 2em 0;
     h1 {
       font-size: 1em;
       font-weight: 700;
     }
+  }
+  .index-ws-cards-map-container.fullmap {
+    padding: 0;
+    .index-ws-left-side {
+      display: none;
+    }
+  }
+  .index-ws-left-side {
+    padding: 1em;
+  }
+  .ws-map {
+    visibility: hidden;
+    position: absolute;
+  }
+  .ws-map.active {
+    visibility: visible;
+    position: sticky;
   }
   #index-ws-card-place-desktop {
     display: none;
@@ -110,21 +162,54 @@
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 765px) {
   .index-ws-cards {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 0.8em;
   }
   #index-ws-card-place-desktop {
     display: none;
+  }
+  .index-ws-cards-map-container {
+    padding-bottom: 2em;
+    display: block;
+  }
+  .index-ws-cards-map-container.fullmap {
+    padding: 0;
+    .index-ws-left-side {
+      display: none;
+    }
+  }
+  .index-ws-left-side {
+    padding: 1em;
+  }
+  .ws-map {
+    visibility: hidden;
+    position: absolute;
+  }
+  .ws-map.active {
+    visibility: visible;
+    position: sticky;
   }
 }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
   .index-ws-cards {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+  .index-ws-cards-map-container {
+    grid-template-columns: 1.5fr 1fr;
   }
   #index-ws-card-place-desktop {
     display: none;
+  }
+  #mapButton {
+    display: none;
+  }
+  #listButton {
+    display: none;
+  }
+  #map {
+    position: sticky;
   }
 }
 
@@ -133,14 +218,35 @@
   #index-ws-card-place-mobile {
     display: none;
   }
+  .index-ws-cards-map-container {
+    grid-template-columns: 1.75fr 1fr;
+  }
   .index-ws-cards {
     grid-template-columns: 1fr 1fr 1fr;
+  }
+  #mapButton {
+    display: none;
+  }
+  #listButton {
+    display: none;
+  }
+  #map {
+    position: sticky;
   }
 }
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
   #index-ws-card-place-mobile {
+    display: none;
+  }
+  #mapButton {
+    display: none;
+  }
+  #map {
+    position: sticky;
+  }
+  #listButton {
     display: none;
   }
 }
