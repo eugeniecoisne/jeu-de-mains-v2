@@ -1,0 +1,49 @@
+<div>
+  <div class="map-ws-popup">
+    <div class="map-ws-text-popup">
+      <div class="map-ws-name-rating">
+        <h2><%= place.name %></h2>
+        <div>
+          <i class="fas fa-star"></i>
+          <span id="ws-popup-rating">4,5</span>
+          <span id="ws-popup-end-rating">/5</span>
+          <span id="ws-popup-nb-reviews">(3 avis)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="map-ws-popup-workshops">
+    <% @workshops.each do |workshop| %>
+      <% if workshop.place == place %>
+        <%= link_to workshop_path(workshop) do %>
+
+          <div class="popup-workshop">
+            <div class="popup-workshop-left-side">
+              <div>
+                <div class="popup-workshop-title">
+                  <h3><%= workshop.title[0..22] %>...</h3>
+                </div>
+                <div class="popup-workshop-rating">
+                  <i class="fas fa-star"></i>
+                  <span>4,5</span>
+                  <span>/5</span>
+                  <span>(3 avis)</span>
+                </div>
+              </div>
+              <span class="popup-workshop-price"><%= workshop.price %> €</span>
+            </div>
+            <div class="popup-workshop-right-side">
+              <%= cl_image_tag workshop.photos[0].key, alt: "photo de l'atelier" %>
+            </div>
+          </div>
+
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="map-ws-popup-see-place">
+    <%= link_to place_path(place) do %>
+      Voir la page du lieu
+    <% end %>
+  </div>
+</div>
