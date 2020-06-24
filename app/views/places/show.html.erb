@@ -53,25 +53,27 @@
   <!-- MAIN FIGURES PROFILE -->
 
   <div class="public-profile-main-figures" style="background-image: url(<%= image_path "vague.svg" %>)">
-    <div class="public-profile-number-of-ws">
-      <span id="number"><%= @place.workshops.count %></span>
-      <span id="text">ateliers proposés</span>
-    </div>
-    <div class="public-profile-participants-nb">
-      <% participants_number = 0 %>
-      <% @place.workshops.each do |workshop| %>
-        <% workshop.sessions.each do |session| %>
-          <% session.bookings.each do |booking| %>
-            <% participants_number += booking.quantity %>
+    <div class="public-profile-main-figures-text">
+      <div class="public-profile-main-figure public-profile-number-of-ws">
+        <span id="number"><%= @place.workshops.count %></span>
+        <span id="text">ateliers proposés</span>
+      </div>
+      <div class="public-profile-main-figure public-profile-participants-nb">
+        <% participants_number = 0 %>
+        <% @place.workshops.each do |workshop| %>
+          <% workshop.sessions.each do |session| %>
+            <% session.bookings.each do |booking| %>
+              <% participants_number += booking.quantity %>
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
-      <span id="number"><%= participants_number %></span>
-      <span id="text">participants accueillis</span>
-    </div>
-    <div class="public-profile-member-since">
-      <span id="icon"><i class="fas fa-user-clock"></i></span>
-      <span id="text">membre depuis <%= @place.created_at.year %></span>
+        <span id="number"><%= participants_number %></span>
+        <span id="text">participants accueillis</span>
+      </div>
+      <div class="public-profile-main-figure public-profile-member-since">
+        <span id="icon"><i class="fas fa-user-clock"></i></span>
+        <span id="text">membre depuis <%= @place.created_at.year %></span>
+      </div>
     </div>
   </div>
 
@@ -112,7 +114,11 @@
               <div class="ws-card-infos">
                 <div>
                   <div class="ws-card-title">
-                    <h2><%= workshop.title %></h2>
+                    <% if workshop.title.size > 33 %>
+                      <h2><%= workshop.title[0..31] %>...</h2>
+                    <% else %>
+                      <h2><%= workshop.title %></h2>
+                    <% end %>
                   </div>
                   <% if workshop.animators.first %>
                     <div class="ws-card-place">
@@ -136,9 +142,32 @@
     </div>
 
     <div class="public-profile-reviews about-ws-reviews-box">
+
       <h2 class="public-profile-reviews-title profile-title">Avis sur nos ateliers</h2>
-      <div class="public-profile-reviews-cards">
-        <p>reviews</p>
+      <p>Note moyenne : <strong>4,5/5</strong> (4 avis)</p>
+      <div class= "reviews-cards">
+        <% @place.workshops.each do |workshop| %>
+          <% if workshop.reviews.present? %>
+            <% workshop.reviews.each do |review| %>
+              <div class="review-card">
+                <div class="review-card-stars">
+                  <% review.rating.times do %>
+                    <i class="fas fa-star"></i>
+                  <% end %>
+                  <% (5 - review.rating).times do %>
+                    <i class="far fa-star"></i>
+                  <% end %>
+                </div>
+                <div class="review-card-message">
+                  <p><%= review.content %></p>
+                </div>
+                <div class="review-card-author">
+                  <p><span><%= review.user.profile.first_name %></span>, le <%= review.created_at.strftime("%d/%m/%Y") %></p>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>

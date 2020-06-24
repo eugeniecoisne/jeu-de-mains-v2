@@ -10,7 +10,7 @@
       <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
         <div class="home-search-inputs-and-submit">
           <%= f.input :keyword, required: false, label: "Type d'atelier", prompt: "Tous types", collection: Workshop::THEMATICS %>
-          <%= f.input :place, required: false, label: "À", prompt: "Toutes les villes", collection: Place.cities.sort %>
+          <%= f.input :place, required: false, label: "Ville", prompt: "Toutes les villes", collection: Place.cities.sort %>
           <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date"}, placeholder: "À tout moment", label: "À partir du" %>
           <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
           <button type="submit" class="search-button">
