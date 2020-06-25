@@ -1,6 +1,6 @@
 <!-- PLACE SHOW -->
 
-<div class="place-show-container">
+<div class="place-show-container profile-container">
 
   <!-- BACK BUTTON -->
 
@@ -93,7 +93,7 @@
 
         <% @place.workshops.each do |workshop| %>
 
-          <div class="ws-card" id="index-ws-card">
+          <div class="ws-card" id="place-show-ws-card">
             <%= link_to(workshop, data: { turbolinks: false }) do  %>
               <div class="ws-card-image-and-rating">
                 <div class="ws-card-tags">
@@ -144,7 +144,7 @@
     <div class="public-profile-reviews about-ws-reviews-box">
 
       <h2 class="public-profile-reviews-title profile-title">Avis sur nos ateliers</h2>
-      <p>Note moyenne : <strong>4,5/5</strong> (4 avis)</p>
+      <p class="public-profile-reviews-subtitle">Note moyenne : <strong>4,5/5</strong> (4 avis)</p>
       <div class= "reviews-cards">
         <% @place.workshops.each do |workshop| %>
           <% if workshop.reviews.present? %>
