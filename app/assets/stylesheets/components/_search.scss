@@ -93,13 +93,43 @@
   }
   .home-search-inputs-and-submit {
     display: grid;
-    grid-template-columns: 1fr;
-  }
-  .home-search {
-    height: 19.5em;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 0.5em;
+    width: 100%;
+
+    .search_keyword {
+      grid-column: 1 / 3;
+      grid-row: 1 / 2;
+    }
+    .search_place {
+      grid-column: 1 / 3;
+      grid-row: 2 / 3;
+    }
     .search-button {
-      height: 2em;
+      grid-column: 1 / 3;
+      grid-row: 4 / 5;
+    }
+  }
+
+  .home-search {
+    height: 16.5em;
+    background-color: unset;
+    box-shadow: unset;
+    .simple_form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      label {
+        top: 2.2em;
+        left: 0.5em;
+      }
+    }
+    .search-button {
+      margin-top: 1em;
+      height: 2.5em;
       width: 100%;
+      background-color: $blue;
       .fa-search {
         font-size: 1.1em;
       }
@@ -113,8 +143,14 @@
     .datepicker_start_date {
       border: none;
     }
-
+    .form-control {
+      background-color: white;
+      border-radius: 5px;
+      padding: 0.9rem 0.5rem 0.1rem 0.5rem;
+      font-size: 0.8em;
+    }
   }
+
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -131,7 +167,7 @@
   .home-search {
     height: 12em;
     .search-button {
-      margin-top: 1em;
+      margin-top: 0.3em;
       height: 2em;
       width: 210%;
       .fa-search {
@@ -158,11 +194,17 @@
     margin-right: 2em;
   }
   .home-search {
+
     .form-control {
       font-size: 0.95em;
       cursor: pointer;
       border-radius: unset;
       background-color: transparent;
+    }
+    .simple_form {
+      label {
+        font-size: 0.9em;
+      }
     }
   }
 }

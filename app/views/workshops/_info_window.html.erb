@@ -20,8 +20,19 @@
           <div class="popup-workshop">
             <div class="popup-workshop-left-side">
               <div>
-                <div class="popup-workshop-title">
-                  <h3><%= workshop.title[0..22] %>...</h3>
+                <div class="popup-workshop-title popup-workshop-title-long">
+                  <% if workshop.title.size >= 28 %>
+                    <h3><%= workshop.title[0..26] %>...</h3>
+                  <% else %>
+                    <h3><%= workshop.title %></h3>
+                  <% end %>
+                </div>
+                <div class="popup-workshop-title popup-workshop-title-short">
+                  <% if workshop.title.size >= 24 %>
+                    <h3><%= workshop.title[0..22] %>...</h3>
+                  <% else %>
+                    <h3><%= workshop.title %></h3>
+                  <% end %>
                 </div>
                 <div class="popup-workshop-rating">
                   <i class="fas fa-star"></i>
@@ -33,7 +44,11 @@
               <span class="popup-workshop-price"><%= workshop.price %> €</span>
             </div>
             <div class="popup-workshop-right-side">
-              <%= cl_image_tag workshop.photos[0].key, alt: "photo de l'atelier" %>
+              <% if workshop.photos.attached? %>
+                <%= cl_image_tag workshop.photos[0].key, alt: "photo de l'atelier" %>
+              <% else %>
+                <%= image_tag "workshop-picture.jpg", alt: "photo de l'atelier" %>
+              <% end %>
             </div>
           </div>
 
