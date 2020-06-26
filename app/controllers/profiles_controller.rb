@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: %i(show edit update)
+  skip_before_action :authenticate_user!, only: %i(public)
+  before_action :set_profile, only: %i(show edit update dashboard)
 
   def index
     @profiles = policy_scope(Profile).where(role: 'animateur')
@@ -19,6 +20,14 @@ class ProfilesController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def dashboard
+  end
+
+  def public
+    @profile = Profile.find(params[:profile_id])
+    authorize @profile
   end
 
   private

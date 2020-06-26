@@ -177,6 +177,6 @@
 <p><br><br></p>
 <p>----------------------------------------------</p>
 <p>Ephémère : <%= @place.ephemeral %></p>
-<% if policy(@place).update? %>
+<% if current_user && policy(@place).update? %>
   <%= link_to 'Mettre à jour', edit_place_path(@place) %>
 <% end %>
