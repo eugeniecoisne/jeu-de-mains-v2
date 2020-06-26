@@ -15,6 +15,8 @@
     <!-- NAVBAR -->
     <% if controller.controller_name == 'pages' %>
       <%= render 'shared/navbar-homepage' %>
+    <% elsif controller.controller_name == 'workshops' && controller.action_name == 'index' %>
+      <%= render 'shared/navbar-ws-index' %>
     <% else %>
       <%= render 'shared/navbar-allpages' %>
     <% end %>
@@ -27,7 +29,12 @@
     <%= yield %>
 
     <!-- FOOTER -->
-    <%= render 'shared/footer' %>
+    <% if controller.controller_name == 'pages' %>
+      <%= render 'shared/footer' %>
+    <% elsif controller.controller_name == 'workshops' && controller.action_name == 'index' %>
+    <% else %>
+      <%= render 'shared/footer' %>
+    <% end %>
 
     <%= javascript_pack_tag 'application' %>
   </body>

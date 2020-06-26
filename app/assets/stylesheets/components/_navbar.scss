@@ -20,6 +20,10 @@
   background-color: $blue;
 }
 
+.navbar-jdm-ws-index {
+  background-color: $blue;
+}
+
 .navbar-brand-homepage img {
   width: 8em;
 }
@@ -36,7 +40,7 @@
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 1.1em;
+  font-size: 18px;
 }
 
 #menuButton {
@@ -67,7 +71,6 @@
   }
   #all-workshops {
     color: white;
-    font-size: 1.1em;
     border-bottom: 0.1em solid transparent;
   }
   #all-workshops:hover {
@@ -101,6 +104,11 @@
     .navbar-nav {
       padding-top: 0.1em;
     }
+  }
+  .navbar-jdm-ws-index {
+    position: fixed;
+    width: 100vw;
+    z-index: 2;
   }
 }
 

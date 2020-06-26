@@ -68,7 +68,7 @@
   width: auto;
   border: 0.03em $green solid;
   padding: 0.4em 1em;
-  font-size: 0.9em;
+  font-size: 14px;
   font-weight: 500;
   margin-right: 0.5em;
   margin-bottom: 0.5em;
@@ -96,7 +96,7 @@
 .index-ws-left-side {
   padding: 2em;
   h1 {
-    font-size: 1.2em;
+    font-size: 19px;
     color: $blue;
     margin-bottom: 1.5em;
     font-weight: 600;
@@ -122,23 +122,36 @@
 @media (min-width: 100px) and (max-width: 575px) {
   .index-ws-cards {
     grid-template-columns: 1fr 1fr;
+    grid-row-gap: 1.2em;
+    grid-column-gap: 1em;
   }
   .index-ws-search-filters-container {
-    margin: 1em;
+    padding: 0.7em 0.7em 0.3em 0.7em;
+    position: fixed;
+    z-index: 2;
+    background-color: white;
+    margin: 0;
+    margin-top: 4em;
+    width: 100vw;
   }
   .index-ws-search {
     width: 100%;
   }
   .index-ws-cards-map-container {
     display: block;
-    padding: 0.8em 0 2em 0;
+    padding: 13.7em 0 2em 0;
     h1 {
-      font-size: 1em;
-      font-weight: 700;
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 1em;
     }
   }
   .index-ws-cards-map-container.fullmap {
     padding: 0;
+    position: fixed;
+    height: 68vh;
+    width: 100vw;
+    bottom: 0;
     .index-ws-left-side {
       display: none;
     }
@@ -152,7 +165,6 @@
   }
   .ws-map.active {
     visibility: visible;
-    position: sticky;
   }
   #index-ws-card-place-desktop {
     display: none;

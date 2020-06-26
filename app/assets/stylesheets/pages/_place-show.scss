@@ -6,12 +6,16 @@
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
-
+  .place-show-container {
+    margin: 0 1em;
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 765px) {
-
+  .place-show-container {
+    margin: 0 1.5em;
+  }
 }
 
 // Medium devices (tablets, 768px and up)

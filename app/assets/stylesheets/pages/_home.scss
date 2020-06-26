@@ -11,7 +11,7 @@
 .home-steps-title {
   color: $blue;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 24px;
   font-weight: 600;
   margin-top: 5em;
 }
@@ -50,11 +50,11 @@
   }
   h3 {
     font-weight: 600;
-    font-size: 1.1em;
+    font-size: 18px;
     color: $orange;
   }
   p {
-    font-size: 0.9em;
+    font-size: 16px;
   }
 }
 
@@ -85,11 +85,13 @@
   justify-content: space-between;
   h2 {
     font-weight: 600;
-    font-size: 1.5em;
+    font-size: 24px;
   }
   h3 {
-    font-size: 0.9em;
-    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.3;
+    font-family: "Raleway", "sans-serif";
+    font-weight: 400;
     padding-bottom: 0.5em;
   }
   a {
@@ -132,14 +134,15 @@
   .home-ws-cards-title {
     color: $blue;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 24px;
     font-weight: 600;
     margin-top: 3.5em;
   }
   .home-ws-cards-subtitle {
-    font-weight: 500;
+    font-family: "Raleway", "sans-serif";
+    font-weight: 400;
     text-align: center;
-    font-size: 1em;
+    font-size: 16px;
     margin-bottom: 2em;
   }
 }
@@ -155,6 +158,8 @@
   margin-bottom: 3.5em;
 }
 
+
+
 // RESPONSIVE HOMEPAGE//
 
 // Smallest device
@@ -167,6 +172,11 @@
   }
   .home-steps-presentation-tablet {
     display: none;
+  }
+  .home-step-presentation {
+    p {
+      font-size: 15px;
+    }
   }
   .home-steps-title {
     margin-top: 2.5em;
@@ -183,16 +193,17 @@
     }
   }
   .home-selection-text {
-  margin-top: 0.7em;
-  height: auto;
+    margin-top: 1em;
+    height: auto;
     h2 {
-      font-size: 1.4em;
+      font-size: 24px;
     }
     h3 {
-      font-size: 0.9em;
+      font-size: 15px;
+      font-weight: 500;
     }
     a {
-      font-size: 1em;
+      font-size: 16px;
     }
   }
   #home-ws-card-place-desktop {
@@ -207,7 +218,9 @@
       margin-top: 2.5em;
     }
     .home-ws-cards-subtitle {
+      font-size: 15px;
       margin-bottom: 1.5em;
+      line-height: 1.3em;
     }
   }
 }
@@ -240,10 +253,10 @@
   .home-selection-text {
     margin-top: 0.7em;
     h2 {
-      font-size: 1.2em;
+      font-size: 20px;
     }
     h3 {
-      font-size: 0.8em;
+      font-size: 14px;
     }
   }
 }
@@ -272,11 +285,6 @@
   }
   .home-ws-cards {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-  .home-selection-text {
-    h3 {
-      font-size: 0.85em;
-    }
   }
 }
 

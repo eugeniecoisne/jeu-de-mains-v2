@@ -1,0 +1,21 @@
+<!-- NAVBAR WS INDEX -->
+
+<div class="navbar navbar-expand-sm navbar-light navbar-jdm navbar-jdm-ws-index">
+  <%= link_to root_path, class: "navbar-brand navbar-brand-other" do %>
+    <%= image_tag "logo-jdm-white.svg", alt: "logo jeu de mains" %>
+  <% end %>
+
+  <div class="navbar-buttons navbar-buttons-other">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <%= link_to "Tous les ateliers", workshops_path, class: "nav-link", id: "all-workshops" %>
+      </li>
+
+      <li class="nav-item">
+        <%= link_to "#", class: "nav-link", id: "menuButton" do %>
+          <%= image_tag "menu_white.svg", alt: "menu" %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>

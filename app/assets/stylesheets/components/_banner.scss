@@ -16,12 +16,12 @@
   h1 {
     color: $white;
     font-weight: 600;
-    font-size: 2em;
+    font-size: 32px;
     text-align: left;
   }
   h2 {
     color: $white;
-    font-size: 1.2em;
+    font-size: 20px;
     margin-bottom: 7em;
     font-weight: 500;
   }
@@ -43,7 +43,7 @@
     padding: 0 1.5em;
     width: 90%;
     h1 {
-      font-size: 1.4em;
+      font-size: 28px;
     }
     h2 {
       display: none;
@@ -55,17 +55,18 @@
 @media (min-width: 576px) and (max-width: 765px) {
   .homebanner {
     padding: 3em 0 0 0;
-    height: 34em;
+    height: 36em;
     justify-content: center;
   }
   .homebanner-title {
     width: 50%;
     margin-left: 2.5em;
     h1 {
-      font-size: 1.6em;
+      font-size: 28px;
     }
     h2 {
       margin-bottom: 2em;
+      font-size: 18px;
     }
   }
 }
@@ -81,9 +82,10 @@
     width: 40%;
     margin-left: 2.5em;
     h1 {
-      font-size: 1.8em;
+      font-size: 30px;
     }
     h2 {
+      font-size: 18px;
       margin-bottom: 4em;
     }
   }

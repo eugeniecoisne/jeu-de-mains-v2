@@ -48,16 +48,17 @@
   h3 {
     color: white;
     margin-bottom: 2em;
+    font-size: 19px;
   }
   .white-btn {
-    font-size: 1.4em;
+    font-size: 22px;
     border-width: 0.13em;
     margin-top: 1.5em;
   }
   #ws-booking-price {
     color: white;
     font-weight: 600;
-    font-size: 1.2em;
+    font-size: 19px;
   }
   span {
     color: white;
@@ -78,7 +79,7 @@
     color: $dark-blue;
     margin-bottom: 0;
     font-weight: 700;
-    font-size: 1.5em;
+    font-size: 24px;
   }
 }
 
@@ -148,7 +149,7 @@
     font-weight: 600;
     border-radius: 0.4em;
     font-family: 'Montserrat', 'sans-serif';
-    font-size: 80%;
+    font-size: 13px;
     margin-right: 0.4em;
     margin-bottom: 0.5em;
     text-transform: uppercase;
@@ -165,7 +166,7 @@
   h2 {
     color: $light-blue;
     text-transform: uppercase;
-    font-size: 1.3em;
+    font-size: 20px;
     font-weight: 600;
   }
   p {
@@ -275,12 +276,8 @@
   // information box
   .container-ws-show-infos {
     margin: 0em;
-    font-size: 84%;
     h1 {
-      font-size: 1.4em;
-    }
-    p {
-      font-weight: 500;
+      font-size: 19px;
     }
   }
   .ws-show-informations-title {
@@ -291,8 +288,8 @@
 
   // information about organizers
   .ws-show-informations-organizers {
-    font-size: 90%;
-    padding: 4em 0 0 0;
+    font-size: 14.3px;
+    padding: 3em 0 0 0;
     font-weight: 500;
     a {
       font-weight: 700;
@@ -300,16 +297,21 @@
   }
   .ws-show-informations-place {
     margin-top: -0.5em;
+    margin-bottom: 1em;
     img {
-      height: 5em;
+      height: 3em;
     }
     #ws-show-place {
       padding-top: 0;
+      padding-left: 1em;
     }
   }
   .ws-show-informations-animator {
     img {
-      height: 8em;
+      height: 6em;
+    }
+    span {
+      padding-right: 1em;
     }
   }
 
@@ -317,11 +319,17 @@
   .ws-show-informations-program-reviews {
     margin-right: 1.3em;
     margin-left: 1.3em;
+    p {
+      font-size: 15px;
+    }
   }
 
   // links to organizers
   .ws-show-link-to-organizers {
     grid-template-columns: 1fr;
+    a {
+      font-size: 15px;
+    }
   }
 
   // empty div for mobile only
@@ -336,13 +344,6 @@
 
   .container-ws-show-infos {
     margin: 0em;
-    font-size: 95%;
-    h1 {
-      font-size: 1.5em;
-    }
-  }
-  .ws-show-informations-organizers {
-    font-size: 100%;
   }
 }
 
@@ -351,15 +352,12 @@
   .container-ws-show-infos {
     margin-right: 1.5em;
     margin-left: 1.5em;
-    h1 {
-      font-size: 1.5em;
-    }
   }
   .ws-show-link-to-organizers {
     grid-template-columns: 1fr;
   }
   .ws-show-informations-organizers {
-    font-size: 90%;
+    // font-size: 90%;
   }
   .ws-show-informations-place {
     img {
@@ -381,13 +379,9 @@
     width: 33%;
     height: 25em;
     right: 1.5em;
-    h2 {
-      font-size: 1.2em;
-      margin-bottom: 1em;
-    }
     .white-btn {
-      font-size: 1.2em;
       margin-top: 1em;
+      font-size: 19px;
     }
     .ws-price {
       margin-top: 1.5em;
