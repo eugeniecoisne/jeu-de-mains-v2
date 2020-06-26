@@ -1,5 +1,5 @@
 class WorkshopsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i(index)
+  skip_before_action :authenticate_user!, only: %i(index show)
   before_action :set_workshop, only: %i(show edit update)
 
   def index

@@ -5,7 +5,7 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    user
   end
 
   def update?
@@ -14,6 +14,14 @@ class ProfilePolicy < ApplicationPolicy
 
   def edit?
     update?
+  end
+
+  def dashboard?
+    update?
+  end
+
+  def public?
+    true
   end
 
   class Scope < Scope

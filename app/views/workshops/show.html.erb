@@ -72,7 +72,7 @@
     </div>
     <div class="ws-show-informations-animator">
       <% if @animator.present? %>
-        <span>Animé par<br><%= link_to @animator.user.profile.company, profile_path(@animator.user) %></span>
+        <span>Animé par<br><%= link_to @animator.user.profile.company, profile_path(@animator.user.profile) %></span>
         <%= image_tag "making-white.svg", alt: "animateur" %>
       <% else %>
         <span>Animé par<br><%= link_to @workshop.place.user.profile.company, place_path(@workshop.place) %></span>
@@ -165,7 +165,7 @@
       <li>Capacité : <%= @workshop.capacity %></li>
     </ul>
 
-    <% if policy(@workshop).update? %>
+    <% if current_user && policy(@workshop).update? %>
       <%= link_to 'Mettre à jour', edit_workshop_path(@workshop) %>
       <%= link_to 'Ajouter une session', new_workshop_session_path(@workshop) %>
       <% if @animator.present? %>
