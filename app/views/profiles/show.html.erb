@@ -14,9 +14,9 @@
   <li>Description : <%= @profile.description %></li>
   <li>Photo :
     <% if @profile.photo.attached? %>
-      <%=cl_image_tag @profile.photo.key, alt: "photo de profil", height: 40, width: 40, crop: :fill %>
+      <%=cl_image_tag @profile.photo.key, alt: "photo de profil", width: 40, crop: :fill %>
     <% else %>
-      <%= image_tag "profile-picture.png", alt: "photo de profil", height: 40, width: 40 %>
+      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 40, :crop => :fill, :alt => "photo de profil") %>
     <% end %>
     </li>
 </ul>

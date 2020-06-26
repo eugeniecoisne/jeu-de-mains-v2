@@ -2,7 +2,7 @@
 
 <div id="sideMenu">
   <div>
-    <%= image_tag "noun_Cross.svg", id: "menuClose" %>
+    <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :crop => :fill, :alt => "fermer", :id => "menuClose") %>
     <ul class="list-group list-group-flush">
       <% if user_signed_in? %>
         <li class="list-group-item">
