@@ -8,18 +8,18 @@
         <% else %>
           <div class="ws-index-carousel-item carousel-item">
         <% end %>
-            <%= cl_image_tag photo.key, alt: "Photo-atelier" %>
+            <%= cl_image_tag photo.key, alt: "Photo-atelier", width: 250, crop: :fill %>
           </div>
       <% end %>
     <% else %>
       <div class="ws-index-carousel-item carousel-item active">
-        <%= image_tag "workshop-picture.jpg", alt: "Photo-atelier" %>
+        <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 250, :crop => :fill, :alt => "Photo-atelier") %>
       </div>
       <div class="ws-index-carousel-item carousel-item">
-        <%= image_tag "workshop-picture.jpg", alt: "Photo-atelier" %>
+        <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 250, :crop => :fill, :alt => "Photo-atelier") %>
       </div>
       <div class="ws-index-carousel-item carousel-item">
-        <%= image_tag "workshop-picture.jpg", alt: "Photo-atelier" %>
+        <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 250, :crop => :fill, :alt => "Photo-atelier") %>
       </div>
     <% end %>
   </div>

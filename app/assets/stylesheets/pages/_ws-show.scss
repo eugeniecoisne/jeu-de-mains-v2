@@ -232,7 +232,7 @@
     margin: 0;
     padding-left: 1em;
     position: absolute;
-    top: 5.5em;
+    top: 5em;
     text-shadow: 0px 2px 4px #00000080;
     z-index: 2;
     a {
@@ -243,6 +243,7 @@
   // booking
   .booking-mobile-button {
     display: block;
+    cursor: pointer;
   }
   .booking-mobile-button.inactive {
     display: none;
@@ -253,6 +254,7 @@
     position: absolute;
     right: 1.2em;
     top: 1.5em;
+    cursor: pointer;
 
   }
   .container-ws-show-booking.active {
@@ -299,7 +301,8 @@
     margin-top: -0.5em;
     margin-bottom: 1em;
     img {
-      height: 3em;
+      height: 70px;
+      width: 70px;
     }
     #ws-show-place {
       padding-top: 0;
@@ -308,7 +311,8 @@
   }
   .ws-show-informations-animator {
     img {
-      height: 6em;
+      width: 55px;
+      height: 80px;
     }
     span {
       padding-right: 1em;
@@ -345,6 +349,21 @@
   .container-ws-show-infos {
     margin: 0em;
   }
+  .ws-show-informations-place {
+    img {
+      height: 100px;
+      width: 110px;
+    }
+     #ws-show-place {
+      padding-top: 1em;
+    }
+  }
+  .ws-show-informations-animator {
+    img {
+      height: 110px;
+      width: 80px;
+    }
+  }
 }
 
 // Medium devices (tablets, 768px and up)
@@ -361,7 +380,8 @@
   }
   .ws-show-informations-place {
     img {
-      height: 6em;
+      height: 80px;
+      width: 95px;
     }
     #ws-show-place {
       padding-top: unset;
@@ -370,7 +390,8 @@
   }
   .ws-show-informations-animator {
     img {
-      height: 8em;
+      height: 110px;
+      width: 75px;
     }
   }
 

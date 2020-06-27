@@ -2,7 +2,7 @@
 
 <div class="navbar navbar-expand-sm navbar-light navbar-jdm navbar-jdm-home">
   <%= link_to root_path, class: "navbar-brand navbar-brand-homepage" do %>
-    <%= image_tag "logo-jdm-dark-blue.svg", alt: "logo jeu de mains" %>
+    <%= cl_image_tag("logo-jdm-dark-blue.svg", :width => 200, :crop => :fill, :alt => "logo jeu de mains") %>
   <% end %>
 
   <div class="navbar-buttons navbar-buttons-homepage">
@@ -13,7 +13,7 @@
 
       <li class="nav-item">
         <%= link_to "#", class: "nav-link", id: "menuButton" do %>
-          <%= image_tag "menu_blue.svg", alt: "menu" %>
+          <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593190527/menu_blue.svg", :width => 60, :crop => :fill, :alt => "menu") %>
         <% end %>
       </li>
     </ul>

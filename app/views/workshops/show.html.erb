@@ -9,7 +9,7 @@
   <!-- BOOKING-->
 
   <div class="container-ws-show-booking" id="bookingBox">
-    <%= image_tag "noun_Cross-white.svg", alt: "Exit", id: "bookingExit", class: "" %>
+    <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-white.svg", :width => 50, :crop => :fill, :alt => "fermer", :id => "bookingExit", :class => "") %>
     <h3>Réservez l’atelier<br>“<%= @workshop.title %>"</h3>
 
     <%= simple_form_for(@booking) do |f| %>
@@ -62,9 +62,9 @@
 
   <!-- WORKSHOP SHOW INFORMATIONS ORGANIZERS-->
 
-  <div class="ws-show-informations-organizers" style="background-image: url(<%= image_path "vague.svg" %>)">
+  <div class="ws-show-informations-organizers" style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/eugeniedenis/image/upload/v1593193954/wave.svg") %>)">
     <div class="ws-show-informations-place">
-      <%= image_tag "shop-white.svg", alt: "lieu" %>
+      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593192506/shop-white.svg", :width => 150, :crop => :fill, :alt => "lieu") %>
       <div id="ws-show-place">
         <span>Chez <%= link_to @workshop.place.user.profile.company, place_path(@workshop.place) %></span>
         <br><span><%= @workshop.place.address %><br><%= @workshop.place.zip_code %> <%= @workshop.place.city.capitalize %></span>
@@ -73,10 +73,10 @@
     <div class="ws-show-informations-animator">
       <% if @animator.present? %>
         <span>Animé par<br><%= link_to @animator.user.profile.company, profile_path(@animator.user.profile) %></span>
-        <%= image_tag "making-white.svg", alt: "animateur" %>
+        <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593192506/making-white.svg", :width => 110, :crop => :fill, :alt => "animateur") %>
       <% else %>
         <span>Animé par<br><%= link_to @workshop.place.user.profile.company, place_path(@workshop.place) %></span>
-        <%= image_tag "making-white.svg", alt: "animateur" %>
+        <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593192506/making-white.svg", :width => 110, :crop => :fill, :alt => "animateur") %>
       <% end %>
     </div>
   </div>
