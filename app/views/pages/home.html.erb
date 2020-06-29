@@ -144,6 +144,8 @@
                 </div>
                 <%= render "workshops/ws-index-carousel", workshop: workshop %>
               </div>
+            <% end %>
+            <%= link_to(workshop, data: { turbolinks: false }) do  %>
               <div class="ws-card-infos" id="home-ws-card-infos">
                 <div>
                   <div class="ws-card-place" id="home-ws-card-place-desktop">
@@ -207,6 +209,8 @@
                 </div>
                 <%= render "workshops/ws-index-carousel", workshop: workshop %>
               </div>
+            <% end %>
+            <%= link_to(workshop, data: { turbolinks: false }) do  %>
               <div class="ws-card-infos" id="home-ws-card-infos">
                 <div>
                   <div class="ws-card-place" id="home-ws-card-place-desktop">
