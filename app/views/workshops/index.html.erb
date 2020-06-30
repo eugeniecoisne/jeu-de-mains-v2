@@ -63,7 +63,8 @@
                   </div>
                   <%= render "ws-index-carousel", workshop: workshop %>
                 </div>
-
+              <% end %>
+              <%= link_to(workshop, data: { turbolinks: false }) do  %>
                 <div class="ws-card-infos" id="index-ws-card-infos">
                   <div>
                     <div class="ws-card-place" id="index-ws-card-place-desktop">

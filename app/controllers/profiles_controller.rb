@@ -28,6 +28,7 @@ class ProfilesController < ApplicationController
   def public
     @profile = Profile.find(params[:profile_id])
     authorize @profile
+    @workshops = policy_scope(Workshop).where(status: 'en ligne')
   end
 
   private

@@ -1,5 +1,186 @@
+
 <% if @profile.role == 'animateur' %>
 
-<% else %>
-  <p>Désolé, il n'existe pas de profile public.</p>
+  <!-- PROFILE PUBLIC SHOW -->
+
+  <div class="public-profile-container profile-container">
+
+    <!-- BACK BUTTON -->
+
+    <div class="back-button">
+      <%= link_to :back do %>
+        <i class="fas fa-chevron-left"></i>
+        <span>Retour</span>
+      <% end %>
+    </div>
+
+    <!-- HEADER PROFILE -->
+
+    <div class="public-profile-header">
+      <div class="public-profile-picture">
+        <% if @profile.photo.attached? %>
+          <%= cl_image_tag @profile.photo.key, width: 300, crop: :fill, alt: "photo du lieu" %>
+        <% else %>
+          <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 300, :crop => :fill, :alt => "photo du lieu") %>
+        <% end %>
+      </div>
+      <div class="public-profile-header-text">
+        <div class="public-profile-name">
+          <h1><%= @profile.company %></h1>
+        </div>
+        <div class="public-profile-address">
+          <i class="fas fa-map-marker-alt"></i>
+          <%= @profile.city.capitalize %>
+        </div>
+        <div class="public-profile-website">
+          <%= link_to @profile.website do %>
+            <i class="fas fa-globe"></i>
+            <%= @profile.website.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/(www.)/,'').sub(/\/$/,'') %>
+          <% end %>
+        </div>
+        <div class="public-profile-instagram">
+          <%= link_to @profile.instagram do %>
+            <i class="fab fa-instagram"></i>
+            <%= @profile.instagram.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/www.instagram.com\//,'').sub(/\/$/,'') %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN FIGURES PROFILE -->
+
+    <div class="public-profile-main-figures" style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/eugeniedenis/image/upload/v1593193954/wave.svg") %>)">
+      <div class="public-profile-main-figures-text">
+        <div class="public-profile-main-figure public-profile-number-of-ws">
+          <span id="number">
+            <% workshops_count = 0 %>
+            <% @profile.user.animators.each do |animator| %>
+              <% if @workshops.include?(animator.workshop) %>
+                <% workshops_count += 1 %>
+              <% end %>
+            <% end %>
+            <%= workshops_count %>
+          </span>
+          <span id="text">ateliers proposés</span>
+        </div>
+        <div class="public-profile-main-figure public-profile-participants-nb">
+          <% participants_number = 0 %>
+          <% @profile.user.animators.each do |animator| %>
+            <% animator.workshop.sessions.each do |session| %>
+              <% session.bookings.each do |booking| %>
+                <% participants_number += booking.quantity %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <span id="number"><%= participants_number %></span>
+          <span id="text">participants déjà coachés</span>
+        </div>
+        <div class="public-profile-main-figure public-profile-member-since">
+          <span id="icon"><i class="fas fa-user-clock"></i></span>
+          <span id="text">membre depuis <%= @profile.created_at.year %></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT / WS CARDS / REVIEWS -->
+
+    <div class="public-profile-about-ws-reviews">
+      <div class="public-profile-about about-ws-reviews-box">
+        <h2 class="public-profile-about-title profile-title">À propos</h2>
+        <div class="public-profile-about-text">
+          <p><%= @profile.description %></p>
+        </div>
+      </div>
+
+      <div class="public-profile-our-ws about-ws-reviews-box">
+        <h2 class="public-profile-our-ws-title profile-title">Mes ateliers</h2>
+        <div class="public-profile-our-ws-cards">
+
+          <% @profile.user.animators.each do |animator| %>
+            <% if animator.workshop.status == "en ligne" %>
+              <div class="ws-card" id="public-profile-ws-card">
+                <%= link_to(animator.workshop, data: { turbolinks: false }) do  %>
+                  <div class="ws-card-image-and-rating">
+                    <div class="ws-card-tags">
+                      <% if animator.workshop.rating %>
+                        <div class="ws-card-tag ws-card-rating">
+                          <i class="fas fa-star"></i><span><%= animator.workshop.rating %></span>
+                        </div>
+                      <% end %>
+                      <% if animator.workshop.place.ephemeral == true %>
+                        <div class="ws-card-tag ws-card-ephemeral">
+                          <span>éphémère</span>
+                        </div>
+                      <% end %>
+                    </div>
+                    <%= render "workshops/ws-index-carousel", workshop: animator.workshop %>
+                  </div>
+                <% end %>
+                <%= link_to(animator.workshop, data: { turbolinks: false }) do  %>
+                  <div class="ws-card-infos">
+                    <div>
+                      <div class="ws-card-place">
+                        <h3><%= animator.workshop.place.name %></h3>
+                      </div>
+                      <div class="ws-card-title">
+                        <% if animator.workshop.title.size > 33 %>
+                          <h2><%= animator.workshop.title[0..31] %>...</h2>
+                        <% else %>
+                          <h2><%= animator.workshop.title %></h2>
+                        <% end %>
+                      </div>
+                    </div>
+                    <div class="ws-card-price-and-city" id="index-ws-card-price-and-city">
+                      <div class="ws-card-price" id="index-ws-card-price">
+                        <%= animator.workshop.price %> €
+                      </div>
+                      <div class="ws-card-city" id="index-ws-card-city">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <% if animator.workshop.place.city.size >= 11 %>
+                          <span id="city-name"><%= animator.workshop.place.city[0..11].capitalize %>...</span>
+                        <% else %>
+                          <span id="city-name"><%= animator.workshop.place.city.capitalize %></span>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="public-profile-reviews about-ws-reviews-box">
+
+        <h2 class="public-profile-reviews-title profile-title">Avis sur mes ateliers</h2>
+        <p class="public-profile-reviews-subtitle">Note moyenne : <strong>4,5/5</strong> (4 avis)</p>
+        <div class= "reviews-cards">
+          <% @profile.user.animators.each do |animator| %>
+            <% if animator.workshop.reviews.present? %>
+              <% animator.workshop.reviews.each do |review| %>
+                <div class="review-card">
+                  <div class="review-card-stars">
+                    <% review.rating.times do %>
+                      <i class="fas fa-star"></i>
+                    <% end %>
+                    <% (5 - review.rating).times do %>
+                      <i class="far fa-star"></i>
+                    <% end %>
+                  </div>
+                  <div class="review-card-message">
+                    <p><%= review.content %></p>
+                  </div>
+                  <div class="review-card-author">
+                    <p><span><%= review.user.profile.first_name %></span>, le <%= review.created_at.strftime("%d/%m/%Y") %></p>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <% end %>

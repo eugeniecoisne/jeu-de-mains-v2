@@ -72,7 +72,7 @@
     </div>
     <div class="ws-show-informations-animator">
       <% if @animator.present? %>
-        <span>Animé par<br><%= link_to @animator.user.profile.company, profile_path(@animator.user.profile) %></span>
+        <span>Animé par<br><%= link_to @animator.user.profile.company, profile_public_path(@animator.user.profile) %></span>
         <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593192506/making-white.svg", :width => 110, :crop => :fill, :alt => "animateur") %>
       <% else %>
         <span>Animé par<br><%= link_to @workshop.place.user.profile.company, place_path(@workshop.place) %></span>
