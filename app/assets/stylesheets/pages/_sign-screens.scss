@@ -1,0 +1,144 @@
+// ALL SIGN DEVISE SCREENS
+
+.sign-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.sign-title {
+  color: $blue;
+  margin-bottom: 1em;
+}
+
+.sign-form {
+  margin: 6em;
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+  }
+  input {
+    filter: none;
+    font-size: 15px;
+  }
+  label {
+    font-weight: 600;
+    color: $blue;
+  }
+  .form-check-label {
+    font-weight: 400;
+    color: $dark-gray;
+    font-size: 15px;
+  }
+  .btn {
+    padding: 0.3em 1.2em;
+    color: white;
+    background-color: $orange;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    opacity: 80%;
+  }
+  .btn:hover {
+    opacity: 100%
+  }
+  .btn:focus {
+    opacity: 100%
+  }
+}
+
+#form-inputs-sign-up {
+  margin-bottom: 2em;
+}
+
+.sign-links {
+  margin-top: 1.5em;
+}
+
+#forgot-password-link {
+  border-top: 1px solid #CED4DA;
+  padding-top: 2em;
+  a {
+    color: $dark-gray;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  a:hover {
+    font-weight: 500;
+  }
+}
+
+#sign-link {
+  span {
+    font-size: 15px;
+  }
+  a {
+    text-decoration: none;
+    font-weight: 600;
+    color: $blue;
+    font-size: 15px;
+  }
+  a:hover {
+    color: $dark-blue;
+    font-weight: 700;
+  }
+
+}
+
+.sign-picture {
+  height: 90vh;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+
+// RESPONSIVE SIGN SCREENS //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .sign-container {
+    grid-template-columns: 1fr;
+    margin-bottom: 4em;
+  }
+  .sign-form {
+    margin: 2em;
+  }
+  .sign-picture {
+    display: none;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 765px) {
+  .sign-container {
+    grid-template-columns: 1.5fr 1fr;
+  }
+  .sign-form {
+    margin: 2.5em;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+  .sign-container {
+    grid-template-columns: 1fr 1fr;
+  }
+  .sign-form {
+    margin: 4em;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
+

@@ -1,25 +1,42 @@
-<h2><%= t(".sign_up") %></h2>
+<!-- SIGN UP -->
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+<div class="sign-container">
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true ,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
-                hint: (t('devise.shared.minimum_password_length', count: @minimum_password_length) if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
+  <div class="sign-form">
+
+    <h2 class="sign-title">Bienvenue !</h2>
+
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs" id="form-inputs-sign-up">
+          <%= f.input :email,
+                      required: true,
+                      autofocus: true,
+                      label: "E-mail",
+                      input_html: { autocomplete: "email" }%>
+          <%= f.input :password,
+                      required: true,
+                      hint: (t('devise.shared.minimum_password_length', count: @minimum_password_length) if @minimum_password_length),
+                      input_html: { autocomplete: "new-password" } %>
+          <%= f.input :password_confirmation,
+                      required: true,
+                      input_html: { autocomplete: "new-password" } %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, "S'inscrire" %>
+        </div>
+      <% end %>
+
+    <div class='sign-links'>
+      <%= render "devise/shared/links" %>
+    </div>
+
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, t(".sign_up") %>
+  <div class="sign-picture">
+    <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593629305/making-blue.svg", :width => 1000, :crop => :fill) %>
   </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+</div>

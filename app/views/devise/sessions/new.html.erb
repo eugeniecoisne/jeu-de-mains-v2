@@ -1,20 +1,37 @@
-<h2><%= t(".sign_in") %></h2>
+<!-- SIGN IN -->
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+<div class="sign-container">
+
+  <div class="sign-form">
+
+    <h2 class="sign-title">Ravis de vous revoir !</h2>
+
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-inputs">
+        <%= f.input :email,
+                    required: false,
+                    autofocus: true,
+                    label: "E-mail",
+                    input_html: { autocomplete: "email" } %>
+        <%= f.input :password,
+                    required: false,
+                    input_html: { autocomplete: "current-password" } %>
+        <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Se connecter" %>
+      </div>
+    <% end %>
+
+    <div class='sign-links'>
+      <%= render "devise/shared/links" %>
+    </div>
+
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, t(".sign_in") %>
+  <div class="sign-picture">
+    <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593629305/making-blue.svg", :width => 1000, :crop => :fill) %>
   </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+</div>
