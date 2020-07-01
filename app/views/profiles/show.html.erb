@@ -1,41 +1,212 @@
-<h2>views/profiles/show</h2>
+<!-- PROFILE SHOW - MY ACCOUNT -->
 
-<h3>Profile de <%= @profile.last_name %> <%= @profile.first_name %></h3>
+<div class="dashboard-title-container">
+  <h1>
+    Hello <span>
+      <% if @profile.company %>
+        <%= @profile.company %>
+      <% else %>
+        <%= @profile.first_name %>
+      <% end %>
+      </span>,<br>bienvenue sur votre compte !
+  </h1>
+</div>
 
-<ul>
-  <li>Nom : <%= @profile.last_name %></li>
-  <li>Prénom : <%= @profile.first_name %></li>
-  <li>Adresse : <%= "#{@profile.address}, #{@profile.zip_code} #{@profile.city}" %></li>
-  <li>Téléphone : <%= @profile.phone_number %></li>
-  <li>Société : <%= @profile.company %></li>
-  <li>SIRET : <%= @profile.siret_number %></li>
-  <li>Site internet : <%= @profile.website %></li>
-  <li>Instagram : <%= @profile.instagram %></li>
-  <li>Description : <%= @profile.description %></li>
-  <li>Photo :
-    <% if @profile.photo.attached? %>
-      <%=cl_image_tag @profile.photo.key, alt: "photo de profil", width: 40, crop: :fill %>
-    <% else %>
-      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 40, :crop => :fill, :alt => "photo de profil") %>
-    <% end %>
-    </li>
-</ul>
+<div class="dashboard-container">
+  <div class="dashboard-nav-and-tab">
 
-<% if policy(@profile).update? %>
-  <%= link_to 'Mettre à jour', edit_profile_path(@profile) %>
-  <h2>Vos réservations</h2>
+    <!-- NAV PILLS DESKTOP & TABLET -->
 
-  <ul>
-    <% @profile.user.bookings.each do |booking| %>
-      <li>
-        <%= "Booking n°#{booking.id}" %> -
-        <% if booking.reviews.present? %>
-          Commentaire posté !
-        <% else %>
-          <%= link_to 'Ecrire un commentaire', new_booking_review_path(booking) %>
+    <div class="dashboard-nav-desktop-tablet">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-my-informations-tab" data-toggle="pill" href="#v-pills-informations" role="tab" aria-controls="v-pills-informations" aria-selected="false">
+          <i class="fas fa-user"></i>
+          <% if @profile.company %>
+            Données personnelles
+          <% else %>
+            Mes informations
+          <% end %>
+        </a>
+        <% if @profile.company %>
+          <a class="nav-link" id="v-pills-my-company-tab" data-toggle="pill" href="#v-pills-company" role="tab" aria-controls="v-pills-company" aria-selected="false">
+            <i class="fas fa-building"></i>
+            Données société
+          </a>
         <% end %>
-      </li>
+      </div>
+    </div>
+
+    <% if @profile.company %>
+
+      <div class="dashboard-nav-mobile">
+        <div class="nav nav-pills" id="pills-tab" role="tablist">
+          <a class="nav-link active" id="v-pills-my-informations-tab" data-toggle="pill" href="#v-pills-informations" role="tab" aria-controls="v-pills-informations" aria-selected="false">
+            Données perso
+          </a>
+          <a class="nav-link" id="v-pills-my-company-tab" data-toggle="pill" href="#v-pills-company" role="tab" aria-controls="v-pills-company" aria-selected="false">
+            Données société
+          </a>
+        </div>
+      </div>
     <% end %>
-  </ul>
-<% end %>
+
+    <div class="dashboard-tabs">
+      <div class="tab-content" id="v-pills-tabContent">
+
+        <!-- MY PRIVATE INFORMATIONS WINDOW -->
+
+        <div class="tab-pane fade show active" id="v-pills-informations" role="tabpanel" aria-labelledby="v-pills-my-informations-tab">
+          <ul class="list-group my-informations">
+            <li class="list-group-item my-informations-item" id="first-item">
+              <div class="my-informations-text">
+                <span><strong>Nom</strong></span>
+                <span><%= @profile.last_name %></span>
+              </div>
+              <a href="#firstNameModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+              <%= render 'update_profile_modal', profile: @profile %>
+            </li>
+            <li class="list-group-item my-informations-item">
+              <div class="my-informations-text">
+                <span><strong>Prénom</strong></span>
+                <span><%= @profile.first_name %></span>
+              </div>
+              <a href="#firstNameModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+              <%= render 'update_profile_modal', profile: @profile %>
+            </li>
+            <% if @profile.company.nil? %>
+              <li class="list-group-item my-informations-item">
+                <div class="my-informations-text">
+                  <span><strong>Numéro de portable</strong></span>
+                  <% if @profile.phone_number %>
+                    <span><%= @profile.phone_number %></span>
+                  <% else %>
+                    <span>Non renseigné</span>
+                  <% end %>
+                </div>
+                <a href="#phoneNumberModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+                <%= render 'update_profile_modal', profile: @profile %>
+              </li>
+            <% end %>
+            <li class="list-group-item my-informations-item">
+              <div class="my-informations-text">
+                <span><strong>Adresse e-mail</strong></span>
+                <span><%= @profile.user.email %></span>
+              </div>
+              <a href="#" class="my-informations-button">Modifier</a>
+            </li>
+            <li class="list-group-item my-informations-item">
+              <div class="my-informations-text">
+                <span><strong>Mot de passe</strong></span>
+                <span>***********</span>
+              </div>
+              <a href="#" class="my-informations-button">Modifier</a>
+            </li>
+            <li class="list-group-item my-informations-item" id="last-my-informations-item">
+              <div class="my-informations-text">
+                <span><strong>Photo de profil</strong></span>
+                <% if @profile.photo.attached? %>
+                  <%=cl_image_tag @profile.photo.key, alt: "photo de profil", width: 100, height: 100, crop: :fill %>
+                <% else %>
+                  <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 100, :height => 100, :crop => :fill, :alt => "photo de profil") %>
+                <% end %>
+              </div>
+              <a href="#profilePictureModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+              <%= render 'update_profile_modal', profile: @profile %>
+            </li>
+          </ul>
+        </div>
+
+
+        <!-- MY COMPANY INFORMATIONS WINDOW -->
+
+        <% if @profile.company %>
+
+          <div class="tab-pane fade" id="v-pills-company" role="tabpanel" aria-labelledby="v-pills-my-company-tab">
+            <ul class="list-group my-informations">
+              <li class="list-group-item my-informations-item" id="first-item">
+                <div class="my-informations-text">
+                  <span><strong>Nom de la société</strong></span>
+                  <span><%= @profile.company %></span>
+                </div>
+              </li>
+              <li class="list-group-item my-informations-item">
+                <div class="my-informations-text">
+                  <span><strong>SIRET</strong></span>
+                  <span><%= @profile.siret_number %></span>
+                </div>
+              </li>
+              <li class="list-group-item my-informations-item">
+                <div class="my-informations-text">
+                  <span><strong>Adresse</strong></span>
+                  <% if @profile.address || @profile.city %>
+                    <% if @profile.address %>
+                      <span><%= @profile.address %>, <%= @profile.zip_code %> <%= @profile.city.capitalize %></span>
+                    <% else %>
+                      <span><%= @profile.city.capitalize %></span>
+                    <% end %>
+                  <% else %>
+                    <span>Non renseignée</span>
+                  <% end %>
+                </div>
+                <a href="#companyAddressModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+                <%= render 'update_company_modal', profile: @profile %>
+              </li>
+              <li class="list-group-item my-informations-item">
+                <div class="my-informations-text">
+                  <span><strong>Numéro de téléphone</strong></span>
+                  <% if @profile.phone_number %>
+                    <span><%= @profile.phone_number %></span>
+                  <% else %>
+                    <span>Non renseigné</span>
+                  <% end %>
+                </div>
+                <a href="#companyPhoneNumberModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+                <%= render 'update_company_modal', profile: @profile %>
+              </li>
+              <li class="list-group-item my-informations-item">
+                <div class="my-informations-text">
+                  <span><strong>Site internet</strong></span>
+                  <% if @profile.website %>
+                    <span><%= @profile.website.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/(www.)/,'').sub(/\/$/,'') %></span>
+                  <% else %>
+                    <span>Non renseigné</span>
+                  <% end %>
+                </div>
+                <a href="#websiteModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+                <%= render 'update_company_modal', profile: @profile %>
+              </li>
+              <li class="list-group-item my-informations-item">
+                <div class="my-informations-text">
+                  <span><strong>Compte instagram</strong></span>
+                  <% if @profile.instagram %>
+                    <span><%= @profile.instagram.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/www.instagram.com\//,'').sub(/\/$/,'') %></span>
+                  <% else %>
+                    <span>Non renseigné</span>
+                  <% end %>
+                </div>
+                <a href="#instagramModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+                <%= render 'update_company_modal', profile: @profile %>
+              </li>
+              <li class="list-group-item my-informations-item" id="last-my-informations-item">
+                <div class="my-informations-text">
+                  <span><strong>Description</strong></span>
+                  <% if @profile.description %>
+                    <span><%= @profile.description %></span>
+                  <% else %>
+                    <span>Non renseignée</span>
+                  <% end %>
+                </div>
+                <a href="#descriptionModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+                <%= render 'update_company_modal', profile: @profile %>
+              </li>
+
+            </ul>
+          </div>
+        <% end %>
+
+
+      </div>
+    </div>
+  </div>
+</div>
 
