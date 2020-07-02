@@ -15,6 +15,7 @@
 }
 
 .home-steps-carousel-indicators {
+  z-index: 3;
   li {
     width: 10px;
     height: 10px;
@@ -58,7 +59,7 @@
 }
 
 // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) and (max-width: 765px) {
+@media (min-width: 576px) and (max-width: 767px) {
   .ws-show-carousel-item {
     img {
       height: 25em;

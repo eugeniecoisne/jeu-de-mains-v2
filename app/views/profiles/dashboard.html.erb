@@ -1,0 +1,7 @@
+<% if @profile.role == 'animateur' %>
+  animateur
+<% elsif @profile.role == 'organisateur' %>
+  organisateur
+<% else %>
+  <%= render 'dashboard_mybookings', profile: @profile %>
+<% end %>

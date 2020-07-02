@@ -138,7 +138,7 @@
 }
 
 // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) and (max-width: 765px) {
+@media (min-width: 576px) and (max-width: 767px) {
   .mapboxgl-popup {
     transform: translate(10vw, 5vh) !important;
     max-width: 600px !important;

@@ -1,0 +1,110 @@
+// CSS SHOW PROFILE
+
+// MY INFORMATIONS
+
+.my-informations {
+  #first-item {
+    border-top: unset;
+  }
+  .my-informations-text {
+    display: flex;
+    flex-direction: column;
+    color: $dark-gray;
+    img {
+      padding: 0.5em 0;
+      object-fit: cover;
+    }
+  }
+  .my-informations-text:hover {
+    color: $dark-gray;
+  }
+  .my-informations-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-right: unset;
+    border-left: unset;
+    padding: 0.7em 0;
+  }
+  .my-informations-button {
+    padding: 0.2em 0.6em;
+    color: $light-blue;
+    font-weight: 600;
+    font-family: 'Montserrat';
+    text-decoration: none;
+    background: unset;
+    border: unset;
+  }
+  .my-informations-button:hover {
+    color: $blue;
+  }
+  #last-my-informations-item {
+    border-bottom: unset;
+  }
+}
+
+// MODAL
+
+.profile-update-modal {
+  .modal-body {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+  #modal-body-description {
+    height: 400px;
+  }
+  button {
+    position: absolute;
+    top: 0.6em;
+    right: 0.6em;
+  }
+  .form-group {
+    margin-bottom: 0;
+  }
+  .button {
+    border: 1px solid $blue;
+    padding: 0.375rem 0.75rem;
+    margin-left: 1em;
+
+  }
+}
+
+
+
+
+// RESPONSIVE PROFILE SHOW //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .my-informations-text {
+    font-size: 14px;
+  }
+  .my-informations-button {
+    font-size: 14px;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
+
+
