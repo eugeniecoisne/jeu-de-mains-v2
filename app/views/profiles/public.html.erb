@@ -28,22 +28,28 @@
         <div class="public-profile-name">
           <h1><%= @profile.company %></h1>
         </div>
-        <div class="public-profile-address">
-          <i class="fas fa-map-marker-alt"></i>
-          <%= @profile.city.capitalize %>
-        </div>
-        <div class="public-profile-website">
-          <%= link_to @profile.website do %>
-            <i class="fas fa-globe"></i>
-            <%= @profile.website.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/(www.)/,'').sub(/\/$/,'') %>
-          <% end %>
-        </div>
-        <div class="public-profile-instagram">
-          <%= link_to @profile.instagram do %>
-            <i class="fab fa-instagram"></i>
-            <%= @profile.instagram.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/www.instagram.com\//,'').sub(/\/$/,'') %>
-          <% end %>
-        </div>
+        <% if @profile.city %>
+          <div class="public-profile-address">
+            <i class="fas fa-map-marker-alt"></i>
+            <%= @profile.city.capitalize %>
+          </div>
+        <% end %>
+        <% if @profile.website %>
+          <div class="public-profile-website">
+            <%= link_to @profile.website do %>
+              <i class="fas fa-globe"></i>
+              <%= @profile.website.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/(www.)/,'').sub(/\/$/,'') %>
+            <% end %>
+          </div>
+        <% end %>
+        <% if @profile.instagram %>
+          <div class="public-profile-instagram">
+            <%= link_to @profile.instagram do %>
+              <i class="fab fa-instagram"></i>
+              <%= @profile.instagram.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/www.instagram.com\//,'').sub(/\/$/,'') %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
 
@@ -61,7 +67,11 @@
             <% end %>
             <%= workshops_count %>
           </span>
-          <span id="text">ateliers proposés</span>
+          <% if workshops_count > 1 %>
+            <span id="text">ateliers proposés</span>
+          <% else %>
+            <span id="text">atelier proposé</span>
+          <% end %>
         </div>
         <div class="public-profile-main-figure public-profile-participants-nb">
           <% participants_number = 0 %>
@@ -73,7 +83,11 @@
             <% end %>
           <% end %>
           <span id="number"><%= participants_number %></span>
-          <span id="text">participants déjà coachés</span>
+          <% if participants_number > 1 %>
+            <span id="text">participants déjà coachés</span>
+          <% else %>
+            <span id="text">participant déjà coaché</span>
+          <% end %>
         </div>
         <div class="public-profile-main-figure public-profile-member-since">
           <span id="icon"><i class="fas fa-user-clock"></i></span>
@@ -94,91 +108,112 @@
 
       <div class="public-profile-our-ws about-ws-reviews-box">
         <h2 class="public-profile-our-ws-title profile-title">Mes ateliers</h2>
-        <div class="public-profile-our-ws-cards">
+        <% if workshops_count > 0 %>
+          <div class="public-profile-our-ws-cards">
 
-          <% @profile.user.animators.each do |animator| %>
-            <% if animator.workshop.status == "en ligne" %>
-              <div class="ws-card" id="public-profile-ws-card">
-                <%= link_to(animator.workshop, data: { turbolinks: false }) do  %>
-                  <div class="ws-card-image-and-rating">
-                    <div class="ws-card-tags">
-                      <% if animator.workshop.rating %>
-                        <div class="ws-card-tag ws-card-rating">
-                          <i class="fas fa-star"></i><span><%= animator.workshop.rating %></span>
-                        </div>
-                      <% end %>
-                      <% if animator.workshop.place.ephemeral == true %>
-                        <div class="ws-card-tag ws-card-ephemeral">
-                          <span>éphémère</span>
-                        </div>
-                      <% end %>
-                    </div>
-                    <%= render "workshops/ws-index-carousel", workshop: animator.workshop %>
-                  </div>
-                <% end %>
-                <%= link_to(animator.workshop, data: { turbolinks: false }) do  %>
-                  <div class="ws-card-infos">
-                    <div>
-                      <div class="ws-card-place">
-                        <h3><%= animator.workshop.place.name %></h3>
-                      </div>
-                      <div class="ws-card-title">
-                        <% if animator.workshop.title.size > 33 %>
-                          <h2><%= animator.workshop.title[0..31] %>...</h2>
-                        <% else %>
-                          <h2><%= animator.workshop.title %></h2>
+            <% @profile.user.animators.each do |animator| %>
+              <% if animator.workshop.status == "en ligne" %>
+                <div class="ws-card" id="public-profile-ws-card">
+                  <%= link_to(animator.workshop, data: { turbolinks: false }) do  %>
+                    <div class="ws-card-image-and-rating">
+                      <div class="ws-card-tags">
+                        <% if animator.workshop.rating %>
+                          <div class="ws-card-tag ws-card-rating">
+                            <i class="fas fa-star"></i><span><%= animator.workshop.rating %></span>
+                          </div>
+                        <% end %>
+                        <% if animator.workshop.place.ephemeral == true %>
+                          <div class="ws-card-tag ws-card-ephemeral">
+                            <span>éphémère</span>
+                          </div>
                         <% end %>
                       </div>
+                      <%= render "workshops/ws-index-carousel", workshop: animator.workshop %>
                     </div>
-                    <div class="ws-card-price-and-city" id="index-ws-card-price-and-city">
-                      <div class="ws-card-price" id="index-ws-card-price">
-                        <%= animator.workshop.price %> €
+                  <% end %>
+                  <%= link_to(animator.workshop, data: { turbolinks: false }) do  %>
+                    <div class="ws-card-infos">
+                      <div>
+                        <div class="ws-card-place">
+                          <h3><%= animator.workshop.place.name %></h3>
+                        </div>
+                        <div class="ws-card-title">
+                          <% if animator.workshop.title.size > 33 %>
+                            <h2><%= animator.workshop.title[0..31] %>...</h2>
+                          <% else %>
+                            <h2><%= animator.workshop.title %></h2>
+                          <% end %>
+                        </div>
                       </div>
-                      <div class="ws-card-city" id="index-ws-card-city">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <% if animator.workshop.place.city.size >= 11 %>
-                          <span id="city-name"><%= animator.workshop.place.city[0..11].capitalize %>...</span>
-                        <% else %>
-                          <span id="city-name"><%= animator.workshop.place.city.capitalize %></span>
-                        <% end %>
+                      <div class="ws-card-price-and-city" id="index-ws-card-price-and-city">
+                        <div class="ws-card-price" id="index-ws-card-price">
+                          <%= animator.workshop.price %> €
+                        </div>
+                        <div class="ws-card-city" id="index-ws-card-city">
+                          <i class="fas fa-map-marker-alt"></i>
+                          <% if animator.workshop.place.city.size >= 11 %>
+                            <span id="city-name"><%= animator.workshop.place.city[0..11].capitalize %>...</span>
+                          <% else %>
+                            <span id="city-name"><%= animator.workshop.place.city.capitalize %></span>
+                          <% end %>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                <% end %>
-              </div>
+                  <% end %>
+                </div>
+              <% end %>
             <% end %>
-          <% end %>
-        </div>
+          </div>
+        <% else %>
+          <p><%= @profile.company %> n'a pas d'atelier en ligne.</p>
+        <% end %>
+
       </div>
 
       <div class="public-profile-reviews about-ws-reviews-box">
 
         <h2 class="public-profile-reviews-title profile-title">Avis sur mes ateliers</h2>
-        <p class="public-profile-reviews-subtitle">Note moyenne : <strong>4,5/5</strong> (4 avis)</p>
-        <div class= "reviews-cards">
-          <% @profile.user.animators.each do |animator| %>
-            <% if animator.workshop.reviews.present? %>
-              <% animator.workshop.reviews.each do |review| %>
-                <div class="review-card">
-                  <div class="review-card-stars">
-                    <% review.rating.times do %>
-                      <i class="fas fa-star"></i>
-                    <% end %>
-                    <% (5 - review.rating).times do %>
-                      <i class="far fa-star"></i>
-                    <% end %>
-                  </div>
-                  <div class="review-card-message">
-                    <p><%= review.content %></p>
-                  </div>
-                  <div class="review-card-author">
-                    <p><span><%= review.user.profile.first_name %></span>, le <%= review.created_at.strftime("%d/%m/%Y") %></p>
-                  </div>
-                </div>
-              <% end %>
+        <% reviews_count = 0 %>
+        <% reviews_total_rating = 0 %>
+        <% @profile.user.animators.each do |animator| %>
+          <% if animator.workshop.reviews.present? %>
+            <% animator.workshop.reviews.each do |review| %>
+              <% reviews_count += 1 %>
+              <% reviews_total_rating += review.rating %>
             <% end %>
           <% end %>
-        </div>
+        <% end %>
+        <% reviews_average_rating = reviews_total_rating.fdiv(reviews_count).round(2) %>
+
+        <% if reviews_count > 0 %>
+          <p class="public-profile-reviews-subtitle">Note moyenne : <strong><%= reviews_average_rating %>/5</strong> (<%= reviews_count %> avis)</p>
+          <div class= "reviews-cards">
+            <% @profile.user.animators.each do |animator| %>
+              <% if animator.workshop.reviews.present? %>
+                <% animator.workshop.reviews.each do |review| %>
+                  <div class="review-card">
+                    <div class="review-card-stars">
+                      <% review.rating.times do %>
+                        <i class="fas fa-star"></i>
+                      <% end %>
+                      <% (5 - review.rating).times do %>
+                        <i class="far fa-star"></i>
+                      <% end %>
+                    </div>
+                    <div class="review-card-message">
+                      <p><%= review.content %></p>
+                    </div>
+                    <div class="review-card-author">
+                      <p><span><%= review.user.profile.first_name %></span>, le <%= review.created_at.strftime("%d/%m/%Y") %></p>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        <% else %>
+          <p><%= @profile.company %> n'a pas encore d'avis.</p>
+        <% end %>
       </div>
     </div>
   </div>

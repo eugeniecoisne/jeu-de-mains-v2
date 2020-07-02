@@ -1,0 +1,156 @@
+// CSS DASHBOARD & MY ACCOUNT
+
+
+// CONTAINERS
+
+.dashboard-title-container {
+  padding: 1.5em 2em;
+  background-color: $light-gray;
+  h1 {
+    font-size: 17px;
+    font-weight: 500;
+    color: $dark-blue;
+    text-align: center;
+    margin: 0;
+  }
+  span {
+    font-weight: 700;
+  }
+}
+
+.dashboard-container {
+  margin: 2em 8em;
+}
+
+// NAV PILLS
+
+.dashboard-nav-and-tab {
+  display: grid;
+  grid-template-columns: 1.5fr 4fr;
+  grid-gap: 1em;
+  .nav-pills {
+    padding-right: 1em;
+    border-right: 1px solid $gray;
+  }
+  .nav-link {
+    color: $dark-blue;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 17px;
+    .fas {
+      font-size: 16px;
+      padding-right: 16px;
+      color: $blue;
+    }
+    .far {
+      font-size: 16px;
+      padding-right: 16px;
+      color: $blue;
+    }
+  }
+  .nav-link.active {
+    color: $dark-blue;
+    background-color: $light-gray;
+    font-weight: 700;
+  }
+}
+
+.dashboard-nav-and-tab {
+  .tab-content {
+    margin: 0.8em;
+  }
+}
+
+
+
+// RESPONSIVE DASHBOARD //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 745px) {
+  .dashboard-container {
+    margin: 1.2em;
+  }
+  .dashboard-title-container {
+    padding: 1em 2em;
+    h1 {
+      font-size: 16px;
+    }
+  }
+  .dashboard-nav-desktop-tablet {
+    display: none;
+  }
+  .dashboard-nav-and-tab {
+    grid-template-columns: 1fr;
+    .nav {
+    }
+    .nav-pills {
+      padding-right: unset;
+      border-right: unset;
+    }
+    .nav-link {
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: $light-blue;
+      padding: 6px 14px;
+      .far {
+        color: $light-blue;
+      }
+      .fas {
+        color: $light-blue;
+      }
+      width: 50%;
+    }
+    .nav-link.active {
+      border-radius: 5px;
+      background-color: $light-blue;
+      color: white;
+      .far {
+        color: white;
+      }
+      .fas {
+        color: white;
+      }
+    }
+  }
+  .dashboard-tabs {
+    .tab-content {
+      margin: unset;
+      margin-top: 1em;
+    }
+  }
+}
+
+// Small & Medium devices (tablets, 746px and up)
+@media (min-width: 746px) and (max-width: 991px)  {
+  .dashboard-container {
+    margin: 2em 1.5em;
+  }
+  .dashboard-nav-and-tab {
+    grid-template-columns: 2fr 3.5fr;
+  }
+  .dashboard-nav-mobile {
+    display: none;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+  .dashboard-container {
+    margin: 2em 5em;
+  }
+  .dashboard-nav-and-tab {
+    grid-template-columns: 2fr 3.5fr;
+  }
+  .dashboard-nav-mobile {
+    display: none;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .dashboard-nav-mobile {
+    display: none;
+  }
+}

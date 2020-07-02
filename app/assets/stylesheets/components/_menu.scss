@@ -4,7 +4,7 @@
   position: absolute;
   top: 0px;
   right: 0px;
-  width: 19em;
+  width: 20em;
   height: 100vh;
   background-color: white;
   display: flex;
@@ -13,8 +13,7 @@
   padding-bottom: 60px;
   display: none;
   .menu-icon {
-    padding-right: 0.6em;
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 
@@ -33,48 +32,84 @@
 
 
 #sideMenu li {
-  font-size: 16px;
-  padding: 1em 0 1em 2em;
+  font-size: 15px;
   font-weight: 500;
+  border: none;
+  padding: 0.4em 1.3em;
   a {
     text-decoration: none;
   }
 }
 
-.menu-blue-icon {
-  color: $light-blue;
-}
-
-.menu-blue-link {
-  color: $dark-blue;
-}
-
-.menu-red-icon {
-  color: $red;
-}
-
-.menu-red-link {
-  color: $dark-red;
-}
-
-.menu-green-icon {
-  color: $light-green;
-}
-
-.menu-green-link {
-  color: $dark-green;
-}
-
-
-
 #sideMenu #menuClose {
   width: 3.2em;
   position: absolute;
-  right: 1em;
+  right: 0.8em;
   top: 1.5em;
   cursor: pointer;
 }
 
+.list-item-sign {
+  background-color: $blue;
+  margin-left: 0.4em;
+  margin-right: 0.4em;
+  padding: 0.3em 1em;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.list-item-sign:hover {
+  background-color: $light-blue;
+}
+
+.list-item-menu {
+  margin-left: 0.4em;
+  margin-right: 0.4em;
+  padding: 0.3em 1em;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.list-item-menu:hover {
+  background-color: $light-blue;
+  .menu-blue-link {
+    color: white;
+    .far {
+      color: white;
+    }
+    .fas {
+      color: white;
+    }
+  }
+}
+
+.menu-blue-link {
+  color: $dark-blue;
+  .far {
+    color: $light-blue;
+  }
+  .fas {
+    color: $light-blue;
+  }
+}
+
+.menu-white-link {
+  color: white;
+}
+
+.menu-white-icon {
+  color: white;
+}
+
+.menu-white-link:hover {
+  color: white;
+}
+
+.menu-brand-logo {
+  display: none;
+}
 
 // RESPONSIVE DESIGN MENU //
 
@@ -82,11 +117,29 @@
 @media (min-width: 100px) and (max-width: 575px) {
   #sideMenu {
     width: 100vw;
+    li {
+      padding: 0.4em 2em 0.4em 2em;
+    }
+  }
+  #sideMenu #menuClose {
+    right: 1em;
+    top: 1.3em;
+    width: 3.2em;
+  }
+  .menu-brand-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 8em;
+    margin-top: 2em;
+    img {
+      width: 10em;
+    }
   }
 }
 
 // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) and (max-width: 765px) {
+@media (min-width: 576px) and (max-width: 767px) {
 
 }
 

@@ -1,0 +1,152 @@
+// MY BOOKINGS
+
+.my-bookings-cards {
+  margin-bottom: 3em;
+}
+
+.my-booking-date-photo-and-info {
+
+}
+
+.my-booking-date {
+  padding: 0.1em 0.5em;
+  background-color: $blue;
+  color: white;
+  font-weight: 600;
+  font-family: "Montserrat", "sans-serif";
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
+.my-bookings-ws-card {
+  display: flex;
+  margin-top: 0.8em;
+  margin-bottom: 1.5em;
+  img {
+    padding-top: 0.3em;
+    object-fit: cover;
+  }
+  p {
+    margin: 0;
+    font-size: 15px;
+    color: $dark-gray;
+    font-weight: 500;
+  }
+  #my-booking-ws-title {
+    font-weight: 700;
+  }
+  #my-booking-order-nb {
+    opacity: 60%;
+    margin-bottom: 0.3em;
+  }
+  #my-booking-amount {
+    margin: 0.3em 0 1em 0;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+.my-booking-ws-info {
+  margin-left: 1em;
+  display: flex;
+  flex-direction: column;
+  .button {
+    background-color: unset;
+    color: $blue;
+    border: 1px solid $blue;
+    font-size: 14px;
+    padding: 0.2em 1em;
+    font-weight: 600;
+  }
+  .my-booking-review-card-stars {
+    margin-left: 0.6em;
+    color: $blue;
+    font-family: "Montserrat", "sans-serif";
+    span {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .fa-star {
+      font-size: 13px;
+      letter-spacing: -3px;
+    }
+
+  }
+}
+
+// RESPONSIVE DASHBOARD MY BOOKINGS//
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .my-bookings-cards {
+    margin-bottom: 2em;
+  }
+  .my-bookings-ws-card {
+    display: flex;
+    margin-top: 0.8em;
+    margin-bottom: 1.5em;
+    img {
+      width: 80px;
+      height: 80px;
+      padding-top: 0.3em;
+    }
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: $dark-gray;
+      font-weight: 500;
+    }
+    #my-booking-ws-title {
+      font-weight: 700;
+    }
+    #my-booking-order-nb {
+      opacity: 60%;
+      margin-bottom: 0.3em;
+    }
+    #my-booking-amount {
+      margin: 0.3em 0 1em 0;
+    }
+  }
+  .my-booking-date {
+    font-size: 14px;
+  }
+
+  .my-booking-ws-info {
+    margin-left: 0.8em;
+    .button {
+      font-size: 13.5px;
+      padding: 0.2em 0.8em;
+    }
+    .my-booking-review-card-stars {
+      span {
+        font-size: 13.5px;
+      }
+      .fa-star {
+        font-size: 12.5px;
+      }
+
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
+

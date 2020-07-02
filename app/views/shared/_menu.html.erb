@@ -6,52 +6,109 @@
     <ul class="list-group list-group-flush">
       <% if user_signed_in? %>
         <li class="list-group-item">
-          <i class="far fa-eye menu-icon menu-blue-icon"></i>
-          <%= link_to "Voir tous les ateliers", workshops_path, class: "menu-blue-link" %>
+          <div class="list-item-menu">
+            <%= link_to workshops_path, class: "menu-blue-link" do %>
+              <i class="far fa-eye menu-icon menu-blue-icon mr-1"></i>
+              Voir tous les ateliers
+            <% end %>
+          </div>
         </li>
         <li class="list-group-item">
-          <i class="fas fa-map-marker-alt menu-icon menu-blue-icon"></i>
-          <%= link_to "Découvrir les lieux", places_path, class: "menu-blue-link" %>
+          <div class="list-item-menu">
+            <%= link_to places_path, class: "menu-blue-link" do %>
+              <i class="fas fa-map-marker-alt menu-icon menu-blue-icon mr-2"></i>
+              Découvrir les lieux
+            <% end %>
+          </div>
         </li>
         <li class="list-group-item">
-          <i class="fas fa-graduation-cap menu-icon menu-blue-icon"></i>
-          <%= link_to "Découvrir les animateurs", profiles_path, class: "menu-blue-link" %>
+          <div class="list-item-menu">
+            <%= link_to profiles_path, class: "menu-blue-link" do %>
+              <i class="fas fa-graduation-cap menu-icon menu-blue-icon mr-1"></i>
+              Découvrir les animateurs
+            <% end %>
+          </div>
         </li>
         <li class="list-group-item">
-          <i class="fas fa-plus menu-icon menu-blue-icon"></i>
-          <%= link_to "Proposer mon atelier", new_workshop_path, class: "menu-blue-link" %>
+          <div class="list-item-menu">
+            <%= link_to new_workshop_path, class: "menu-blue-link" do %>
+              <i class="fas fa-plus menu-icon menu-blue-icon mr-2"></i>
+              Proposer mon atelier
+            <% end %>
+          </div>
         </li>
         <li class="list-group-item">
-          <i class="far fa-calendar-check menu-icon menu-blue-icon"></i>
-          <%= link_to "Mon tableau de bord", profile_path(current_user.profile), class: "menu-blue-link" %>
+          <div class="list-item-menu">
+            <%= link_to dashboard_profile_path(current_user.profile), class: "menu-blue-link" do %>
+              <% if current_user.profile.role == "animateur" || current_user.profile.role == "organisateur" %>
+                <i class="fas fa-chart-bar menu-icon menu-blue-icon mr-1"></i>
+                Mon tableau de bord
+              <% else %>
+                <i class="far fa-calendar-check menu-icon menu-blue-icon mr-2"></i>
+                Mes réservations
+              <% end %>
+            <% end %>
+          </div>
         </li>
         <li class="list-group-item">
-          <i class="far fa-user menu-icon menu-blue-icon"></i>
-          <%= link_to "Mon compte", "#", class: "menu-blue-link" %>
+          <div class="list-item-menu">
+            <%= link_to profile_path(current_user.profile), class: "menu-blue-link" do %>
+              <i class="far fa-user menu-icon menu-blue-icon mr-2"></i>
+              Mon compte
+            <% end %>
+          </div>
+        </li>
+         <li class="list-group-item">
         </li>
         <li class="list-group-item">
-          <i class="fas fa-sign-out-alt menu-icon menu-red-icon"></i>
-          <%= link_to "Me déconnecter", destroy_user_session_path, method: :delete, id: "log-out-menu", class: "menu-red-link" %>
+          <div class="list-item-sign" id="sign-out">
+            <%= link_to destroy_user_session_path, method: :delete, id: "log-out-menu", class: "menu-white-link" do %>
+              <i class="fas fa-sign-out-alt menu-icon menu-white-icon mr-1"></i>
+              Me déconnecter
+            <% end %>
+          </div>
         </li>
+
 
       <% else %>
         <li class="list-group-item">
-          <i class="far fa-eye menu-icon menu-blue-icon"></i>
-          <%= link_to "Voir tous les ateliers", workshops_path, class: "menu-blue-link" %>
+          <div class="list-item-menu">
+            <%= link_to workshops_path, class: "menu-blue-link" do %>
+              <i class="far fa-eye menu-icon menu-blue-icon mr-1"></i>
+              Voir tous les ateliers
+            <% end %>
+          </div>
         </li>
         <li class="list-group-item">
-          <i class="fas fa-plus menu-icon menu-blue-icon"></i>
-          <%= link_to "Proposer mon atelier", new_workshop_path, class: "menu-blue-link" %>
+          <div class="list-item-menu">
+            <%= link_to new_workshop_path, class: "menu-blue-link" do %>
+              <i class="fas fa-plus menu-icon menu-blue-icon mr-2"></i>
+              Proposer mon atelier
+            <% end %>
+          </div>
         </li>
         <li class="list-group-item">
-          <i class="fas fa-sign-in-alt menu-icon menu-green-icon"></i>
-          <%= link_to "Me connecter", new_user_session_path, class: "menu-green-link" %>
         </li>
         <li class="list-group-item">
-          <i class="fas fa-user-plus menu-icon menu-green-icon"></i>
-          <%= link_to "M'inscrire", new_user_registration_path, class: "menu-green-link" %>
+          <div class="list-item-sign" id="sign-in">
+            <%= link_to new_user_session_path, class: "menu-white-link" do %>
+              <i class="fas fa-sign-in-alt menu-icon menu-white-icon mr-2"></i>
+              Me connecter
+            <% end %>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="list-item-sign" id="sign-up">
+            <%= link_to new_user_registration_path, class: "menu-white-link" do %>
+              <i class="fas fa-user-plus menu-icon menu-white-icon mr-1"></i>
+              M'inscrire
+            <% end %>
+          </div>
         </li>
       <% end %>
     </ul>
+    <div class="menu-brand-logo">
+      <%= cl_image_tag("logo-jdm-light-blue.svg", :width => 200, :crop => :fill, :alt => "logo jeu de mains") %>
+    </div>
   </div>
 </div>

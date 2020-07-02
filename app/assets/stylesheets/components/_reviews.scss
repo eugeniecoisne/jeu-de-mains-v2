@@ -13,6 +13,7 @@
   color: $blue;
   font-size: 13px;
   margin-bottom: 0.9em;
+  letter-spacing: -1px;
 }
 
 .review-card-message {
@@ -41,7 +42,7 @@
 }
 
 // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) and (max-width: 765px) {
+@media (min-width: 576px) and (max-width: 767px) {
   .reviews-cards {
     grid-template-columns: 1fr;
   }

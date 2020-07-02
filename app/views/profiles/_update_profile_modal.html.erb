@@ -1,0 +1,87 @@
+<!-- LAST NAME MODAL -->
+
+<div class="modal fade profile-update-modal" id="lastNameModal" tabindex="-1" role="dialog" aria-labelledby="lastNameModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="form-group">
+        <%= simple_form_for(profile) do |f| %>
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+            </button>
+            <%= f.input :last_name, id: 'profile_last_name', label: false, placeholder: profile.last_name %>
+            <%= f.submit class: 'button', value: "Valider" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FIRST NAME MODAL -->
+
+<div class="modal fade profile-update-modal" id="firstNameModal" tabindex="-1" role="dialog" aria-labelledby="firstNameModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="form-group">
+        <%= simple_form_for(profile) do |f| %>
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+            </button>
+            <%= f.input :first_name, id: 'profile_first_name', label: false, placeholder: profile.first_name %>
+            <%= f.submit class: 'button', value: "Valider" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHONE NUMBER MODAL -->
+
+<div class="modal fade profile-update-modal" id="phoneNumberModal" tabindex="-1" role="dialog" aria-labelledby="phoneNumberModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="form-group">
+        <%= simple_form_for(profile) do |f| %>
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+            </button>
+            <% if profile.phone_number %>
+              <%= f.input :phone_number, id: 'profile_phone_number', label: false, placeholder: profile.phone_number %>
+            <% else %>
+              <%= f.input :phone_number, id: 'profile_phone_number', label: false, placeholder: "Numéro de portable" %>
+            <% end %>
+            <%= f.submit class: 'button', value: "Valider" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE PICTURE MODAL -->
+
+<div class="modal fade profile-update-modal" id="profilePictureModal" tabindex="-1" role="dialog" aria-labelledby="profilePictureModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="form-group">
+        <%= simple_form_for(profile) do |f| %>
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+            </button>
+            <%= f.input :photo, as: :file, id: 'profile_profile_picture', label: false %>
+            <%= f.submit class: 'button', value: "Valider" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
