@@ -1,7 +1,7 @@
 <%- if controller_name != 'sessions' %>
   <div id="sign-link">
     <span>Déjà membre ?</span>
-    <%= link_to "Se connecter", new_session_path(resource_name) %><br />
+    <%= link_to "Me connecter", new_session_path(resource_name) %><br />
   </div>
 <% end %>
 
@@ -14,7 +14,7 @@
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
   <div id="sign-link">
     <span>Vous n'avez pas de compte ?</span>
-    <%= link_to "S'inscrire", new_registration_path(resource_name) %><br/>
+    <%= link_to "M'inscrire", new_registration_path(resource_name) %><br/>
   </div>
 <% end %>
 

@@ -59,6 +59,10 @@
     padding: 0.2em 1em;
     font-weight: 600;
   }
+  .button:hover {
+    color: $light-blue;
+    border-color: $dark-blue;
+  }
   .my-booking-review-card-stars {
     margin-left: 0.6em;
     color: $blue;
