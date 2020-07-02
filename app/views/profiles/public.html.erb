@@ -174,43 +174,43 @@
 
         <h2 class="public-profile-reviews-title profile-title">Avis sur mes ateliers</h2>
         <% reviews_count = 0 %>
-        <% reviews_total_rating = 0 %>
+        <% all_reviews = [] %>
         <% @profile.user.animators.each do |animator| %>
           <% if animator.workshop.reviews.present? %>
             <% animator.workshop.reviews.each do |review| %>
               <% reviews_count += 1 %>
-              <% reviews_total_rating += review.rating %>
+              <% all_reviews << review %>
             <% end %>
           <% end %>
         <% end %>
-        <% reviews_average_rating = reviews_total_rating.fdiv(reviews_count).round(2) %>
 
         <% if reviews_count > 0 %>
-          <p class="public-profile-reviews-subtitle">Note moyenne : <strong><%= reviews_average_rating %>/5</strong> (<%= reviews_count %> avis)</p>
+          <p class="public-profile-reviews-subtitle">Note moyenne : <strong><%= @profile.rating %>/5</strong> (<%= reviews_count %> avis)</p>
           <div class= "reviews-cards">
-            <% @profile.user.animators.each do |animator| %>
-              <% if animator.workshop.reviews.present? %>
-                <% animator.workshop.reviews.each do |review| %>
-                  <div class="review-card">
-                    <div class="review-card-stars">
-                      <% review.rating.times do %>
-                        <i class="fas fa-star"></i>
-                      <% end %>
-                      <% (5 - review.rating).times do %>
-                        <i class="far fa-star"></i>
-                      <% end %>
-                    </div>
-                    <div class="review-card-message">
-                      <p><%= review.content %></p>
-                    </div>
-                    <div class="review-card-author">
-                      <p><span><%= review.user.profile.first_name %></span>, le <%= review.created_at.strftime("%d/%m/%Y") %></p>
-                    </div>
-                  </div>
-                <% end %>
-              <% end %>
+            <% all_reviews.sort_by { |review| review.created_at }.reverse.first(4).each do |review| %>
+              <div class="review-card">
+                <div class="review-card-stars">
+                  <% review.rating.times do %>
+                    <i class="fas fa-star"></i>
+                  <% end %>
+                  <% (5 - review.rating).times do %>
+                    <i class="far fa-star"></i>
+                  <% end %>
+                </div>
+                <div class="review-card-message">
+                  <p><%= review.content %></p>
+                </div>
+                <div class="review-card-author">
+                  <p><span><%= review.user.profile.first_name %></span>, le <%= review.created_at.strftime("%d/%m/%Y") %></p>
+                </div>
+              </div>
             <% end %>
           </div>
+          <% if reviews_count > 4 %>
+            <div class="show-more-reviews">
+              <%= link_to "Voir plus d'avis", profile_reviews_path(@profile), class: "blue-btn" %>
+            </div>
+          <% end %>
         <% else %>
           <p><%= @profile.company %> n'a pas encore d'avis.</p>
         <% end %>

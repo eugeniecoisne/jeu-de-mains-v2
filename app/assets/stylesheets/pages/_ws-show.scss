@@ -70,6 +70,14 @@
   #bookingExit {
     display: none;
   }
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: 50%;
+  }
 }
 
 .ws-show-informations-title {
@@ -82,6 +90,8 @@
     font-size: 24px;
   }
 }
+
+// ORGANIZERS
 
 .ws-show-informations-organizers {
   background-size: cover;
@@ -123,6 +133,35 @@
   }
   img {
     height: 10em;
+  }
+}
+
+// MOBILE EPHEMERAL STATUS
+
+.ws-show-ephemeral-status-mobile {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $green;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  height: 4em;
+  span {
+    text-align: center;
+  }
+  .far {
+    margin-bottom: 2px;
+    font-size: 14px;
+  }
+  a {
+    color: white;
+    font-weight: 700;
+  }
+  a:hover {
+    text-decoration: none;
+    color: $dark-blue;
   }
 }
 
@@ -181,6 +220,7 @@
 // LINKS TO ORGANIZERS
 
 .ws-show-link-to-organizers {
+  margin-bottom: 6em;
   margin-top: 1em;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -205,17 +245,11 @@
 
 }
 
-// EMPTY DIV FOR MOBILE DESIGN
-
-.ws-show-empty-div {
-  display: none;
-}
-
 
 // RESPONSIVE WORKSHOP SHOW //
 
 // Smallest device
-@media (min-width: 100px) and (max-width: 765px) {
+@media (min-width: 100px) and (max-width: 767px) {
 
   // containers
   .container-ws-show {
@@ -335,36 +369,8 @@
       font-size: 15px;
     }
   }
-
-  // empty div for mobile only
-  .ws-show-empty-div {
-    height: 6em;
-    display: block;
-  }
 }
 
-// Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) and (max-width: 767px) {
-
-  .container-ws-show-infos {
-    margin: 0em;
-  }
-  .ws-show-informations-place {
-    img {
-      height: 100px;
-      width: 110px;
-    }
-     #ws-show-place {
-      padding-top: 1em;
-    }
-  }
-  .ws-show-informations-animator {
-    img {
-      height: 110px;
-      width: 80px;
-    }
-  }
-}
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
@@ -408,16 +414,23 @@
       margin-top: 1.5em;
     }
   }
+  .ws-show-ephemeral-status-mobile {
+    display: none;
+  }
 }
 
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199px)  {
-
+  .ws-show-ephemeral-status-mobile {
+    display: none;
+  }
 }
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
-
+  .ws-show-ephemeral-status-mobile {
+    display: none;
+  }
 }
 

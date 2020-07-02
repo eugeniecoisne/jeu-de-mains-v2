@@ -8,7 +8,8 @@
       <% else %>
         <%= @profile.first_name %>
       <% end %>
-      </span>,<br>bienvenue sur votre compte !
+      </span>,
+      <br>bienvenue sur votre compte !
   </h1>
 </div>
 
@@ -62,7 +63,7 @@
                 <span><strong>Nom</strong></span>
                 <span><%= @profile.last_name %></span>
               </div>
-              <a href="#firstNameModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+              <a href="#lastNameModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
               <%= render 'update_profile_modal', profile: @profile %>
             </li>
             <li class="list-group-item my-informations-item">
@@ -94,24 +95,12 @@
               </div>
               <a href="#" class="my-informations-button">Modifier</a>
             </li>
-            <li class="list-group-item my-informations-item">
+            <li class="list-group-item my-informations-item" id="last-my-informations-item">
               <div class="my-informations-text">
                 <span><strong>Mot de passe</strong></span>
                 <span>***********</span>
               </div>
               <a href="#" class="my-informations-button">Modifier</a>
-            </li>
-            <li class="list-group-item my-informations-item" id="last-my-informations-item">
-              <div class="my-informations-text">
-                <span><strong>Photo de profil</strong></span>
-                <% if @profile.photo.attached? %>
-                  <%=cl_image_tag @profile.photo.key, alt: "photo de profil", width: 100, height: 100, crop: :fill %>
-                <% else %>
-                  <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 100, :height => 100, :crop => :fill, :alt => "photo de profil") %>
-                <% end %>
-              </div>
-              <a href="#profilePictureModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
-              <%= render 'update_profile_modal', profile: @profile %>
             </li>
           </ul>
         </div>
@@ -187,7 +176,11 @@
                 <a href="#instagramModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
                 <%= render 'update_company_modal', profile: @profile %>
               </li>
-              <li class="list-group-item my-informations-item" id="last-my-informations-item">
+              <% if @profile.role == "animateur" %>
+                <li class="list-group-item my-informations-item">
+              <% else %>
+                <li class="list-group-item my-informations-item" id="last-my-informations-item">
+              <% end %>
                 <div class="my-informations-text">
                   <span><strong>Description</strong></span>
                   <% if @profile.description %>
@@ -200,6 +193,20 @@
                 <%= render 'update_company_modal', profile: @profile %>
               </li>
 
+              <% if @profile.role == "animateur" %>
+                <li class="list-group-item my-informations-item" id="last-my-informations-item">
+                  <div class="my-informations-text">
+                    <span><strong>Photo de profil</strong></span>
+                    <% if @profile.photo.attached? %>
+                      <%=cl_image_tag @profile.photo.key, alt: "photo de profil", width: 100, height: 100, crop: :fill %>
+                    <% else %>
+                      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 100, :height => 100, :crop => :fill, :alt => "photo de profil") %>
+                    <% end %>
+                  </div>
+                  <a href="#profilePictureModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+                  <%= render 'update_company_modal', profile: @profile %>
+                </li>
+              <% end %>
             </ul>
           </div>
         <% end %>

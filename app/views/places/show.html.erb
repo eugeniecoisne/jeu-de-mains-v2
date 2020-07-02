@@ -68,26 +68,33 @@
           <span id="text">atelier proposé</span>
         <% end %>
       </div>
-      <div class="public-profile-main-figure public-profile-participants-nb">
-        <% participants_number = 0 %>
-        <% @place.workshops.each do |workshop| %>
-          <% workshop.sessions.each do |session| %>
-            <% session.bookings.each do |booking| %>
-              <% participants_number += booking.quantity %>
+      <% if @place.ephemeral %>
+        <div class="public-profile-main-figure public-profile-ephemeral">
+          <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593708097/ephemeral-white.svg", :width => 70, :crop => :fill, :alt => "éphémère") %>
+          <span id="text">lieu éphémère</span>
+        </div>
+      <% else %>
+        <div class="public-profile-main-figure public-profile-participants-nb">
+          <% participants_number = 0 %>
+          <% @place.workshops.each do |workshop| %>
+            <% workshop.sessions.each do |session| %>
+              <% session.bookings.each do |booking| %>
+                <% participants_number += booking.quantity %>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
-        <span id="number"><%= participants_number %></span>
-        <% if participants_number > 1 %>
-            <span id="text">participants accueillis</span>
-          <% else %>
-            <span id="text">participant accueilli</span>
-          <% end %>
-      </div>
-      <div class="public-profile-main-figure public-profile-member-since">
-        <span id="icon"><i class="fas fa-user-clock"></i></span>
-        <span id="text">membre depuis <%= @place.created_at.year %></span>
-      </div>
+          <span id="number"><%= participants_number %></span>
+          <% if participants_number > 1 %>
+              <span id="text">participants accueillis</span>
+            <% else %>
+              <span id="text">participant accueilli</span>
+            <% end %>
+        </div>
+      <% end %>
+        <div class="public-profile-main-figure public-profile-member-since">
+          <span id="icon"><i class="fas fa-user-clock"></i></span>
+          <span id="text">membre depuis <%= @place.created_at.year %></span>
+        </div>
     </div>
   </div>
 
@@ -156,55 +163,51 @@
 
       <h2 class="public-profile-reviews-title profile-title">Avis sur nos ateliers</h2>
       <% reviews_count = 0 %>
-      <% reviews_total_rating = 0 %>
+      <% all_reviews = [] %>
       <% @place.workshops.each do |workshop| %>
         <% if workshop.reviews.present? %>
           <% workshop.reviews.each do |review| %>
             <% reviews_count += 1 %>
-            <% reviews_total_rating += review.rating %>
+            <% all_reviews << review %>
           <% end %>
         <% end %>
       <% end %>
-      <% reviews_average_rating = reviews_total_rating.fdiv(reviews_count).round(2) %>
 
       <% if reviews_count > 0 %>
-        <p class="public-profile-reviews-subtitle">Note moyenne : <strong><%= reviews_average_rating %>/5</strong> (<%= reviews_count %> avis)</p>
+        <p class="public-profile-reviews-subtitle">Note moyenne : <strong><%= @place.rating %>/5</strong> (<%= reviews_count %> avis)</p>
         <div class= "reviews-cards">
-          <% @place.workshops.each do |workshop| %>
-            <% if workshop.reviews.present? %>
-              <% workshop.reviews.each do |review| %>
-                <div class="review-card">
-                  <div class="review-card-stars">
-                    <% review.rating.times do %>
-                      <i class="fas fa-star"></i>
-                    <% end %>
-                    <% (5 - review.rating).times do %>
-                      <i class="far fa-star"></i>
-                    <% end %>
-                  </div>
-                  <div class="review-card-message">
-                    <p><%= review.content %></p>
-                  </div>
-                  <div class="review-card-author">
-                    <p><span><%= review.user.profile.first_name %></span>, le <%= review.created_at.strftime("%d/%m/%Y") %></p>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
+          <% all_reviews.sort_by { |review| review.created_at }.reverse.first(4).each do |review| %>
+
+            <div class="review-card">
+              <div class="review-card-stars">
+                <% review.rating.times do %>
+                  <i class="fas fa-star"></i>
+                <% end %>
+                <% (5 - review.rating).times do %>
+                  <i class="far fa-star"></i>
+                <% end %>
+              </div>
+              <div class="review-card-message">
+                <p><%= review.content %></p>
+              </div>
+              <div class="review-card-author">
+                <p><span><%= review.user.profile.first_name %></span>, le <%= review.created_at.strftime("%d/%m/%Y") %></p>
+              </div>
+            </div>
           <% end %>
         </div>
+        <% if reviews_count > 4 %>
+          <div class="show-more-reviews">
+            <%= link_to "Voir plus d'avis", place_reviews_path(@place), class: "blue-btn" %>
+          </div>
+        <% end %>
       <% else %>
         <p><%= @place.name %> n'a pas encore d'avis.</p>
       <% end %>
-
     </div>
   </div>
-
 </div>
 
-<p><br><br></p>
-<p>----------------------------------------------</p>
-<p>Ephémère : <%= @place.ephemeral %></p>
 <% if current_user && policy(@place).update? %>
   <%= link_to 'Mettre à jour', edit_place_path(@place) %>
 <% end %>

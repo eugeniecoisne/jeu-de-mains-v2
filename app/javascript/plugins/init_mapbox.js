@@ -20,7 +20,7 @@ const initMapbox = () => {
     markers.forEach((marker) => {
       const popup = new mapboxgl.Popup().setHTML(marker.infoWindow);
 
-      new mapboxgl.Marker()
+      new mapboxgl.Marker({ "color": "#52828D" })
         .setLngLat([ marker.lng, marker.lat ])
         .setPopup(popup)
         .addTo(map);

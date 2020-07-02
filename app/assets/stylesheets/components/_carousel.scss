@@ -41,6 +41,33 @@
   }
 }
 
+.ws-show-ephemeral-status {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $light-blue;
+  color: white;
+  font-weight: 500;
+  height: 4em;
+  span {
+    text-align: center;
+  }
+  .far {
+    margin-bottom: 2px;
+    font-size: 14px;
+  }
+  a {
+    color: white;
+    font-weight: 700;
+  }
+  a:hover {
+    text-decoration: none;
+    color: $dark-blue;
+  }
+}
 
 // RESPONSIVE CAROUSEL //
 
@@ -56,6 +83,9 @@
       height: 8em;
     }
   }
+  .ws-show-ephemeral-status {
+    display: none;
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -64,6 +94,16 @@
     img {
       height: 25em;
     }
+  }
+  .ws-show-ephemeral-status {
+    position: absolute;
+    top: unset;
+    bottom: 0;
+    height: 4em;
+    font-size: 95%;
+  }
+  .ws-show-ephemeral-status {
+    display: none;
   }
 }
 

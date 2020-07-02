@@ -86,9 +86,16 @@
       padding-left: 1em;
     }
   }
+  .public-profile-ephemeral {
+    img {
+      width: 50px;
+      margin: 0 0 0.2em 0.8em;
+    }
+  }
 }
 
 .public-profile-about-ws-reviews {
+  margin-bottom: 4em;
   display: grid;
   grid-template-columns: 0.75fr 1.25fr 1fr;
 }
