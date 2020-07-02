@@ -11,7 +11,7 @@ class BookingsController < ApplicationController
       user: current_user
       )
     authorize @booking
-    redirect_to profile_path(current_user.profile)
+    redirect_to dashboard_profile_path(current_user.profile)
   end
 
 end

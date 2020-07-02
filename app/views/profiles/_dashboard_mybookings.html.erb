@@ -113,7 +113,7 @@
 
                 <div class="my-booking-date-photo-and-info">
                   <div class="my-booking-date">
-                    25/06/2020 - 18h00
+                    <%=booking.session.date.strftime('%d/%m/%Y')%> - <%=booking.session.start_at%>
                   </div>
 
                   <div class="my-bookings-ws-card">
