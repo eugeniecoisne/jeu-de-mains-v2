@@ -192,64 +192,61 @@
 
       <div class="home-ws-cards home-ws-cards-last-minute">
         <% @workshops.first(6).each do |workshop| %>
-          <div class="ws-card" id="home-ws-card">
-            <%= link_to(workshop, data: { turbolinks: false }) do  %>
-              <div class="ws-card-image-and-rating" id="home-ws-card-image-and-rating">
-                <div class="ws-card-tags" id="home-ws-card-tags">
-                  <% if workshop.rating %>
-                    <div class="ws-card-tag ws-card-rating" id="home-ws-card-rating">
-                      <i class="fas fa-star"></i><span><%= workshop.rating %></span>
+          <% if workshop.sessions.present? %>
+            <div class="ws-card" id="home-ws-card">
+              <%= link_to(workshop, data: { turbolinks: false }) do  %>
+                <div class="ws-card-image-and-rating" id="home-ws-card-image-and-rating">
+                  <div class="ws-card-tags" id="home-ws-card-tags-last-minute">
+                    <div class="ws-card-tag ws-card-last-minute-tickets" id="home-ws-card-tickets">
+                      <span><%= workshop.sessions.order(:date).first.available %> places restantes</span>
                     </div>
-                  <% end %>
-                  <% if workshop.place.ephemeral == true %>
-                    <div class="ws-card-tag ws-card-ephemeral" id="home-ws-card-ephemeral">
-                      <span>éphémère</span>
+                    <div class="ws-card-tag ws-card-last-minute-date" id="home-ws-card-date">
+                      <span><%= workshop.sessions.order(:date).first.date.strftime('%d/%m/%Y') %></span>
                     </div>
-                  <% end %>
+                  </div>
+                  <%= render "workshops/ws-index-carousel", workshop: workshop %>
                 </div>
-                <%= render "workshops/ws-index-carousel", workshop: workshop %>
-              </div>
-            <% end %>
-            <%= link_to(workshop, data: { turbolinks: false }) do  %>
-              <div class="ws-card-infos" id="home-ws-card-infos">
-                <div>
-                  <div class="ws-card-place" id="home-ws-card-place-desktop">
-                    <% if workshop.place.name.size > 25 %>
-                      <h3><%= workshop.place.name[0..24] %>...</h3>
-                    <% else %>
-                      <h3><%= workshop.place.name %></h3>
-                    <% end %>
+              <% end %>
+              <%= link_to(workshop, data: { turbolinks: false }) do  %>
+                <div class="ws-card-infos" id="home-ws-card-infos">
+                  <div>
+                    <div class="ws-card-place" id="home-ws-card-place-desktop">
+                      <% if workshop.place.name.size > 25 %>
+                        <h3><%= workshop.place.name[0..24] %>...</h3>
+                      <% else %>
+                        <h3><%= workshop.place.name %></h3>
+                      <% end %>
+                    </div>
+                    <div class="ws-card-place" id="home-ws-card-place-mobile">
+                      <% if workshop.place.name.size > 17 %>
+                        <h3><%= workshop.place.name[0..16] %>...</h3>
+                      <% else %>
+                        <h3><%= workshop.place.name %></h3>
+                      <% end %>
+                    </div>
+                    <div class="ws-card-title" id="home-ws-card-title">
+                      <h2><%= workshop.title %></h2>
+                    </div>
                   </div>
-                  <div class="ws-card-place" id="home-ws-card-place-mobile">
-                    <% if workshop.place.name.size > 17 %>
-                      <h3><%= workshop.place.name[0..16] %>...</h3>
-                    <% else %>
-                      <h3><%= workshop.place.name %></h3>
-                    <% end %>
-                  </div>
-                  <div class="ws-card-title" id="home-ws-card-title">
-                    <h2><%= workshop.title %></h2>
+                  <div class="ws-card-price-and-city" id="home-ws-card-price-and-city">
+                    <div class="ws-card-price" id="home-ws-card-price">
+                      <%= workshop.price %> €
+                    </div>
+                    <div class="ws-card-city" id="home-ws-card-city">
+                      <i class="fas fa-map-marker-alt"></i>
+                      <% if workshop.place.city.size >= 11 %>
+                        <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
+                      <% else %>
+                        <span id="city-name"><%= workshop.place.city.capitalize %></span>
+                      <% end %>
+                    </div>
                   </div>
                 </div>
-                <div class="ws-card-price-and-city" id="home-ws-card-price-and-city">
-                  <div class="ws-card-price" id="home-ws-card-price">
-                    <%= workshop.price %> €
-                  </div>
-                  <div class="ws-card-city" id="home-ws-card-city">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <% if workshop.place.city.size >= 11 %>
-                      <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
-                    <% else %>
-                      <span id="city-name"><%= workshop.place.city.capitalize %></span>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
       </div>
-
     </div>
   </div>
 </div>

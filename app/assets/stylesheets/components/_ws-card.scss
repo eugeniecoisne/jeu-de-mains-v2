@@ -54,6 +54,30 @@
   }
 }
 
+#home-ws-card-tags-last-minute {
+  flex-wrap: wrap;
+}
+
+.ws-card-last-minute-tickets {
+  margin-right: 0.4em;
+  margin-bottom: 0.4em;
+  background-color: $green;
+  opacity: 100%;
+  width: 140px;
+  span {
+    color: white;
+    font-weight: 500;
+  }
+}
+
+.ws-card-last-minute-date {
+  margin-bottom: 0.4em;
+  span {
+    color: $green;
+    font-weight: 600;
+  }
+}
+
 .ws-card-infos {
   padding: 0.7em;
   display: flex;
@@ -133,6 +157,9 @@
     h3 {
       font-size: 0.8em;
     }
+  }
+  .ws-card-last-minute-tickets {
+    width: 125px;
   }
 }
 

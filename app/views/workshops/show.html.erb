@@ -66,7 +66,7 @@
     <div class="ws-show-informations-place">
       <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593192506/shop-white.svg", :width => 150, :crop => :fill, :alt => "lieu") %>
       <div id="ws-show-place">
-        <span>Chez <%= link_to @workshop.place.user.profile.company, place_path(@workshop.place) %></span>
+        <span>Chez <%= link_to @workshop.place.name, place_path(@workshop.place) %></span>
         <br><span><%= @workshop.place.address %><br><%= @workshop.place.zip_code %> <%= @workshop.place.city.capitalize %></span>
       </div>
     </div>
@@ -75,11 +75,24 @@
         <span>Animé par<br><%= link_to @animator.user.profile.company, profile_public_path(@animator.user.profile) %></span>
         <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593192506/making-white.svg", :width => 110, :crop => :fill, :alt => "animateur") %>
       <% else %>
-        <span>Animé par<br><%= link_to @workshop.place.user.profile.company, place_path(@workshop.place) %></span>
+        <span>Animé par<br><%= link_to @workshop.place.name, place_path(@workshop.place) %></span>
         <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593192506/making-white.svg", :width => 110, :crop => :fill, :alt => "animateur") %>
       <% end %>
     </div>
   </div>
+
+  <!-- WORKSHOP SHOW EPHEMERAL STATUS - MOBILE ONLY -->
+
+  <% if @workshop.place.ephemeral %>
+    <div class="ws-show-ephemeral-status-mobile">
+      <span>
+         Cet atelier éphémère a lieu pendant l'événement<br>
+        <i class="far fa-star pr-1"></i>
+        <%= link_to @workshop.place.name, place_path(@workshop.place) %>
+        <i class="far fa-star pl-1"></i>
+      </span>
+    </div>
+  <% end %>
 
   <!-- WORKSHOP SHOW INFORMATIONS PROGRAM-->
 
@@ -111,13 +124,13 @@
     <!-- WORKSHOP SHOW INFORMATIONS REVIEWS-->
 
     <div class="ws-show-informations-reviews">
-      <div class= "ws-show-informations-reviews-title">
-        <h2>Avis sur l'atelier</h2>
-        <p>Note moyenne : <strong><%= @workshop.rating %> /5</strong> (<%= @workshop.reviews.count %> avis)</p>
-      </div>
-      <div class= "reviews-cards">
-        <% if @workshop.reviews.present? %>
-          <% @workshop.reviews.each do |review| %>
+      <% if @workshop.reviews.present? %>
+        <div class= "ws-show-informations-reviews-title">
+          <h2>Avis sur l'atelier</h2>
+          <p>Note moyenne : <strong><%= @workshop.rating %> /5</strong> (<%= @workshop.reviews.count %> avis)</p>
+        </div>
+        <div class= "reviews-cards">
+          <% @workshop.reviews.sort_by { |review| review.created_at }.reverse.first(4).each do |review| %>
             <div class="review-card">
               <div class="review-card-stars">
                 <% review.rating.times do %>
@@ -135,14 +148,24 @@
               </div>
             </div>
           <% end %>
+        </div>
+        <% if @workshop.reviews.count > 4 %>
+          <div class="show-more-reviews">
+            <%= link_to "Voir plus d'avis", workshop_reviews_path(@workshop), class: "blue-btn" %>
+          </div>
         <% end %>
-      </div>
+      <% else %>
+        <div class= "ws-show-informations-reviews-title">
+          <h2>Avis sur l'atelier</h2>
+          <p>Cet atelier n'a pas encore d'avis.</p>
+        </div>
+      <% end %>
     </div>
 
     <div class="ws-show-link-to-organizers">
       <%= link_to place_path(@workshop.place) do %>
         <div class="ws-show-organizer-link">
-          <p>Plus d'infos sur <%= @workshop.place.user.profile.company %></p>
+          <p>Plus d'infos sur <%= @workshop.place.name %></p>
           <i class="fas fa-chevron-right"></i>
         </div>
       <% end %>
@@ -157,14 +180,6 @@
     </div>
 
 
-    <br><br>
-    <h3>------------</h3>
-    <h3>A supprimer plus tard :</h3>
-    <ul>
-      <li>Statut : <%= @workshop.status %></li>
-      <li>Capacité : <%= @workshop.capacity %></li>
-    </ul>
-
     <% if current_user && policy(@workshop).update? %>
       <%= link_to 'Mettre à jour', edit_workshop_path(@workshop) %>
       <%= link_to 'Ajouter une session', new_workshop_session_path(@workshop) %>
@@ -175,5 +190,4 @@
       <% end %>
     <% end %>
   </div>
-  <div class="ws-show-empty-div"></div>
 </div>

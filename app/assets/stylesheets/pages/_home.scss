@@ -288,6 +288,8 @@
   }
   .home-ws-cards {
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: 332px;
+    overflow: hidden;
   }
 }
 
@@ -311,6 +313,8 @@
   }
   .home-ws-cards {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    height: 332px;
+    overflow: hidden;
   }
 }
 
