@@ -1,8 +1,13 @@
-<div class="homebanner", id="homebanner-margintop", style="background-image: url(<%= cl_image_path("homebanner-image-1.jpg", :width => 1200, :crop => :fill) %>)">
+<div class="homebanner", id="homebanner-margintop", style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/eugeniedenis/image/upload/v1594302429/background2_g816lg.png", :width => 1200, :crop => :fill) %>)">
 
   <div class="homebanner-title">
-    <h1>Offrez-vous un moment de détente créatif</h1>
-    <h2>Grâce à la nouvelle plateforme de réservation d'ateliers créatifs jeudemains.com</h2>
+    <%= link_to root_path, class: "" do %>
+      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593180301/logo-jdm-white.svg", :width => 350, :crop => :fill, :alt => "logo jeu de mains") %>
+    <% end %>
+    <div class="homebanner-title-text">
+      <h1>Offrez-vous un moment de détente créatif</h1>
+      <h2>Grâce à la nouvelle plateforme de réservation d'ateliers créatifs jeudemains.com</h2>
+    </div>
   </div>
 
   <div class="home-search-container">

@@ -88,13 +88,15 @@
 }
 
 
+// RESPONSIVE DESIGN NAVBAR //
+
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
   #all-workshops {
     display: none;
   }
   .navbar-brand-homepage img {
-    width: 6em;
+    width: 9em;
   }
   .navbar-brand-other img {
     width: 5em;
@@ -110,28 +112,50 @@
     width: 100vw;
     z-index: 2;
   }
+  .nav-home-menu-blue {
+    display: none;
+  }
 }
-
-// RESPONSIVE DESIGN NAVBAR //
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
   #all-workshops {
     display: none;
   }
+  .navbar-brand-homepage img {
+    visibility: hidden;
+  }
+  .nav-home-menu-white {
+    display: none;
+  }
 }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
-
+  .navbar-brand-homepage img {
+    visibility: hidden;
+  }
+  .nav-home-menu-white {
+    display: none;
+  }
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199px)  {
-
+  .navbar-brand-homepage img {
+    visibility: hidden;
+  }
+  .nav-home-menu-white {
+    display: none;
+  }
 }
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
-
+  .navbar-brand-homepage img {
+    visibility: hidden;
+  }
+  .nav-home-menu-white {
+    display: none;
+  }
 }
