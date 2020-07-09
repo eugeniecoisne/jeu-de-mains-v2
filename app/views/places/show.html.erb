@@ -157,6 +157,14 @@
       <% else %>
         <p><%= @place.name %> n'a pas d'atelier en ligne.</p>
       <% end %>
+      <% if @place.workshops.count > 4 %>
+        <div class="show-more-workshops active">
+          <a id="showMoreWsButton" class="blue-btn active">Voir plus d'ateliers</a>
+        </div>
+        <div class="show-less-workshops">
+          <a id="showLessWsButton" class="blue-btn">Voir moins d'ateliers</a>
+        </div>
+      <% end %>
     </div>
 
     <div class="public-profile-reviews about-ws-reviews-box">

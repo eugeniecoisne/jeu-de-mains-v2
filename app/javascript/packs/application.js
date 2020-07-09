@@ -11,6 +11,8 @@ import { initPlaces } from '../plugins/init_places';
 import { initBooking } from '../plugins/init_booking';
 import { initMapbox } from '../plugins/init_mapbox';
 import { initFullMap } from '../plugins/init_fullmap';
+import { showMoreWs } from '../plugins/show_more_ws';
+import { initRating } from '../plugins/init_rating';
 
 document.addEventListener('turbolinks:load', () => {
   flatpickr(".datepicker", {
@@ -22,4 +24,6 @@ document.addEventListener('turbolinks:load', () => {
   initMapbox();
   initFullMap();
   initBooking();
+  showMoreWs();
+  initRating();
 });
