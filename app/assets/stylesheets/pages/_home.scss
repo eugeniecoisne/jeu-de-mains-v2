@@ -16,11 +16,11 @@
   margin-top: 5em;
 }
 .home-steps-presentation-desktop {
-  margin: 1em;
+  margin: 2em 7em 3em 7em;
   margin-top: 2em;
   margin-bottom: 3em;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 4em;
 }
 
@@ -50,8 +50,8 @@
   }
   h3 {
     font-weight: 600;
-    font-size: 18px;
-    color: $orange;
+    font-size: 17px;
+    color: $dark-blue;
   }
   p {
     font-size: 16px;
@@ -67,7 +67,6 @@
 }
 
 .home-selection-card {
-  border-radius: 0.3em;
   height: 20em;
   color: white;
   overflow: hidden;

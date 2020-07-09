@@ -16,6 +16,7 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to dashboard_profile_path(current_user.profile)
     else
+      flash[:alert] = "Une erreur s'est produite."
       render 'new'
     end
   end
@@ -23,13 +24,10 @@ class ReviewsController < ApplicationController
   def index
     if params[:workshop_id]
       @workshop = Workshop.find(params[:workshop_id])
-      authorize @workshop
     elsif params[:place_id]
       @place = Place.find(params[:place_id])
-      authorize @place
     elsif params[:profile_id]
       @profile = Profile.find(params[:profile_id])
-      authorize @profile
     end
   end
 

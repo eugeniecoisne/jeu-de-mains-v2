@@ -23,7 +23,7 @@
     background-color: $gray;
   }
   li.active {
-    background-color: $orange;
+    background-color: $green;
   }
 }
 
@@ -85,6 +85,12 @@
   }
   .ws-show-ephemeral-status {
     display: none;
+  }
+  .home-steps-carousel-item {
+    height: 24em;
+  }
+  #carouselStepsMobile {
+    padding-top: 1em;
   }
 }
 

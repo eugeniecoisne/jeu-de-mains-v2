@@ -3,21 +3,33 @@
 // MAP BUTTON
 
 .index-ws-map-and-list-button {
-  border-radius: 50%;
+  border-radius: 22px;
   border: none;
-  width: 2.2em;
-  height: 2.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4.8em;
+  height: 1.8em;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0.2rem 0.4rem 0px;
   font-size: 1.3em;
   position: fixed;
   bottom: 2vh;
   right: 2vh;
   z-index: 2;
+  span {
+    font-weight: 600;
+    font-size: 15px;
+    margin-right: 0.8em;
+  }
 }
 
 #listButton {
-  color: $blue;
+  padding-top: 3px;
+  color: $dark-blue;
   background-color: $white;
+  span {
+    font-weight: 700;
+  }
 }
 
 #listButton.inactive {
@@ -25,8 +37,9 @@
 }
 
 #mapButton {
+  padding-top: 2px;
   color: white;
-  background-color: $blue;
+  background: $dark-blue;
 }
 #mapButton.inactive {
   display: none;

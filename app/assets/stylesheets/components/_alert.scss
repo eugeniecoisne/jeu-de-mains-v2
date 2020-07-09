@@ -3,4 +3,65 @@
   bottom: 16px;
   right: 16px;
   z-index: 1000;
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0.2rem 0.4rem 0px;
+}
+
+.alert-info {
+  background-color: $green;
+}
+
+.alert-warning {
+  background-color: $orange;
+}
+
+.alert-danger {
+  background-color: $orange;
+}
+
+.alert-success {
+  background-color: $green;
+}
+
+.close {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 0.8,
+}
+
+
+// RESPONSIVE ALERT //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .alert {
+    position: fixed;
+    bottom: 16px;
+    right: 5px;
+    left: 5px;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
 }

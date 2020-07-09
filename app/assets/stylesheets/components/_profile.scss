@@ -118,11 +118,18 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1em;
+  height: 670px;
+  overflow: hidden;
+  padding-bottom: 1em;
   #show-place-ws-card-place {
     h3 {
       color: $orange;
     }
   }
+}
+
+.public-profile-our-ws-cards.long {
+  height: auto;
 }
 
 .public-profile-reviews {
@@ -133,6 +140,40 @@
   .public-profile-reviews-subtitle {
     margin-bottom: 1em;
   }
+}
+
+.show-more-workshops.active {
+  display: block;
+  margin-top: 2em;
+  a {
+    color: $blue;
+    cursor: pointer;
+  }
+  a:hover {
+    color: $blue;
+    cursor: pointer;
+  }
+}
+
+.show-more-workshops {
+  display: none;
+}
+
+.show-less-workshops.active {
+  display: block;
+  margin-top: 2em;
+  a {
+    color: $blue;
+    cursor: pointer;
+  }
+  a:hover {
+    color: $blue;
+    cursor: pointer;
+  }
+}
+
+.show-less-workshops {
+  display: none;
 }
 
 
