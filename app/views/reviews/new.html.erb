@@ -1,14 +1,26 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-12">
-      <%= simple_form_for([@booking, @review]) do |f| %>
+<div class="sign-container">
 
-        <%= f.input :rating %>
-        <%= f.input :content %>
+  <div class="sign-form">
 
-        <%= f.submit 'Valider' %>
+    <h2 class="sign-title">Donnez votre avis sur l'atelier <%= @booking.session.workshop.title %></h2>
 
-      <% end %>
-    </div>
+    <%= simple_form_for([@booking, @review]) do |f| %>
+
+      <div class="form-inputs">
+
+        <%= f.input :rating, collection: (1..5).to_a, label: "Note sur l'atelier" %>
+        <%= f.input :content, label: "Avis sur l'atelier" %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Publier mon avis" %>
+      </div>
+
+    <% end %>
   </div>
+
+  <div class="sign-picture">
+    <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593629305/making-blue.svg", :width => 1000, :crop => :fill) %>
+  </div>
+
 </div>

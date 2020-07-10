@@ -137,6 +137,9 @@
   .popup-workshop-title-long {
     display: none;
   }
+  .mapboxgl-popup {
+    transform: translate(5vw, 8vh) !important;
+  }
 }
 
 // Small devices (landscape phones, 576px and up)

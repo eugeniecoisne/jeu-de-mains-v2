@@ -1,0 +1,24 @@
+.br-theme-css-stars {
+  .br-widget {
+    height: 35px;
+    a {
+      margin-right: 10px;
+    }
+    a:after {
+      color: $light-blue;
+      content: "\2606";
+    }
+    a:hover::after {
+      color: $light-blue;
+      content: "\2605";
+    }
+    a.br-active:after {
+      color: $light-blue;
+      content: "\2605";
+    }
+    a.br-selected:after {
+      color: $light-blue;
+      content: "\2605";
+    }
+  }
+}
