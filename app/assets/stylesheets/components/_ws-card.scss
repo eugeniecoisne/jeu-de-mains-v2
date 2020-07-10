@@ -3,7 +3,6 @@
   background: white;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0.2rem 0.4rem 0px;
   position: relative;
-  border-radius: 0.3em;
   height: 20em;
   cursor: pointer;
   a {
@@ -15,13 +14,12 @@
   display: flex;
   position: absolute;
   top: 0.6em;
-  left: 0.6em;
+  left: 0em;
   z-index: 1;
 }
 
 .ws-card-tag {
   padding: 0.15em 0.4em;
-  border-radius: 0.2em;
   background-color: white;
   opacity: 90%;
   display: flex;
@@ -49,7 +47,7 @@
 
 .ws-card-ephemeral {
   span {
-    color: $light-blue;
+    color: $blue;
     font-weight: 600;
   }
 }
@@ -100,7 +98,7 @@
   h2 {
     color: $dark-blue;
     font-weight: 600;
-    font-size: 1em;
+    font-size: 0.95em;
   }
 }
 
@@ -112,8 +110,8 @@
 
 .ws-card-price {
   color: $dark-blue;
-  font-weight: 700;
-  font-size: 1.1em;
+  font-weight: 600;
+  font-size: 0.95em;
   font-family: "Montserrat", "sans-serif";
 }
 
