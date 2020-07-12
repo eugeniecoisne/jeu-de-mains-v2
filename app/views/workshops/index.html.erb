@@ -39,6 +39,19 @@
     </div>
   </div>
 
+  <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+      <%= f.input :order, as: :radio_buttons, collection: ['Recommandation', 'Dates proches', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par', checked: params[:search][:order] %>
+      <div class="form-group">
+        <label for="formControlRange">Prix</label>
+        <input type="range" class="form-control-range" id="formControlRange" min="<%= @min_price %>" max="<%= @max_price %>" name="search[price]">
+      </div>
+      <%= f.input :keyword, required: false, label: "Type d'atelier", prompt: "Tous types", collection: Workshop::THEMATICS, selected: params[:search][:keyword] %>
+      <%= f.input :place, required: false, label: "Ville", prompt: "Toutes les villes", collection: Place.cities.sort, selected: params[:search][:place] %>
+      <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date"}, placeholder: "À tout moment", label: "À partir du" %>
+      <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
+      <%= f.submit 'Nouvelle recherche' %>
+  <% end %>
+
   <!-- WORKSHOPS INDEX CARDS RESULTS -->
   <div class= "index-ws-cards-map-container">
     <div class="index-ws-left-side">
