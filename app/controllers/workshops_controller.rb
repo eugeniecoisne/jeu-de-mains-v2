@@ -21,6 +21,25 @@ class WorkshopsController < ApplicationController
     end
     # authorize @workshops
 
+    @workshops = @workshops.select { |workshop| workshop.price <= params[:search][:price].to_f } if params[:search][:price].present?
+
+    if params[:search][:order].present?
+      case params[:search][:order]
+      when 'Recommandation'
+      when 'Dates proches'
+      when 'Prix croissants'
+        @workshops = @workshops.sort_by { |workshop| workshop.price }
+      when 'Prix décroissants'
+        @workshops = @workshops.sort_by { |workshop| workshop.price }.reverse
+      when 'Les mieux notés'
+        @workshops = @workshops.sort_by { |workshop| workshop.rating }.reverse
+      end
+    end
+
+    @prices = @workshops.map { |ws| ws.price }
+    @min_price = @prices.min
+    @max_price = @prices.max
+
     @places_geo = Place.where(id: @workshops.pluck(:place_id))
 
     @markers = @places_geo.map do |place|
