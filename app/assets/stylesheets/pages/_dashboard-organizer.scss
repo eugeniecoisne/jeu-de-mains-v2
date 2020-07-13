@@ -1,0 +1,96 @@
+#v-pills-my-workshops {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 30px;
+}
+
+.ws-dashboard-organizer-card-container {
+  border-left: 4px solid $flashy-green;
+  padding: 1px 5px 1px 15px;
+}
+
+.ws-dashboard-organizer-card {
+  display: flex;
+}
+
+.ws-dashboard-organizer-image {
+  img {
+    object-fit: cover;
+  }
+}
+
+.ws-dashboard-organizer-text-and-buttons {
+  padding-left: 15px;
+}
+
+.ws-dashboard-organizer-text {
+  a {
+    h2 {
+      color: $dark-gray;
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+  }
+  a:hover {
+    text-decoration: none;
+    h2 {
+      color: $dark-blue;
+    }
+  }
+  h3 {
+    color: $dark-gray;
+    opacity: 0.7;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 1px;
+  }
+  span {
+    font-weight: 600;
+    font-size: 15px;
+    color: $flashy-green;
+  }
+}
+
+.ws-dashboard-organizer-buttons {
+  margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 25px;
+    padding: 1px 10px;
+    background-color: unset;
+    border: 1px solid $flashy-green;
+    color: $flashy-green;
+    margin-bottom: 5px;
+  }
+  .button:hover {
+    text-decoration: none;
+    color: white;
+    background-color: $flashy-green;
+  }
+  #add-date-button {
+    color: white;
+    background-color: $flashy-green;
+  }
+  #add-date-button:hover {
+    color: $flashy-green;
+    background-color : unset;
+  }
+  #turn-offline-button {
+    color: $dark-gray;
+    background-color: unset;
+    border: 1px solid $dark-gray;
+    opacity: 0.4;
+  }
+  #turn-offline-button:hover {
+    color: white;
+    background-color : $dark-gray;
+    opacity: 0.7;
+  }
+}

@@ -1,0 +1,16 @@
+
+<div class="container m-3">
+  <h2>Sessions de l'atelier <%= @workshop.title %></h2>
+  <% if @workshop.place.user == current_user %>
+    <ul class="m-3">
+      <% @sessions.each do |session| %>
+        <li class="mb-3">
+          <%= session.date.strftime('%d/%m/%Y') %> - Début : <%= session.start_at %>
+          - <%= session.available %> places restantes sur <%= session.capacity %>
+          <%= link_to "retirer une place", "#", class: "button" %>
+          <%= link_to "supprimer cette session", "#", class: "button" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

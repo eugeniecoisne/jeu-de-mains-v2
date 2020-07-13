@@ -18,6 +18,11 @@ class SessionsController < ApplicationController
     end
   end
 
+  def index
+    @workshop = policy_scope(Workshop).find(params[:workshop_id])
+    @sessions = @workshop.sessions
+  end
+
   def search_places
     @session = Session.find(params[:session_id])
     authorize @session

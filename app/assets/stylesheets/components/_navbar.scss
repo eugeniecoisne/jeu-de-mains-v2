@@ -8,7 +8,7 @@
     padding-top: 0.3em;
   }
   .nav-link {
-    font-weight: 600;
+    font-weight: 700;
     padding-right: unset !important;
     padding-left: unset !important;
     padding-top: 0.35em;
@@ -32,15 +32,12 @@
   width: 6em;
 }
 
-
-
-#all-workshops {
-  margin-right: 2em;
+.nav-link-text {
+  margin-right: 1.5em;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 #menuButton {
@@ -62,6 +59,9 @@
   #all-workshops {
     color: $dark-blue;
   }
+  #become-partner {
+    color: $dark-blue;
+  }
 }
 
 .navbar-buttons-other {
@@ -71,9 +71,18 @@
   }
   #all-workshops {
     color: white;
+    font-weight: 600;
     border-bottom: 0.1em solid transparent;
   }
   #all-workshops:hover {
+    border-bottom: 0.1em solid white;
+  }
+  #become-partner {
+    color: white;
+    font-weight: 600;
+    border-bottom: 0.1em solid transparent;
+  }
+  #become-partner:hover {
     border-bottom: 0.1em solid white;
   }
   #menuButton {
@@ -93,6 +102,9 @@
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
   #all-workshops {
+    display: none;
+  }
+  #become-partner {
     display: none;
   }
   .navbar-brand-homepage img {
@@ -122,10 +134,13 @@
   #all-workshops {
     display: none;
   }
+  #become-partner {
+    display: none;
+  }
   .navbar-brand-homepage img {
     visibility: hidden;
   }
-  .nav-home-menu-white {
+  .nav-home-menu-blue {
     display: none;
   }
 }
