@@ -1,0 +1,138 @@
+<% if @profile.user == current_user %>
+
+  <!-- DASHBOARD - ORGANIZER -->
+
+  <div class="dashboard-title-container">
+    <h1>
+      Hello <span><%= @profile.company %></span>,<br>bienvenue sur votre tableau de bord !
+    </h1>
+  </div>
+
+  <div class="dashboard-organizer-container">
+    <div class="dashboard-nav-and-tab" id="dashboard-organizer-nav-and-tab">
+
+      <!-- NAV PILLS DESKTOP & TABLET -->
+
+      <div class="dashboard-nav-desktop-tablet">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a class="nav-link active" id="v-pills-my-workshops-tab" data-toggle="pill" href="#v-pills-my-workshops" role="tab" aria-controls="v-pills-my-workshops" aria-selected="true">
+            Mes ateliers
+          </a>
+          <a class="nav-link" id="v-pills-my-agenda-tab" data-toggle="pill" href="#v-pills-my-agenda" role="tab" aria-controls="v-pills-my-agenda" aria-selected="false">
+            Mon planning
+          </a>
+          <a class="nav-link" id="v-pills-my-places-tab" data-toggle="pill" href="#v-pills-my-places" role="tab" aria-controls="v-pills-my-places" aria-selected="false">
+            Mes lieux
+          </a>
+          <a class="nav-link" id="v-pills-my-kpis-tab" data-toggle="pill" href="#v-pills-my-kpis" role="tab" aria-controls="v-pills-my-kpis" aria-selected="false">
+            Mes chiffres clés
+          </a>
+          <a class="nav-link" id="v-pills-my-transactions-tab" data-toggle="pill" href="#v-pills-my-transactions" role="tab" aria-controls="v-pills-my-transactions" aria-selected="false">
+            Mes transactions
+          </a>
+        </div>
+      </div>
+
+      <!-- NAV PILLS MOBILE -->
+
+      <div class="dashboard-nav-mobile">
+        <div class="nav nav-pills nav-pills-organizer" id="pills-tab" role="tablist">
+          <a class="nav-link active" id="v-pills-my-workshops-tab" data-toggle="pill" href="#v-pills-my-workshops" role="tab" aria-controls="v-pills-my-workshops" aria-selected="true">
+            Mes ateliers
+          </a>
+          <a class="nav-link" id="v-pills-my-agenda-tab" data-toggle="pill" href="#v-pills-my-agenda" role="tab" aria-controls="v-pills-my-agenda" aria-selected="false">
+            Mon planning
+          </a>
+          <a class="nav-link" id="v-pills-my-places-tab" data-toggle="pill" href="#v-pills-my-places" role="tab" aria-controls="v-pills-my-places" aria-selected="false">
+            Mes lieux
+          </a>
+          <a class="nav-link" id="v-pills-my-kpis-tab" data-toggle="pill" href="#v-pills-my-kpis" role="tab" aria-controls="v-pills-my-kpis" aria-selected="false">
+            Mes chiffres clés
+          </a>
+          <a class="nav-link" id="v-pills-my-transactions-tab" data-toggle="pill" href="#v-pills-my-transactions" role="tab" aria-controls="v-pills-my-transactions" aria-selected="false">
+            Mes transactions
+          </a>
+        </div>
+      </div>
+
+      <!-- NAV TABS -->
+
+      <div class="dashboard-tabs">
+        <div class="tab-content" id="pills-tabContent">
+
+          <!-- MY WORKSHOPS -->
+
+          <div class="tab-pane fade show active" id="v-pills-my-workshops" role="tabpanel" aria-labelledby="v-pills-my-workshops-tab">
+            <% my_workshops = [] %>
+            <% @profile.user.places.each do |place| %>
+              <% place.workshops.each do |workshop| %>
+                <% my_workshops << workshop %>
+              <% end %>
+            <% end %>
+            <% my_workshops.each do |workshop| %>
+              <div class="ws-dashboard-organizer-card-container">
+                <div class="ws-dashboard-organizer-card">
+                  <div class="ws-dashboard-organizer-image">
+                    <% if workshop.photos.attached? %>
+                      <%= cl_image_tag workshop.photos[0].key, alt: "Photo-atelier", width: 95, height: 95, crop: :fill %>
+                    <% else %>
+                      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 95, :height => 95, :crop => :fill, :alt => "Photo-atelier") %>
+                    <% end %>
+                  </div>
+                  <div class="ws-dashboard-organizer-text-and-buttons">
+                    <div class="ws-dashboard-organizer-text">
+                      <%= link_to workshop_path(workshop) do %>
+                        <h2><%= workshop.title %></h2>
+                      <% end %>
+                      <h3><%= workshop.place.name %></h3>
+                      <span><%= workshop.status.capitalize %></span>
+                    </div>
+                    <div class="ws-dashboard-organizer-buttons">
+                      <%= link_to new_workshop_session_path(workshop), class: "button mr-2", id:"add-date-button" do %>
+                        <i class="fas fa-plus mr-1"></i>
+                        <span>Ajouter une date</span>
+                      <% end %>
+                      <%= link_to "Modifier la fiche", edit_workshop_path(workshop), class: "button mr-2" %>
+                      <%= link_to "Gérer les sessions", workshop_sessions_path(workshop), class: "button mr-2" %>
+                      <%= link_to "Désactiver", "#", class: "button", id: "turn-offline-button" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+          <!-- MY AGENDA -->
+
+          <div class="tab-pane fade" id="v-pills-my-agenda" role="tabpanel" aria-labelledby="v-pills-my-agenda-tab">
+            mon planning
+          </div>
+
+          <!-- MY PLACES -->
+
+          <div class="tab-pane fade" id="v-pills-my-places" role="tabpanel" aria-labelledby="v-pills-my-places-tab">
+            mes lieux
+          </div>
+
+          <!-- MY KPIs -->
+
+          <div class="tab-pane fade" id="v-pills-my-kpis" role="tabpanel" aria-labelledby="v-pills-my-kpis-tab">
+            mes chiffres clés
+          </div>
+
+          <!-- MY TRANSACTIONS -->
+
+          <div class="tab-pane fade" id="v-pills-my-transactions" role="tabpanel" aria-labelledby="v-pills-my-transactions-tab">
+            mes transactions
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end %>

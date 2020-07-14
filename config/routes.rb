@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
 
   resources :workshops, except: %i(destroy) do
-    resources :sessions, only: %i(new create)
+    resources :sessions, only: %i(new create index)
     resources :animators, only: %i(new create)
     resources :reviews, only: %i(index)
   end
