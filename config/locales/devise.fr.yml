@@ -94,11 +94,11 @@ fr:
         are_you_sure: Êtes-vous sûr ?
         cancel_my_account: Supprimer mon compte
         currently_waiting_confirmation_for_email: 'Confirmation en attente pour: %{email}'
-        leave_blank_if_you_don_t_want_to_change_it: laissez ce champ vide pour le laisser inchangé
+        leave_blank_if_you_don_t_want_to_change_it: Laissez ce champ vide pour le conserver inchangé
         title: Éditer %{resource}
         unhappy: Pas content ?
         update: Mettre à jour
-        we_need_your_current_password_to_confirm_your_changes: nous avons besoin de votre mot de passe actuel pour valider ces modifications
+        we_need_your_current_password_to_confirm_your_changes: Nous avons besoin de votre mot de passe actuel pour valider ces modifications
       new:
         sign_up: Inscription
       signed_up: Bienvenue ! Vous vous êtes bien enregistré(e).

@@ -22,10 +22,6 @@
   margin: 2em 8em;
 }
 
-.dashboard-organizer-container {
-  margin: 2em;
-}
-
 // NAV PILLS
 
 .dashboard-nav-and-tab {
@@ -67,10 +63,6 @@
   }
 }
 
-#dashboard-organizer-nav-and-tab {
-  grid-template-columns: 1fr 5fr;
-}
-
 
 // RESPONSIVE DASHBOARD //
 
@@ -79,9 +71,7 @@
   .dashboard-container {
     margin: 1.2em;
   }
-  .dashboard-organizer-container {
-    margin: 1.2em;
-  }
+
   .dashboard-title-container {
     padding: 1em 2em;
     h1 {
@@ -96,14 +86,6 @@
     .nav-pills {
       padding-right: unset;
       border-right: unset;
-    }
-    .nav-pills-organizer {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 0.2em;
-      .nav-link {
-        width: 100%;
-      }
     }
     .nav-link {
       justify-content: center;
@@ -136,9 +118,6 @@
       margin: unset;
       margin-top: 1em;
     }
-  }
-  #dashboard-organizer-nav-and-tab {
-    grid-template-columns: 1fr;
   }
 }
 
