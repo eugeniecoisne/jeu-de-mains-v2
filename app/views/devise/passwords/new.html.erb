@@ -13,12 +13,11 @@
           <%= f.input :email,
                       required: true,
                       autofocus: true,
-                      label: "E-mail",
                       input_html: { autocomplete: "email" } %>
         </div>
 
         <div class="form-actions">
-          <%= f.button :submit, "Envoyer le lien de réinitialisation" %>
+          <%= f.button :submit, t(".send_me_reset_password_instructions") %>
         </div>
       <% end %>
 

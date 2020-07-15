@@ -13,7 +13,6 @@
           <%= f.input :email,
                       required: true,
                       autofocus: true,
-                      label: "E-mail",
                       input_html: { autocomplete: "email" }%>
           <%= f.input :password,
                       required: true,
@@ -25,7 +24,7 @@
         </div>
 
         <div class="form-actions">
-          <%= f.button :submit, "M'inscrire" %>
+          <%= f.button :submit, t(".sign_up") %>
         </div>
       <% end %>
 
