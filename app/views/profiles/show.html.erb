@@ -93,14 +93,14 @@
                 <span><strong>Adresse e-mail</strong></span>
                 <span><%= @profile.user.email %></span>
               </div>
-              <a href="#" class="my-informations-button">Modifier</a>
+              <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button"  %>
             </li>
             <li class="list-group-item my-informations-item" id="last-my-informations-item">
               <div class="my-informations-text">
                 <span><strong>Mot de passe</strong></span>
                 <span>***********</span>
               </div>
-              <a href="#" class="my-informations-button">Modifier</a>
+              <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button"  %>
             </li>
           </ul>
         </div>

@@ -9,6 +9,7 @@ class Workshop < ApplicationRecord
   validates :title, presence: true, allow_blank: false
   validates :thematic, inclusion: { in: ['Autour du fil', 'Végétal', 'Papier & Lettering', 'Céramique & Modelage', 'Bijoux', 'Cosmétique & Entretien', 'Dessin & peinture', 'Meuble & Décoration'] }
   validates :level, inclusion: { in: ['Débutant', 'Intermédiaire', 'Avancé'] }
+  validates :recommendable, inclusion: { in: [1, 2, 3] }
 
   THEMATICS = ['Autour du fil', 'Végétal', 'Papier & Lettering', 'Céramique & Modelage', 'Bijoux', 'Cosmétique & Entretien', 'Dessin & peinture', 'Meuble & Décoration']
 
