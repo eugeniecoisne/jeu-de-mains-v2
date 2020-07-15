@@ -16,25 +16,24 @@ class WorkshopsController < ApplicationController
       end
       @workshops = @workshops.select { |workshop| workshop.thematic == params[:search][:keyword] } if params[:search][:keyword].present?
       @workshops = @workshops.select { |workshop| workshop.place.city == params[:search][:place] } if params[:search][:place].present?
+      @workshops = @workshops.select { |workshop| workshop.price <= params[:search][:price].to_f } if params[:search][:price].present?
+
+      if params[:search][:order].present?
+        case params[:search][:order]
+        when 'Recommandation'
+        when 'Dates proches'
+        when 'Prix croissants'
+          @workshops = @workshops.sort_by { |workshop| workshop.price }
+        when 'Prix décroissants'
+          @workshops = @workshops.sort_by { |workshop| workshop.price }.reverse
+        when 'Les mieux notés'
+          @workshops = @workshops.sort_by { |workshop| workshop.rating }.reverse
+        end
+      end
     else
       @workshops = policy_scope(Workshop).where(status: 'en ligne')
     end
     # authorize @workshops
-
-    @workshops = @workshops.select { |workshop| workshop.price <= params[:search][:price].to_f } if params[:search][:price].present?
-
-    if params[:search][:order].present?
-      case params[:search][:order]
-      when 'Recommandation'
-      when 'Dates proches'
-      when 'Prix croissants'
-        @workshops = @workshops.sort_by { |workshop| workshop.price }
-      when 'Prix décroissants'
-        @workshops = @workshops.sort_by { |workshop| workshop.price }.reverse
-      when 'Les mieux notés'
-        @workshops = @workshops.sort_by { |workshop| workshop.rating }.reverse
-      end
-    end
 
     @prices = @workshops.map { |ws| ws.price }
     @min_price = @prices.min
