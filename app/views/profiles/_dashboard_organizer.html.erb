@@ -2,7 +2,7 @@
 
   <!-- DASHBOARD - ORGANIZER -->
 
-  <div class="dashboard-title-container">
+  <div class="dashboard-title-container" id="dashboard-organizer-title-container">
     <h1>
       Hello <span><%= @profile.company %></span>,<br>bienvenue sur votre tableau de bord !
     </h1>
@@ -38,26 +38,26 @@
       <div class="dashboard-nav-mobile">
         <div class="nav nav-pills nav-pills-organizer" id="pills-tab" role="tablist">
           <a class="nav-link active" id="v-pills-my-workshops-tab" data-toggle="pill" href="#v-pills-my-workshops" role="tab" aria-controls="v-pills-my-workshops" aria-selected="true">
-            Mes ateliers
+            <span>Mes ateliers</span>
           </a>
           <a class="nav-link" id="v-pills-my-agenda-tab" data-toggle="pill" href="#v-pills-my-agenda" role="tab" aria-controls="v-pills-my-agenda" aria-selected="false">
-            Mon planning
+            <span>Mon planning</span>
           </a>
           <a class="nav-link" id="v-pills-my-places-tab" data-toggle="pill" href="#v-pills-my-places" role="tab" aria-controls="v-pills-my-places" aria-selected="false">
-            Mes lieux
+            <span>Mes lieux</span>
           </a>
           <a class="nav-link" id="v-pills-my-kpis-tab" data-toggle="pill" href="#v-pills-my-kpis" role="tab" aria-controls="v-pills-my-kpis" aria-selected="false">
-            Mes chiffres clés
+            <span>Mes chiffres clés</span>
           </a>
           <a class="nav-link" id="v-pills-my-transactions-tab" data-toggle="pill" href="#v-pills-my-transactions" role="tab" aria-controls="v-pills-my-transactions" aria-selected="false">
-            Mes transactions
+            <span>Mes transactions</span>
           </a>
         </div>
       </div>
 
       <!-- NAV TABS -->
 
-      <div class="dashboard-tabs">
+      <div class="dashboard-tabs" id="dashboard-organizer-tabs">
         <div class="tab-content" id="pills-tabContent">
 
           <!-- MY WORKSHOPS -->
@@ -69,7 +69,7 @@
                 <% my_workshops << workshop %>
               <% end %>
             <% end %>
-            <% my_workshops.each do |workshop| %>
+            <% my_workshops.each_with_index do |workshop, index| %>
               <div class="ws-dashboard-organizer-card-container">
                 <div class="ws-dashboard-organizer-card">
                   <div class="ws-dashboard-organizer-image">
@@ -82,10 +82,21 @@
                   <div class="ws-dashboard-organizer-text-and-buttons">
                     <div class="ws-dashboard-organizer-text">
                       <%= link_to workshop_path(workshop) do %>
-                        <h2><%= workshop.title %></h2>
+                        <% if workshop.title.size > 30 %>
+                          <h2><%= workshop.title[0..28] %>...</h2>
+                        <% else %>
+                          <h2><%= workshop.title %></h2>
+                        <% end %>
                       <% end %>
-                      <h3><%= workshop.place.name %></h3>
+                      <% if workshop.place.name.size > 30 %>
+                        <h3><%= workshop.place.name[0..28] %>...</h3>
+                      <% else %>
+                        <h3><%= workshop.place.name %></h3>
+                      <% end %>
                       <span><%= workshop.status.capitalize %></span>
+                    </div>
+                    <div class="show-actions-button active" id="showActionsButton">
+                      <%= link_to "Gérer", "#", class: "button" %>
                     </div>
                     <div class="ws-dashboard-organizer-buttons">
                       <%= link_to new_workshop_session_path(workshop), class: "button mr-2", id:"add-date-button" do %>

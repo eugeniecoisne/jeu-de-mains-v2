@@ -90,8 +90,7 @@
                           <p>Chez <%= booking.session.workshop.place.name %></p>
                           <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
                           <div>
-                            <%= link_to "Modifier", "#", class: "button" %>
-                            <%= link_to "Annuler", "#", class: "button ml-1" %>
+                            <%= link_to "Annuler ma commande", "#", class: "button" %>
                           </div>
                         </div>
                       </div>
@@ -160,4 +159,4 @@
       </div>
     </div>
   </div>
-</div>
+<% end %>
