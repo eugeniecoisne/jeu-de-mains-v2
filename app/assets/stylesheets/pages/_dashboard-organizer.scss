@@ -11,6 +11,12 @@
 
 #dashboard-organizer-nav-and-tab {
   grid-template-columns: 1fr 5fr;
+  .tab-pane {
+    display: none;
+  }
+  .tab-pane.active {
+    display: grid;
+  }
 }
 
 // PILLS
@@ -45,25 +51,25 @@
     align-items: center;
     justify-content: center;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 500;
     border-radius: 25px;
     padding: 1px 10px;
     background-color: unset;
-    border: 1px solid $flashy-green;
-    color: $flashy-green;
+    border: 1px solid $blue;
+    color: $blue;
     margin-bottom: 5px;
   }
   .button:hover {
     text-decoration: none;
     color: white;
-    background-color: $flashy-green;
+    background-color: $blue;
   }
   #add-date-button {
     color: white;
-    background-color: $flashy-green;
+    background-color: $blue;
   }
   #add-date-button:hover {
-    color: $flashy-green;
+    color: $blue;
     background-color : unset;
   }
   #turn-offline-button {
@@ -118,6 +124,131 @@
 }
 
 
+// MY AGENDA
+
+.mobile-dashboard-my-agenda-date-title {
+  padding: 2.5px 4px;
+  background-color: $light-blue;
+  h2 {
+    font-size: 13px;
+    color: white;
+    font-weight: 600;
+    margin-bottom: unset;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+  }
+}
+.mobile-dashboard-my-agenda-date-container {
+  margin-bottom: 2em;
+}
+
+.mobile-dashboard-my-agenda-workshop {
+  margin: 1em 1em 2em 0;
+  padding-left: 1em;
+  border-left: 1px solid $light-blue;
+  h3 {
+    font-size: 14.5px;
+  }
+  a {
+    color: $dark-gray;
+  }
+  a:hover {
+    color: $blue;
+    text-decoration: none;
+  }
+}
+
+.mobile-dashboard-my-agenda-workshop-infos {
+  padding-left: 1em;
+  h4 {
+    font-size: 12.5px;
+    font-weight: 500;
+    margin-bottom: 3px;
+    opacity: 0.8;
+  }
+}
+
+.mobile-my-agenda-ws-sessions {
+  color: $dark-yellow;
+  font-weight: 600;
+}
+
+.mobile-dashboard-my-agenda-workshop-participants {
+  margin-top: 1em;
+  .button {
+    background-color: unset;
+    color: $blue;
+    border-radius: 20px;
+    border: 1px solid $blue;
+    font-size: 12.5px;
+    padding: 3px 14px;
+  }
+  .button:hover {
+    text-decoration: none;
+    background-color: $blue;
+    color: white;
+  }
+}
+
+// MY PLACES
+
+.dashboard-my-places-place {
+  display: flex;
+  height: 90px;
+  margin-bottom: 2em;
+}
+
+.dashboard-my-places-place-image {
+  border-radius: 4px;
+  overflow: hidden;
+  img {
+    height: 100%;
+  }
+}
+
+.dashboard-my-places-place-infos {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 1em;
+  h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+}
+
+.dashboard-my-places-place-buttons {
+  .button {
+    font-size: 13px;
+    border-radius: 25px;
+    padding: 3px 12px;
+    border: 1px solid $blue;
+  }
+  .button:hover {
+    text-decoration: none;
+    background-color: unset;
+    color: $blue;
+  }
+  #public-profile-button {
+    background-color: $light-blue;
+    border-color: $light-blue;
+  }
+  #public-profile-button:hover {
+    text-decoration: none;
+    background-color: unset;
+    color: $blue;
+    border-color: $blue;
+  }
+}
+
+
+
 
 
 // RESPONSIVE ORGANIZER DASHBOARD //
@@ -137,8 +268,8 @@
     grid-template-columns: 1fr;
     .dashboard-nav-mobile {
       margin: -1em;
-      padding: 1em 1em 0.7em 1em;
-      background-color: $light-gray;
+      padding: 1em 1em 0.5em 1em;
+      border-bottom: 1.3px solid $gray2;
     }
     .nav-pills-organizer {
       display: flex;
@@ -146,25 +277,24 @@
     }
     .nav-link {
       border-radius: 2px;
-      font-size: 12.5px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 600;
       width: 60%;
-      color: $blue;
+      color: $light-blue;
       padding: 4px 12px;
-      margin-bottom: 4px;
       text-transform: uppercase;
       span {
         padding-bottom: 3px;
         margin-bottom: 2px;
-        border-bottom: 2px solid transparent;
         letter-spacing: 0.2px;
         font-family: "Montserrat", "sans-serif";
       }
     }
     .nav-link.active {
       background-color: unset;
+      font-weight: 700;
+      color: $dark-blue;
       span {
-        border-bottom: 2px solid $blue;
       }
     }
   }
@@ -238,14 +368,29 @@
       display: none;
     }
   }
+
+  // my places
+
+  .dashboard-my-places-place-infos {
+    h2 {
+      font-size: 14px;
+    }
+    h3 {
+      font-size: 13px;
+    }
+  }
 }
 
 // Small & Medium devices (tablets, 746px and up)
 @media (min-width: 746px) and (max-width: 991px)  {
 
+  // container
+
   .dashboard-organizer-container {
     margin: 2em 1.5em;
   }
+
+  // nav and tabs
 
   #dashboard-organizer-nav-and-tab {
     grid-template-columns: 1fr 3fr;

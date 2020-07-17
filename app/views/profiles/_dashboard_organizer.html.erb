@@ -59,16 +59,22 @@
 
       <div class="dashboard-tabs" id="dashboard-organizer-tabs">
         <div class="tab-content" id="pills-tabContent">
+          <% my_workshops = [] %>
+          <% my_sessions = [] %>
+          <% my_dates = [] %>
+          <% @profile.user.places.each do |place| %>
+            <% place.workshops.each do |workshop| %>
+              <% my_workshops << workshop %>
+              <% workshop.sessions.each do |session| %>
+                <% my_sessions << session %>
+                <% my_dates << session.date %>
+              <% end %>
+            <% end %>
+          <% end %>
 
           <!-- MY WORKSHOPS -->
 
           <div class="tab-pane fade show active" id="v-pills-my-workshops" role="tabpanel" aria-labelledby="v-pills-my-workshops-tab">
-            <% my_workshops = [] %>
-            <% @profile.user.places.each do |place| %>
-              <% place.workshops.each do |workshop| %>
-                <% my_workshops << workshop %>
-              <% end %>
-            <% end %>
             <% my_workshops.each_with_index do |workshop, index| %>
               <div class="ws-dashboard-organizer-card-container">
                 <div class="ws-dashboard-organizer-card">
@@ -116,13 +122,95 @@
           <!-- MY AGENDA -->
 
           <div class="tab-pane fade" id="v-pills-my-agenda" role="tabpanel" aria-labelledby="v-pills-my-agenda-tab">
-            mon planning
+            <div class="mobile-dashboard-my-agenda">
+              <% my_dates.to_set.sort.each do |date| %>
+                <% if date >= Date.today %>
+                  <div class="mobile-dashboard-my-agenda-date">
+                    <div class="mobile-dashboard-my-agenda-date-title">
+                      <h2><%= l(date, format: '%A %d %B %Y').capitalize %></h2>
+                    </div>
+                    <div class="mobile-dashboard-my-agenda-date-container">
+                      <% Session.where("date = ?", date.strftime).sort_by { |session| session.start_at }.each do |session| %>
+                        <% if session.workshop.place.user == @profile.user %>
+                          <div class="mobile-dashboard-my-agenda-workshop">
+                            <%= link_to workshop_path(session.workshop) do  %>
+                              <% if session.workshop.title.size > 33 %>
+                                <h3><%=session.start_at%> - <%= session.workshop.title[0..30] %>...</h3>
+                              <% else %>
+                                <h3><%=session.start_at%> - <%= session.workshop.title %></h3>
+                              <% end %>
+                            <% end %>
+                            <div class="mobile-dashboard-my-agenda-workshop-infos">
+                              <h4 class="mobile-my-agenda-ws-place-name">
+                                <i class="fas fa-map-marker-alt mr-2"></i>
+                                <%= session.workshop.place.name %>
+                              </h4>
+                              <% if session.workshop.animators.first %>
+                                <h4 class="mobile-my-agenda-ws-animator">
+                                  <i class="fas fa-graduation-cap mr-1"></i>
+                                  <%= session.workshop.animators.first.user.profile.company %>
+                                </h4>
+                              <% end %>
+                              <h4 class="mobile-my-agenda-ws-duration">
+                                <i class="far fa-clock mr-2"></i>
+                                <% if session.workshop.duration%60 == 0 %>
+                                  <%= session.workshop.duration/60 %> heures
+                                <% else %>
+                                  <%= session.workshop.duration/60 %> heures <%= session.workshop.duration%60 %>
+                                <% end %>
+                              </h4>
+                              <h4 class="mobile-my-agenda-ws-sessions">
+                                <i class="fas fa-ticket-alt mr-1"></i>
+                                <%= session.available %> places restantes / <%= session.capacity %>
+                              </h4>
+                            </div>
+                            <div class="mobile-dashboard-my-agenda-workshop-participants">
+                              <%= link_to "Voir et contacter les participants", "#", class: "button" %>
+                            </div>
+                          </div>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
           </div>
 
           <!-- MY PLACES -->
 
           <div class="tab-pane fade" id="v-pills-my-places" role="tabpanel" aria-labelledby="v-pills-my-places-tab">
-            mes lieux
+            <div class="dashboard-my-places">
+              <% @profile.user.places.each do |place| %>
+                <div class="dashboard-my-places-place">
+                  <div class="dashboard-my-places-place-image">
+                    <% if place.photo.attached? %>
+                      <%= cl_image_tag place.photo.key, alt: "Photo-lieu", width: 85, crop: :fill %>
+                    <% else %>
+                      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 85, :height => 95, :crop => :fill, :alt => "Photo-atelier") %>
+                    <% end %>
+                  </div>
+                  <div class="dashboard-my-places-place-infos">
+                    <div>
+                      <% if place.name.size > 30 %>
+                        <h2><%= place.name[0..28] %>...</h2>
+                      <% else %>
+                        <h2><%= place.name %></h2>
+                      <% end %>
+                      <h3><%= place.address %></h3>
+                      <h3><%= place.zip_code %> <%= place.city.capitalize %></h3>
+                    </div>
+                    <div class="dashboard-my-places-place-buttons">
+                      <%= link_to "Modifier", edit_place_path(place), class: "button" %>
+                      <%= link_to place_path(place), class: "button ml-1", id: "public-profile-button" do %>
+                        Profil public
+                        <i class="fas fa-chevron-right ml-1"></i>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
           </div>
 
           <!-- MY KPIs -->

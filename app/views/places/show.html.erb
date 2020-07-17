@@ -215,7 +215,3 @@
     </div>
   </div>
 </div>
-
-<% if current_user && policy(@place).update? %>
-  <%= link_to 'Mettre à jour', edit_place_path(@place) %>
-<% end %>
