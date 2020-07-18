@@ -178,16 +178,5 @@
         <% end %>
       <% end %>
     </div>
-
-
-    <% if current_user && policy(@workshop).update? %>
-      <%= link_to 'Mettre à jour', edit_workshop_path(@workshop) %>
-      <%= link_to 'Ajouter une session', new_workshop_session_path(@workshop) %>
-      <% if @animator.present? %>
-        <%= link_to 'Modifier animateur', edit_animator_path(@animator) %>
-      <% else %>
-        <%= link_to 'Ajouter un animateur', new_workshop_animator_path(@workshop) %>
-      <% end %>
-    <% end %>
   </div>
 </div>

@@ -88,8 +88,8 @@
                   <div class="ws-dashboard-organizer-text-and-buttons">
                     <div class="ws-dashboard-organizer-text">
                       <%= link_to workshop_path(workshop) do %>
-                        <% if workshop.title.size > 30 %>
-                          <h2><%= workshop.title[0..28] %>...</h2>
+                        <% if workshop.title.size > 28 %>
+                          <h2><%= workshop.title[0..26] %>...</h2>
                         <% else %>
                           <h2><%= workshop.title %></h2>
                         <% end %>
@@ -185,7 +185,7 @@
                 <div class="dashboard-my-places-place">
                   <div class="dashboard-my-places-place-image">
                     <% if place.photo.attached? %>
-                      <%= cl_image_tag place.photo.key, alt: "Photo-lieu", width: 85, crop: :fill %>
+                      <%= cl_image_tag place.photo.key, alt: "Photo-lieu", width: 100, crop: :fill %>
                     <% else %>
                       <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 85, :height => 95, :crop => :fill, :alt => "Photo-atelier") %>
                     <% end %>
@@ -216,18 +216,87 @@
           <!-- MY KPIs -->
 
           <div class="tab-pane fade" id="v-pills-my-kpis" role="tabpanel" aria-labelledby="v-pills-my-kpis-tab">
-            mes chiffres clés
+            <div class="dashboard-my-kpis">
+              <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-bookings">
+                <h2 class="my-bookings-seven-days active">12</h2>
+                <h2 class="my-bookings-thirty-days">36</h2>
+                <!-- à automatiser dès qu'on met bien en place le statut db -->
+                <h3>réservations<br>passées depuis</h3>
+                <label class="switch mt-1">
+                  <input type="checkbox" id="togBtnBookings">
+                    <div class="slider slider-bookings round">
+                      <span class="on">7 jours</span>
+                      <span class="off">30 jours</span>
+                      <!-- à automatiser dès qu'on met bien en place le statut db -->
+                    </div>
+                </label>
+              </div>
+              <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-cancellations">
+                <h2 class="my-cancellations-seven-days active">2</h2>
+                <h2 class="my-cancellations-thirty-days">8</h2>
+                <h3>réservations<br>annulées depuis</h3>
+                <label class="switch mt-1">
+                  <input type="checkbox" id="togBtnCancellations">
+                    <div class="slider slider-cancellations round">
+                      <span class="on">7 jours</span>
+                      <span class="off">30 jours</span>
+                    </div>
+                </label>
+              </div>
+              <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-workshops">
+                <h2><%= my_workshops.count %></h2>
+                <% if my_workshops.count > 1 %>
+                  <h3>ateliers<br>en ligne</h3>
+                <% else %>
+                  <h3>atelier<br>en ligne</h3>
+                <% end %>
+              </div>
+              <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-sessions">
+                <h2><%= my_sessions.count %></h2>
+                <% if my_sessions.count > 1 %>
+                  <h3>créneaux<br>proposés</h3>
+                <% else %>
+                  <h3>créneau<br>proposé</h3>
+                <% end %>
+              </div>
+
+              <% my_ratings_sum = 0 %>
+              <% @profile.user.places.each do |place| %>
+                <% if place.rating.present? %>
+                  <% my_ratings_sum += place.rating %>
+                <% end %>
+              <% end %>
+
+              <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-rating">
+                <% if my_ratings_sum > 0 %>
+                  <h2><%= my_ratings_sum.fdiv(@profile.user.places.count) %></h2>
+                  <h3>note globale<br> sur 5</h3>
+                <% else %>
+                  <h3>Vous n'avez pas<br>encore de note</h3>
+                <% end %>
+              </div>
+              <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-reviews">
+                <% if my_ratings_sum > 0 %>
+                  <h2><%= my_ratings_sum.round %></h2>
+                  <% if my_ratings_sum > 1 %>
+                    <h3>avis reçus</h3>
+                  <% else %>
+                    <h3>avis reçu</h3>
+                  <% end %>
+                  <%= link_to "Consulter", "#", class: "my-kpis-button mt-1" %>
+                <% else %>
+                  <h3>Vous n'avez pas<br>encore d'avis</h3>
+                <% end %>
+              </div>
+
+            </div>
           </div>
 
           <!-- MY TRANSACTIONS -->
 
           <div class="tab-pane fade" id="v-pills-my-transactions" role="tabpanel" aria-labelledby="v-pills-my-transactions-tab">
-            mes transactions
+            mes transactions (à coder plus tard, une fois stripe inclus)
           </div>
-
-
-
-
 
         </div>
       </div>

@@ -1,0 +1,127 @@
+#sessions-index-container {
+  .sign-form {
+    margin: 6em 3em;
+    width: 100%;
+  }
+}
+.sessions-index-one-session {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0.5em 1em;
+  margin: 1.5em 0;
+  border-left: 4px solid $light-blue;
+  h3 {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  .sessions-index-sessions-available {
+    opacity: 0.5;
+    font-weight: 400;
+    font-family: "Raleway", "sans-serif";
+  }
+  a {
+    font-size: 13px;
+  }
+
+}
+
+.sessions-index-buttons {
+  a {
+    border: 1px solid $light-blue;
+    background-color: $light-blue;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 4px 12px;
+    border-radius: 30px;
+    text-align: center;
+  }
+  a:hover {
+    background-color: unset;
+    color: $light-blue;
+    text-decoration: none;
+  }
+  #delete-session {
+    border-color: $blue;
+    background-color: unset;
+    color: $blue;
+  }
+  #delete-session:hover {
+    background-color: $blue;
+    color: white;
+  }
+}
+
+
+
+// RESPONSIVE SESSIONS INDEX //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  #sessions-index-container {
+    grid-template-columns: 1fr;
+    .sign-form {
+      margin: 3em 2em;
+      width: unset;
+    }
+    .sign-picture {
+      display: none;
+    }
+    .sessions-index-one-session {
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .sessions-index-buttons {
+      margin-top: 0.6em;
+      a {
+        font-size: 13px;
+      }
+    }
+    .sign-title {
+      font-size: 22px;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+  #sessions-index-container {
+    grid-template-columns: 1fr;
+    .sign-form {
+      margin: 4em 2em;
+      width: unset;
+    }
+    .sign-picture {
+      display: none;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+  #sessions-index-container {
+    grid-template-columns: 2fr 1fr;
+    .sign-form {
+      margin: 4em 2em;
+    }
+    .sign-picture {
+      margin-left: 2em;
+    }
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
+
+

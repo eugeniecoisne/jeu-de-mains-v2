@@ -14,6 +14,7 @@ import { initFullMap } from '../plugins/init_fullmap';
 import { showMoreWs } from '../plugins/show_more_ws';
 import { initRating } from '../plugins/init_rating';
 import { showActions } from '../plugins/show_actions';
+import { toggleBtnKpis } from '../plugins/toggle_btn_kpis';
 
 document.addEventListener('turbolinks:load', () => {
   flatpickr(".datepicker", {
@@ -28,4 +29,5 @@ document.addEventListener('turbolinks:load', () => {
   showMoreWs();
   initRating();
   showActions();
+  toggleBtnKpis();
 });
