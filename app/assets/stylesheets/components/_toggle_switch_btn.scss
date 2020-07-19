@@ -1,0 +1,93 @@
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 124px;
+  height: 40px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  border: 1px solid white;
+  -webkit-transition: .2s;
+  transition: .2s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "7 jours";
+  font-size: 12px;
+  font-weight: 600;
+  color: $blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 56px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .2s;
+  transition: .2s;
+}
+
+input:checked + .slider {
+  background-color: transparent;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(57.5px);
+  -ms-transform: translateX(57.5px);
+  transform: translateX(57.5px);
+  content: "30 jours";
+}
+
+.on {
+  display: none;
+}
+
+.on
+{
+  color: white;
+  position: absolute;
+  bottom: 10.5px;
+  left: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.off
+{
+  color: white;
+  position: absolute;
+  bottom: 10.5px;
+  right: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+input:checked + .slider .on
+{display: block;}
+
+input:checked + .slider .off
+{display: none;}
+
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 34px;}

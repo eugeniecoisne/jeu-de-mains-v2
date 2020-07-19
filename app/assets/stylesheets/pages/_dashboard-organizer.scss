@@ -199,9 +199,8 @@
 }
 
 .dashboard-my-places-place-image {
-  border-radius: 4px;
-  overflow: hidden;
   img {
+    width: 85px;
     height: 100%;
   }
 }
@@ -247,8 +246,97 @@
   }
 }
 
+// MY KPIS
 
+.dashboard-my-kpis {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1.3em;
+}
 
+.dashboard-my-kpis-item {
+  padding: 2em;
+  background-color: $light-blue;
+  height: 15em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    color: white;
+    font-size: 32px;
+    margin-bottom: 4px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  h3 {
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+  }
+}
+
+#dashboard-my-kpis-bookings {
+  background-color: $blue;
+}
+
+.my-bookings-seven-days.active {
+  display: block;
+}
+.my-bookings-seven-days {
+  display: none;
+}
+.my-bookings-thirty-days.active {
+  display: block;
+}
+.my-bookings-thirty-days {
+  display: none;
+}
+
+#dashboard-my-kpis-cancellations {
+  background-color: $green;
+  .slider:before {
+    color: $green;
+  }
+}
+
+.my-cancellations-seven-days.active {
+  display: block;
+}
+.my-cancellations-seven-days {
+  display: none;
+}
+.my-cancellations-thirty-days.active {
+  display: block;
+}
+.my-cancellations-thirty-days {
+  display: none;
+}
+#dashboard-my-kpis-workshops {
+  background-color: $light-blue;
+}
+#dashboard-my-kpis-sessions {
+  background-color: $blue;
+}
+#dashboard-my-kpis-rating {
+  background-color: $green;
+}
+.my-kpis-button {
+  border: 1px solid white;
+  padding: 5px 13px;
+  text-decoration: none;
+  color: white;
+  border-radius: 30px;
+  font-family: "Montserrat", "sans-serif";
+  font-size: 13px;
+  font-weight: 600;
+}
+.my-kpis-button:hover {
+  text-decoration: none;
+  color: $light-blue;
+  background-color: white;
+}
 
 
 // RESPONSIVE ORGANIZER DASHBOARD //
@@ -379,6 +467,22 @@
       font-size: 13px;
     }
   }
+
+  // my kpis
+  .dashboard-my-kpis {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.7em;
+  }
+  .dashboard-my-kpis-item {
+    padding: 0.5em;
+    height: 10em;
+    h2 {
+      font-size: 30px;
+    }
+    h3 {
+      font-size: 14px;
+    }
+  }
 }
 
 // Small & Medium devices (tablets, 746px and up)
@@ -393,17 +497,31 @@
   // nav and tabs
 
   #dashboard-organizer-nav-and-tab {
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1.1fr 3fr;
+  }
+
+  // my kpis
+  .dashboard-my-kpis {
+    grid-template-columns: 1fr 1fr;
   }
 
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199px)  {
-
+  // my kpis
+  .dashboard-my-kpis {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  #dashboard-organizer-nav-and-tab {
+    grid-template-columns: 1fr 4fr;
+  }
 }
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
-
+  // my kpis
+  .dashboard-my-kpis {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }

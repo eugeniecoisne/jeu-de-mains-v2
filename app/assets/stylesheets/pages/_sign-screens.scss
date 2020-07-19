@@ -8,6 +8,10 @@
 .sign-title {
   color: $blue;
   margin-bottom: 1em;
+  span {
+    color: $light-blue;
+    font-weight: 600;
+  }
 }
 
 .sign-form {
@@ -113,7 +117,7 @@
 }
 
 // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) and (max-width: 765px) {
+@media (min-width: 576px) and (max-width: 767px) {
   .sign-container {
     grid-template-columns: 1.5fr 1fr;
   }
