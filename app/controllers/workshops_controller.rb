@@ -14,14 +14,44 @@ class WorkshopsController < ApplicationController
       else
         @workshops = policy_scope(Workshop).where(status: 'en ligne')
       end
+
       @workshops = @workshops.select { |workshop| workshop.thematic == params[:search][:keyword] } if params[:search][:keyword].present?
       @workshops = @workshops.select { |workshop| workshop.place.city == params[:search][:place] } if params[:search][:place].present?
-      @workshops = @workshops.select { |workshop| workshop.price <= params[:search][:price].to_f } if params[:search][:price].present?
+
+      if params[:search][:min_price].present? && params[:search][:max_price].present?
+
+        min_price = params[:search][:min_price].to_f
+        max_price = params[:search][:max_price].to_f
+
+        if min_price > max_price
+          @workshops = @workshops.select do |workshop|
+            workshop.price <= min_price
+            workshop.price >= max_price
+          end
+        elsif min_price == max_price
+          @workshops = @workshops.select do |workshop|
+            workshop.price == min_price
+          end
+        else
+          @workshops = @workshops.select do |workshop|
+            workshop.price <= max_price
+            workshop.price >= min_price
+          end
+        end
+      end
+
+      if params[:search][:ephemeral].present?
+        if params[:search][:ephemeral] == 'true'
+          @workshops = @workshops.select { |workshop| workshop.place.ephemeral }
+        else
+          @workshops = @workshops.select { |workshop| workshop.place.ephemeral == false }
+        end
+      end
 
       if params[:search][:order].present?
         case params[:search][:order]
         when 'Recommandation'
-        when 'Dates proches'
+          @workshops = @workshops.sort_by { |workshop| workshop.recommendable }.reverse
         when 'Prix croissants'
           @workshops = @workshops.sort_by { |workshop| workshop.price }
         when 'Prix décroissants'
