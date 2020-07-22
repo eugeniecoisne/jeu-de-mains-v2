@@ -46,8 +46,16 @@
       <%= f.input :max_price, required: false, label: 'Prix maximum', input_html: { value: params[:search][:max_price].to_f } %>
       <%= f.input :keyword, required: false, label: "Type d'atelier", prompt: "Tous types", collection: Workshop::THEMATICS, selected: params[:search][:keyword] %>
       <%= f.input :place, required: false, label: "Ville", prompt: "Toutes les villes", collection: Place.cities.sort, selected: params[:search][:place] %>
-      <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date", value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d') }, placeholder: "À tout moment", label: "À partir du" %>
-      <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker", value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d') }, placeholder: "À tout moment", label: "Jusqu'au" %>
+      <% if params[:search][:starts_at].present? %>
+        <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date", value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d') }, placeholder: "À tout moment", label: "À partir du" %>
+      <% else %>
+        <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date"}, placeholder: "À tout moment", label: "À partir du" %>
+      <% end %>
+      <% if params[:search][:starts_at].present? %>
+        <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker", value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d') }, placeholder: "À tout moment", label: "Jusqu'au" %>
+      <% else %>
+        <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
+      <% end %>
       <%= f.input :ephemeral, required: false, as: :radio_buttons, checked: params[:search][:ephemeral] %>
     <% else %>
       <%= f.input :order, as: :radio_buttons, collection: ['Recommandation', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par' %>
