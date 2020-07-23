@@ -23,7 +23,7 @@
       text-transform: uppercase;
       font-weight: 700;
       font-size: 0.95em;
-      color:$light-blue;
+      color:$blue;
       padding-left: 0.35rem;
       letter-spacing: 0.03em;
     }
@@ -64,9 +64,10 @@
   }
   .search-button {
     margin-top: 1px;
+    margin-right: 3px;
     height: 75px;
-    width: 75px;
-    background-color: $light-blue;
+    width: auto;
+    background-color: $dark-blue;
     color: white;
     border-radius: 5px;
     display: flex;
@@ -84,6 +85,7 @@
   }
   .search-button:hover {
     background-color: $blue;
+    cursor: pointer;
   }
 }
 
@@ -97,7 +99,7 @@
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
   .home-search-container {
-    margin: 0 1em;
+    margin: 0 0.5em;
   }
   .home-search-inputs-and-submit {
     display: grid;
@@ -121,7 +123,7 @@
   }
 
   .home-search {
-    height: 16.5em;
+    height: 18.5em;
     background-color: unset;
     box-shadow: unset;
     .simple_form {
@@ -137,7 +139,6 @@
       margin-top: 1em;
       height: 2.5em;
       width: 100%;
-      background-color: $blue;
       .fa-search {
         font-size: 1.1em;
       }

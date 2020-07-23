@@ -59,7 +59,7 @@
 .ws-card-last-minute-tickets {
   margin-right: 0.4em;
   margin-bottom: 0.4em;
-  background-color: $green;
+  background-color: $dark-blue;
   opacity: 100%;
   width: 140px;
   span {
@@ -71,7 +71,7 @@
 .ws-card-last-minute-date {
   margin-bottom: 0.4em;
   span {
-    color: $green;
+    color: $dark-blue;
     font-weight: 600;
   }
 }
@@ -135,7 +135,6 @@
   }
   .ws-card-tags {
     top: 0.4em;
-    left: 0.4em;
   }
   .ws-card-tag {
     span {

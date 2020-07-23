@@ -108,22 +108,22 @@
 }
 
 #home-selection-first {
-  background-color: $blue;
+  background-color: $light-blue;
   img {
     object-position: top;
   }
 }
 
 #home-selection-second {
-  background-color: $green;
+  background-color: $light-blue;
 }
 
 #home-thematic-first {
-  background-color: $green;
+  background-color: $blue;
 }
 
 #home-thematic-second {
-  background-color: $light-blue;
+  background-color: $blue;
 }
 
 
@@ -179,6 +179,8 @@
   }
   .home-steps-title {
     margin-top: 2.5em;
+    font-size: 22px;
+    padding: 0 14px;
   }
   .home-selection-cards {
     grid-template-columns: 1fr;
@@ -196,7 +198,7 @@
     margin-top: 1em;
     height: auto;
     h2 {
-      font-size: 24px;
+      font-size: 22px;
     }
     h3 {
       font-size: 15px;
@@ -218,6 +220,8 @@
   .home-ws-cards-container {
     .home-ws-cards-title {
       margin-top: 2.5em;
+      font-size: 22px;
+      padding: 0 14px;
     }
     .home-ws-cards-subtitle {
       font-size: 15px;
@@ -238,8 +242,11 @@
   .home-steps-title {
     margin-top: 3em;
   }
+  .home-selection-cards {
+    grid-template-columns: 1fr;
+  }
   .home-selection-card {
-  height: 20em;
+  height: 15em;
     img {
       width: 40%;
       height: auto;
