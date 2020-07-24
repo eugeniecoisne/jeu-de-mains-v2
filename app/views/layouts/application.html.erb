@@ -13,7 +13,7 @@
   </head>
   <body>
     <!-- NAVBAR -->
-    <% if controller.controller_name == 'pages' %>
+    <% if controller.controller_name == 'pages' && controller.action_name == 'home' %>
       <%= render 'shared/navbar-homepage' %>
     <% elsif controller.controller_name == 'workshops' && controller.action_name == 'index' %>
       <%= render 'shared/navbar-ws-index' %>

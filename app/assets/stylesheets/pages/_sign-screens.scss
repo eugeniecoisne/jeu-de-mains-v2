@@ -38,17 +38,17 @@
   .btn {
     padding: 0.3em 1.2em;
     color: white;
-    background-color: $orange;
+    background-color: $green;
     font-size: 16px;
     font-weight: 600;
     border-radius: 5px;
-    opacity: 80%;
+    opacity: 100%;
   }
   .btn:hover {
-    opacity: 100%
+    opacity: 80%
   }
   .btn:focus {
-    opacity: 100%
+    opacity: 80%
   }
 }
 

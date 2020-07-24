@@ -1,6 +1,7 @@
 .homebanner {
+  background-image: url("background-desktop.png");
   background-size: cover;
-  background-position: center;
+  background-position: bottom;
   height: 36em;
   margin-top: -6em;
   display: flex;
@@ -12,26 +13,27 @@
 
 .homebanner-title {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin: 0 8em 0 7em;
   h1 {
     color: $white;
     font-weight: 600;
-    font-size: 32px;
+    font-size: 28px;
     text-align: left;
-    max-width: 500px;
+    max-width: 350px;
   }
   h2 {
     color: $white;
     font-size: 20px;
-    margin-bottom: 7em;
+    margin-bottom: 6em;
     font-weight: 500;
-    max-width: 500px;
+    max-width: 350px;
   }
   img {
-    width: 300px;
-    margin-right: 250px;
-    margin-top: 2em;
+    width:260px;
+    margin-left: -10px;
+    margin-bottom: 30px;
   }
 }
 
@@ -42,18 +44,14 @@
   .homebanner {
     padding: 0;
     height: 37em;
-    justify-content: center;
-    background-size: 265%;
-    background-position: top;
+    justify-content: flex-end;
+    background-image: url("background-mobile.png");
   }
   .homebanner-title {
     flex-direction: column;
-    margin: 0 2em 0 2em;
+    margin: 0 1em 0 1em;
     h1 {
-      margin-top: 3.5em;
-      margin-bottom: 4em;
-      font-size: 24px;
-
+      font-size: 22px;
     }
     h2 {
       display: none;
@@ -67,24 +65,46 @@
   }
 }
 
+@media (min-width: 100px) and (max-width: 300px) {
+  .homebanner-title {
+    h1 {
+      padding: 0 1.5em;
+      max-width: unset;
+      text-align: center;
+      margin-bottom: -10px;
+    }
+  }
+}
+
+@media (min-width: 301px) and (max-width: 575px) {
+  .homebanner-title {
+    h1 {
+      max-width: 400px;
+      margin-bottom: -16px;
+    }
+  }
+}
+
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 654px) {
   .homebanner {
     padding: 3em 0 0 0;
-    height: 40em;
-    justify-content: center;
+    height: 38em;
+    justify-content: flex-start;
+    background-image: url("background-tablet.png");
   }
   .homebanner-title {
-    margin: 0 1em 0 2em;
+    margin: 6em 1em 0em 2em;
     h1 {
       font-size: 25px;
+      max-width: 240px;
     }
     h2 {
       font-size: 16px;
+      max-width: 240px;
     }
     img {
-      width: 190px;
-      margin-right: 140px;
+      display: none;
     }
   }
   .homebanner-title-text {
@@ -96,20 +116,22 @@
   .homebanner {
     padding: 3em 0 0 0;
     height: 40em;
-    justify-content: center;
+    justify-content: flex-start;
+    background-position: center;
+    background-image: url("background-tablet.png");
   }
   .homebanner-title {
-    margin: 0 2em 0 2em;
+    margin: 7em 2em 0em 2em;
     h1 {
-      font-size: 26px;
+      font-size: 25px;
+      max-width: 250px;
     }
     h2 {
-      font-size: 17px;
+      font-size: 16px;
+      max-width: 250px;
     }
     img {
-      width: 200px;
-      margin-right: 180px;
-      margin-left: 20px;
+      display: none;
     }
   }
   .homebanner-title-text {
@@ -122,20 +144,21 @@
     padding-right: 0em;
     padding-left: 0em;
     height: 32em;
+    background-size: 120%;
   }
   .homebanner-title {
     margin: 0 4em 0 3em;
     h1 {
-      font-size: 28px;
-      max-width: 550px;
+      font-size: 24px;
+      max-width: 300px;
     }
     h2 {
       font-size: 18px;
-      max-width: 550px;
+      margin-bottom: 4em;
+      max-width: 300px;
     }
     img {
       width: 220px;
-      margin-right: 210px;
     }
   }
 }
@@ -146,20 +169,16 @@
     padding-right: 0em;
     padding-left: 0em;
     height: 32em;
+    background-size: 115%;
   }
   .homebanner-title {
     margin: 0 5em 0 4em;
     h1 {
-      font-size: 28px;
-      max-width: 550px;
+      font-size: 26px;
     }
     h2 {
+      margin-bottom: 4em;
       font-size: 18px;
-      max-width: 550px;
-    }
-    img {
-      width: 250px;
-      margin-right: 250px;
     }
   }
 
@@ -170,18 +189,12 @@
     padding-right: 2em;
     padding-left: 2em;
     height: 34em;
+    background-size: 110%;
   }
   .homebanner-title {
     margin: 0 5em 0 4em;
-    h1 {
-      max-width: 550px;
-    }
     h2 {
-      max-width: 550px;
-    }
-    img {
-      width: 250px;
-      margin-right: 260px;
+      margin-bottom: 5em;
     }
   }
 
@@ -195,15 +208,8 @@
   }
   .homebanner-title {
     margin: 0 6em 0 5em;
-    h1 {
-      max-width: 450px;
-    }
     h2 {
-      max-width: 450px;
-    }
-    img {
-      width: 280px;
-      margin-right: 280px;
+      margin-bottom: 5em;
     }
   }
 }
@@ -215,16 +221,7 @@
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1310px) {
-  .homebanner-title {
-    h1 {
-      max-width: 400px;
-    }
-    h2 {
-      max-width: 400px;
-    }
-    img {
-      width: 350px;
-      margin-right: 300px;
-    }
+  .homebanner {
+    height: 38em;
   }
 }
