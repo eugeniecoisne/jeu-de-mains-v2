@@ -1,8 +1,9 @@
 .homebanner {
-  background-image: url("background-desktop.png");
+  background-image: url('https://res.cloudinary.com/eugeniedenis/image/upload/c_fill,w_1400/v1595585944/background-desktop.png');
   background-size: cover;
   background-position: bottom;
   height: 36em;
+  width: 100vw;
   margin-top: -6em;
   display: flex;
   flex-direction: column;
@@ -45,7 +46,7 @@
     padding: 0;
     height: 37em;
     justify-content: flex-end;
-    background-image: url("background-mobile.png");
+    background-image: url('https://res.cloudinary.com/eugeniedenis/image/upload/c_fill,w_650/v1595585944/background-mobile.png');
   }
   .homebanner-title {
     flex-direction: column;
@@ -91,7 +92,7 @@
     padding: 3em 0 0 0;
     height: 38em;
     justify-content: flex-start;
-    background-image: url("background-tablet.png");
+    background-image: url('https://res.cloudinary.com/eugeniedenis/image/upload/c_fill,w_700/v1595585944/background-tablet.png');
   }
   .homebanner-title {
     margin: 6em 1em 0em 2em;
@@ -118,7 +119,7 @@
     height: 40em;
     justify-content: flex-start;
     background-position: center;
-    background-image: url("background-tablet.png");
+    background-image: url('https://res.cloudinary.com/eugeniedenis/image/upload/c_fill,w_800/v1595585944/background-tablet.png');
   }
   .homebanner-title {
     margin: 7em 2em 0em 2em;
