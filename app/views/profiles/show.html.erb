@@ -6,7 +6,7 @@
       <% if @profile.company %>
         <%= @profile.company %>
       <% else %>
-        <%= @profile.first_name %>
+        <%= @profile.user.first_name %>
       <% end %>
       </span>,
       <br>bienvenue sur votre compte !
@@ -61,18 +61,16 @@
             <li class="list-group-item my-informations-item" id="first-item">
               <div class="my-informations-text">
                 <span><strong>Nom</strong></span>
-                <span><%= @profile.last_name %></span>
+                <span><%= @profile.user.last_name %></span>
               </div>
-              <a href="#lastNameModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
-              <%= render 'update_profile_modal', profile: @profile %>
+              <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button"  %>
             </li>
             <li class="list-group-item my-informations-item">
               <div class="my-informations-text">
                 <span><strong>Prénom</strong></span>
-                <span><%= @profile.first_name %></span>
+                <span><%= @profile.user.first_name %></span>
               </div>
-              <a href="#firstNameModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
-              <%= render 'update_profile_modal', profile: @profile %>
+              <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button"  %>
             </li>
             <% if @profile.company.nil? %>
               <li class="list-group-item my-informations-item">

@@ -10,6 +10,16 @@
         <%= f.error_notification %>
 
         <div class="form-inputs" id="form-inputs-sign-up">
+          <%= f.input :last_name,
+                      required: true,
+                      autofocus: true,
+                      label: "Nom",
+                      input_html: { autocomplete: "last_name" }%>
+          <%= f.input :first_name,
+                      required: true,
+                      autofocus: true,
+                      label: "Prénom",
+                      input_html: { autocomplete: "first_name" }%>
           <%= f.input :email,
                       required: true,
                       autofocus: true,

@@ -1,0 +1,76 @@
+<!-- FILTERS MODAL -->
+
+<div class="modal fade filters-modal" id="filtersModal" tabindex="-1" role="dialog" aria-labelledby="filtersModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+    <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+
+      <h2>Filtrer et trier</h2>
+
+      <% if params[:search].present? %>
+        <div>
+          <%= f.input :order, as: :radio_buttons, collection: ['Recommandation', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par', checked: params[:search][:order] %>
+        </div>
+        <div class="d-flex">
+          <%= f.input :min_price, required: false, label: 'Prix minimum', input_html: { value: params[:search][:min_price].to_f } %>
+          <%= f.input :max_price, required: false, label: 'Prix maximum', input_html: { value: params[:search][:max_price].to_f } %>
+        </div>
+        <div>
+          <%= f.input :keyword, required: false, label: "Type d'atelier", prompt: "Tous types", collection: Workshop::THEMATICS, selected: params[:search][:keyword] %>
+        </div>
+        <div>
+          <%= f.input :place, required: false, label: "Ville", prompt: "Toutes les villes", collection: Place.cities.sort, selected: params[:search][:place] %>
+        </div>
+
+        <div>
+          <% if params[:search][:starts_at].present? %>
+            <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date", value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d') }, placeholder: "À tout moment", label: "À partir du" %>
+          <% else %>
+            <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date"}, placeholder: "À tout moment", label: "À partir du" %>
+          <% end %>
+        </div>
+        <div>
+          <% if params[:search][:starts_at].present? %>
+            <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker", value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d') }, placeholder: "À tout moment", label: "Jusqu'au" %>
+          <% else %>
+            <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
+          <% end %>
+        </div>
+
+        <div>
+          <%= f.input :ephemeral, required: false, as: :radio_buttons, checked: params[:search][:ephemeral] %>
+        </div>
+
+      <% else %>
+        <div>
+          <%= f.input :order, as: :radio_buttons, collection: ['Recommandation', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par' %>
+        </div>
+        <div class="d-flex">
+          <%= f.input :min_price, required: false, label: 'Prix minimum', input_html: { value: @min_price } %>
+          <%= f.input :max_price, required: false, label: 'Prix maximum', input_html: { value: @max_price } %>
+        </div>
+        <div>
+          <%= f.input :keyword, required: false, label: "Type d'atelier", prompt: "Tous types", collection: Workshop::THEMATICS %>
+        </div>
+        <div>
+          <%= f.input :place, required: false, label: "Ville", prompt: "Toutes les villes", collection: Place.cities.sort %>
+        </div>
+        <div>
+          <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date"}, placeholder: "À tout moment", label: "À partir du" %>
+        </div>
+        <div>
+          <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
+        </div>
+        <div>
+          <%= f.input :ephemeral, required: false, as: :radio_buttons %>
+        </div>
+      <% end %>
+
+        <%= f.submit 'Nouvelle recherche', class: "submit-btn" %>
+    <% end %>
+
+    </div>
+  </div>
+</div>
+

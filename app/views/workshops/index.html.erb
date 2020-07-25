@@ -14,61 +14,53 @@
   <!-- WORKSHOPS INDEX SEARCH & FILTERS -->
 
   <div class="index-ws-search-filters-container">
-    <div class="index-ws-search">
-      <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-        <i class="fas fa-search"></i>
-        <%= f.input :keyword, required: false, label: false, placeholder: "Nouvelle recherche" %>
+    <div>
+      <h2>Vous recherchez un atelier
+        <% if params[:search].present? %>
+          <span><% if params[:search][:keyword].present? %><%= params[:search][:keyword] %><% end %></span>
+          <% if params[:search][:place].present? %>à <%= params[:search][:place].capitalize %><% end %>
+        <% end %>
+      </h2>
+
+      <% if params[:search].present? %>
+
+        <% if params[:search][:starts_at].present? %>
+          <h3>
+            du <%= Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
+            <% if params[:search][:ends_at].present? %>
+              au <%= Date.strptime(params[:search][:ends_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
+            <% end %>
+          </h3>
+        <% end %>
+
+        <% if params[:search][:min_price].present? || params[:search][:max_price].present? %>
+          <h4>
+            <% if params[:search][:min_price] != '0.0' %>
+              min. <%= params[:search][:min_price].to_i %> €
+            <% end %>
+            <% if params[:search][:max_price] != '0.0' %>
+              max. <%= params[:search][:max_price].to_i %> €
+            <% end %>
+          </h4>
+        <% end %>
+
+        <% if params[:search][:keyword].present? || params[:search][:place].present? || params[:search][:starts_at].present? %>
+          <h4>
+            <% if params[:search][:ephemeral] == 'false' %>
+              permanent
+            <% else %>
+              éphémère ou permanent
+            <% end %>
+          </h4>
+        <% end %>
       <% end %>
     </div>
-    <div class="index-ws-filters">
-      <div class="index-ws-filter" id="index-ws-thematic-filter">
-        Autour du fil
-        <i class="fas fa-check"></i>
-      </div>
-      <div class="index-ws-filter" id="index-ws-place-filter">
-        Paris
-        <i class="fas fa-check"></i>
-      </div>
-      <div class="index-ws-filter" id="index-ws-date-filter">
-        23/06/2020
-        <i class="fas fa-check"></i>
-      </div>
-      <div class="index-ws-filter" id="moreFilters">
-        Plus de filtres
-      </div>
+    <div>
+      <a href="#filtersModal" id="orderAndFilter" data-toggle="modal" data-whatever="@mdo">Filtrer & trier</a>
+      <%= render 'filters_modal' %>
     </div>
   </div>
 
-  <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-    <% if params[:search].present? %>
-      <%= f.input :order, as: :radio_buttons, collection: ['Recommandation', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par', checked: params[:search][:order] %>
-      <%= f.input :min_price, required: false, label: 'Prix minimum', input_html: { value: params[:search][:min_price].to_f } %>
-      <%= f.input :max_price, required: false, label: 'Prix maximum', input_html: { value: params[:search][:max_price].to_f } %>
-      <%= f.input :keyword, required: false, label: "Type d'atelier", prompt: "Tous types", collection: Workshop::THEMATICS, selected: params[:search][:keyword] %>
-      <%= f.input :place, required: false, label: "Ville", prompt: "Toutes les villes", collection: Place.cities.sort, selected: params[:search][:place] %>
-      <% if params[:search][:starts_at].present? %>
-        <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date", value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d') }, placeholder: "À tout moment", label: "À partir du" %>
-      <% else %>
-        <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date"}, placeholder: "À tout moment", label: "À partir du" %>
-      <% end %>
-      <% if params[:search][:starts_at].present? %>
-        <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker", value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d') }, placeholder: "À tout moment", label: "Jusqu'au" %>
-      <% else %>
-        <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
-      <% end %>
-      <%= f.input :ephemeral, required: false, as: :radio_buttons, checked: params[:search][:ephemeral] %>
-    <% else %>
-      <%= f.input :order, as: :radio_buttons, collection: ['Recommandation', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par' %>
-      <%= f.input :min_price, required: false, label: 'Prix minimum', input_html: { value: @min_price } %>
-      <%= f.input :max_price, required: false, label: 'Prix maximum', input_html: { value: @max_price } %>
-      <%= f.input :keyword, required: false, label: "Type d'atelier", prompt: "Tous types", collection: Workshop::THEMATICS %>
-      <%= f.input :place, required: false, label: "Ville", prompt: "Toutes les villes", collection: Place.cities.sort %>
-      <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date"}, placeholder: "À tout moment", label: "À partir du" %>
-      <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
-      <%= f.input :ephemeral, required: false, as: :radio_buttons %>
-    <% end %>
-      <%= f.submit 'Nouvelle recherche' %>
-  <% end %>
 
   <!-- WORKSHOPS INDEX CARDS RESULTS -->
   <div class= "index-ws-cards-map-container">

@@ -47,55 +47,35 @@
 
 // CONTAINERS
 
-.index-ws-container {
-
-}
-
 .index-ws-search-filters-container {
-  margin: 1em 2em;
-}
-
-// SEARCH & FILTERS
-
-.index-ws-search {
-  width: 20em;
-  position: relative;
-  .fa-search {
-    position: absolute;
-    top: 0.7em;
-    left: 1em;
-    color: $gray-placeholder;
-  }
-  #search_keyword {
-    padding-left: 2.5em;
-  }
-}
-
-.index-ws-filters {
+  margin: 1.5em 2em;
   display: flex;
-  flex-wrap: wrap;
-}
+  justify-content: space-between;
+  align-items: center;
 
-.index-ws-filter {
-  border-radius: 3em;
-  width: auto;
-  border: 0.03em $green solid;
-  padding: 0.4em 1em;
-  font-size: 14px;
-  font-weight: 500;
-  margin-right: 0.5em;
-  margin-bottom: 0.5em;
-  background-color: $light-gray3;
-  .fa-check {
-    font-size: 75%;
-    padding-left: 0.4em;
-    color: $green;
+  h2 {
+    font-size: 17px;
+    color: $dark-blue;
+    font-weight: 700;
+    margin-bottom: 0.3em;
+    span {
+      text-transform: lowercase;
+    }
   }
-}
-
-#moreFilters {
-  background-color: transparent;
-  border-color: $gray;
+  h3 {
+    font-size: 15px;
+    color: $blue;
+    font-weight: 600;
+    margin-bottom: 0.3em;
+    text-transform: lowercase;
+  }
+  h4 {
+    font-size: 15px;
+    color: $blue;
+    font-weight: 500;
+    margin-bottom: 0.2em;
+    text-transform: lowercase;
+  }
 }
 
 // CARDS
@@ -146,9 +126,6 @@
     margin: 0;
     margin-top: 4em;
     width: 100vw;
-  }
-  .index-ws-search {
-    width: 100%;
   }
   .index-ws-cards-map-container {
     display: block;

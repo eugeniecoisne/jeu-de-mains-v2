@@ -1,0 +1,84 @@
+// FILTERS BUTTON
+
+#orderAndFilter {
+  background-color: $dark-blue;
+  color: white;
+  padding: 0.6em 1em;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Montserrat", "sans-serif";
+  width: auto;
+  border-radius: 3em;
+  text-decoration: none;
+}
+
+#orderAndFilter:hover {
+  background-color: $blue;
+  text-decoration: none;
+}
+
+.filters-modal {
+  .simple_form {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-content {
+    width: 375px;
+  }
+  h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: $blue;
+  }
+}
+
+
+// RESPONSIVE DESIGN FILTERS //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .modal-backdrop {
+    display: none;
+  }
+  .fade {
+    transition: unset;
+  }
+  .modal.fade .modal-dialog {
+    transition: unset;
+  }
+  .filters-modal {
+    top: 64px;
+    .modal-content {
+      width: 100vw;
+      border: unset;
+    }
+    .modal-dialog {
+      margin: unset;
+    }
+  }
+  .submit-btn {
+    margin-bottom: 7em;
+  }
+
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}

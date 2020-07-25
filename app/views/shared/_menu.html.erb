@@ -72,12 +72,12 @@
          <li class="list-group-item">
         </li>
         <li class="list-group-item">
-          <div class="list-item-sign" id="sign-out">
-            <%= link_to destroy_user_session_path, method: :delete, id: "log-out-menu", class: "menu-white-link" do %>
+          <%= link_to destroy_user_session_path, method: :delete, id: "log-out-menu", class: "menu-white-link" do %>
+            <div class="list-item-sign" id="sign-out">
               <i class="fas fa-sign-out-alt menu-icon menu-white-icon mr-1"></i>
               Me déconnecter
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         </li>
 
 
@@ -101,20 +101,20 @@
         <li class="list-group-item">
         </li>
         <li class="list-group-item">
-          <div class="list-item-sign" id="sign-in">
-            <%= link_to new_user_session_path, class: "menu-white-link" do %>
-              <i class="fas fa-sign-in-alt menu-icon menu-white-icon mr-2"></i>
-              Me connecter
-            <% end %>
-          </div>
+          <%= link_to new_user_session_path, class: "menu-white-link" do %>
+            <div class="list-item-sign" id="sign-in">
+                <i class="fas fa-sign-in-alt menu-icon menu-white-icon mr-2"></i>
+                Me connecter
+            </div>
+          <% end %>
         </li>
         <li class="list-group-item">
-          <div class="list-item-sign" id="sign-up">
-            <%= link_to new_user_registration_path, class: "menu-white-link" do %>
-              <i class="fas fa-user-plus menu-icon menu-white-icon mr-1"></i>
-              M'inscrire
-            <% end %>
-          </div>
+          <%= link_to new_user_registration_path, class: "menu-white-link" do %>
+            <div class="list-item-sign" id="sign-up">
+                <i class="fas fa-user-plus menu-icon menu-white-icon mr-2"></i>
+                M'inscrire
+            </div>
+          <% end %>
         </li>
       <% end %>
     </ul>
