@@ -31,7 +31,7 @@
           <% end %>
         </div>
         <div>
-          <% if params[:search][:starts_at].present? %>
+          <% if params[:search][:ends_at].present? %>
             <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker", value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d') }, placeholder: "À tout moment", label: "Jusqu'au" %>
           <% else %>
             <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
