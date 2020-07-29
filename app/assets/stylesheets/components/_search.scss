@@ -87,6 +87,9 @@
     background-color: $blue;
     cursor: pointer;
   }
+  .search-button:focus {
+    outline: none;
+  }
 }
 
 .home-search-inputs-and-submit {

@@ -26,7 +26,7 @@
               <% end %>
 
             </div>
-            <%= f.submit class: 'button', value: "Valider" %>
+            <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>
         <% end %>
       </div>
@@ -51,7 +51,7 @@
             <% else %>
               <%= f.input :phone_number, id: 'profile_phone_number', label: false, placeholder: "Numéro de téléphone" %>
             <% end %>
-            <%= f.submit class: 'button', value: "Valider" %>
+            <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>
         <% end %>
       </div>
@@ -76,7 +76,7 @@
             <% else %>
               <%= f.input :website, id: 'profile_website', label: false, placeholder: "Site internet" %>
             <% end %>
-            <%= f.submit class: 'button', value: "Valider" %>
+            <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>
         <% end %>
       </div>
@@ -101,7 +101,7 @@
             <% else %>
               <%= f.input :instagram, id: 'profile_instagram', label: false, placeholder: "URL instagram" %>
             <% end %>
-            <%= f.submit class: 'button', value: "Valider" %>
+            <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>
         <% end %>
       </div>
@@ -126,7 +126,7 @@
             <% else %>
               <%= f.input :description, id: 'profile_description', label: false, placeholder: "Description en quelques lignes", :input_html => {:rows => 10}  %>
             <% end %>
-            <%= f.submit class: 'button', value: "Valider" %>
+            <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>
         <% end %>
       </div>
@@ -147,7 +147,7 @@
               <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
             </button>
             <%= f.input :photo, as: :file, id: 'profile_profile_picture', label: false %>
-            <%= f.submit class: 'button', value: "Valider" %>
+            <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>
         <% end %>
       </div>

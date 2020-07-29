@@ -8,7 +8,7 @@
     <!-- BACK BUTTON -->
 
     <div class="back-button">
-      <%= link_to :back do %>
+      <%= link_to 'javascript:history.go(-1);' do %>
         <i class="fas fa-chevron-left"></i>
         <span>Retour</span>
       <% end %>
@@ -36,7 +36,7 @@
         <% end %>
         <% if @profile.website %>
           <div class="public-profile-website">
-            <%= link_to @profile.website do %>
+            <%= link_to @profile.website, target: "_blank" do %>
               <i class="fas fa-globe"></i>
               <%= @profile.website.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/(www.)/,'').sub(/\/$/,'') %>
             <% end %>
@@ -44,7 +44,7 @@
         <% end %>
         <% if @profile.instagram %>
           <div class="public-profile-instagram">
-            <%= link_to @profile.instagram do %>
+            <%= link_to @profile.instagram, target: "_blank" do %>
               <i class="fab fa-instagram"></i>
               <%= @profile.instagram.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/www.instagram.com\//,'').sub(/\/$/,'') %>
             <% end %>

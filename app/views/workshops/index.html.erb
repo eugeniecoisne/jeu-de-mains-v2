@@ -15,36 +15,53 @@
 
   <div class="index-ws-search-filters-container">
     <div>
-      <h2>Vous recherchez un atelier
-        <% if params[:search].present? %>
-          <span><% if params[:search][:keyword].present? %><%= params[:search][:keyword] %><% end %></span>
-          <% if params[:search][:place].present? %>à <%= params[:search][:place].capitalize %><% end %>
+      <h2 id="index-ws-your-query">Votre recherche</h2>
+
+      <div class="ws-index-search-parameters">
+        <% if params[:search][:keyword].present? || params[:search][:place].present? %>
+
+          <% if params[:search][:keyword].present? && params[:search][:place].present? %>
+            <h3>atelier <%= params[:search][:keyword].downcase %></h3>
+            <h4>à <%= params[:search][:place].capitalize %></h4>
+          <% elsif params[:search][:keyword].present? %>
+            <h3>atelier <%= params[:search][:keyword].downcase %></h3>
+            <h4>toutes villes</h4>
+          <% else %>
+            <h3>atelier toutes thématiques</h3>
+            <h4>à <%= params[:search][:place].capitalize %></h4>
+          <% end %>
+        <% else %>
+          <h3>atelier toutes thématiques</h3>
+          <h4>toutes villes</h4>
         <% end %>
-      </h2>
 
-      <% if params[:search].present? %>
-
-        <% if params[:search][:starts_at].present? %>
-          <h3>
-            du <%= Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
-            <% if params[:search][:ends_at].present? %>
+        <% if params[:search][:starts_at].present? || params[:search][:ends_at].present? %>
+          <h4>
+            <% if params[:search][:starts_at].present? && params[:search][:ends_at].present? %>
+              du <%= Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
               au <%= Date.strptime(params[:search][:ends_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
+            <% elsif params[:search][:starts_at].present? %>
+              à partir du <%= Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
+            <% else %>
+              jusqu'au <%= Date.strptime(params[:search][:ends_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
             <% end %>
-          </h3>
+          </h4>
+        <% else %>
+          <h4>à tout moment</h4>
         <% end %>
 
         <% if params[:search][:min_price].present? || params[:search][:max_price].present? %>
           <h4>
-            <% if params[:search][:min_price] != '0.0' %>
+            <% if params[:search][:min_price].to_i != 0 %>
               min. <%= params[:search][:min_price].to_i %> €
             <% end %>
-            <% if params[:search][:max_price] != '0.0' %>
+            <% if params[:search][:max_price].to_i != 0 %>
               max. <%= params[:search][:max_price].to_i %> €
             <% end %>
           </h4>
         <% end %>
 
-        <% if params[:search][:keyword].present? || params[:search][:place].present? || params[:search][:starts_at].present? %>
+        <% if params[:search][:ephemeral].present? %>
           <h4>
             <% if params[:search][:ephemeral] == 'false' %>
               permanent
@@ -53,10 +70,11 @@
             <% end %>
           </h4>
         <% end %>
-      <% end %>
+
+      </div>
     </div>
     <div>
-      <a href="#filtersModal" id="orderAndFilter" data-toggle="modal" data-whatever="@mdo">Filtrer & trier</a>
+      <a href="#filtersModal" id="orderAndFilter" data-toggle="modal" data-whatever="@mdo">Filtrer</a>
       <%= render 'filters_modal' %>
     </div>
   </div>
@@ -66,7 +84,13 @@
   <div class= "index-ws-cards-map-container">
     <div class="index-ws-left-side">
       <% if @workshops %>
-        <h1>Nous avons trouvé <span id="index-ws-title-strong"><%= @workshops.count %> ateliers créatifs</span> correspondant à votre recherche</h1>
+        <% if @workshops.count > 1 %>
+          <h1>Nous avons trouvé <span id="index-ws-title-strong"><%= @workshops.count %> ateliers créatifs</span> correspondant à votre recherche</h1>
+        <% elsif @workshops.count == 1 %>
+          <h1>Nous avons trouvé <span id="index-ws-title-strong"><%= @workshops.count %> atelier créatif</span> correspondant à votre recherche</h1>
+        <% else %>
+          <h1>Nous n'avons trouvé aucun atelier créatif correspondant à votre recherche</h1>
+        <% end %>
 
         <div class= "index-ws-cards">
           <% @workshops.each do |workshop| %>

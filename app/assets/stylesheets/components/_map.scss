@@ -10,7 +10,7 @@
 }
 
 .mapboxgl-popup-content {
-  border-radius: 5px;
+  border-radius: 0;
   overflow: hidden;
   width: 90vw;
   min-height: 8em;
@@ -26,6 +26,14 @@
 .mapboxgl-popup-close-button {
   font-size: 24px;
   color: white;
+}
+
+.mapboxgl-popup-close-button:hover {
+  background-color: transparent;
+}
+
+.mapboxgl-popup-close-button:focus {
+  outline: none;
 }
 
 .map-ws-popup {

@@ -1,7 +1,9 @@
+// CSS WS INDEX FILTERS
+
 // FILTERS BUTTON
 
 #orderAndFilter {
-  background-color: $dark-blue;
+  background-color: $blue;
   color: white;
   padding: 0.6em 1em;
   font-size: 14px;
@@ -13,23 +15,103 @@
 }
 
 #orderAndFilter:hover {
-  background-color: $blue;
+  background-color: $dark-blue;
   text-decoration: none;
 }
 
+// FILTERS MODAL
+
 .filters-modal {
+  font-size: 15px;
+  font-weight: 500;
+  color: $dark-blue;
   .simple_form {
-    padding: 2em;
     display: flex;
     flex-direction: column;
+    padding: 2em;
+    background-color: white;
   }
-  .modal-content {
-    width: 375px;
+  .form-group {
+    margin-bottom: 1.2rem;
   }
+  input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin-top: 3px;
+    width: 16px;
+    height: 16px;
+    padding: 2px;
+    background-clip: content-box;
+    border: 2px solid $gray;
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  input[type="radio"]:checked {
+    background-color: $blue;
+    border-color: $blue;
+  }
+
+  input[type="radio"]:focus {
+    outline: none;
+  }
+
   h2 {
     font-size: 22px;
     font-weight: 600;
     color: $blue;
+    margin-bottom: 1em;
+  }
+  .modal-content {
+    border-radius: 0;
+    height: 100vh;
+  }
+  .modal-dialog {
+    margin: 4.4rem 0 4.4rem auto;
+  }
+  button {
+    position: absolute;
+    top: 0.9em;
+    right: 0.2em;
+  }
+  button:focus {
+    outline: none;
+  }
+  #search_max_price {
+    margin-left: 10px;
+    width: 120px;
+  }
+  .search_max_price {
+    label {
+      margin-left: 10px;
+    }
+  }
+  #search_min_price {
+    width: 120px;
+  }
+  .form-check {
+    margin-bottom: 4px;
+    label {
+      margin-left: 10px;
+    }
+  }
+
+  .submit-btn {
+    width: 114%;
+    height: 40px;
+    background-color: $blue;
+    color: white;
+    border: none;
+    font-family: "Montserrat", "sans-serif";
+    font-weight: 600;
+    position: sticky;
+    bottom: 0;
+    margin: 60px 0 -30px -30px;
+  }
+  .submit-btn:hover {
+    background-color: $dark-blue;
   }
 }
 
@@ -38,29 +120,20 @@
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
-  .modal-backdrop {
-    display: none;
-  }
-  .fade {
-    transition: unset;
-  }
-  .modal.fade .modal-dialog {
-    transition: unset;
-  }
   .filters-modal {
-    top: 64px;
+    .modal-dialog {
+      max-width: unset;
+      height: 100vh;
+      margin: unset;
+    }
     .modal-content {
       width: 100vw;
       border: unset;
     }
-    .modal-dialog {
-      margin: unset;
+    .submit-btn {
+      width: 100vw;
     }
   }
-  .submit-btn {
-    margin-bottom: 7em;
-  }
-
 }
 
 // Small devices (landscape phones, 576px and up)
