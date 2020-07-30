@@ -1,0 +1,47 @@
+.modal-backdrop {
+  opacity: 0.1 !important;
+}
+
+
+// RESPONSIVE DESIGN MODAL //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .fade {
+    transition: unset;
+  }
+  .modal.fade .modal-dialog {
+    transition: unset;
+  }
+  .modal-backdrop {
+    position: unset;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+  .fade {
+    transition: unset;
+  }
+  .modal.fade .modal-dialog {
+    transition: unset;
+  }
+  .modal-backdrop {
+    position: unset;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}

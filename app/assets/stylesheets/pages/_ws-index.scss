@@ -35,6 +35,9 @@
 #listButton.inactive {
   display: none;
 }
+#listButton:focus {
+  outline: none;
+}
 
 #mapButton {
   padding-top: 2px;
@@ -43,6 +46,9 @@
 }
 #mapButton.inactive {
   display: none;
+}
+#mapButton:focus {
+  outline: none;
 }
 
 // CONTAINERS
@@ -55,27 +61,28 @@
 
   h2 {
     font-size: 17px;
-    color: $dark-blue;
+    color: $blue;
     font-weight: 700;
-    margin-bottom: 0.3em;
-    span {
-      text-transform: lowercase;
-    }
+    margin-bottom: 0.5em;
   }
   h3 {
-    font-size: 15px;
-    color: $blue;
+    font-size: 14px;
+    color: $dark-blue;
     font-weight: 600;
-    margin-bottom: 0.3em;
-    text-transform: lowercase;
+    margin-bottom: 0.2em;
   }
   h4 {
-    font-size: 15px;
-    color: $blue;
+    font-size: 14px;
+    color: $dark-blue;
     font-weight: 500;
     margin-bottom: 0.2em;
     text-transform: lowercase;
   }
+}
+
+.ws-index-search-parameters {
+  padding-left: 10px;
+  border-left: 3px solid $light-blue;
 }
 
 // CARDS
@@ -88,6 +95,7 @@
 
 .index-ws-left-side {
   padding: 2em;
+  min-height: 70vh;
   h1 {
     font-size: 19px;
     color: $blue;
@@ -126,10 +134,27 @@
     margin: 0;
     margin-top: 4em;
     width: 100vw;
+    height: 127px;
+    h3 {
+      font-size: 13.5px;
+      max-width: 250px;
+    }
+    h4 {
+      font-size: 13.5px;
+      max-width: 250px;
+    }
   }
+  .ws-index-search-parameters {
+    border-left: 2px solid $light-blue;
+  }
+
+  #index-ws-your-query {
+    display: none;
+  }
+
   .index-ws-cards-map-container {
     display: block;
-    padding: 13.7em 0 2em 0;
+    padding: 12.4em 0 2em 0;
     h1 {
       font-size: 17px;
       font-weight: 600;
@@ -139,7 +164,7 @@
   .index-ws-cards-map-container.fullmap {
     padding: 0;
     position: fixed;
-    height: 68vh;
+    height: 70vh;
     width: 100vw;
     bottom: 0;
     .index-ws-left-side {
@@ -170,12 +195,40 @@
   #index-ws-card-place-desktop {
     display: none;
   }
+  .index-ws-search-filters-container {
+    padding: 0.7em;
+    position: fixed;
+    z-index: 2;
+    background-color: white;
+    margin: 0;
+    margin-top: 4.5em;
+    width: 100vw;
+    height: 137px;
+    h3 {
+      font-size: 13.5px;
+    }
+    h4 {
+      font-size: 13.5px;
+    }
+  }
+  #index-ws-your-query {
+    display: none;
+  }
   .index-ws-cards-map-container {
-    padding-bottom: 2em;
     display: block;
+    padding: 13.7em 0 2em 0;
+    h1 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 1em;
+    }
   }
   .index-ws-cards-map-container.fullmap {
     padding: 0;
+    position: fixed;
+    height: 70vh;
+    width: 100vw;
+    bottom: 0;
     .index-ws-left-side {
       display: none;
     }

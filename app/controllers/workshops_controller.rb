@@ -8,7 +8,7 @@ class WorkshopsController < ApplicationController
         dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.strptime(params[:search][:ends_at], '%Y-%m-%d')).to_a
         @workshops = policy_scope(Workshop).where(status: 'en ligne').select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }
       elsif params[:search][:starts_at].present?
-        dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.today + 1.months).to_a
+        dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.today + 3.months).to_a
         @workshops = policy_scope(Workshop).where(status: 'en ligne').select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }
       elsif params[:search][:ends_at].present?
         dates = (Date.today..Date.strptime(params[:search][:ends_at], '%Y-%m-%d')).to_a
