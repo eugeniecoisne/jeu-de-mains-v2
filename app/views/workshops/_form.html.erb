@@ -1,30 +1,165 @@
-<%= simple_form_for(workshop) do |f| %>
+<!-- NEW WORKSHOP FORM -->
 
-  <div class="form-group select required workshop_place">
-    <label class="select required" for="workshop_place_id">Lieu</label>
-    <select class="form-control select required" name="workshop[place_id]" id="workshop_place_id">
-      <% if workshop.place.present? %>
-        <option value="<%= workshop.place.id %>" selected><%= workshop.place.name %></option>
-        <option value="" disabled>----------</option>
-      <% end %>
-        <option value=""></option>
-      <% @places.sort_by { |place| place.name }.each do |place| %>
-        <option value="<%= place.id %>"><%= place.name %></option>
-      <% end %>
-    </select>
+  <div class="dashboard-organizer-container">
+    <div class="dashboard-nav-and-tab" id="dashboard-organizer-nav-and-tab">
+
+      <!-- NAV PILLS DESKTOP & TABLET -->
+
+      <div class="dashboard-nav-desktop-tablet">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a class="nav-link active" id="v-pills-introduction-tab" data-toggle="pill" href="#v-pills-introduction" role="tab" aria-controls="v-pills-introduction" aria-selected="true">
+            Introduction
+          </a>
+          <a class="nav-link" id="v-pills-title-tab" data-toggle="pill" href="#v-pills-title" role="tab" aria-controls="v-pills-title" aria-selected="false">
+            1 - Intitulé, lieu & animateur
+          </a>
+          <a class="nav-link" id="v-pills-filters-tab" data-toggle="pill" href="#v-pills-filters" role="tab" aria-controls="v-pills-filters" aria-selected="false">
+            2 - Filtres
+          </a>
+          <a class="nav-link" id="v-pills-description-tab" data-toggle="pill" href="#v-pills-description" role="tab" aria-controls="v-pills-description" aria-selected="false">
+            3 - Description
+          </a>
+          <a class="nav-link" id="v-pills-photos-tab" data-toggle="pill" href="#v-pills-photos" role="tab" aria-controls="v-pills-photos" aria-selected="false">
+            4 - Photos
+          </a>
+          <a class="nav-link" id="v-pills-sessions-tab" data-toggle="pill" href="#v-pills-sessions" role="tab" aria-controls="v-pills-sessions" aria-selected="false">
+            5 - Sessions
+          </a>
+        </div>
+      </div>
+
+      <!-- NAV PILLS MOBILE -->
+
+      <div class="dashboard-nav-mobile">
+        <div class="nav nav-pills nav-pills-organizer" id="pills-tab" role="tablist">
+          <a class="nav-link active" id="v-pills-introduction-tab" data-toggle="pill" href="#v-pills-introduction" role="tab" aria-controls="v-pills-introduction" aria-selected="true">
+            <span>Introduction</span>
+          </a>
+          <a class="nav-link" id="v-pills-title-tab" data-toggle="pill" href="#v-pills-title" role="tab" aria-controls="v-pills-title" aria-selected="false">
+            <span>1 - Intitulé, lieu & animateur</span>
+          </a>
+          <a class="nav-link" id="v-pills-filters-tab" data-toggle="pill" href="#v-pills-filters" role="tab" aria-controls="v-pills-filters" aria-selected="false">
+            <span>2 - Filtres</span>
+          </a>
+          <a class="nav-link" id="v-pills-description-tab" data-toggle="pill" href="#v-pills-description" role="tab" aria-controls="v-pills-description" aria-selected="false">
+            <span>3 - Description</span>
+          </a>
+          <a class="nav-link" id="v-pills-photos-tab" data-toggle="pill" href="#v-pills-photos" role="tab" aria-controls="v-pills-photos" aria-selected="false">
+            <span>4 - Photos</span>
+          </a>
+          <a class="nav-link" id="v-pills-sessions-tab" data-toggle="pill" href="#v-pills-sessions" role="tab" aria-controls="v-pills-sessions" aria-selected="false">
+            <span>5 - Sessions</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- NAV TABS -->
+
+      <div class="dashboard-tabs" id="dashboard-organizer-tabs">
+        <div class="tab-content" id="pills-tabContent">
+
+          <%= simple_form_for(workshop) do |f| %>
+
+            <!-- INTRODUCTION -->
+
+            <div class="tab-pane fade show active" id="v-pills-introduction" role="tabpanel" aria-labelledby="v-pills-introduction-tab">
+              Un atelier est mis en ligne dès lors que tous les champs sont complétés et que des dates sont proposées.
+              Si vous laissez certains champs vides pour le moment, pas d’inquiétude, votre atelier incomplet est sauvegardé.
+
+              Vous pouvez trouver vos ateliers “en ligne”, et “hors ligne” dans votre tableau de bord !
+
+              <div>
+                <a class="btn-primary btnNext" >Suivant</a>
+              </div>
+            </div>
+
+            <!-- TITLE -->
+
+            <div class="tab-pane fade" id="v-pills-title" role="tabpanel" aria-labelledby="v-pills-title-tab">
+              <div class="form-group select required workshop_place">
+                <select class="form-control select required" name="workshop[place_id]" id="workshop_place_id">
+                <% if workshop.place.present? %>
+                  <option value="<%= workshop.place.id %>" selected><%= workshop.place.name %></option>
+                  <option value="" disabled>----------</option>
+                <% else %>
+                  <option value="">Choisissez un de vos lieux</option>
+                <% end %>
+                <% @places.sort_by { |place| place.name }.each do |place| %>
+                  <option value="<%= place.id %>"><%= place.name %></option>
+                <% end %>
+                </select>
+              </div>
+              <%= f.input :title, label: false, placeholder: "Intitulé de l'atelier"  %>
+
+              <div>
+                <a class="btn-primary btnPrevious" >Retour</a>
+                <a class="btn-primary btnNext" >Suivant</a>
+              </div>
+
+            </div>
+
+            <!-- FILTERS -->
+
+            <div class="tab-pane fade" id="v-pills-filters" role="tabpanel" aria-labelledby="v-pills-filters-tab">
+
+              <%= f.input :thematic, label: false, prompt: "Type d'atelier", collection: Workshop::THEMATICS %>
+              <%= f.input :level, label: false, prompt: "Niveau", collection: Workshop::LEVELS %>
+              <%= f.input :price, label: false, placeholder: "Prix par personne" %>
+              <%= f.input :capacity, label: false, placeholder: "Nombre de place maximum" %>
+              <%= f.input :duration, label: false, placeholder: "Durée de l'atelier en minutes" %>
+
+              <div>
+                <a class="btn-primary btnPrevious" >Retour</a>
+                <a class="btn-primary btnNext" >Suivant</a>
+              </div>
+
+            </div>
+
+            <!-- DESCRIPTION -->
+
+            <div class="tab-pane fade" id="v-pills-description" role="tabpanel" aria-labelledby="v-pills-description-tab">
+
+              <%= f.input :program, label: false, :input_html => {:rows => 4}, placeholder: "Programme : parlez ici du déroulé et de l'ambiance" %>
+              <%= f.input :final_product, label: false, :input_html => {:rows => 2}, placeholder: "Vous repartez avec : parlez ici de l'objet avec lequel le client repart ;)" %>
+
+              <div>
+                <a class="btn-primary btnPrevious" >Retour</a>
+                <a class="btn-primary btnNext" >Suivant</a>
+              </div>
+            </div>
+
+            <!-- PHOTOS -->
+
+            <div class="tab-pane fade" id="v-pills-photos" role="tabpanel" aria-labelledby="v-pills-photos-tab">
+              <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+
+              <div>
+                <a class="btn-primary btnPrevious" >Retour</a>
+                <a class="btn-primary btnNext" >Suivant</a>
+              </div>
+            </div>
+
+            <!-- SESSIONS -->
+
+            <div class="tab-pane fade" id="v-pills-sessions" role="tabpanel" aria-labelledby="v-pills-sessions-tab">
+              <%= f.submit 'Valider' %>
+              <div>
+                <a class="btn-primary btnPrevious" >Retour</a>
+              </div>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <%= f.input :title %>
-  <%= f.input :program %>
-  <%= f.input :final_product %>
-  <%= f.input :thematic %>
-  <%= f.input :level %>
-  <%= f.input :duration %>
-  <%= f.input :price %>
-  <%= f.input :capacity %>
-  <%= f.input :status %>
-  <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+  <script>
+    $('.btnNext').click(function(){
+    $('.nav-pills > .active').next('a').trigger('click');
+  });
 
-  <%= f.submit 'Valider' %>
-
-<% end %>
+    $('.btnPrevious').click(function(){
+    $('.nav-pills > .active').prev('a').trigger('click');
+  });
+</script>

@@ -1,8 +1,8 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-12">
-      <%= render 'form', workshop: @workshop %>
-      <%= link_to 'Annuler', workshop_path(@workshop), class: 'btn btn-danger mt-2'  %>
-    </div>
-  </div>
+<div class="dashboard-title-container" id="dashboard-organizer-title-container">
+  <h1>
+    <span>Créez votre atelier !</span>
+  </h1>
+</div>
+<%= render 'form', workshop: @workshop %>
+<%= link_to 'Annuler', workshop_path(@workshop), class: 'btn btn-danger mt-2'  %>
 </div>
