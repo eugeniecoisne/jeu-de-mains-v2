@@ -12,6 +12,7 @@ class Workshop < ApplicationRecord
   validates :recommendable, inclusion: { in: [1, 2, 3] }
 
   THEMATICS = ['Autour du fil', 'Végétal', 'Papier & Lettering', 'Céramique & Modelage', 'Bijoux', 'Cosmétique & Entretien', 'Dessin & peinture', 'Meuble & Décoration']
+  LEVELS = ['Débutant', 'Intermédiaire', 'Avancé']
 
   include PgSearch::Model
     pg_search_scope :global_search,
