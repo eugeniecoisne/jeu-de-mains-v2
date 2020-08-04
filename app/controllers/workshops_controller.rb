@@ -106,12 +106,14 @@ class WorkshopsController < ApplicationController
     @workshop = Workshop.new
     authorize @workshop
     @places = current_user.admin ? Place.all : current_user.places
+    @animators = Profile.where(role: 'animateur')
   end
 
   def create
     @workshop = Workshop.new(workshop_params)
     authorize @workshop
     @workshop.place = Place.find(params[:workshop][:place_id])
+    @workshop.status = 'hors ligne'
     if @workshop.save
       redirect_to workshop_path(@workshop)
     else
