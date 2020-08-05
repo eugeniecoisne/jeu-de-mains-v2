@@ -102,9 +102,9 @@
     }
     label {
       font-weight: 600;
-      color: $dark-gray;
-      padding-left: 0.7em;
-      font-size: 13px;
+      color: $dark-blue;
+
+      font-size: 15px;
       opacity: 0.8;
     }
     .form-control {
@@ -128,4 +128,59 @@
       cursor: pointer;
     }
   }
+}
+
+// RESPONSIVE NEW WORKSHOP //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+
+  .new-ws-container {
+    .card{
+      margin: 0 1em;
+    }
+    .card-body{
+      font-size: 15px;
+    }
+    .card-header .title {
+      font-size: 15px;
+    }
+    .simple_form {
+      .form-control {
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+  .new-ws-container {
+    .card{
+      margin: 0 4em;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+  .new-ws-container {
+    .card{
+      margin: 0 6em;
+    }
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+  .new-ws-container {
+    .card{
+      margin: 0 8em;
+    }
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
 }

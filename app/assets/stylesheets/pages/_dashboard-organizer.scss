@@ -83,7 +83,7 @@
     background-color : $dark-gray;
     opacity: 0.7;
   }
-  #showActionsButton {
+  .show-actions-button {
     display: none;
   }
 }
@@ -435,7 +435,7 @@
   }
 
   .ws-dashboard-organizer-text-and-buttons {
-    #showActionsButton.active {
+    .show-actions-button.active {
       display: block;
       margin-top: 5px;
       .button {
@@ -446,13 +446,13 @@
         width: 61px;
       }
     }
-    #showActionsButton.active:hover {
+    .show-actions-button.active:hover {
       .button {
         color: $flashy-green;
         background-color : unset;
       }
     }
-    #showActionsButton {
+    .show-actions-button {
       display: none;
     }
   }

@@ -101,10 +101,10 @@
                       <% end %>
                       <span><%= workshop.status.capitalize %></span>
                     </div>
-                    <div class="show-actions-button active" id="showActionsButton">
+                    <div class="show-actions-button show-actions-button-<%= index +1 %> active" id="showActionsButtons-<%= index +1 %>">
                       <%= link_to "Gérer", "#", class: "button" %>
                     </div>
-                    <div class="ws-dashboard-organizer-buttons">
+                    <div class="ws-dashboard-organizer-buttons" id="ws-dashboard-organizer-buttons-<%= index +1 %>">
                       <%= link_to new_workshop_session_path(workshop), class: "button mr-2", id:"add-date-button" do %>
                         <i class="fas fa-plus mr-1"></i>
                         <span>Ajouter une date</span>
