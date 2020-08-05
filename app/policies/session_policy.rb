@@ -12,6 +12,10 @@ class SessionPolicy < ApplicationPolicy
     true
   end
 
+  def participants?
+    record.workshop.place.user == user || user.admin?
+  end
+
   class Scope < Scope
     def resolve
       scope.all
