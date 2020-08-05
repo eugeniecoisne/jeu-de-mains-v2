@@ -15,6 +15,8 @@ import { showMoreWs } from '../plugins/show_more_ws';
 import { initRating } from '../plugins/init_rating';
 import { showActions } from '../plugins/show_actions';
 import { toggleBtnKpis } from '../plugins/toggle_btn_kpis';
+import { prevNextNewWs } from '../plugins/prev_next_new_ws';
+
 
 document.addEventListener('turbolinks:load', () => {
   flatpickr(".datepicker", {
@@ -30,4 +32,5 @@ document.addEventListener('turbolinks:load', () => {
   initRating();
   showActions();
   toggleBtnKpis();
+  prevNextNewWs();
 });

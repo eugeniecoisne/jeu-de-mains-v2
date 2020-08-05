@@ -20,11 +20,11 @@
       <!-- INTRODUCTION -->
 
       <div class="card">
-        <div class="card-header" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true">
+        <div class="card-header card-header-1" data-toggle="collapse" data-target="#collapse-1" aria-expanded="true">
           <span class="title">Avant de commencer</span>
           <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
         </div>
-        <div id="collapseOne" class="collapse show" data-parent="#accordionNewWs">
+        <div id="collapse-1" class="collapse collapse-1 show" data-parent="#accordionNewWs">
           <div class="card-body">
             <strong>Vous vous apprêtez à créer ici une fiche atelier !</strong> <br>
             Vous n'avez qu'une partie des informations ? Pas d'inquiétude, remplissez les champs dont vous avez connaissance et sauvegardez votre fiche pour la compléter plus tard &#128293; <br>
@@ -32,7 +32,7 @@
             Vous pouvez trouver vos ateliers “en ligne” et “hors ligne” dans votre rubrique "mon tableau de bord" !
             Bonne saisie &#128521;
             <div class="next-previous">
-              <a class="next-previous-button btnNext" >Suivant</a>
+              <a class="next-previous-button btnNext" id="next-1" >Suivant</a>
             </div>
           </div>
         </div>
@@ -41,11 +41,11 @@
       <!-- TITLE / PLACE / ANIMATOR -->
 
       <div class="card">
-        <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <div class="card-header card-header-2 collapsed" data-toggle="collapse" data-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
           <span class="title">Intitulé, lieu & animateur</span>
           <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
         </div>
-        <div id="collapseTwo" class="collapse" data-parent="#accordionNewWs">
+        <div id="collapse-2" class="collapse collapse-2" data-parent="#accordionNewWs">
           <div class="card-body">
             <strong>C'est parti !</strong><br>
             Renseignez pour commencer l'intitulé de votre atelier, celui-ci doit être représentatif et percutant afin de ressortir dans les recherches utilisateurs.<br>
@@ -53,11 +53,12 @@
             Enfin, si l'animateur de l'atelier ne fait pas partie de vos équipes, sélectionnez l'animateur parmi tous ceux enregistrés sur la plateforme jeu de mains &#128521;
             <br><br>
 
-            <%= f.input :title, label: false, placeholder: "Intitulé de l'atelier"  %>
+            <%= f.input :title, required: false, label: "Intitulé de l'atelier"  %>
 
             <div class="form-group select required workshop_place_id">
+              <label class="select optional" for="workshop_animator">Sélectionnez un lieu parmi vos lieux :</label>
               <select class="form-control select required" name="workshop[place_id]" id="workshop_place_id">
-                <option value="">Choisissez un de vos lieux</option>
+                <option value=""></option>
               <% @places.sort_by { |place| place.name }.each do |place| %>
                 <option value="<%= place.id %>"><%= place.name %></option>
               <% end %>
@@ -65,9 +66,9 @@
             </div>
 
             <div class="form-group select optional workshop_animator">
-              <label class="select optional" for="workshop_animator">L'atelier est animé par un animateur extérieur au lieu ? Si oui :</label>
+              <label class="select optional" for="workshop_animator">L'atelier est animé par un animateur extérieur au lieu ?<br> Si oui, sélectionnez un animateur :</label>
               <select class="form-control select optional" name="workshop[animator]" id="workshop_animator">
-                <option value="">Sélectionnez un animateur</option>
+                <option value=""></option>
                 <% @animators.sort_by { |animator| animator.company }.each do |animator| %>
                   <option value="<%= animator.id %>"><%= animator.company %></option>
                 <% end %>
@@ -75,8 +76,8 @@
             </div>
 
             <div class="next-previous">
-              <a class="next-previous-button btnPrevious" >Retour</a>
-              <a class="next-previous-button btnNext" >Suivant</a>
+              <a class="next-previous-button btnPrevious" id="previous-2" >Retour</a>
+              <a class="next-previous-button btnNext" id="next-2" >Suivant</a>
             </div>
         </div>
         </div>
@@ -85,11 +86,11 @@
       <!-- FILTERS -->
 
       <div class="card">
-        <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <div class="card-header card-header-3 collapsed" data-toggle="collapse" data-target="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
           <span class="title">Filtres</span>
           <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
         </div>
-        <div id="collapseThree" class="collapse" data-parent="#accordionNewWs">
+        <div id="collapse-3" class="collapse collapse-3" data-parent="#accordionNewWs">
           <div class="card-body">
             <strong>On continue avec les filtres !</strong><br>
             Reseignez la thématique de l'atelier, le niveau requis pour participer à l'atelier, le nombre de places disponibles à la réservation, la durée et enfin le prix. <br>
@@ -97,15 +98,15 @@
             <strong>Important :</strong> le prix fixé se doit d'être identique à celui affiché sur vos autres supports (boutique, site, autres plateformes).
             <br><br>
 
-            <%= f.input :thematic, label: false, prompt: "Type d'atelier", collection: Workshop::THEMATICS %>
-            <%= f.input :level, label: false, prompt: "Niveau requis pour participer", collection: Workshop::LEVELS %>
-            <%= f.input :capacity, label: false, placeholder: "Nombre de places proposées" %>
-            <%= f.input :duration, label: false, placeholder: "Durée de l'atelier en minutes" %>
+            <%= f.input :thematic, label: "Type d'atelier", collection: Workshop::THEMATICS %>
+            <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS %>
+            <%= f.input :capacity, label: "Nombre de places proposées" %>
+            <%= f.input :duration, label: "Durée de l'atelier en minutes" %>
             <%= f.input :price, label: "Prix par personne" %>
 
             <div class="next-previous">
-              <a class="next-previous-button btnPrevious" >Retour</a>
-              <a class="next-previous-button btnNext" >Suivant</a>
+              <a class="next-previous-button btnPrevious" id="previous-3" >Retour</a>
+              <a class="next-previous-button btnNext" id="next-3" >Suivant</a>
             </div>
           </div>
         </div>
@@ -114,21 +115,21 @@
       <!-- PROGRAM -->
 
       <div class="card">
-        <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+        <div class="card-header card-header-4 collapsed" data-toggle="collapse" data-target="#collapse-4" aria-expanded="false" aria-controls="collapse-4">
           <span class="title">Programme</span>
           <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
         </div>
-        <div id="collapseFour" class="collapse" data-parent="#accordionNewWs">
+        <div id="collapse-4" class="collapse collapse-4" data-parent="#accordionNewWs">
           <div class="card-body">
-            <strong>C'est le moment de sortir votre plume &#128521;</strong><br>
+            <strong>Sortez votre plume &#128521;</strong><br>
             Raconter ici tout ce que les utilisateurs doivent savoir sur votre atelier : l'univers de l'animateur et du lieu, le déroulé, avec quel objet ils repartent... Plus vous en dites, plus les utilisateurs seront rassurés et convaincus !
             <br><br>
-            <%= f.input :program, label: "Programme", :input_html => {:rows => 4}, placeholder: "Parlez ici avec le plus de détails possibles du déroulé, de l'ambiance, de l'univers de l'animateur, des éventuelles collations incluses... " %>
-            <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 2}, placeholder: "Parlez ici de l'objet et tout autre matériel créatif avec lequel le client repart ;)" %>
+            <%= f.input :program, label: "Programme", :input_html => {:rows => 8}, placeholder: "Parlez ici en détails du déroulé, de l'ambiance, de l'univers de l'animateur, des éventuelles collations incluses... " %>
+            <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3}, placeholder: "Parlez ici de l'objet et tout autre matériel créatif avec lequel le client repart ;)" %>
 
             <div class="next-previous">
-              <a class="next-previous-button btnPrevious" >Retour</a>
-              <a class="next-previous-button btnNext" >Suivant</a>
+              <a class="next-previous-button btnPrevious" id="previous-4" >Retour</a>
+              <a class="next-previous-button btnNext" id="next-4" >Suivant</a>
             </div>
           </div>
         </div>
@@ -137,11 +138,11 @@
       <!-- PHOTOS -->
 
       <div class="card">
-        <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+        <div class="card-header card-header-5 collapsed" data-toggle="collapse" data-target="#collapse-5" aria-expanded="false" aria-controls="collapse-5">
           <span class="title">Photos de l'atelier</span>
           <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
         </div>
-        <div id="collapseFive" class="collapse" data-parent="#accordionNewWs">
+        <div id="collapse-5" class="collapse collapse-5" data-parent="#accordionNewWs">
           <div class="card-body">
             <strong>Promis c'est la dernière étape !</strong><br>
             Chargez ici vos photos de l'atelier. Convaincre les utilisateurs passe en grande partie par le visuel. <br>
@@ -151,8 +152,8 @@
             <%= f.input :photos, as: :file, label: "minimum 1 photo / maximum 6 photos",input_html: { multiple: true } %>
 
             <div class="next-previous">
-              <a class="next-previous-button btnPrevious" >Retour</a>
-              <a class="next-previous-button btnNext" >Suivant</a>
+              <a class="next-previous-button btnPrevious" id="previous-5" >Retour</a>
+              <a class="next-previous-button btnNext" id="next-5" >Suivant</a>
             </div>
           </div>
         </div>
@@ -161,11 +162,11 @@
       <!-- SUBMIT -->
 
       <div class="card">
-        <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false">
+        <div class="card-header card-header-6 collapsed" data-toggle="collapse" data-target="#collapse-6" aria-expanded="false">
           <span class="title">Validation</span>
           <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
         </div>
-        <div id="collapseSix" class="collapse" data-parent="#accordionNewWs">
+        <div id="collapse-6" class="collapse collapse-6" data-parent="#accordionNewWs">
           <div class="card-body">
             <strong>Il est temps de valider</strong><br>
             Une fois le bouton "valider" cliqué vous serez redirigé vers une page de confirmation. <br>
@@ -175,7 +176,7 @@
               <%= f.submit 'Valider', id: "new-ws-submit" %>
             </div>
             <div class="next-previous">
-              <a class="next-previous-button btnPrevious" >Retour</a>
+              <a class="next-previous-button btnPrevious" id="previous-6" >Retour</a>
             </div>
           </div>
         </div>
