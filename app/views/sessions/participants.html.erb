@@ -1,0 +1,6 @@
+<h1>
+  Nombre de participant(s) : <%= @session.bookings.count %>
+  <% @session.bookings.each do |booking| %>
+    <p><%= booking.user.first_name %></p>
+  <% end %>
+</h1>

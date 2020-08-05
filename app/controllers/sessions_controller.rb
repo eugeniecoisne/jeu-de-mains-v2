@@ -31,6 +31,11 @@ class SessionsController < ApplicationController
     render json: @number
   end
 
+  def participants
+    @session = Session.find(params[:session_id])
+    authorize @session
+  end
+
   private
 
   def session_params

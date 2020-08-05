@@ -24,6 +24,10 @@ class WorkshopPolicy < ApplicationPolicy
     update?
   end
 
+  def confirmation?
+    update?
+  end
+
   class Scope < Scope
     def resolve
       scope.all

@@ -1,6 +1,6 @@
 class WorkshopsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(index show)
-  before_action :set_workshop, only: %i(show edit update)
+  before_action :set_workshop, only: %i(show edit update confirmation)
 
   def index
     if params[:search].present?
@@ -43,9 +43,7 @@ class WorkshopsController < ApplicationController
       end
 
       if params[:search][:ephemeral].present?
-        if params[:search][:ephemeral] == 'true'
-          @workshops = @workshops.select { |workshop| workshop.place.ephemeral }
-        else
+        if params[:search][:ephemeral] == 'false'
           @workshops = @workshops.select { |workshop| workshop.place.ephemeral == false }
         end
       end
@@ -68,8 +66,8 @@ class WorkshopsController < ApplicationController
     # authorize @workshops
 
     @prices = @workshops.map { |ws| ws.price }
-    @min_price = @prices.min
-    @max_price = @prices.max
+    @min_price = @prices.present? ? @prices.min : 0
+    @max_price = @prices.present? ? @prices.max : 0
 
     @places_geo = Place.where(id: @workshops.pluck(:place_id))
 
@@ -115,11 +113,14 @@ class WorkshopsController < ApplicationController
     @workshop.place = Place.find(params[:workshop][:place_id])
     @workshop.status = 'hors ligne'
     if @workshop.save
-      redirect_to workshop_path(@workshop)
+      redirect_to confirmation_workshop_path(@workshop)
     else
       @places = current_user.admin ? Place.all : current_user.places
       render 'new'
     end
+  end
+
+  def confirmation
   end
 
   private
