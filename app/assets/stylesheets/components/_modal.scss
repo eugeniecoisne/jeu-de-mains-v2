@@ -2,6 +2,11 @@
   opacity: 0.1 !important;
 }
 
+.modal {
+  .close {
+    outline: none;
+  }
+}
 
 // RESPONSIVE DESIGN MODAL //
 

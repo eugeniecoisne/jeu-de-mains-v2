@@ -23,6 +23,9 @@ class ProfilesController < ApplicationController
   end
 
   def dashboard
+    @users = User.all.select { |user| user.profile.role == 'animateur' }
+    @animator = Animator.new
+    @session = Session.new
   end
 
   def public

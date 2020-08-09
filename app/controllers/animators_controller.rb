@@ -14,7 +14,7 @@ class AnimatorsController < ApplicationController
     @animator.workshop = Workshop.find(params[:workshop_id])
     @animator.user = User.find(params[:animator][:user_id])
     if @animator.save
-      redirect_to workshop_path(@animator.workshop)
+      redirect_back fallback_location: root_path
     else
       @users = User.all.select { |user| user.profile.role == 'animateur' }
       render 'new'

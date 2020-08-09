@@ -105,13 +105,25 @@
                       <%= link_to "Gérer", "#", class: "button" %>
                     </div>
                     <div class="ws-dashboard-organizer-buttons" id="ws-dashboard-organizer-buttons-<%= index +1 %>">
-                      <%= link_to new_workshop_session_path(workshop), class: "button mr-2", id:"add-date-button" do %>
-                        <i class="fas fa-plus mr-1"></i>
-                        <span>Ajouter une date</span>
+                      <div>
+                        <a href="#addSessionModal" class="button mr-2" data-toggle="modal" data-whatever="@mdo" id="add-date-button">
+                          <i class="fas fa-plus mr-1"></i>
+                          <span>Ajouter une date</span>
+                        </a>
+                        <%= render 'modal_add_session_animator', workshop: workshop %>
+                      </div>
+                      <% if workshop.animators.present? == false %>
+                        <div>
+                          <a href="#addAnimatorModal" class="button mr-2" data-toggle="modal" data-whatever="@mdo" id="add-animator-button">
+                            <i class="fas fa-plus mr-1"></i>
+                            <span>Ajouter un animateur</span>
+                          </a>
+                          <%= render 'modal_add_session_animator', workshop: workshop %>
+                        </div>
                       <% end %>
                       <%= link_to "Modifier la fiche", edit_workshop_path(workshop), class: "button mr-2" %>
                       <%= link_to "Gérer les sessions", workshop_sessions_path(workshop), class: "button mr-2" %>
-                      <%= link_to "Désactiver", "#", class: "button", id: "turn-offline-button" %>
+                      <%= link_to "Passer hors ligne", "#", class: "button", id: "turn-offline-button" %>
                     </div>
                   </div>
                 </div>

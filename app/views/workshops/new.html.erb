@@ -56,7 +56,7 @@
             <%= f.input :title, required: false, label: "Intitulé de l'atelier"  %>
 
             <div class="form-group select required workshop_place_id">
-              <label class="select optional" for="workshop_animator">Sélectionnez un lieu parmi vos lieux :</label>
+              <label class="select optional" for="workshop_place">Sélectionnez un lieu parmi vos lieux :</label>
               <select class="form-control select required" name="workshop[place_id]" id="workshop_place_id">
                 <option value=""></option>
               <% @places.sort_by { |place| place.name }.each do |place| %>
@@ -149,7 +149,9 @@
             Prenez des clichés jolis, épurés du lieu, de l'objet à créer, du matériel utilisé afin que les utilisateurs puissent se projeter &#128521; <br>
             <br><br>
 
-            <%= f.input :photos, as: :file, label: "minimum 1 photo / maximum 6 photos",input_html: { multiple: true } %>
+            <%= f.input :photos, as: :file, label: "Minimum 1 photo / maximum 6 photos", input_html: { multiple: true } %>
+
+            <div id="preview"></div>
 
             <div class="next-previous">
               <a class="next-previous-button btnPrevious" id="previous-5" >Retour</a>
@@ -173,7 +175,7 @@
             Votre atelier ne sera pas immédiatement mis en ligne, vous devrez encore renseigner les dates d'atelier ainsi que les éventuels champs non complétés.
             <br><br>
             <div class="d-flex justify-content-center">
-              <%= f.submit 'Valider', id: "new-ws-submit" %>
+              <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
             </div>
             <div class="next-previous">
               <a class="next-previous-button btnPrevious" id="previous-6" >Retour</a>
@@ -184,4 +186,3 @@
     <% end %>
   </div>
 </div>
-

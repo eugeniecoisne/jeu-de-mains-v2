@@ -1,0 +1,28 @@
+<div class="sign-container" id="confirmation-ws-container">
+  <div class="sign-form">
+    <h2 class="sign-title">Votre atelier a bien été créé,<br> <span>mettez-le en ligne !</span></h2>
+    <div>
+      <div class="ws-confirmation-item">
+        <h3>Ouvrez la réservation avec une première date :</h3>
+        <div>
+          <a href="#confirmSessionModal" class="confirm-modal-btn" data-toggle="modal" data-whatever="@mdo">Proposer une date</a>
+          <%= render 'confirmation_modal' %>
+        </div>
+      </div>
+
+      <div class="ws-confirmation-item">
+        <h3>L'atelier est animé par un animateur externe à vos équipes ?</h3>
+        <div class="ws-confirmation-item-button">
+          <a href="#confirmAnimatorModal" class="confirm-modal-btn" data-toggle="modal" data-whatever="@mdo">Ajouter un animateur</a>
+          <%= render 'confirmation_modal' %>
+        </div>
+        <p>
+          Vous n'avez pas encore rempli tous les champs du formulaire et n'êtes pas prêt à mettre votre atelier en ligne ? <br>
+          Rendez-vous sur votre <strong><%= link_to "tableau de bord", dashboard_profile_path(current_user.profile)  %></strong> pour gérer vos ateliers &#128521;
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
