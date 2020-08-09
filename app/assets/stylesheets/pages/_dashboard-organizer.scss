@@ -72,16 +72,24 @@
     color: $blue;
     background-color : unset;
   }
+  #add-animator-button {
+    border-color: $light-blue;
+    color: white;
+    background-color: $light-blue;
+  }
+  #add-animator-button:hover {
+    color: $light-blue;
+    background-color : unset;
+  }
   #turn-offline-button {
     color: $dark-gray;
     background-color: unset;
     border: 1px solid $dark-gray;
-    opacity: 0.4;
+    opacity: 0.5;
   }
   #turn-offline-button:hover {
     color: white;
     background-color : $dark-gray;
-    opacity: 0.7;
   }
   .show-actions-button {
     display: none;
@@ -123,6 +131,56 @@
   flex-wrap: wrap;
 }
 
+// MY WS MODALS
+
+.add-session-modal {
+  .form-group.session_date {
+    margin-top: 3em;
+  }
+  label {
+    font-weight: 600;
+    color: $dark-blue;
+    font-size: 16px;
+    opacity: 0.8;
+    margin-top: 1em;
+  }
+  select {
+    background-position-x: 98%;
+  }
+}
+
+.add-animator-modal {
+  .form-group.animator_user {
+    margin-top: 2em;
+  }
+  label {
+    font-weight: 600;
+    color: $dark-blue;
+    font-size: 16px;
+    opacity: 0.8;
+    margin-top: 1em;
+  }
+  select {
+    background-position-x: 98%;
+  }
+}
+
+.add-modal-btn {
+  background-color: $green;
+  color: white !important;
+  border-radius: 32px;
+  padding: 0.3rem 1.2rem;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border: unset;
+}
+.add-modal-btn:hover {
+  background-color: $light-blue;
+  transition: all 0.5s ease-out;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 // MY AGENDA
 
@@ -454,6 +512,41 @@
     }
     .show-actions-button {
       display: none;
+    }
+  }
+
+  // my workshops modal
+
+  .add-session-modal {
+    .modal-dialog {
+      max-width: unset;
+      height: 100vh;
+      width: 100vw;
+      margin: unset;
+    }
+    .modal-content {
+      width: 100vw;
+      height: 100vh;
+      border: unset;
+    }
+    .modal-body {
+      padding-top: 5em;
+    }
+  }
+  .add-animator-modal {
+    .modal-dialog {
+      max-width: unset;
+      height: 100vh;
+      width: 100vw;
+      margin: unset;
+    }
+    .modal-content {
+      width: 100vw;
+      height: 100vh;
+      border: unset;
+    }
+    .modal-body {
+      padding-top: 5em;
     }
   }
 

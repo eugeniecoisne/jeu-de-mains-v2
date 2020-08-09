@@ -88,6 +88,7 @@ class WorkshopsController < ApplicationController
 
   def edit
     @places = current_user.admin ? Place.all : current_user.places
+    @animators = Profile.where(role: 'animateur')
   end
 
   def update
@@ -121,6 +122,10 @@ class WorkshopsController < ApplicationController
   end
 
   def confirmation
+    @workshop = Workshop.last
+    @users = User.all.select { |user| user.profile.role == 'animateur' }
+    @animator = Animator.new
+    @session = Session.new
   end
 
   private

@@ -1,0 +1,63 @@
+<!-- SESSION MODAL -->
+
+<div class="modal fade add-session-modal" id="addSessionModal" tabindex="-1" role="dialog" aria-labelledby="addSessionModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="form-group">
+        <%= simple_form_for([workshop, @session]) do |f| %>
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+            </button>
+
+            <%= f.input :date, label: "Date de l'atelier" %>
+            <%= f.input :start_at, label: "Heure de début", collection: Session::STARTS_AT %>
+            <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier" %>
+
+            <div class="d-flex justify-content-center">
+              <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
+            </div>
+
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANIMATOR MODAL -->
+
+<div class="modal fade add-animator-modal" id="addAnimatorModal" tabindex="-1" role="dialog" aria-labelledby="addAnimatorModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="form-group">
+        <%= simple_form_for([workshop, @animator]) do |f| %>
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+            </button>
+
+            <div class="form-group select required animator_user">
+              <label class="select required" for="animator_user_id">Animateur</label>
+              <select class="form-control select required" name="animator[user_id]" id="animator_user_id">
+                <% if workshop.animators.present? %>
+                  <option value="<%= workshop.animators.first.user.id %>" selected><%= workshop.animators.first.user.profile.company %></option>
+                  <option value="">----------------</option>
+                <% end %>
+                <% @users.sort_by { |user| user.profile.company }.each do |user| %>
+                  <option value="<%= user.id %>"><%= user.profile.company %></option>
+                <% end %>
+              </select>
+            </div>
+            <div class="d-flex justify-content-center">
+              <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
