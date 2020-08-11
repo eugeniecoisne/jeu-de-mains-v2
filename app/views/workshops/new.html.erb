@@ -42,15 +42,14 @@
 
       <div class="card">
         <div class="card-header card-header-2 collapsed" data-toggle="collapse" data-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-          <span class="title">Intitulé, lieu & animateur</span>
+          <span class="title">Intitulé & lieu</span>
           <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
         </div>
         <div id="collapse-2" class="collapse collapse-2" data-parent="#accordionNewWs">
           <div class="card-body">
             <strong>C'est parti !</strong><br>
             Renseignez pour commencer l'intitulé de votre atelier, celui-ci doit être représentatif et percutant afin de ressortir dans les recherches utilisateurs.<br>
-            Ensuite, sélectionnez parmi vos lieux celui où ce déroulera l'atelier. <br>
-            Enfin, si l'animateur de l'atelier ne fait pas partie de vos équipes, sélectionnez l'animateur parmi tous ceux enregistrés sur la plateforme jeu de mains &#128521;
+            Puis sélectionnez parmi vos lieux celui où ce déroulera l'atelier. <br>
             <br><br>
 
             <%= f.input :title, required: false, label: "Intitulé de l'atelier"  %>
@@ -62,16 +61,6 @@
               <% @places.sort_by { |place| place.name }.each do |place| %>
                 <option value="<%= place.id %>"><%= place.name %></option>
               <% end %>
-              </select>
-            </div>
-
-            <div class="form-group select optional workshop_animator">
-              <label class="select optional" for="workshop_animator">L'atelier est animé par un animateur extérieur au lieu ?<br> Si oui, sélectionnez un animateur :</label>
-              <select class="form-control select optional" name="workshop[animator]" id="workshop_animator">
-                <option value=""></option>
-                <% @animators.sort_by { |animator| animator.company }.each do |animator| %>
-                  <option value="<%= animator.id %>"><%= animator.company %></option>
-                <% end %>
               </select>
             </div>
 

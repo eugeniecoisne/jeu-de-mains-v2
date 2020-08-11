@@ -21,20 +21,28 @@
 
 
 .confirm-session-modal {
+  left: 3.8em;
   .form-group.session_date {
     margin-top: 3em;
   }
   select {
     background-position-x: 98%;
   }
+  .modal-dialog {
+    margin: 4.4em 0 0 0;
+  }
 }
 
 .confirm-animator-modal {
+  left: 3.8em;
   .form-group.animator_user {
     margin-top: 2em;
   }
   select {
     background-position-x: 98%;
+  }
+  .modal-dialog {
+    margin: 4.4em 0 0 0;
   }
 }
 
@@ -80,6 +88,7 @@
   // MODAL
 
   .confirm-session-modal {
+    left: 0;
     .modal-dialog {
       max-width: unset;
       height: 100vh;
@@ -96,6 +105,7 @@
     }
   }
   .confirm-animator-modal {
+    left: 0;
     .modal-dialog {
       max-width: unset;
       height: 100vh;
@@ -115,7 +125,42 @@
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
+// MODAL
 
+  .confirm-session-modal {
+    left: 0;
+    .modal-dialog {
+      max-width: unset;
+      height: 100vh;
+      width: 100vw;
+      margin: unset;
+    }
+    .modal-content {
+      width: 100vw;
+      height: 100vh;
+      border: unset;
+    }
+    .modal-body {
+      padding: 5em;
+    }
+  }
+  .confirm-animator-modal {
+    left: 0;
+    .modal-dialog {
+      max-width: unset;
+      height: 100vh;
+      width: 100vw;
+      margin: unset;
+    }
+    .modal-content {
+      width: 100vw;
+      height: 100vh;
+      border: unset;
+    }
+    .modal-body {
+      padding: 5em;
+    }
+  }
 }
 
 // Medium devices (tablets, 768px and up)
