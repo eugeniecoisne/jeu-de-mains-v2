@@ -122,7 +122,6 @@ class WorkshopsController < ApplicationController
   end
 
   def confirmation
-    @workshop = Workshop.last
     @users = User.all.select { |user| user.profile.role == 'animateur' }
     @animator = Animator.new
     @session = Session.new

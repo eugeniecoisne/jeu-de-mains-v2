@@ -106,19 +106,78 @@
                     </div>
                     <div class="ws-dashboard-organizer-buttons" id="ws-dashboard-organizer-buttons-<%= index +1 %>">
                       <div>
-                        <a href="#addSessionModal" class="button mr-2" data-toggle="modal" data-whatever="@mdo" id="add-date-button">
+                        <a href="#addSessionModal<%= index +1 %>" class="button mr-2" data-toggle="modal" data-whatever="@mdo" id="add-date-button">
                           <i class="fas fa-plus mr-1"></i>
                           <span>Ajouter une date</span>
                         </a>
-                        <%= render 'modal_add_session_animator', workshop: workshop %>
+
+                        <div class="modal fade add-session-modal" id="addSessionModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="addSessionModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+
+                              <div class="form-group">
+                                <%= simple_form_for([workshop, @session]) do |f| %>
+                                  <div class="modal-body">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+                                    </button>
+
+                                    <%= f.input :date, label: "Date de l'atelier" %>
+                                    <%= f.input :start_at, label: "Heure de début", collection: Session::STARTS_AT %>
+                                    <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier" %>
+
+                                    <div class="d-flex justify-content-center">
+                                      <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
+                                    </div>
+
+                                  </div>
+                                <% end %>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
                       </div>
                       <% if workshop.animators.present? == false %>
                         <div>
-                          <a href="#addAnimatorModal" class="button mr-2" data-toggle="modal" data-whatever="@mdo" id="add-animator-button">
+                          <a href="#addAnimatorModal<%= index +1 %>" class="button mr-2" data-toggle="modal" data-whatever="@mdo" id="add-animator-button">
                             <i class="fas fa-plus mr-1"></i>
                             <span>Ajouter un animateur</span>
                           </a>
-                          <%= render 'modal_add_session_animator', workshop: workshop %>
+
+                          <div class="modal fade add-animator-modal" id="addAnimatorModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="addAnimatorModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+
+                                <div class="form-group">
+                                  <%= simple_form_for([workshop, @animator]) do |f| %>
+                                    <div class="modal-body">
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+                                      </button>
+
+                                      <div class="form-group select required animator_user">
+                                        <label class="select required" for="animator_user_id">Animateur</label>
+                                        <select class="form-control select required" name="animator[user_id]" id="animator_user_id">
+                                          <% @users.sort_by { |user| user.profile.company }.each do |user| %>
+                                            <option value="<%= user.id %>"><%= user.profile.company %></option>
+                                          <% end %>
+                                        </select>
+                                      </div>
+
+                                      <div class="d-flex justify-content-center">
+                                        <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
+                                      </div>
+                                    </div>
+                                  <% end %>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
                         </div>
                       <% end %>
                       <%= link_to "Modifier la fiche", edit_workshop_path(workshop), class: "button mr-2" %>
@@ -177,7 +236,7 @@
                               </h4>
                             </div>
                             <div class="mobile-dashboard-my-agenda-workshop-participants">
-                              <%= link_to "Voir et contacter les participants", "#", class: "button" %>
+                              <%= link_to "Voir et contacter les participants", session_participants_path(session), class: "button" %>
                             </div>
                           </div>
                         <% end %>

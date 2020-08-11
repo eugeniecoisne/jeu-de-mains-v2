@@ -1,6 +1,33 @@
-<h1>
-  Nombre de participant(s) : <%= @session.bookings.count %>
-  <% @session.bookings.each do |booking| %>
-    <p><%= booking.user.first_name %></p>
-  <% end %>
-</h1>
+<!-- SESSIONS INDEX -->
+<% if @session.workshop.place.user == current_user %>
+
+  <div class="sign-container" id="session-participants-container">
+
+    <div class="sign-form">
+
+      <h2 class="sign-title">Participants de l'atelier<br><span><%= @session.workshop.title %></span></h2>
+      <h3><i class="fas fa-calendar"></i> <%= l(@session.date, format: '%A %d %B %Y') %></h3>
+      <h3><i class="fas fa-clock"></i> à <%= @session.start_at %></h3>
+      <h3><i class="fas fa-user"></i> <%= @session.bookings.count %> participants sur <%= @session.capacity %></h3>
+
+        <div class="session-participants">
+          <% number = 1 %>
+          <% @session.bookings.each do |booking| %>
+            <% booking.quantity.times do %>
+              <div class="session-participants-one-participant">
+                <h4><%= number %> - <%= booking.user.first_name %> <%= booking.user.last_name.first %>. - <span>réservé le <%= l(booking.created_at, format: '%d/%M/%Y') %></span></h4>
+              </div>
+              <% number += 1 %>
+            <% end %>
+          <% end %>
+        </div>
+
+        <a href="">Contacter les participants</a>
+    </div>
+
+    <div class="sign-picture">
+      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593629305/making-blue.svg", :width => 1000, :crop => :fill) %>
+    </div>
+
+  </div>
+<% end %>

@@ -1,0 +1,104 @@
+#session-participants-container {
+  .sign-form {
+    margin: 6em 3em;
+    width: 100%;
+  }
+  h3 {
+    font-size: 15px;
+    color: $blue;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .fas {
+    color: $light-blue;
+    font-size: 17px;
+    margin-right: 1em;
+  }
+}
+.session-participants {
+  margin-top: 3em;
+}
+.session-participants-one-participant {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0.5em 1em;
+  margin: 1em 0;
+  border-left: 4px solid $light-blue;
+  h4 {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+}
+
+
+// RESPONSIVE SESSIONS INDEX //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  #session-participants-container {
+    grid-template-columns: 1fr;
+    .sign-form {
+      margin: 2em 1.5em;
+      width: unset;
+    }
+    h3 {
+      font-size: 14px;
+      color: $dark-blue;
+      margin-bottom: 6px;
+    }
+    .sign-picture {
+      display: none;
+    }
+    .session-participants-one-participant {
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .sign-title {
+      font-size: 18px;
+      margin-bottom: 2em;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+  #session-participants-container {
+    grid-template-columns: 1fr;
+    .sign-form {
+      margin: 4em 2em;
+      width: unset;
+    }
+    .sign-picture {
+      display: none;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+  #session-participants-container {
+    grid-template-columns: 2fr 1fr;
+    .sign-form {
+      margin: 4em 2em;
+    }
+    .sign-picture {
+      margin-left: 2em;
+    }
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
+
+
