@@ -118,7 +118,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1em;
-  height: 670px;
+  max-height: 670px;
   overflow: hidden;
   padding-bottom: 1em;
   #show-place-ws-card-place {
@@ -258,7 +258,7 @@
   .public-profile-our-ws-cards {
     margin-top: 1em;
     margin-bottom: 0.4em;
-    height: 540px;
+    max-height: 540px;
   }
 
 }

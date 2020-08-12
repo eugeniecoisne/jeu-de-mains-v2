@@ -75,8 +75,26 @@
           <!-- MY WORKSHOPS -->
 
           <div class="tab-pane fade show active" id="v-pills-my-workshops" role="tabpanel" aria-labelledby="v-pills-my-workshops-tab">
-            <% my_workshops.each_with_index do |workshop, index| %>
-              <div class="ws-dashboard-organizer-card-container">
+            <% my_sorted_workshops = [] %>
+            <% my_offline_workshops = [] %>
+            <% my_workshops.sort_by { |workshop| workshop.created_at }.each do |workshop| %>
+              <% if workshop.status == "en ligne" %>
+                <% my_sorted_workshops << workshop %>
+              <% else %>
+                <% my_offline_workshops << workshop %>
+              <% end %>
+            <% end %>
+            <% my_offline_workshops.each do |workshop| %>
+              <% my_sorted_workshops << workshop %>
+            <% end %>
+
+            <% my_sorted_workshops.each_with_index do |workshop, index| %>
+
+              <% if workshop.status == "en ligne" %>
+                <div class="ws-dashboard-organizer-card-container">
+              <% else %>
+                <div class="ws-dashboard-organizer-card-container" id="offline-ws">
+              <% end %>
                 <div class="ws-dashboard-organizer-card">
                   <div class="ws-dashboard-organizer-image">
                     <% if workshop.photos.attached? %>
@@ -176,13 +194,15 @@
                             </div>
                           </div>
 
-
-
                         </div>
                       <% end %>
                       <%= link_to "Modifier la fiche", edit_workshop_path(workshop), class: "button mr-2" %>
                       <%= link_to "Gérer les sessions", workshop_sessions_path(workshop), class: "button mr-2" %>
-                      <%= link_to "Passer hors ligne", "#", class: "button", id: "turn-offline-button" %>
+                      <% if workshop.status == "en ligne" %>
+                        <%= link_to "Passer hors ligne", "#", class: "button", id: "turn-online-offline-button" %>
+                      <% else %>
+                        <%= link_to "Passer en ligne", "#", class: "button", id: "turn-online-online-button" %>
+                      <% end %>
                     </div>
                   </div>
                 </div>

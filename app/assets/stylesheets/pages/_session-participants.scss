@@ -1,30 +1,42 @@
 #session-participants-container {
   .sign-form {
-    margin: 6em 3em;
+    margin: 1em 3em 5em 3em;
     width: 100%;
   }
   h3 {
     font-size: 15px;
-    color: $blue;
+    color: $dark-blue;
     font-weight: 600;
     margin-bottom: 2px;
   }
-  .fas {
+  .fa-user {
     color: $light-blue;
     font-size: 17px;
     margin-right: 1em;
   }
+  .fa-calendar {
+    color: $light-blue;
+    font-size: 17px;
+    margin-right: 1em;
+  }
+  .fa-clock {
+    color: $light-blue;
+    font-size: 17px;
+    margin-right: 1em;
+  }
+  .sign-title {
+    margin-top: 2em;
+  }
 }
 .session-participants {
-  margin-top: 3em;
+  margin: 2em 0;
 }
 .session-participants-one-participant {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 0.5em 1em;
   margin: 1em 0;
-  border-left: 4px solid $light-blue;
+  padding: 0.2em 0;
   h4 {
     font-weight: 500;
     font-size: 14px;
@@ -33,6 +45,22 @@
 
 }
 
+#contact-participants-btn {
+  background-color: $dark-blue;
+  color: white !important;
+  border-radius: 32px;
+  padding: 0.3rem 1.2rem;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border: unset;
+  outline: none;
+}
+#contact-participants-btn:hover {
+  background-color: $blue;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 // RESPONSIVE SESSIONS INDEX //
 
@@ -41,7 +69,7 @@
   #session-participants-container {
     grid-template-columns: 1fr;
     .sign-form {
-      margin: 2em 1.5em;
+      margin: 0.3em 1.5em;
       width: unset;
     }
     h3 {
@@ -59,7 +87,10 @@
     }
     .sign-title {
       font-size: 18px;
-      margin-bottom: 2em;
+      margin: 2em 0;
+    }
+    .back-button {
+      font-size: 95%;
     }
   }
 }
@@ -69,7 +100,7 @@
   #session-participants-container {
     grid-template-columns: 1fr;
     .sign-form {
-      margin: 4em 2em;
+      margin: 1em 2em;
       width: unset;
     }
     .sign-picture {

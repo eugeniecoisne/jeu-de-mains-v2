@@ -1,7 +1,10 @@
 #sessions-index-container {
   .sign-form {
-    margin: 6em 3em;
+    margin: 1em 3em 5em 3em;
     width: 100%;
+  }
+  .sign-title {
+    margin-top: 2em;
   }
 }
 .sessions-index-one-session {
@@ -64,7 +67,7 @@
   #sessions-index-container {
     grid-template-columns: 1fr;
     .sign-form {
-      margin: 3em 2em;
+      margin: 0.5em 1.5em;
       width: unset;
     }
     .sign-picture {
@@ -82,7 +85,11 @@
       }
     }
     .sign-title {
-      font-size: 22px;
+      margin-top: 1.5em;
+      font-size: 18px;
+    }
+    .back-button {
+      font-size: 95%;
     }
   }
 }

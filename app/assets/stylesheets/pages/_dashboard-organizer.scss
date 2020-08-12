@@ -34,6 +34,15 @@
   padding: 1px 5px 1px 15px;
 }
 
+#offline-ws {
+  border-color: $medium-gray;
+  .ws-dashboard-organizer-text {
+    span {
+      color: $medium-gray;
+    }
+  }
+}
+
 .ws-dashboard-organizer-card {
   display: flex;
 }
@@ -81,15 +90,14 @@
     color: $light-blue;
     background-color : unset;
   }
-  #turn-offline-button {
-    color: $dark-gray;
+  #turn-online-offline-button {
+    color: $blue;
     background-color: unset;
-    border: 1px solid $dark-gray;
-    opacity: 0.5;
+    border: 1px solid $blue;
   }
-  #turn-offline-button:hover {
+  #turn-online-offline-button:hover {
     color: white;
-    background-color : $dark-gray;
+    background-color : $blue;
   }
   .show-actions-button {
     display: none;

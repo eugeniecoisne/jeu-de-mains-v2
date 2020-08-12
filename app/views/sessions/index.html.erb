@@ -5,6 +5,13 @@
 
     <div class="sign-form">
 
+      <div class="back-button">
+        <%= link_to 'javascript:history.go(-1);' do %>
+          <i class="fas fa-chevron-left"></i>
+          <span>Retour</span>
+        <% end %>
+      </div>
+
       <h2 class="sign-title">Sessions de l'atelier<br><span><%= @workshop.title %></span></h2>
 
         <div class="sessions-index">
