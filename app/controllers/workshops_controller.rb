@@ -114,6 +114,7 @@ class WorkshopsController < ApplicationController
     @workshop.place = Place.find(params[:workshop][:place_id])
     @workshop.status = 'hors ligne'
     if @workshop.save
+      flash[:notice] = "Votre atelier a bien été créé !"
       redirect_to confirmation_workshop_path(@workshop)
     else
       @places = current_user.admin ? Place.all : current_user.places

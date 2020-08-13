@@ -5,6 +5,13 @@
 
     <div class="sign-form">
 
+      <div class="back-button">
+        <%= link_to 'javascript:history.go(-1);' do %>
+          <i class="fas fa-chevron-left"></i>
+          <span>Retour</span>
+        <% end %>
+      </div>
+
       <h2 class="sign-title">Participants de l'atelier<br><span><%= @session.workshop.title %></span></h2>
       <h3><i class="fas fa-calendar"></i> <%= l(@session.date, format: '%A %d %B %Y') %></h3>
       <h3><i class="fas fa-clock"></i> à <%= @session.start_at %></h3>
@@ -22,7 +29,7 @@
           <% end %>
         </div>
 
-        <a href="">Contacter les participants</a>
+        <%= link_to "Contacter les participants", "#", id: "contact-participants-btn" %>
     </div>
 
     <div class="sign-picture">

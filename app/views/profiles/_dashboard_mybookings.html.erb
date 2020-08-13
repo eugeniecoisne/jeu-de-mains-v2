@@ -89,8 +89,23 @@
                           </p>
                           <p>Chez <%= booking.session.workshop.place.name %></p>
                           <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
-                          <div>
+                          <div class="d-flex justify-content-center align-items-center">
                             <%= link_to "Annuler ma commande", "#", class: "button" %>
+                            <div title="Add to Calendar" data-styling="none" class="addeventatc">
+                              <i class="far fa-calendar-plus"></i>
+                              <span class="start">08/26/2020 08:00 AM</span>
+                              <span class="end">08/26/2020 10:00 AM</span>
+                              <span class="timezone">Europe/Paris</span>
+                              <span class="title"><%= booking.session.workshop.title %></span>
+                              <span class="description">
+                                Atelier "<%= booking.session.workshop.title %>"<br>
+                                Réservé sur https://www.jeudemains.com/<br><br>
+                                ----- <br><br>
+                                Au programme : <br>
+                                <%= booking.session.workshop.program %>
+                                </span>
+                              <span class="location"><%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city.capitalize %></span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -160,3 +175,5 @@
     </div>
   </div>
 <% end %>
+<script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
+

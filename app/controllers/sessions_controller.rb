@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
     @session.workshop = Workshop.find(params[:workshop_id])
     @session.capacity = @session.workshop.capacity if @session.capacity.nil?
     if @session.save
+      flash[:notice] = "Votre session a bien été ajoutée !"
       redirect_back fallback_location: root_path
     else
       render 'new'

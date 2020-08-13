@@ -14,6 +14,7 @@ class AnimatorsController < ApplicationController
     @animator.workshop = Workshop.find(params[:workshop_id])
     @animator.user = User.find(params[:animator][:user_id])
     if @animator.save
+      flash[:notice] = "L'animateur #{@animator.user.profile.company} a bien été ajouté !"
       redirect_back fallback_location: root_path
     else
       @users = User.all.select { |user| user.profile.role == 'animateur' }

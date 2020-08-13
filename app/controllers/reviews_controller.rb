@@ -14,6 +14,7 @@ class ReviewsController < ApplicationController
     @review.booking = Booking.find(params[:booking_id])
     @review.user = current_user
     if @review.save
+      flash[:notice] = "Votre avis a bien été posté !"
       redirect_to dashboard_profile_path(current_user.profile)
     else
       flash[:alert] = "Une erreur s'est produite."

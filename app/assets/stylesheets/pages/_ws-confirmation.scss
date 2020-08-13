@@ -4,6 +4,9 @@
 
 #confirmation-ws-container {
   display: flex;
+  .sign-title {
+    font-size: 22px;
+  }
 }
 .ws-confirmation-item {
   margin: 2em 0;
@@ -11,6 +14,13 @@
     color: $dark-blue;
     font-size: 16px;
     font-weight: 600;
+    margin-bottom: 1em;
+  }
+  p {
+    margin-top: 1em;
+  }
+  strong {
+    color: $dark-blue;
   }
 }
 .ws-confirmation-item-button {
@@ -46,7 +56,7 @@
   }
 }
 
-.confirm-modal-btn {
+.confirm-btn {
   background-color: $green;
   color: white !important;
   border-radius: 32px;
@@ -55,12 +65,21 @@
   font-weight: 600;
   cursor: pointer;
   border: unset;
+  width: 200px;
+  justify-content: center;
+  outline: none;
 }
-.confirm-modal-btn:hover {
+.confirm-btn:hover {
   background-color: $light-blue;
-  transition: all 0.5s ease-out;
   text-decoration: none;
   cursor: pointer;
+}
+
+#previsualize-ws {
+  background-color: $light-blue;
+}
+#previsualize-ws:hover {
+  background-color: $green;
 }
 
 
@@ -73,6 +92,9 @@
     .sign-title {
       font-size: 20px;
     }
+    .sign-form {
+      margin: 3em 2em;
+    }
   }
   .ws-confirmation-item {
     margin: 2em 0;
@@ -82,6 +104,9 @@
     p {
       font-size: 15px;
     }
+  }
+  .confirm-btn {
+    width: 100%;
   }
 
 

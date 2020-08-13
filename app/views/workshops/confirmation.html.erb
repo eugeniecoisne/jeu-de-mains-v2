@@ -1,25 +1,40 @@
 <div class="sign-container" id="confirmation-ws-container">
   <div class="sign-form">
-    <h2 class="sign-title">Votre atelier a bien été créé,<br> <span>mettez-le en ligne !</span></h2>
+    <h2 class="sign-title">Votre atelier a bien été créé,<br> <span>dernière étape pour la mise en ligne !</span></h2>
+
     <div>
       <div class="ws-confirmation-item">
-        <h3>Ouvrez la réservation avec une première date :</h3>
-        <div>
-          <a href="#confirmSessionModal" class="confirm-modal-btn" data-toggle="modal" data-whatever="@mdo">Proposer une date</a>
-          <%= render 'confirmation_modal' %>
-        </div>
-      </div>
-
-      <div class="ws-confirmation-item">
-        <h3>L'atelier est animé par un animateur externe à vos équipes ?</h3>
-        <div class="ws-confirmation-item-button">
-          <a href="#confirmAnimatorModal" class="confirm-modal-btn" data-toggle="modal" data-whatever="@mdo">Ajouter un animateur</a>
-          <%= render 'confirmation_modal' %>
-        </div>
+        <p>Félicitations, votre atelier a bien été créé &#127881;<br>
+          Vous souhaitez le mettre en ligne ? Renseignez les dernières informations requises ci-dessous ! <br>
+        </p>
         <p>
           Vous n'avez pas encore rempli tous les champs du formulaire et n'êtes pas prêt à mettre votre atelier en ligne ? <br>
           Rendez-vous sur votre <strong><%= link_to "tableau de bord", dashboard_profile_path(current_user.profile)  %></strong> pour gérer vos ateliers &#128521;
         </p>
+      </div>
+      <div class="ws-confirmation-item">
+        <p><strong>Ouvrez la réservation avec une première date :</strong></p>
+        <div>
+          <a href="#confirmSessionModal" class="confirm-btn d-flex" data-toggle="modal" data-whatever="@mdo">Proposer une date</a>
+          <%= render 'confirmation_modal' %>
+        </div>
+      </div>
+      <div class="ws-confirmation-item">
+        <p>L'atelier est animé par un animateur externe à vos équipes ?<br>
+          Si oui, une fois l'animateur renseigné, il est impossible de le modifier.<br>
+          En effet un atelier est très imprégné d'un animateur et les avis de votre atelier sont d'ailleurs aussi attribués à l'animateur ! <br>
+          Vous pourrez toujours dupliquer cet atelier le jour où vous souhaitez changer l'animateur. <br></p>
+      </div>
+      <div class="ws-confirmation-item">
+        <p><strong>Ajoutez l'animateur :</strong></p>
+        <div class="ws-confirmation-item-button">
+          <a href="#confirmAnimatorModal" class="confirm-btn d-flex" data-toggle="modal" data-whatever="@mdo">Ajouter un animateur</a>
+          <%= render 'confirmation_modal' %>
+        </div>
+      </div>
+      <div class="ws-confirmation-item">
+        <p><strong>Tout est rempli ? Jetez un oeil à votre atelier qui sera en ligne une fois validé par les équipes Jeu de mains &#128521;</p>
+        <%= link_to "Prévisualiser la page", workshop_path(@workshop), class: "confirm-btn d-flex", id: "previsualize-ws" %></strong>
       </div>
     </div>
   </div>
