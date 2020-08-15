@@ -93,10 +93,19 @@
                             <%= link_to "Annuler ma commande", "#", class: "button" %>
                             <div title="Add to Calendar" data-styling="none" class="addeventatc">
                               <i class="far fa-calendar-plus"></i>
-                              <span class="start">08/26/2020 08:00 AM</span>
-                              <span class="end">08/26/2020 10:00 AM</span>
+                              <span class="start">
+                                <%= booking.session.date.strftime('%m/%d/%Y') %>
+                                <%= booking.session.start_at[0..1] %>:<%= booking.session.start_at[3..4] %>
+                              </span>
+                              <span class="end">
+                                <% start_in_minutes = (booking.session.start_at[0..1].to_i * 60) + booking.session.start_at[3..4].to_i %>
+                                <% end_in_minutes = start_in_minutes + booking.session.workshop.duration %>
+                                <%= booking.session.date.strftime('%m/%d/%Y') %>
+                                <%= end_in_minutes.fdiv(60).round.to_i %>:<%= end_in_minutes%60 > 0 ? end_in_minutes%60 : "00" %>
+                              </span>
                               <span class="timezone">Europe/Paris</span>
                               <span class="title"><%= booking.session.workshop.title %></span>
+                              <span class="organizer">jeudemains.com</span>
                               <span class="description">
                                 Atelier "<%= booking.session.workshop.title %>"<br>
                                 Réservé sur https://www.jeudemains.com/<br><br>
