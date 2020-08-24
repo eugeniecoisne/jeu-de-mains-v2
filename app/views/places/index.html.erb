@@ -1,9 +1,54 @@
-<h2>Tous nos lieux</h2>
+<div class="dashboard-title-container">
+  <h1><strong>Tous nos lieux</strong></h1>
+</div>
 
-<h2>views/places/index</h2>
+<div class="place-animator-index-container">
+  <div class= "place-animator-index-cards">
+    <% @places.each do |place| %>
 
-<ul>
-  <% @places.each do |place| %>
-    <li><%= link_to place.name, place_path(place) %></li>
-  <% end %>
-</ul>
+      <div class="place-animator-index-card">
+        <%= link_to(place, data: { turbolinks: false }) do  %>
+          <div class="place-anim-card-image">
+            <% if place.photo.attached? %>
+              <%= cl_image_tag place.photo.key, alt: "photo du lieu", width: 250, crop: :fill %>
+            <% else %>
+              <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 250, :crop => :fill, :alt => "photo du lieu") %>
+            <% end %>
+          </div>
+        <% end %>
+        <%= link_to(place, data: { turbolinks: false }) do  %>
+          <div class="place-anim-card-infos">
+            <div>
+              <div class="place-anim-card-title">
+                <h2>
+                  <% if place.rating %>
+                    <span class="place-anim-card-rating"><i class="fas fa-star"></i> <%= place.rating %></span>
+                  <% end %>
+                  <%= place.name %>
+                </h2>
+              </div>
+              <div class="place-anim-card-city">
+                <h3>
+                  <i class="fas fa-map-marker-alt"></i> <%= place.city.capitalize %>
+                  <span><%= place.ephemeral == true ? ", lieu éphémère" : ", lieu permanent" %></span>
+                </h3>
+              </div>
+              <div class="place-anim-card-info-tags">
+                <i class="fas fa-tag"></i>
+                <% place_thematics = [] %>
+                <% place.workshops.each do |workshop| %>
+                  <% place_thematics << workshop.thematic %>
+                <% end %>
+                <% place_thematics.uniq.each do |thematic| %>
+                <div class='informations-tag'><%= thematic %></div>
+                <% end %>
+              </div>
+
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
