@@ -1,0 +1,175 @@
+//
+
+.place-animator-index-container {
+  margin: 3em 2em;
+}
+
+.place-animator-index-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 0;
+}
+
+.place-animator-index-card {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: white;
+  position: relative;
+  height: auto;
+  cursor: pointer;
+  border-bottom: 1px solid $gray;
+  padding: 14px 0;
+  a {
+    text-decoration: none;
+  }
+}
+
+.place-anim-card-image {
+  img {
+    width: 6em;
+    height: 6em;
+    object-fit: cover;
+  }
+}
+
+.place-anim-card-infos {
+  padding: 10px 20px;
+}
+
+.place-anim-card-title {
+  margin-bottom: 12px;
+  h2 {
+    display: flex;
+    align-items: center;
+    font-size : 17px;
+    color: $dark-blue;
+    margin-bottom: 4px;
+  }
+  span {
+    display: flex;
+    align-items: center;
+    background-color: $green;
+    border-radius: 4px;
+    padding: 3px 6px;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    margin-right: 6px;
+    .fas {
+      font-size: 10px;
+      margin-bottom: 2px;
+      margin-right: 4px;
+    }
+  }
+}
+
+.place-anim-card-city {
+  h3 {
+    display: flex;
+    align-items: center;
+    font-size : 13px;
+    font-weight: 700;
+    color: $dark-blue;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    .fas {
+      font-size: 15px;
+      padding-right: 0.65em;
+    }
+    span {
+      text-transform: lowercase;
+      font-weight: 600;
+    }
+  }
+}
+
+.place-anim-card-info-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 6px;
+  i {
+    color: $dark-blue;
+    font-size: 14px;
+    padding-right: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  .informations-tag {
+    display: flex;
+    align-items: center;
+    padding: 0.14em 0.6em;
+    border: 1px solid $dark-blue;
+    color: $dark-blue;
+    font-weight: 600;
+    border-radius: 0.4em;
+    font-family: 'Montserrat', 'sans-serif';
+    font-size: 11px;
+    margin-right: 0.4em;
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
+  }
+}
+
+
+// RESPONSIVE PLACE AND ANIMATOR INDEX //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .place-animator-index-container {
+    margin: 1em;
+  }
+  .place-anim-card-image {
+    img {
+      width: 4em;
+      height: 4em;
+    }
+  }
+  .place-anim-card-title {
+    h2 {
+      font-size : 15px;
+    }
+    span {
+      font-size: 12px;
+      .fas {
+        font-size: 9px;
+      }
+    }
+  }
+  .place-anim-card-infos {
+    padding: 0;
+    padding-left: 14px;
+  }
+  .place-anim-card-info-tags {
+    i {
+      font-size: 12px;
+    }
+    .informations-tag {
+      font-size: 10px;
+    }
+  }
+  .place-animator-index-card {
+    align-items: flex-start;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
+

@@ -67,12 +67,14 @@
     border: 1px solid $blue;
     color: $blue;
     margin-bottom: 5px;
+    outline: none;
   }
   .button:hover {
     text-decoration: none;
     color: white;
     background-color: $blue;
   }
+
   #add-date-button {
     color: white;
     background-color: $blue;
@@ -98,6 +100,11 @@
   #turn-online-offline-button:hover {
     color: white;
     background-color : $blue;
+  }
+  #turn-online-offline-button-disabled {
+    color: $medium-gray;
+    background-color: unset;
+    border: 1px solid $medium-gray;
   }
   .show-actions-button {
     display: none;
@@ -523,6 +530,21 @@
     }
   }
 
+  #offline-ws {
+    .show-actions-button.active {
+      .button {
+        background-color: $medium-gray;
+        border-color: $medium-gray;
+      }
+    }
+    .show-actions-button.active:hover {
+      .button {
+        color: $medium-gray;
+        background-color : unset;
+      }
+    }
+  }
+
   // my workshops modal
 
   .add-session-modal {
@@ -556,6 +578,10 @@
     .modal-body {
       padding-top: 5em;
     }
+  }
+
+  .disabled-modal {
+    font-size: 90%;
   }
 
   // my places

@@ -94,7 +94,8 @@ class WorkshopsController < ApplicationController
   def update
     @workshop.update(workshop_params)
     if @workshop.save
-      redirect_to workshop_path(@workshop)
+      flash[:notice] = "Votre atelier a bien été modifié !"
+      redirect_to dashboard_profile_path(@workshop.place.user.profile)
     else
       @places = current_user.admin ? Place.all : current_user.places
       render 'edit'
