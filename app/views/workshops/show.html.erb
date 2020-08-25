@@ -165,14 +165,26 @@
     <div class="ws-show-link-to-organizers">
       <%= link_to place_path(@workshop.place) do %>
         <div class="ws-show-organizer-link">
-          <p>Plus d'infos sur <%= @workshop.place.name %></p>
+          <p>Plus d'infos sur
+            <% if @workshop.place.name.size > 21 %>
+              <%= @workshop.place.name[0..19] %>...
+            <% else %>
+              <%= @workshop.place.name %>
+            <% end %>
+          </p>
           <i class="fas fa-chevron-right"></i>
         </div>
       <% end %>
       <% if @animator.present? %>
         <%= link_to profile_path(@animator.user) do %>
           <div class="ws-show-organizer-link">
-            <p>Plus d'infos sur <%= @animator.user.profile.company %></p>
+            <p>Plus d'infos sur
+              <% if @animator.user.profile.company.size > 21 %>
+                <%= @animator.user.profile.company[0..19] %>...
+              <% else %>
+                <%= @animator.user.profile.company %>
+              <% end %>
+            </p>
             <i class="fas fa-chevron-right"></i>
           </div>
         <% end %>

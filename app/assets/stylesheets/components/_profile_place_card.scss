@@ -1,7 +1,22 @@
 //
 
+.place-animator-index-title {
+  padding: 0.75em;
+  background-color: $light-blue;
+  h1 {
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    margin: 0;
+  }
+  span {
+    font-weight: 700;
+  }
+}
+
 .place-animator-index-container {
-  margin: 3em 2em;
+  margin: 3em 4em;
 }
 
 .place-animator-index-cards {
@@ -13,7 +28,7 @@
 .place-animator-index-card {
   display: flex;
   align-items: center;
-  overflow: hidden;
+  justify-content: space-between;
   background: white;
   position: relative;
   height: auto;
@@ -25,10 +40,16 @@
   }
 }
 
+.place-animator-index-card-image-and-infos {
+  display: flex;
+  align-items: center;
+}
+
 .place-anim-card-image {
+  position: relative;
   img {
-    width: 6em;
-    height: 6em;
+    width: 8em;
+    height: 8em;
     object-fit: cover;
   }
 }
@@ -38,7 +59,7 @@
 }
 
 .place-anim-card-title {
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   h2 {
     display: flex;
     align-items: center;
@@ -46,21 +67,27 @@
     color: $dark-blue;
     margin-bottom: 4px;
   }
-  span {
-    display: flex;
-    align-items: center;
-    background-color: $green;
-    border-radius: 4px;
-    padding: 3px 6px;
-    color: white;
-    font-weight: 600;
-    font-size: 13px;
-    margin-right: 6px;
-    .fas {
-      font-size: 10px;
-      margin-bottom: 2px;
-      margin-right: 4px;
-    }
+}
+
+.place-anim-card-rating {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $green;
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 0.3rem 0px;
+  padding: 0 6px;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  margin-right: 6px;
+  font-family: "Montserrat", "sans-serif";
+  .fas {
+    font-size: 10px;
+    margin-bottom: 2px;
+    margin-right: 4px;
   }
 }
 
@@ -77,10 +104,24 @@
       font-size: 15px;
       padding-right: 0.65em;
     }
-    span {
+    #city-left {
+      padding-right: 6px;
+    }
+    #ephemeral-right {
+      border-left: 1px solid $dark-blue;
+      padding-left: 6px;
       text-transform: lowercase;
       font-weight: 600;
     }
+  }
+}
+
+.place-anim-card-price {
+  h4 {
+    font-size: 13px;
+    color: $green;
+    font-weight: 600;
+    margin-bottom: 6px;
   }
 }
 
@@ -88,7 +129,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin-top: 6px;
+  margin-top: 12px;
   i {
     color: $dark-blue;
     font-size: 14px;
@@ -99,33 +140,72 @@
     display: flex;
     align-items: center;
     padding: 0.14em 0.6em;
-    border: 1px solid $dark-blue;
-    color: $dark-blue;
+    border: 1px solid $blue;
+    color: $blue;
     font-weight: 600;
     border-radius: 0.4em;
     font-family: 'Montserrat', 'sans-serif';
-    font-size: 11px;
+    font-size: 10px;
     margin-right: 0.4em;
     margin-bottom: 0.5em;
     text-transform: uppercase;
   }
 }
+.place-anim-card-links-desktop {
+  display: flex;
+  flex-direction: column;
+  .place-anim-card-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 12px;
+    background-color: $light-blue;
+    color: white;
+    font-size: 14px;
+    width: 129px;
+    border-radius: 40px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 6px;
+  }
+
+  #phone-place-link {
+    background-color: $green;
+    margin: unset;
+  }
+  #anim-show-page {
+    margin: unset;
+  }
+}
+.place-anim-card-links-mobile {
+  display: none;
+}
+
+
 
 
 // RESPONSIVE PLACE AND ANIMATOR INDEX //
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
+
+  .place-animator-index-title {
+    h1 {
+      font-size: 14px;
+    }
+  }
+
   .place-animator-index-container {
-    margin: 1em;
+    margin: 1em 0;
   }
   .place-anim-card-image {
     img {
-      width: 4em;
-      height: 4em;
+      width: 6em;
+      max-height: 97px;
     }
   }
   .place-anim-card-title {
+    margin-bottom: 6px;
     h2 {
       font-size : 15px;
     }
@@ -136,26 +216,85 @@
       }
     }
   }
+  .place-anim-card-rating {
+    background-color: $light-blue;
+    top: 0;
+    left: 0;
+    box-shadow: unset;
+    padding: 1px 6px;
+    font-size: 11px;
+    .fas {
+      font-size: 9px;
+    }
+  }
   .place-anim-card-infos {
     padding: 0;
     padding-left: 14px;
   }
-  .place-anim-card-info-tags {
-    i {
-      font-size: 12px;
-    }
-    .informations-tag {
-      font-size: 10px;
+  .place-anim-card-city {
+    h3 {
+      margin-bottom: 4px;
+      font-size : 12px;
+      .fas {
+        font-size: 13px;
+      }
     }
   }
+  .place-anim-card-price {
+    h4 {
+      font-size : 12px;
+      margin-bottom: 4px;
+      color: $light-blue;
+    }
+  }
+  .place-anim-card-info-tags {
+    display: none;
+  }
   .place-animator-index-card {
-    align-items: flex-start;
+    padding: unset;
+    padding: 14px 0;
+  }
+  .place-animator-index-card-image-and-infos {
+    align-items: center;
+  }
+  .place-anim-card-links-desktop {
+    display: none;
+  }
+  .place-anim-card-links-mobile {
+    display: flex;
+    margin-top: 10px;
+    .place-anim-card-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      margin-left: 6px;
+      border: 1px solid $light-blue;
+      background-color: $light-blue;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 40px;
+      max-width: 32px;
+    }
+    #phone-place-link {
+      margin: unset;
+      border-color: $blue;
+      background-color: unset;
+      color: $blue;
+    }
+    #anim-show-page {
+      margin: unset;
+    }
   }
 }
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
-
+  .place-animator-index-container {
+    margin: 3em 2em;
+  }
 }
 
 // Medium devices (tablets, 768px and up)
