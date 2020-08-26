@@ -63,11 +63,13 @@
           <% my_sessions = [] %>
           <% my_dates = [] %>
           <% @profile.user.places.each do |place| %>
-            <% place.workshops.each do |workshop| %>
-              <% my_workshops << workshop %>
-              <% workshop.sessions.each do |session| %>
-                <% my_sessions << session %>
-                <% my_dates << session.date %>
+            <% if place.workshops %>
+              <% place.workshops.each do |workshop| %>
+                <% my_workshops << workshop %>
+                <% workshop.sessions.each do |session| %>
+                  <% my_sessions << session %>
+                  <% my_dates << session.date %>
+                <% end %>
               <% end %>
             <% end %>
           <% end %>
@@ -242,14 +244,19 @@
                 </div>
               </div>
             <% end %>
+            <% if my_workshops.size == 0 %>
+              <p>Vous n'avez pas encore créé d'atelier, <%= link_to "cliquez ici pour commencer !", new_workshop_path %> &#128521;</p>
+            <% end %>
           </div>
 
           <!-- MY AGENDA -->
 
           <div class="tab-pane fade" id="v-pills-my-agenda" role="tabpanel" aria-labelledby="v-pills-my-agenda-tab">
             <div class="mobile-dashboard-my-agenda">
+              <% date_to_come = 0 %>
               <% my_dates.to_set.sort.each do |date| %>
                 <% if date >= Date.today %>
+                  <% date_to_come += 1 %>
                   <div class="mobile-dashboard-my-agenda-date">
                     <div class="mobile-dashboard-my-agenda-date-title">
                       <h2><%= l(date, format: '%A %d %B %Y').capitalize %></h2>
@@ -299,6 +306,9 @@
                   </div>
                 <% end %>
               <% end %>
+              <% if date_to_come == 0 %>
+                Votre planning est vide, vous n'avez aucune session à venir.
+              <% end %>
             </div>
           </div>
 
@@ -306,34 +316,38 @@
 
           <div class="tab-pane fade" id="v-pills-my-places" role="tabpanel" aria-labelledby="v-pills-my-places-tab">
             <div class="dashboard-my-places">
-              <% @profile.user.places.each do |place| %>
-                <div class="dashboard-my-places-place">
-                  <div class="dashboard-my-places-place-image">
-                    <% if place.photo.attached? %>
-                      <%= cl_image_tag place.photo.key, alt: "Photo-lieu", width: 100, crop: :fill %>
-                    <% else %>
-                      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 85, :height => 95, :crop => :fill, :alt => "Photo-atelier") %>
-                    <% end %>
-                  </div>
-                  <div class="dashboard-my-places-place-infos">
-                    <div>
-                      <% if place.name.size > 30 %>
-                        <h2><%= place.name[0..28] %>...</h2>
+              <% if @profile.user.places.present? %>
+                <% @profile.user.places.each do |place| %>
+                  <div class="dashboard-my-places-place">
+                    <div class="dashboard-my-places-place-image">
+                      <% if place.photo.attached? %>
+                        <%= cl_image_tag place.photo.key, alt: "Photo-lieu", width: 100, crop: :fill %>
                       <% else %>
-                        <h2><%= place.name %></h2>
+                        <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 85, :height => 95, :crop => :fill, :alt => "Photo-atelier") %>
                       <% end %>
-                      <h3><%= place.address %></h3>
-                      <h3><%= place.zip_code %> <%= place.city.capitalize %></h3>
                     </div>
-                    <div class="dashboard-my-places-place-buttons">
-                      <%= link_to "Modifier", edit_place_path(place), class: "button" %>
-                      <%= link_to place_path(place), class: "button ml-1", id: "public-profile-button" do %>
-                        Profil public
-                        <i class="fas fa-chevron-right ml-1"></i>
-                      <% end %>
+                    <div class="dashboard-my-places-place-infos">
+                      <div>
+                        <% if place.name.size > 30 %>
+                          <h2><%= place.name[0..28] %>...</h2>
+                        <% else %>
+                          <h2><%= place.name %></h2>
+                        <% end %>
+                        <h3><%= place.address %></h3>
+                        <h3><%= place.zip_code %> <%= place.city.capitalize %></h3>
+                      </div>
+                      <div class="dashboard-my-places-place-buttons">
+                        <%= link_to "Modifier", edit_place_path(place), class: "button" %>
+                        <%= link_to place_path(place), class: "button ml-1", id: "public-profile-button" do %>
+                          Profil public
+                          <i class="fas fa-chevron-right ml-1"></i>
+                        <% end %>
+                      </div>
                     </div>
                   </div>
-                </div>
+                <% end %>
+              <% else %>
+                Vous n'avez enregistré aucun lieu. Prenez contact avec l'équipe Jeu de Mains pour ajouter un lieu &#128521;
               <% end %>
             </div>
           </div>

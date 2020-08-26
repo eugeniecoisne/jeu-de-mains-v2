@@ -1,9 +1,93 @@
-<h2>Tous nos animateurs</h2>
+<% if user_signed_in? %>
 
-<h2>views/profiles/index</h2>
+  <div class="place-animator-index-title">
+    <h1>Retrouvez ici tous les <strong>animateurs d'ateliers</strong> inscrits sur jeudemains.com</h1>
+  </div>
 
-<ul>
-  <% @profiles.each do |profile| %>
-    <li><%= link_to "#{profile.last_name} #{profile.first_name}", profile_path(profile) %></li>
-  <% end %>
-</ul>
+  <div class="place-animator-index-container">
+    <div class= "place-animator-index-cards">
+      <% @profiles.each do |profile| %>
+
+        <div class="place-animator-index-card">
+          <div class="place-animator-index-card-image-and-infos">
+            <%= link_to(profile_public_path(profile), data: { turbolinks: false }) do  %>
+              <div class="place-anim-card-image">
+                <% if profile.photo.attached? %>
+                  <%= cl_image_tag profile.photo.key, alt: "photo de l'animateur", width: 250, crop: :fill %>
+                <% else %>
+                  <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 250, :crop => :fill, :alt => "photo de l'animateur") %>
+                <% end %>
+                <div class="place-anim-card-rating">
+                  <% if profile.rating > 0 %>
+                    <i class="fas fa-star"></i><%= profile.rating %>
+                  <% else %>
+                    new
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+            <%= link_to(profile_public_path(profile), data: { turbolinks: false }) do  %>
+              <div class="place-anim-card-infos">
+                <div>
+                  <div class="place-anim-card-title">
+                    <h2>
+                      <% if profile.company.size > 29 %>
+                        <%= profile.company[0..27] %>...
+                      <% else %>
+                        <%= profile.company %>
+                      <% end %>
+                    </h2>
+                  </div>
+                  <div class="place-anim-card-city">
+                    <h3>
+                      <span id="city-left"><%= profile.city.capitalize %></span>
+                    </h3>
+                  </div>
+                  <div class="place-anim-card-price">
+                    <% ws_prices_sum = 0 %>
+                    <% profile.user.animators.each do |animator| %>
+                      <% ws_prices_sum += animator.workshop.price %>
+                    <% end %>
+                    <h4>Prix moyen : <%= ws_prices_sum.fdiv(profile.user.animators.size).round %> €</h4>
+                  </div>
+                  <div class="place-anim-card-info-tags">
+
+                    <% animator_thematics = [] %>
+                    <% profile.user.animators.each do |animator| %>
+                      <% animator_thematics << animator.workshop.thematic %>
+                    <% end %>
+                    <% if animator_thematics.uniq.size <= 3 %>
+                      <% animator_thematics.uniq.each do |thematic| %>
+                        <div class='informations-tag'><%= thematic %></div>
+                      <% end %>
+                    <% else %>
+                      <div class='informations-tag'>Plusieurs thématiques</div>
+                    <% end %>
+                  </div>
+                  <div class="place-anim-card-links-mobile">
+                    <%= link_to profile_public_path(profile), class: "place-anim-card-link", id: "anim-show-page" do %>
+                      <i class="fas fa-eye"></i>
+                    <% end %>
+                    <%= link_to profile.instagram, class: "place-anim-card-link", target: "_blank" do %>
+                      <i class="fab fa-instagram"></i>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="place-anim-card-links-desktop">
+            <%= link_to profile_public_path(profile), class: "place-anim-card-link", id: "anim-show-page" do %>
+              <i class="fas fa-eye mr-2"></i> Voir la page
+            <% end %>
+            <%= link_to profile.instagram, class: "place-anim-card-link", target: "_blank" do %>
+              <i class="fab fa-instagram mr-2"></i> Instagram
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+<% end %>
+

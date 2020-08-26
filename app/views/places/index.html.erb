@@ -1,54 +1,96 @@
-<div class="dashboard-title-container">
-  <h1><strong>Tous nos lieux</strong></h1>
-</div>
+<% if user_signed_in? %>
 
-<div class="place-animator-index-container">
-  <div class= "place-animator-index-cards">
-    <% @places.each do |place| %>
+  <div class="place-animator-index-title">
+    <h1>Retrouvez ici tous les <strong>lieux d'ateliers</strong> inscrits sur jeudemains.com</h1>
+  </div>
 
-      <div class="place-animator-index-card">
-        <%= link_to(place, data: { turbolinks: false }) do  %>
-          <div class="place-anim-card-image">
-            <% if place.photo.attached? %>
-              <%= cl_image_tag place.photo.key, alt: "photo du lieu", width: 250, crop: :fill %>
-            <% else %>
-              <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 250, :crop => :fill, :alt => "photo du lieu") %>
+  <div class="place-animator-index-container">
+    <div class= "place-animator-index-cards">
+      <% @places.each do |place| %>
+
+        <div class="place-animator-index-card">
+          <div class="place-animator-index-card-image-and-infos">
+            <%= link_to(place, data: { turbolinks: false }) do  %>
+              <div class="place-anim-card-image">
+                <% if place.photo.attached? %>
+                  <%= cl_image_tag place.photo.key, alt: "photo du lieu", width: 250, crop: :fill %>
+                <% else %>
+                  <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 250, :crop => :fill, :alt => "photo du lieu") %>
+                <% end %>
+                <div class="place-anim-card-rating">
+                  <% if place.rating %>
+                    <i class="fas fa-star"></i><%= place.rating %>
+                  <% else %>
+                    new
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+            <%= link_to(place, data: { turbolinks: false }) do  %>
+              <div class="place-anim-card-infos">
+                <div>
+                  <div class="place-anim-card-title">
+                    <h2>
+                      <% if place.name.size > 29 %>
+                        <%= place.name[0..27] %>...
+                      <% else %>
+                        <%= place.name %>
+                      <% end %>
+                    </h2>
+                  </div>
+                  <div class="place-anim-card-city">
+                    <h3>
+                      <span id="city-left"><%= place.city.capitalize %></span>
+                      <span id="ephemeral-right"><%= place.ephemeral == true ? "lieu éphémère" : "lieu permanent" %></span>
+                    </h3>
+                  </div>
+                  <div class="place-anim-card-price">
+                    <% ws_prices_sum = 0 %>
+                    <% place.workshops.each do |workshop| %>
+                      <% ws_prices_sum += workshop.price %>
+                    <% end %>
+                    <h4>Prix moyen : <%= ws_prices_sum.fdiv(place.workshops.size).round %> €</h4>
+                  </div>
+                  <div class="place-anim-card-info-tags">
+
+                    <% place_thematics = [] %>
+                    <% place.workshops.each do |workshop| %>
+                      <% place_thematics << workshop.thematic %>
+                    <% end %>
+                    <% if place_thematics.uniq.size <= 3 %>
+                      <% place_thematics.uniq.each do |thematic| %>
+                        <div class='informations-tag'><%= thematic %></div>
+                      <% end %>
+                    <% else %>
+                      <div class='informations-tag'>Plusieurs thématiques</div>
+                    <% end %>
+                  </div>
+                  <div class="place-anim-card-links-mobile">
+                    <a href="tel:+33#{place.phone_number[1..-1]}" class="place-anim-card-link" id="phone-place-link">
+                      <i class="fas fa-phone-alt"></i>
+                    </a>
+                    <%= link_to place.instagram, class: "place-anim-card-link", target: "_blank" do %>
+                      <i class="fab fa-instagram"></i>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
             <% end %>
           </div>
-        <% end %>
-        <%= link_to(place, data: { turbolinks: false }) do  %>
-          <div class="place-anim-card-infos">
-            <div>
-              <div class="place-anim-card-title">
-                <h2>
-                  <% if place.rating %>
-                    <span class="place-anim-card-rating"><i class="fas fa-star"></i> <%= place.rating %></span>
-                  <% end %>
-                  <%= place.name %>
-                </h2>
-              </div>
-              <div class="place-anim-card-city">
-                <h3>
-                  <i class="fas fa-map-marker-alt"></i> <%= place.city.capitalize %>
-                  <span><%= place.ephemeral == true ? ", lieu éphémère" : ", lieu permanent" %></span>
-                </h3>
-              </div>
-              <div class="place-anim-card-info-tags">
-                <i class="fas fa-tag"></i>
-                <% place_thematics = [] %>
-                <% place.workshops.each do |workshop| %>
-                  <% place_thematics << workshop.thematic %>
-                <% end %>
-                <% place_thematics.uniq.each do |thematic| %>
-                <div class='informations-tag'><%= thematic %></div>
-                <% end %>
-              </div>
-
-            </div>
+          <div class="place-anim-card-links-desktop">
+            <a href="tel:+33#{place.phone_number[1..-1]}" class="place-anim-card-link" id="phone-place-link">
+              <i class="fas fa-phone-alt mr-1"></i> Contacter
+            </a>
+            <%= link_to place_path(place), class: "place-anim-card-link" do %>
+              <i class="fas fa-eye mr-2"></i> Voir la page
+            <% end %>
+            <%= link_to place.instagram, class: "place-anim-card-link", target: "_blank" do %>
+              <i class="fab fa-instagram mr-2"></i> Instagram
+            <% end %>
           </div>
-        <% end %>
-      </div>
-    <% end %>
+        </div>
+      <% end %>
 
+    </div>
   </div>
-</div>
+<% end %>
