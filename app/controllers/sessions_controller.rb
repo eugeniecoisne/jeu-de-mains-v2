@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(search_places)
+  skip_after_action :verify_authorized, only: [:update]
 
   def new
     @session = Session.new
@@ -23,6 +24,16 @@ class SessionsController < ApplicationController
   def index
     @workshop = policy_scope(Workshop).find(params[:workshop_id])
     @sessions = @workshop.sessions
+  end
+
+  def update
+    @session = Session.find(params[:id])
+    @session.update(session_params)
+    if @session.save
+      redirect_back fallback_location: root_path
+    else
+      redirect_back fallback_location: root_path
+    end
   end
 
   def search_places

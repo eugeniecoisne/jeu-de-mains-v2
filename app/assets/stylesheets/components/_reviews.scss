@@ -36,12 +36,35 @@
   margin-top: 2em;
 }
 
+#new-review-title {
+  span {
+    color: $light-blue;
+  }
+}
+
+#new-review-back-button {
+  position: absolute;
+  top: 75px;
+  left: 42px;
+}
+
 // RESPONSIVE REVIEWS //
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
   .reviews-cards {
     grid-template-columns: 1fr;
+  }
+  #new-review-title {
+    font-size: 21px;
+  }
+  #new-review-back-button {
+    position: absolute;
+    top: 60px;
+    left: 30px;
+  }
+  #new-review-sign-container {
+    margin-top: 3em;
   }
 }
 

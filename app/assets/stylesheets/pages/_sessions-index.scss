@@ -31,26 +31,48 @@
 }
 
 .sessions-index-buttons {
-  a {
+  display: flex;
+  align-items: center;
+  p {
+    strong {
+      font-size: 13px;
+    }
+    font-weight: 500;
+    font-size: 11px;
+    margin-bottom: unset;
+    color: $dark-blue;
+    line-height: 1.2;
+    text-align: center;
+  }
+  .action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid $light-blue;
     background-color: $light-blue;
     color: white;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
     text-decoration: none;
-    padding: 4px 12px;
+    height: 31px;
+    width: 31px;
     border-radius: 30px;
-    text-align: center;
+    outline: none;
+    margin: 0 5px;
   }
-  a:hover {
-    background-color: unset;
-    color: $light-blue;
+  .action-button:hover {
+    background-color: $blue;
+    border-color: $blue;
     text-decoration: none;
   }
   #delete-session {
     border-color: $blue;
     background-color: unset;
     color: $blue;
+    font-size: 14px;
+    height: unset;
+    width: unset;
+    padding: 4px 12px;
   }
   #delete-session:hover {
     background-color: $blue;
@@ -92,6 +114,36 @@
       font-size: 95%;
     }
   }
+  .sessions-index-buttons {
+    p {
+      strong {
+        font-weight: 500;
+      }
+      font-weight: 500;
+      margin: 0 2px;
+      color: $dark-gray;
+    }
+    .action-button {
+      font-size: 12px;
+      border: 1px solid $dark-gray;
+      background-color: unset;
+      color: $dark-gray;
+    }
+    .action-button:hover {
+      border: 1px solid $blue;
+      background-color: $blue;
+      color: white;
+    }
+    #delete-session {
+      border-color: $light-blue;
+      background-color: $light-blue;
+      color: white;
+    }
+    #delete-session:hover {
+      background-color: $blue;
+      border-color: $blue;
+    }
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -99,7 +151,7 @@
   #sessions-index-container {
     grid-template-columns: 1fr;
     .sign-form {
-      margin: 4em 2em;
+      margin: 1em 1em;
       width: unset;
     }
     .sign-picture {
@@ -111,12 +163,13 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
   #sessions-index-container {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr;
     .sign-form {
-      margin: 4em 2em;
+      margin: 1em 2em;
+      width: unset;
     }
     .sign-picture {
-      margin-left: 2em;
+      display: none;
     }
   }
 }
