@@ -1,0 +1,95 @@
+.edit-place-container {
+  margin: 4em 8em;
+
+  h3 {
+    font-weight: 500;
+    font-size: 15px;
+    color: $dark-blue;
+  }
+
+  .simple_form {
+    .form-control {
+      font-size: 15px;
+    }
+    select.disabled {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+    label {
+      font-weight: 600;
+      color: $dark-blue;
+      font-size: 16px;
+      opacity: 0.8;
+      margin-top: 1em;
+    }
+    input[type=file]::-webkit-file-upload-button {
+      color: $blue;
+      font-weight: 600;
+      font-size: 14px;
+      border: 1.5px solid $blue;
+      padding: 4px 14px;
+      border-radius: 4px;
+      background: transparent;
+      cursor: pointer;
+      outline: none;
+    }
+    p {
+      font-size: 15px;
+    }
+  }
+}
+
+.edit-place-photos {
+  flex-wrap: wrap;
+  img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-top: 0.3em;
+  }
+}
+
+// RESPONSIVE WORKSHOPS EDIT //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .edit-place-container {
+    margin: 1.5em 1.5em 3em 1.5em;
+    h3 {
+      font-size: 14px;
+    }
+    .simple_form {
+      label {
+        font-size: 15px;
+      }
+    }
+  }
+  .edit-place-photos {
+    img {
+      width: 65px;
+      height: 65px;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+  .edit-place-container {
+    margin: 3em 2em;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}

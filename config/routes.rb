@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   end
 
   resources :workshops, except: %i(destroy) do
-    resources :sessions, only: %i(new create index)
+    resources :sessions, only: %i(new create index update)
     resources :animators, only: %i(new create)
     resources :reviews, only: %i(index)
     member do

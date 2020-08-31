@@ -66,7 +66,7 @@
                     <% end %>
                   </div>
                   <div class="place-anim-card-links-mobile">
-                    <a href="tel:+33#{place.phone_number[1..-1]}" class="place-anim-card-link" id="phone-place-link">
+                    <a href="tel:+33<%= place.phone_number[1..-1] %>" class="place-anim-card-link" id="phone-place-link">
                       <i class="fas fa-phone-alt"></i>
                     </a>
                     <%= link_to place.instagram, class: "place-anim-card-link", target: "_blank" do %>
@@ -78,7 +78,7 @@
             <% end %>
           </div>
           <div class="place-anim-card-links-desktop">
-            <a href="tel:+33#{place.phone_number[1..-1]}" class="place-anim-card-link" id="phone-place-link">
+            <a href="tel:+33<%= place.phone_number[1..-1] %>" class="place-anim-card-link" id="phone-place-link">
               <i class="fas fa-phone-alt mr-1"></i> Contacter
             </a>
             <%= link_to place_path(place), class: "place-anim-card-link" do %>

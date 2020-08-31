@@ -1,26 +1,40 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-12">
-      <%= simple_form_for(@place) do |f| %>
+<div class="dashboard-title-container" id="dashboard-organizer-title-container">
+  <h1>
+    <span>Mettez à jour votre lieu !</span>
+  </h1>
+</div>
 
-        <%= f.input :name %>
-        <%= f.input :address %>
-        <%= f.input :zip_code %>
-        <%= f.input :city %>
-        <%= f.input :description %>
-        <%= f.input :phone_number %>
-        <%= f.input :email %>
-        <%= f.input :ephemeral %>
-        <%= f.input :siret_number %>
-        <%= f.input :website %>
-        <%= f.input :instagram %>
-        <%= f.input :photo, as: :file %>
+<div class="back-button" id="back-button-ws-new">
+  <%= link_to 'javascript:history.go(-1);' do %>
+    <i class="fas fa-chevron-left"></i>
+    <span>Annuler</span>
+  <% end %>
+</div>
 
-        <%= f.submit 'Valider' %>
+<div class="edit-place-container">
+  <h3>Vous pouvez modifier ici certaines informations de votre lieu. Si vous souhaitez modifier plus d'informations, comme les informations bloquées en bas de ce formulaire, merci de contacter l'équipe Jeu de Mains.</h3>
 
-      <% end %>
+  <%= simple_form_for(@place) do |f| %>
 
-      <%= link_to 'Annuler', place_path(@place), class: 'btn btn-danger mt-2'  %>
+    <%= f.input :name, label: "Nom du lieu" %>
+    <%= f.input :description, :input_html => {:rows => 8}, label: "Description du lieu" %>
+    <%= f.input :phone_number, label: "Numéro de téléphone" %>
+    <%= f.input :email, label: "Adresse email" %>
+    <%= f.input :website, label: "Site internet" %>
+    <%= f.input :instagram, label: "Page instagram" %>
+    <%= f.input :photo, as: :file, label: "Photo du lieu" %>
+    <div class="edit-place-photos d-flex mb-4">
+      <%= cl_image_tag @place.photo.key, alt: "Photo du lieu", width: 80, crop: :fill  %>
     </div>
-  </div>
+    <%= f.input :siret_number, disabled: true, label: "SIRET" %>
+    <%= f.input :address, disabled: true,  label: "Adresse postale (n° et rue)" %>
+    <%= f.input :zip_code, disabled: true,  label: "Code postal" %>
+    <%= f.input :city, disabled: true,  label: "Ville" %>
+
+
+    <div class="d-flex justify-content-center mt-5">
+      <%= f.submit 'Mettre à jour', class: "new-edit-ws-submit" %>
+    </div>
+
+  <% end %>
 </div>

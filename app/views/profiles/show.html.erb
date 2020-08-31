@@ -150,30 +150,34 @@
                 <a href="#companyPhoneNumberModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
                 <%= render 'update_company_modal', profile: @profile %>
               </li>
-              <li class="list-group-item my-informations-item">
-                <div class="my-informations-text">
-                  <span><strong>Site internet</strong></span>
-                  <% if @profile.website %>
-                    <span><%= @profile.website.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/(www.)/,'').sub(/\/$/,'') %></span>
-                  <% else %>
-                    <span>Non renseigné</span>
-                  <% end %>
-                </div>
-                <a href="#websiteModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
-                <%= render 'update_company_modal', profile: @profile %>
-              </li>
-              <li class="list-group-item my-informations-item">
-                <div class="my-informations-text">
-                  <span><strong>Compte instagram</strong></span>
-                  <% if @profile.instagram %>
-                    <span><%= @profile.instagram.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/www.instagram.com\//,'').sub(/\/$/,'') %></span>
-                  <% else %>
-                    <span>Non renseigné</span>
-                  <% end %>
-                </div>
-                <a href="#instagramModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
-                <%= render 'update_company_modal', profile: @profile %>
-              </li>
+              <% if @profile.role == "animateur" %>
+                <li class="list-group-item my-informations-item">
+                  <div class="my-informations-text">
+                    <span><strong>Site internet</strong></span>
+                    <% if @profile.website %>
+                      <span><%= @profile.website.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/(www.)/,'').sub(/\/$/,'') %></span>
+                    <% else %>
+                      <span>Non renseigné</span>
+                    <% end %>
+                  </div>
+                  <a href="#websiteModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+                  <%= render 'update_company_modal', profile: @profile %>
+                </li>
+              <% end %>
+              <% if @profile.role == "animateur" %>
+                <li class="list-group-item my-informations-item">
+                  <div class="my-informations-text">
+                    <span><strong>Compte instagram</strong></span>
+                    <% if @profile.instagram %>
+                      <span><%= @profile.instagram.sub(/https\:\/\//,'').sub(/http\:\/\//,'').sub(/www.instagram.com\//,'').sub(/\/$/,'') %></span>
+                    <% else %>
+                      <span>Non renseigné</span>
+                    <% end %>
+                  </div>
+                  <a href="#instagramModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+                  <%= render 'update_company_modal', profile: @profile %>
+                </li>
+              <% end %>
               <% if @profile.role == "animateur" %>
                 <li class="list-group-item my-informations-item">
               <% else %>

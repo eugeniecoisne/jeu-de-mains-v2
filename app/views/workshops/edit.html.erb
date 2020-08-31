@@ -21,17 +21,13 @@
       <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS, class: "updatable" %>
       <%= f.input :program, label: "Programme", :input_html => {:rows => 8}, class: "updatable" %>
       <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3}, class: "updatable" %>
-      <div class="form-group file optional workshop_photos form-group-valid">
-        <label class="file optional" for="workshop_photos">Photos de l'atelier</label>
-        <p>Voici les photos actuelles de l'atelier, si vous souhaitez en ajouter/remplacer, chargez l'ensemble des photos souhaitées, vos photos actuelles ne seront pas sauvegardées.</p>
+      <%= f.input :photos, as: :file, input_html: { multiple: true }, label: "Photos de l'atelier" %>
+      <p>Voici les photos actuelles de l'atelier, si vous souhaitez en ajouter/remplacer, chargez l'ensemble des photos souhaitées, vos photos actuelles ne seront pas sauvegardées.</p>
         <div class="edit-ws-photos d-flex mb-4">
           <% @workshop.photos.each do |photo| %>
               <%= cl_image_tag photo.key, alt: "Photo-atelier", width: 80, crop: :fill, class: "mr-1"  %>
           <% end %>
         </div>
-        <input class="form-control-file is-valid file optional" multiple="multiple" type="file" name="workshop[photos][]" id="workshop_photos">
-      </div>
-
       <div class="form-group select is-valid required workshop_place form-group-valid">
         <label class="select optional" for="workshop_place_id">Lieu</label>
         <select class="form-control is-valid select optional disabled" disabled="disabled" name="workshop[place_id]" id="workshop_place_id">

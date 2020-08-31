@@ -15,15 +15,27 @@
       <h2 class="sign-title">Sessions de l'atelier<br><span><%= @workshop.title %></span></h2>
 
         <div class="sessions-index">
-          <% @sessions.each do |session| %>
+          <% @sessions.sort_by { |session| session.date }.each do |session| %>
             <div class="sessions-index-one-session">
               <div>
                 <h3><%= l(session.date, format: '%A %d %B %Y').capitalize %> à <%= session.start_at %></h3>
                 <h3 class="sessions-index-sessions-available"><%= session.available %> places restantes sur <%= session.capacity %></h3>
               </div>
               <div class="sessions-index-buttons">
-                <%= link_to "retirer une place", "#", class: "mr-1" %>
-                <%= link_to "supprimer", "#", id: "delete-session" %>
+                <%= form_for [@workshop, session], method: :patch do |f| %>
+                  <%= f.hidden_field :capacity, value: session.capacity - 1 %>
+                  <button type="submit" name="commit" class="action-button">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                <% end %>
+                <p><strong><%= session.capacity %> places</strong><br> proposées</p>
+                <%= form_for [@workshop, session], method: :patch do |f| %>
+                  <%= f.hidden_field :capacity, value: session.capacity + 1 %>
+                  <button type="submit" name="commit" class="action-button">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                <% end %>
+                <%= link_to "déprogrammer", "#", class: "action-button", id: "delete-session" %>
               </div>
             </div>
           <% end %>

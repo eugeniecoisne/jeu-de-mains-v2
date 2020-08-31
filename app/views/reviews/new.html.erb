@@ -1,8 +1,15 @@
-<div class="sign-container">
+<div class="sign-container" id="new-review-sign-container">
+
+  <div class="back-button" id="new-review-back-button">
+    <%= link_to 'javascript:history.go(-1);' do %>
+      <i class="fas fa-chevron-left"></i>
+      <span>Retour</span>
+    <% end %>
+  </div>
 
   <div class="sign-form">
 
-    <h2 class="sign-title">Donnez votre avis sur l'atelier <%= @booking.session.workshop.title %></h2>
+    <h2 class="sign-title" id="new-review-title">Donnez votre avis sur l'atelier <span><%= @booking.session.workshop.title %></span></h2>
 
     <%= simple_form_for([@booking, @review]) do |f| %>
 
