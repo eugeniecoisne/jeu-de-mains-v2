@@ -1,3 +1,5 @@
+require "open-uri"
+
 class WorkshopsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(index show)
   before_action :set_workshop, only: %i(show edit update confirmation)
@@ -95,7 +97,7 @@ class WorkshopsController < ApplicationController
     @workshop.update(workshop_params)
     if @workshop.save
       flash[:notice] = "Votre atelier a bien été modifié !"
-      redirect_to dashboard_profile_path(@workshop.place.user.profile)
+      redirect_to workshop_path(@workshop)
     else
       @places = current_user.admin ? Place.all : current_user.places
       render 'edit'
@@ -114,6 +116,17 @@ class WorkshopsController < ApplicationController
     authorize @workshop
     @workshop.place = Place.find(params[:workshop][:place_id])
     @workshop.status = 'hors ligne'
+    if @workshop.photos.attached? == false
+      all_initial_ws = Workshop.all.select { |workshop| workshop.title == @workshop.title }
+      initial_ws = all_initial_ws.select { |workshop| workshop.place.user == @workshop.place.user }.first
+      initial_ws_files = []
+      initial_ws.photos.each do |file|
+        initial_ws_files << URI.open(file.service_url)
+      end
+      (0..initial_ws_files.size - 1).each do |i|
+        @workshop.photos.attach([io: initial_ws_files[i], filename: initial_ws.photos[i].filename, content_type: initial_ws.photos[i].content_type])
+      end
+    end
     if @workshop.save
       flash[:notice] = "Votre atelier a bien été créé !"
       redirect_to confirmation_workshop_path(@workshop)
