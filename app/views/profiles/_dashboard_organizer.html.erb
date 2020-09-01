@@ -200,6 +200,19 @@
                       <% end %>
                       <%= link_to "Modifier la fiche", edit_workshop_path(workshop), class: "button mr-2" %>
                       <%= link_to "Gérer les sessions", workshop_sessions_path(workshop), class: "button mr-2" %>
+                      <%= simple_form_for(@workshop) do |f| %>
+                          <%= f.hidden_field :title, value: workshop.title %>
+                          <%= f.hidden_field :program, value: workshop.program %>
+                          <%= f.hidden_field :final_product, value: workshop.final_product %>
+                          <%= f.hidden_field :thematic, value: workshop.thematic %>
+                          <%= f.hidden_field :level, value: workshop.level %>
+                          <%= f.hidden_field :duration, value: workshop.duration %>
+                          <%= f.hidden_field :price, value: workshop.price %>
+                          <%= f.hidden_field :capacity, value: workshop.capacity %>
+                          <%= f.hidden_field :place_id, value: workshop.place_id %>
+                          <%= f.submit 'Dupliquer cet atelier', class: "button mr-2", id: "turn-online-offline-button" %>
+                        <% end %>
+
 
                       <% bookings_number = 0 %>
                       <% workshop.sessions.each do |session| %>
