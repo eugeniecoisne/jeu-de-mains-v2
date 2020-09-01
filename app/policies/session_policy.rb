@@ -12,6 +12,10 @@ class SessionPolicy < ApplicationPolicy
     true
   end
 
+  def destroy?
+    record.workshop.place.user == user || user.admin?
+  end
+
   def participants?
     record.workshop.place.user == user || user.admin?
   end

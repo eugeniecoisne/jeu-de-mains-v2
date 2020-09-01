@@ -79,7 +79,7 @@
                           <% end %>
                         </div>
                         <div class="my-booking-ws-info">
-                          <p id="my-booking-order-nb">Commande n°<%= booking.id %></p>
+                          <p id="my-booking-order-nb">Réservation n°<%= booking.id %></p>
                           <p id="my-booking-ws-title">
                             <% if booking.session.workshop.title.size > 33 %>
                               <%= booking.session.workshop.title[0..31] %>...
@@ -87,10 +87,18 @@
                               <%= booking.session.workshop.title %>
                             <% end %>
                           </p>
-                          <p>Chez <%= booking.session.workshop.place.name %></p>
+                          <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", id: "localize-link" do %>
+                            Chez <%= booking.session.workshop.place.name %>
+                          <% end %>
                           <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
-                          <div class="d-flex justify-content-center align-items-center">
-                            <%= link_to "Annuler ma commande", "#", class: "button" %>
+                          <div class="d-flex justify-content-left align-items-center">
+                            <%= link_to "Annuler", "#", class: "button" %>
+                            <a href="tel:+33<%= booking.session.workshop.place.phone_number[1..-1] %>" class="call-btn">
+                              <i class="fas fa-phone-alt"></i>
+                            </a>
+                            <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-btn" do %>
+                              <i class="fas fa-map-marker-alt"></i>
+                            <% end %>
                             <div title="Add to Calendar" data-styling="none" class="addeventatc">
                               <i class="far fa-calendar-plus"></i>
                               <span class="start">
@@ -150,7 +158,7 @@
                         <% end %>
                       </div>
                       <div class="my-booking-ws-info">
-                        <p id="my-booking-order-nb">Commande n°<%= booking.id %></p>
+                        <p id="my-booking-order-nb">Réservation n°<%= booking.id %></p>
                         <p id="my-booking-ws-title"><%= booking.session.workshop.title %></p>
                         <p>Chez <%= booking.session.workshop.place.name %></p>
                         <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>

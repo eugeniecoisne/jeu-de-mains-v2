@@ -51,6 +51,17 @@
   margin-left: 1em;
   display: flex;
   flex-direction: column;
+  #localize-link {
+    font-size: 15px;
+    color: $dark-gray;
+    font-weight: 500;
+  }
+  .call-btn {
+    display: none;
+  }
+  .localize-btn {
+    display: none;
+  }
   .button {
     background-color: unset;
     color: $blue;
@@ -118,9 +129,30 @@
 
   .my-booking-ws-info {
     margin-left: 0.8em;
+    #localize-link {
+      font-size: 14px;
+    }
+    .call-btn {
+      display: block;
+      font-size: 20px;
+      margin-left: 1.3rem;
+      margin-bottom: -4px;
+    }
+    .call-btn:hover {
+      color: $light-blue;
+    }
+    .localize-btn {
+      display: block;
+      font-size: 22px;
+      margin-left: 1.2rem;
+      margin-bottom: -3px;
+      margin-right: 2px;
+    }
+    .localize-btn:hover {
+      color: $light-blue;
+    }
     .button {
       font-size: 13.5px;
-      padding: 0.2em 0.5em;
     }
     .my-booking-review-card-stars {
       span {

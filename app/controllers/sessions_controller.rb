@@ -36,6 +36,13 @@ class SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    @session = Session.find(params[:id])
+    authorize @session
+    @session.destroy
+    redirect_back fallback_location: root_path
+  end
+
   def search_places
     @session = Session.find(params[:session_id])
     authorize @session

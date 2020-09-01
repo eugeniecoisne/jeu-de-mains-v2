@@ -310,7 +310,15 @@
                               </h4>
                             </div>
                             <div class="mobile-dashboard-my-agenda-workshop-participants">
-                              <%= link_to "Voir et contacter les participants", session_participants_path(session), class: "button" %>
+                              <% if session.available == session.capacity %>
+                                <%= link_to "Déprogrammer la session",
+                                session_path(session),
+                                method: :delete,
+                                data: { confirm: "Êtes-vous sûr?" },
+                                class: "button" %>
+                              <% else %>
+                                <%= link_to "Voir et contacter les participants", session_participants_path(session), class: "button" %>
+                              <% end %>
                             </div>
                           </div>
                         <% end %>

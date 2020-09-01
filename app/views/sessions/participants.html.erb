@@ -22,7 +22,7 @@
           <% @session.bookings.each do |booking| %>
             <% booking.quantity.times do %>
               <div class="session-participants-one-participant">
-                <h4><%= number %> - <%= booking.user.first_name %> <%= booking.user.last_name.first %>. - <span>réservé le <%= l(booking.created_at, format: '%d/%M/%Y') %></span></h4>
+                <h4><%= number %> - <%= booking.user.first_name %> <%= booking.user.last_name.first %>. - <span>réservé le <%= booking.created_at.strftime('%d/%m/%Y') %></span></h4>
               </div>
               <% number += 1 %>
             <% end %>
