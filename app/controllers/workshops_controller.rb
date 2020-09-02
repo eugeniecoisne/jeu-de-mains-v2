@@ -8,20 +8,20 @@ class WorkshopsController < ApplicationController
     if params[:search].present?
       if params[:search][:starts_at].present? && params[:search][:ends_at].present?
         dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.strptime(params[:search][:ends_at], '%Y-%m-%d')).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne').select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }
+        @workshops = policy_scope(Workshop).where(status: 'en ligne').select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }.paginate(page: params[:page], per_page: 20)
       elsif params[:search][:starts_at].present?
         dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.today + 3.months).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne').select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }
+        @workshops = policy_scope(Workshop).where(status: 'en ligne').select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }.paginate(page: params[:page], per_page: 20)
       elsif params[:search][:ends_at].present?
         dates = (Date.today..Date.strptime(params[:search][:ends_at], '%Y-%m-%d')).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne').select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }
+        @workshops = policy_scope(Workshop).where(status: 'en ligne').select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }.paginate(page: params[:page], per_page: 20)
       else
-        @workshops = policy_scope(Workshop).where(status: 'en ligne')
+        @workshops = policy_scope(Workshop).where(status: 'en ligne').paginate(page: params[:page], per_page: 20)
       end
 
-      @workshops = @workshops.select { |workshop| workshop.thematic == params[:search][:keyword] } if params[:search][:keyword].present?
+      @workshops = @workshops.select { |workshop| workshop.thematic == params[:search][:keyword] }.paginate(page: params[:page], per_page: 20) if params[:search][:keyword].present?
+      @workshops = @workshops.select { |workshop| workshop.place.city == params[:search][:place] }.paginate(page: params[:page], per_page: 20) if params[:search][:place].present?
       @workshops = @workshops.select { |workshop| workshop.title.downcase.include?(params[:search][:selection]) } if params[:search][:selection].present?
-      @workshops = @workshops.select { |workshop| workshop.place.city == params[:search][:place] } if params[:search][:place].present?
 
       if params[:search][:min_price].present? && params[:search][:max_price].present?
 
@@ -33,38 +33,41 @@ class WorkshopsController < ApplicationController
             workshop.price <= min_price
             workshop.price >= max_price
           end
+          @workshops.paginate(page: params[:page], per_page: 20)
         elsif min_price == max_price
           @workshops = @workshops.select do |workshop|
             workshop.price == min_price
           end
+          @workshops.paginate(page: params[:page], per_page: 20)
         else
           @workshops = @workshops.select do |workshop|
             workshop.price <= max_price
             workshop.price >= min_price
           end
+          @workshops.paginate(page: params[:page], per_page: 20)
         end
       end
 
       if params[:search][:ephemeral].present?
         if params[:search][:ephemeral] == 'false'
-          @workshops = @workshops.select { |workshop| workshop.place.ephemeral == false }
+          @workshops = @workshops.select { |workshop| workshop.place.ephemeral == false }.paginate(page: params[:page], per_page: 20)
         end
       end
 
       if params[:search][:order].present?
         case params[:search][:order]
         when 'Recommandation'
-          @workshops = @workshops.sort_by { |workshop| workshop.recommendable }.reverse
+          @workshops = @workshops.sort_by { |workshop| workshop.recommendable }.reverse.paginate(page: params[:page], per_page: 20)
         when 'Prix croissants'
-          @workshops = @workshops.sort_by { |workshop| workshop.price }
+          @workshops = @workshops.sort_by { |workshop| workshop.price }.paginate(page: params[:page], per_page: 20)
         when 'Prix décroissants'
-          @workshops = @workshops.sort_by { |workshop| workshop.price }.reverse
+          @workshops = @workshops.sort_by { |workshop| workshop.price }.reverse.paginate(page: params[:page], per_page: 20)
         when 'Les mieux notés'
-          @workshops = @workshops.sort_by { |workshop| workshop.rating }.reverse
+          @workshops = @workshops.sort_by { |workshop| workshop.rating }.reverse.paginate(page: params[:page], per_page: 20)
         end
       end
     else
-      @workshops = policy_scope(Workshop).where(status: 'en ligne')
+      @workshops = policy_scope(Workshop).where(status: 'en ligne').paginate(page: params[:page], per_page: 20)
     end
     # authorize @workshops
 
@@ -98,7 +101,7 @@ class WorkshopsController < ApplicationController
     @workshop.update(workshop_params)
     if @workshop.save
       flash[:notice] = "Votre atelier a bien été modifié !"
-      redirect_to workshop_path(@workshop)
+      redirect_back fallback_location: root_path
     else
       @places = current_user.admin ? Place.all : current_user.places
       render 'edit'

@@ -1,0 +1,91 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  top: 2em;
+  margin-bottom: 2em;
+  padding: 1em;
+  cursor: default;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0.3em;
+    text-decoration: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    color: $dark-blue;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    margin: 0 0.3em;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: white;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: transparent 0px 0px 0px 1px, transparent 0px 0px 0px 4px, rgba(0, 0, 0, 0.18) 0px 2px 4px;
+  }
+  .current {
+    font-style: normal;
+    background-color: $dark-blue;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0.3em;
+    text-decoration: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+  }
+  .previous_page {
+    background-color: white;
+    font-size: 10px;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: transparent 0px 0px 0px 1px, transparent 0px 0px 0px 4px, rgba(0, 0, 0, 0.18) 0px 2px 4px;
+  }
+  .previous_page:hover {
+    box-shadow: transparent 0px 0px 0px 1px, transparent 0px 0px 0px 4px, rgba(0, 0, 0, 0.12) 0px 6px 16px !important;
+    transform: scale(1.04) !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+  }
+  .next_page {
+    background-color: white;
+    font-size: 10px;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: transparent 0px 0px 0px 1px, transparent 0px 0px 0px 4px, rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    transition: box-shadow 0.2s ease 0s, -ms-transform 0.25s ease 0s, -webkit-transform 0.25s ease 0s, transform 0.25s ease 0s !important;
+  }
+
+  .next_page:hover {
+    box-shadow: transparent 0px 0px 0px 1px, transparent 0px 0px 0px 4px, rgba(0, 0, 0, 0.12) 0px 6px 16px !important;
+    transform: scale(1.04) !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .disabled {
+    display: none;
+  }
+  .gap {
+    background-color: unset;
+    border: unset;
+    box-shadow: unset;
+    font-size: 14px;
+    color: $dark-blue;
+    letter-spacing: 2px;
+  }
+}
+

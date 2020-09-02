@@ -169,7 +169,6 @@
               <% end %>
             </div>
           <% end %>
-
         </div>
 
       <% else %>
@@ -177,6 +176,7 @@
           Nous n'avons pas trouvé de résultat pour votre recherche...
         </div>
       <% end %>
+      <%= will_paginate @workshops, inner_window: 1, outer_window: 0 %>
     </div>
     <div id="map" class="ws-map"
              style="width: 100%; height: 100vh; top: 0;"
