@@ -78,6 +78,15 @@
     background-color: $blue;
     color: white;
   }
+  #delete-session-disabled {
+    border-color: $medium-gray;
+    background-color: unset;
+    color: $medium-gray;
+    font-size: 14px;
+    height: unset;
+    width: unset;
+    padding: 4px 12px;
+  }
 }
 
 
@@ -142,6 +151,9 @@
     #delete-session:hover {
       background-color: $blue;
       border-color: $blue;
+    }
+    #delete-session-disabled {
+      display: none;
     }
   }
 }

@@ -15,7 +15,7 @@
       <h2 class="sign-title">Sessions de l'atelier<br><span><%= @workshop.title %></span></h2>
 
         <div class="sessions-index">
-          <% @sessions.sort_by { |session| session.date }.each do |session| %>
+          <% @sessions.sort_by { |session| session.date }.each_with_index do |session, index| %>
             <div class="sessions-index-one-session">
               <div>
                 <h3><%= l(session.date, format: '%A %d %B %Y').capitalize %> à <%= session.start_at %></h3>
@@ -35,7 +35,35 @@
                     <i class="fas fa-plus"></i>
                   </button>
                 <% end %>
-                <%= link_to "déprogrammer", "#", class: "action-button", id: "delete-session" %>
+                <% if session.available == session.capacity %>
+                  <%= link_to "Déprogrammer",
+                    session_path(session),
+                    method: :delete,
+                    data: { confirm: "Êtes-vous sûr?" },
+                    class: "action-button",
+                    id: "delete-session" %>
+                <% else %>
+                  <a href="#disabledSessionModal<%= index +1 %>" class="action-button" data-toggle="modal" data-whatever="@mdo" id="delete-session-disabled">
+                    Déprogrammer
+                  </a>
+
+                  <div class="modal fade disabled-modal" id="disabledSessionModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="disabledSessionModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="form-group">
+                          <div class="modal-body">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+                            </button>
+                            <div class="mt-3">
+                              Vous avez déjà des réservations pour cette session, vous ne pouvez pas la déprogrammer.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
               </div>
             </div>
           <% end %>

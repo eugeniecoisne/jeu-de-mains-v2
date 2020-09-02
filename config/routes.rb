@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get 'cgv', to: 'pages#cgv'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
+  devise_scope :user do
+    match '/sessions/user', to: 'devise/sessions#create', via: :post
+  end
   resources :profiles, only: %i(index show edit update) do
     resources :reviews, only: %i(index)
     member do
@@ -34,6 +37,8 @@ Rails.application.routes.draw do
     get 'search-places'
     get 'participants'
   end
+
+  resources :sessions, only: %i(destroy)
 
   resources :bookings, only: %i(create)
 
