@@ -28,6 +28,9 @@
             <% end %>
           </div>
           <div>
+            <%= f.input :selection, as: :string, required: false, label: "Mot-clé", input_html: { value: params[:search][:selection] } %>
+          </div>
+          <div>
             <%= f.input :keyword, required: false, label: "Type d'atelier", prompt: "Tous types", collection: Workshop::THEMATICS, selected: params[:search][:keyword] %>
           </div>
           <div>

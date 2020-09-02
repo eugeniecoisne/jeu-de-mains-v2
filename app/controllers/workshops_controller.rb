@@ -20,6 +20,7 @@ class WorkshopsController < ApplicationController
       end
 
       @workshops = @workshops.select { |workshop| workshop.thematic == params[:search][:keyword] } if params[:search][:keyword].present?
+      @workshops = @workshops.select { |workshop| workshop.title.downcase.include?(params[:search][:selection]) } if params[:search][:selection].present?
       @workshops = @workshops.select { |workshop| workshop.place.city == params[:search][:place] } if params[:search][:place].present?
 
       if params[:search][:min_price].present? && params[:search][:max_price].present?

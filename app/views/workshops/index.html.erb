@@ -38,6 +38,12 @@
         <% end %>
 
         <% if params[:search].present? %>
+          <% if params[:search][:selection].present? %>
+          <h3>mot-clé : <%= params[:search][:selection] %></h3>
+          <% end %>
+
+        <% end %>
+        <% if params[:search].present? %>
           <% if params[:search][:starts_at].present? || params[:search][:ends_at].present? %>
             <h4>
               <% if params[:search][:starts_at].present? && params[:search][:ends_at].present? %>
