@@ -3,6 +3,15 @@ class Profile < ApplicationRecord
   belongs_to :user
   # validates :company, :siret_number, uniqueness: true
 
+
+  def self.cities
+    Profile.all.where(role: 'animateur').map { |profile| profile.city.capitalize }.uniq
+  end
+
+  def thematics
+    user.animators.map { |animator| animator.workshop.thematic }.uniq
+  end
+
   def rating
     ratings = []
     reviews_count = 0

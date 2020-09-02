@@ -27,6 +27,10 @@ class Place < ApplicationRecord
     end
   end
 
+  def thematics
+    workshops.map { |workshop| workshop.thematic }.uniq
+  end
+
   private
 
   def full_address
