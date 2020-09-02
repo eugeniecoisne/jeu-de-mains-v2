@@ -5,6 +5,10 @@ class ProfilesController < ApplicationController
   def index
     @profiles = policy_scope(Profile).where(role: 'animateur')
     authorize @profiles
+    if params[:search].present?
+      @profiles = @profiles.select { |profile| profile.thematics.include?(params[:search][:keyword])} if params[:search][:keyword].present?
+      @profiles = @profiles.select { |profile| profile.city == params[:search][:place] } if params[:search][:place].present?
+    end
   end
 
   def show

@@ -21,6 +21,7 @@ class WorkshopsController < ApplicationController
 
       @workshops = @workshops.select { |workshop| workshop.thematic == params[:search][:keyword] }.paginate(page: params[:page], per_page: 20) if params[:search][:keyword].present?
       @workshops = @workshops.select { |workshop| workshop.place.city == params[:search][:place] }.paginate(page: params[:page], per_page: 20) if params[:search][:place].present?
+      @workshops = @workshops.select { |workshop| workshop.title.downcase.include?(params[:search][:selection]) } if params[:search][:selection].present?
 
       if params[:search][:min_price].present? && params[:search][:max_price].present?
 

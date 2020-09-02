@@ -93,15 +93,18 @@
     font-weight: 400;
     padding-bottom: 0.5em;
   }
-  a {
+  .home-selection-btn {
+    background: unset;
     padding-bottom: 0.3em;
+    border: unset;
     border-bottom: 0.17em solid white;
     color: white;
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
     text-decoration: none;
+    outline: none;
   }
-  a:hover {
+  .home-selection-btn:hover {
     padding-right: 2em;
     transition: all 0.5s ease-out;
   }

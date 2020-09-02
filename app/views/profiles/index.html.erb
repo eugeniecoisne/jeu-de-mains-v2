@@ -4,6 +4,25 @@
     <h1>Retrouvez ici tous les <strong>animateurs d'ateliers</strong> inscrits sur jeudemains.com</h1>
   </div>
 
+  <%= simple_form_for :search, url: profiles_path, method: :get do |f| %>
+    <% if params[:search].present? %>
+      <div>
+        <%= f.input :keyword, required: false, label: "Thématique", prompt: "Tous types", collection: Workshop::THEMATICS, selected: params[:search][:keyword] %>
+      </div>
+      <div>
+        <%= f.input :place, required: false, label: "Ville", prompt: "Toutes les villes", collection: Profile.cities.sort, selected: params[:search][:place] %>
+      </div>
+    <% else %>
+      <div>
+        <%= f.input :keyword, required: false, label: "Thématique", prompt: "Tous types", collection: Workshop::THEMATICS %>
+      </div>
+      <div>
+        <%= f.input :place, required: false, label: "Ville", prompt: "Toutes les villes", collection: Profile.cities.sort %>
+      </div>
+    <% end %>
+    <%= f.submit 'Appliquer les filtres', class: "submit-btn" %>
+  <% end %>
+
   <div class="place-animator-index-container">
     <div class= "place-animator-index-cards">
       <% @profiles.each do |profile| %>
