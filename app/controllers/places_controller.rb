@@ -5,6 +5,10 @@ class PlacesController < ApplicationController
   def index
     @places = policy_scope(Place)
     authorize @places
+    if params[:search].present?
+      @places = @places.select { |place| place.thematics.include?(params[:search][:keyword])} if params[:search][:keyword].present?
+      @places = @places.select { |place| place.city == params[:search][:place] } if params[:search][:place].present?
+    end
   end
 
   def show
