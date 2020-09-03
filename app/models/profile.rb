@@ -8,6 +8,10 @@ class Profile < ApplicationRecord
     Profile.all.where(role: 'animateur').map { |profile| profile.city.capitalize }.uniq
   end
 
+  def self.companies
+    Profile.all.where(role: 'animateur').map { |profile| profile.company }
+  end
+
   def thematics
     user.animators.map { |animator| animator.workshop.thematic }.uniq
   end

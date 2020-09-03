@@ -1,4 +1,4 @@
-//
+// PLACE AND ANIMATOR INDEX
 
 .place-animator-index-title {
   padding: 0.75em;
@@ -8,15 +8,76 @@
     font-weight: 500;
     color: white;
     text-align: center;
-    margin: 0;
+    margin: 1em 0;
   }
   span {
     font-weight: 700;
   }
+  .submit-btn {
+    background-color: unset;
+    border: 2px solid white;
+    color: white;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 0.4em 1em;
+    outline: none;
+    transition: all 0.5s ease-out;
+  }
+  .submit-btn:hover {
+    padding: 0.4em 1.6em;
+    outline: none;
+  }
+  #submit-mobile {
+    font-size: 20px;
+    border: none;
+    padding: 0;
+  }
+  #submit-mobile:hover {
+    padding: 0;
+    color: $blue;
+  }
 }
 
 .place-animator-index-container {
-  margin: 3em 4em;
+  margin: 2em 4em;
+}
+
+.place-animator-index-search {
+
+  margin-bottom: 1em;
+  .simple_form {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 0 1em;
+  }
+  .form-group {
+    margin-right: 2em;
+    width: 220px;
+    margin-bottom: unset;
+  }
+  .form-control {
+    background-color: unset;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    border: unset;
+    border-bottom: 2px solid white;
+    padding: 0;
+    cursor: pointer;
+  }
+  .form-control:focus {
+    outline: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+  }
+  select {
+    background-position-x: 100%;
+    background-position-y: 50%;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  }
 }
 
 .place-animator-index-cards {
@@ -190,8 +251,19 @@
 @media (min-width: 100px) and (max-width: 575px) {
 
   .place-animator-index-title {
+    padding: 0.5em;
     h1 {
       font-size: 14px;
+      margin-left: 1.5em;
+      margin-right: 1.5em;
+    }
+    .submit-btn {
+      font-size: 12px;
+      margin-top: 1em;
+      align-self: flex-start;
+    }
+    #submit-mobile {
+      display: none;
     }
   }
 
@@ -216,6 +288,53 @@
       }
     }
   }
+
+  .place-animator-index-filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -0.4em;
+    #showIndexFilters {
+      text-decoration: none;
+      outline: none;
+    }
+  }
+
+  .place-animator-index-filter.inactive {
+    display: none;
+  }
+
+  .place-animator-index-search {
+    height: 0px;
+    overflow-y: hidden;
+  }
+  .place-animator-index-search.active {
+    display: block;
+    margin-bottom: 0.6em;
+    height: 184px;
+    transition: height 0.5s;
+    .simple_form {
+      flex-direction: column;
+      align-items: center;
+      margin: 0 2em;
+    }
+    .form-group {
+      margin-right: unset;
+      margin-bottom: 0.6em;
+      width: 100%;
+    }
+    .form-control {
+      font-size: 14px;
+    }
+  }
+
+  .place-animator-index-search-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
   .place-anim-card-rating {
     background-color: $light-blue;
     top: 0;
@@ -274,7 +393,7 @@
       border: 1px solid $light-blue;
       background-color: $light-blue;
       color: white;
-      padding: 3px 10px;
+      padding: 5px 10px;
       border-radius: 40px;
       max-width: 32px;
     }
@@ -288,6 +407,18 @@
       margin: unset;
     }
   }
+  #hideIndexFilters {
+    display: none;
+  }
+  #hideIndexFilters.active {
+    display: block;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration:none;
+    margin-top: 0.8em;
+    margin-left: 2em;
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -295,20 +426,61 @@
   .place-animator-index-container {
     margin: 3em 2em;
   }
+  .place-animator-index-title {
+    #submit-desktop {
+      display: none;
+    }
+  }
+  .place-animator-index-filter {
+    display: none;
+  }
+  #hideIndexFilters {
+    display: none;
+  }
 }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
-
+  .place-animator-index-title {
+    #submit-desktop {
+      display: none;
+    }
+  }
+  .place-animator-index-filter {
+    display: none;
+  }
+  #hideIndexFilters {
+    display: none;
+  }
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199px)  {
-
+  .place-animator-index-title {
+    #submit-mobile {
+      display: none;
+    }
+  }
+  .place-animator-index-filter {
+    display: none;
+  }
+  #hideIndexFilters {
+    display: none;
+  }
 }
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
-
+  .place-animator-index-title {
+    #submit-mobile {
+      display: none;
+    }
+  }
+  .place-animator-index-filter {
+    display: none;
+  }
+  #hideIndexFilters {
+    display: none;
+  }
 }
 
