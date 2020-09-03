@@ -6,10 +6,10 @@ class PagesController < ApplicationController
     @last_minute = []
     Session.all.each do |session|
       if session.date >= Date.today && session.available > 0
-        @last_minute << session.workshop
+        @last_minute << session
       end
     end
-    @last_minute.uniq!.nil? ? @last_minute[0..5] : @last_minute.uniq![0..5]
+    @last_minute = @last_minute.sort_by { |session| session.date }
   end
 
   def partners
