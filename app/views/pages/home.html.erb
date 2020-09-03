@@ -194,68 +194,67 @@
         <% end %>
       </div>
     </div>
+    <% if @last_minute.size > 0 %>
+      <div>
+        <h2 class="home-ws-cards-title">C’est maintenant ou jamais !</h2>
+        <h3 class="home-ws-cards-subtitle">Réservez les dernières places disponibles des prochaines dates</h3>
 
-    <div>
-      <h2 class="home-ws-cards-title">C’est maintenant ou jamais !</h2>
-      <h3 class="home-ws-cards-subtitle">Réservez les dernières places disponibles des prochaines dates</h3>
-
-      <div class="home-ws-cards home-ws-cards-last-minute">
-        <% @workshops.first(6).each do |workshop| %>
-          <% if workshop.sessions.present? %>
-            <div class="ws-card" id="home-ws-card">
-              <%= link_to(workshop, data: { turbolinks: false }) do  %>
-                <div class="ws-card-image-and-rating" id="home-ws-card-image-and-rating">
-                  <div class="ws-card-tags" id="home-ws-card-tags-last-minute">
-                    <div class="ws-card-tag ws-card-last-minute-tickets" id="home-ws-card-tickets">
-                      <span><%= workshop.sessions.order(:date).first.available %> places restantes</span>
+        <div class="home-ws-cards home-ws-cards-last-minute">
+          <% @last_minute.first(6).each do |session| %>
+              <div class="ws-card" id="home-ws-card">
+                <%= link_to(session.workshop, data: { turbolinks: false }) do  %>
+                  <div class="ws-card-image-and-rating" id="home-ws-card-image-and-rating">
+                    <div class="ws-card-tags" id="home-ws-card-tags-last-minute">
+                      <div class="ws-card-tag ws-card-last-minute-tickets" id="home-ws-card-tickets">
+                        <span><%= session.available %> places restantes</span>
+                      </div>
+                      <div class="ws-card-tag ws-card-last-minute-date" id="home-ws-card-date">
+                        <span><%= session.date.strftime('%d/%m/%Y') %></span>
+                      </div>
                     </div>
-                    <div class="ws-card-tag ws-card-last-minute-date" id="home-ws-card-date">
-                      <span><%= workshop.sessions.order(:date).first.date.strftime('%d/%m/%Y') %></span>
+                    <%= render "workshops/ws-index-carousel", workshop: session.workshop %>
+                  </div>
+                <% end %>
+                <%= link_to(session.workshop, data: { turbolinks: false }) do  %>
+                  <div class="ws-card-infos" id="home-ws-card-infos">
+                    <div>
+                      <div class="ws-card-place" id="home-ws-card-place-desktop">
+                        <% if session.workshop.place.name.size > 25 %>
+                          <h3><%= session.workshop.place.name[0..24] %>...</h3>
+                        <% else %>
+                          <h3><%= session.workshop.place.name %></h3>
+                        <% end %>
+                      </div>
+                      <div class="ws-card-place" id="home-ws-card-place-mobile">
+                        <% if session.workshop.place.name.size > 17 %>
+                          <h3><%= session.workshop.place.name[0..16] %>...</h3>
+                        <% else %>
+                          <h3><%= session.workshop.place.name %></h3>
+                        <% end %>
+                      </div>
+                      <div class="ws-card-title" id="home-ws-card-title">
+                        <h2><%= session.workshop.title %></h2>
+                      </div>
+                    </div>
+                    <div class="ws-card-price-and-city" id="home-ws-card-price-and-city">
+                      <div class="ws-card-price" id="home-ws-card-price">
+                        <%= session.workshop.price %> €
+                      </div>
+                      <div class="ws-card-city" id="home-ws-card-city">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <% if session.workshop.place.city.size >= 11 %>
+                          <span id="city-name"><%= session.workshop.place.city[0..11].capitalize %>...</span>
+                        <% else %>
+                          <span id="city-name"><%= session.workshop.place.city.capitalize %></span>
+                        <% end %>
+                      </div>
                     </div>
                   </div>
-                  <%= render "workshops/ws-index-carousel", workshop: workshop %>
-                </div>
-              <% end %>
-              <%= link_to(workshop, data: { turbolinks: false }) do  %>
-                <div class="ws-card-infos" id="home-ws-card-infos">
-                  <div>
-                    <div class="ws-card-place" id="home-ws-card-place-desktop">
-                      <% if workshop.place.name.size > 25 %>
-                        <h3><%= workshop.place.name[0..24] %>...</h3>
-                      <% else %>
-                        <h3><%= workshop.place.name %></h3>
-                      <% end %>
-                    </div>
-                    <div class="ws-card-place" id="home-ws-card-place-mobile">
-                      <% if workshop.place.name.size > 17 %>
-                        <h3><%= workshop.place.name[0..16] %>...</h3>
-                      <% else %>
-                        <h3><%= workshop.place.name %></h3>
-                      <% end %>
-                    </div>
-                    <div class="ws-card-title" id="home-ws-card-title">
-                      <h2><%= workshop.title %></h2>
-                    </div>
-                  </div>
-                  <div class="ws-card-price-and-city" id="home-ws-card-price-and-city">
-                    <div class="ws-card-price" id="home-ws-card-price">
-                      <%= workshop.price %> €
-                    </div>
-                    <div class="ws-card-city" id="home-ws-card-city">
-                      <i class="fas fa-map-marker-alt"></i>
-                      <% if workshop.place.city.size >= 11 %>
-                        <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
-                      <% else %>
-                        <span id="city-name"><%= workshop.place.city.capitalize %></span>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
-            </div>
+                <% end %>
+              </div>
           <% end %>
-        <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
