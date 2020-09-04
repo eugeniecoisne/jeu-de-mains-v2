@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_19_185621) do
+ActiveRecord::Schema.define(version: 2020_09_04_095538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_185621) do
     t.bigint "workshop_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "db_status"
+    t.boolean "db_status", default: true
     t.index ["user_id"], name: "index_animators_on_user_id"
     t.index ["workshop_id"], name: "index_animators_on_workshop_id"
   end
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_185621) do
     t.bigint "session_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "db_status"
+    t.boolean "db_status", default: true
     t.index ["session_id"], name: "index_bookings_on_session_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_185621) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "db_status"
+    t.boolean "db_status", default: true
     t.boolean "verified", default: false
     t.float "latitude"
     t.float "longitude"
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_185621) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "db_status"
+    t.boolean "db_status", default: true
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_185621) do
     t.bigint "booking_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "db_status"
+    t.boolean "db_status", default: true
     t.index ["booking_id"], name: "index_reviews_on_booking_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_185621) do
     t.bigint "workshop_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "db_status"
+    t.boolean "db_status", default: true
     t.index ["workshop_id"], name: "index_sessions_on_workshop_id"
   end
 
@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_185621) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "db_status"
+    t.boolean "db_status", default: true
     t.boolean "admin", default: false
     t.string "first_name"
     t.string "last_name"
@@ -153,7 +153,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_185621) do
     t.bigint "place_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "db_status"
+    t.boolean "db_status", default: true
     t.boolean "verified", default: false
     t.integer "recommendable", default: 1
     t.index ["place_id"], name: "index_workshops_on_place_id"

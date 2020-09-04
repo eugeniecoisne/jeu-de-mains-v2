@@ -5,11 +5,11 @@ class Profile < ApplicationRecord
 
 
   def self.cities
-    Profile.all.where(role: 'animateur').map { |profile| profile.city.capitalize }.uniq
+    Profile.all.where(role: 'animateur', db_status: true).map { |profile| profile.city.capitalize }.uniq
   end
 
   def self.companies
-    Profile.all.where(role: 'animateur').map { |profile| profile.company }
+    Profile.all.where(role: 'animateur', db_status: true).map { |profile| profile.company }
   end
 
   def thematics
@@ -21,8 +21,8 @@ class Profile < ApplicationRecord
     reviews_count = 0
     @average = 0
     user.animators.each do |animator|
-      if animator.workshop.reviews.present?
-        animator.workshop.reviews.each do |review|
+      if animator.workshop.reviews.where(db_status: true).present?
+        animator.workshop.reviews.where(db_status: true).each do |review|
           ratings << review.rating
           reviews_count += 1
         end

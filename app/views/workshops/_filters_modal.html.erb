@@ -65,6 +65,9 @@
             <%= f.input :max_price, required: false, label: 'Prix maximum', input_html: { value: @max_price } %>
           </div>
           <div>
+            <%= f.input :selection, as: :string, required: false, label: "Mot-clé" %>
+          </div>
+          <div>
             <%= f.input :keyword, required: false, label: "Type d'atelier", prompt: "Tous types", collection: Workshop::THEMATICS %>
           </div>
           <div>

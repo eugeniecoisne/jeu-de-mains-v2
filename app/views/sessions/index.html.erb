@@ -1,5 +1,6 @@
 <!-- SESSIONS INDEX -->
-<% if @workshop.place.user == current_user %>
+
+<% if @workshop.place.user == current_user && @workshop.db_status == true %>
 
   <div class="sign-container" id="sessions-index-container">
 

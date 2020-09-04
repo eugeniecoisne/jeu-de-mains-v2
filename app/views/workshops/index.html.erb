@@ -176,7 +176,9 @@
           Nous n'avons pas trouvé de résultat pour votre recherche...
         </div>
       <% end %>
-      <%= will_paginate @workshops, inner_window: 1, outer_window: 0 %>
+      <% unless @workshops.empty? %>
+        <%= will_paginate @workshops.paginate(page: params[:page], per_page: 20), inner_window: 1, outer_window: 0 %>
+      <% end %>
     </div>
     <div id="map" class="ws-map"
              style="width: 100%; height: 100vh; top: 0;"

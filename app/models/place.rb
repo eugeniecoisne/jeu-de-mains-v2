@@ -14,16 +14,16 @@ class Place < ApplicationRecord
 
   def self.cities
     cities = []
-    Place.all.each { |place| cities << place.city.capitalize }
+    Place.all.where(db_status: true).each { |place| cities << place.city.capitalize }
     cities.uniq!
   end
 
   def rating
     ratings = []
     @average = 0
-    if reviews.present?
-      reviews.each { |review| ratings << review.rating }
-      @average = ratings.sum.fdiv(reviews.count).round(2)
+    if reviews.where(db_status: true).present?
+      reviews.where(db_status: true).each { |review| ratings << review.rating }
+      @average = ratings.sum.fdiv(reviews.where(db_status: true).count).round(2)
     end
   end
 

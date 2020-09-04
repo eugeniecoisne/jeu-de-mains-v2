@@ -1,89 +1,94 @@
-<div class="dashboard-title-container" id="dashboard-organizer-title-container">
-  <h1>
-    <span>Mettez à jour votre atelier !</span>
-  </h1>
-</div>
 
-<div class="back-button" id="back-button-ws-new">
-  <%= link_to 'javascript:history.go(-1);' do %>
-    <i class="fas fa-chevron-left"></i>
-    <span>Annuler</span>
-  <% end %>
-</div>
+<% if @workshop %>
 
-<div class="edit-ws-container">
-  <% if @workshop.status == 'en ligne' %>
+  <div class="dashboard-title-container" id="dashboard-organizer-title-container">
+    <h1>
+      <span>Mettez à jour votre atelier !</span>
+    </h1>
+  </div>
 
-    <h3>Votre atelier est déjà en ligne. Vous pouvez modifier les premiers champs ci-dessous uniquement. Si vous souhaitez modifier d'autres champs et que vous n'avez pas encore de réservation pour cet atelier, il est possible de passer votre atelier en statut "hors ligne" dans votre tableau de bord.</h3>
-    <%= simple_form_for(@workshop) do |f| %>
+  <div class="back-button" id="back-button-ws-new">
+    <%= link_to 'javascript:history.go(-1);' do %>
+      <i class="fas fa-chevron-left"></i>
+      <span>Annuler</span>
+    <% end %>
+  </div>
 
-      <%= f.input :title, label: "Intitulé de l'atelier" %>
-      <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS, class: "updatable" %>
-      <%= f.input :program, label: "Programme", :input_html => {:rows => 8}, class: "updatable" %>
-      <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3}, class: "updatable" %>
-      <%= f.input :photos, as: :file, input_html: { multiple: true }, label: "Photos de l'atelier" %>
-      <p>Voici les photos actuelles de l'atelier, si vous souhaitez en ajouter/remplacer, chargez l'ensemble des photos souhaitées, vos photos actuelles ne seront pas sauvegardées.</p>
-        <div class="edit-ws-photos d-flex mb-4">
-          <% @workshop.photos.each do |photo| %>
-              <%= cl_image_tag photo.key, alt: "Photo-atelier", width: 80, crop: :fill, class: "mr-1"  %>
-          <% end %>
+  <div class="edit-ws-container">
+    <% if @workshop.status == 'en ligne' %>
+
+      <h3>Votre atelier est déjà en ligne. Vous pouvez modifier les premiers champs ci-dessous uniquement. Si vous souhaitez modifier d'autres champs et que vous n'avez pas encore de réservation pour cet atelier, il est possible de passer votre atelier en statut "hors ligne" dans votre tableau de bord.</h3>
+      <%= simple_form_for(@workshop) do |f| %>
+
+        <%= f.input :title, label: "Intitulé de l'atelier" %>
+        <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS, class: "updatable" %>
+        <%= f.input :program, label: "Programme", :input_html => {:rows => 8}, class: "updatable" %>
+        <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3}, class: "updatable" %>
+        <%= f.input :photos, as: :file, input_html: { multiple: true }, label: "Photos de l'atelier" %>
+        <p>Voici les photos actuelles de l'atelier, si vous souhaitez en ajouter/remplacer, chargez l'ensemble des photos souhaitées, vos photos actuelles ne seront pas sauvegardées.</p>
+          <div class="edit-ws-photos d-flex mb-4">
+            <% @workshop.photos.each do |photo| %>
+                <%= cl_image_tag photo.key, alt: "Photo-atelier", width: 80, crop: :fill, class: "mr-1"  %>
+            <% end %>
+          </div>
+        <div class="form-group select is-valid required workshop_place form-group-valid">
+          <label class="select optional" for="workshop_place_id">Lieu</label>
+          <select class="form-control is-valid select optional disabled" disabled="disabled" name="workshop[place_id]" id="workshop_place_id">
+            <option value="<%= @workshop.place.id %>" selected><%= @workshop.place.name %></option>
+          </select>
         </div>
-      <div class="form-group select is-valid required workshop_place form-group-valid">
-        <label class="select optional" for="workshop_place_id">Lieu</label>
-        <select class="form-control is-valid select optional disabled" disabled="disabled" name="workshop[place_id]" id="workshop_place_id">
-          <option value="<%= @workshop.place.id %>" selected><%= @workshop.place.name %></option>
-        </select>
-      </div>
 
-      <div class="form-group select is-valid optional workshop_animator form-group-valid">
-        <label class="select optional" for="workshop_animator">Animé par</label>
-        <select class="form-control is-valid select optional disabled" disabled="disabled" name="workshop[animator]" id="workshop_animator">
-          <% if @workshop.animators.present? %>
-            <option value="<%= @workshop.animators.first.user.id %>" selected><%= @workshop.animators.first.user.profile.company %></option>
-          <% else %>
-            <option value="" selected><%= @workshop.place.name %></option>
+        <div class="form-group select is-valid optional workshop_animator form-group-valid">
+          <label class="select optional" for="workshop_animator">Animé par</label>
+          <select class="form-control is-valid select optional disabled" disabled="disabled" name="workshop[animator]" id="workshop_animator">
+            <% if @workshop.animators.where(db_status: true).first.present? %>
+              <option value="<%= @workshop.animators.first.user.id %>" selected><%= @workshop.animators.where(db_status: true).first.user.profile.company %></option>
+            <% else %>
+              <option value="" selected><%= @workshop.place.name %></option>
+            <% end %>
+          </select>
+        </div>
+
+        <%= f.input :thematic, disabled: true, label: "Type d'atelier" %>
+        <%= f.input :duration, disabled: true, label: "Durée de l'atelier en minutes" %>
+        <%= f.input :price, disabled: true, label: "Prix par personne" %>
+        <%= f.input :capacity, disabled: true, label: "Nombre de places proposées" %>
+
+        <div class="d-flex justify-content-center mt-5">
+          <%= f.submit 'Mettre à jour', class: "new-edit-ws-submit" %>
+        </div>
+      <% end %>
+
+    <% else %>
+
+
+      <%= simple_form_for(@workshop) do |f| %>
+
+        <div class="form-group select is-valid required workshop_place_id form-group-valid">
+          <label class="select optional" for="workshop_place">Lieu</label>
+          <select class="form-control is-valid select required" name="workshop[place_id]" id="workshop_place_id">
+            <option value="<%= @workshop.place.id %>" selected><%= @workshop.place.name %></option>
+            <option value="">----------------</option>
+          <% @places.sort_by { |place| place.name }.each do |place| %>
+            <option value="<%= place.id %>"><%= place.name %></option>
           <% end %>
-        </select>
-      </div>
+          </select>
+        </div>
 
-      <%= f.input :thematic, disabled: true, label: "Type d'atelier" %>
-      <%= f.input :duration, disabled: true, label: "Durée de l'atelier en minutes" %>
-      <%= f.input :price, disabled: true, label: "Prix par personne" %>
-      <%= f.input :capacity, disabled: true, label: "Nombre de places proposées" %>
+        <%= f.input :title, label: "Intitulé de l'atelier" %>
+        <%= f.input :thematic, label: "Type d'atelier", collection: Workshop::THEMATICS %>
+        <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS %>
+        <%= f.input :duration, label: "Durée de l'atelier en minutes" %>
+        <%= f.input :price, label: "Prix par personne" %>
+        <%= f.input :capacity, label: "Nombre de places proposées" %>
+        <%= f.input :program, label: "Programme", :input_html => {:rows => 8} %>
+        <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3} %>
+        <%= f.input :photos, as: :file, label: "Photos de l'atelier", input_html: { multiple: true } %>
 
-      <div class="d-flex justify-content-center mt-5">
-        <%= f.submit 'Mettre à jour', class: "new-edit-ws-submit" %>
-      </div>
+        <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
+
+      <% end %>
     <% end %>
+  </div>
 
-  <% else %>
-
-
-    <%= simple_form_for(@workshop) do |f| %>
-
-      <div class="form-group select is-valid required workshop_place_id form-group-valid">
-        <label class="select optional" for="workshop_place">Lieu</label>
-        <select class="form-control is-valid select required" name="workshop[place_id]" id="workshop_place_id">
-          <option value="<%= @workshop.place.id %>" selected><%= @workshop.place.name %></option>
-          <option value="">----------------</option>
-        <% @places.sort_by { |place| place.name }.each do |place| %>
-          <option value="<%= place.id %>"><%= place.name %></option>
-        <% end %>
-        </select>
-      </div>
-
-      <%= f.input :title, label: "Intitulé de l'atelier" %>
-      <%= f.input :thematic, label: "Type d'atelier", collection: Workshop::THEMATICS %>
-      <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS %>
-      <%= f.input :duration, label: "Durée de l'atelier en minutes" %>
-      <%= f.input :price, label: "Prix par personne" %>
-      <%= f.input :capacity, label: "Nombre de places proposées" %>
-      <%= f.input :program, label: "Programme", :input_html => {:rows => 8} %>
-      <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3} %>
-      <%= f.input :photos, as: :file, label: "Photos de l'atelier", input_html: { multiple: true } %>
-
-      <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
-
-    <% end %>
-  <% end %>
-</div>
+<% end %>

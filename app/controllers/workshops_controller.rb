@@ -1,4 +1,5 @@
 require "open-uri"
+require "will_paginate/array"
 
 class WorkshopsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(index show)
@@ -8,20 +9,22 @@ class WorkshopsController < ApplicationController
     if params[:search].present?
       if params[:search][:starts_at].present? && params[:search][:ends_at].present?
         dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.strptime(params[:search][:ends_at], '%Y-%m-%d')).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne').select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }.paginate(page: params[:page], per_page: 20)
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }
       elsif params[:search][:starts_at].present?
         dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.today + 3.months).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne').select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }.paginate(page: params[:page], per_page: 20)
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }
       elsif params[:search][:ends_at].present?
         dates = (Date.today..Date.strptime(params[:search][:ends_at], '%Y-%m-%d')).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne').select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }.paginate(page: params[:page], per_page: 20)
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }
       else
-        @workshops = policy_scope(Workshop).where(status: 'en ligne').paginate(page: params[:page], per_page: 20)
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true)
       end
+
+      @workshops.paginate(page: params[:page], per_page: 20)
 
       @workshops = @workshops.select { |workshop| workshop.thematic == params[:search][:keyword] }.paginate(page: params[:page], per_page: 20) if params[:search][:keyword].present?
       @workshops = @workshops.select { |workshop| workshop.place.city == params[:search][:place] }.paginate(page: params[:page], per_page: 20) if params[:search][:place].present?
-      @workshops = @workshops.select { |workshop| workshop.title.downcase.include?(params[:search][:selection]) } if params[:search][:selection].present?
+      @workshops = @workshops.select { |workshop| workshop.title.downcase.include?(params[:search][:selection]) }.paginate(page: params[:page], per_page: 20) if params[:search][:selection].present?
 
       if params[:search][:min_price].present? && params[:search][:max_price].present?
 
@@ -67,13 +70,13 @@ class WorkshopsController < ApplicationController
         end
       end
     else
-      @workshops = policy_scope(Workshop).where(status: 'en ligne').paginate(page: params[:page], per_page: 20)
+      @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).paginate(page: params[:page], per_page: 20)
     end
     # authorize @workshops
 
-    @prices = @workshops.map { |ws| ws.price }
+    @prices = policy_scope(Workshop).where(status: 'en ligne', db_status: true).map { |ws| ws.price }
     @min_price = @prices.present? ? @prices.min : 0
-    @max_price = @prices.present? ? @prices.max : 0
+    @max_price = @prices.present? ? @prices.max : 120
 
     @places_geo = Place.where(id: @workshops.pluck(:place_id))
 
@@ -88,13 +91,19 @@ class WorkshopsController < ApplicationController
   end
 
   def show
-    @booking = Booking.new
-    @animator = @workshop.animators.first
+    if @workshop
+      @booking = Booking.new
+      if @workshop.animators.first.user.profile.db_status == true
+        @animator = @workshop.animators.first
+      end
+    end
   end
 
   def edit
-    @places = current_user.admin ? Place.all : current_user.places
-    @animators = Profile.where(role: 'animateur')
+    if @workshop
+      @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
+      @animators = Profile.where(role: 'animateur', db_status: true)
+    end
   end
 
   def update
@@ -103,7 +112,7 @@ class WorkshopsController < ApplicationController
       flash[:notice] = "Votre atelier a bien été modifié !"
       redirect_back fallback_location: root_path
     else
-      @places = current_user.admin ? Place.all : current_user.places
+      @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
       render 'edit'
     end
   end
@@ -111,8 +120,8 @@ class WorkshopsController < ApplicationController
   def new
     @workshop = Workshop.new
     authorize @workshop
-    @places = current_user.admin ? Place.all : current_user.places
-    @animators = Profile.where(role: 'animateur')
+    @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
+    @animators = Profile.where(role: 'animateur', db_status: true)
   end
 
   def create
@@ -135,22 +144,26 @@ class WorkshopsController < ApplicationController
       flash[:notice] = "Votre atelier a bien été créé !"
       redirect_to confirmation_workshop_path(@workshop)
     else
-      @places = current_user.admin ? Place.all : current_user.places
+      @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
       render 'new'
     end
   end
 
   def confirmation
-    @users = User.all.select { |user| user.profile.role == 'animateur' }
-    @animator = Animator.new
-    @session = Session.new
+    if @workshop
+      @users = User.all.where(db_status: true).select { |user| user.profile.role == 'animateur' }
+      @animator = Animator.new
+      @session = Session.new
+    end
   end
 
   private
 
   def set_workshop
-    @workshop = Workshop.find(params[:id])
-    authorize @workshop
+    if Workshop.find(params[:id]).db_status == true
+      @workshop = Workshop.find(params[:id])
+      authorize @workshop
+    end
   end
 
   def workshop_params
