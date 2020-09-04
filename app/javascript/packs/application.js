@@ -16,6 +16,7 @@ import { initRating } from '../plugins/init_rating';
 import { showActions } from '../plugins/show_actions';
 import { toggleBtnKpis } from '../plugins/toggle_btn_kpis';
 import { prevNextNewWs } from '../plugins/prev_next_new_ws';
+import { showIndexFilters } from '../plugins/show_index_filters';
 
 
 document.addEventListener('turbolinks:load', () => {
@@ -33,4 +34,5 @@ document.addEventListener('turbolinks:load', () => {
   showActions();
   toggleBtnKpis();
   prevNextNewWs();
+  showIndexFilters();
 });

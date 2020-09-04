@@ -2,26 +2,32 @@
 
   <div class="place-animator-index-title">
     <h1>Retrouvez ici tous les <strong>animateurs d'ateliers</strong> inscrits sur jeudemains.com</h1>
-  </div>
 
-  <%= simple_form_for :search, url: profiles_path, method: :get do |f| %>
-    <% if params[:search].present? %>
-      <div>
-        <%= f.input :keyword, required: false, label: "Thématique", prompt: "Tous types", collection: Workshop::THEMATICS, selected: params[:search][:keyword] %>
-      </div>
-      <div>
-        <%= f.input :place, required: false, label: "Ville", prompt: "Toutes les villes", collection: Profile.cities.sort, selected: params[:search][:place] %>
-      </div>
-    <% else %>
-      <div>
-        <%= f.input :keyword, required: false, label: "Thématique", prompt: "Tous types", collection: Workshop::THEMATICS %>
-      </div>
-      <div>
-        <%= f.input :place, required: false, label: "Ville", prompt: "Toutes les villes", collection: Profile.cities.sort %>
-      </div>
-    <% end %>
-    <%= f.submit 'Appliquer les filtres', class: "submit-btn" %>
-  <% end %>
+    <div class="place-animator-index-filter">
+      <%= link_to "Filtres", "#", class: "submit-btn", id: "showIndexFilters" %>
+    </div>
+
+    <div class="place-animator-index-search">
+      <%= simple_form_for :search, url: profiles_path, method: :get do |f| %>
+        <% if params[:search].present? %>
+            <%= f.input :company, required: false, label: false, prompt: "Animateurs", collection: Profile.companies.sort, selected: params[:search][:company] %>
+            <%= f.input :keyword, required: false, label: false, prompt: "Tous types", collection: Workshop::THEMATICS, selected: params[:search][:keyword] %>
+            <%= f.input :place, required: false, label: false, prompt: "Toutes les villes", collection: Profile.cities.sort, selected: params[:search][:place] %>
+        <% else %>
+            <%= f.input :company, required: false, label: false, prompt: "Animateurs", collection: Profile.companies.sort %>
+            <%= f.input :keyword, required: false, label: false, prompt: "Tous types", collection: Workshop::THEMATICS %>
+            <%= f.input :place, required: false, label: false, prompt: "Toutes les villes", collection: Profile.cities.sort %>
+        <% end %>
+        <div class="place-animator-index-search-buttons">
+          <%= f.submit 'Rechercher', class: "submit-btn", id: "submit-desktop" %>
+          <button type="submit" class="submit-btn", id="submit-mobile">
+            <i class="fas fa-search"></i>
+          </button>
+          <%= link_to "Masquer", "#", class: "", id: "hideIndexFilters"  %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
   <div class="place-animator-index-container">
     <div class= "place-animator-index-cards">
