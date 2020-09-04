@@ -42,11 +42,11 @@
             <div class="form-group select required animator_user">
               <label class="select required" for="animator_user_id">Animateur</label>
               <select class="form-control select required" name="animator[user_id]" id="animator_user_id">
-                <% if @workshop.animators.present? %>
-                  <option value="<%= @workshop.animators.first.user.id %>" selected><%= @workshop.animators.first.user.profile.company %></option>
+                <% if @workshop.animators.where(db_status: true).present? %>
+                  <option value="<%= @workshop.animators.first.user.id %>" selected><%= @workshop.animators.where(db_status: true).first.user.profile.company %></option>
                   <option value="">----------------</option>
                 <% end %>
-                <% @users.sort_by { |user| user.profile.company }.each do |user| %>
+                <% @users.where(db_status: true).sort_by { |user| user.profile.company }.each do |user| %>
                   <option value="<%= user.id %>"><%= user.profile.company %></option>
                 <% end %>
               </select>

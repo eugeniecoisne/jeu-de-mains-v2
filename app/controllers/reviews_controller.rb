@@ -3,9 +3,11 @@ class ReviewsController < ApplicationController
   skip_after_action :verify_policy_scoped, :only => :index
 
   def new
-    @review = Review.new
-    authorize @review
-    @booking = Booking.find(params[:booking_id])
+    if Booking.find(params[:booking_id]).db_status == true && Booking.find(params[:booking_id]).user == current_user
+      @review = Review.new
+      authorize @review
+      @booking = Booking.find(params[:booking_id])
+    end
   end
 
   def create
@@ -24,11 +26,11 @@ class ReviewsController < ApplicationController
 
   def index
     if params[:workshop_id]
-      @workshop = Workshop.find(params[:workshop_id])
+      @workshop = Workshop.find(params[:workshop_id]) if Workshop.find(params[:workshop_id]).db_status == true
     elsif params[:place_id]
-      @place = Place.find(params[:place_id])
+      @place = Place.find(params[:place_id]) if Place.find(params[:place_id]).db_status == true
     elsif params[:profile_id]
-      @profile = Profile.find(params[:profile_id])
+      @profile = Profile.find(params[:profile_id]) if Profile.find(params[:profile_id]).db_status == true
     end
   end
 

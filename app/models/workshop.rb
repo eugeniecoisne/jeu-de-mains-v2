@@ -27,16 +27,16 @@ class Workshop < ApplicationRecord
 
   def dates
     dates = []
-    sessions.each { |s| dates << s.date }
+    sessions.where(db_status: true).each { |s| dates << s.date }
     dates
   end
 
   def rating
     ratings = []
     @average = 0
-    if reviews.present?
-      reviews.each { |review| ratings << review.rating }
-      @average = ratings.sum.fdiv(reviews.count).round(2)
+    if reviews.where(db_status: true).present?
+      reviews.where(db_status: true).each { |review| ratings << review.rating }
+      @average = ratings.sum.fdiv(reviews.where(db_status: true).count).round(2)
     end
   end
 

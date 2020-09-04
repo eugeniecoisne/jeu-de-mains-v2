@@ -27,7 +27,7 @@ class Session < ApplicationRecord
 
   def available
     counter = 0
-    bookings.select { |booking| booking.db_status != 'inactif' }.each do |booking|
+    bookings.where(db_status: true).each do |booking|
       counter += booking.quantity
     end
     capacity - counter
