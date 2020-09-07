@@ -2,7 +2,7 @@
 
   <div class="place-animator-index-title">
     <h1>Retrouvez ici tous les <strong>lieux d'ateliers</strong> inscrits sur jeudemains.com</h1>
-    <% companies = Place.all.map { |place| place.name } %>
+    <% companies = Place.all.where(db_status: true).map { |place| place.name } %>
 
     <div class="place-animator-index-filter">
       <%= link_to "Filtres", "#", class: "submit-btn", id: "showIndexFilters" %>
@@ -73,15 +73,15 @@
                   </div>
                   <div class="place-anim-card-price">
                     <% ws_prices_sum = 0 %>
-                    <% place.workshops.each do |workshop| %>
+                    <% place.workshops.where(db_status: true).each do |workshop| %>
                       <% ws_prices_sum += workshop.price %>
                     <% end %>
-                    <h4>Prix moyen : <%= ws_prices_sum.fdiv(place.workshops.size).round %> €</h4>
+                    <h4>Prix moyen : <%= ws_prices_sum.fdiv(place.workshops.where(db_status: true).size).round %> €</h4>
                   </div>
                   <div class="place-anim-card-info-tags">
 
                     <% place_thematics = [] %>
-                    <% place.workshops.each do |workshop| %>
+                    <% place.workshops.where(db_status: true).each do |workshop| %>
                       <% place_thematics << workshop.thematic %>
                     <% end %>
                     <% if place_thematics.uniq.size <= 3 %>

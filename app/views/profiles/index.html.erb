@@ -70,16 +70,22 @@
                   </div>
                   <div class="place-anim-card-price">
                     <% ws_prices_sum = 0 %>
+                    <% all_animators = 0 %>
                     <% profile.user.animators.each do |animator| %>
-                      <% ws_prices_sum += animator.workshop.price %>
+                      <% if animator.workshop.db_status == true %>
+                        <% ws_prices_sum += animator.workshop.price %>
+                        <% all_animators += 1 %>
+                      <% end %>
                     <% end %>
-                    <h4>Prix moyen : <%= ws_prices_sum.fdiv(profile.user.animators.size).round %> €</h4>
+                    <h4>Prix moyen : <%= ws_prices_sum.fdiv(all_animators).round %> €</h4>
                   </div>
                   <div class="place-anim-card-info-tags">
 
                     <% animator_thematics = [] %>
                     <% profile.user.animators.each do |animator| %>
-                      <% animator_thematics << animator.workshop.thematic %>
+                      <% if animator.workshop.db_status == true %>
+                        <% animator_thematics << animator.workshop.thematic %>
+                      <% end %>
                     <% end %>
                     <% if animator_thematics.uniq.size <= 3 %>
                       <% animator_thematics.uniq.each do |thematic| %>

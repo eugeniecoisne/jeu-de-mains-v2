@@ -9,7 +9,7 @@
   </div>
 
   <div class="dashboard-container">
-    <div class="dashboard-nav-and-tab">
+    <div class="dashboard-nav-and-tab" id="dashboard-my-bookings-nav-and-tab">
 
       <!-- NAV PILLS DESKTOP & TABLET -->
 
@@ -22,6 +22,10 @@
           <a class="nav-link" id="v-pills-old-bookings-tab" data-toggle="pill" href="#v-pills-old-bookings" role="tab" aria-controls="v-pills-old-bookings" aria-selected="false">
             <i class="fas fa-calendar"></i>
             Réservations passées
+          </a>
+          <a class="nav-link" id="v-pills-cancels-tab" data-toggle="pill" href="#v-pills-cancels" role="tab" aria-controls="v-pills-cancels" aria-selected="false">
+            <i class="fas fa-calendar-times"></i>
+            Annulations
           </a>
         </div>
       </div>
@@ -36,6 +40,9 @@
           <a class="nav-link" id="v-pills-old-bookings-tab" data-toggle="pill" href="#v-pills-old-bookings" role="tab" aria-controls="v-pills-old-bookings" aria-selected="false">
             Ateliers passés
           </a>
+          <a class="nav-link" id="v-pills-cancels-tab" data-toggle="pill" href="#v-pills-cancels" role="tab" aria-controls="v-pills-cancels" aria-selected="false">
+            Annulations
+          </a>
         </div>
       </div>
 
@@ -46,8 +53,11 @@
 
           <% my_coming_bookings = [] %>
           <% my_older_bookings = [] %>
+          <% my_cancellations = [] %>
           <% @profile.user.bookings.each do |booking| %>
-            <% if booking.session.date >= Date.today %>
+            <% if booking.db_status == false %>
+              <% my_cancellations << booking %>
+            <% elsif booking.session.date >= Date.today %>
               <% my_coming_bookings << booking %>
             <% else %>
               <% my_older_bookings << booking %>
@@ -62,7 +72,7 @@
             <% if my_coming_bookings.count > 0 %>
 
               <div class="my-bookings-cards">
-                <% my_coming_bookings.sort_by { |booking| booking.session.date }.reverse.each do |booking| %>
+                <% my_coming_bookings.sort_by { |booking| booking.session.date }.each do |booking| %>
 
                   <div class="my-booking-date-photo-and-info">
                     <div class="my-booking-date">
@@ -163,7 +173,9 @@
                         <p>Chez <%= booking.session.workshop.place.name %></p>
                         <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
                         <div class="d-flex align-items-center">
-                          <%= link_to "Revoir", workshop_path(booking.session.workshop), class: "button" %>
+                          <% if booking.session.workshop.db_status == true && booking.session.workshop.status == "en ligne" %>
+                            <%= link_to "Revoir", workshop_path(booking.session.workshop), class: "button" %>
+                          <% end %>
                           <% if booking.reviews.present? %>
                               <div class="my-booking-review-card-stars">
                                 <span>Mon avis :</span>
@@ -179,6 +191,49 @@
                           <% end %>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <p>Aucune réservation passée</p>
+            <% end %>
+          </div>
+
+          <!-- MY CANCELLATIONS -->
+
+          <div class="tab-pane fade" id="v-pills-cancels" role="tabpanel" aria-labelledby="v-pills-cancels-tab">
+
+            <% if my_cancellations.count > 0 %>
+
+              <div class="my-bookings-cards">
+                <% my_cancellations.sort_by { |booking| booking.session.date }.reverse.each do |booking| %>
+
+                  <div class="my-booking-date-photo-and-info">
+                    <div class="my-booking-date" id="my-cancel-date">
+                      <%=booking.session.date.strftime('%d/%m/%Y')%> - <%=booking.session.start_at%>
+                    </div>
+
+                    <div class="my-bookings-ws-card">
+                      <%= link_to workshop_path(booking.session.workshop) do %>
+                        <div class="my-booking-photo">
+                          <% if booking.session.workshop.photos.attached? %>
+                            <%= cl_image_tag booking.session.workshop.photos[0].key, alt: "Photo-atelier", width: 120, height: 95, crop: :fill %>
+                          <% else %>
+                            <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 120, :height => 95, :crop => :fill, :alt => "Photo-atelier") %>
+                          <% end %>
+                        </div>
+                      <% end %>
+
+                      <%= link_to workshop_path(booking.session.workshop) do %>
+                        <div class="my-booking-ws-info">
+                          <p id="my-booking-order-nb">Réservation n°<%= booking.id %></p>
+                          <p id="my-booking-ws-title"><%= booking.session.workshop.title %></p>
+                          <p>Chez <%= booking.session.workshop.place.name %></p>
+                          <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
+                          <p id="my-booking-cancel">Annulée le <%= booking.updated_at.strftime('%d/%m/%Y') %> à <%= booking.updated_at.strftime('%H:%M') %></p>
+                        </div>
+                      <% end %>
                     </div>
                   </div>
                 <% end %>

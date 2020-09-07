@@ -18,6 +18,10 @@
   letter-spacing: 1px;
 }
 
+#my-cancel-date {
+  background-color: $orange;
+}
+
 .my-bookings-ws-card {
   display: flex;
   margin-top: 0.8em;
@@ -41,6 +45,10 @@
   }
   #my-booking-amount {
     margin: 0.3em 0 1em 0;
+  }
+  #my-booking-cancel {
+    margin: -0.7em 0 1em 0;
+    opacity: 60%;
   }
   a:hover {
     text-decoration: none;
@@ -94,6 +102,17 @@
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
+  #dashboard-my-bookings-nav-and-tab {
+    .nav {
+      display: grid;
+      justify-content: center;
+    }
+    .nav-link {
+      width: 100%;
+      padding: 6px 32px;
+    }
+
+  }
   .my-bookings-cards {
     margin-bottom: 2em;
   }

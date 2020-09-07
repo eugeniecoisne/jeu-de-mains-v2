@@ -93,7 +93,7 @@ class WorkshopsController < ApplicationController
   def show
     if @workshop
       @booking = Booking.new
-      if @workshop.animators.first.user.profile.db_status == true
+      if @workshop.animators.present? && @workshop.animators.first.user.profile.db_status == true
         @animator = @workshop.animators.first
       end
     end

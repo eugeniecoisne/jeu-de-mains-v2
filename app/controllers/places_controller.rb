@@ -3,7 +3,7 @@ class PlacesController < ApplicationController
   before_action :set_place, only: %i(show edit update)
 
   def index
-    @places = policy_scope(Place)
+    @places = policy_scope(Place).where(db_status: true)
     authorize @places
     if params[:search].present?
       @places = @places.select { |place| place.name.include?(params[:search][:company])} if params[:search][:company].present?
@@ -48,8 +48,10 @@ class PlacesController < ApplicationController
   private
 
   def set_place
-    @place = Place.find(params[:id])
-    authorize @place
+    if Place.find(params[:id]).db_status == true
+      @place = Place.find(params[:id])
+      authorize @place
+    end
   end
 
   def place_params
