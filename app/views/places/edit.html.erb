@@ -1,40 +1,43 @@
-<div class="dashboard-title-container" id="dashboard-organizer-title-container">
-  <h1>
-    <span>Mettez à jour votre lieu !</span>
-  </h1>
-</div>
+<% if @place %>
 
-<div class="back-button" id="back-button-ws-new">
-  <%= link_to 'javascript:history.go(-1);' do %>
-    <i class="fas fa-chevron-left"></i>
-    <span>Annuler</span>
-  <% end %>
-</div>
+  <div class="dashboard-title-container" id="dashboard-organizer-title-container">
+    <h1>
+      <span>Mettez à jour votre lieu !</span>
+    </h1>
+  </div>
 
-<div class="edit-place-container">
-  <h3>Vous pouvez modifier ici certaines informations de votre lieu. Si vous souhaitez modifier plus d'informations, comme les informations bloquées en bas de ce formulaire, merci de contacter l'équipe Jeu de Mains.</h3>
+  <div class="back-button" id="back-button-ws-new">
+    <%= link_to 'javascript:history.go(-1);' do %>
+      <i class="fas fa-chevron-left"></i>
+      <span>Annuler</span>
+    <% end %>
+  </div>
 
-  <%= simple_form_for(@place) do |f| %>
+  <div class="edit-place-container">
+    <h3>Vous pouvez modifier ici certaines informations de votre lieu. Si vous souhaitez modifier plus d'informations, comme les informations bloquées en bas de ce formulaire, merci de contacter l'équipe Jeu de Mains.</h3>
 
-    <%= f.input :name, label: "Nom du lieu" %>
-    <%= f.input :description, :input_html => {:rows => 8}, label: "Description du lieu" %>
-    <%= f.input :phone_number, label: "Numéro de téléphone" %>
-    <%= f.input :email, label: "Adresse email" %>
-    <%= f.input :website, label: "Site internet" %>
-    <%= f.input :instagram, label: "Page instagram" %>
-    <%= f.input :photo, as: :file, label: "Photo du lieu" %>
-    <div class="edit-place-photos d-flex mb-4">
-      <%= cl_image_tag @place.photo.key, alt: "Photo du lieu", width: 80, crop: :fill  %>
-    </div>
-    <%= f.input :siret_number, disabled: true, label: "SIRET" %>
-    <%= f.input :address, disabled: true,  label: "Adresse postale (n° et rue)" %>
-    <%= f.input :zip_code, disabled: true,  label: "Code postal" %>
-    <%= f.input :city, disabled: true,  label: "Ville" %>
+    <%= simple_form_for(@place) do |f| %>
+
+      <%= f.input :name, label: "Nom du lieu" %>
+      <%= f.input :description, :input_html => {:rows => 8}, label: "Description du lieu" %>
+      <%= f.input :phone_number, label: "Numéro de téléphone" %>
+      <%= f.input :email, label: "Adresse email" %>
+      <%= f.input :website, label: "Site internet" %>
+      <%= f.input :instagram, label: "Page instagram" %>
+      <%= f.input :photo, as: :file, label: "Photo du lieu" %>
+      <div class="edit-place-photos d-flex mb-4">
+        <%= cl_image_tag @place.photo.key, alt: "Photo du lieu", width: 80, crop: :fill  %>
+      </div>
+      <%= f.input :siret_number, disabled: true, label: "SIRET" %>
+      <%= f.input :address, disabled: true,  label: "Adresse postale (n° et rue)" %>
+      <%= f.input :zip_code, disabled: true,  label: "Code postal" %>
+      <%= f.input :city, disabled: true,  label: "Ville" %>
 
 
-    <div class="d-flex justify-content-center mt-5">
-      <%= f.submit 'Mettre à jour', class: "new-edit-ws-submit" %>
-    </div>
+      <div class="d-flex justify-content-center mt-5">
+        <%= f.submit 'Mettre à jour', class: "new-edit-ws-submit" %>
+      </div>
 
-  <% end %>
-</div>
+    <% end %>
+  </div>
+<% end %>

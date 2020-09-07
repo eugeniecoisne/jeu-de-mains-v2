@@ -60,13 +60,17 @@
       <div class="dashboard-tabs" id="dashboard-organizer-tabs">
         <div class="tab-content" id="pills-tabContent">
           <% my_workshops = [] %>
+          <% my_online_workshops = [] %>
           <% my_sessions = [] %>
           <% my_dates = [] %>
-          <% @profile.user.places.each do |place| %>
-            <% if place.workshops %>
-              <% place.workshops.each do |workshop| %>
+          <% @profile.user.places.where(db_status: true).each do |place| %>
+            <% if place.workshops.where(db_status: true) %>
+              <% place.workshops.where(db_status: true).each do |workshop| %>
                 <% my_workshops << workshop %>
-                <% workshop.sessions.each do |session| %>
+                <% if workshop.status == "en ligne" %>
+                  <% my_online_workshops << workshop %>
+                <% end %>
+                <% workshop.sessions.where(db_status: true).each do |session| %>
                   <% my_sessions << session %>
                   <% my_dates << session.date %>
                 <% end %>
@@ -159,7 +163,7 @@
 
 
                       </div>
-                      <% if workshop.animators.present? == false %>
+                      <% if workshop.animators.where(db_status: true).present? == false %>
                         <div>
                           <a href="#addAnimatorModal<%= index +1 %>" class="button mr-2" data-toggle="modal" data-whatever="@mdo" id="add-animator-button">
                             <i class="fas fa-plus mr-1"></i>
@@ -195,7 +199,6 @@
                               </div>
                             </div>
                           </div>
-
                         </div>
                       <% end %>
                       <%= link_to "Modifier la fiche", edit_workshop_path(workshop), class: "button mr-2" %>
@@ -215,8 +218,8 @@
 
 
                       <% bookings_number = 0 %>
-                      <% workshop.sessions.each do |session| %>
-                        <% bookings_number += 1 if session.bookings.present? %>
+                      <% workshop.sessions.where(db_status: true).each do |session| %>
+                        <% bookings_number += 1 if session.bookings.where(db_status: true).present? %>
                       <% end %>
 
                       <% if workshop.status == "en ligne" && bookings_number == 0 %>
@@ -275,7 +278,7 @@
                       <h2><%= l(date, format: '%A %d %B %Y').capitalize %></h2>
                     </div>
                     <div class="mobile-dashboard-my-agenda-date-container">
-                      <% Session.where("date = ?", date.strftime).sort_by { |session| session.start_at }.each do |session| %>
+                      <% Session.where("date = ?", date.strftime).where(db_status: true).sort_by { |session| session.start_at }.each do |session| %>
                         <% if session.workshop.place.user == @profile.user %>
                           <div class="mobile-dashboard-my-agenda-workshop">
                             <%= link_to workshop_path(session.workshop) do  %>
@@ -337,8 +340,8 @@
 
           <div class="tab-pane fade" id="v-pills-my-places" role="tabpanel" aria-labelledby="v-pills-my-places-tab">
             <div class="dashboard-my-places">
-              <% if @profile.user.places.present? %>
-                <% @profile.user.places.each do |place| %>
+              <% if @profile.user.places.where(db_status: true).present? %>
+                <% @profile.user.places.where(db_status: true).each do |place| %>
                   <div class="dashboard-my-places-place">
                     <div class="dashboard-my-places-place-image">
                       <% if place.photo.attached? %>
@@ -375,25 +378,53 @@
 
           <!-- MY KPIs -->
 
+
+          <% my_bookings_kpi_7_days = 0 %>
+          <% my_bookings_kpi_30_days = 0 %>
+          <% my_sessions.each do |session| %>
+            <% session.bookings.where(db_status: true).each do |booking| %>
+              <% if booking.created_at >= Date.today - 7 %>
+                <% my_bookings_kpi_7_days += booking.quantity %>
+              <% elsif booking.created_at >= Date.today - 30 %>
+                <% my_bookings_kpi_30_days += booking.quantity %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <% my_cancels_kpi_7_days = 0 %>
+          <% my_cancels_kpi_30_days = 0 %>
+          <% @profile.user.places.where(db_status: true).each do |place| %>
+            <% place.workshops.where(db_status: true).each do |workshop| %>
+              <% workshop.sessions.where(db_status: true).each do |session| %>
+                <% session.bookings.where(db_status: false).each do |booking| %>
+                  <% if booking.updated_at >= Date.today - 7 %>
+                    <% my_cancels_kpi_7_days += booking.quantity %>
+                  <% elsif booking.updated_at >= Date.today - 30 %>
+                    <% my_cancels_kpi_30_days += booking.quantity %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+
           <div class="tab-pane fade" id="v-pills-my-kpis" role="tabpanel" aria-labelledby="v-pills-my-kpis-tab">
             <div class="dashboard-my-kpis">
               <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-bookings">
-                <h2 class="my-bookings-seven-days active">12</h2>
-                <h2 class="my-bookings-thirty-days">36</h2>
-                <!-- à automatiser dès qu'on met bien en place le statut db -->
+                <h2 class="my-bookings-seven-days active"><%= my_bookings_kpi_7_days %></h2>
+                <h2 class="my-bookings-thirty-days"><%= my_bookings_kpi_7_days + my_bookings_kpi_30_days %></h2>
                 <h3>réservations<br>passées depuis</h3>
                 <label class="switch mt-1">
                   <input type="checkbox" id="togBtnBookings">
                     <div class="slider slider-bookings round">
                       <span class="on">7 jours</span>
                       <span class="off">30 jours</span>
-                      <!-- à automatiser dès qu'on met bien en place le statut db -->
                     </div>
                 </label>
               </div>
               <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-cancellations">
-                <h2 class="my-cancellations-seven-days active">2</h2>
-                <h2 class="my-cancellations-thirty-days">8</h2>
+                <h2 class="my-cancellations-seven-days active"><%= my_cancels_kpi_7_days %></h2>
+                <h2 class="my-cancellations-thirty-days"><%= my_cancels_kpi_7_days + my_cancels_kpi_30_days %></h2>
                 <h3>réservations<br>annulées depuis</h3>
                 <label class="switch mt-1">
                   <input type="checkbox" id="togBtnCancellations">
@@ -404,8 +435,8 @@
                 </label>
               </div>
               <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-workshops">
-                <h2><%= my_workshops.count %></h2>
-                <% if my_workshops.count > 1 %>
+                <h2><%= my_online_workshops.count %></h2>
+                <% if my_online_workshops.count > 1 %>
                   <h3>ateliers<br>en ligne</h3>
                 <% else %>
                   <h3>atelier<br>en ligne</h3>
@@ -421,7 +452,7 @@
               </div>
 
               <% my_ratings_sum = 0 %>
-              <% @profile.user.places.each do |place| %>
+              <% @profile.user.places.where(db_status: true).each do |place| %>
                 <% if place.rating.present? %>
                   <% my_ratings_sum += place.rating %>
                 <% end %>
@@ -429,7 +460,7 @@
 
               <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-rating">
                 <% if my_ratings_sum > 0 %>
-                  <h2><%= my_ratings_sum.fdiv(@profile.user.places.count) %></h2>
+                  <h2><%= my_ratings_sum.fdiv(@profile.user.places.where(db_status: true).count) %></h2>
                   <h3>note globale<br> sur 5</h3>
                 <% else %>
                   <h3>Vous n'avez pas<br>encore de note</h3>

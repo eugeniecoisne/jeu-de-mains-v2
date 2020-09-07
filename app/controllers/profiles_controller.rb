@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
   before_action :set_profile, only: %i(show edit update dashboard)
 
   def index
-    @profiles = policy_scope(Profile).where(role: 'animateur')
+    @profiles = policy_scope(Profile).where(role: 'animateur', db_status: true)
     authorize @profiles
     if params[:search].present?
       @profiles = @profiles.select { |profile| profile.company.include?(params[:search][:company])} if params[:search][:company].present?
@@ -28,23 +28,27 @@ class ProfilesController < ApplicationController
   end
 
   def dashboard
-    @users = User.all.select { |user| user.profile.role == 'animateur' }
+    @users = User.all.where(db_status: true).select { |user| user.profile.role == 'animateur' }
     @animator = Animator.new
     @session = Session.new
     @workshop = Workshop.new
   end
 
   def public
-    @profile = Profile.find(params[:profile_id])
-    authorize @profile
-    @workshops = policy_scope(Workshop).where(status: 'en ligne')
+    if Profile.find(params[:profile_id]).db_status == true
+      @profile = Profile.find(params[:profile_id])
+      authorize @profile
+    end
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true)
   end
 
   private
 
   def set_profile
-    @profile = Profile.find(params[:id])
-    authorize @profile
+    if Profile.find(params[:id]).db_status == true
+      @profile = Profile.find(params[:id])
+      authorize @profile
+    end
   end
 
   def profile_params

@@ -2,10 +2,6 @@ class AnimatorsController < ApplicationController
   before_action :set_animator, only: %i(edit update)
 
   def new
-    @animator = Animator.new
-    authorize @animator
-    @workshop = Workshop.find(params[:workshop_id])
-    @users = User.all.select { |user| user.profile.role == 'animateur' }
   end
 
   def create
@@ -23,17 +19,15 @@ class AnimatorsController < ApplicationController
   end
 
   def edit
-    @users = User.all.select { |user| user.profile.role == 'animateur' }
   end
 
   def update
     @user = User.find(params[:animator][:user_id])
     @animator.update(user: @user)
     if @animator.save
-      redirect_to workshop_path(@animator.workshop)
+      redirect_back fallback_location: root_path
     else
-      @users = User.all.select { |user| user.profile.role == 'animateur' }
-      render 'edit'
+      redirect_back fallback_location: root_path
     end
   end
 
