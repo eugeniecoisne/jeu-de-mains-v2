@@ -3,7 +3,7 @@ require "will_paginate/array"
 
 class WorkshopsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(index show)
-  before_action :set_workshop, only: %i(show edit update confirmation)
+  before_action :set_workshop, only: %i(show edit update confirmation destroy)
 
   def index
     if params[:search].present?
@@ -115,6 +115,22 @@ class WorkshopsController < ApplicationController
       @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
       render 'edit'
     end
+  end
+
+  def destroy
+    ws_bookings = []
+    @workshop.sessions.where(db_status: true).each do |session|
+      if session.date >= Date.today - 7
+        session.bookings.where(db_status: true).each do |booking|
+          ws_bookings << booking
+        end
+      end
+    end
+    if ws_bookings.empty?
+      @workshop.update(db_status: false)
+      @workshop.save
+    end
+    redirect_back fallback_location: root_path
   end
 
   def new

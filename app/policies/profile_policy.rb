@@ -20,6 +20,10 @@ class ProfilePolicy < ApplicationPolicy
     update?
   end
 
+  def chat?
+    update?
+  end
+
   def public?
     true
   end

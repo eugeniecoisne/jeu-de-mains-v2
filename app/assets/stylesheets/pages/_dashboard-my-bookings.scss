@@ -9,17 +9,18 @@
 }
 
 .my-booking-date {
-  padding: 0.1em 0.5em;
-  background-color: $blue;
-  color: white;
+  padding: 0.1em 0;
+  border-bottom: 2px solid $blue;
+  color: $blue;
   font-weight: 600;
   font-family: "Montserrat", "sans-serif";
-  font-size: 15px;
-  letter-spacing: 1px;
+  font-size: 14px;
+  max-width: 550px;
 }
 
 #my-cancel-date {
-  background-color: $orange;
+  color: $orange;
+  border-color: $orange;
 }
 
 .my-bookings-ws-card {
@@ -80,7 +81,7 @@
   }
   .button:hover {
     color: $light-blue;
-    border-color: $dark-blue;
+    border-color: $light-blue;
   }
   .my-booking-review-card-stars {
     margin-left: 0.6em;
@@ -153,7 +154,7 @@
     }
     .call-btn {
       display: block;
-      font-size: 20px;
+      font-size: 17px;
       margin-left: 1.3rem;
       margin-bottom: -4px;
     }
@@ -162,8 +163,8 @@
     }
     .localize-btn {
       display: block;
-      font-size: 22px;
-      margin-left: 1.2rem;
+      font-size: 19px;
+      margin-left: 1rem;
       margin-bottom: -3px;
       margin-right: 2px;
     }

@@ -94,7 +94,26 @@
               <% my_sorted_workshops << workshop %>
             <% end %>
 
+            <%= link_to new_workshop_path, id: "add-new-workshop" do %>
+              <i class="fas fa-plus mr-1"></i>
+              <span>Créer un atelier</span>
+            <% end %>
             <% my_sorted_workshops.each_with_index do |workshop, index| %>
+
+              <% my_ws_bookings_7_days = [] %>
+              <% my_ws_bookings_today = [] %>
+              <% workshop.sessions.where(db_status: true).each do |session| %>
+                <% if session.date >= Date.today - 7 %>
+                  <% session.bookings.where(db_status: true).each do |booking| %>
+                    <% my_ws_bookings_7_days << booking %>
+                  <% end %>
+                <% end %>
+                <% if session.date >= Date.today %>
+                  <% session.bookings.where(db_status: true).each do |booking| %>
+                    <% my_ws_bookings_today << booking %>
+                  <% end %>
+                <% end %>
+              <% end %>
 
               <% if workshop.status == "en ligne" %>
                 <div class="ws-dashboard-organizer-card-container">
@@ -160,9 +179,8 @@
                             </div>
                           </div>
                         </div>
-
-
                       </div>
+
                       <% if workshop.animators.where(db_status: true).present? == false %>
                         <div>
                           <a href="#addAnimatorModal<%= index +1 %>" class="button mr-2" data-toggle="modal" data-whatever="@mdo" id="add-animator-button">
@@ -200,7 +218,67 @@
                             </div>
                           </div>
                         </div>
+
+                      <% elsif workshop.animators.where(db_status: true).present? && my_ws_bookings_today.empty? %>
+                        <div>
+                          <a href="#updateAnimatorModal<%= index +1 %>" class="button mr-2" data-toggle="modal" data-whatever="@mdo">
+                            <span>Remplacer l'animateur</span>
+                          </a>
+
+                          <div class="modal fade add-animator-modal" id="updateAnimatorModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="updateAnimatorModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+
+                                <div class="form-group">
+                                  <%= form_for workshop.animators.first, method: :patch do |f| %>
+                                    <div class="modal-body">
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+                                      </button>
+
+                                      <div class="form-group select required animator_user">
+                                        <label class="select required" for="animator_user_id">Animateur</label>
+                                        <select class="form-control select required" name="animator[user_id]" id="animator_user_id">
+                                          <% @users.sort_by { |user| user.profile.company }.each do |user| %>
+                                            <option value="<%= user.id %>"><%= user.profile.company %></option>
+                                          <% end %>
+                                        </select>
+                                      </div>
+
+                                      <div class="d-flex justify-content-center">
+                                        <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
+                                      </div>
+                                    </div>
+                                  <% end %>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      <% else %>
+                        <a href="#disabledAnimatorModal<%= index +1 %>" class="button mr-2" data-toggle="modal" data-whatever="@mdo" id="turn-online-offline-button-disabled">
+                            Remplacer l'animateur
+                          </a>
+
+                        <div class="modal fade disabled-modal" id="disabledAnimatorModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="disabledAnimatorModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="form-group">
+                                  <div class="modal-body">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+                                    </button>
+                                    <div class="mt-3">
+                                      Vous avez déjà des réservations pour cet atelier, vous ne pouvez pas modifier l'animateur.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                       <% end %>
+
                       <%= link_to "Modifier la fiche", edit_workshop_path(workshop), class: "button mr-2" %>
                       <%= link_to "Gérer les sessions", workshop_sessions_path(workshop), class: "button mr-2" %>
                       <%= simple_form_for(@workshop) do |f| %>
@@ -213,21 +291,15 @@
                           <%= f.hidden_field :price, value: workshop.price %>
                           <%= f.hidden_field :capacity, value: workshop.capacity %>
                           <%= f.hidden_field :place_id, value: workshop.place_id %>
-                          <%= f.submit 'Dupliquer cet atelier', class: "button mr-2", id: "turn-online-offline-button" %>
+                          <%= f.submit 'Dupliquer', class: "button mr-2", id: "turn-online-offline-button" %>
                         <% end %>
 
-
-                      <% bookings_number = 0 %>
-                      <% workshop.sessions.where(db_status: true).each do |session| %>
-                        <% bookings_number += 1 if session.bookings.where(db_status: true).present? %>
-                      <% end %>
-
-                      <% if workshop.status == "en ligne" && bookings_number == 0 %>
+                      <% if workshop.status == "en ligne" && my_ws_bookings_today.empty? %>
                         <%= form_for workshop, method: :patch do |f| %>
                           <%= f.hidden_field :status, value: 'hors ligne' %>
                           <%= f.submit 'Passer hors ligne', class: "button", id: "turn-online-offline-button" %>
                         <% end %>
-                      <% elsif workshop.status == "en ligne" && bookings_number > 0 %>
+                      <% elsif workshop.status == "en ligne" && my_ws_bookings_today.size > 0 %>
                         <a href="#disabledModal<%= index +1 %>" class="button" data-toggle="modal" data-whatever="@mdo" id="turn-online-offline-button-disabled">
                             Passer hors ligne
                           </a>
@@ -254,6 +326,38 @@
                           <%= f.hidden_field :status, value: 'en ligne' %>
                           <%= f.submit 'Passer en ligne', class: "button", id: "turn-online-offline-button" %>
                         <% end %>
+                      <% end %>
+
+                      <% if my_ws_bookings_7_days.empty? %>
+                        <%= link_to workshop_path(workshop),
+                          method: :delete,
+                          data: { confirm: "Êtes-vous sûr de vouloir supprimer cet atelier ?" },
+                          class: "button ml-1",
+                          id: "destroy-ws" do %>
+                          <i class="far fa-trash-alt"></i>
+                          <% end %>
+                      <% else %>
+                        <a href="#disabledBinModal<%= index +1 %>" class="button ml-1" data-toggle="modal" data-whatever="@mdo" id="destroy-ws-disabled">
+                            <i class="far fa-trash-alt"></i>
+                          </a>
+
+                        <div class="modal fade disabled-modal" id="disabledBinModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="disabledBinModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="form-group">
+                                  <div class="modal-body">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+                                    </button>
+                                    <div class="mt-3">
+                                      Vous avez des réservations récentes pour cet atelier, vous ne pouvez pas le supprimer.<br>
+                                      Pour le supprimer, veuillez attendre 7 jours après la dernière session de l'atelier.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                       <% end %>
                     </div>
                   </div>

@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :places, dependent: :destroy
   has_many :animators, dependent: :destroy
+  has_many :messages
   after_create :create_profile
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

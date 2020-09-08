@@ -32,6 +32,7 @@
     <% if controller.controller_name == 'pages' %>
       <%= render 'shared/footer' %>
     <% elsif controller.controller_name == 'workshops' && controller.action_name == 'index' %>
+    <% elsif controller.controller_name == 'chatrooms' && controller.action_name == 'show' %>
     <% else %>
       <%= render 'shared/footer' %>
     <% end %>

@@ -46,7 +46,7 @@
                   <option value="<%= @workshop.animators.first.user.id %>" selected><%= @workshop.animators.where(db_status: true).first.user.profile.company %></option>
                   <option value="">----------------</option>
                 <% end %>
-                <% @users.where(db_status: true).sort_by { |user| user.profile.company }.each do |user| %>
+                <% @users.sort_by { |user| user.profile.company }.each do |user| %>
                   <option value="<%= user.id %>"><%= user.profile.company %></option>
                 <% end %>
               </select>

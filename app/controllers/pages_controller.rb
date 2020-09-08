@@ -5,8 +5,10 @@ class PagesController < ApplicationController
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true)
     @last_minute = []
     Session.all.where(db_status: true).each do |session|
-      if session.date >= Date.today && session.available > 0
-        @last_minute << session
+      if session.workshop.db_status == true && session.workshop.status == "en ligne"
+        if session.date >= Date.today && session.available > 0
+          @last_minute << session
+        end
       end
     end
     @last_minute = @last_minute.sort_by { |session| session.date }

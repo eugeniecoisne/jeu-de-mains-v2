@@ -1,0 +1,146 @@
+.chatroom-show {
+  margin: 2em 8em 6em 8em;
+}
+
+.chatroom-show-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid $light-gray;
+}
+
+.chatroom-show-images {
+  position: relative;
+  #image-user-1 {
+    position: absolute;
+    top: -40px;
+    left: 40px;
+  }
+  #image-user-2 {
+    position: absolute;
+    top: -40px;
+    left: 0px;
+  }
+  img {
+    height: 60px;
+    width: 60px;
+  }
+}
+
+.chatroom-show-image {
+  border-radius: 50%;
+  border: 2px solid white;
+  overflow: hidden;
+  height: 60px;
+  width: 60px;
+}
+
+
+.chatroom-show-title-and-description {
+  margin-left: 110px;
+}
+
+.chatroom-show-title {
+  h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: $dark-blue;
+    margin-bottom: 0;
+  }
+  #chatroom_room_name {
+    font-size: 16px;
+    font-weight: 700;
+    color: $dark-blue;
+    font-family: "Montserrat", "sans-serif";
+    border: unset;
+    border-bottom: 2px solid $blue;
+    margin-bottom: 4px;
+    width: 250px;
+    outline: none;
+  }
+  .action-button {
+    border: none;
+    background-color: unset;
+    color: $blue;
+  }
+}
+
+.chatroom-show-description {
+  p {
+    color: $dark-blue;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+}
+
+.chatroom-show-messages {
+  margin: 1em 0;
+  display: flex;
+  flex-direction: column;
+  p {
+    margin-bottom: unset;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .author {
+    margin-left: 10px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+}
+.message-container {
+  margin-bottom: 0.4em;
+}
+
+.message-current-user {
+  align-self: flex-end;
+  .chatroom-show-message {
+    background-color: $blue;
+    color: white;
+    border-radius: 0.4em;
+    padding: 6px 12px;
+    flex-wrap: wrap;
+    max-width: 460px;
+  }
+  .author {
+    margin-left: unset;
+    margin-right: 10px;
+    text-align: right;
+  }
+}
+
+.message-other-user {
+  .chatroom-show-message {
+    max-width: 60%;
+    background-color: $light-gray;
+    border-radius: 0.4em;
+    padding: 6px 12px;
+    flex-wrap: wrap;
+    max-width: 460px;
+  }
+}
+
+
+.chatroom-show-writing {
+  .simple_form {
+    display: flex;
+    flex-direction: column;
+  }
+  .form-control {
+    font-size: 15px;
+  }
+  .button {
+    border: 2px solid $blue;
+    color: $blue;
+    background-color: unset;
+    font-size: 14px;
+    font-weight: 600;
+    align-self: flex-end;
+    outline: none;
+  }
+  .button:hover {
+    color: white;
+    background-color: $blue;
+  }
+}
+

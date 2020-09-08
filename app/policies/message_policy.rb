@@ -1,11 +1,7 @@
-class BookingPolicy < ApplicationPolicy
+class MessagePolicy < ApplicationPolicy
 
   def create?
     user
-  end
-
-  def destroy?
-    create?
   end
 
   class Scope < Scope

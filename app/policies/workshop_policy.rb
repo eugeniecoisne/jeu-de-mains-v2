@@ -28,6 +28,10 @@ class WorkshopPolicy < ApplicationPolicy
     update?
   end
 
+  def destroy?
+    record.place.user == user || user.admin?
+  end
+
   class Scope < Scope
     def resolve
       scope.all

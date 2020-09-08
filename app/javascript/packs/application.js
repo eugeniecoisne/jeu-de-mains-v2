@@ -17,6 +17,7 @@ import { showActions } from '../plugins/show_actions';
 import { toggleBtnKpis } from '../plugins/toggle_btn_kpis';
 import { prevNextNewWs } from '../plugins/prev_next_new_ws';
 import { showIndexFilters } from '../plugins/show_index_filters';
+import { initChatroomCable } from '../channels/chatroom_channel';
 
 
 document.addEventListener('turbolinks:load', () => {
@@ -35,4 +36,5 @@ document.addEventListener('turbolinks:load', () => {
   toggleBtnKpis();
   prevNextNewWs();
   showIndexFilters();
+  initChatroomCable();
 });

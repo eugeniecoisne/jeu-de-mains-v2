@@ -6,6 +6,23 @@
   .sign-title {
     margin-top: 2em;
   }
+  .add-session-btn {
+    color: white;
+    background-color: $light-blue;
+    border-radius: 30px;
+    padding: 2px 10px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    width: 180px;
+    outline: none;
+  }
+  .add-session-btn:hover {
+    background-color: $blue;
+  }
 }
 .sessions-index-one-session {
   display: flex;
@@ -134,23 +151,16 @@
     }
     .action-button {
       font-size: 12px;
-      border: 1px solid $dark-gray;
-      background-color: unset;
-      color: $dark-gray;
-    }
-    .action-button:hover {
-      border: 1px solid $blue;
-      background-color: $blue;
-      color: white;
+      height: 24px;
+      width: 24px;
     }
     #delete-session {
       border-color: $light-blue;
-      background-color: $light-blue;
-      color: white;
+      color: $light-blue;
     }
     #delete-session:hover {
-      background-color: $blue;
       border-color: $blue;
+      color: $blue;
     }
     #delete-session-disabled {
       display: none;

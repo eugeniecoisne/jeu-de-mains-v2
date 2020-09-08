@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :reviews, only: %i(index)
     member do
       get 'dashboard'
+      get 'chat'
     end
     get 'public'
   end
@@ -24,7 +25,7 @@ Rails.application.routes.draw do
     resources :reviews, only: %i(index)
   end
 
-  resources :workshops, except: %i(destroy) do
+  resources :workshops, except: %i() do
     resources :sessions, only: %i(new create index update)
     resources :animators, only: %i(new create)
     resources :reviews, only: %i(index)
@@ -40,12 +41,16 @@ Rails.application.routes.draw do
 
   resources :sessions, only: %i(destroy)
 
-  resources :bookings, only: %i(create)
+  resources :bookings, only: %i(create destroy)
 
   resources :booking, only: %i() do
     resources :reviews, only: %i(new create)
   end
 
   resources :animators, only: %i(edit update)
+
+  resources :chatrooms, only: %i(show create update) do
+    resources :messages, only: :create
+  end
 
 end
