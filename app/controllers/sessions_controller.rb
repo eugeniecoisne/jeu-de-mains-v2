@@ -14,6 +14,7 @@ class SessionsController < ApplicationController
   end
 
   def index
+    @session = Session.new
     if policy_scope(Workshop).find(params[:workshop_id]).db_status == true
       @workshop = policy_scope(Workshop).find(params[:workshop_id])
       @sessions = @workshop.sessions.where(db_status: true)

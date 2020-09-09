@@ -1,0 +1,8 @@
+<h2>Votre messagerie</h2>
+<p>Rerouvez ici vos discussions avec les autres partenaires de Jeu de Mains</p>
+
+<ul>
+  <% @user_chatrooms.each do |chatroom| %>
+  <li><%= link_to chatroom.room_name, chatroom_path(chatroom) %> - dernier message le <%= chatroom.updated_at.strftime('%d/%m/%Y') %> à <%= chatroom.updated_at.strftime('%H:%M') %></li>
+  <% end %>
+</ul>

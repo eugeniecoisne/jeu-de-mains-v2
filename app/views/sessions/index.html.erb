@@ -7,7 +7,7 @@
     <div class="sign-form">
 
       <div class="back-button">
-        <%= link_to 'javascript:history.go(-1);' do %>
+        <%= link_to dashboard_profile_path(current_user.profile) do %>
           <i class="fas fa-chevron-left"></i>
           <span>Retour</span>
         <% end %>
@@ -16,6 +16,40 @@
       <h2 class="sign-title">Sessions de l'atelier<br><span><%= @workshop.title %></span></h2>
 
         <div class="sessions-index">
+
+          <div>
+            <a href="#confirmSessionModal" class="add-session-btn d-flex" data-toggle="modal" data-whatever="@mdo">
+            <i class="fas fa-plus mr-2"></i>
+            <span>Ajouter une session</span>
+          </a>
+          </div>
+
+          <div class="modal fade confirm-session-modal" id="confirmSessionModal" tabindex="-1" role="dialog" aria-labelledby="confirmSessionModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+
+                <div class="form-group">
+                  <%= simple_form_for([@workshop, @session]) do |f| %>
+                    <div class="modal-body">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+                      </button>
+
+                      <%= f.input :date, label: "Date de l'atelier" %>
+                      <%= f.input :start_at, label: "Heure de début", collection: Session::STARTS_AT %>
+                      <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier" %>
+
+                      <div class="d-flex justify-content-center">
+                        <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
+                      </div>
+
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <% @sessions.sort_by { |session| session.date }.each_with_index do |session, index| %>
             <div class="sessions-index-one-session">
               <div>

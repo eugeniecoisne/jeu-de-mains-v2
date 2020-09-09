@@ -76,7 +76,7 @@
 
                   <div class="my-booking-date-photo-and-info">
                     <div class="my-booking-date">
-                      <%=booking.session.date.strftime('%d/%m/%Y')%> - <%=booking.session.start_at%>
+                      <%= l(booking.session.date, format: '%A %d %b %Y').capitalize %> - <%=booking.session.start_at%>
                     </div>
 
                     <%= link_to workshop_path(booking.session.workshop) do %>
@@ -102,7 +102,16 @@
                           <% end %>
                           <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
                           <div class="d-flex justify-content-left align-items-center">
-                            <%= link_to "Annuler", "#", class: "button" %>
+
+                            <% if booking.session.date > Date.today + 2 %>
+                              <%= link_to booking_path(booking),
+                                method: :delete,
+                                data: { confirm: "Êtes-vous sûr de vouloir annuler votre réservation ?" },
+                                class: "button" do %>
+                                Annuler
+                                <% end %>
+                            <% end %>
+
                             <a href="tel:+33<%= booking.session.workshop.place.phone_number[1..-1] %>" class="call-btn">
                               <i class="fas fa-phone-alt"></i>
                             </a>
@@ -156,7 +165,7 @@
 
                   <div class="my-booking-date-photo-and-info">
                     <div class="my-booking-date">
-                      <%=booking.session.date.strftime('%d/%m/%Y')%> - <%=booking.session.start_at%>
+                      <%= l(booking.session.date, format: '%A %d %b %Y').capitalize %> - <%=booking.session.start_at%>
                     </div>
 
                     <div class="my-bookings-ws-card">
@@ -211,7 +220,7 @@
 
                   <div class="my-booking-date-photo-and-info">
                     <div class="my-booking-date" id="my-cancel-date">
-                      <%=booking.session.date.strftime('%d/%m/%Y')%> - <%=booking.session.start_at%>
+                      <%= l(booking.session.date, format: '%A %d %b %Y').capitalize %> - <%=booking.session.start_at%>
                     </div>
 
                     <div class="my-bookings-ws-card">

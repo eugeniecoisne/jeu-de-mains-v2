@@ -3,6 +3,7 @@ class PlacesController < ApplicationController
   before_action :set_place, only: %i(show edit update)
 
   def index
+    @chatroom = Chatroom.new
     @places = policy_scope(Place).where(db_status: true)
     authorize @places
     if params[:search].present?

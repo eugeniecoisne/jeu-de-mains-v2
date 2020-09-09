@@ -108,6 +108,12 @@
             <a href="tel:+33<%= place.phone_number[1..-1] %>" class="place-anim-card-link" id="phone-place-link">
               <i class="fas fa-phone-alt mr-1"></i> Contacter
             </a>
+            <%= simple_form_for(@chatroom) do |f| %>
+              <%= f.hidden_field :room_name, value: current_user.profile.company  %>
+              <%= f.hidden_field :user1, value: current_user.id %>
+              <%= f.hidden_field :user2, value: place.user.id %>
+              <%= f.submit 'Ecrire', class: "button mr-2", id: "turn-online-offline-button" %>
+            <% end %>
             <%= link_to place_path(place), class: "place-anim-card-link" do %>
               <i class="fas fa-eye mr-2"></i> Voir la page
             <% end %>

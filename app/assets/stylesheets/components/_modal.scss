@@ -6,6 +6,9 @@
   .close {
     outline: none;
   }
+  .close:focus {
+    outline: none;
+  }
 }
 
 // RESPONSIVE DESIGN MODAL //

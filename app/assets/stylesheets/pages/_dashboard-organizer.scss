@@ -34,6 +34,14 @@
   padding: 1px 5px 1px 15px;
 }
 
+#add-new-workshop {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+
 #offline-ws {
   border-color: $medium-gray;
   .ws-dashboard-organizer-text {
@@ -61,6 +69,7 @@
     justify-content: center;
     font-size: 13px;
     font-weight: 500;
+    height: 23px;
     border-radius: 25px;
     padding: 1px 10px;
     background-color: unset;
@@ -84,12 +93,12 @@
     background-color : unset;
   }
   #add-animator-button {
-    border-color: $light-blue;
+    border-color: $blue;
     color: white;
-    background-color: $light-blue;
+    background-color: $blue;
   }
   #add-animator-button:hover {
-    color: $light-blue;
+    color: $blue;
     background-color : unset;
   }
   #turn-online-offline-button {
@@ -108,6 +117,25 @@
   }
   .show-actions-button {
     display: none;
+  }
+  #destroy-ws {
+    border: none;
+    padding: none;
+    font-size: 17px;
+  }
+  #destroy-ws:hover {
+    color: $dark-blue;
+    background-color: unset;
+  }
+  #destroy-ws-disabled {
+    border: none;
+    padding: none;
+    color: $medium-gray;
+    font-size: 17px;
+  }
+  #destroy-ws-disabled:hover {
+    color: $medium-gray;
+    background-color: unset;
   }
 }
 
@@ -202,6 +230,7 @@
 .mobile-dashboard-my-agenda-date-title {
   padding: 2.5px 4px;
   background-color: $light-blue;
+  max-width: 550px;
   h2 {
     font-size: 13px;
     color: white;
