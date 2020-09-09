@@ -93,9 +93,20 @@
                     <% end %>
                   </div>
                   <div class="place-anim-card-links-mobile">
-                    <a href="tel:+33<%= place.phone_number[1..-1] %>" class="place-anim-card-link" id="phone-place-link">
-                      <i class="fas fa-phone-alt"></i>
-                    </a>
+                    <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
+                      <%= simple_form_for(@chatroom) do |f| %>
+                        <%= f.hidden_field :room_name, value: current_user.profile.company  %>
+                        <%= f.hidden_field :user1, value: current_user.id %>
+                        <%= f.hidden_field :user2, value: place.user.id %>
+                        <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
+                          <i class="fas fa-comment-dots mr-2"></i><span>Contacter</span>
+                        </button>
+                      <% end %>
+                    <% else %>
+                      <a href="tel:+33<%= place.phone_number[1..-1] %>" class="place-anim-card-link" id="phone-place-link">
+                        <i class="fas fa-phone-alt"></i>
+                      </a>
+                    <% end %>
                     <%= link_to place.instagram, class: "place-anim-card-link", target: "_blank" do %>
                       <i class="fab fa-instagram"></i>
                     <% end %>
@@ -105,14 +116,15 @@
             <% end %>
           </div>
           <div class="place-anim-card-links-desktop">
-            <a href="tel:+33<%= place.phone_number[1..-1] %>" class="place-anim-card-link" id="phone-place-link">
-              <i class="fas fa-phone-alt mr-1"></i> Contacter
-            </a>
-            <%= simple_form_for(@chatroom) do |f| %>
-              <%= f.hidden_field :room_name, value: current_user.profile.company  %>
-              <%= f.hidden_field :user1, value: current_user.id %>
-              <%= f.hidden_field :user2, value: place.user.id %>
-              <%= f.submit 'Ecrire', class: "button mr-2", id: "turn-online-offline-button" %>
+            <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
+              <%= simple_form_for(@chatroom) do |f| %>
+                <%= f.hidden_field :room_name, value: current_user.profile.company  %>
+                <%= f.hidden_field :user1, value: current_user.id %>
+                <%= f.hidden_field :user2, value: place.user.id %>
+                <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
+                  <i class="fas fa-comment-dots"></i> Contacter
+                </button>
+              <% end %>
             <% end %>
             <%= link_to place_path(place), class: "place-anim-card-link" do %>
               <i class="fas fa-eye mr-2"></i> Voir la page

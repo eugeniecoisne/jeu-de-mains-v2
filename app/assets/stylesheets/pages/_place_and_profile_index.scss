@@ -228,13 +228,12 @@
     font-weight: 600;
     text-align: center;
     margin-top: 6px;
+    border: unset;
+    outline: none;
   }
 
-  #phone-place-link {
+  #contact-place-link {
     background-color: $green;
-    margin: unset;
-  }
-  #anim-show-page {
     margin: unset;
   }
 }
@@ -382,6 +381,9 @@
   .place-anim-card-links-mobile {
     display: flex;
     margin-top: 10px;
+    i {
+      font-size: 18px;
+    }
     .place-anim-card-link {
       display: flex;
       justify-content: center;
@@ -393,15 +395,20 @@
       border: 1px solid $light-blue;
       background-color: $light-blue;
       color: white;
-      padding: 5px 10px;
+      padding: 3px 10px;
       border-radius: 40px;
-      max-width: 32px;
+      outline: none;
+      max-height: 27px;
     }
-    #phone-place-link {
+    #contact-place-link {
       margin: unset;
       border-color: $blue;
-      background-color: unset;
       color: $blue;
+      background-color: unset;
+      span {
+        font-weight: 600;
+        font-size: 13px;
+      }
     }
     #anim-show-page {
       margin: unset;
