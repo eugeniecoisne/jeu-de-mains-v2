@@ -1,8 +1,103 @@
-<h2>Votre messagerie</h2>
-<p>Rerouvez ici vos discussions avec les autres partenaires de Jeu de Mains</p>
+<div class="dashboard-title-container">
+  <h1>
+    Hello <span><%= @profile.company %></span>,
+      <br>bienvenue sur votre messagerie !
+  </h1>
+</div>
 
-<ul>
-  <% @user_chatrooms.each do |chatroom| %>
-  <li><%= link_to chatroom.room_name, chatroom_path(chatroom) %> - dernier message le <%= chatroom.updated_at.strftime('%d/%m/%Y') %> à <%= chatroom.updated_at.strftime('%H:%M') %></li>
+<% my_last_messages = [] %>
+<% @user_chatrooms.each do |chatroom| %>
+  <% if chatroom.messages.present? %>
+    <% my_last_messages << chatroom.messages.sort_by { |message| message.created_at }.reverse.first %>
   <% end %>
-</ul>
+<% end %>
+
+<div class="profile-chat-container">
+  <div class="profile-chat-description">
+    <% if my_last_messages.present? %>
+      <p>Retrouvez ici vos discussions avec les autres partenaires de Jeu de Mains</p>
+    <% else %>
+      <p>Votre messagerie est vide, commencez à discuter avec un de nos partenaires en vous rendant sur</p>
+      <div class="d-flex flex-wrap justify-content-center">
+        <%= link_to "Liste des lieux", places_path, class: "button" %>
+        <%= link_to "Liste des animateurs", profiles_path, class: "button" %>
+      </div>
+      <p>puis cliquez sur "contacter"</p>
+    <% end %>
+  </div>
+
+  <div class="profile-chat-conversations list-group">
+
+      <% my_last_messages.sort_by { |message| message.created_at }.reverse.each do |message| %>
+
+        <%= link_to chatroom_path(message.chatroom), class: "list-group-item list-group-item-action" do %>
+          <div class="d-flex w-100 align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+              <div class="profile-chat-photo">
+                <% if User.find(message.chatroom.user1) == current_user %>
+                  <% if User.find(message.chatroom.user2).profile.photo.attached? %>
+                    <%= cl_image_tag User.find(message.chatroom.user2).profile.photo.key, width: 100, crop: :fill, alt: "avatar" %>
+                  <% else %>
+                    <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", width: 100, :crop => :fill, :alt => "avatar") %>
+                  <% end %>
+                <% else %>
+                  <% if User.find(message.chatroom.user1).profile.photo.attached? %>
+                    <%= cl_image_tag User.find(message.chatroom.user1).profile.photo.key, width: 100, crop: :fill, alt: "avatar" %>
+                  <% else %>
+                    <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", width: 100, :crop => :fill, :alt => "avatar") %>
+                  <% end %>
+                <% end %>
+              </div>
+
+              <div class="profile-chat-name-and-topic">
+                <% if message.chatroom.room_name.present? %>
+                  <h4><%= message.chatroom.room_name %></h4>
+                <% else %>
+                  <h4>Sans objet</h4>
+                <% end %>
+                <% if User.find(message.chatroom.user1) == current_user %>
+                  <h3><%= User.find(message.chatroom.user2).profile.company %></h3>
+                <% else %>
+                  <h3><%= User.find(message.chatroom.user1).profile.company %></h3>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="profile-chat-date">
+              <% if (Time.now.to_time.to_time - message.created_at.to_time) / 1.minutes >= 60 %>
+                <% if ((Time.now.to_time.to_time - message.created_at.to_time) / 1.hours).round <= 1 %>
+                  <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.hours).round %> heure</span>
+                <% else %>
+                  <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.hours).round %> heures</span>
+                <% end %>
+              <% elsif (Time.now.to_time.to_time - message.created_at.to_time) / 1.hours >= 24 %>
+                <% if ((Time.now.to_time.to_time - message.created_at.to_time) / 1.days).round <= 1 %>
+                  <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.days).round %> jour</span>
+                <% else %>
+                  <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.days).round %> jours</span>
+                <% end %>
+              <% elsif (Time.now.to_time.to_time - message.created_at.to_time) / 1.days >= 30 %>
+                <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.months).round %> mois</span>
+              <% elsif (Time.now.to_time.to_time - message.created_at.to_time) / 1.months >= 12 %>
+                <% if ((Time.now.to_time.to_time - message.created_at.to_time) / 1.years).round <= 1 %>
+                  <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.years).round %> an</span>
+                <% else %>
+                  <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.years).round %> ans</span>
+                <% end %>
+              <% else %>
+                <% if ((Time.now.to_time.to_time - message.created_at.to_time) / 1.minutes).round <= 1 %>
+                  <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.minutes).round %> minute</span>
+                <% else %>
+                  <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.minutes).round %> minutes</span>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+      <% end %>
+
+  </div>
+
+</div>
+

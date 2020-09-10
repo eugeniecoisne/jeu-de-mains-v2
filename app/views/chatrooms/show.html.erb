@@ -3,20 +3,27 @@
 
   <div class="chatroom-show">
 
+    <div class="back-button">
+      <%= link_to chat_profile_path(current_user.profile) do %>
+        <i class="fas fa-chevron-left"></i>
+        <span>Retour</span>
+      <% end %>
+    </div>
+
     <div class="chatroom-show-header">
       <div class="chatroom-show-images">
         <div class="chatroom-show-image" id="image-user-1">
           <% if User.find(@chatroom.user1).profile.photo.attached? %>
-            <%= cl_image_tag User.find(@chatroom.user1).profile.photo.key, width: 80, height: 80, crop: :fill, alt: "avatar" %>
+            <%= cl_image_tag User.find(@chatroom.user1).profile.photo.key, width: 120, crop: :fill, alt: "avatar" %>
           <% else %>
-            <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", width: 80, height: 80, :crop => :fill, :alt => "avatar") %>
+            <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", width: 120, :crop => :fill, :alt => "avatar") %>
           <% end %>
         </div>
         <div class="chatroom-show-image" id="image-user-2">
           <% if User.find(@chatroom.user2).profile.photo.attached? %>
-            <%= cl_image_tag User.find(@chatroom.user2).profile.photo.key, width: 80, height: 80, crop: :fill, alt: "avatar" %>
+            <%= cl_image_tag User.find(@chatroom.user2).profile.photo.key, width: 120, crop: :fill, alt: "avatar" %>
           <% else %>
-            <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", width: 80, height: 80, :crop => :fill, :alt => "avatar") %>
+            <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", width: 120, :crop => :fill, :alt => "avatar") %>
           <% end %>
         </div>
 

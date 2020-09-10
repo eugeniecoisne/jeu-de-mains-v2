@@ -3,6 +3,7 @@ class ProfilesController < ApplicationController
   before_action :set_profile, only: %i(show edit update dashboard chat)
 
   def index
+    @chatroom = Chatroom.new
     @profiles = policy_scope(Profile).where(role: 'animateur', db_status: true)
     authorize @profiles
     if params[:search].present?

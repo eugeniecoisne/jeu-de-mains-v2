@@ -1,0 +1,169 @@
+.profile-chat-container {
+  min-height: 520px;
+  margin: 0 8em;
+}
+
+.profile-chat-description {
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  p {
+    text-align: center;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .button {
+    margin: 0.5em 0.2em;
+    background-color: $green;
+    color: white;
+    border: unset;
+    font-size: 15px;
+    border-radius: 30px;
+    padding: 2px 15px;
+    text-decoration: none;
+    outline: none;
+  }
+  .button:hover {
+    background-color: $blue;
+    color: white;
+    outline: none;
+  }
+}
+
+.profile-chat-conversations {
+  .list-group-item {
+    border-left: none;
+    border-right: none;
+    height: 70px;
+    padding: 0.7em 0.6em 0.6em 0.6em;
+  }
+}
+
+.profile-chat-photo {
+  border-radius: 50%;
+  overflow: hidden;
+  height: 45px;
+  width: 45px;
+  img {
+    height: 45px;
+    width: 45px;
+    object-fit: cover;
+  }
+}
+
+.profile-chat-name-and-topic {
+  margin-left: 1em;
+  h4 {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Raleway", sans-serif;
+    color: $dark-blue;
+    margin-bottom: 2px;
+
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Raleway", sans-serif;
+    color: $dark-gray;
+    margin-bottom: unset;
+  }
+}
+
+.profile-chat-date {
+  span {
+    font-size: 13px;
+  }
+}
+
+
+// RESPONSIVE PROFILE CHAT //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .profile-chat-container {
+    margin: 0;
+  }
+  .profile-chat-name-and-topic {
+    margin-left: 0.6em;
+    h4 {
+      font-size: 14px;
+      max-width: 263px;
+      max-height: 16px;
+      overflow: hidden;
+    }
+    h3 {
+      font-size: 13px;
+      max-width: 200px;
+      max-height: 15px;
+      overflow: hidden;
+    }
+  }
+  .profile-chat-date {
+    position: absolute;
+    bottom: 3px;
+    right: 9px;
+    span {
+      font-size: 11px;
+    }
+  }
+  .profile-chat-conversations {
+    .list-group-item {
+      height: 65px;
+      padding: 0.6em;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+  .profile-chat-container {
+    margin: 0 2em;
+  }
+  .profile-chat-name-and-topic {
+    h4 {
+      max-width: 400px;
+      max-height: 19px;
+      overflow: hidden;
+    }
+    h3 {
+      max-width: 340px;
+      max-height: 16px;
+      overflow: hidden;
+    }
+  }
+  .profile-chat-date {
+    position: absolute;
+    bottom: 3px;
+    right: 9px;
+    span {
+      font-size: 11px;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+  .profile-chat-container {
+    margin: 0 4em;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+  .profile-chat-container {
+    margin: 0 8em;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .profile-chat-container {
+    margin: 0 12em;
+  }
+}
+

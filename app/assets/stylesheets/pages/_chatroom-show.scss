@@ -1,5 +1,9 @@
 .chatroom-show {
   margin: 2em 8em 6em 8em;
+  .back-button {
+    margin-bottom: 2em;
+    margin-left: -6em;
+  }
 }
 
 .chatroom-show-header {
@@ -23,15 +27,18 @@
   img {
     height: 60px;
     width: 60px;
+    object-fit: cover;
   }
 }
 
 .chatroom-show-image {
   border-radius: 50%;
-  border: 2px solid white;
+  border: 1px solid white;
   overflow: hidden;
   height: 60px;
   width: 60px;
+  box-shadow: transparent 0px 0px 0px 1px, transparent 0px 0px 0px 4px, rgba(0, 0, 0, 0.18) 0px 2px 4px;
+
 }
 
 
@@ -46,21 +53,34 @@
     color: $dark-blue;
     margin-bottom: 0;
   }
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: $medium-gray;
+    opacity: 1; /* Firefox */
+  }
+
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: $medium-gray;
+  }
+
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: $medium-gray;
+  }
   #chatroom_room_name {
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
     color: $dark-blue;
     font-family: "Montserrat", "sans-serif";
     border: unset;
     border-bottom: 2px solid $blue;
     margin-bottom: 4px;
-    width: 250px;
+    width: 231px;
     outline: none;
   }
   .action-button {
     border: none;
     background-color: unset;
     color: $blue;
+    outline: none;
   }
 }
 
@@ -96,6 +116,7 @@
   align-self: flex-end;
   .chatroom-show-message {
     background-color: $blue;
+    opacity: 0.8;
     color: white;
     border-radius: 0.4em;
     padding: 6px 12px;
@@ -105,7 +126,11 @@
   .author {
     margin-left: unset;
     margin-right: 10px;
+    margin-top: 2px;
     text-align: right;
+    small {
+      font-size: 11px;
+    }
   }
 }
 
@@ -143,4 +168,101 @@
     background-color: $blue;
   }
 }
+
+// RESPONSIVE CHATROOM SHOW //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .chatroom-show {
+    margin: 2em 1em 4em 1em;
+    .back-button {
+      margin: -1em 0 1.5em 0;
+      font-size: 90%;
+    }
+  }
+  .chatroom-show-images {
+    #image-user-1 {
+      position: absolute;
+      top: -37px;
+      left: 34px;
+    }
+    #image-user-2 {
+      position: absolute;
+      top: -37px;
+      left: 0px;
+    }
+    img {
+      height: 50px;
+      width: 50px;
+    }
+  }
+
+  .chatroom-show-image {
+    height: 50px;
+    width: 50px;
+  }
+
+  .chatroom-show-title-and-description {
+    margin-left: 92px;
+  }
+
+  .chatroom-show-title {
+    h1 {
+      font-size: 16px;
+    }
+    #chatroom_room_name {
+      font-size: 14px;
+      width: 202px;
+    }
+  }
+  .message-current-user {
+    .chatroom-show-message {
+      max-width: 300px;
+    }
+  }
+  .message-other-user {
+    .chatroom-show-message {
+      max-width: 300px;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+  .chatroom-show {
+    margin: 2em 4em 6em 4em;
+    .back-button {
+      margin-left: -2em;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+  .chatroom-show {
+    margin: 2em 8em 6em 8em;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+  .chatroom-show {
+    margin: 2em 10em 6em 10em;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px)  {
+  .chatroom-show {
+    margin: 2em 12em 6em 12em;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1400px) {
+  .chatroom-show {
+    margin: 2em 14em 6em 14em;
+  }
+}
+
+
 
