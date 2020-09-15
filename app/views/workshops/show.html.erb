@@ -178,7 +178,7 @@
           </div>
         <% end %>
         <% if @animator.present? %>
-          <%= link_to profile_path(@animator.user) do %>
+          <%= link_to profile_public_path(@animator.user) do %>
             <div class="ws-show-organizer-link">
               <p>Plus d'infos sur
                 <% if @animator.user.profile.company.size > 21 %>
