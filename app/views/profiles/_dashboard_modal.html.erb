@@ -1,0 +1,90 @@
+<div class="modal fade dashboard-reviews-modal" id="dashboardreviewsModal" tabindex="-1" role="dialog" aria-labelledby="dashboardreviewsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center">
+        <h3>Manager mes avis</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+        </button>
+      </div>
+      <p id="dashboard-reviews-modal-description">
+        Cliquez sur la ligne concernée pour voir le message, l'atelier et le lieu.<br>
+        Vous pouvez signaler un avis qui vous semble inapproprié si la note est inférieure ou égale à 2/5.<br>
+        Vous souhaitez signaler un autre avis ? <%= link_to "Écrivez à l'équipe Jeu de Mains." , "#" %>
+      </p>
+
+      <% my_reviews = [] %>
+      <% profile.user.places.where(db_status: true).each do |place| %>
+        <% place.reviews.where(db_status: true).each do |review| %>
+          <% my_reviews << review %>
+        <% end %>
+      <% end %>
+
+      <div class="accordion" id="accordionDashboardReviews">
+        <% my_reviews.sort_by { |review| review.created_at }.reverse.each_with_index do |review, index| %>
+          <% if index == 0 %>
+            <div class="card">
+              <div class="card-header" id="heading0">
+                <div class="dashboard-modal-one-review" type="button" data-toggle="collapse" data-target="#collapse0" aria-expanded="false" aria-controls="collapse0">
+                  <% if review.rating <= 2 %>
+                    <div><i class="fas fa-exclamation-circle"></i></div>
+                  <% else %>
+                    <div></div>
+                  <% end %>
+                  <div><%= review.created_at.strftime("%d/%m/%Y") %></div>
+                  <div><strong><%= review.rating %></strong> /5</div>
+                  <div><%= review.user.profile.first_name %></div>
+                  <% if review.rating <= 2 %>
+                    <div class="d-flex justify-content-center align-items-center"><button class="button">Signaler</button></div>
+                  <% else %>
+                    <div></div>
+                  <% end %>
+                </div>
+              </div>
+              <div id="collapse0" class="collapse" aria-labelledby="heading0" data-parent="#accordionDashboardReviews">
+                <div class="card-body">
+                  <strong>Atelier</strong><br>
+                  <%= review.booking.session.workshop.title %><br>
+                  <strong>Lieu</strong><br>
+                  <%= review.booking.session.workshop.place.name %><br>
+                  <strong>Message</strong><br>
+                  <%= review.content %>
+                </div>
+              </div>
+            </div>
+          <% else %>
+            <div class="card">
+              <div class="card-header" id="heading<%= index %>">
+                <div class="dashboard-modal-one-review collapsed" type="button" data-toggle="collapse" data-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
+                  <% if review.rating <= 2 %>
+                    <div><i class="fas fa-exclamation-circle"></i></div>
+                  <% else %>
+                    <div></div>
+                  <% end %>
+                  <div><%= review.created_at.strftime("%d/%m/%Y") %></div>
+                  <div><strong><%= review.rating %></strong> /5</div>
+                  <div><%= review.user.profile.first_name %></div>
+                  <% if review.rating <= 2 %>
+                    <div class="d-flex justify-content-center align-items-center"><button class="button">Signaler</button></div>
+                  <% else %>
+                    <div></div>
+                  <% end %>
+                </div>
+              </div>
+              <div id="collapse<%= index %>" class="collapse" aria-labelledby="heading<%= index %>" data-parent="#accordionDashboardReviews">
+                <div class="card-body">
+                  <strong>Atelier</strong><br>
+                  <%= review.booking.session.workshop.title %><br>
+                  <strong>Lieu</strong><br>
+                  <%= review.booking.session.workshop.place.name %><br>
+                  <strong>Message</strong><br>
+                  <%= review.content %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

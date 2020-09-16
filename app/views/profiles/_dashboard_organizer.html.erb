@@ -564,7 +564,7 @@
 
               <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-rating">
                 <% if my_ratings_sum > 0 %>
-                  <h2><%= my_ratings_sum.fdiv(@profile.user.places.where(db_status: true).count) %></h2>
+                  <h2><%= my_ratings_sum.fdiv(@profile.user.places.where(db_status: true).count).round(2) %></h2>
                   <h3>note globale<br> sur 5</h3>
                 <% else %>
                   <h3>Vous n'avez pas<br>encore de note</h3>
@@ -578,7 +578,8 @@
                   <% else %>
                     <h3>avis reçu</h3>
                   <% end %>
-                  <%= link_to "Consulter", "#", class: "my-kpis-button mt-1" %>
+                  <a href="#dashboardreviewsModal" class="my-kpis-button mt-1" data-toggle="modal" data-whatever="@mdo">Consulter</a>
+                  <%= render 'dashboard_modal', profile: @profile %>
                 <% else %>
                   <h3>Vous n'avez pas<br>encore d'avis</h3>
                 <% end %>
