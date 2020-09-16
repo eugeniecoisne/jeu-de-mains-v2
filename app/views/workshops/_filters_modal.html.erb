@@ -17,14 +17,14 @@
           </div>
           <div class="d-flex">
             <% if params[:search][:min_price].to_f == 0 %>
-              <%= f.input :min_price, required: false, label: 'Prix minimum', input_html: { value: @min_price } %>
+              <%= f.input :min_price, required: false, label: 'Prix minimum €', input_html: { value: @min_price } %>
             <% else %>
-              <%= f.input :min_price, required: false, label: 'Prix minimum', input_html: { value: params[:search][:min_price].to_f } %>
+              <%= f.input :min_price, required: false, label: 'Prix minimum €', input_html: { value: params[:search][:min_price].to_f } %>
             <% end %>
             <% if params[:search][:max_price].to_f == 0 %>
-              <%= f.input :max_price, required: false, label: 'Prix maximum', input_html: { value: @max_price } %>
+              <%= f.input :max_price, required: false, label: 'Prix maximum €', input_html: { value: @max_price } %>
             <% else %>
-              <%= f.input :max_price, required: false, label: 'Prix maximum', input_html: { value: params[:search][:max_price].to_f } %>
+              <%= f.input :max_price, required: false, label: 'Prix maximum €', input_html: { value: params[:search][:max_price].to_f } %>
             <% end %>
           </div>
           <div>
@@ -61,8 +61,8 @@
             <%= f.input :order, as: :radio_buttons, collection: ['Recommandation', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par', checked: 'Recommandation' %>
           </div>
           <div class="d-flex">
-            <%= f.input :min_price, required: false, label: 'Prix minimum', input_html: { value: @min_price } %>
-            <%= f.input :max_price, required: false, label: 'Prix maximum', input_html: { value: @max_price } %>
+            <%= f.input :min_price, required: false, label: 'Prix minimum €', input_html: { value: @min_price } %>
+            <%= f.input :max_price, required: false, label: 'Prix maximum €', input_html: { value: @max_price } %>
           </div>
           <div>
             <%= f.input :selection, as: :string, required: false, label: "Mot-clé" %>

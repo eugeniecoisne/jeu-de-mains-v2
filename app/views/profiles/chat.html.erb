@@ -64,31 +64,32 @@
             </div>
 
             <div class="profile-chat-date">
-              <% if (Time.now.to_time.to_time - message.created_at.to_time) / 1.minutes >= 60 %>
+              <% case (Time.now.to_time.to_time - message.created_at.to_time) / 1.hours %>
+              <% when 0..0.99 %>
+                <% if ((Time.now.to_time.to_time - message.created_at.to_time) / 1.minutes).round <= 1 %>
+                  <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.minutes).round %> minute</span>
+                <% else %>
+                  <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.minutes).round %> minutes</span>
+                <% end %>
+              <% when 1..23.99 %>
                 <% if ((Time.now.to_time.to_time - message.created_at.to_time) / 1.hours).round <= 1 %>
                   <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.hours).round %> heure</span>
                 <% else %>
                   <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.hours).round %> heures</span>
                 <% end %>
-              <% elsif (Time.now.to_time.to_time - message.created_at.to_time) / 1.hours >= 24 %>
+              <% when 24..719 %>
                 <% if ((Time.now.to_time.to_time - message.created_at.to_time) / 1.days).round <= 1 %>
                   <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.days).round %> jour</span>
                 <% else %>
                   <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.days).round %> jours</span>
                 <% end %>
-              <% elsif (Time.now.to_time.to_time - message.created_at.to_time) / 1.days >= 30 %>
+              <% when 720..8640 %>
                 <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.months).round %> mois</span>
-              <% elsif (Time.now.to_time.to_time - message.created_at.to_time) / 1.months >= 12 %>
+              <% else %>
                 <% if ((Time.now.to_time.to_time - message.created_at.to_time) / 1.years).round <= 1 %>
                   <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.years).round %> an</span>
                 <% else %>
                   <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.years).round %> ans</span>
-                <% end %>
-              <% else %>
-                <% if ((Time.now.to_time.to_time - message.created_at.to_time) / 1.minutes).round <= 1 %>
-                  <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.minutes).round %> minute</span>
-                <% else %>
-                  <span>il y a <%= ((Time.now.to_time.to_time - message.created_at.to_time) / 1.minutes).round %> minutes</span>
                 <% end %>
               <% end %>
             </div>

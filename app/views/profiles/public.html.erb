@@ -115,7 +115,7 @@
             <div class="public-profile-our-ws-cards">
 
               <% @profile.user.animators.each do |animator| %>
-                <% if animator.workshop.status == "en ligne" %>
+                <% if animator.workshop.status == "en ligne" && animator.workshop.db_status == true %>
                   <div class="ws-card" id="public-profile-ws-card">
                     <%= link_to(animator.workshop, data: { turbolinks: false }) do  %>
                       <div class="ws-card-image-and-rating">

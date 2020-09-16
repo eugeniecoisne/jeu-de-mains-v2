@@ -1,4 +1,7 @@
 .dashboard-reviews-modal {
+  .modal-dialog {
+    max-width: 750px;
+  }
   h3 {
     color: $blue;
     margin-bottom: unset;
@@ -8,26 +11,50 @@
   }
   .dashboard-modal-one-review {
     display: grid;
-    grid-template-columns: 0.5fr 2fr 2fr 2fr 1fr;
+    grid-template-columns: 2fr 1fr 4fr 2fr 0.5fr;
     grid-gap: 7px;
+    div {
+      display: flex;
+      align-items: center;
+    }
   }
   #dashboard-reviews-modal-description {
-    padding-left: 1.2em;
+    padding: 0 1.2em;
     font-size: 14px;
   }
   .accordion {
     font-size: 14px;
+    padding: 12px;
+  }
+  .card-header {
+    background-color: $light-blue;
+    color: white;
+    font-weight: 600;
+    border: 1px solid white;
+  }
+  .card {
+    border: none;
   }
   .button {
-    background-color: $blue;
-    border: $blue 1px solid;
+    background-color: unset;
+    border: white 1px solid;
+    font-weight: 600;
     border-radius: 30px;
     padding: 1px 10px;
     font-size: 12px;
     color: white;
   }
+  .button:hover {
+    background-color: white;
+    color: $light-blue;
+  }
   .fa-exclamation-circle {
-    color: $blue;
+    color: white;
+    font-size: 16px;
+  }
+  .fa-star {
+    font-size: 10px;
+    margin-left: 2px;
   }
 }
 
@@ -44,13 +71,17 @@
     .modal-content {
       border: unset;
       height: 100vh;
+      padding-top: 1em;
     }
     .card-header {
-      padding-right: 0.4em;
+      padding-right: 0.6em;
       padding-left: 0.6em;
     }
     .dashboard-modal-one-review {
-      grid-template-columns: 0.5fr 2fr 1fr 2fr 2fr;
+      grid-template-columns: 2fr 0.5fr 2fr 2fr 0.5fr;
+    }
+    .accordion {
+      padding: 8px;
     }
   }
 }
