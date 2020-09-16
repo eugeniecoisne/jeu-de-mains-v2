@@ -1,7 +1,7 @@
 class SessionPolicy < ApplicationPolicy
 
   def create?
-    user.profile.role == 'organisateur' || user.admin?
+    user.profile.role == 'organisateur' || user.profile.role == 'animateur' || user.admin?
   end
 
   def new?
@@ -13,11 +13,11 @@ class SessionPolicy < ApplicationPolicy
   end
 
   def destroy?
-    record.workshop.place.user == user || user.admin?
+    record.workshop.place.user == user || record.workshop.animators.last.user || user.admin?
   end
 
   def participants?
-    record.workshop.place.user == user || user.admin?
+    record.workshop.place.user == user || record.workshop.animators.last.user || user.admin?
   end
 
   class Scope < Scope

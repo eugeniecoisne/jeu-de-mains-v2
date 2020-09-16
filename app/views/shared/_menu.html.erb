@@ -61,7 +61,7 @@
             <% end %>
           </div>
         </li>
-        <% if current_user.profile.role == "organisateur" %>
+        <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
           <li class="list-group-item">
             <div class="list-item-menu">
               <%= link_to chat_profile_path(current_user.profile), class: "menu-blue-link" do %>

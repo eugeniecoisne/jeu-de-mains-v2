@@ -1,5 +1,5 @@
 <% if @profile.role == 'animateur' %>
-  animateur
+  <%= render 'dashboard_animator' %>
 <% elsif @profile.role == 'organisateur' %>
   <%= render 'dashboard_organizer' %>
 <% else %>

@@ -1,6 +1,6 @@
 <!-- SESSIONS INDEX -->
 
-<% if @workshop.place.user == current_user && @workshop.db_status == true %>
+<% if @workshop.place.user == current_user && @workshop.db_status == true || @workshop.animators.where(db_status: true).first.user == current_user && @workshop.db_status == true %>
 
   <div class="sign-container" id="sessions-index-container">
 
