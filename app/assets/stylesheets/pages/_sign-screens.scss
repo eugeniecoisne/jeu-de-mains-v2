@@ -60,9 +60,26 @@
   margin-top: 1.5em;
 }
 
+.sign-empty-div {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  width: 200px;
+  height: 1px;
+  background-color: $gray;
+}
+
 #forgot-password-link {
-  border-top: 1px solid #CED4DA;
-  padding-top: 2em;
+  a {
+    color: $dark-gray;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  a:hover {
+    font-weight: 500;
+  }
+}
+
+#didnt-receive-confirm-link {
   a {
     color: $dark-gray;
     font-size: 15px;

@@ -13,7 +13,7 @@
             <% end %>
           </div>
         </li>
-        <% if current_user.profile.role == "organisateur" %>
+        <% if current_user.profile.role.present? && current_user.profile.role == "organisateur" %>
           <li class="list-group-item">
             <div class="list-item-menu">
               <%= link_to new_workshop_path, class: "menu-blue-link" do %>

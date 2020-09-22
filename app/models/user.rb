@@ -5,11 +5,16 @@ class User < ApplicationRecord
   has_many :places, dependent: :destroy
   has_many :animators, dependent: :destroy
   has_many :messages
-  after_create :create_profile, :send_welcome_email
+  after_create :create_profile
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
+
+  def confirm!
+    send_welcome_email
+    super
+  end
 
   private
 
