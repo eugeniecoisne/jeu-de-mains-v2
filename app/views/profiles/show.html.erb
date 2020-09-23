@@ -7,7 +7,7 @@
         <% if @profile.company %>
           <%= @profile.company %>
         <% else %>
-          <%= @profile.user.first_name %>
+          <%= @profile.user.first_name.capitalize %>
         <% end %>
         </span>,
         <br>bienvenue sur votre compte !

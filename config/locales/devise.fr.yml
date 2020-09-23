@@ -49,7 +49,7 @@ fr:
         action: Confirmer mon e-mail
         greeting: Bienvenue %{recipient} !
         instruction: 'Vous pouvez confirmer votre e-mail grâce au lien ci-dessous :'
-        subject: Instructions de confirmation
+        subject: Vous y êtes presque, confirmez votre e-mail !
       email_changed:
         greeting: Bonjour %{recipient} !
         message: Nous vous contactons pour vous notifier que votre adresse de e-mail a été changée en %{email}.
