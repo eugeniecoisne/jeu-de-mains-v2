@@ -157,6 +157,8 @@ class WorkshopsController < ApplicationController
       end
     end
     if @workshop.save
+      mail = WorkshopMailer.with(workshop: @workshop).create_confirmation
+      mail.deliver_now
       flash[:notice] = "Votre atelier a bien été créé !"
       redirect_to confirmation_workshop_path(@workshop)
     else

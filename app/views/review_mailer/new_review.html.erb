@@ -1,0 +1,15 @@
+<h1>Vous avez reçu un nouvel avis !</h1>
+
+<h2>Pour l'atelier <%= @review.booking.session.workshop.title %></h2>
+<h3>Chez <%= @review.booking.session.workshop.place.name %></h3>
+<% if @review.booking.session.workshop.animators.where(db_status: true).present? %>
+  <h3>Animé par
+    <%= @review.booking.session.workshop.animators.where(db_status: true).last.user.profile.company %>
+  </h3>
+<% end %>
+<ul>
+  <li><%= @review.rating %></li>
+  <li><%= @review.content %></li>
+  <li><%= @review.user.first_name %></li>
+  <li><%= @review.user.created_at %></li>
+</ul>

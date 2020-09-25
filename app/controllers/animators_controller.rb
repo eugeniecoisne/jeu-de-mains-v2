@@ -10,6 +10,8 @@ class AnimatorsController < ApplicationController
     @animator.workshop = Workshop.find(params[:workshop_id])
     @animator.user = User.find(params[:animator][:user_id])
     if @animator.save
+      mail = AnimatorMailer.with(animator: @animator).new_animator
+      mail.deliver_now
       flash[:notice] = "L'animateur #{@animator.user.profile.company} a bien été ajouté !"
       redirect_back fallback_location: root_path
     else
@@ -25,6 +27,8 @@ class AnimatorsController < ApplicationController
     @user = User.find(params[:animator][:user_id])
     @animator.update(user: @user)
     if @animator.save
+      mail = AnimatorMailer.with(animator: @animator).new_animator
+      mail.deliver_now
       redirect_back fallback_location: root_path
     else
       redirect_back fallback_location: root_path

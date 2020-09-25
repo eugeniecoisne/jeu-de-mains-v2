@@ -1,0 +1,18 @@
+<h1>Votre atelier <%= @workshop.title %> a bien été créé, mettez-le en ligne !</h1>
+
+<h2>Voici les informations que vous avez renseignées :</h2>
+<ul>
+  <li>Titre : <%= @workshop.title %></li>
+  <li>Lieu : <%= @workshop.place.name %></li>
+  <li>Thématique : <%= @workshop.thematic %></li>
+  <li>Niveau : <%= @workshop.level %></li>
+  <li>Capacité : <%= @workshop.capacity %> personnes</li>
+  <li>Durée : <%= @workshop.duration %> minutes</li>
+  <li>Prix : <%= @workshop.price %> €</li>
+  <li>Programme : <%= @workshop.program %></li>
+  <li>Repartez avec : <%= @workshop.final_product %></li>
+</ul>
+
+<h2>Rendez-vous sur votre
+<%= link_to "tableau de bord", dashboard_profile_url(@workshop.place.user.profile) %>
+pour ajouter une première session, ajouter un animateur (optionnel) et mettre en ligne votre atelier !</h2>
