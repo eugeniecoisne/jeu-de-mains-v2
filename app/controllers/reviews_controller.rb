@@ -16,6 +16,8 @@ class ReviewsController < ApplicationController
     @review.booking = Booking.find(params[:booking_id])
     @review.user = current_user
     if @review.save
+      mail = ReviewMailer.with(review: @review).new_review
+      mail.deliver_now
       flash[:notice] = "Votre avis a bien été posté !"
       redirect_to dashboard_profile_path(current_user.profile)
     else

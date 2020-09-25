@@ -1,0 +1,6 @@
+<h1>Félicitations, vous avez été nommé animateur de l'atelier <%= @animator.workshop.title %> </h1>
+<h2>Chez <%= @animator.workshop.place.name %></h2>
+<p><%= @animator.workshop.place.address %> <%= @animator.workshop.place.zip_code %> <%= @animator.workshop.place.city %></p>
+
+<%= link_to "Voir la page atelier", workshop_url(@animator.workshop) %>
+<%= link_to "Voir mon tableau de bord", dashboard_profile_url(@animator.user.profile) %>

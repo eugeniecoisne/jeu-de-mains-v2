@@ -1,0 +1,22 @@
+<h1>Votre lieu <%= @place.name %> a bien été créé !</h1>
+
+<h2>Voici les informations que vous avez renseignées :</h2>
+<ul>
+  <li>Nom : <%= @place.name %></li>
+  <li>Adresse : <%= @place.address %> <%= @place.zip_code %> <%= @place.city %></li>
+  <li>Téléphone : <%= @place.phone_number %></li>
+  <li>E-mail spécifique : <%= @place.email %></li>
+  <% if @place.ephemeral == true %>
+    <li>Lieu de type : éphémère</li>
+  <% else %>
+    <li>Lieu de type : permanent</li>
+  <% end %>
+  <li>SIRET : <%= @place.siret_number %></li>
+  <li>Site internet : <%= @place.website %></li>
+  <li>Instagram : <%= @place.instagram %></li>
+  <li>Description : <%= @place.description %></li>
+</ul>
+
+<h2>Voir la page du lieu : cliquez
+<%= link_to "ici", place_url(@place) %>
+</h2>

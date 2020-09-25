@@ -76,7 +76,9 @@
                     <% place.workshops.where(db_status: true).each do |workshop| %>
                       <% ws_prices_sum += workshop.price %>
                     <% end %>
-                    <h4>Prix moyen : <%= ws_prices_sum.fdiv(place.workshops.where(db_status: true).size).round %> €</h4>
+                    <% if ws_prices_sum > 0 %>
+                      <h4>Prix moyen : <%= ws_prices_sum.fdiv(place.workshops.where(db_status: true).size).round %> €</h4>
+                    <% end %>
                   </div>
                   <div class="place-anim-card-info-tags">
 

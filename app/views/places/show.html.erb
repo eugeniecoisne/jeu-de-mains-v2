@@ -114,7 +114,7 @@
 
       <div class="public-profile-our-ws about-ws-reviews-box">
         <h2 class="public-profile-our-ws-title profile-title">Nos ateliers</h2>
-        <% if @place.workshops.where(status: "en ligne", db_status: true) %>
+        <% if @place.workshops.where(status: "en ligne", db_status: true).present? %>
           <div class="public-profile-our-ws-cards">
             <% @place.workshops.where(status: "en ligne", db_status: true).each do |workshop| %>
               <div class="ws-card" id="place-show-ws-card">
