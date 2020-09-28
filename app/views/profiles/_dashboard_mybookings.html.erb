@@ -131,7 +131,7 @@
                                 <%= end_in_minutes.fdiv(60).round.to_i %>:<%= end_in_minutes%60 > 0 ? end_in_minutes%60 : "00" %>
                               </span>
                               <span class="timezone">Europe/Paris</span>
-                              <span class="title"><%= booking.session.workshop.title %></span>
+                              <span class="title">Atelier "<%= booking.session.workshop.title %>"</span>
                               <span class="organizer">jeudemains.com</span>
                               <span class="description">
                                 Atelier "<%= booking.session.workshop.title %>"<br>
