@@ -30,6 +30,15 @@
         text-decoration: none !important;
       }
 
+      a {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+      a:hover {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+
       /* btn add to calendar */
       .addeventatc {display:inline-block;position:relative;cursor:pointer;color:$blue!important;font-weight:500;font-size:23px;text-decoration:none;cursor:pointer;-webkit-font-smoothing:antialiased!important;outline:none;}
       .addeventatc:hover            {color:$light-blue!important;text-decoration:none;}
@@ -212,7 +221,9 @@
                           <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
                             <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
                               <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
-                                <span style="color: #1C1C1C; font-size: 15px;">Bonne nouvelle, nous vous confirmons votre réservation pour l'atelier "<%= @booking.session.workshop.title %>" ! Voici le détail de votre réservation :
+                                <span style="color: #1C1C1C; font-size: 15px;">Bonne nouvelle, nous vous confirmons votre réservation pour l'atelier
+                                  <strong><%= link_to @booking.session.workshop.title, workshop_url(@booking.session.workshop), target: "_blank" %></strong> !<br>
+                                  Voici le détail de votre réservation :
                                 </span>
                               </p>
                             </div>
@@ -290,10 +301,12 @@
                       <div style="width:100% !important;">
                         <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:10px; padding-bottom:20px; padding-right: 0px; padding-left: 0px;">
                           <div align= "center" class="img-container fixedwidth" style="padding-right: 25px;padding-left: 25px;">
-                            <% if @booking.session.workshop.photos.attached? %>
-                              <%= cl_image_tag @booking.session.workshop.photos[0].key, alt: "Photo-atelier", width: 213, height: 213, crop: :fill, border: "0", class: "left fixedwidth", style: "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 213px; display: block;", title: "Atelier" %>
-                            <% else %>
-                              <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 213, :height => 213, :crop => :fill, :alt => "Photo-atelier", width: 213, crop: :fill, :border => "0", :class => "left fixedwidth", :style => "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 213px; display: block;", :title => "Atelier") %>
+                            <%= link_to workshop_url(@booking.session.workshop), target: "_blank" do %>
+                              <% if @booking.session.workshop.photos.attached? %>
+                                <%= cl_image_tag @booking.session.workshop.photos[0].key, alt: "Photo-atelier", width: 213, height: 213, crop: :fill, border: "0", class: "left fixedwidth", style: "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 213px; display: block;", title: "Atelier" %>
+                              <% else %>
+                                <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 213, :height => 213, :crop => :fill, :alt => "Photo-atelier", width: 213, crop: :fill, :border => "0", :class => "left fixedwidth", :style => "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 213px; display: block;", :title => "Atelier") %>
+                              <% end %>
                             <% end %>
                           </div>
                         </div>
@@ -307,7 +320,7 @@
                         <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
                           <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:0px;padding-bottom:10px;padding-left:0px;">
                             <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
-                              <p class="mobile-align-center" style="font-size: 14px; text-transform: uppercase; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;">Atelier <%= @booking.session.workshop.title %></p>
+                              <p class="mobile-align-center" style="font-size: 14px; text-transform: uppercase; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;"><%= link_to workshop_url(@booking.session.workshop), target: "_blank" do %>Atelier <%= @booking.session.workshop.title %><% end %></p>
                               <p class="mobile-align-center" style="font-size: 14px; text-transform: uppercase; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;"><%= l(@booking.session.date, format: '%A %d %b %Y') %> à <%= @booking.session.start_at[0..1] %>:<%= @booking.session.start_at[3..4] %></p>
                             </div>
                           </div>
@@ -318,7 +331,7 @@
                               <% if @booking.session.workshop.animators.where(db_status: true).present? %>
                                 <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Animé par <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %></p>
                               <% end %>
-                              <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Quantité : <%= @booking.quantity %> places</p>
+                              <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Quantité : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %></p>
                             </div>
                           </div>
 
@@ -467,8 +480,8 @@
                             <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
                               <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Prix unitaire <%= @booking.session.workshop.price %>€ x <%= @booking.quantity %></span></p>
                               <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Moyen de paiement</span></p>
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Code promotionnel</span></p>
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Carte cadeau</span></p>
+<!--                               <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Code promotionnel</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Carte cadeau</span></p> -->
                             </div>
                           </div>
                           <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:15px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
@@ -487,15 +500,15 @@
                         <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
                           <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
                             <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= before_price = @booking.session.workshop.price * @booking.quantity %>€</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.amount %>€</span></p>
                               <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">CB</span></p>
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">0</span></p>
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">0</span></p>
+                             <!--  <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">0</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">0</span></p> -->
                             </div>
                           </div>
                           <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:15px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
                             <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
-                              <p style="font-size: 19px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 19px;"><strong><span style="color: #1C1C1C;"><%= before_price %>€</span></strong></span></p>
+                              <p style="font-size: 19px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 19px;"><strong><span style="color: #1C1C1C;"><%= @booking.amount %>€</span></strong></span></p>
                             </div>
                           </div>
                         </div>

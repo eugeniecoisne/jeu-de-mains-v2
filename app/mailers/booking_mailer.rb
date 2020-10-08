@@ -52,12 +52,12 @@ class BookingMailer < ApplicationMailer
 
       mail(
         to:       "#{@organizer.email}, #{@animator.email}",
-        subject:  "Vous avez une annulation pour l'atelier #{@booking.session.workshop.title} !"
+        subject:  "Vous avez une annulation pour l'atelier #{@booking.session.workshop.title}"
       )
     else
       mail(
         to:       "#{@organizer.email}",
-        subject:  "Vous avez une annulation pour l'atelier #{@booking.session.workshop.title} !"
+        subject:  "Vous avez une annulation pour l'atelier #{@booking.session.workshop.title}"
       )
     end
   end
@@ -72,7 +72,7 @@ class BookingMailer < ApplicationMailer
 
     mail(
       to:       @booking.user.email,
-      subject:  "Confirmation de votre annulation pour l'atelier #{@booking.session.workshop.title} !"
+      subject:  "Confirmation d'annulation de votre réservation"
     )
   end
 end

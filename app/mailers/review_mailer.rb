@@ -13,12 +13,12 @@ class ReviewMailer < ApplicationMailer
 
       mail(
         to:       "#{@organizer.email}, #{@animator.email}",
-        subject:  "Vous avez reçu un nouvel avis pour l'atelier #{@review.booking.session.workshop.title} !"
+        subject:  "Vous avez reçu un nouvel avis !"
       )
     else
       mail(
         to:       "#{@organizer.email}",
-        subject:  "Vous avez reçu un nouvel avis pour l'atelier #{@review.booking.session.workshop.title} !"
+        subject:  "Vous avez reçu un nouvel avis !"
       )
     end
   end
