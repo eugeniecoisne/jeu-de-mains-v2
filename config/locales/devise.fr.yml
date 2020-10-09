@@ -53,11 +53,11 @@ fr:
       email_changed:
         greeting: Bonjour %{recipient} !
         message: Nous vous contactons pour vous notifier que votre adresse de e-mail a été changée en %{email}.
-        subject: e-mail modifié
+        subject: Votre adresse e-mail a été modifiée
       password_change:
         greeting: Bonjour %{recipient} !
         message: Nous vous contactons pour vous notifier que votre mot de passe a été modifié.
-        subject: Mot de passe modifié
+        subject: Votre mot de passe a été modifié
       reset_password_instructions:
         action: Changer mon mot de passe
         greeting: Bonjour %{recipient} !

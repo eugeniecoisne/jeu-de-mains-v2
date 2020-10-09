@@ -1,25 +1,675 @@
-<h1>Nouvelle réservation pour l'atelier <%= @booking.session.workshop.title %></h1>
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <title>Nouvelle réservation pour l'atelier <%= @booking.session.workshop.title %> !</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css"/>
 
-<h2>Informations atelier</h2>
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+      }
 
-<% if @booking.session.workshop.photos.attached? %>
-  <%= cl_image_tag @booking.session.workshop.photos[0].key, alt: "Photo-atelier", width: 120, height: 95, crop: :fill %>
-<% else %>
-  <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 120, :height => 95, :crop => :fill, :alt => "Photo-atelier") %>
-<% end %>
-<p>Session : <%= l(@booking.session.date, format: '%A %d %b %Y').capitalize %> à <%= @booking.session.start_at[0..1] %>:<%= @booking.session.start_at[3..4] %></p>
-<p>Lieu : <%= @booking.session.workshop.place.name %></p>
-<p>Adresse : <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
+      table,
+      td,
+      tr {
+        vertical-align: top;
+        border-collapse: collapse;
+      }
 
-<% if @booking.session.workshop.animators.where(db_status: true).present? %>
-  <p>Animé par : <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %></p>
-<% end %>
+      * {
+        line-height: inherit;
+      }
 
-<h2>Réservation</h2>
+      a[x-apple-data-detectors=true] {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
 
-<p>Par <%= @booking.user.first_name %></p>
-<p>Le <%= @booking.created_at.strftime('%d/%m/%Y') %></p>
-<p>Nombre de place : <%= @booking.quantity %></p>
-<p>Montant : <%= @booking.amount %> €</p>
-<p>N° de réservation : <%= @booking.id %></p>
+      a {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+      a:hover {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
 
+      /* btn add to calendar */
+      .addeventatc {display:inline-block;position:relative;cursor:pointer;color:$blue!important;font-weight:500;font-size:23px;text-decoration:none;cursor:pointer;-webkit-font-smoothing:antialiased!important;outline:none;}
+      .addeventatc:hover            {color:$light-blue!important;text-decoration:none;}
+      .addeventatc-selected           {color:$light-blue!important;}
+      .addeventatc .start, .addeventatc .end, .addeventatc .timezone, .addeventatc .title, .addeventatc .description, .addeventatc .location, .addeventatc .organizer, .addeventatc .organizer_email, .addeventatc .facebook_event, .addeventatc .all_day_event, .addeventatc .date_format, .addeventatc .alarm_reminder, .addeventatc .recurring, .addeventatc .attendees, .addeventatc .calname, .addeventatc .uid, .addeventatc .status, .addeventatc .method, .addeventatc .client, .addeventatc .transp {display:none!important;}
+      .addeventatc br             {display:none;}
+
+      /* Drop down */
+      .addeventatc_dropdown           {width:230px;position:absolute;padding:6px 0px 0px 0px;font-family:"Raleway",sans-serif;color:$gray!important;font-weight:600;line-height:100%;background:#fff;font-size:14px;text-decoration:none;text-align:left;margin-left:-1px;display:none;-webkit-box-shadow:rgba(0,0,0,0.4) 0px 10px 26px;-moz-box-shadow:rgba(0,0,0,0.4) 0px 10px 26px;box-shadow:rgba(0,0,0,0.4) 0px 10px 26px;transform:scale(.98,.98) translateY(5px);z-index:20;transition:transform .15s ease;-webkit-user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+      .addeventatc_dropdown.topdown       {transform:scale(.98,.98) translateY(-5px)!important;}
+      .addeventatc_dropdown span        {display:block;line-height:100%;background:#fff;text-decoration:none;cursor:pointer;font-size:15px;color:#333;font-weight:600;padding:14px 10px 14px 55px;margin:-2px 0px;}
+      .addeventatc_dropdown span:hover    {background-color:#f4f4f4;color:#000;text-decoration:none;font-size:15px;}
+      .addeventatc_dropdown em        {display: none;}
+      .addeventatc_dropdown .frs a      {background:#fff;color:#cacaca!important;cursor:pointer;font-size:9px!important;font-style:normal!important;font-weight:400!important;line-height:110%!important;padding-left:10px;position:absolute;right:10px;text-align:right;text-decoration:none;top:5px;z-index:101;}
+      .addeventatc_dropdown .frs a:hover    {color:#999!important;}
+      .addeventatc_dropdown .ateappleical   {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244595/icon-apple-t5_u07ftt.svg') 18px 40% no-repeat;background-size:22px 100%;}
+      .addeventatc_dropdown .ategoogle    {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244597/icon-google-t5_hhelnn.svg') 18px 50% no-repeat;background-size:22px 100%;}
+      .addeventatc_dropdown .ateoffice365   {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244595/icon-office365-t5_qtmqxl.svg') 19px 50% no-repeat;background-size:18px 100%;}
+      .addeventatc_dropdown .ateoutlook     {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244595/icon-outlook-t5_jyiicm.svg') 18px 50% no-repeat;background-size:22px 100%;}
+      .addeventatc_dropdown .ateoutlookcom  {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244595/icon-outlookcom-t5_lnfvvs.svg') 18px 50% no-repeat;background-size:22px 100%;}
+      .addeventatc_dropdown .ateyahoo     {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244597/icon-yahoo-t5_uvgnsf.svg') 18px 50% no-repeat;background-size:22px 100%;}
+      .addeventatc_dropdown .copyx      {height:21px;display:block;position:relative;cursor:default;}
+      .addeventatc_dropdown .brx        {height:1px;overflow:hidden;background:#e8e8e8;position:absolute;z-index:100;left:10px;right:10px;top:9px;}
+      .addeventatc_dropdown.addeventatc-selected {transform:scale(1,1) translateY(0px);z-index:99999999999;}
+      .addeventatc_dropdown.topdown.addeventatc-selected {transform:scale(1,1) translateY(0px)!important;}
+      .addeventatc_dropdown .drop_markup    {background-color:#f4f4f4;}
+
+    </style>
+    <style id="media-query" type="text/css">
+      @media (max-width: 660px) {
+
+        .block-grid,
+        .col {
+          min-width: 320px !important;
+          max-width: 100% !important;
+          display: block !important;
+        }
+
+        .block-grid {
+          width: 100% !important;
+        }
+
+        .col {
+          width: 100% !important;
+        }
+
+        .col>div {
+          margin: 0 auto;
+        }
+
+        img.fullwidth,
+        img.fullwidthOnMobile {
+          max-width: 100% !important;
+        }
+
+        .no-stack .col {
+          min-width: 0 !important;
+          display: table-cell !important;
+        }
+
+        .no-stack.two-up .col {
+          width: 50% !important;
+        }
+
+        .no-stack .col.num4 {
+          width: 33% !important;
+        }
+
+        .no-stack .col.num8 {
+          width: 66% !important;
+        }
+
+        .no-stack .col.num4 {
+          width: 33% !important;
+        }
+
+        .no-stack .col.num3 {
+          width: 25% !important;
+        }
+
+        .no-stack .col.num6 {
+          width: 50% !important;
+        }
+
+        .no-stack .col.num9 {
+          width: 75% !important;
+        }
+
+        .video-block {
+          max-width: none !important;
+        }
+
+        .mobile_hide {
+          min-height: 0px;
+          max-height: 0px;
+          max-width: 0px;
+          display: none;
+          overflow: hidden;
+          font-size: 0px;
+        }
+
+        .desktop_hide {
+          display: block !important;
+          max-height: none !important;
+        }
+
+        .mobile-align-center {
+          text-align: center !important;
+        }
+
+        .mobile-align-icons-center {
+          justify-content: center !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="clean-body" style="margin: 0; padding: 0; -webkit-text-size-adjust: 100%; background-color: #ffffff;">
+    <table bgcolor="#ffffff" cellpadding="0" cellspacing="0" class="nl-container" role="presentation" style="table-layout: fixed; vertical-align: top; min-width: 320px; Margin: 0 auto; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; width: 100%;" valign="top" width="100%">
+      <tbody>
+        <tr style="vertical-align: top;" valign="top">
+          <td style="word-break: break-word; vertical-align: top;" valign="top">
+
+            <!-- LOGO -->
+
+            <div style="background-color:#fff;">
+              <div class="block-grid" style="margin: 0 auto; margin-top: 40px; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+                <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+                  <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+                    <div style="width:100% !important;">
+                      <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+                        <div align="center" class="img-container center fixedwidth" style="padding-right: 0px;padding-left: 0px;">
+                          <div style="font-size:1px;line-height:22px">
+                          </div>
+                          <img align="center" alt="Jeu de Mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1595522194/logo-jdm-blue.svg" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 160px; display: block;" title="Jeu de Mains" width="160"/>
+                          <div style="font-size:1px;line-height:25px"> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TITLE -->
+
+              <div style="background-color:#fff;">
+                <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+                  <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+                    <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+                      <div style="width:100% !important;">
+                        <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+                          <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                            <tbody>
+                              <tr style="vertical-align: top;" valign="top">
+                                <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 30px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <!-- TITLE -->
+
+                          <div style="color:#527776;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.2;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
+                            <div style="line-height: 1.2; font-size: 12px; color: #527776; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14px;">
+                              <p style="font-size: 27px; line-height: 1.2; text-align: center; word-break: break-word; mso-line-height-alt: 29px; margin: 0;">
+                                <span style="font-size: 27px;">
+                                  <strong>
+                                    <span style="color: #2b303a;">
+                                      Vous avez une nouvelle réservation !
+                                    </span>
+                                  </strong>
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+
+                          <!-- INTRO -->
+
+                          <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
+                            <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                              <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
+                                <span style="color: #1C1C1C; font-size: 15px;">Bonne nouvelle, vous avez une nouvelle réservation pour l'atelier
+                                  <strong><%= link_to @booking.session.workshop.title, workshop_url(@booking.session.workshop), target: "_blank" %></strong> du <%= l(@booking.session.date, format: '%A %d %b %Y') %> à <%= @booking.session.start_at[0..1] %>:<%= @booking.session.start_at[3..4] %> ! <br>
+                                  Voici le détail de cette réservation :
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+                          <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                            <tbody>
+                              <tr style="vertical-align: top;" valign="top">
+                                <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px;" valign="top">
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LINE & WHITE SPACE -->
+
+              <div style="background-color:#ffffff;">
+                <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #ffffff;">
+                  <div style="border-collapse: collapse;display: table;width: 100%;background-color:#ffffff;">
+                    <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+                      <div style="width:100% !important;">
+                        <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+
+                          <!-- LINE -->
+
+                          <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                            <tbody>
+                              <tr style="vertical-align: top;" valign="top">
+                                <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                                  <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid #52828D; width: 100%;" valign="top" width="100%">
+                                    <tbody>
+                                      <tr style="vertical-align: top;" valign="top">
+                                        <td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top">
+                                          <span></span>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <!-- WHITE SPACE -->
+
+                          <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                            <tbody>
+                              <tr style="vertical-align: top;" valign="top">
+                                <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 25px; padding-right: 25px; padding-bottom: 25px; padding-left: 25px;" valign="top">
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- WORKSHOP IMAGE & INFORMATION -->
+
+              <div style="background-color:#ffffff;">
+                <div class="block-grid mixed-two-up" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+                  <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+
+                    <!-- WORKSHOP IMAGE -->
+
+                    <div class="col num4" style="display: table-cell; vertical-align: top; max-width: 320px; min-width: 212px; width: 213px;">
+                      <div style="width:100% !important;">
+                        <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:10px; padding-bottom:20px; padding-right: 0px; padding-left: 0px;">
+                          <div align= "center" class="img-container fixedwidth" style="padding-right: 25px;padding-left: 25px;">
+                            <%= link_to workshop_url(@booking.session.workshop), target: "_blank" do %>
+                              <% if @booking.session.workshop.photos.attached? %>
+                                <%= cl_image_tag @booking.session.workshop.photos[0].key, alt: "Photo-atelier", width: 213, height: 213, crop: :fill, border: "0", class: "left fixedwidth", style: "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 213px; display: block;", title: "Atelier" %>
+                              <% else %>
+                                <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 213, :height => 213, :crop => :fill, :alt => "Photo-atelier", width: 213, crop: :fill, :border => "0", :class => "left fixedwidth", :style => "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 213px; display: block;", :title => "Atelier") %>
+                              <% end %>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- WORKSHOP INFORMATION & LINKS -->
+
+                    <div class="col num8" style="display: table-cell; vertical-align: top; min-width: 320px; max-width: 424px; width: 426px;">
+                      <div style="width:100% !important;">
+                        <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
+                          <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:0px;padding-bottom:10px;padding-left:0px;">
+                            <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                              <p class="mobile-align-center" style="font-size: 14px; text-transform: uppercase; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;"><%= link_to workshop_url(@booking.session.workshop), target: "_blank" do %>Atelier <%= @booking.session.workshop.title %><% end %></p>
+                              <p class="mobile-align-center" style="font-size: 14px; text-transform: uppercase; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;"><%= l(@booking.session.date, format: '%A %d %b %Y') %> à <%= @booking.session.start_at[0..1] %>:<%= @booking.session.start_at[3..4] %></p>
+                            </div>
+                          </div>
+                          <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.5;padding-top:5px;padding-right:0px;padding-bottom:5px;padding-left:0px;">
+                            <div style="line-height: 1.5; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                              <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Chez <%= @booking.session.workshop.place.name %></p>
+                              <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;"><%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
+                              <% if @booking.session.workshop.animators.where(db_status: true).present? %>
+                                <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Animé par <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %></p>
+                              <% end %>
+                              <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Quantité : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %></p>
+                            </div>
+                          </div>
+
+                          <!-- WS LINKS -->
+
+                          <table cellpadding="0" cellspacing="0" class="social_icons" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;" valign="top" width="100%">
+                            <tbody>
+                              <tr class="mobile-align-icons-center" style="vertical-align: top;display: flex;justify-content: left;" valign="top">
+                                <td style="word-break: break-word; vertical-align: top; padding-top: 10px; padding-right: 0px; padding-bottom: 10px; padding-left: 0px;" valign="top">
+                                  <table align="center" cellpadding="0" cellspacing="0" class="social_table" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-tspace: 0; mso-table-rspace: 0; mso-table-bspace: 0; mso-table-lspace: 0;" valign="top">
+                                    <tbody>
+                                      <tr align="center" style="vertical-align: top; display: inline-block; text-align: left;" valign="top">
+                                        <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 11px; padding-left: 0px;" valign="top">
+                                          <a href="tel:+33<%= @booking.session.workshop.place.phone_number[1..-1] %>" target="_blank">
+                                            <img alt="Appeler" height="21" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1601237613/call_fua3r5.svg" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Appeler" width="21"/>
+                                          </a>
+                                        </td>
+                                        <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 14px; padding-left: 0px;" valign="top">
+                                          <a href="https://www.google.fr/maps/search/<%= @booking.session.workshop.place.address %>, <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city.upcase %>" target="_blank">
+                                            <img alt="Localiser" height="21" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1601237613/locate_hwchc1.svg" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Localiser" width="21"/>
+                                          </a>
+                                        </td>
+                                        <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 4px; padding-left: 0px;" valign="top">
+                                          <div title="Add to Calendar" data-styling="none" class="addeventatc">
+                                            <img alt="Ajouter à l'agenda" height="21" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1601237613/calendar_kism5b.svg" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Ajouter à l'agenda" width="21"/>
+
+                                            <span class="start">
+                                              <%= @booking.session.date.strftime('%m/%d/%Y') %>
+                                              <%= @booking.session.start_at[0..1] %>:<%= @booking.session.start_at[3..4] %>
+                                            </span>
+                                            <span class="end">
+                                              <% start_in_minutes = (@booking.session.start_at[0..1].to_i * 60) + @booking.session.start_at[3..4].to_i %>
+                                              <% end_in_minutes = start_in_minutes + @booking.session.workshop.duration %>
+                                              <%= @booking.session.date.strftime('%m/%d/%Y') %>
+                                              <%= end_in_minutes.fdiv(60).round.to_i %>:<%= end_in_minutes%60 > 0 ? end_in_minutes%60 : "00" %>
+                                            </span>
+                                            <span class="timezone">Europe/Paris</span>
+                                            <span class="title">Atelier "<%= @booking.session.workshop.title %>"</span>
+                                            <span class="organizer">jeudemains.com</span>
+                                            <span class="description">
+                                              Atelier "<%= @booking.session.workshop.title %>"<br>
+                                              Réservé sur https://www.jeudemains.com/<br><br>
+                                              ----- <br><br>
+                                              Au programme : <br>
+                                              <%= @booking.session.workshop.program %>
+                                              </span>
+                                            <span class="location"><%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city.capitalize %></span>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- WHITE SPACE -->
+
+              <div style="background-color:#fff;">
+                <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+                  <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+                    <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+                      <div style="width:100% !important;">
+                        <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+                          <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                            <tbody>
+                              <tr style="vertical-align: top;" valign="top">
+                                <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 25px; padding-right: 25px; padding-bottom: 25px; padding-left: 25px;" valign="top">
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <!-- LINE -->
+
+                          <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                            <tbody>
+                              <tr style="vertical-align: top;" valign="top">
+                                <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                                  <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid #52828D; width: 100%;" valign="top" width="100%">
+                                    <tbody>
+                                      <tr style="vertical-align: top;" valign="top">
+                                        <td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top">
+                                          <span></span>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- BOOKING DETAILS TITLE -->
+
+              <div style="background-color:#fff;">
+                <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+                  <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+                    <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+                      <div style="width:100% !important;">
+                        <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+                          <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.5;padding-top:35px;padding-right:0px;padding-bottom:15px;padding-left:0px;">
+                            <div style="line-height: 1.5; font-size: 12px; color: #1C1C1C; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 18px;">
+                              <p style="font-size: 14px; line-height: 1.5; word-break: break-word; text-align: left; mso-line-height-alt: 21px; margin: 0;">
+                                <span style="color: #1C1C1C; font-size: 14px;">
+                                  <strong>
+                                    <span style="">
+                                      DÉTAILS RÉSERVATION N°<%= @booking.id %>
+                                    </span>
+                                  </strong>
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background-color:#fff;">
+                <div class="block-grid two-up no-stack" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+                  <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+
+                    <!-- BOOKING DETAILS LEFT COLUMN -->
+
+                    <div class="col num6" style="min-width: 320px; max-width: 320px; display: table-cell; vertical-align: top; width: 320px;">
+                      <div style="width:100% !important;">
+                        <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 30px;">
+                          <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
+                            <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Réservé par</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Réservé le</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Nombre de places</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"></span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Moyen de paiement</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Montant TTC ( <%= @booking.session.workshop.price %>€ x <%= @booking.quantity %> )</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Commission Jeu de Mains 20% TTC</span></p>
+                            </div>
+                          </div>
+                          <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:15px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
+                            <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
+                              <p style="font-size: 19px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 19px;"><strong><span style="color: #1C1C1C;">VOTRE GAIN TTC</span></strong></span></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- BOOKING DETAILS RIGHT COLUMN -->
+
+                    <div class="col num6" style="min-width: 320px; max-width: 320px; display: table-cell; vertical-align: top; width: 320px;">
+                      <div style="width:100% !important;">
+                        <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+                          <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
+                            <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.user.first_name %> <%= @booking.user.last_name[0] %>.</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.created_at.strftime('%d/%m/%Y') %></span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %></span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"></span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">CB</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.amount %>€</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">- <%= @booking.amount * 0.2 %>€</span></p>
+                            </div>
+                          </div>
+                          <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:15px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
+                            <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
+                              <p style="font-size: 19px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 19px;"><strong><span style="color: #1C1C1C;"><%= @booking.amount * 0.8 %>€</span></strong></span></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <!-- WHITE SPACE AND LINE -->
+
+              <div style="background-color:#fff;">
+                <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+                  <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+                    <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+                      <div style="width:100% !important;">
+                        <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+                          <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                            <tbody>
+                              <tr style="vertical-align: top;" valign="top">
+                                <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 35px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                                  <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid #F0F0F0; width: 100%;" valign="top" width="100%">
+                                    <tbody>
+                                      <tr style="vertical-align: top;" valign="top">
+                                        <td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top">
+                                          <span></span>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <!-- CONDITIONS -->
+
+                          <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:35px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
+                            <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                              <p style="font-size: 13px; line-height: 1.5; word-break: break-word; text-align: center; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 20px; mso-ansi-font-size: 14px; margin: 0;">
+                                <span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">
+                                Lorem ipsum mention légale informations d'annulation
+                              </span>
+                            </p>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background-color:#fff;">
+                <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+                  <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+                    <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+                      <div style="width:100% !important;">
+                        <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+
+                          <!-- CALL TO ACTION - MANAGE MY BOOKING -->
+
+                          <div align="center" class="button-container" style="padding-top:25px;padding-right:10px;padding-bottom:30px;padding-left:10px;">
+                            <%= link_to session_participants_url(@booking.session), style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #fff; background-color: #52828D; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
+                              <span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
+                                <span style="font-size: 14px; line-height: 2; word-break: break-word; color: #fff; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 32px;">
+                                  <strong>VOIR LES PARTICIPANTS</strong>
+                                </span>
+                              </span>
+                            <% end %>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOOTER -->
+
+            <div style="background-color:transparent;">
+              <div class="block-grid" style="margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;">
+                <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
+                  <div class="col num12" style="min-width: 320px; max-width: 600px; display: table-cell; vertical-align: top; width: 600px;">
+                    <div style="width:100% !important;">
+                      <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
+
+                        <!-- LOGO -->
+
+                        <div align="center" class="img-container center fixedwidth" style="padding-right: 5px;padding-left: 5px;padding-top: 40px;padding-bottom: 10px;">
+                          <div style="font-size:1px;line-height:15px">
+                          </div>
+                          <%= link_to root_url, style: "outline:none", tabindex: "-1", target: "_blank" do %>
+                            <img align="center" alt="jeu de mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1593180301/logo-jdm-dark-blue.svg" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 120px; display: block;" title="jeu de mains" width="120"/>
+                          <% end %>
+                          <div style="font-size:1px;line-height:15px">
+                          </div>
+                        </div>
+
+                        <!-- SOCIAL LINKS -->
+
+                        <table cellpadding="0" cellspacing="0" class="social_icons" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;" valign="top" width="100%">
+                          <tbody>
+                            <tr style="vertical-align: top;" valign="top">
+                              <td style="word-break: break-word; vertical-align: top; padding-top: 15px; padding-right: 5px; padding-bottom: 15px; padding-left: 5px;" valign="top">
+                                <table align="center" cellpadding="0" cellspacing="0" class="social_table" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-tspace: 0; mso-table-rspace: 0; mso-table-bspace: 0; mso-table-lspace: 0;" valign="top">
+                                  <tbody>
+                                    <tr align="center" style="vertical-align: top; display: inline-block; text-align: center;" valign="top">
+                                      <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="http://www.example.com" target="_blank"><img alt="Facebook" height="32" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1600347391/facebook-jdm_seaaoy.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Facebook" width="32"/></a></td>
+                                      <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="https://www.instagram.com/jeudemains_com/" target="_blank"><img alt="Instagram" height="32" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1600347391/instagram-jdm_ugv9qo.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Instagram" width="32"/></a></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <!-- LEGAL MENTIONS -->
+
+                        <div style="color:#7b7b7b;font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
+                          <div style="line-height: 1.2; font-size: 12px; color: #7b7b7b; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; mso-line-height-alt: 14px;">
+                            <p style="font-size: 12px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 14px; margin: 0;"><span style="font-size: 12px;">© 2020 Jeu de Mains. Tous droits réservés.<br/>Politique de confidentialité | CGV</span></p>
+                          </div>
+                        </div>
+                        <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                          <tbody>
+                            <tr style="vertical-align: top;" valign="top">
+                              <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" height="20" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 0px solid transparent; height: 20px; width: 100%;" valign="top" width="100%">
+                                  <tbody>
+                                    <tr style="vertical-align: top;" valign="top">
+                                      <td height="20" style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span></span></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  <script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
+</html>

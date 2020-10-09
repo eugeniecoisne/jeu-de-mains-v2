@@ -12,8 +12,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   def after_confirmation
-    send_welcome_email
-    super
+    if @user.created_at > Date.today - 1
+      send_welcome_email
+      super
+    end
   end
 
   private
