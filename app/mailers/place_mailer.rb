@@ -10,7 +10,7 @@ class PlaceMailer < ApplicationMailer
 
     mail(
       to:       @place.user.email,
-      subject:  "Votre lieu #{@place.name} a bien été créé !"
+      subject:  "Votre lieu #{@place.name} a bien été créé !",
       track_opens: 'true',
       message_stream: 'outbound')
   end

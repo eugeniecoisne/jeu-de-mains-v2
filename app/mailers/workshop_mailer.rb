@@ -10,7 +10,7 @@ class WorkshopMailer < ApplicationMailer
 
     mail(
       to:       @workshop.place.user.email,
-      subject:  "Votre atelier #{@workshop.title} a bien été créé, mettez-le en ligne !"
+      subject:  "Votre atelier #{@workshop.title} a bien été créé, mettez-le en ligne !",
       track_opens: 'true',
       message_stream: 'outbound')
   end
