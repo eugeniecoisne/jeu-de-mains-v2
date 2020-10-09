@@ -11,6 +11,7 @@ class AnimatorMailer < ApplicationMailer
     mail(
       to:       @animator.user.email,
       subject:  "Vous avez été nommé animateur d'un atelier chez #{@animator.workshop.place.name} !"
-    )
+      track_opens: 'true',
+      message_stream: 'outbound')
   end
 end

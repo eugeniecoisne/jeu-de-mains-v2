@@ -8,7 +8,11 @@ class UserMailer < ApplicationMailer
 
   def welcome
     @user = params[:user]
-    mail(to: @user.email, subject: 'Jeu de Mains vous souhaite la bienvenue !')
+    mail(to: @user.email,
+      subject: 'Jeu de Mains vous souhaite la bienvenue !',
+      track_opens: 'true',
+      message_stream: 'outbound')
+
   end
 
 end
