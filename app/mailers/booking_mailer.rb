@@ -80,6 +80,5 @@ class BookingMailer < ApplicationMailer
       subject:  "Confirmation d'annulation de votre réservation",
       track_opens: 'true',
       message_stream: 'outbound')
-    )
   end
 end
