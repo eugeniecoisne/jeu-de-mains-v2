@@ -15,12 +15,14 @@ class BookingMailer < ApplicationMailer
       mail(
         to:       "#{@organizer.email}, #{@animator.email}",
         subject:  "Vous avez une réservation pour l'atelier #{@booking.session.workshop.title} !"
-      )
+        track_opens: 'true',
+        message_stream: 'outbound')
     else
       mail(
         to:       "#{@organizer.email}",
         subject:  "Vous avez une réservation pour l'atelier #{@booking.session.workshop.title} !"
-      )
+        track_opens: 'true',
+        message_stream: 'outbound')
     end
   end
 
@@ -35,7 +37,8 @@ class BookingMailer < ApplicationMailer
     mail(
       to:       @booking.user.email,
       subject:  "Confirmation de votre réservation pour l'atelier #{@booking.session.workshop.title} !"
-    )
+      track_opens: 'true',
+      message_stream: 'outbound')
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -53,12 +56,14 @@ class BookingMailer < ApplicationMailer
       mail(
         to:       "#{@organizer.email}, #{@animator.email}",
         subject:  "Vous avez une annulation pour l'atelier #{@booking.session.workshop.title}"
-      )
+        track_opens: 'true',
+        message_stream: 'outbound')
     else
       mail(
         to:       "#{@organizer.email}",
         subject:  "Vous avez une annulation pour l'atelier #{@booking.session.workshop.title}"
-      )
+        track_opens: 'true',
+        message_stream: 'outbound')
     end
   end
 
@@ -73,6 +78,8 @@ class BookingMailer < ApplicationMailer
     mail(
       to:       @booking.user.email,
       subject:  "Confirmation d'annulation de votre réservation"
+      track_opens: 'true',
+      message_stream: 'outbound')
     )
   end
 end
