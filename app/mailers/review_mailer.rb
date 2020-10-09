@@ -13,13 +13,13 @@ class ReviewMailer < ApplicationMailer
 
       mail(
         to:       "#{@organizer.email}, #{@animator.email}",
-        subject:  "Vous avez reçu un nouvel avis !"
+        subject:  "Vous avez reçu un nouvel avis !",
         track_opens: 'true',
         message_stream: 'outbound')
     else
       mail(
         to:       "#{@organizer.email}",
-        subject:  "Vous avez reçu un nouvel avis !"
+        subject:  "Vous avez reçu un nouvel avis !",
         track_opens: 'true',
         message_stream: 'outbound')
     end

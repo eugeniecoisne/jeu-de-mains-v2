@@ -14,13 +14,13 @@ class BookingMailer < ApplicationMailer
 
       mail(
         to:       "#{@organizer.email}, #{@animator.email}",
-        subject:  "Vous avez une réservation pour l'atelier #{@booking.session.workshop.title} !"
+        subject:  "Vous avez une réservation pour l'atelier #{@booking.session.workshop.title} !",
         track_opens: 'true',
         message_stream: 'outbound')
     else
       mail(
         to:       "#{@organizer.email}",
-        subject:  "Vous avez une réservation pour l'atelier #{@booking.session.workshop.title} !"
+        subject:  "Vous avez une réservation pour l'atelier #{@booking.session.workshop.title} !",
         track_opens: 'true',
         message_stream: 'outbound')
     end
@@ -36,7 +36,7 @@ class BookingMailer < ApplicationMailer
 
     mail(
       to:       @booking.user.email,
-      subject:  "Confirmation de votre réservation pour l'atelier #{@booking.session.workshop.title} !"
+      subject:  "Confirmation de votre réservation pour l'atelier #{@booking.session.workshop.title} !",
       track_opens: 'true',
       message_stream: 'outbound')
   end
@@ -55,13 +55,13 @@ class BookingMailer < ApplicationMailer
 
       mail(
         to:       "#{@organizer.email}, #{@animator.email}",
-        subject:  "Vous avez une annulation pour l'atelier #{@booking.session.workshop.title}"
+        subject:  "Vous avez une annulation pour l'atelier #{@booking.session.workshop.title}",
         track_opens: 'true',
         message_stream: 'outbound')
     else
       mail(
         to:       "#{@organizer.email}",
-        subject:  "Vous avez une annulation pour l'atelier #{@booking.session.workshop.title}"
+        subject:  "Vous avez une annulation pour l'atelier #{@booking.session.workshop.title}",
         track_opens: 'true',
         message_stream: 'outbound')
     end
@@ -77,7 +77,7 @@ class BookingMailer < ApplicationMailer
 
     mail(
       to:       @booking.user.email,
-      subject:  "Confirmation d'annulation de votre réservation"
+      subject:  "Confirmation d'annulation de votre réservation",
       track_opens: 'true',
       message_stream: 'outbound')
     )
