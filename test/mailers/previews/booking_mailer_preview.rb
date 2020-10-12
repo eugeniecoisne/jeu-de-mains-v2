@@ -6,6 +6,10 @@ class BookingMailerPreview < ActionMailer::Preview
     BookingMailer.new_booking_btob
   end
 
+  def new_booking_btob_animator
+    BookingMailer.new_booking_btob_animator
+  end
+
   # Preview this email at http://localhost:3000/rails/mailers/booking_mailer/new_booking_btoc
   def new_booking_btoc
     BookingMailer.new_booking_btoc
@@ -14,6 +18,10 @@ class BookingMailerPreview < ActionMailer::Preview
   # Preview this email at http://localhost:3000/rails/mailers/booking_mailer/cancel_booking_btob
   def cancel_booking_btob
     BookingMailer.cancel_booking_btob
+  end
+
+   def cancel_booking_btob_animator
+    BookingMailer.cancel_booking_btob_animator
   end
 
   # Preview this email at http://localhost:3000/rails/mailers/booking_mailer/cancel_booking_btoc

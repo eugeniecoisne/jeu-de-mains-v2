@@ -9,6 +9,14 @@ class BookingMailerTest < ActionMailer::TestCase
     assert_match "Hi", mail.body.encoded
   end
 
+  test "new_booking_btob_animator" do
+    mail = BookingMailer.new_booking_btob_animator
+    assert_equal "New booking btob animator", mail.subject
+    assert_equal ["to@example.org"], mail.to
+    assert_equal ["from@example.com"], mail.from
+    assert_match "Hi", mail.body.encoded
+  end
+
   test "new_booking_btoc" do
     mail = BookingMailer.new_booking_btoc
     assert_equal "New booking btoc", mail.subject
@@ -20,6 +28,14 @@ class BookingMailerTest < ActionMailer::TestCase
   test "cancel_booking_btob" do
     mail = BookingMailer.cancel_booking_btob
     assert_equal "Cancel booking btob", mail.subject
+    assert_equal ["to@example.org"], mail.to
+    assert_equal ["from@example.com"], mail.from
+    assert_match "Hi", mail.body.encoded
+  end
+
+  test "cancel_booking_btob_animator" do
+    mail = BookingMailer.cancel_booking_btob_animator
+    assert_equal "Cancel booking btob animator", mail.subject
     assert_equal ["to@example.org"], mail.to
     assert_equal ["from@example.com"], mail.from
     assert_match "Hi", mail.body.encoded
