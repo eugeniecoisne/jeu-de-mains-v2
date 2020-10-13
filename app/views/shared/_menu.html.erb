@@ -25,7 +25,7 @@
         <% elsif current_user.profile.role.nil? %>
           <li class="list-group-item">
             <div class="list-item-menu">
-              <%= link_to partners_path, class: "menu-blue-link" do %>
+              <%= link_to devenir_partenaire_path, class: "menu-blue-link" do %>
                 <i class="fas fa-user-shield menu-icon menu-blue-icon mr-1"></i>
                 Devenir partenaire
               <% end %>
@@ -50,7 +50,7 @@
         </li>
         <li class="list-group-item">
           <div class="list-item-menu">
-            <%= link_to dashboard_profile_path(current_user.profile), class: "menu-blue-link" do %>
+            <%= link_to tableau_de_bord_profile_path(current_user.profile), class: "menu-blue-link" do %>
               <% if current_user.profile.role %>
                 <i class="fas fa-chart-bar menu-icon menu-blue-icon mr-1"></i>
                 Mon tableau de bord
@@ -64,7 +64,7 @@
         <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
           <li class="list-group-item">
             <div class="list-item-menu">
-              <%= link_to chat_profile_path(current_user.profile), class: "menu-blue-link" do %>
+              <%= link_to messagerie_profile_path(current_user.profile), class: "menu-blue-link" do %>
                 <i class="fas fa-envelope menu-icon menu-blue-icon mr-2"></i>
                 Ma messagerie
               <% end %>
@@ -102,7 +102,7 @@
         </li>
         <li class="list-group-item">
           <div class="list-item-menu">
-            <%= link_to partners_path, class: "menu-blue-link" do %>
+            <%= link_to devenir_partenaire_path, class: "menu-blue-link" do %>
               <i class="fas fa-user-shield menu-icon menu-blue-icon mr-1"></i>
               Devenir partenaire
             <% end %>
@@ -111,7 +111,7 @@
         <li class="list-group-item">
         </li>
         <li class="list-group-item">
-          <%= link_to new_user_session_path, class: "menu-white-link" do %>
+          <%= link_to connexion_path, class: "menu-white-link" do %>
             <div class="list-item-sign" id="sign-in">
                 <i class="fas fa-sign-in-alt menu-icon menu-white-icon mr-2"></i>
                 Me connecter
@@ -119,7 +119,7 @@
           <% end %>
         </li>
         <li class="list-group-item">
-          <%= link_to new_user_registration_path, class: "menu-white-link" do %>
+          <%= link_to inscription_path, class: "menu-white-link" do %>
             <div class="list-item-sign" id="sign-up">
                 <i class="fas fa-user-plus menu-icon menu-white-icon mr-2"></i>
                 M'inscrire

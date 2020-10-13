@@ -3,7 +3,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <meta content="width=device-width" name="viewport"/>
     <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <title>Confirmation de votre réservation pour l'atelier <%= @booking.session.workshop.title %> !</title>
+    <title>Nouvelle réservation pour l'atelier <%= @booking.session.workshop.title %> !</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css"/>
@@ -208,7 +208,7 @@
                                 <span style="font-size: 27px;">
                                   <strong>
                                     <span style="color: #2b303a;">
-                                      Merci pour votre réservation !
+                                      Vous avez une nouvelle réservation !
                                     </span>
                                   </strong>
                                 </span>
@@ -221,9 +221,9 @@
                           <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
                             <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
                               <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
-                                <span style="color: #1C1C1C; font-size: 15px;">Bonne nouvelle, nous vous confirmons votre réservation pour l'atelier
-                                  <strong><%= link_to @booking.session.workshop.title, workshop_url(@booking.session.workshop), target: "_blank" %></strong> !<br>
-                                  Voici le détail de votre réservation :
+                                <span style="color: #1C1C1C; font-size: 15px;">Bonne nouvelle, vous avez une nouvelle réservation pour l'atelier
+                                  <strong><%= link_to @booking.session.workshop.title, workshop_url(@booking.session.workshop), target: "_blank" %></strong> du <%= l(@booking.session.date, format: '%A %d %b %Y') %> à <%= @booking.session.start_at[0..1] %>:<%= @booking.session.start_at[3..4] %> ! <br>
+                                  Voici le détail de cette réservation :
                                 </span>
                               </p>
                             </div>
@@ -478,15 +478,11 @@
                         <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 30px;">
                           <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
                             <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Prix unitaire <%= @booking.session.workshop.price %>€ x <%= @booking.quantity %></span></p>
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Moyen de paiement</span></p>
-<!--                               <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Code promotionnel</span></p>
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Carte cadeau</span></p> -->
-                            </div>
-                          </div>
-                          <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:15px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
-                            <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
-                              <p style="font-size: 19px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 19px;"><strong><span style="color: #1C1C1C;">TOTAL</span></strong></span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Réservé par</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Réservé le</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Nombre de places</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Montant réglé</span></p>
+
                             </div>
                           </div>
                         </div>
@@ -500,15 +496,11 @@
                         <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
                           <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
                             <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.amount %>€</span></p>
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">CB</span></p>
-                             <!--  <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">0</span></p>
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">0</span></p> -->
-                            </div>
-                          </div>
-                          <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:15px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
-                            <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
-                              <p style="font-size: 19px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 19px;"><strong><span style="color: #1C1C1C;"><%= @booking.amount %>€</span></strong></span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.user.first_name %> <%= @booking.user.last_name[0] %>.</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.created_at.strftime('%d/%m/%Y') %></span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %></span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.amount %> €</span></p>
+
                             </div>
                           </div>
                         </div>
@@ -574,10 +566,10 @@
                           <!-- CALL TO ACTION - MANAGE MY BOOKING -->
 
                           <div align="center" class="button-container" style="padding-top:25px;padding-right:10px;padding-bottom:30px;padding-left:10px;">
-                            <%= link_to tableau_de_bord_profile_url(@booking.user.profile), style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #fff; background-color: #52828D; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
+                            <%= link_to session_participants_url(@booking.session), style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #fff; background-color: #52828D; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
                               <span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
                                 <span style="font-size: 14px; line-height: 2; word-break: break-word; color: #fff; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 32px;">
-                                  <strong>GÉRER MA RÉSERVATION</strong>
+                                  <strong>VOIR LES PARTICIPANTS</strong>
                                 </span>
                               </span>
                             <% end %>

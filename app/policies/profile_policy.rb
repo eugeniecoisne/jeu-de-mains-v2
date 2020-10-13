@@ -16,11 +16,11 @@ class ProfilePolicy < ApplicationPolicy
     update?
   end
 
-  def dashboard?
+  def tableau_de_bord?
     update?
   end
 
-  def chat?
+  def messagerie?
     update?
   end
 

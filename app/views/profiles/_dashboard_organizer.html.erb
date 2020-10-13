@@ -326,11 +326,33 @@
                             </div>
                           </div>
 
-                      <% else %>
+                      <% elsif workshop.status == 'hors ligne' && workshop.sessions.select { |session| session.date >= Date.today }.present? %>
                         <%= form_for workshop, method: :patch do |f| %>
                           <%= f.hidden_field :status, value: 'en ligne' %>
                           <%= f.submit 'Passer en ligne', class: "button", id: "turn-online-offline-button" %>
                         <% end %>
+                      <% else %>
+                        <a href="#disabledOnlineModal<%= index +1 %>" class="button" data-toggle="modal" data-whatever="@mdo" id="turn-online-offline-button-disabled">
+                            Passer en ligne
+                          </a>
+
+                          <div class="modal fade disabled-modal" id="disabledOnlineModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="disabledOnlineModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="form-group">
+                                  <div class="modal-body">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+                                    </button>
+                                    <div class="mt-3">
+                                      Vous n'avez pas de session à venir pour cet atelier, il ne peut donc pas être <em>en ligne</em>. Merci d'ajouter une nouvelle date.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                       <% end %>
 
                       <% if my_ws_bookings_7_days.empty? %>

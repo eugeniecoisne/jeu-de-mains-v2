@@ -19,7 +19,7 @@ class ReviewsController < ApplicationController
       mail = ReviewMailer.with(review: @review).new_review
       mail.deliver_now
       flash[:notice] = "Votre avis a bien été posté !"
-      redirect_to dashboard_profile_path(current_user.profile)
+      redirect_to tableau_de_bord_profile_path(current_user.profile)
     else
       flash[:alert] = "Une erreur s'est produite."
       render 'new'

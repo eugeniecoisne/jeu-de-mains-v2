@@ -3,7 +3,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <meta content="width=device-width" name="viewport"/>
     <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <title>Confirmation de votre réservation pour l'atelier <%= @booking.session.workshop.title %> !</title>
+    <title>Vous avez une annulation pour l'atelier <%= @booking.session.workshop.title %></title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css"/>
@@ -39,32 +39,6 @@
         text-decoration: none !important;
       }
 
-      /* btn add to calendar */
-      .addeventatc {display:inline-block;position:relative;cursor:pointer;color:$blue!important;font-weight:500;font-size:23px;text-decoration:none;cursor:pointer;-webkit-font-smoothing:antialiased!important;outline:none;}
-      .addeventatc:hover            {color:$light-blue!important;text-decoration:none;}
-      .addeventatc-selected           {color:$light-blue!important;}
-      .addeventatc .start, .addeventatc .end, .addeventatc .timezone, .addeventatc .title, .addeventatc .description, .addeventatc .location, .addeventatc .organizer, .addeventatc .organizer_email, .addeventatc .facebook_event, .addeventatc .all_day_event, .addeventatc .date_format, .addeventatc .alarm_reminder, .addeventatc .recurring, .addeventatc .attendees, .addeventatc .calname, .addeventatc .uid, .addeventatc .status, .addeventatc .method, .addeventatc .client, .addeventatc .transp {display:none!important;}
-      .addeventatc br             {display:none;}
-
-      /* Drop down */
-      .addeventatc_dropdown           {width:230px;position:absolute;padding:6px 0px 0px 0px;font-family:"Raleway",sans-serif;color:$gray!important;font-weight:600;line-height:100%;background:#fff;font-size:14px;text-decoration:none;text-align:left;margin-left:-1px;display:none;-webkit-box-shadow:rgba(0,0,0,0.4) 0px 10px 26px;-moz-box-shadow:rgba(0,0,0,0.4) 0px 10px 26px;box-shadow:rgba(0,0,0,0.4) 0px 10px 26px;transform:scale(.98,.98) translateY(5px);z-index:20;transition:transform .15s ease;-webkit-user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
-      .addeventatc_dropdown.topdown       {transform:scale(.98,.98) translateY(-5px)!important;}
-      .addeventatc_dropdown span        {display:block;line-height:100%;background:#fff;text-decoration:none;cursor:pointer;font-size:15px;color:#333;font-weight:600;padding:14px 10px 14px 55px;margin:-2px 0px;}
-      .addeventatc_dropdown span:hover    {background-color:#f4f4f4;color:#000;text-decoration:none;font-size:15px;}
-      .addeventatc_dropdown em        {display: none;}
-      .addeventatc_dropdown .frs a      {background:#fff;color:#cacaca!important;cursor:pointer;font-size:9px!important;font-style:normal!important;font-weight:400!important;line-height:110%!important;padding-left:10px;position:absolute;right:10px;text-align:right;text-decoration:none;top:5px;z-index:101;}
-      .addeventatc_dropdown .frs a:hover    {color:#999!important;}
-      .addeventatc_dropdown .ateappleical   {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244595/icon-apple-t5_u07ftt.svg') 18px 40% no-repeat;background-size:22px 100%;}
-      .addeventatc_dropdown .ategoogle    {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244597/icon-google-t5_hhelnn.svg') 18px 50% no-repeat;background-size:22px 100%;}
-      .addeventatc_dropdown .ateoffice365   {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244595/icon-office365-t5_qtmqxl.svg') 19px 50% no-repeat;background-size:18px 100%;}
-      .addeventatc_dropdown .ateoutlook     {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244595/icon-outlook-t5_jyiicm.svg') 18px 50% no-repeat;background-size:22px 100%;}
-      .addeventatc_dropdown .ateoutlookcom  {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244595/icon-outlookcom-t5_lnfvvs.svg') 18px 50% no-repeat;background-size:22px 100%;}
-      .addeventatc_dropdown .ateyahoo     {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244597/icon-yahoo-t5_uvgnsf.svg') 18px 50% no-repeat;background-size:22px 100%;}
-      .addeventatc_dropdown .copyx      {height:21px;display:block;position:relative;cursor:default;}
-      .addeventatc_dropdown .brx        {height:1px;overflow:hidden;background:#e8e8e8;position:absolute;z-index:100;left:10px;right:10px;top:9px;}
-      .addeventatc_dropdown.addeventatc-selected {transform:scale(1,1) translateY(0px);z-index:99999999999;}
-      .addeventatc_dropdown.topdown.addeventatc-selected {transform:scale(1,1) translateY(0px)!important;}
-      .addeventatc_dropdown .drop_markup    {background-color:#f4f4f4;}
 
     </style>
     <style id="media-query" type="text/css">
@@ -208,7 +182,7 @@
                                 <span style="font-size: 27px;">
                                   <strong>
                                     <span style="color: #2b303a;">
-                                      Merci pour votre réservation !
+                                      Snif, vous avez une annulation
                                     </span>
                                   </strong>
                                 </span>
@@ -221,9 +195,9 @@
                           <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
                             <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
                               <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
-                                <span style="color: #1C1C1C; font-size: 15px;">Bonne nouvelle, nous vous confirmons votre réservation pour l'atelier
-                                  <strong><%= link_to @booking.session.workshop.title, workshop_url(@booking.session.workshop), target: "_blank" %></strong> !<br>
-                                  Voici le détail de votre réservation :
+                                <span style="color: #1C1C1C; font-size: 15px;">Vous avez une annulation de réservation pour l'atelier
+                                  <strong><%= link_to @booking.session.workshop.title, workshop_url(@booking.session.workshop), target: "_blank" %></strong> du <%= l(@booking.session.date, format: '%A %d %b %Y') %> à <%= @booking.session.start_at[0..1] %>:<%= @booking.session.start_at[3..4] %>.<br>
+                                  Voici l'atelier concerné par l'annulation et le récapitulatif d'annulation :
                                 </span>
                               </p>
                             </div>
@@ -334,60 +308,6 @@
                               <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Quantité : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %></p>
                             </div>
                           </div>
-
-                          <!-- WS LINKS -->
-
-                          <table cellpadding="0" cellspacing="0" class="social_icons" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;" valign="top" width="100%">
-                            <tbody>
-                              <tr class="mobile-align-icons-center" style="vertical-align: top;display: flex;justify-content: left;" valign="top">
-                                <td style="word-break: break-word; vertical-align: top; padding-top: 10px; padding-right: 0px; padding-bottom: 10px; padding-left: 0px;" valign="top">
-                                  <table align="center" cellpadding="0" cellspacing="0" class="social_table" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-tspace: 0; mso-table-rspace: 0; mso-table-bspace: 0; mso-table-lspace: 0;" valign="top">
-                                    <tbody>
-                                      <tr align="center" style="vertical-align: top; display: inline-block; text-align: left;" valign="top">
-                                        <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 11px; padding-left: 0px;" valign="top">
-                                          <a href="tel:+33<%= @booking.session.workshop.place.phone_number[1..-1] %>" target="_blank">
-                                            <img alt="Appeler" height="21" src="https://res.cloudinary.com/eugeniedenis/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-telephone.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Appeler" width="auto"/>
-                                          </a>
-                                        </td>
-                                        <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 14px; padding-left: 0px;" valign="top">
-                                          <a href="https://www.google.fr/maps/search/<%= @booking.session.workshop.place.address %>, <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city.upcase %>" target="_blank">
-                                            <img alt="Localiser" height="20" src="https://res.cloudinary.com/eugeniedenis/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-itineraire.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Localiser" width="auto"/>
-                                          </a>
-                                        </td>
-                                        <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 4px; padding-left: 0px;" valign="top">
-                                          <div title="Add to Calendar" data-styling="none" class="addeventatc">
-                                            <img alt="Ajouter à l'agenda" height="21" src="https://res.cloudinary.com/eugeniedenis/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-calendrier.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Ajouter à l'agenda" width="auto"/>
-
-                                            <span class="start">
-                                              <%= @booking.session.date.strftime('%m/%d/%Y') %>
-                                              <%= @booking.session.start_at[0..1] %>:<%= @booking.session.start_at[3..4] %>
-                                            </span>
-                                            <span class="end">
-                                              <% start_in_minutes = (@booking.session.start_at[0..1].to_i * 60) + @booking.session.start_at[3..4].to_i %>
-                                              <% end_in_minutes = start_in_minutes + @booking.session.workshop.duration %>
-                                              <%= @booking.session.date.strftime('%m/%d/%Y') %>
-                                              <%= end_in_minutes.fdiv(60).round.to_i %>:<%= end_in_minutes%60 > 0 ? end_in_minutes%60 : "00" %>
-                                            </span>
-                                            <span class="timezone">Europe/Paris</span>
-                                            <span class="title">Atelier "<%= @booking.session.workshop.title %>"</span>
-                                            <span class="organizer">jeudemains.com</span>
-                                            <span class="description">
-                                              Atelier "<%= @booking.session.workshop.title %>"<br>
-                                              Réservé sur https://www.jeudemains.com/<br><br>
-                                              ----- <br><br>
-                                              Au programme : <br>
-                                              <%= @booking.session.workshop.program %>
-                                              </span>
-                                            <span class="location"><%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city.capitalize %></span>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
                         </div>
                       </div>
                     </div>
@@ -453,7 +373,7 @@
                                 <span style="color: #1C1C1C; font-size: 14px;">
                                   <strong>
                                     <span style="">
-                                      DÉTAILS RÉSERVATION N°<%= @booking.id %>
+                                      DÉTAILS ANNULATION DE RÉSERVATION N°<%= @booking.id %>
                                     </span>
                                   </strong>
                                 </span>
@@ -478,17 +398,15 @@
                         <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 30px;">
                           <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
                             <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Prix unitaire <%= @booking.session.workshop.price %>€ x <%= @booking.quantity %></span></p>
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Moyen de paiement</span></p>
-<!--                               <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Code promotionnel</span></p>
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Carte cadeau</span></p> -->
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Client</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Réservé le</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Annulé le</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Nombre de places</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Montant remboursé</span></p>
+
                             </div>
                           </div>
-                          <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:15px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
-                            <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
-                              <p style="font-size: 19px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 19px;"><strong><span style="color: #1C1C1C;">TOTAL</span></strong></span></p>
-                            </div>
-                          </div>
+
                         </div>
                       </div>
                     </div>
@@ -500,17 +418,14 @@
                         <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
                           <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
                             <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.amount %>€</span></p>
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">CB</span></p>
-                             <!--  <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">0</span></p>
-                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">0</span></p> -->
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.user.first_name %> <%= @booking.user.last_name[0] %>.</span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.created_at.strftime('%d/%m/%Y') %></span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.updated_at.strftime('%d/%m/%Y') %></span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %></span></p>
+                              <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.amount %> €</span></p>
                             </div>
                           </div>
-                          <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:15px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
-                            <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
-                              <p style="font-size: 19px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 19px;"><strong><span style="color: #1C1C1C;"><%= @booking.amount %>€</span></strong></span></p>
-                            </div>
-                          </div>
+
                         </div>
                       </div>
                     </div>
@@ -574,10 +489,10 @@
                           <!-- CALL TO ACTION - MANAGE MY BOOKING -->
 
                           <div align="center" class="button-container" style="padding-top:25px;padding-right:10px;padding-bottom:30px;padding-left:10px;">
-                            <%= link_to tableau_de_bord_profile_url(@booking.user.profile), style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #fff; background-color: #52828D; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
+                            <%= link_to session_participants_url(@booking.session), style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #fff; background-color: #52828D; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
                               <span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
                                 <span style="font-size: 14px; line-height: 2; word-break: break-word; color: #fff; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 32px;">
-                                  <strong>GÉRER MA RÉSERVATION</strong>
+                                  <strong>VOIR LES PARTICIPANTS</strong>
                                 </span>
                               </span>
                             <% end %>
@@ -665,5 +580,4 @@
       </tbody>
     </table>
   </body>
-  <script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
 </html>

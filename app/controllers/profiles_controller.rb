@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(public)
-  before_action :set_profile, only: %i(show edit update dashboard chat)
+  before_action :set_profile, only: %i(show edit update tableau_de_bord messagerie)
 
   def index
     @chatroom = Chatroom.new
@@ -28,14 +28,14 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def dashboard
+  def tableau_de_bord
     @users = User.all.where(db_status: true).select { |user| user.profile.role == 'animateur' }
     @animator = Animator.new
     @session = Session.new
     @workshop = Workshop.new
   end
 
-  def chat
+  def messagerie
     @user_chatrooms = []
     Chatroom.all.each do |chatroom|
       if User.find(chatroom.user1) == current_user || User.find(chatroom.user2) == current_user
