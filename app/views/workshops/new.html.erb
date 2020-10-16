@@ -52,7 +52,7 @@
             Puis sélectionnez parmi vos lieux celui où ce déroulera l'atelier. <br>
             <br><br>
 
-            <%= f.input :title, required: false, label: "Intitulé de l'atelier"  %>
+            <%= f.input :title, required: true, label: "Intitulé de l'atelier"  %>
 
             <div class="form-group select required workshop_place_id">
               <label class="select optional" for="workshop_place">Sélectionnez un lieu parmi vos lieux :</label>
@@ -87,11 +87,11 @@
             <strong>Important :</strong> le prix fixé se doit d'être identique à celui affiché sur vos autres supports (boutique, site, autres plateformes).
             <br><br>
 
-            <%= f.input :thematic, label: "Type d'atelier", collection: Workshop::THEMATICS %>
-            <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS %>
-            <%= f.input :capacity, label: "Nombre de places proposées" %>
-            <%= f.input :duration, label: "Durée de l'atelier en minutes" %>
-            <%= f.input :price, label: "Prix par personne" %>
+            <%= f.input :thematic, required: true, label: "Type d'atelier", collection: Workshop::THEMATICS %>
+            <%= f.input :level, required: true, label: "Niveau requis pour participer", collection: Workshop::LEVELS %>
+            <%= f.input :capacity, required: false, label: "Nombre de places proposées" %>
+            <%= f.input :duration, required: false, label: "Durée de l'atelier en minutes" %>
+            <%= f.input :price, required: false, label: "Prix par personne" %>
 
             <div class="next-previous">
               <a class="next-previous-button btnPrevious" id="previous-3" >Retour</a>
@@ -113,8 +113,8 @@
             <strong>Sortez votre plume &#128521;</strong><br>
             Raconter ici tout ce que les utilisateurs doivent savoir sur votre atelier : l'univers de l'animateur et du lieu, le déroulé, avec quel objet ils repartent... Plus vous en dites, plus les utilisateurs seront rassurés et convaincus !
             <br><br>
-            <%= f.input :program, label: "Programme", :input_html => {:rows => 8}, placeholder: "Parlez ici en détails du déroulé, de l'ambiance, de l'univers de l'animateur, des éventuelles collations incluses... " %>
-            <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3}, placeholder: "Parlez ici de l'objet et tout autre matériel créatif avec lequel le client repart ;)" %>
+            <%= f.input :program, required: false, label: "Programme", :input_html => {:rows => 8}, placeholder: "Parlez ici en détails du déroulé, de l'ambiance, de l'univers de l'animateur, des éventuelles collations incluses... " %>
+            <%= f.input :final_product, required: false, label: "Repartez avec", :input_html => {:rows => 3}, placeholder: "Parlez ici de l'objet et tout autre matériel créatif avec lequel le client repart ;)" %>
 
             <div class="next-previous">
               <a class="next-previous-button btnPrevious" id="previous-4" >Retour</a>
@@ -138,8 +138,8 @@
             Prenez des clichés jolis, épurés du lieu, de l'objet à créer, du matériel utilisé afin que les utilisateurs puissent se projeter &#128521; <br>
             <br><br>
 
-            <%= f.input :photos, as: :file, label: "Minimum 1 photo / maximum 6 photos", input_html: { multiple: true } %>
-
+            <%= f.input :photos, required: false, as: :file, label: "Minimum 1 photo - Poids max de l'ensemble : 15 Mo", input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" } %>
+            <p id="bytesSize"></p>
             <div id="preview"></div>
 
             <div class="next-previous">
@@ -175,3 +175,30 @@
     <% end %>
   </div>
 </div>
+
+<script>
+    Filevalidation = () => {
+        const fi = document.getElementById('photos');
+        // Check if any file is selected.
+        if (fi.files.length > 0) {
+
+            let sum = 0;
+            let i = 0;
+
+            for ( i = 0; i <= fi.files.length - 1; i++) {
+
+                sum += Math.round(((fi.files.item(i).size) / 1024));
+                // The size of the file.
+
+            }
+
+            if (sum >= 15100) {
+                alert(
+                  "Poids total dépassé. Sélectionnez un ensemble de fichiers de moins de 15 Mo");
+            } else {
+                document.getElementById('bytesSize').innerHTML = '<b> ✔ '
+                + (sum / 1000) + '</b> Mo / 15 Mo poids max';
+            }
+        }
+    }
+</script>

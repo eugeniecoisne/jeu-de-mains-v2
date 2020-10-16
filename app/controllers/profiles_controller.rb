@@ -24,7 +24,7 @@ class ProfilesController < ApplicationController
     if @profile.save
       redirect_to profile_path(@profile)
     else
-      render 'edit'
+      redirect_to profile_path(@profile)
     end
   end
 

@@ -24,7 +24,9 @@
         <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS, class: "updatable" %>
         <%= f.input :program, label: "Programme", :input_html => {:rows => 8}, class: "updatable" %>
         <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3}, class: "updatable" %>
-        <%= f.input :photos, as: :file, input_html: { multiple: true }, label: "Photos de l'atelier" %>
+        <%= f.input :photos, as: :file, input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" }, label: "Photos de l'atelier" %>
+        <p id="bytesSize"></p>
+
         <p>Voici les photos actuelles de l'atelier, si vous souhaitez en ajouter/remplacer, chargez l'ensemble des photos souhaitées, vos photos actuelles ne seront pas sauvegardées.</p>
           <div class="edit-ws-photos d-flex mb-4">
             <% @workshop.photos.each do |photo| %>
@@ -83,7 +85,8 @@
         <%= f.input :capacity, label: "Nombre de places proposées" %>
         <%= f.input :program, label: "Programme", :input_html => {:rows => 8} %>
         <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3} %>
-        <%= f.input :photos, as: :file, label: "Photos de l'atelier", input_html: { multiple: true } %>
+        <%= f.input :photos, as: :file, label: "Photos de l'atelier", input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" } %>
+        <p id="bytesSize"></p>
 
         <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
 
@@ -92,3 +95,31 @@
   </div>
 
 <% end %>
+
+<script>
+    Filevalidation = () => {
+        const fi = document.getElementById('photos');
+        // Check if any file is selected.
+        if (fi.files.length > 0) {
+
+            let sum = 0;
+            let i = 0;
+
+            for ( i = 0; i <= fi.files.length - 1; i++) {
+
+                sum += Math.round(((fi.files.item(i).size) / 1024));
+                // The size of the file.
+
+            }
+
+            if (sum >= 15100) {
+                alert(
+                  "Poids total dépassé. Sélectionnez un ensemble de fichiers de moins de 15 Mo");
+            } else {
+                document.getElementById('bytesSize').innerHTML = '<b> ✔ '
+                + (sum / 1000) + '</b> Mo / 15 Mo poids max';
+            }
+        }
+    }
+</script>
+

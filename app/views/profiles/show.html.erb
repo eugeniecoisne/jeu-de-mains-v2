@@ -222,3 +222,30 @@
 
 <% end %>
 
+<script>
+    Filevalidation = () => {
+        const fi = document.getElementById('picture');
+        // Check if any file is selected.
+        if (fi.files.length > 0) {
+
+            let sum = 0;
+            let i = 0;
+
+            for ( i = 0; i <= fi.files.length - 1; i++) {
+
+                sum += Math.round(((fi.files.item(i).size) / 1024));
+                // The size of the file.
+
+            }
+
+            if (sum >= 3100) {
+                alert(
+                  "Poids total dépassé. Sélectionnez une photo de moins de 3 Mo");
+            } else {
+                document.getElementById('bytesSize').innerHTML = '<b> ✔ '
+                + (sum / 1000) + '</b> Mo / 3 Mo poids max';
+            }
+        }
+    }
+</script>
+

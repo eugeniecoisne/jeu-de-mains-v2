@@ -2,6 +2,7 @@ class Profile < ApplicationRecord
   has_one_attached :photo
   belongs_to :user
   # validates :company, :siret_number, uniqueness: true
+  validate :attachment_size
 
 
   def self.cities
@@ -29,6 +30,17 @@ class Profile < ApplicationRecord
       end
     end
     @average = ratings.sum.fdiv(reviews_count).round(2)
+  end
+
+  private
+
+  def attachment_size
+    if self.photo.attached?
+    photo_size = self.photo.byte_size
+      if photo_size > 3.megabytes
+        errors.add(:attachments, "limite de poids max 3 Mo")
+      end
+    end
   end
 
 end
