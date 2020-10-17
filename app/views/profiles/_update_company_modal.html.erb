@@ -146,7 +146,8 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
             </button>
-            <%= f.input :photo, as: :file, id: 'profile_profile_picture', label: false %>
+            <%= f.input :photo, as: :file, id: 'profile_profile_picture', label: false, input_html: { accept: "image/*", id: "picture", onchange: "Filevalidation()" } %>
+            <p id="bytesSize"></p>
             <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>
         <% end %>

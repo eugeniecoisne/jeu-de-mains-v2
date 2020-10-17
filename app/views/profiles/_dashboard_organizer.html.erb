@@ -345,7 +345,24 @@
                                       <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
                                     </button>
                                     <div class="mt-3">
-                                      Vous n'avez pas de session à venir pour cet atelier, il ne peut donc pas être <em>en ligne</em>. Merci d'ajouter une nouvelle date.
+                                      <% if workshop.program.present? && workshop.title.present? && workshop.duration.present? && workshop.capacity.present? && workshop.final_product.present? && workshop.thematic.present? && workshop.level.present? && workshop.price.present? && workshop.price > 0 && workshop.photos.attached? %>
+                                        Vous n'avez pas de session à venir pour cet atelier, il ne peut donc pas être <em>en ligne</em>. Merci d'ajouter une nouvelle date.
+                                      <% else %>
+                                        <strong>Les informations concernant l'atelier sont incomplètes.</strong><br>
+                                        Informations non renseignées :
+                                        <ul>
+                                          <% if workshop.title.present? == false %><li>Intitulé de l'atelier</li><% end %>
+                                          <% if workshop.title.present? == false %><li>Intitulé de l'atelier</li><% end %>
+                                          <% if workshop.thematic.present? == false %><li>Type d'atelier</li><% end %>
+                                          <% if workshop.level.present? == false %><li>Niveau requis pour participer</li><% end %>
+                                          <% if workshop.duration.present? == false %><li>Durée de l'atelier</li><% end %>
+                                          <% if workshop.final_product.present? == false %><li>Nombre de places proposées</li><% end %>
+                                          <% if workshop.price.present? == false %><li>Prix par personne</li><% end %>
+                                          <% if workshop.program.present? == false %><li>Programme</li><% end %>
+                                          <% if workshop.final_product.present? == false %><li>Repartez avec</li><% end %>
+                                        </ul>
+                                        Veuillez compléter les informations manquantes en cliquant sur <strong><em>Modifier la fiche</em></strong>.
+                                      <% end %>
                                     </div>
                                   </div>
                                 </div>

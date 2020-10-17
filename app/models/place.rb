@@ -8,6 +8,7 @@ class Place < ApplicationRecord
 
   validates :name, :address, :zip_code, :city, :siret_number, presence: true, allow_blank: false
   validates :name, :siret_number, uniqueness: true
+  validate :attachment_size
 
   geocoded_by :full_address
   after_validation :geocode, if: :will_save_change_to_address?
@@ -35,6 +36,15 @@ class Place < ApplicationRecord
 
   def full_address
     "#{address} #{zip_code} #{city}"
+  end
+
+  def attachment_size
+    if self.photo.attached?
+    photo_size = self.photo.byte_size
+      if photo_size > 3.megabytes
+        errors.add(:attachments, "limite de poids max 3 Mo")
+      end
+    end
   end
 
 

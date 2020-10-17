@@ -102,25 +102,41 @@
 
       <div class="ws-show-informations-program">
         <h2>Programme de l'atelier</h2>
-        <p><%= @workshop.program %></p>
+        <% if @workshop.program.present? %>
+          <p><%= @workshop.program %></p>
+        <% else %>
+          <p>Non renseigné.</p>
+        <% end %>
         <div class="ws-show-informations-tags">
           <i class="fas fa-tag"></i>
-          <div class='informations-tag'><%= @workshop.level %></div>
-          <div class='informations-tag'>
-            <% if @workshop.duration%60 == 0 %>
-              <%= @workshop.duration/60 %> heures
-            <% else %>
-              <%= @workshop.duration/60 %> heures <%= @workshop.duration%60 %>
-            <% end %>
-          </div>
-          <div class='informations-tag'><%= @workshop.thematic %></div>
-          <div class='informations-tag'><%= @workshop.capacity %> personnes</div>
+          <% if @workshop.level.present? %>
+            <div class='informations-tag'><%= @workshop.level %></div>
+          <% end %>
+          <% if @workshop.duration.present? %>
+            <div class='informations-tag'>
+              <% if @workshop.duration%60 == 0 %>
+                <%= @workshop.duration/60 %> heures
+              <% else %>
+                <%= @workshop.duration/60 %> heures <%= @workshop.duration%60 %>
+              <% end %>
+            </div>
+          <% end %>
+          <% if @workshop.thematic.present? %>
+            <div class='informations-tag'><%= @workshop.thematic %></div>
+          <% end %>
+          <% if @workshop.capacity.present? %>
+            <div class='informations-tag'><%= @workshop.capacity %> personnes</div>
+          <% end %>
         </div>
       </div>
 
       <div class="ws-show-informations-final-product">
         <h2>Vous repartez avec</h2>
-        <p><%= @workshop.final_product %></p>
+        <% if @workshop.final_product.present? %>
+          <p><%= @workshop.final_product %></p>
+        <% else %>
+          <p>Non renseigné.</p>
+        <% end %>
       </div>
 
       <!-- WORKSHOP SHOW INFORMATIONS REVIEWS-->
