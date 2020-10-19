@@ -1,4 +1,8 @@
 class Place < ApplicationRecord
+
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   has_one_attached :photo
   belongs_to :user
   has_many :workshops, dependent: :destroy

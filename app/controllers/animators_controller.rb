@@ -7,7 +7,7 @@ class AnimatorsController < ApplicationController
   def create
     @animator = Animator.new
     authorize @animator
-    @animator.workshop = Workshop.find(params[:workshop_id])
+    @animator.workshop = Workshop.friendly.find(params[:workshop_id])
     @animator.user = User.find(params[:animator][:user_id])
     if @animator.save
       mail = AnimatorMailer.with(animator: @animator).new_animator
