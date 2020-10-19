@@ -143,7 +143,7 @@ class WorkshopsController < ApplicationController
   def create
     @workshop = Workshop.new(workshop_params)
     authorize @workshop
-    @workshop.place = Place.find(params[:workshop][:place_id])
+    @workshop.place = Place.friendly.find(params[:workshop][:place_id])
     @workshop.status = 'hors ligne'
     if @workshop.photos.attached? == false
       all_initial_ws = Workshop.all.select { |workshop| workshop.title == @workshop.title }
@@ -180,8 +180,8 @@ class WorkshopsController < ApplicationController
   private
 
   def set_workshop
-    if Workshop.find(params[:id]).db_status == true
-      @workshop = Workshop.find(params[:id])
+    if Workshop.friendly.find(params[:id]).db_status == true
+      @workshop = Workshop.friendly.find(params[:id])
       authorize @workshop
     end
   end

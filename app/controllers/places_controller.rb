@@ -51,8 +51,8 @@ class PlacesController < ApplicationController
   private
 
   def set_place
-    if Place.find(params[:id]).db_status == true
-      @place = Place.find(params[:id])
+    if Place.friendly.find(params[:id]).db_status == true
+      @place = Place.friendly.find(params[:id])
       authorize @place
     end
   end

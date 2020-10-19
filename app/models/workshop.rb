@@ -1,4 +1,7 @@
 class Workshop < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   has_many_attached :photos
   belongs_to :place
   has_many :sessions, dependent: :destroy

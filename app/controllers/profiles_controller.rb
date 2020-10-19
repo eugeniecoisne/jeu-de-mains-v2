@@ -46,8 +46,8 @@ class ProfilesController < ApplicationController
   end
 
   def public
-    if Profile.find(params[:profile_id]).db_status == true
-      @profile = Profile.find(params[:profile_id])
+    if Profile.friendly.find(params[:profile_id]).db_status == true
+      @profile = Profile.friendly.find(params[:profile_id])
       authorize @profile
     end
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true)
@@ -56,8 +56,8 @@ class ProfilesController < ApplicationController
   private
 
   def set_profile
-    if Profile.find(params[:id]).db_status == true
-      @profile = Profile.find(params[:id])
+    if Profile.friendly.find(params[:id]).db_status == true
+      @profile = Profile.friendly.find(params[:id])
       authorize @profile
     end
   end

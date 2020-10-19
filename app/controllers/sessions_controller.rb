@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   def create
     @session = Session.new(session_params)
     authorize @session
-    @session.workshop = Workshop.find(params[:workshop_id])
+    @session.workshop = Workshop.friendly.find(params[:workshop_id])
     @session.capacity = @session.workshop.capacity if @session.capacity.nil?
     if @session.save
       flash[:notice] = "Votre session a bien été ajoutée !"
@@ -15,8 +15,8 @@ class SessionsController < ApplicationController
 
   def index
     @session = Session.new
-    if policy_scope(Workshop).find(params[:workshop_id]).db_status == true
-      @workshop = policy_scope(Workshop).find(params[:workshop_id])
+    if policy_scope(Workshop).friendly.find(params[:workshop_id]).db_status == true
+      @workshop = policy_scope(Workshop).friendly.find(params[:workshop_id])
       @sessions = @workshop.sessions.where(db_status: true)
     end
   end

@@ -22,6 +22,7 @@ gem 'devise-i18n'
 gem 'geocoder'
 gem 'postmark-rails'
 gem 'will_paginate', '~> 3.3.0'
+gem 'friendly_id', '~> 5.4.0'
 gem 'rails-i18n', '~> 6.0.0'
 
 group :development do

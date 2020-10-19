@@ -28,11 +28,11 @@ class ReviewsController < ApplicationController
 
   def index
     if params[:workshop_id]
-      @workshop = Workshop.find(params[:workshop_id]) if Workshop.find(params[:workshop_id]).db_status == true
+      @workshop = Workshop.friendly.find(params[:workshop_id]) if Workshop.friendly.find(params[:workshop_id]).db_status == true
     elsif params[:place_id]
-      @place = Place.find(params[:place_id]) if Place.find(params[:place_id]).db_status == true
+      @place = Place.friendly.find(params[:place_id]) if Place.friendly.find(params[:place_id]).db_status == true
     elsif params[:profile_id]
-      @profile = Profile.find(params[:profile_id]) if Profile.find(params[:profile_id]).db_status == true
+      @profile = Profile.friendly.find(params[:profile_id]) if Profile.friendly.find(params[:profile_id]).db_status == true
     end
   end
 
