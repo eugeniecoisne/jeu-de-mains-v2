@@ -1,0 +1,113 @@
+<div class="thematic-show">
+  <div class="thematic-show-banner">
+
+    <div>
+      <div class="thematic-show-banner-search-and-title">
+        <div class="thematic-show-banner-title">
+          <h1><%= thematic[:title] %></h1>
+          <h2><%= thematic[:introduction] %></h2>
+        </div>
+        <div class="thematic-show-search-container">
+          <div class="home-search" id="thematic-show-search">
+            <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+              <div class="thematic-show-search-inputs-and-submit">
+                <%= f.hidden_field :keyword, value: thematic[:title] %>
+                <%= f.input :place, required: false, label: "Ville", prompt: "Toutes les villes", collection: Place.cities.sort %>
+                <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date"}, placeholder: "À tout moment", label: "À partir du" %>
+                <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
+                <button type="submit" class="search-button">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="thematic-show-banner-image">
+      <%= cl_image_tag thematic[:image], width: 800, crop: :fill, alt: "ateliers #{thematic[:title].downcase}", title: "ateliers #{thematic[:title].downcase}" %>
+    </div>
+
+  </div>
+
+  <div class="thematic-show-ws-cards-container">
+
+    <div>
+      <h3 class="thematic-show-ws-cards-title">Découvrir les ateliers de l'univers <span id="thematic-strong"><%= thematic[:title] %></span></h3>
+
+      <div class="thematic-show-ws-cards thematic-show-ws-cards-best-ratings">
+        <% workshops.first(10).each do |workshop| %>
+          <div class="ws-card" id="thematic-show-ws-card">
+            <%= link_to(workshop, data: { turbolinks: false }) do  %>
+              <div class="ws-card-image-and-rating" id="thematic-show-ws-card-image-and-rating">
+                <div class="ws-card-tags" id="thematic-show-ws-card-tags">
+                  <% if workshop.rating %>
+                    <div class="ws-card-tag ws-card-rating" id="thematic-show-ws-card-rating">
+                      <i class="fas fa-star"></i><span><%= workshop.rating %></span>
+                    </div>
+                  <% end %>
+                  <% if workshop.place.ephemeral == true %>
+                    <div class="ws-card-tag ws-card-ephemeral" id="thematic-show-ws-card-ephemeral">
+                      <span>éphémère</span>
+                    </div>
+                  <% end %>
+                </div>
+                <%= render "workshops/ws-index-carousel", workshop: workshop %>
+              </div>
+            <% end %>
+            <%= link_to(workshop, data: { turbolinks: false }) do  %>
+              <div class="ws-card-infos" id="thematic-show-ws-card-infos">
+                <div>
+                  <div class="ws-card-place" id="thematic-show-ws-card-place-desktop">
+                    <% if workshop.place.name.size > 25 %>
+                      <h3><%= workshop.place.name[0..24] %>...</h3>
+                    <% else %>
+                      <h3><%= workshop.place.name %></h3>
+                    <% end %>
+                  </div>
+                  <div class="ws-card-place" id="thematic-show-ws-card-place-mobile">
+                    <% if workshop.place.name.size > 17 %>
+                      <h3><%= workshop.place.name[0..16] %>...</h3>
+                    <% else %>
+                      <h3><%= workshop.place.name %></h3>
+                    <% end %>
+                  </div>
+                  <div class="ws-card-title" id="thematic-show-ws-card-title">
+                    <h2><%= workshop.title %></h2>
+                  </div>
+                </div>
+                <div class="ws-card-price-and-city" id="thematic-show-ws-card-price-and-city">
+                  <div class="ws-card-price" id="thematic-show-ws-card-price">
+                    <%= workshop.price %> €
+                  </div>
+                  <div class="ws-card-city" id="thematic-show-ws-card-city">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <% if workshop.place.city.size >= 11 %>
+                      <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
+                    <% else %>
+                      <span id="city-name"><%= workshop.place.city.capitalize %></span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="thematic-show-redirect">
+    <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+      <%= f.hidden_field :keyword, value: thematic[:title] %>
+      <%= f.submit 'Voir tous', class: "blue-btn" %>
+    <% end %>
+  </div>
+
+</div>
+
+
+
+
+

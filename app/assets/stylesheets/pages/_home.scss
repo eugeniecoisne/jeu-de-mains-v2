@@ -34,7 +34,7 @@
 .home-steps-presentation-mobile {
   margin: 1em;
   .home-step-presentation {
-    padding-bottom: 3em;
+    padding-bottom: 1.5em;
   }
 }
 
@@ -95,7 +95,7 @@
   }
   .home-selection-btn {
     background: unset;
-    padding-bottom: 0.3em;
+    padding-bottom: 0.3rem;
     border: unset;
     border-bottom: 0.17em solid white;
     color: white;
@@ -138,7 +138,7 @@
     text-align: center;
     font-size: 24px;
     font-weight: 600;
-    margin-top: 3.5em;
+    margin-top: 2.5em;
   }
   .home-ws-cards-subtitle {
     font-family: "Raleway", "sans-serif";
@@ -154,6 +154,14 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 1em;
   padding: 0 0.4em 0 0.4em;
+}
+
+.home-ws-cards-best-ratings {
+  margin-bottom: 3.5em;
+}
+
+#home-ws-cards-best-ratings-title {
+  margin-top: 2.3rem;
 }
 
 .home-ws-cards-last-minute {
@@ -232,6 +240,9 @@
       line-height: 1.3em;
     }
   }
+  #home-ws-cards-best-ratings-title {
+    margin-top: 1.7rem;
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -270,6 +281,9 @@
     h3 {
       font-size: 14px;
     }
+  }
+  #home-ws-cards-best-ratings-title {
+    margin-top: 2.3rem;
   }
 }
 

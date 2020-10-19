@@ -7,7 +7,18 @@ Rails.application.routes.draw do
   get 'mentions_legales', to: 'pages#legal_notice'
   get 'politique_de_confidentialite', to: 'pages#privacy_policy'
   get 'cgv', to: 'pages#cgv'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  get 'thematiques', to: 'pages#thematiques'
+  scope '/thematiques' do
+    get 'autour-du-fil', to: 'pages#autour_du_fil'
+    get 'vegetal', to: 'pages#vegetal'
+    get 'papier-et-lettering', to: 'pages#papier_et_lettering'
+    get 'ceramique-et-modelage', to: 'pages#ceramique_et_modelage'
+    get 'bijou', to: 'pages#bijou'
+    get 'cosmetique-et-entretien', to: 'pages#cosmetique_et_entretien'
+    get 'dessin-et-peinture', to: 'pages#dessin_et_peinture'
+    get 'meuble-et-decoration', to: 'pages#meuble_et_decoration'
+  end
 
   devise_scope :user do
     match '/sessions/user', to: 'devise/sessions#create', via: :post

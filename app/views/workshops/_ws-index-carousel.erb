@@ -1,4 +1,5 @@
-<div id="wsIndexCarousel_<%= workshop.id %>" class="carousel slide" data-interval="false">
+<% @random = rand(1..10000) %>
+<div id="wsIndexCarousel_<%= workshop.id %>_<%= @random %>" class="carousel slide" data-interval="false">
 
   <div class="carousel-inner">
     <% if workshop.photos.attached? %>
@@ -24,11 +25,11 @@
     <% end %>
   </div>
 
-  <a class="carousel-control-prev" href="#wsIndexCarousel_<%= workshop.id %>" role="button" data-slide="prev">
+  <a class="carousel-control-prev" href="#wsIndexCarousel_<%= workshop.id %>_<%= @random %>" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Précédent</span>
   </a>
-  <a class="carousel-control-next" href="#wsIndexCarousel_<%= workshop.id %>" role="button" data-slide="next">
+  <a class="carousel-control-next" href="#wsIndexCarousel_<%= workshop.id %>_<%= @random %>" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Suivant</span>
   </a>
