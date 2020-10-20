@@ -146,7 +146,7 @@
                         <div align="center" class="img-container center fixedwidth" style="padding-right: 0px;padding-left: 0px;">
                           <div style="font-size:1px;line-height:22px">
                           </div>
-                          <img align="center" alt="Jeu de Mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1602490393/logo-bleu-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 160px; display: block;" title="Jeu de Mains" width="160"/>
+                          <img align="center" alt="Jeu de Mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/jeudemains/image/upload/v1602490393/logo-bleu-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 160px; display: block;" title="Jeu de Mains" width="160"/>
                           <div style="font-size:1px;line-height:25px"> </div>
                           </div>
                         </div>
@@ -230,9 +230,9 @@
                     <!-- MESSAGE USER IMAGE -->
                       <%= link_to chatroom_url(@message.chatroom), target: "_blank" do %>
                         <% if @message.user.profile.photo.attached? %>
-                          <%= cl_image_tag @message.user.profile.photo.key, alt: "Photo-partenaire", width: 100, height: 100, crop: :fill, border: "0", class: "left fixedwidth", style: "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 100px; border-radius: 50%; display: block;", title: "Photo-partenaire" %>
+                          <%= cl_image_tag @message.user.profile.photo.key, alt: "jeu-de-mains-profil-partenaire", loading: "lazy", width: 100, height: 100, crop: :fill, border: "0", class: "left fixedwidth", style: "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 100px; border-radius: 50%; display: block;", title: "jeu-de-mains-profil-partenaire" %>
                         <% else %>
-                          <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 100, :height => 100, :crop => :fill, :alt => "Photo-partenaire", width: 100, crop: :fill, :border => "0", :class => "left fixedwidth", :style => "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border-radius: 50%; border: 0; width: 100%; max-width: 213px; display: block;", :title => "Photo-partenaire") %>
+                          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 100, :height => 100, :crop => :fill, :alt => "jeu-de-mains-profil-partenaire", width: 100, crop: :fill, :border => "0", :class => "left fixedwidth", :style => "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border-radius: 50%; border: 0; width: 100%; max-width: 213px; display: block;", :title => "jeu-de-mains-profil-partenaire") %>
                         <% end %>
                       <% end %>
                     </div>
@@ -339,7 +339,7 @@
                           <div style="font-size:1px;line-height:15px">
                           </div>
                           <%= link_to root_url, style: "outline:none", tabindex: "-1", target: "_blank" do %>
-                            <img align="center" alt="jeu de mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1602490393/logo-bleu-fonce-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 120px; display: block;" title="jeu de mains" width="120"/>
+                            <img align="center" alt="jeu de mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/jeudemains/image/upload/v1602490393/logo-bleu-fonce-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 120px; display: block;" title="jeu de mains" width="120"/>
                           <% end %>
                           <div style="font-size:1px;line-height:15px">
                           </div>
@@ -354,8 +354,8 @@
                                 <table align="center" cellpadding="0" cellspacing="0" class="social_table" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-tspace: 0; mso-table-rspace: 0; mso-table-bspace: 0; mso-table-lspace: 0;" valign="top">
                                   <tbody>
                                     <tr align="center" style="vertical-align: top; display: inline-block; text-align: center;" valign="top">
-                                      <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="http://www.example.com" target="_blank"><img alt="Facebook" height="32" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1600347391/facebook-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Facebook" width="32"/></a></td>
-                                      <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="https://www.instagram.com/jeudemains_com/" target="_blank"><img alt="Instagram" height="32" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1600347391/instagram-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Instagram" width="32"/></a></td>
+                                      <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="http://www.example.com" target="_blank"><img alt="Facebook" height="32" src="https://res.cloudinary.com/jeudemains/image/upload/v1600347391/facebook-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Facebook" width="32"/></a></td>
+                                      <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="https://www.instagram.com/jeudemains_com/" target="_blank"><img alt="Instagram" height="32" src="https://res.cloudinary.com/jeudemains/image/upload/v1600347391/instagram-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Instagram" width="32"/></a></td>
                                     </tr>
                                   </tbody>
                                 </table>

@@ -20,9 +20,9 @@
       <div class="public-profile-header">
         <div class="public-profile-picture">
           <% if @profile.photo.attached? %>
-            <%= cl_image_tag @profile.photo.key, width: 300, crop: :fill, alt: "photo du lieu" %>
+            <%= cl_image_tag @profile.photo.key, loading: "lazy", width: 300, crop: :fill, alt: "jeu-de-mains-#{@profile.company}", title: "jeu-de-mains-#{@profile.company}" %>
           <% else %>
-            <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 300, :crop => :fill, :alt => "photo du lieu") %>
+            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 300, :crop => :fill, :alt => "jeu-de-mains-#{@profile.company}", :title => "jeu-de-mains-#{@profile.company}") %>
           <% end %>
         </div>
         <div class="public-profile-header-text">
@@ -56,7 +56,7 @@
 
       <!-- MAIN FIGURES PROFILE -->
 
-      <div class="public-profile-main-figures" style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/eugeniedenis/image/upload/v1593193954/wave.svg") %>)">
+      <div class="public-profile-main-figures" loading="lazy" style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/jeudemains/image/upload/v1593193954/wave.svg") %>)">
         <div class="public-profile-main-figures-text">
           <div class="public-profile-main-figure public-profile-number-of-ws">
             <span id="number">
@@ -123,6 +123,10 @@
                           <% if animator.workshop.rating %>
                             <div class="ws-card-tag ws-card-rating">
                               <i class="fas fa-star"></i><span><%= animator.workshop.rating %></span>
+                            </div>
+                          <% else %>
+                            <div class="ws-card-tag ws-card-rating">
+                              <span>nouveau</span>
                             </div>
                           <% end %>
                           <% if animator.workshop.place.ephemeral == true %>

@@ -1,24 +1,20 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
-  get 'devenir_partenaire', to: 'pages#partners'
-  get 'a_propos', to: 'pages#about'
+  get 'devenir-partenaire', to: 'pages#partners'
+  get 'a-propos', to: 'pages#about'
   get 'contact', to: 'pages#contact'
-  get 'mentions_legales', to: 'pages#legal_notice'
-  get 'politique_de_confidentialite', to: 'pages#privacy_policy'
+  get 'mentions-legales', to: 'pages#legal_notice'
+  get 'politique-de-confidentialite', to: 'pages#privacy_policy'
   get 'cgv', to: 'pages#cgv'
-
-  get 'thematiques', to: 'pages#thematiques'
-  scope '/thematiques' do
-    get 'autour-du-fil', to: 'pages#autour_du_fil'
-    get 'vegetal', to: 'pages#vegetal'
-    get 'papier-et-lettering', to: 'pages#papier_et_lettering'
-    get 'ceramique-et-modelage', to: 'pages#ceramique_et_modelage'
-    get 'bijou', to: 'pages#bijou'
-    get 'cosmetique-et-entretien', to: 'pages#cosmetique_et_entretien'
-    get 'dessin-et-peinture', to: 'pages#dessin_et_peinture'
-    get 'meuble-et-decoration', to: 'pages#meuble_et_decoration'
-  end
+  get 'autour-du-fil', to: 'pages#autour_du_fil'
+  get 'vegetal', to: 'pages#vegetal'
+  get 'papier-et-lettering', to: 'pages#papier_et_lettering'
+  get 'ceramique-et-modelage', to: 'pages#ceramique_et_modelage'
+  get 'bijou', to: 'pages#bijou'
+  get 'cosmetique-et-entretien', to: 'pages#cosmetique_et_entretien'
+  get 'dessin-et-peinture', to: 'pages#dessin_et_peinture'
+  get 'meuble-et-decoration', to: 'pages#meuble_et_decoration'
 
   devise_scope :user do
     match '/sessions/user', to: 'devise/sessions#create', via: :post

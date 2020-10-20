@@ -2,7 +2,7 @@
 
 <div class="navbar navbar-expand-sm navbar-light navbar-jdm navbar-jdm-other">
   <%= link_to root_path, class: "navbar-brand navbar-brand-other" do %>
-    <%= cl_image_tag("logo-jdm-white.svg", :width => 150, :crop => :fill, :alt => "logo jeu de mains") %>
+    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593180301/jeu-de-mains-logo-blanc.svg", :loading => "lazy", :width => 150, :crop => :fill, :alt => "jeu-de-mains-logo", :title => "jeu-de-mains-logo") %>
   <% end %>
 
   <div class="navbar-buttons navbar-buttons-other">
@@ -16,7 +16,7 @@
 
       <li class="nav-item">
         <%= link_to "#", class: "nav-link", id: "menuButton" do %>
-          <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593190527/menu_white.svg", :width => 50, :crop => :fill, :alt => "menu") %>
+          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593190527/jeu-de-mains-menu-blanc.svg", :loading => "lazy", :width => 50, :crop => :fill, :alt => "jeu-de-mains-menu", :title => "jeu-de-mains-menu") %>
         <% end %>
       </li>
     </ul>

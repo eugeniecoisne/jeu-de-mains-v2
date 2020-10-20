@@ -36,15 +36,15 @@
               <div class="profile-chat-photo">
                 <% if User.find(message.chatroom.user1) == current_user %>
                   <% if User.find(message.chatroom.user2).profile.photo.attached? %>
-                    <%= cl_image_tag User.find(message.chatroom.user2).profile.photo.key, width: 100, crop: :fill, alt: "avatar" %>
+                    <%= cl_image_tag User.find(message.chatroom.user2).profile.photo.key, loading: "lazy", width: 100, crop: :fill, alt: User.find(message.chatroom.user2).profile.company, title: User.find(message.chatroom.user2).profile.company %>
                   <% else %>
-                    <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", width: 100, :crop => :fill, :alt => "avatar") %>
+                  <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 100, :crop => :fill, :alt => User.find(message.chatroom.user2).profile.company, :title => User.find(message.chatroom.user2).profile.company) %>
                   <% end %>
                 <% else %>
                   <% if User.find(message.chatroom.user1).profile.photo.attached? %>
-                    <%= cl_image_tag User.find(message.chatroom.user1).profile.photo.key, width: 100, crop: :fill, alt: "avatar" %>
+                    <%= cl_image_tag User.find(message.chatroom.user1).profile.photo.key, loading: "lazy", width: 100, crop: :fill, alt: User.find(message.chatroom.user1).profile.company, title: User.find(message.chatroom.user1).profile.company %>
                   <% else %>
-                    <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", width: 100, :crop => :fill, :alt => "avatar") %>
+                    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 100, :crop => :fill, :alt => User.find(message.chatroom.user1).profile.company, :title => User.find(message.chatroom.user1).profile.company) %>
                   <% end %>
                 <% end %>
               </div>

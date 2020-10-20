@@ -40,9 +40,9 @@
             <%= link_to(place, data: { turbolinks: false }) do  %>
               <div class="place-anim-card-image">
                 <% if place.photo.attached? %>
-                  <%= cl_image_tag place.photo.key, alt: "photo du lieu", width: 250, crop: :fill %>
+                  <%= cl_image_tag place.photo.key, loading: "lazy", alt: "jeu-de-mains-#{place.name}", title: "jeu-de-mains-#{place.name}", width: 250, crop: :fill %>
                 <% else %>
-                  <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 250, :crop => :fill, :alt => "photo du lieu") %>
+                  <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-#{place.name}", :title => "jeu-de-mains-#{place.name}") %>
                 <% end %>
                 <div class="place-anim-card-rating">
                   <% if place.rating %>

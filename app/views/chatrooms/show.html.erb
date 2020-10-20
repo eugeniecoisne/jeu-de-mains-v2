@@ -14,16 +14,16 @@
       <div class="chatroom-show-images">
         <div class="chatroom-show-image" id="image-user-1">
           <% if User.find(@chatroom.user1).profile.photo.attached? %>
-            <%= cl_image_tag User.find(@chatroom.user1).profile.photo.key, width: 120, crop: :fill, alt: "avatar" %>
+            <%= cl_image_tag User.find(@chatroom.user1).profile.photo.key, width: 120, crop: :fill, alt: "jeu-de-mains-avatar", title: "jeu-de-mains-avatar", loading: "lazy" %>
           <% else %>
-            <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", width: 120, :crop => :fill, :alt => "avatar") %>
+            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", width: 120, :crop => :fill, :alt => "jeu-de-mains-avatar", :title => "jeu-de-mains-avatar", :loading => "lazy") %>
           <% end %>
         </div>
         <div class="chatroom-show-image" id="image-user-2">
           <% if User.find(@chatroom.user2).profile.photo.attached? %>
-            <%= cl_image_tag User.find(@chatroom.user2).profile.photo.key, width: 120, crop: :fill, alt: "avatar" %>
+            <%= cl_image_tag User.find(@chatroom.user2).profile.photo.key, width: 120, crop: :fill, alt: "jeu-de-mains-avatar", title: "jeu-de-mains-avatar", loading: "lazy" %>
           <% else %>
-            <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", width: 120, :crop => :fill, :alt => "avatar") %>
+            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", width: 120, :crop => :fill, :alt => "jeu-de-mains-avatar", :title => "jeu-de-mains-avatar", :loading => "lazy") %>
           <% end %>
         </div>
 

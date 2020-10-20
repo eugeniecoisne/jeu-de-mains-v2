@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i(home partners about contact legal_notice privacy_policy cgv)
+  skip_before_action :authenticate_user!, only: %i(home partners about contact legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijou papier_et_lettering ceramique_et_modelage meuble_et_decoration dessin_et_peinture)
 
   def home
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true)
@@ -14,14 +14,11 @@ class PagesController < ApplicationController
     @last_minute = @last_minute.sort_by { |session| session.date }
   end
 
-  def thematiques
-  end
-
   def autour_du_fil
     @thematic = {
       title: "Autour du fil",
       introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
-      image: "https://res.cloudinary.com/eugeniedenis/image/upload/v1595540794/fil_xlyp6r.png"
+      image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-autour-du-fil.jpg"
     }
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Autour du fil")
   end
@@ -30,7 +27,7 @@ class PagesController < ApplicationController
     @thematic = {
       title: "Végétal",
       introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
-      image: "https://res.cloudinary.com/eugeniedenis/image/upload/v1595541463/vegetal_mimgof.png"
+      image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-vegetal.jpg"
     }
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Végétal")
   end
@@ -39,7 +36,7 @@ class PagesController < ApplicationController
     @thematic = {
       title: "Papier & Lettering",
       introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
-      image: "https://res.cloudinary.com/eugeniedenis/image/upload/v1595540794/lettering_yk8m4e.png"
+      image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-papier-lettering.jpg"
     }
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Papier & Lettering")
   end
@@ -48,7 +45,7 @@ class PagesController < ApplicationController
     @thematic = {
       title: "Céramique & Modelage",
       introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
-      image: "https://res.cloudinary.com/eugeniedenis/image/upload/v1595540794/ceramique_ctojra.png"
+      image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-ceramique-modelage.jpg"
     }
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Céramique & Modelage")
   end
@@ -57,7 +54,7 @@ class PagesController < ApplicationController
     @thematic = {
       title: "Bijou",
       introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
-      image: "https://res.cloudinary.com/eugeniedenis/image/upload/v1595540794/bijoux_qtzxio.png"
+      image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-bijou.jpg"
     }
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Bijou")
   end
@@ -66,7 +63,7 @@ class PagesController < ApplicationController
     @thematic = {
       title: "Cosmétique & Entretien",
       introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
-      image: "https://res.cloudinary.com/eugeniedenis/image/upload/v1595540794/cosmetique_mdis6k.png"
+      image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214469/jeu-de-mains-cosmetique-entretien.jpg"
     }
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Cosmétique & Entretien")
 
@@ -76,7 +73,7 @@ class PagesController < ApplicationController
     @thematic = {
       title: "Dessin & peinture",
       introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
-      image: "https://res.cloudinary.com/eugeniedenis/image/upload/v1595540795/peinture_dk64an.png"
+      image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-dessin-peinture.jpg"
     }
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Dessin & peinture")
   end
@@ -85,7 +82,7 @@ class PagesController < ApplicationController
     @thematic = {
       title: "Meuble & Décoration",
       introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
-      image: "https://res.cloudinary.com/eugeniedenis/image/upload/v1595540794/brico_r8wbwg.png"
+      image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-meuble-decoration.jpg"
     }
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Meuble & Décoration")
   end

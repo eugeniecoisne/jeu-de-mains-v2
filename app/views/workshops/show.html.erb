@@ -11,7 +11,7 @@
     <!-- BOOKING-->
 
     <div class="container-ws-show-booking" id="bookingBox">
-      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-white.svg", :width => 50, :crop => :fill, :alt => "fermer", :id => "bookingExit", :class => "") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-blanc.svg", :width => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer", :id => "bookingExit") %>
       <h3>Réservez l’atelier<br>“<%= @workshop.title %>"</h3>
 
       <%= simple_form_for(@booking) do |f| %>
@@ -64,9 +64,9 @@
 
     <!-- WORKSHOP SHOW INFORMATIONS ORGANIZERS-->
 
-    <div class="ws-show-informations-organizers" style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/eugeniedenis/image/upload/v1593193954/wave.svg") %>)">
+    <div class="ws-show-informations-organizers" loading="lazy" style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/jeudemains/image/upload/v1593193954/wave.svg") %>)">
       <div class="ws-show-informations-place">
-        <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593192506/shop-white.svg", :width => 150, :crop => :fill, :alt => "lieu") %>
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593192506/shop-white.svg", :loading => "lazy", :width => 150, :crop => :fill, :alt => "lieu") %>
         <div id="ws-show-place">
           <span>Chez <%= link_to @workshop.place.name, place_path(@workshop.place) %></span>
           <br><span><%= @workshop.place.address %><br><%= @workshop.place.zip_code %> <%= @workshop.place.city.capitalize %></span>
@@ -75,10 +75,10 @@
       <div class="ws-show-informations-animator">
         <% if @animator.present? %>
           <span>Animé par<br><%= link_to @animator.user.profile.company, profile_public_path(@animator.user.profile) %></span>
-          <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593192506/making-white.svg", :width => 110, :crop => :fill, :alt => "animateur") %>
+          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593192506/making-white.svg", :loading => "lazy", :width => 110, :crop => :fill, :alt => "animateur") %>
         <% else %>
           <span>Animé par<br><%= link_to @workshop.place.name, place_path(@workshop.place) %></span>
-          <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593192506/making-white.svg", :width => 110, :crop => :fill, :alt => "animateur") %>
+          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593192506/making-white.svg", :loading => "lazy", :width => 110, :crop => :fill, :alt => "animateur") %>
         <% end %>
       </div>
     </div>
