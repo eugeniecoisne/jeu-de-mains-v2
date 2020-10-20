@@ -1,6 +1,6 @@
-<div class="homebanner", id="homebanner-desktop">
+<div class="homebanner" id="homebanner-desktop" loading="lazy">
   <div class="homebanner-title">
-    <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593180301/logo-jdm-dark-blue.svg", :width => 350, :crop => :fill, :alt => "logo jeu de mains") %>
+    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593180301/jeu-de-mains-logo-bleu-fonce.svg", :loading => "lazy", :width => 350, :crop => :fill, :alt => "jeu-de-mains-logo", :title => "jeu-de-mains-logo") %>
     <div class="homebanner-title-text">
       <h1>Offrez-vous un moment de détente créatif</h1>
       <h2>Grâce à la nouvelle plateforme de réservation d'ateliers créatifs jeudemains.com</h2>
@@ -32,17 +32,17 @@
 
   <div class="home-steps-presentation-desktop">
     <div class="home-step-presentation">
-      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1594146645/clock.svg", :width => 200, :crop => :fill, :alt => "réservation-en-ligne") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1594146645/clock.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "réservation-en-ligne") %>
       <h3>Réservation et paiement<br> 100% en ligne</h3>
       <p>Réservez et payez en toute sécurité en ligne l'atelier de votre choix, 24h/24, 7j/7</p>
     </div>
     <div class="home-step-presentation">
-      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1594146572/store.svg", :width => 200, :crop => :fill, :alt => "ateliers") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1594146572/store.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "ateliers") %>
       <h3>Ateliers éphémères<br> et permanents</h3>
       <p>Retrouvez un large choix d'ateliers créatifs en concept store, lors d'événements, chez l'artisan...</p>
     </div>
     <div class="home-step-presentation">
-      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1594151878/directory.svg", :width => 200, :crop => :fill, :alt => "annuaire") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1594151878/directory.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "annuaire") %>
       <h3>Accès illimité à l'annuaire des lieux et animateurs</h3>
       <p>Profitez d'un accès à la liste des partenaires lieux et animateurs et leurs pages dédiées</p>
     </div>
@@ -73,6 +73,10 @@
                   <% if workshop.rating %>
                     <div class="ws-card-tag ws-card-rating" id="home-ws-card-rating">
                       <i class="fas fa-star"></i><span><%= workshop.rating %></span>
+                    </div>
+                  <% else %>
+                    <div class="ws-card-tag ws-card-rating" id="home-ws-card-rating">
+                      <span>nouveau</span>
                     </div>
                   <% end %>
                   <% if workshop.place.ephemeral == true %>
@@ -130,7 +134,7 @@
 
   <div class="home-selection-cards">
     <div class="home-selection-card" id="home-selection-first">
-      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593179636/selection-summer.jpg", :width => 250, :crop => :fill, :alt => "sélection été") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593179636/selection-summer.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "sélection été") %>
       <div class="home-selection-text">
         <div>
           <h2>Ça sent bon l’été</h2>
@@ -146,7 +150,7 @@
     </div>
 
     <div class="home-selection-card" id="home-selection-second">
-      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593179634/selection-masque.jpg", :width => 250, :crop => :fill, :alt => "sélection masques") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593179634/selection-masque.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "sélection masques") %>
       <div class="home-selection-text">
         <div>
           <h2>Bal masqué</h2>
@@ -164,7 +168,7 @@
     <!-- THEMATICS SELECTION -->
 
     <div class="home-selection-card" id="home-thematic-first">
-      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1595541463/vegetal_mimgof.png", :width => 250, :crop => :fill, :alt => "sélection végétale") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-vegetal.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-vegetal", :title => "jeu-de-mains-ateliers-vegetal") %>
       <div class="home-selection-text">
         <div>
           <h2>La belle nature</h2>
@@ -177,7 +181,7 @@
     </div>
 
     <div class="home-selection-card" id="home-thematic-second">
-      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1595540794/cosmetique_mdis6k.png", :width => 250, :crop => :fill, :alt => "sélection cosmétique") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603214469/jeu-de-mains-cosmetique-entretien.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-cosmetique-entretien", :title => "jeu-de-mains-ateliers-cosmetique-entretien") %>
       <div class="home-selection-text">
         <div>
           <h2>Je prends soin de moi</h2>

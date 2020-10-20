@@ -54,12 +54,12 @@
       .addeventatc_dropdown em        {display: none;}
       .addeventatc_dropdown .frs a      {background:#fff;color:#cacaca!important;cursor:pointer;font-size:9px!important;font-style:normal!important;font-weight:400!important;line-height:110%!important;padding-left:10px;position:absolute;right:10px;text-align:right;text-decoration:none;top:5px;z-index:101;}
       .addeventatc_dropdown .frs a:hover    {color:#999!important;}
-      .addeventatc_dropdown .ateappleical   {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244595/icon-apple-t5_u07ftt.svg') 18px 40% no-repeat;background-size:22px 100%;}
-      .addeventatc_dropdown .ategoogle    {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244597/icon-google-t5_hhelnn.svg') 18px 50% no-repeat;background-size:22px 100%;}
-      .addeventatc_dropdown .ateoffice365   {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244595/icon-office365-t5_qtmqxl.svg') 19px 50% no-repeat;background-size:18px 100%;}
-      .addeventatc_dropdown .ateoutlook     {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244595/icon-outlook-t5_jyiicm.svg') 18px 50% no-repeat;background-size:22px 100%;}
-      .addeventatc_dropdown .ateoutlookcom  {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244595/icon-outlookcom-t5_lnfvvs.svg') 18px 50% no-repeat;background-size:22px 100%;}
-      .addeventatc_dropdown .ateyahoo     {background:url('https://res.cloudinary.com/eugeniedenis/image/upload/v1597244597/icon-yahoo-t5_uvgnsf.svg') 18px 50% no-repeat;background-size:22px 100%;}
+      .addeventatc_dropdown .ateappleical   {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-apple-t5_u07ftt.svg') 18px 40% no-repeat;background-size:22px 100%;}
+      .addeventatc_dropdown .ategoogle    {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244597/icon-google-t5_hhelnn.svg') 18px 50% no-repeat;background-size:22px 100%;}
+      .addeventatc_dropdown .ateoffice365   {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-office365-t5_qtmqxl.svg') 19px 50% no-repeat;background-size:18px 100%;}
+      .addeventatc_dropdown .ateoutlook     {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-outlook-t5_jyiicm.svg') 18px 50% no-repeat;background-size:22px 100%;}
+      .addeventatc_dropdown .ateoutlookcom  {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-outlookcom-t5_lnfvvs.svg') 18px 50% no-repeat;background-size:22px 100%;}
+      .addeventatc_dropdown .ateyahoo     {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244597/icon-yahoo-t5_uvgnsf.svg') 18px 50% no-repeat;background-size:22px 100%;}
       .addeventatc_dropdown .copyx      {height:21px;display:block;position:relative;cursor:default;}
       .addeventatc_dropdown .brx        {height:1px;overflow:hidden;background:#e8e8e8;position:absolute;z-index:100;left:10px;right:10px;top:9px;}
       .addeventatc_dropdown.addeventatc-selected {transform:scale(1,1) translateY(0px);z-index:99999999999;}
@@ -173,7 +173,7 @@
                         <div align="center" class="img-container center fixedwidth" style="padding-right: 0px;padding-left: 0px;">
                           <div style="font-size:1px;line-height:22px">
                           </div>
-                          <img align="center" alt="Jeu de Mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1602490393/logo-bleu-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 160px; display: block;" title="Jeu de Mains" width="160"/>
+                          <img align="center" alt="Jeu de Mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/jeudemains/image/upload/v1602490393/logo-bleu-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 160px; display: block;" title="Jeu de Mains" width="160"/>
                           <div style="font-size:1px;line-height:25px"> </div>
                           </div>
                         </div>
@@ -303,9 +303,9 @@
                           <div align= "center" class="img-container fixedwidth" style="padding-right: 25px;padding-left: 25px;">
                             <%= link_to workshop_url(@booking.session.workshop), target: "_blank" do %>
                               <% if @booking.session.workshop.photos.attached? %>
-                                <%= cl_image_tag @booking.session.workshop.photos[0].key, alt: "Photo-atelier", width: 213, height: 213, crop: :fill, border: "0", class: "left fixedwidth", style: "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 213px; display: block;", title: "Atelier" %>
+                                <%= cl_image_tag @booking.session.workshop.photos[0].key, alt: "jeu-de-mains-#{@booking.session.workshop.title}", title: "jeu-de-mains-#{@booking.session.workshop.title}", loading: "lazy", width: 213, height: 213, crop: :fill, border: "0", class: "left fixedwidth", style: "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 213px; display: block;" %>
                               <% else %>
-                                <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 213, :height => 213, :crop => :fill, :alt => "Photo-atelier", width: 213, crop: :fill, :border => "0", :class => "left fixedwidth", :style => "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 213px; display: block;", :title => "Atelier") %>
+                                <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :alt => "jeu-de-mains-#{@booking.session.workshop.title}", :title => "jeu-de-mains-#{@booking.session.workshop.title}", :loading => "lazy", :width => 213, :height => 213, :crop => :fill, :border => "0", :class => "left fixedwidth", :style => "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 213px; display: block;") %>
                               <% end %>
                             <% end %>
                           </div>
@@ -346,17 +346,17 @@
                                       <tr align="center" style="vertical-align: top; display: inline-block; text-align: left;" valign="top">
                                         <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 11px; padding-left: 0px;" valign="top">
                                           <a href="tel:+33<%= @booking.session.workshop.place.phone_number[1..-1] %>" target="_blank">
-                                            <img alt="Appeler" height="21" src="https://res.cloudinary.com/eugeniedenis/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-telephone.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Appeler" width="auto"/>
+                                            <img alt="Appeler" height="21" src="https://res.cloudinary.com/jeudemains/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-telephone.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Appeler" width="auto"/>
                                           </a>
                                         </td>
                                         <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 14px; padding-left: 0px;" valign="top">
                                           <a href="https://www.google.fr/maps/search/<%= @booking.session.workshop.place.address %>, <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city.upcase %>" target="_blank">
-                                            <img alt="Localiser" height="20" src="https://res.cloudinary.com/eugeniedenis/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-itineraire.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Localiser" width="auto"/>
+                                            <img alt="Localiser" height="20" src="https://res.cloudinary.com/jeudemains/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-itineraire.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Localiser" width="auto"/>
                                           </a>
                                         </td>
                                         <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 4px; padding-left: 0px;" valign="top">
                                           <div title="Add to Calendar" data-styling="none" class="addeventatc">
-                                            <img alt="Ajouter à l'agenda" height="21" src="https://res.cloudinary.com/eugeniedenis/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-calendrier.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Ajouter à l'agenda" width="auto"/>
+                                            <img alt="Ajouter à l'agenda" height="21" src="https://res.cloudinary.com/jeudemains/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-calendrier.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Ajouter à l'agenda" width="auto"/>
 
                                             <span class="start">
                                               <%= @booking.session.date.strftime('%m/%d/%Y') %>
@@ -598,7 +598,7 @@
                           <div style="font-size:1px;line-height:15px">
                           </div>
                           <%= link_to root_url, style: "outline:none", tabindex: "-1", target: "_blank" do %>
-                            <img align="center" alt="jeu de mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1602490393/logo-bleu-fonce-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 120px; display: block;" title="jeu de mains" width="120"/>
+                            <img align="center" alt="jeu de mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/jeudemains/image/upload/v1602490393/logo-bleu-fonce-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 120px; display: block;" title="jeu de mains" width="120"/>
                           <% end %>
                           <div style="font-size:1px;line-height:15px">
                           </div>
@@ -613,8 +613,8 @@
                                 <table align="center" cellpadding="0" cellspacing="0" class="social_table" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-tspace: 0; mso-table-rspace: 0; mso-table-bspace: 0; mso-table-lspace: 0;" valign="top">
                                   <tbody>
                                     <tr align="center" style="vertical-align: top; display: inline-block; text-align: center;" valign="top">
-                                      <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="http://www.example.com" target="_blank"><img alt="Facebook" height="32" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1600347391/facebook-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Facebook" width="32"/></a></td>
-                                      <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="https://www.instagram.com/jeudemains_com/" target="_blank"><img alt="Instagram" height="32" src="https://res.cloudinary.com/eugeniedenis/image/upload/v1600347391/instagram-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Instagram" width="32"/></a></td>
+                                      <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="http://www.example.com" target="_blank"><img alt="Facebook" height="32" src="https://res.cloudinary.com/jeudemains/image/upload/v1600347391/facebook-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Facebook" width="32"/></a></td>
+                                      <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="https://www.instagram.com/jeudemains_com/" target="_blank"><img alt="Instagram" height="32" src="https://res.cloudinary.com/jeudemains/image/upload/v1600347391/instagram-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Instagram" width="32"/></a></td>
                                     </tr>
                                   </tbody>
                                 </table>

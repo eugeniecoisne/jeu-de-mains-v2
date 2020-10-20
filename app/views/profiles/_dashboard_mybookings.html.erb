@@ -83,9 +83,9 @@
                       <div class="my-bookings-ws-card">
                         <div class="my-booking-photo">
                           <% if booking.session.workshop.photos.attached? %>
-                            <%= cl_image_tag booking.session.workshop.photos[0].key, alt: "Photo-atelier", width: 120, height: 95, crop: :fill %>
+                            <%= cl_image_tag booking.session.workshop.photos[0].key, loading: "lazy", alt: "jeu-de-mains-#{booking.session.workshop.title}", title: "jeu-de-mains-#{booking.session.workshop.title}" , width: 120, height: 95, crop: :fill %>
                           <% else %>
-                            <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 120, :height => 95, :crop => :fill, :alt => "Photo-atelier") %>
+                            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 120, :height => 95, :crop => :fill, :alt => "jeu-de-mains-#{booking.session.workshop.title}", :title => "jeu-de-mains-#{booking.session.workshop.title}") %>
                           <% end %>
                         </div>
                         <div class="my-booking-ws-info">
@@ -171,9 +171,9 @@
                     <div class="my-bookings-ws-card">
                       <div class="my-booking-photo">
                         <% if booking.session.workshop.photos.attached? %>
-                          <%= cl_image_tag booking.session.workshop.photos[0].key, alt: "Photo-atelier", width: 120, height: 95, crop: :fill %>
+                          <%= cl_image_tag booking.session.workshop.photos[0].key, loading: "lazy", alt: "jeu-de-mains-#{booking.session.workshop.title}", title: "jeu-de-mains-#{booking.session.workshop.title}" , width: 120, height: 95, crop: :fill %>
                         <% else %>
-                          <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 120, :height => 95, :crop => :fill, :alt => "Photo-atelier") %>
+                          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 120, :height => 95, :crop => :fill, :alt => "jeu-de-mains-#{booking.session.workshop.title}", :title => "jeu-de-mains-#{booking.session.workshop.title}") %>
                         <% end %>
                       </div>
                       <div class="my-booking-ws-info">
@@ -227,9 +227,9 @@
                       <%= link_to workshop_path(booking.session.workshop) do %>
                         <div class="my-booking-photo">
                           <% if booking.session.workshop.photos.attached? %>
-                            <%= cl_image_tag booking.session.workshop.photos[0].key, alt: "Photo-atelier", width: 120, height: 95, crop: :fill %>
+                            <%= cl_image_tag booking.session.workshop.photos[0].key, loading: "lazy", alt: "jeu-de-mains-#{booking.session.workshop.title}", title: "jeu-de-mains-#{booking.session.workshop.title}" , width: 120, height: 95, crop: :fill %>
                           <% else %>
-                            <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 120, :height => 95, :crop => :fill, :alt => "Photo-atelier") %>
+                            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 120, :height => 95, :crop => :fill, :alt => "jeu-de-mains-#{booking.session.workshop.title}", :title => "jeu-de-mains-#{booking.session.workshop.title}") %>
                           <% end %>
                         </div>
                       <% end %>

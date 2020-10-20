@@ -30,7 +30,7 @@
         <p>Voici les photos actuelles de l'atelier, si vous souhaitez en ajouter/remplacer, chargez l'ensemble des photos souhaitées, vos photos actuelles ne seront pas sauvegardées.</p>
           <div class="edit-ws-photos d-flex mb-4">
             <% @workshop.photos.each do |photo| %>
-                <%= cl_image_tag photo.key, alt: "Photo-atelier", width: 80, crop: :fill, class: "mr-1"  %>
+                <%= cl_image_tag photo.key, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}", loading: "lazy", width: 80, crop: :fill, class: "mr-1"  %>
             <% end %>
           </div>
         <div class="form-group select is-valid required workshop_place form-group-valid">

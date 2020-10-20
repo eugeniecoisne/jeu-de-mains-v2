@@ -18,9 +18,9 @@
     <div class="public-profile-header">
       <div class="public-profile-picture">
         <% if @place.photo.attached? %>
-          <%= cl_image_tag @place.photo.key, width: 300, crop: :fill, alt: "photo du lieu" %>
+          <%= cl_image_tag @place.photo.key, loading: "lazy", width: 300, crop: :fill, alt: "jeu-de-mains-#{@place.name}", title: "jeu-de-mains-#{@place.name}" %>
         <% else %>
-          <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177823/profile-picture.png", :width => 300, :crop => :fill, :alt => "photo du lieu") %>
+          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 300, :crop => :fill, :alt => "jeu-de-mains-#{@place.name}", :title => "jeu-de-mains-#{@place.name}") %>
         <% end %>
       </div>
       <div class="public-profile-header-text">
@@ -62,7 +62,7 @@
 
     <!-- MAIN FIGURES PROFILE -->
 
-    <div class="public-profile-main-figures" style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/eugeniedenis/image/upload/v1593193954/wave.svg") %>)">
+    <div class="public-profile-main-figures" loading="lazy" style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/jeudemains/image/upload/v1593193954/wave.svg") %>)">
       <div class="public-profile-main-figures-text">
         <div class="public-profile-main-figure public-profile-number-of-ws">
           <span id="number"><%= @place.workshops.where(status: "en ligne", db_status: true).count %></span>
@@ -74,7 +74,7 @@
         </div>
         <% if @place.ephemeral %>
           <div class="public-profile-main-figure public-profile-ephemeral">
-            <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593708097/ephemeral-white.svg", :width => 70, :crop => :fill, :alt => "éphémère") %>
+            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593708097/ephemeral-white.svg", :width => 70, :crop => :fill, :alt => "éphémère") %>
             <span id="text">lieu éphémère</span>
           </div>
         <% else %>
@@ -124,6 +124,10 @@
                       <% if workshop.rating %>
                         <div class="ws-card-tag ws-card-rating">
                           <i class="fas fa-star"></i><span><%= workshop.rating %></span>
+                        </div>
+                      <% else %>
+                        <div class="ws-card-tag ws-card-rating">
+                          <span>nouveau</span>
                         </div>
                       <% end %>
                       <% if workshop.place.ephemeral == true %>

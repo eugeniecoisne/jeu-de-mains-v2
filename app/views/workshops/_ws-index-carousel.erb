@@ -9,18 +9,18 @@
         <% else %>
           <div class="ws-index-carousel-item carousel-item">
         <% end %>
-            <%= cl_image_tag photo.key, alt: "Photo-atelier", width: 250, crop: :fill %>
+            <%= cl_image_tag photo.key, loading: "lazy", width: 250, crop: :fill, alt: "jeu-de-mains-#{workshop.title}", title: "jeu-de-mains-#{workshop.title}" %>
           </div>
       <% end %>
     <% else %>
       <div class="ws-index-carousel-item carousel-item active">
-        <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 250, :crop => :fill, :alt => "Photo-atelier") %>
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-#{workshop.title}", :title => "jeu-de-mains-#{workshop.title}") %>
       </div>
       <div class="ws-index-carousel-item carousel-item">
-        <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 250, :crop => :fill, :alt => "Photo-atelier") %>
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-#{workshop.title}", :title => "jeu-de-mains-#{workshop.title}") %>
       </div>
       <div class="ws-index-carousel-item carousel-item">
-        <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 250, :crop => :fill, :alt => "Photo-atelier") %>
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-#{workshop.title}", :title => "jeu-de-mains-#{workshop.title}") %>
       </div>
     <% end %>
   </div>

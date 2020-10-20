@@ -45,9 +45,9 @@
             </div>
             <div class="popup-workshop-right-side">
               <% if workshop.photos.attached? %>
-                <%= cl_image_tag workshop.photos[0].key, width: 80, crop: :fill, alt: "photo de l'atelier" %>
+                <%= cl_image_tag workshop.photos[0].key, loading: "lazy", width: 80, crop: :fill, alt: "jeu-de-mains-#{workshop.title}", title: "jeu-de-mains-#{workshop.title}" %>
               <% else %>
-                <%= cl_image_path("workshop-picture.jpg", :width => 80, :crop => :fill, :alt => "photo de l'atelier") %>
+                <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 80, :crop => :fill, :alt => "jeu-de-mains-#{workshop.title}", :title => "jeu-de-mains-#{workshop.title}") %>
               <% end %>
             </div>
           </div>

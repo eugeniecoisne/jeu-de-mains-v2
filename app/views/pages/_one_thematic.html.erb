@@ -26,7 +26,7 @@
     </div>
 
     <div class="thematic-show-banner-image">
-      <%= cl_image_tag thematic[:image], width: 800, crop: :fill, alt: "ateliers #{thematic[:title].downcase}", title: "ateliers #{thematic[:title].downcase}" %>
+      <%= cl_image_tag thematic[:image], loading: "lazy", width: 800, crop: :fill, alt: "jeu-de-mains-ateliers #{thematic[:title].downcase}", title: "jeu-de-mains-ateliers #{thematic[:title].downcase}" %>
     </div>
 
   </div>
@@ -45,6 +45,10 @@
                   <% if workshop.rating %>
                     <div class="ws-card-tag ws-card-rating" id="thematic-show-ws-card-rating">
                       <i class="fas fa-star"></i><span><%= workshop.rating %></span>
+                    </div>
+                  <% else %>
+                    <div class="ws-card-tag ws-card-rating" id="home-ws-card-rating">
+                      <span>nouveau</span>
                     </div>
                   <% end %>
                   <% if workshop.place.ephemeral == true %>

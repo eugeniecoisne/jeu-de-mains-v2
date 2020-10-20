@@ -2,7 +2,7 @@
 
 <div id="sideMenu">
   <div>
-    <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :crop => :fill, :alt => "fermer", :id => "menuClose") %>
+    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer", :id => "menuClose") %>
     <ul class="list-group list-group-flush">
       <% if user_signed_in? %>
         <li class="list-group-item">
@@ -108,7 +108,7 @@
             <% end %>
           </div>
         </li>
-        <li class="list-group-item">
+        <li class="list-group-item" aria-hidden="true">
         </li>
         <li class="list-group-item">
           <%= link_to connexion_path, class: "menu-white-link" do %>
@@ -129,7 +129,7 @@
       <% end %>
     </ul>
     <div class="menu-brand-logo">
-      <%= cl_image_tag("logo-jdm-light-blue.svg", :width => 200, :crop => :fill, :alt => "logo jeu de mains") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593518260/jeu-de-mains-logo-bleu-ciel.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "jeu-de-mains-logo", :title => "jeu-de-mains-logo") %>
     </div>
   </div>
 </div>

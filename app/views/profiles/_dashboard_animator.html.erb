@@ -111,9 +111,9 @@
                 <div class="ws-dashboard-organizer-card">
                   <div class="ws-dashboard-organizer-image">
                     <% if workshop.photos.attached? %>
-                      <%= cl_image_tag workshop.photos[0].key, alt: "Photo-atelier", width: 95, height: 95, crop: :fill %>
+                      <%= cl_image_tag workshop.photos[0].key, loading: "lazy", alt: "jeu-de-mains-#{workshop.title}", title: "jeu-de-mains-#{workshop.title}", width: 95, height: 95, crop: :fill %>
                     <% else %>
-                      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593177818/workshop-picture.jpg", :width => 95, :height => 95, :crop => :fill, :alt => "Photo-atelier") %>
+                      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 95, :height => 95, :crop => :fill, :alt => "jeu-de-mains-#{workshop.title}", :title => "jeu-de-mains-#{workshop.title}") %>
                     <% end %>
                   </div>
                   <div class="ws-dashboard-organizer-text-and-buttons">
@@ -150,7 +150,7 @@
                                 <%= simple_form_for([workshop, @session]) do |f| %>
                                   <div class="modal-body">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+                                      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
                                     </button>
 
                                     <%= f.input :date, label: "Date de l'atelier" %>
@@ -188,7 +188,7 @@
                                 <div class="form-group">
                                   <div class="modal-body">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+                                      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
                                     </button>
                                     <div class="mt-3">
                                       Vous avez déjà des réservations pour cet atelier, vous ne pouvez pas le passer <em>hors ligne</em>.
@@ -215,7 +215,7 @@
                                 <div class="form-group">
                                   <div class="modal-body">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1593191048/exit-blue.svg", :width => 50, :height => 50, :crop => :fill, :alt => "fermer") %>
+                                      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
                                     </button>
                                     <div class="mt-3">
                                       Vous n'avez pas de session à venir pour cet atelier, il ne peut donc pas être <em>en ligne</em>. Merci d'ajouter une nouvelle date.
@@ -237,8 +237,6 @@
               <p>Vous n'avez pas encore d'atelier.</p>
             <% end %>
           </div>
-
-          <!-- MY AGENDA -->
 
           <!-- MY AGENDA -->
 

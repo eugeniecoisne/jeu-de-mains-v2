@@ -116,7 +116,7 @@ stella.update!(
   website: 'https://www.stella-popup-store.com/',
   instagram: 'https://www.instagram.com/le_pop_up_de_stella/'
   )
-file = URI.open('https://res.cloudinary.com/eugeniedenis/image/upload/v1591708434/popupstella.jpg')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1591708434/popupstella.jpg')
 stella.photo.attach(io: file, filename: 'le-pop-up-de-stella.jpg', content_type: 'image/jpg')
 
 
@@ -137,7 +137,7 @@ julieweaves.update!(
   instagram: 'https://www.instagram.com/julie_weaves/',
   description: 'Julie Robert explore, détourne et valorise des techniques anciennes comme le tissage, la broderie, le point noué et le punch needle à travers ses créations et ses photographies.'
   )
-file = URI.open('https://res.cloudinary.com/eugeniedenis/image/upload/v1591709757/julieweaves.png')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1591709757/julieweaves.png')
 julieweaves.photo.attach(io: file, filename: 'julie-weaves.png', content_type: 'image/png')
 
 # AMELIE'S WORKSHOP : ANIMATEUR
@@ -157,7 +157,7 @@ Diplômée d’un master en design graphique et numérique, aussi blogueuse diy 
 
 Être un couteau suisse créatif, c’est savoir s’enrichir et s’inspirer, développer son style, imaginer des univers et créer du tangible.'
   )
-file = URI.open('https://res.cloudinary.com/eugeniedenis/image/upload/v1591711084/ameliesworkshop.jpg')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1591711084/ameliesworkshop.jpg')
 amelie.photo.attach(io: file, filename: 'amelies-workshop.jpg', content_type: 'image/jpg')
 
 # MY HOME FACTORY : ANIMATEUR
@@ -176,7 +176,7 @@ homefactory.update!(
 
 Aujourd’hui, plus épanouie que jamais grâce à ce nouvel équilibre trouvé, j’ai souhaité partager avec vous ces remèdes qui m’ont permis de trouver un nouveau sens à ma vie.'
   )
-file = URI.open('https://res.cloudinary.com/eugeniedenis/image/upload/v1591711427/my-home-factory.jpg')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1591711427/my-home-factory.jpg')
 homefactory.photo.attach(io: file, filename: 'my-home-factory.jpg', content_type: 'image/jpg')
 
 
@@ -293,7 +293,7 @@ Découvrez sur place, un Marché de Créateurs éthiques avec notamment So.Skaia
   )
 place6.user = stella_user
 place6.save!
-file = URI.open('https://res.cloudinary.com/eugeniedenis/image/upload/v1591712009/appartementduslow.jpg')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1591712009/appartementduslow.jpg')
 place6.photo.attach(io: file, filename: 'appartement-slow.jpg', content_type: 'image/jpg')
 
 

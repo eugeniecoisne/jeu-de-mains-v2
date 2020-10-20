@@ -1,7 +1,7 @@
 <div id="carouselStepsTablet" class="carousel slide" data-ride="carousel" data-interval="50000">
   <ol class="home-steps-carousel-indicators carousel-indicators">
-    <li data-target="#carouselStepsTablet" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselStepsTablet" data-slide-to="1"></li>
+    <li data-target="#carouselStepsTablet" data-slide-to="0" class="active" aria-hidden="true"></li>
+    <li data-target="#carouselStepsTablet" data-slide-to="1" aria-hidden="true"></li>
   </ol>
 
   <div class="carousel-inner">
@@ -9,12 +9,12 @@
     <div class="home-steps-carousel-item-tablet carousel-item active">
       <div class="home-two-steps-carousel-tablet">
         <div class="home-step-presentation">
-          <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1594146645/clock.svg", :width => 200, :crop => :fill, :alt => "réservation-en-ligne") %>
+          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1594146645/clock.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "réservation-en-ligne") %>
           <h3>Réservation et paiement<br> 100% en ligne</h3>
           <p>Réservez et payez en toute sécurité en ligne l'atelier de votre choix, 24h/24, 7j/7</p>
         </div>
         <div class="home-step-presentation">
-          <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1594146572/store.svg", :width => 200, :crop => :fill, :alt => "ateliers") %>
+          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1594146572/store.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "ateliers") %>
         <h3>Ateliers éphémères<br> et permanents</h3>
         <p>Retrouvez un large choix d'ateliers créatifs en concept store, lors d'événements, chez l'artisan...</p>
         </div>
@@ -24,7 +24,7 @@
     <div class="home-steps-carousel-item-tablet carousel-item">
       <div class="home-two-steps-carousel-tablet">
         <div class="home-step-presentation">
-          <%= cl_image_tag("https://res.cloudinary.com/eugeniedenis/image/upload/v1594151878/directory.svg", :width => 200, :crop => :fill, :alt => "annuaire") %>
+          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1594151878/directory.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "annuaire") %>
           <h3>Accès illimité à l'annuaire des lieux et animateurs</h3>
           <p>Profitez d'un accès à la liste des partenaires lieux et animateurs et leurs pages dédiées</p>
         </div>
