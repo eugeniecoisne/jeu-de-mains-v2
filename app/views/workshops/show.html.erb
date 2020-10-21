@@ -64,9 +64,9 @@
 
     <!-- WORKSHOP SHOW INFORMATIONS ORGANIZERS-->
 
-    <div class="ws-show-informations-organizers" loading="lazy" style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/jeudemains/image/upload/v1593193954/wave.svg") %>)">
+    <div class="ws-show-informations-organizers" loading="lazy" style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/jeudemains/image/upload/v1593193954/jeu-de-mains-fond-vague.svg") %>)">
       <div class="ws-show-informations-place">
-        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593192506/shop-white.svg", :loading => "lazy", :width => 150, :crop => :fill, :alt => "lieu") %>
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593192506/jeu-de-mains-boutique.svg", :loading => "lazy", :width => 150, :crop => :fill, :alt => "jeu-de-mains-boutique", :title => "jeu-de-mains-boutique") %>
         <div id="ws-show-place">
           <span>Chez <%= link_to @workshop.place.name, place_path(@workshop.place) %></span>
           <br><span><%= @workshop.place.address %><br><%= @workshop.place.zip_code %> <%= @workshop.place.city.capitalize %></span>
@@ -75,10 +75,10 @@
       <div class="ws-show-informations-animator">
         <% if @animator.present? %>
           <span>Animé par<br><%= link_to @animator.user.profile.company, profile_public_path(@animator.user.profile) %></span>
-          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593192506/making-white.svg", :loading => "lazy", :width => 110, :crop => :fill, :alt => "animateur") %>
+          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593192507/jeu-de-mains-anime-par.svg", :loading => "lazy", :width => 110, :crop => :fill, :alt => "jeu-de-mains-anime-par", :title => "jeu-de-mains-anime-par") %>
         <% else %>
           <span>Animé par<br><%= link_to @workshop.place.name, place_path(@workshop.place) %></span>
-          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593192506/making-white.svg", :loading => "lazy", :width => 110, :crop => :fill, :alt => "animateur") %>
+          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593192507/jeu-de-mains-anime-par.svg", :loading => "lazy", :width => 110, :crop => :fill, :alt => "jeu-de-mains-anime-par", :title => "jeu-de-mains-anime-par") %>
         <% end %>
       </div>
     </div>
