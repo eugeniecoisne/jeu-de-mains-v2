@@ -6,7 +6,7 @@
 }
 
 .white-btn {
-  padding: 0;
+  padding: unset;
   border-bottom: 0.17em solid white;
   color: white;
   font-weight: 600;
@@ -17,6 +17,7 @@
   border-right: none;
   border-left: none;
   outline: none;
+  border-radius: unset;
 }
 
 .white-btn:hover {
@@ -38,6 +39,7 @@
   border-top: none;
   border-right: none;
   border-left: none;
+  border-radius: unset;
 }
 
 .blue-btn:hover {
