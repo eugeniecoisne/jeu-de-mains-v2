@@ -27,8 +27,6 @@ class PlacesController < ApplicationController
     authorize @place
     @place.user = User.find(params[:place][:user_id])
     if @place.save
-      mail = PlaceMailer.with(place: @place).create_confirmation
-      mail.deliver_now
       redirect_to place_path(@place)
     else
       @users = User.all.where(db_status: true).select { |user| user.profile.role == "organisateur"}
