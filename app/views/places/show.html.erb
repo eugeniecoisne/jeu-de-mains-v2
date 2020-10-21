@@ -62,7 +62,7 @@
 
     <!-- MAIN FIGURES PROFILE -->
 
-    <div class="public-profile-main-figures" loading="lazy" style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/jeudemains/image/upload/v1593193954/wave.svg") %>)">
+    <div class="public-profile-main-figures" loading="lazy" style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/jeudemains/image/upload/v1593193954/jeu-de-mains-fond-vague.svg") %>)">
       <div class="public-profile-main-figures-text">
         <div class="public-profile-main-figure public-profile-number-of-ws">
           <span id="number"><%= @place.workshops.where(status: "en ligne", db_status: true).count %></span>
@@ -74,7 +74,7 @@
         </div>
         <% if @place.ephemeral %>
           <div class="public-profile-main-figure public-profile-ephemeral">
-            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593708097/ephemeral-white.svg", :width => 70, :crop => :fill, :alt => "éphémère") %>
+            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593708097/jeu-de-mains-ephemere.svg", :loading => "lazy", :width => 70, :crop => :fill, :alt => "jeu-de-mains-ephemere", :title => "jeu-de-mains-ephemere") %>
             <span id="text">lieu éphémère</span>
           </div>
         <% else %>

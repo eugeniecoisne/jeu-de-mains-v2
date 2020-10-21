@@ -1,13 +1,247 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <style>
-      /* Email styles need to be inline */
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css"/>
+
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      table,
+      td,
+      tr {
+        vertical-align: top;
+        border-collapse: collapse;
+      }
+
+      * {
+        line-height: inherit;
+      }
+
+      a[x-apple-data-detectors=true] {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+
+      a {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+      a:hover {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+
+      <% if mailer.action_name.include?("booking") %>
+        /* btn add to calendar */
+        .addeventatc {display:inline-block;position:relative;cursor:pointer;color:$blue!important;font-weight:500;font-size:23px;text-decoration:none;cursor:pointer;-webkit-font-smoothing:antialiased!important;outline:none;}
+        .addeventatc:hover            {color:$light-blue!important;text-decoration:none;}
+        .addeventatc-selected           {color:$light-blue!important;}
+        .addeventatc .start, .addeventatc .end, .addeventatc .timezone, .addeventatc .title, .addeventatc .description, .addeventatc .location, .addeventatc .organizer, .addeventatc .organizer_email, .addeventatc .facebook_event, .addeventatc .all_day_event, .addeventatc .date_format, .addeventatc .alarm_reminder, .addeventatc .recurring, .addeventatc .attendees, .addeventatc .calname, .addeventatc .uid, .addeventatc .status, .addeventatc .method, .addeventatc .client, .addeventatc .transp {display:none!important;}
+        .addeventatc br             {display:none;}
+
+        /* Drop down */
+        .addeventatc_dropdown           {width:230px;position:absolute;padding:6px 0px 0px 0px;font-family:"Raleway",sans-serif;color:$gray!important;font-weight:600;line-height:100%;background:#fff;font-size:14px;text-decoration:none;text-align:left;margin-left:-1px;display:none;-webkit-box-shadow:rgba(0,0,0,0.4) 0px 10px 26px;-moz-box-shadow:rgba(0,0,0,0.4) 0px 10px 26px;box-shadow:rgba(0,0,0,0.4) 0px 10px 26px;transform:scale(.98,.98) translateY(5px);z-index:20;transition:transform .15s ease;-webkit-user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+        .addeventatc_dropdown.topdown       {transform:scale(.98,.98) translateY(-5px)!important;}
+        .addeventatc_dropdown span        {display:block;line-height:100%;background:#fff;text-decoration:none;cursor:pointer;font-size:15px;color:#333;font-weight:600;padding:14px 10px 14px 55px;margin:-2px 0px;}
+        .addeventatc_dropdown span:hover    {background-color:#f4f4f4;color:#000;text-decoration:none;font-size:15px;}
+        .addeventatc_dropdown em        {display: none;}
+        .addeventatc_dropdown .frs a      {background:#fff;color:#cacaca!important;cursor:pointer;font-size:9px!important;font-style:normal!important;font-weight:400!important;line-height:110%!important;padding-left:10px;position:absolute;right:10px;text-align:right;text-decoration:none;top:5px;z-index:101;}
+        .addeventatc_dropdown .frs a:hover    {color:#999!important;}
+        .addeventatc_dropdown .ateappleical   {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-apple-t5_u07ftt.svg') 18px 40% no-repeat;background-size:22px 100%;}
+        .addeventatc_dropdown .ategoogle    {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244597/icon-google-t5_hhelnn.svg') 18px 50% no-repeat;background-size:22px 100%;}
+        .addeventatc_dropdown .ateoffice365   {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-office365-t5_qtmqxl.svg') 19px 50% no-repeat;background-size:18px 100%;}
+        .addeventatc_dropdown .ateoutlook     {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-outlook-t5_jyiicm.svg') 18px 50% no-repeat;background-size:22px 100%;}
+        .addeventatc_dropdown .ateoutlookcom  {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-outlookcom-t5_lnfvvs.svg') 18px 50% no-repeat;background-size:22px 100%;}
+        .addeventatc_dropdown .ateyahoo     {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244597/icon-yahoo-t5_uvgnsf.svg') 18px 50% no-repeat;background-size:22px 100%;}
+        .addeventatc_dropdown .copyx      {height:21px;display:block;position:relative;cursor:default;}
+        .addeventatc_dropdown .brx        {height:1px;overflow:hidden;background:#e8e8e8;position:absolute;z-index:100;left:10px;right:10px;top:9px;}
+        .addeventatc_dropdown.addeventatc-selected {transform:scale(1,1) translateY(0px);z-index:99999999999;}
+        .addeventatc_dropdown.topdown.addeventatc-selected {transform:scale(1,1) translateY(0px)!important;}
+        .addeventatc_dropdown .drop_markup    {background-color:#f4f4f4;}
+      <% end %>
+
+    </style>
+    <style id="media-query" type="text/css">
+      @media (max-width: 660px) {
+
+        .block-grid,
+        .col {
+          min-width: 320px !important;
+          max-width: 100% !important;
+          display: block !important;
+        }
+
+        .block-grid {
+          width: 100% !important;
+        }
+
+        .col {
+          width: 100% !important;
+        }
+
+        .col>div {
+          margin: 0 auto;
+        }
+
+        img.fullwidth,
+        img.fullwidthOnMobile {
+          max-width: 100% !important;
+        }
+
+        .no-stack .col {
+          min-width: 0 !important;
+          display: table-cell !important;
+        }
+
+        .no-stack.two-up .col {
+          width: 50% !important;
+        }
+
+        .no-stack .col.num4 {
+          width: 33% !important;
+        }
+
+        .no-stack .col.num8 {
+          width: 66% !important;
+        }
+
+        .no-stack .col.num4 {
+          width: 33% !important;
+        }
+
+        .no-stack .col.num3 {
+          width: 25% !important;
+        }
+
+        .no-stack .col.num6 {
+          width: 50% !important;
+        }
+
+        .no-stack .col.num9 {
+          width: 75% !important;
+        }
+
+        .video-block {
+          max-width: none !important;
+        }
+
+        .mobile_hide {
+          min-height: 0px;
+          max-height: 0px;
+          max-width: 0px;
+          display: none;
+          overflow: hidden;
+          font-size: 0px;
+        }
+
+        .desktop_hide {
+          display: block !important;
+          max-height: none !important;
+        }
+
+        .mobile-align-center {
+          text-align: center !important;
+        }
+
+        .mobile-align-icons-center {
+          justify-content: center !important;
+        }
+      }
     </style>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="clean-body" style="margin: 0; padding: 0; -webkit-text-size-adjust: 100%; background-color: #ffffff;">
+    <table bgcolor="#ffffff" cellpadding="0" cellspacing="0" class="nl-container" role="presentation" style="table-layout: fixed; vertical-align: top; min-width: 320px; Margin: 0 auto; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; width: 100%;" valign="top" width="100%">
+      <tbody>
+        <tr style="vertical-align: top;" valign="top">
+          <td style="word-break: break-word; vertical-align: top;" valign="top">
+
+            <%= yield %>
+
+            <!-- FOOTER -->
+
+            <div style="background-color:transparent;">
+              <div class="block-grid" style="margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;">
+                <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
+                  <div class="col num12" style="min-width: 320px; max-width: 600px; display: table-cell; vertical-align: top; width: 600px;">
+                    <div style="width:100% !important;">
+                      <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
+
+                        <!-- LOGO -->
+
+                        <div align="center" class="img-container center fixedwidth" style="padding-right: 5px;padding-left: 5px;padding-top: 40px;padding-bottom: 10px;">
+                          <div style="font-size:1px;line-height:15px">
+                          </div>
+                          <%= link_to root_url, style: "outline:none", tabindex: "-1", target: "_blank" do %>
+                            <img align="center" alt="jeu de mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/jeudemains/image/upload/v1602490393/logo-bleu-fonce-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 120px; display: block;" title="jeu de mains" width="120"/>
+                          <% end %>
+                          <div style="font-size:1px;line-height:15px">
+                          </div>
+                        </div>
+
+                        <!-- SOCIAL LINKS -->
+
+                        <table cellpadding="0" cellspacing="0" class="social_icons" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;" valign="top" width="100%">
+                          <tbody>
+                            <tr style="vertical-align: top;" valign="top">
+                              <td style="word-break: break-word; vertical-align: top; padding-top: 15px; padding-right: 5px; padding-bottom: 15px; padding-left: 5px;" valign="top">
+                                <table align="center" cellpadding="0" cellspacing="0" class="social_table" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-tspace: 0; mso-table-rspace: 0; mso-table-bspace: 0; mso-table-lspace: 0;" valign="top">
+                                  <tbody>
+                                    <tr align="center" style="vertical-align: top; display: inline-block; text-align: center;" valign="top">
+                                      <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="http://www.example.com" target="_blank"><img alt="Facebook" height="32" src="https://res.cloudinary.com/jeudemains/image/upload/v1600347391/facebook-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Facebook" width="32"/></a></td>
+                                      <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="https://www.instagram.com/jeudemains_com/" target="_blank"><img alt="Instagram" height="32" src="https://res.cloudinary.com/jeudemains/image/upload/v1600347391/instagram-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Instagram" width="32"/></a></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <!-- LEGAL MENTIONS -->
+
+                        <div style="color:#7b7b7b;font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
+                          <div style="line-height: 1.2; font-size: 12px; color: #7b7b7b; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; mso-line-height-alt: 14px;">
+                            <p style="font-size: 12px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 14px; margin: 0;"><span style="font-size: 12px;">© 2020 Jeu de Mains. Tous droits réservés.<br/>Politique de confidentialité | CGV</span></p>
+                          </div>
+                        </div>
+                        <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                          <tbody>
+                            <tr style="vertical-align: top;" valign="top">
+                              <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" height="20" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 0px solid transparent; height: 20px; width: 100%;" valign="top" width="100%">
+                                  <tbody>
+                                    <tr style="vertical-align: top;" valign="top">
+                                      <td height="20" style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span></span></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </body>
+  <% if mailer.action_name.include?("booking") %>
+    <script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
+  <% end %>
 </html>
+
