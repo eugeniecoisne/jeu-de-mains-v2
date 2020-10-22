@@ -1,18 +1,363 @@
-<h1>Votre atelier <%= @workshop.title %> a bien été créé, mettez-le en ligne !</h1>
+<!-- LOGO -->
 
-<h2>Voici les informations que vous avez renseignées :</h2>
-<ul>
-  <li>Titre : <%= @workshop.title %></li>
-  <li>Lieu : <%= @workshop.place.name %></li>
-  <li>Thématique : <%= @workshop.thematic %></li>
-  <li>Niveau : <%= @workshop.level %></li>
-  <li>Capacité : <%= @workshop.capacity %> personnes</li>
-  <li>Durée : <%= @workshop.duration %> minutes</li>
-  <li>Prix : <%= @workshop.price %> €</li>
-  <li>Programme : <%= @workshop.program %></li>
-  <li>Repartez avec : <%= @workshop.final_product %></li>
-</ul>
+<div style="background-color:#fff;">
+  <div class="block-grid" style="margin: 0 auto; margin-top: 40px; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+      <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+        <div style="width:100% !important;">
+          <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+            <div align="center" class="img-container center fixedwidth" style="padding-right: 0px;padding-left: 0px;">
+              <div style="font-size:1px;line-height:22px">
+              </div>
+              <img align="center" alt="Jeu de Mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/jeudemains/image/upload/v1602490393/logo-bleu-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 160px; display: block;" title="Jeu de Mains" width="160"/>
+              <div style="font-size:1px;line-height:25px"> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<h2>Rendez-vous sur votre
-<%= link_to "tableau de bord", tableau_de_bord_profile_url(@workshop.place.user.profile) %>
-pour ajouter une première session, ajouter un animateur (optionnel) et mettre en ligne votre atelier !</h2>
+  <!-- TITLE -->
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 30px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- TITLE -->
+
+              <div style="color:#527776;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.2;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
+                <div style="line-height: 1.2; font-size: 12px; color: #527776; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14px;">
+                  <p style="font-size: 27px; line-height: 1.2; text-align: center; word-break: break-word; mso-line-height-alt: 29px; margin: 0;">
+                    <span style="font-size: 27px;">
+                      <strong>
+                        <span style="color: #2b303a;">
+                          Félicitations, vous avez créé un atelier !
+                        </span>
+                      </strong>
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- INTRO -->
+
+              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
+                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                  <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
+                    <span style="color: #1C1C1C; font-size: 15px;">Votre atelier
+                      <span style="color: #52828D;"><strong><%= link_to @workshop.title, workshop_url(@workshop), target: "_blank" %></strong></span>
+                      a bien été créé, mettez-le en ligne !<br>
+                      Voici les informations que vous avez renseignées :
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px;" valign="top">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINE & WHITE SPACE -->
+
+  <div style="background-color:#ffffff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #ffffff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#ffffff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+
+              <!-- LINE -->
+
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid #52828D; width: 100%;" valign="top" width="100%">
+                        <tbody>
+                          <tr style="vertical-align: top;" valign="top">
+                            <td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top">
+                              <span></span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- WHITE SPACE -->
+
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 25px; padding-right: 25px; padding-bottom: 15px; padding-left: 25px;" valign="top">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- WORKSHOP IMAGE & INFORMATION -->
+
+  <div style="background-color:#ffffff;">
+    <div class="block-grid mixed-two-up" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff; padding-bottom: 25px;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+
+        <!-- WORKSHOP IMAGE -->
+
+        <div class="col num4" style="display: table-cell; vertical-align: top; max-width: 320px; min-width: 212px; width: 213px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:10px; padding-bottom:20px; padding-right: 0px; padding-left: 0px;">
+              <div align= "center" class="img-container fixedwidth" style="padding-right: 25px;padding-left: 25px;">
+                <%= link_to workshop_url(@workshop), target: "_blank" do %>
+                  <% if @workshop.photos.attached? %>
+                    <%= cl_image_tag @workshop.photos[0].key, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}", loading: "lazy", width: 213, height: 213, crop: :fill, border: "0", class: "left fixedwidth", style: "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 213px; display: block;" %>
+                  <% else %>
+                    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :alt => "jeu-de-mains-#{@workshop.title}", :title => "jeu-de-mains-#{@workshop.title}", :loading => "lazy", :width => 213, :height => 213, :crop => :fill, :border => "0", :class => "left fixedwidth", :style => "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 213px; display: block;") %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WORKSHOP INFORMATION & LINKS -->
+
+        <div class="col num8" style="display: table-cell; vertical-align: top; min-width: 320px; max-width: 424px; width: 426px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
+              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:0px;padding-bottom:10px;padding-left:0px;">
+                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                  <p class="mobile-align-center" style="font-size: 14px; text-transform: uppercase; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;"><%= link_to workshop_url(@workshop), target: "_blank" do %>Atelier <%= @workshop.title %><% end %></p>
+                  <p class="mobile-align-center" style="font-size: 14px; text-transform: uppercase; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;"><%= %>Chez <%= link_to @workshop.place.name, place_url(@workshop.place), target: "_blank" %></p>
+                </div>
+              </div>
+              <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.5;padding-top:5px;padding-right:0px;padding-bottom:5px;padding-left:0px;">
+                <div style="line-height: 1.5; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                  <% if @workshop.thematic.present? %>
+                    <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Thématique : <%= @workshop.thematic %></p>
+                  <% end %>
+                  <% if @workshop.capacity.present? %>
+                    <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Capacité : <%= @workshop.capacity %> personnes</p>
+                  <% end %>
+                  <% if @workshop.level.present? %>
+                    <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Niveau : <%= @workshop.level %> personnes</p>
+                  <% end %>
+                  <% if @workshop.duration.present? %>
+                    <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">
+                      <% if @workshop.duration%60 == 0 %>
+                        Durée : <%= @workshop.duration/60 %> heures
+                      <% else %>
+                        Durée : <%= @workshop.duration/60 %> heures <%= @workshop.duration%60 %>
+                      <% end %>
+                    </p>
+                  <% end %>
+                  <% if @workshop.price.present? %>
+                    <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Prix : <%= @workshop.price %> euros</p>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:40px;padding-bottom:0px;padding-left:40px;">
+                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                  <p class="mobile-align-center" style="font-size: 15px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
+                    <span style="color: #1C1C1C; font-size: 15px;">
+                      <strong>Programme :</strong>
+                    </span><br>
+                    <span style="color: #1C1C1C; font-size: 15px;">
+                      <%= @workshop.program %>
+                    </span>
+                  </p>
+                </div>
+                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; padding-top: 25px;">
+                  <p class="mobile-align-center" style="font-size: 15px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
+                    <span style="color: #1C1C1C; font-size: 15px;">
+                      <strong>Repartez avec :</strong>
+                    </span><br>
+                    <span style="color: #1C1C1C; font-size: 15px;">
+                      <%= @workshop.final_product %>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHITE SPACE -->
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:30px; padding-right: 30px; padding-left: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 15px; padding-right: 25px; padding-bottom: 25px; padding-left: 25px;" valign="top">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- LINE -->
+
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid #52828D; width: 100%;" valign="top" width="100%">
+                        <tbody>
+                          <tr style="vertical-align: top;" valign="top">
+                            <td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- WHITE SPACE AND LINE -->
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- CONDITIONS -->
+
+              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
+                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                  <p style="font-size: 13px; line-height: 1.5; word-break: break-word; text-align: center; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 20px; mso-ansi-font-size: 14px; margin: 0;">
+                    <span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">
+                      Rendez-vous sur votre <strong><%= link_to "tableau de bord", tableau_de_bord_profile_url(@workshop.place.user.profile), , target: "_blank" %></strong> pour ajouter une première session, ajouter un animateur (optionnel) et mettre en ligne votre atelier !</h2>
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+
+              <!-- CALL TO ACTION - SEE WORKSHOP PAGE -->
+
+              <div align="center" class="button-container" style="padding-top:25px;padding-right:10px;padding-bottom:5px;padding-left:10px;">
+                <%= link_to tableau_de_bord_profile_url(@workshop.place.user.profile), style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #fff; background-color: #52828D; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
+                  <span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
+                    <span style="font-size: 14px; line-height: 2; word-break: break-word; color: #fff; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 32px;">
+                      <strong>MON TABLEAU DE BORD</strong>
+                    </span>
+                  </span>
+                <% end %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+
+              <!-- CALL TO ACTION - MY DASHBOARD -->
+
+              <div align="center" class="button-container" style="padding-top:15px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
+                <%= link_to workshop_url(@workshop), style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #52828D; background-color: #fff; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
+                  <span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
+                    <span style="font-size: 14px; line-height: 2; word-break: break-word; color: #52828D; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 32px;">
+                      <strong>VISUALISER MA FUTURE PAGE ATELIER</strong>
+                    </span>
+                  </span>
+                <% end %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
