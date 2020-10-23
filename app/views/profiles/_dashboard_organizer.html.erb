@@ -7,8 +7,12 @@
       Hello <span><%= @profile.company %></span>,<br>bienvenue sur votre tableau de bord !
     </h1>
   </div>
-
   <div class="dashboard-organizer-container">
+    <div class="dashboard-contact-us">
+      <%= link_to contact_path do %>
+        <i class="fas fa-question"></i>
+      <% end %>
+    </div>
     <div class="dashboard-nav-and-tab" id="dashboard-organizer-nav-and-tab">
 
       <!-- NAV PILLS DESKTOP & TABLET -->

@@ -10,12 +10,12 @@ class Workshop < ApplicationRecord
   has_many :reviews, through: :sessions
 
   validates :title, presence: true, allow_blank: false
-  validates :thematic, inclusion: { in: ['Autour du fil', 'Végétal', 'Papier & Lettering', 'Céramique & Modelage', 'Bijou', 'Cosmétique & Entretien', 'Dessin & peinture', 'Meuble & Décoration'] }
+  validates :thematic, inclusion: { in: ['Autour du fil', 'Végétal', 'Papier & Lettering', 'Céramique & Modelage', 'Bijou', 'Cosmétique & Entretien', 'Dessin & Peinture', 'Meuble & Décoration', 'Travail du cuir'] }
   validates :level, inclusion: { in: ['Débutant', 'Intermédiaire', 'Avancé'] }
   validates :recommendable, inclusion: { in: [1, 2, 3] }
   validate :attachments_size
 
-  THEMATICS = ['Autour du fil', 'Végétal', 'Papier & Lettering', 'Céramique & Modelage', 'Bijou', 'Cosmétique & Entretien', 'Dessin & peinture', 'Meuble & Décoration']
+  THEMATICS = ['Autour du fil', 'Végétal', 'Papier & Lettering', 'Céramique & Modelage', 'Bijou', 'Cosmétique & Entretien', 'Dessin & Peinture', 'Meuble & Décoration', 'Travail du cuir']
   LEVELS = ['Débutant', 'Intermédiaire', 'Avancé']
 
   include PgSearch::Model
@@ -42,6 +42,12 @@ class Workshop < ApplicationRecord
       reviews.where(db_status: true).each { |review| ratings << review.rating }
       @average = ratings.sum.fdiv(reviews.where(db_status: true).count).round(2)
     end
+  end
+
+  def moments
+    moments = []
+    sessions.where(db_status: true).each { |s| moments << s.moment }
+    moments.uniq
   end
 
   private

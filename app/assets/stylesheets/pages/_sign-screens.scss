@@ -69,13 +69,18 @@
 }
 
 #forgot-password-link {
-  a {
-    color: $dark-gray;
+  span {
     font-size: 15px;
+  }
+  a {
     text-decoration: none;
+    font-weight: 600;
+    color: $blue;
+    font-size: 15px;
   }
   a:hover {
-    font-weight: 500;
+    color: $dark-blue;
+    font-weight: 700;
   }
 }
 
@@ -91,6 +96,23 @@
 }
 
 #sign-link {
+  span {
+    font-size: 15px;
+  }
+  a {
+    text-decoration: none;
+    font-weight: 600;
+    color: $blue;
+    font-size: 15px;
+  }
+  a:hover {
+    color: $dark-blue;
+    font-weight: 700;
+  }
+
+}
+
+#didnt-receive-confirm-link {
   span {
     font-size: 15px;
   }

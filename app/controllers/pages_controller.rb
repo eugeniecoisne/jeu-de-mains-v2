@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i(home partners about contact legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijou papier_et_lettering ceramique_et_modelage meuble_et_decoration dessin_et_peinture)
+  skip_before_action :authenticate_user!, only: %i(home partners about contact legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijou papier_et_lettering ceramique_et_modelage meuble_et_decoration dessin_et_peinture travail_du_cuir)
 
   def home
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true)
@@ -71,11 +71,11 @@ class PagesController < ApplicationController
 
   def dessin_et_peinture
     @thematic = {
-      title: "Dessin & peinture",
+      title: "Dessin & Peinture",
       introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-dessin-peinture.jpg"
     }
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Dessin & peinture")
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Dessin & Peinture")
   end
 
   def meuble_et_decoration
@@ -85,6 +85,15 @@ class PagesController < ApplicationController
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-meuble-decoration.jpg"
     }
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Meuble & Décoration")
+  end
+
+  def travail_du_cuir
+    @thematic = {
+      title: "Travail du cuir",
+      introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
+      image: "https://res.cloudinary.com/jeudemains/image/upload/v1603379193/jeu-de-mains-travail-du-cuir.jpg"
+    }
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Travail du cuir")
   end
 
   def partners

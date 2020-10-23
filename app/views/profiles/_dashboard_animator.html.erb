@@ -9,6 +9,11 @@
   </div>
 
   <div class="dashboard-organizer-container">
+    <div class="dashboard-contact-us">
+      <%= link_to contact_path do %>
+        <i class="fas fa-question"></i>
+      <% end %>
+    </div>
     <div class="dashboard-nav-and-tab" id="dashboard-organizer-nav-and-tab">
 
       <!-- NAV PILLS DESKTOP & TABLET -->
@@ -80,6 +85,11 @@
             <% end %>
             <% my_offline_workshops.each do |workshop| %>
               <% my_sorted_workshops << workshop %>
+            <% end %>
+
+            <%= link_to profile_public_path(@profile), id: "dashboard-show-my-public-profile" do %>
+              <i class="fas fa-chevron-right mr-1"></i>
+              <span>Voir ma page publique</span>
             <% end %>
 
             <% my_sorted_workshops.each_with_index do |workshop, index| %>

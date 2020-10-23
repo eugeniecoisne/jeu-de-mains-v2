@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'cosmetique-et-entretien', to: 'pages#cosmetique_et_entretien'
   get 'dessin-et-peinture', to: 'pages#dessin_et_peinture'
   get 'meuble-et-decoration', to: 'pages#meuble_et_decoration'
+  get 'travail-du-cuir', to: 'pages#travail_du_cuir'
 
   devise_scope :user do
     match '/sessions/user', to: 'devise/sessions#create', via: :post

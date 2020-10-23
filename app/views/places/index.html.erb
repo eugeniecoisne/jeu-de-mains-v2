@@ -13,11 +13,11 @@
         <% if params[:search].present? %>
           <%= f.input :company, required: false, label: false, prompt: "Lieu d'ateliers", collection: companies.sort, selected: params[:search][:company] %>
           <%= f.input :keyword, required: false, label: false, prompt: "Thématique", collection: Workshop::THEMATICS, selected: params[:search][:keyword] %>
-          <%= f.input :place, required: false, label: false, prompt: "Ville", collection: Place.cities.sort, selected: params[:search][:place] %>
+          <%= f.input :place, required: false, label: false, prompt: "Ville", collection: Place.cities_and_districts, selected: params[:search][:place] %>
         <% else %>
           <%= f.input :company, required: false, label: false, prompt: "Lieu d'ateliers", collection: companies.sort %>
           <%= f.input :keyword, required: false, label: false, prompt: "Thématique", collection: Workshop::THEMATICS %>
-          <%= f.input :place, required: false, label: false, prompt: "Ville", collection: Place.cities.sort %>
+          <%= f.input :place, required: false, label: false, prompt: "Ville", collection: Place.cities_and_districts %>
         <% end %>
         <div class="place-animator-index-search-buttons">
           <%= f.submit 'Rechercher', class: "submit-btn", id: "submit-desktop" %>
