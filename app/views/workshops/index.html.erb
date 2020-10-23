@@ -18,71 +18,81 @@
       <h2 id="index-ws-your-query">Votre recherche</h2>
 
       <div class="ws-index-search-parameters">
-        <% if params[:search].present? %>
-          <% if params[:search][:keyword].present? || params[:search][:place].present? %>
 
+        <% if params[:search].present? %>
+
+          <% if params[:search][:keyword].present? || params[:search][:place].present? %>
             <% if params[:search][:keyword].present? && params[:search][:place].present? %>
               <h3>atelier <%= params[:search][:keyword].downcase %></h3>
-              <h4>à <%= params[:search][:place].capitalize %></h4>
+              <h4>à <%= params[:search][:place] %></h4>
             <% elsif params[:search][:keyword].present? %>
               <h3>atelier <%= params[:search][:keyword].downcase %></h3>
               <h4>toutes villes</h4>
             <% else %>
               <h3>atelier toutes thématiques</h3>
-              <h4>à <%= params[:search][:place].capitalize %></h4>
+              <h4>à <%= params[:search][:place] %></h4>
+            <% end %>
+          <% end %>
+
+          <% if params[:search][:selection].present? %>
+            <h4>mot-clé : <%= params[:search][:selection] %></h4>
+          <% end %>
+
+          <% if params[:search][:min_capacity].present? %>
+            <h4>minimum <%= params[:search][:min_capacity] %> personnes</h4>
+          <% end %>
+
+          <% if params[:search][:level].present? %>
+            <h4>niveau : <%= params[:search][:level] %></h4>
+          <% end %>
+
+          <% if params[:search][:moment].present? %>
+            <h4>moment : <%= params[:search][:moment] %></h4>
+          <% end %>
+
+
+          <% if params[:search].present? %>
+            <% if params[:search][:starts_at].present? || params[:search][:ends_at].present? %>
+              <h4>
+                <% if params[:search][:starts_at].present? && params[:search][:ends_at].present? %>
+                  du <%= Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
+                  au <%= Date.strptime(params[:search][:ends_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
+                <% elsif params[:search][:starts_at].present? %>
+                  à partir du <%= Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
+                <% else %>
+                  jusqu'au <%= Date.strptime(params[:search][:ends_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
+                <% end %>
+              </h4>
+            <% end %>
+          <% else %>
+            <h4>à tout moment</h4>
+          <% end %>
+
+          <% if params[:search].present? %>
+            <% if params[:search][:min_price].present? || params[:search][:max_price].present? %>
+              <h4>
+                <% if params[:search][:min_price].to_i != 0 %>
+                  min. <%= params[:search][:min_price].to_i %> €
+                <% end %>
+                <% if params[:search][:max_price].to_i != 0 %>
+                  max. <%= params[:search][:max_price].to_i %> €
+                <% end %>
+              </h4>
+            <% end %>
+          <% end %>
+
+          <% if params[:search].present? %>
+            <% if params[:search][:ephemeral].present? %>
+              <h4>
+                <% if params[:search][:ephemeral] == 'false' %>
+                  permanent
+                <% end %>
+              </h4>
             <% end %>
           <% end %>
         <% else %>
           <h3>atelier toutes thématiques</h3>
           <h4>toutes villes</h4>
-        <% end %>
-
-        <% if params[:search].present? %>
-          <% if params[:search][:selection].present? %>
-          <h3>mot-clé : <%= params[:search][:selection] %></h3>
-          <% end %>
-
-        <% end %>
-        <% if params[:search].present? %>
-          <% if params[:search][:starts_at].present? || params[:search][:ends_at].present? %>
-            <h4>
-              <% if params[:search][:starts_at].present? && params[:search][:ends_at].present? %>
-                du <%= Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
-                au <%= Date.strptime(params[:search][:ends_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
-              <% elsif params[:search][:starts_at].present? %>
-                à partir du <%= Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
-              <% else %>
-                jusqu'au <%= Date.strptime(params[:search][:ends_at], '%Y-%m-%d').strftime('%d/%m/%Y') %>
-              <% end %>
-            </h4>
-          <% end %>
-        <% else %>
-          <h4>à tout moment</h4>
-        <% end %>
-
-        <% if params[:search].present? %>
-          <% if params[:search][:min_price].present? || params[:search][:max_price].present? %>
-            <h4>
-              <% if params[:search][:min_price].to_i != 0 %>
-                min. <%= params[:search][:min_price].to_i %> €
-              <% end %>
-              <% if params[:search][:max_price].to_i != 0 %>
-                max. <%= params[:search][:max_price].to_i %> €
-              <% end %>
-            </h4>
-          <% end %>
-        <% end %>
-
-        <% if params[:search].present? %>
-          <% if params[:search][:ephemeral].present? %>
-            <h4>
-              <% if params[:search][:ephemeral] == 'false' %>
-                permanent
-              <% else %>
-                éphémère ou permanent
-              <% end %>
-            </h4>
-          <% end %>
         <% end %>
 
       </div>

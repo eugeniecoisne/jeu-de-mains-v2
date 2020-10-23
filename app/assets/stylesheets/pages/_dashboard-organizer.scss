@@ -42,6 +42,14 @@
   font-size: 14px;
 }
 
+#dashboard-show-my-public-profile {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+
 #offline-ws {
   border-color: $medium-gray;
   .ws-dashboard-organizer-text {

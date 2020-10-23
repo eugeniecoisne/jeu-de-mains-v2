@@ -22,9 +22,12 @@ class WorkshopsController < ApplicationController
 
       @workshops.paginate(page: params[:page], per_page: 20)
 
+      @workshops = @workshops.select { |workshop| workshop.moments.include?(params[:search][:moment]) if workshop.moments != nil }.paginate(page: params[:page], per_page: 20) if params[:search][:moment].present?
       @workshops = @workshops.select { |workshop| workshop.thematic == params[:search][:keyword] }.paginate(page: params[:page], per_page: 20) if params[:search][:keyword].present?
-      @workshops = @workshops.select { |workshop| workshop.place.city == params[:search][:place] }.paginate(page: params[:page], per_page: 20) if params[:search][:place].present?
+      @workshops = @workshops.select { |workshop| workshop.place.district == params[:search][:place] || workshop.place.big_city == params[:search][:place] }.paginate(page: params[:page], per_page: 20) if params[:search][:place].present?
       @workshops = @workshops.select { |workshop| workshop.title.downcase.include?(params[:search][:selection]) }.paginate(page: params[:page], per_page: 20) if params[:search][:selection].present?
+      @workshops = @workshops.select { |workshop| workshop.capacity >= params[:search][:min_capacity].to_i }.paginate(page: params[:page], per_page: 20) if params[:search][:min_capacity].present?
+      @workshops = @workshops.select { |workshop| workshop.level == params[:search][:level] }.paginate(page: params[:page], per_page: 20) if params[:search][:level].present?
 
       if params[:search][:min_price].present? && params[:search][:max_price].present?
 
@@ -33,8 +36,7 @@ class WorkshopsController < ApplicationController
 
         if min_price > max_price
           @workshops = @workshops.select do |workshop|
-            workshop.price <= min_price
-            workshop.price >= max_price
+            workshop.price <= min_price && workshop.price >= max_price
           end
           @workshops.paginate(page: params[:page], per_page: 20)
         elsif min_price == max_price
@@ -44,12 +46,24 @@ class WorkshopsController < ApplicationController
           @workshops.paginate(page: params[:page], per_page: 20)
         else
           @workshops = @workshops.select do |workshop|
-            workshop.price <= max_price
-            workshop.price >= min_price
+            workshop.price <= max_price && workshop.price >= min_price
           end
           @workshops.paginate(page: params[:page], per_page: 20)
         end
+
+      elsif params[:search][:min_price].present?
+        @workshops = @workshops.select do |workshop|
+          workshop.price >= params[:search][:min_price].to_f
+        end
+        @workshops.paginate(page: params[:page], per_page: 20)
+
+      elsif params[:search][:max_price].present?
+        @workshops = @workshops.select do |workshop|
+          workshop.price <= params[:search][:max_price].to_f
+        end
+        @workshops.paginate(page: params[:page], per_page: 20)
       end
+
 
       if params[:search][:ephemeral].present?
         if params[:search][:ephemeral] == 'false'

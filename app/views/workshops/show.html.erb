@@ -107,25 +107,41 @@
         <% else %>
           <p>Non renseigné.</p>
         <% end %>
+
         <div class="ws-show-informations-tags">
           <i class="fas fa-tag"></i>
           <% if @workshop.level.present? %>
-            <div class='informations-tag'><%= @workshop.level %></div>
+            <div class='informations-tag'>
+              <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+                <%= f.hidden_field :level, value: @workshop.level %>
+                <%= f.submit @workshop.level, class: "informations-tag-submit" %>
+              <% end %>
+            </div>
+          <% end %>
+          <% if @workshop.thematic.present? %>
+            <div class='informations-tag'>
+              <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+                <%= f.hidden_field :keyword, value: @workshop.thematic %>
+                <%= f.submit @workshop.thematic, class: "informations-tag-submit" %>
+              <% end %>
+            </div>
+          <% end %>
+          <% if @workshop.capacity.present? %>
+            <div class='informations-tag'>
+              <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+                <%= f.hidden_field :min_capacity, value: @workshop.capacity %>
+                <%= f.submit "#{@workshop.capacity } personnes", class: "informations-tag-submit" %>
+              <% end %>
+            </div>
           <% end %>
           <% if @workshop.duration.present? %>
-            <div class='informations-tag'>
+            <div class='informations-tag' id="informations-tag-unclickable">
               <% if @workshop.duration%60 == 0 %>
                 <%= @workshop.duration/60 %> heures
               <% else %>
                 <%= @workshop.duration/60 %> heures <%= @workshop.duration%60 %>
               <% end %>
             </div>
-          <% end %>
-          <% if @workshop.thematic.present? %>
-            <div class='informations-tag'><%= @workshop.thematic %></div>
-          <% end %>
-          <% if @workshop.capacity.present? %>
-            <div class='informations-tag'><%= @workshop.capacity %> personnes</div>
           <% end %>
         </div>
       </div>
