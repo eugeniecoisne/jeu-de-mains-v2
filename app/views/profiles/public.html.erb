@@ -2,6 +2,14 @@
 
   <% if @profile.role == 'animateur' %>
 
+    <% if @profile.db_status == true %>
+      <% content_for :meta_title, "Jeu de Mains | #{@profile.company[0..45]}" %>
+      <% content_for :meta_description, @profile.description[0..160] %>
+      <% if @profile.photo.attached? %>
+        <% content_for :meta_image, "#{cl_image_path @profile.photo.key, width: 1200, height: 630, crop: :fill}" %>
+      <% end %>
+    <% end %>
+
     <!-- PROFILE PUBLIC SHOW -->
 
     <div class="public-profile-container profile-container">
