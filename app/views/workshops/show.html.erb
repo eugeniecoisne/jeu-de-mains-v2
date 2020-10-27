@@ -120,9 +120,25 @@
           <% end %>
           <% if @workshop.thematic.present? %>
             <div class='informations-tag'>
-              <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-                <%= f.hidden_field :keyword, value: @workshop.thematic %>
-                <%= f.submit @workshop.thematic, class: "informations-tag-submit" %>
+              <% case @workshop.thematic %>
+              <% when "Végétal" %>
+                <%= link_to @workshop.thematic, vegetal_path, class: "informations-tag-submit" %>
+              <% when "Autour du fil" %>
+                <%= link_to @workshop.thematic, autour_du_fil_path, class: "informations-tag-submit" %>
+              <% when "Papier & Lettering" %>
+                <%= link_to @workshop.thematic, papier_et_lettering_path, class: "informations-tag-submit" %>
+              <% when "Céramique & Modelage" %>
+                <%= link_to @workshop.thematic, ceramique_et_modelage_path, class: "informations-tag-submit" %>
+              <% when "Bijou" %>
+                <%= link_to @workshop.thematic, bijou_path, class: "informations-tag-submit" %>
+              <% when "Cosmétique & Entretien" %>
+                <%= link_to @workshop.thematic, cosmetique_et_entretien_path, class: "informations-tag-submit" %>
+              <% when "Dessin & Peinture" %>
+                <%= link_to @workshop.thematic, dessin_et_peinture_path, class: "informations-tag-submit" %>
+              <% when "Meuble & Décoration" %>
+                <%= link_to @workshop.thematic, meuble_et_decoration_path, class: "informations-tag-submit" %>
+              <% when "Travail du cuir" %>
+                <%= link_to @workshop.thematic, travail_du_cuir_path, class: "informations-tag-submit" %>
               <% end %>
             </div>
           <% end %>

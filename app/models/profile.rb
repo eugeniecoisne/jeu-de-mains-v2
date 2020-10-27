@@ -9,6 +9,36 @@ class Profile < ApplicationRecord
   validate :attachment_size
 
 
+  def self.cities_and_districts
+    districts_to_show = []
+    big_cities_to_show = []
+    Profile.all.where(db_status: true, role: "animateur").each do |profile|
+      if profile.zip_code.first(2) == "97"
+        districts_to_show << Place::DISTRICTS[profile.zip_code.first(3)]
+      else
+        districts_to_show << Place::DISTRICTS[profile.zip_code.first(2)]
+      end
+      if Place::BIG_CITIES_ZIPCODES.include?(profile.zip_code.first(2))
+        big_cities_to_show << Place::BIG_CITIES[profile.zip_code.first(2)]
+      end
+    end
+    big_cities_to_show.uniq!.sort.concat(districts_to_show.uniq!.sort)
+  end
+
+  def district
+    if zip_code.first(2) == "97"
+      Place::DISTRICTS[zip_code.first(3)]
+    else
+      Place::DISTRICTS[zip_code.first(2)]
+    end
+  end
+
+  def big_city
+    if Place::BIG_CITIES_ZIPCODES.include?zip_code.first(2)
+      Place::BIG_CITIES[zip_code.first(2)]
+    end
+  end
+
   def self.cities
     Profile.all.where(role: 'animateur', db_status: true).map { |profile| profile.city.capitalize }.uniq
   end

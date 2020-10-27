@@ -9,7 +9,7 @@ class PlacesController < ApplicationController
     if params[:search].present?
       @places = @places.select { |place| place.name.include?(params[:search][:company])} if params[:search][:company].present?
       @places = @places.select { |place| place.thematics.include?(params[:search][:keyword])} if params[:search][:keyword].present?
-      @places = @places.select { |place| place.city.capitalize == params[:search][:place] } if params[:search][:place].present?
+      @places = @places.select { |place| place.district == params[:search][:place] || place.big_city == params[:search][:place] } if params[:search][:place].present?
     end
   end
 

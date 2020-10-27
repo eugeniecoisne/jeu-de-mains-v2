@@ -33,109 +33,113 @@
   <div class="place-animator-index-container">
 
     <div class= "place-animator-index-cards">
-      <% @places.each do |place| %>
+      <% if @places.present? %>
+        <% @places.each do |place| %>
 
-        <div class="place-animator-index-card">
-          <div class="place-animator-index-card-image-and-infos">
-            <%= link_to(place, data: { turbolinks: false }) do  %>
-              <div class="place-anim-card-image">
-                <% if place.photo.attached? %>
-                  <%= cl_image_tag place.photo.key, loading: "lazy", alt: "jeu-de-mains-#{place.name}", title: "jeu-de-mains-#{place.name}", width: 250, crop: :fill %>
-                <% else %>
-                  <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-#{place.name}", :title => "jeu-de-mains-#{place.name}") %>
-                <% end %>
-                <div class="place-anim-card-rating">
-                  <% if place.rating %>
-                    <i class="fas fa-star"></i><%= place.rating %>
+          <div class="place-animator-index-card">
+            <div class="place-animator-index-card-image-and-infos">
+              <%= link_to(place, data: { turbolinks: false }) do  %>
+                <div class="place-anim-card-image">
+                  <% if place.photo.attached? %>
+                    <%= cl_image_tag place.photo.key, loading: "lazy", alt: "jeu-de-mains-#{place.name}", title: "jeu-de-mains-#{place.name}", width: 250, crop: :fill %>
                   <% else %>
-                    new
+                    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-#{place.name}", :title => "jeu-de-mains-#{place.name}") %>
                   <% end %>
-                </div>
-              </div>
-            <% end %>
-            <%= link_to(place, data: { turbolinks: false }) do  %>
-              <div class="place-anim-card-infos">
-                <div>
-                  <div class="place-anim-card-title">
-                    <h2>
-                      <% if place.name.size > 29 %>
-                        <%= place.name[0..27] %>...
-                      <% else %>
-                        <%= place.name %>
-                      <% end %>
-                    </h2>
-                  </div>
-                  <div class="place-anim-card-city">
-                    <h3>
-                      <span id="city-left"><%= place.city.capitalize %></span>
-                      <span id="ephemeral-right"><%= place.ephemeral == true ? "lieu éphémère" : "lieu permanent" %></span>
-                    </h3>
-                  </div>
-                  <div class="place-anim-card-price">
-                    <% ws_prices_sum = 0 %>
-                    <% place.workshops.where(db_status: true).each do |workshop| %>
-                      <% ws_prices_sum += workshop.price %>
-                    <% end %>
-                    <% if ws_prices_sum > 0 %>
-                      <h4>Prix moyen : <%= ws_prices_sum.fdiv(place.workshops.where(db_status: true).size).round %> €</h4>
-                    <% end %>
-                  </div>
-                  <div class="place-anim-card-info-tags">
-
-                    <% place_thematics = [] %>
-                    <% place.workshops.where(db_status: true).each do |workshop| %>
-                      <% place_thematics << workshop.thematic %>
-                    <% end %>
-                    <% if place_thematics.uniq.size <= 3 %>
-                      <% place_thematics.uniq.each do |thematic| %>
-                        <div class='informations-tag'><%= thematic %></div>
-                      <% end %>
+                  <div class="place-anim-card-rating">
+                    <% if place.rating %>
+                      <i class="fas fa-star"></i><%= place.rating %>
                     <% else %>
-                      <div class='informations-tag'>Plusieurs thématiques</div>
-                    <% end %>
-                  </div>
-                  <div class="place-anim-card-links-mobile">
-                    <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
-                      <%= simple_form_for(@chatroom) do |f| %>
-                        <%= f.hidden_field :room_name, value: current_user.profile.company  %>
-                        <%= f.hidden_field :user1, value: current_user.id %>
-                        <%= f.hidden_field :user2, value: place.user.id %>
-                        <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
-                          <i class="fas fa-comment-dots mr-2"></i><span>Contacter</span>
-                        </button>
-                      <% end %>
-                    <% else %>
-                      <a href="tel:+33<%= place.phone_number[1..-1] %>" class="place-anim-card-link" id="phone-place-link">
-                        <i class="fas fa-phone-alt"></i>
-                      </a>
-                    <% end %>
-                    <%= link_to place.instagram, class: "place-anim-card-link", target: "_blank" do %>
-                      <i class="fab fa-instagram"></i>
+                      new
                     <% end %>
                   </div>
                 </div>
-              </div>
-            <% end %>
-          </div>
-          <div class="place-anim-card-links-desktop">
-            <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
-              <%= simple_form_for(@chatroom) do |f| %>
-                <%= f.hidden_field :room_name, value: current_user.profile.company  %>
-                <%= f.hidden_field :user1, value: current_user.id %>
-                <%= f.hidden_field :user2, value: place.user.id %>
-                <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
-                  <i class="fas fa-comment-dots"></i> Contacter
-                </button>
               <% end %>
-            <% end %>
-            <%= link_to place_path(place), class: "place-anim-card-link" do %>
-              <i class="fas fa-eye mr-2"></i> Voir la page
-            <% end %>
-            <%= link_to place.instagram, class: "place-anim-card-link", target: "_blank" do %>
-              <i class="fab fa-instagram mr-2"></i> Instagram
-            <% end %>
+              <%= link_to(place, data: { turbolinks: false }) do  %>
+                <div class="place-anim-card-infos">
+                  <div>
+                    <div class="place-anim-card-title">
+                      <h2>
+                        <% if place.name.size > 29 %>
+                          <%= place.name[0..27] %>...
+                        <% else %>
+                          <%= place.name %>
+                        <% end %>
+                      </h2>
+                    </div>
+                    <div class="place-anim-card-city">
+                      <h3>
+                        <span id="city-left"><%= place.city.capitalize %></span>
+                        <span id="ephemeral-right"><%= place.ephemeral == true ? "lieu éphémère" : "lieu permanent" %></span>
+                      </h3>
+                    </div>
+                    <div class="place-anim-card-price">
+                      <% ws_prices_sum = 0 %>
+                      <% place.workshops.where(db_status: true).each do |workshop| %>
+                        <% ws_prices_sum += workshop.price %>
+                      <% end %>
+                      <% if ws_prices_sum > 0 %>
+                        <h4>Prix moyen : <%= ws_prices_sum.fdiv(place.workshops.where(db_status: true).size).round %> €</h4>
+                      <% end %>
+                    </div>
+                    <div class="place-anim-card-info-tags">
+
+                      <% place_thematics = [] %>
+                      <% place.workshops.where(db_status: true).each do |workshop| %>
+                        <% place_thematics << workshop.thematic %>
+                      <% end %>
+                      <% if place_thematics.uniq.size <= 3 %>
+                        <% place_thematics.uniq.each do |thematic| %>
+                          <div class='informations-tag'><%= thematic %></div>
+                        <% end %>
+                      <% else %>
+                        <div class='informations-tag'>Plusieurs thématiques</div>
+                      <% end %>
+                    </div>
+                    <div class="place-anim-card-links-mobile">
+                      <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
+                        <%= simple_form_for(@chatroom) do |f| %>
+                          <%= f.hidden_field :room_name, value: current_user.profile.company  %>
+                          <%= f.hidden_field :user1, value: current_user.id %>
+                          <%= f.hidden_field :user2, value: place.user.id %>
+                          <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
+                            <i class="fas fa-comment-dots mr-2"></i><span>Contacter</span>
+                          </button>
+                        <% end %>
+                      <% else %>
+                        <a href="tel:+33<%= place.phone_number[1..-1] %>" class="place-anim-card-link" id="phone-place-link">
+                          <i class="fas fa-phone-alt"></i>
+                        </a>
+                      <% end %>
+                      <%= link_to place.instagram, class: "place-anim-card-link", target: "_blank" do %>
+                        <i class="fab fa-instagram"></i>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <div class="place-anim-card-links-desktop">
+              <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
+                <%= simple_form_for(@chatroom) do |f| %>
+                  <%= f.hidden_field :room_name, value: current_user.profile.company  %>
+                  <%= f.hidden_field :user1, value: current_user.id %>
+                  <%= f.hidden_field :user2, value: place.user.id %>
+                  <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
+                    <i class="fas fa-comment-dots"></i> Contacter
+                  </button>
+                <% end %>
+              <% end %>
+              <%= link_to place_path(place), class: "place-anim-card-link" do %>
+                <i class="fas fa-eye mr-2"></i> Voir la page
+              <% end %>
+              <%= link_to place.instagram, class: "place-anim-card-link", target: "_blank" do %>
+                <i class="fab fa-instagram mr-2"></i> Instagram
+              <% end %>
+            </div>
           </div>
-        </div>
+        <% end %>
+      <% else %>
+        <span>Nous n'avons trouvé aucun résultat pour votre recherche.</span>
       <% end %>
 
     </div>

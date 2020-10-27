@@ -9,7 +9,7 @@ class ProfilesController < ApplicationController
     if params[:search].present?
       @profiles = @profiles.select { |profile| profile.company.include?(params[:search][:company])} if params[:search][:company].present?
       @profiles = @profiles.select { |profile| profile.thematics.include?(params[:search][:keyword])} if params[:search][:keyword].present?
-      @profiles = @profiles.select { |profile| profile.city == params[:search][:place] } if params[:search][:place].present?
+      @profiles = @profiles.select { |profile| profile.district == params[:search][:place] || profile.big_city == params[:search][:place] } if params[:search][:place].present?
     end
   end
 
