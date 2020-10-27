@@ -2,6 +2,8 @@
 
 <% if @workshop.place.user == current_user && @workshop.db_status == true || @workshop.animators.where(db_status: true).first.user == current_user && @workshop.db_status == true %>
 
+  <% content_for :meta_title, "Jeu de Mains | Sessions | #{@workshop.title[0..34]}" %>
+
   <div class="sign-container" id="sessions-index-container">
 
     <div class="sign-form">

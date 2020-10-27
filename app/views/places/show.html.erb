@@ -2,6 +2,14 @@
 
   <!-- PLACE SHOW -->
 
+  <% if @place.db_status == true %>
+    <% content_for :meta_title, "Jeu de Mains | #{@place.name[0..45]}" %>
+    <% content_for :meta_description, @place.description[0..160] %>
+    <% if @place.photo.attached? %>
+      <% content_for :meta_image, "#{cl_image_path @place.photo.key, width: 1200, height: 630, crop: :fill}" %>
+    <% end %>
+  <% end %>
+
   <div class="place-show-container profile-container">
 
     <!-- BACK BUTTON -->

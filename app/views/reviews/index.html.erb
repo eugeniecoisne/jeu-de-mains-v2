@@ -1,4 +1,11 @@
 <% if @workshop || @place || @profile %>
+  <% if @workshop %>
+    <% content_for :meta_title, "Jeu de Mains | Avis sur #{@workshop.title[0..36]}" %>
+  <% elsif @place %>
+    <% content_for :meta_title, "Jeu de Mains | Avis sur #{@place.name[0..36]}" %>
+  <% elsif @profile %>
+    <% content_for :meta_title, "Jeu de Mains | Avis sur #{@profile.company[0..36]}" %>
+  <% end %>
 
   <div class="reviews-index-container">
 
