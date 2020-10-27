@@ -203,6 +203,7 @@
       h1 {
         font-size: 20px;
         margin-top: 1em;
+        text-align: center;
       }
     }
 
@@ -211,6 +212,18 @@
       align-items: center;
       font-size: 15px;
       line-height: 1.7;
+    }
+    .public-profile-address {
+      text-align: center;
+    }
+    .public-profile-instagram {
+      text-align: center;
+    }
+    .public-profile-website {
+      text-align: center;
+    }
+    .public-profile-phone-number {
+      text-align: center;
     }
   }
 

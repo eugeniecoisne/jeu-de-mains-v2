@@ -12,11 +12,11 @@
         <% if params[:search].present? %>
             <%= f.input :company, required: false, label: false, prompt: "Animateurs", collection: Profile.companies.sort, selected: params[:search][:company] %>
             <%= f.input :keyword, required: false, label: false, prompt: "Tous types", collection: Workshop::THEMATICS, selected: params[:search][:keyword] %>
-            <%= f.input :place, required: false, label: false, prompt: "Toutes les villes", collection: Profile.cities.sort, selected: params[:search][:place] %>
+            <%= f.input :place, required: false, label: false, prompt: "Toutes les villes", collection: Profile.cities_and_districts, selected: params[:search][:place] %>
         <% else %>
             <%= f.input :company, required: false, label: false, prompt: "Animateurs", collection: Profile.companies.sort %>
             <%= f.input :keyword, required: false, label: false, prompt: "Tous types", collection: Workshop::THEMATICS %>
-            <%= f.input :place, required: false, label: false, prompt: "Toutes les villes", collection: Profile.cities.sort %>
+            <%= f.input :place, required: false, label: false, prompt: "Toutes les villes", collection: Profile.cities_and_districts %>
         <% end %>
         <div class="place-animator-index-search-buttons">
           <%= f.submit 'Rechercher', class: "submit-btn", id: "submit-desktop" %>
@@ -31,114 +31,118 @@
 
   <div class="place-animator-index-container">
     <div class= "place-animator-index-cards">
-      <% @profiles.each do |profile| %>
+      <% if @profiles.present? %>
+        <% @profiles.each do |profile| %>
 
-        <div class="place-animator-index-card">
-          <div class="place-animator-index-card-image-and-infos">
-            <%= link_to(profile_public_path(profile), data: { turbolinks: false }) do  %>
-              <div class="place-anim-card-image">
-                <% if profile.photo.attached? %>
-                  <%= cl_image_tag profile.photo.key, loading: "lazy", alt: "jeu-de-mains-#{profile.company}", title: "jeu-de-mains-#{profile.company}", width: 250, crop: :fill %>
-                <% else %>
-                  <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-#{profile.company}", :title => "jeu-de-mains-#{profile.company}") %>
-                <% end %>
-                <div class="place-anim-card-rating">
-                  <% if profile.rating > 0 %>
-                    <i class="fas fa-star"></i><%= profile.rating %>
+          <div class="place-animator-index-card">
+            <div class="place-animator-index-card-image-and-infos">
+              <%= link_to(profile_public_path(profile), data: { turbolinks: false }) do  %>
+                <div class="place-anim-card-image">
+                  <% if profile.photo.attached? %>
+                    <%= cl_image_tag profile.photo.key, loading: "lazy", alt: "jeu-de-mains-#{profile.company}", title: "jeu-de-mains-#{profile.company}", width: 250, crop: :fill %>
                   <% else %>
-                    new
+                    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-#{profile.company}", :title => "jeu-de-mains-#{profile.company}") %>
                   <% end %>
-                </div>
-              </div>
-            <% end %>
-            <%= link_to(profile_public_path(profile), data: { turbolinks: false }) do  %>
-              <div class="place-anim-card-infos">
-                <div>
-                  <div class="place-anim-card-title">
-                    <h2>
-                      <% if profile.company.size > 29 %>
-                        <%= profile.company[0..27] %>...
-                      <% else %>
-                        <%= profile.company %>
-                      <% end %>
-                    </h2>
-                  </div>
-                  <div class="place-anim-card-city">
-                    <h3>
-                      <span id="city-left"><%= profile.city.capitalize %></span>
-                    </h3>
-                  </div>
-                  <div class="place-anim-card-price">
-                    <% ws_prices_sum = 0 %>
-                    <% all_animators = 0 %>
-                    <% profile.user.animators.each do |animator| %>
-                      <% if animator.workshop.db_status == true %>
-                        <% ws_prices_sum += animator.workshop.price %>
-                        <% all_animators += 1 %>
-                      <% end %>
-                    <% end %>
-                    <% if ws_prices_sum > 0 %>
-                      <h4>Prix moyen : <%= ws_prices_sum.fdiv(all_animators).round %> €</h4>
-                    <% end %>
-                  </div>
-                  <div class="place-anim-card-info-tags">
-
-                    <% animator_thematics = [] %>
-                    <% profile.user.animators.each do |animator| %>
-                      <% if animator.workshop.db_status == true %>
-                        <% animator_thematics << animator.workshop.thematic %>
-                      <% end %>
-                    <% end %>
-                    <% if animator_thematics.uniq.size <= 3 %>
-                      <% animator_thematics.uniq.each do |thematic| %>
-                        <div class='informations-tag'><%= thematic %></div>
-                      <% end %>
+                  <div class="place-anim-card-rating">
+                    <% if profile.rating > 0 %>
+                      <i class="fas fa-star"></i><%= profile.rating %>
                     <% else %>
-                      <div class='informations-tag'>Plusieurs thématiques</div>
-                    <% end %>
-                  </div>
-                  <div class="place-anim-card-links-mobile">
-                    <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
-                      <%= simple_form_for(@chatroom) do |f| %>
-                        <%= f.hidden_field :room_name, value: current_user.profile.company  %>
-                        <%= f.hidden_field :user1, value: current_user.id %>
-                        <%= f.hidden_field :user2, value: profile.user.id %>
-                        <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
-                          <i class="fas fa-comment-dots mr-2"></i><span>Contacter</span>
-                        </button>
-                      <% end %>
-                    <% else %>
-                      <%= link_to profile_public_path(profile), class: "place-anim-card-link", id: "anim-show-page" do %>
-                        <i class="fas fa-eye"></i>
-                      <% end %>
-                    <% end %>
-                    <%= link_to profile.instagram, class: "place-anim-card-link", target: "_blank" do %>
-                      <i class="fab fa-instagram"></i>
+                      new
                     <% end %>
                   </div>
                 </div>
-              </div>
-            <% end %>
-          </div>
-          <div class="place-anim-card-links-desktop">
-            <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
-              <%= simple_form_for(@chatroom) do |f| %>
-                <%= f.hidden_field :room_name, value: current_user.profile.company  %>
-                <%= f.hidden_field :user1, value: current_user.id %>
-                <%= f.hidden_field :user2, value: profile.user.id %>
-                <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
-                  <i class="fas fa-comment-dots"></i> Contacter
-                </button>
               <% end %>
-            <% end %>
-            <%= link_to profile_public_path(profile), class: "place-anim-card-link", id: "anim-show-page" do %>
-              <i class="fas fa-eye mr-2"></i> Voir la page
-            <% end %>
-            <%= link_to profile.instagram, class: "place-anim-card-link", target: "_blank" do %>
-              <i class="fab fa-instagram mr-2"></i> Instagram
-            <% end %>
+              <%= link_to(profile_public_path(profile), data: { turbolinks: false }) do  %>
+                <div class="place-anim-card-infos">
+                  <div>
+                    <div class="place-anim-card-title">
+                      <h2>
+                        <% if profile.company.size > 29 %>
+                          <%= profile.company[0..27] %>...
+                        <% else %>
+                          <%= profile.company %>
+                        <% end %>
+                      </h2>
+                    </div>
+                    <div class="place-anim-card-city">
+                      <h3>
+                        <span id="city-left"><%= profile.city.capitalize %></span>
+                      </h3>
+                    </div>
+                    <div class="place-anim-card-price">
+                      <% ws_prices_sum = 0 %>
+                      <% all_animators = 0 %>
+                      <% profile.user.animators.each do |animator| %>
+                        <% if animator.workshop.db_status == true %>
+                          <% ws_prices_sum += animator.workshop.price %>
+                          <% all_animators += 1 %>
+                        <% end %>
+                      <% end %>
+                      <% if ws_prices_sum > 0 %>
+                        <h4>Prix moyen : <%= ws_prices_sum.fdiv(all_animators).round %> €</h4>
+                      <% end %>
+                    </div>
+                    <div class="place-anim-card-info-tags">
+
+                      <% animator_thematics = [] %>
+                      <% profile.user.animators.each do |animator| %>
+                        <% if animator.workshop.db_status == true %>
+                          <% animator_thematics << animator.workshop.thematic %>
+                        <% end %>
+                      <% end %>
+                      <% if animator_thematics.uniq.size <= 3 %>
+                        <% animator_thematics.uniq.each do |thematic| %>
+                          <div class='informations-tag'><%= thematic %></div>
+                        <% end %>
+                      <% else %>
+                        <div class='informations-tag'>Plusieurs thématiques</div>
+                      <% end %>
+                    </div>
+                    <div class="place-anim-card-links-mobile">
+                      <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
+                        <%= simple_form_for(@chatroom) do |f| %>
+                          <%= f.hidden_field :room_name, value: current_user.profile.company  %>
+                          <%= f.hidden_field :user1, value: current_user.id %>
+                          <%= f.hidden_field :user2, value: profile.user.id %>
+                          <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
+                            <i class="fas fa-comment-dots mr-2"></i><span>Contacter</span>
+                          </button>
+                        <% end %>
+                      <% else %>
+                        <%= link_to profile_public_path(profile), class: "place-anim-card-link", id: "anim-show-page" do %>
+                          <i class="fas fa-eye"></i>
+                        <% end %>
+                      <% end %>
+                      <%= link_to profile.instagram, class: "place-anim-card-link", target: "_blank" do %>
+                        <i class="fab fa-instagram"></i>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <div class="place-anim-card-links-desktop">
+              <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
+                <%= simple_form_for(@chatroom) do |f| %>
+                  <%= f.hidden_field :room_name, value: current_user.profile.company  %>
+                  <%= f.hidden_field :user1, value: current_user.id %>
+                  <%= f.hidden_field :user2, value: profile.user.id %>
+                  <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
+                    <i class="fas fa-comment-dots"></i> Contacter
+                  </button>
+                <% end %>
+              <% end %>
+              <%= link_to profile_public_path(profile), class: "place-anim-card-link", id: "anim-show-page" do %>
+                <i class="fas fa-eye mr-2"></i> Voir la page
+              <% end %>
+              <%= link_to profile.instagram, class: "place-anim-card-link", target: "_blank" do %>
+                <i class="fab fa-instagram mr-2"></i> Instagram
+              <% end %>
+            </div>
           </div>
-        </div>
+        <% end %>
+      <% else %>
+        <span>Nous n'avons trouvé aucun résultat pour votre recherche.</span>
       <% end %>
 
     </div>
