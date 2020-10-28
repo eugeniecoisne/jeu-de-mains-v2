@@ -71,7 +71,8 @@
   }
   .modal-content {
     border-radius: 0;
-    height: 100vh;
+    height: 1500px;
+    width: 500px;
   }
   .modal-dialog {
     margin: 4.4rem 0 4.4rem auto;
@@ -84,48 +85,8 @@
   button:focus {
     outline: none;
   }
-  #search_max_price_15 {
-    margin-left: 10px;
-    width: 120px;
-  }
-  #search_max_price_16 {
-    margin-left: 10px;
-    width: 120px;
-  }
-  .search_max_price {
-    label {
-      margin-left: 10px;
-    }
-  }
-  #search_min_price_15 {
-    width: 120px;
-  }
-  #search_min_price_16 {
-    width: 120px;
-  }
   .form-check {
     margin-bottom: 4px;
-    label {
-      margin-left: 10px;
-    }
-  }
-
-  #search_min_capacity_15 {
-    width: 145px;
-  }
-  #search_min_capacity_16 {
-    width: 145px;
-  }
-
-  #search_level_15 {
-    width: 150px;
-    margin-left: 10px;
-  }
-  #search_level_16 {
-    width: 150px;
-    margin-left: 10px;
-  }
-  .search_level {
     label {
       margin-left: 10px;
     }
@@ -134,16 +95,16 @@
     position: relative;
   }
   .submit-btn {
-    width: 114%;
+    width: 500px;
     height: 40px;
     background-color: $blue;
     color: white;
     border: none;
     font-family: "Montserrat", "sans-serif";
     font-weight: 600;
-    position: sticky;
+    position: fixed;
     bottom: 0;
-    margin: 60px 0 -30px -30px;
+    margin: 60px 0 0 -30px;
   }
   .submit-btn:hover {
     background-color: $dark-blue;
@@ -167,6 +128,12 @@
 .filters-reinitialize-btn:hover {
   outline: none;
   background-color: $blue;
+}
+
+.indew-ws-two-inputs-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
 }
 
 

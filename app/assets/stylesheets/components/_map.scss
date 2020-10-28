@@ -146,14 +146,14 @@
     display: none;
   }
   .mapboxgl-popup {
-    transform: translate(5vw, 13vh) !important;
+    transform: translate(5vw, 17vh) !important;
   }
 }
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
   .mapboxgl-popup {
-    transform: translate(10vw, 13vh) !important;
+    transform: translate(10vw, 17vh) !important;
     max-width: 600px !important;
   }
   .mapboxgl-popup-content {
@@ -168,7 +168,7 @@
 @media (min-width: 768px) and (max-width: 991px)  {
   .mapboxgl-popup {
     max-width: 600px !important;
-    transform: translate(2vw, 3vh) !important;
+    transform: translate(2vw, 14vh) !important;
   }
   .mapboxgl-popup-content {
     width: 36vw;
