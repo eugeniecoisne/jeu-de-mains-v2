@@ -3,8 +3,8 @@
 // FILTERS BUTTON
 
 #orderAndFilter {
-  background-color: $blue;
-  color: white;
+  background-color: white;
+  color: $blue;
   padding: 0.6em 1em;
   font-size: 14px;
   font-weight: 600;
@@ -12,10 +12,15 @@
   width: auto;
   border-radius: 3em;
   text-decoration: none;
+  position : absolute;
+  right: 1.7rem;
+  top: 5.6rem;
+  z-index: 4;
 }
 
 #orderAndFilter:hover {
   background-color: $dark-blue;
+  color: white;
   text-decoration: none;
 }
 
@@ -155,6 +160,11 @@
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
+  #orderAndFilter {
+    position: fixed;
+    right: 1rem;
+    top: 5.6rem;
+  }
   .filters-modal {
     .modal-dialog {
       max-width: unset;
@@ -177,7 +187,9 @@
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
-
+  #orderAndFilter {
+    position: fixed;
+  }
 }
 
 // Medium devices (tablets, 768px and up)

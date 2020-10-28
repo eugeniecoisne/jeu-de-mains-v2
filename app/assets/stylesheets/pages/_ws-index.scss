@@ -54,26 +54,21 @@
 // CONTAINERS
 
 .index-ws-search-filters-container {
-  margin: 1.5em 2em;
+  padding: 1rem 9rem 0.7rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  h2 {
-    font-size: 17px;
-    color: $blue;
-    font-weight: 700;
-    margin-bottom: 0.5em;
-  }
+  background-color: $light-blue;
+  min-height: 76px;
   h3 {
     font-size: 14px;
-    color: $dark-blue;
+    color: white;
     font-weight: 600;
     margin-bottom: 0.2em;
   }
   h4 {
     font-size: 14px;
-    color: $dark-blue;
+    color: white;
     font-weight: 500;
     margin-bottom: 0.2em;
     text-transform: lowercase;
@@ -81,29 +76,81 @@
 }
 
 .ws-index-search-parameters {
-  padding-left: 10px;
   border-left: 3px solid $light-blue;
-}
+  display: flex;
+  flex-wrap: wrap;
 
-// CARDS
+  .ws-index-search-tag {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 13px;
+    border: 1px solid white;
+    border-radius: 30px;
+    margin: 0 5px 6px 0;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    .fas {
+      font-size: 12px;
+      padding-top: 2px;
+    }
+    input {
+      border: unset;
+      padding: unset;
+      background: unset;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      outline: none;
+    }
+  }
+  .ws-index-search-tag:hover {
+    background-color: white;
+    color: $dark-blue;
+    font-weight: 500;
+    input {
+      color: $dark-blue;
+      font-weight: 500;
+    }
+  }
+}
 
 .index-ws-cards-map-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  background-color: $light-gray2;
 }
+
+// TITLE AND CARDS
 
 .index-ws-left-side {
   padding: 2em;
   min-height: 70vh;
-  h1 {
-    font-size: 19px;
-    color: $blue;
-    margin-bottom: 1.5em;
-    font-weight: 600;
-  }
-  #index-ws-title-strong {
+  #index-ws-title {
+    font-size: 30px;
     color: $dark-blue;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    font-family: "Amiri", serif;
+  }
+  #index-ws-description {
+    font-size: 14px;
+    color: $dark-blue;
+    margin-bottom: 1em;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  #index-ws-results {
+    font-size: 14px;
+    color: $dark-blue;
+    margin-bottom: 2em;
+    font-weight: 500;
+    line-height: 1.4;
+    span {
+      font-weight: 600;
+    }
   }
 }
 
@@ -127,34 +174,23 @@
     grid-column-gap: 1em;
   }
   .index-ws-search-filters-container {
-    padding: 0.7em 0.7em 0.3em 0.7em;
+    padding: 1rem 6rem 0.7rem 1rem;
     position: fixed;
     z-index: 2;
-    background-color: white;
+    background-color: $light-blue;
     margin: 0;
     margin-top: 4em;
     width: 100vw;
-    height: 127px;
-    h3 {
-      font-size: 13.5px;
-      max-width: 250px;
-    }
-    h4 {
-      font-size: 13.5px;
-      max-width: 250px;
-    }
+    max-height: 130px;
+    min-height: 80px;
   }
   .ws-index-search-parameters {
     border-left: 2px solid $light-blue;
   }
 
-  #index-ws-your-query {
-    display: none;
-  }
-
   .index-ws-cards-map-container {
     display: block;
-    padding: 12.4em 0 2em 0;
+    padding: 11em 0 2em 0;
     h1 {
       font-size: 17px;
       font-weight: 600;
@@ -196,27 +232,19 @@
     display: none;
   }
   .index-ws-search-filters-container {
-    padding: 0.7em;
+    padding: 1rem 7rem 0.7rem 1rem;
     position: fixed;
     z-index: 2;
-    background-color: white;
+    background-color: $light-blue;
     margin: 0;
-    margin-top: 4.5em;
+    margin-top: 4.4em;
     width: 100vw;
-    height: 137px;
-    h3 {
-      font-size: 13.5px;
-    }
-    h4 {
-      font-size: 13.5px;
-    }
-  }
-  #index-ws-your-query {
-    display: none;
+    max-height: 130px;
+    min-height: 80px;
   }
   .index-ws-cards-map-container {
     display: block;
-    padding: 13.7em 0 2em 0;
+    padding: 11em 0 2em 0;
     h1 {
       font-size: 17px;
       font-weight: 600;

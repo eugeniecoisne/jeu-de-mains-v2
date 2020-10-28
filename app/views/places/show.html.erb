@@ -151,9 +151,9 @@
                     <div>
                       <div class="ws-card-title">
                         <% if workshop.title.size > 33 %>
-                          <h2><%= workshop.title[0..31] %>...</h2>
+                          <h4><%= workshop.title[0..31] %>...</h4>
                         <% else %>
-                          <h2><%= workshop.title %></h2>
+                          <h4><%= workshop.title %></h4>
                         <% end %>
                       </div>
                       <% if workshop.animators.where(db_status: true).first %>

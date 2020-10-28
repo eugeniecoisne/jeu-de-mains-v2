@@ -80,7 +80,7 @@ class WorkshopsController < ApplicationController
         when 'Prix décroissants'
           @workshops = @workshops.sort_by { |workshop| workshop.price }.reverse.paginate(page: params[:page], per_page: 20)
         when 'Les mieux notés'
-          @workshops = @workshops.sort_by { |workshop| workshop.rating }.reverse.paginate(page: params[:page], per_page: 20)
+          @workshops = @workshops.sort_by { |workshop| workshop.rating.present? ? workshop.rating : 0 }.reverse.paginate(page: params[:page], per_page: 20)
         end
       end
     else
@@ -89,7 +89,6 @@ class WorkshopsController < ApplicationController
     # authorize @workshops
 
     @prices = policy_scope(Workshop).where(status: 'en ligne', db_status: true).map { |ws| ws.price }
-    @min_price = @prices.present? ? @prices.min : 0
     @max_price = @prices.present? ? @prices.max : 120
 
     @places_geo = Place.where(id: @workshops.pluck(:place_id))

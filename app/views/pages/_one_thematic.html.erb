@@ -69,20 +69,24 @@
                 <div>
                   <div class="ws-card-place" id="thematic-show-ws-card-place-desktop">
                     <% if workshop.place.name.size > 25 %>
-                      <h3><%= workshop.place.name[0..24] %>...</h3>
+                      <span><%= workshop.place.name[0..24] %>...</span>
                     <% else %>
-                      <h3><%= workshop.place.name %></h3>
+                      <span><%= workshop.place.name %></span>
                     <% end %>
                   </div>
                   <div class="ws-card-place" id="thematic-show-ws-card-place-mobile">
                     <% if workshop.place.name.size > 17 %>
-                      <h3><%= workshop.place.name[0..16] %>...</h3>
+                      <span><%= workshop.place.name[0..16] %>...</span>
                     <% else %>
-                      <h3><%= workshop.place.name %></h3>
+                      <span><%= workshop.place.name %></span>
                     <% end %>
                   </div>
                   <div class="ws-card-title" id="thematic-show-ws-card-title">
-                    <h2><%= workshop.title %></h2>
+                    <% if workshop.title.size > 33 %>
+                      <h4><%= workshop.title[0..31] %>...</h4>
+                    <% else %>
+                      <h4><%= workshop.title %></h4>
+                    <% end %>
                   </div>
                 </div>
                 <div class="ws-card-price-and-city" id="thematic-show-ws-card-price-and-city">
