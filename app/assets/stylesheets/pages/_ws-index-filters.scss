@@ -84,7 +84,11 @@
   button:focus {
     outline: none;
   }
-  #search_max_price {
+  #search_max_price_15 {
+    margin-left: 10px;
+    width: 120px;
+  }
+  #search_max_price_16 {
     margin-left: 10px;
     width: 120px;
   }
@@ -93,7 +97,10 @@
       margin-left: 10px;
     }
   }
-  #search_min_price {
+  #search_min_price_15 {
+    width: 120px;
+  }
+  #search_min_price_16 {
     width: 120px;
   }
   .form-check {
@@ -103,11 +110,18 @@
     }
   }
 
-  #search_min_capacity {
+  #search_min_capacity_15 {
+    width: 145px;
+  }
+  #search_min_capacity_16 {
     width: 145px;
   }
 
-  #search_level {
+  #search_level_15 {
+    width: 150px;
+    margin-left: 10px;
+  }
+  #search_level_16 {
     width: 150px;
     margin-left: 10px;
   }
@@ -163,7 +177,7 @@
   #orderAndFilter {
     position: fixed;
     right: 1rem;
-    top: 5.6rem;
+    top: 5.3rem;
   }
   .filters-modal {
     .modal-dialog {
