@@ -150,13 +150,17 @@
                       <div class="ws-card-infos">
                         <div>
                           <div class="ws-card-place">
-                            <h3><%= animator.workshop.place.name %></h3>
+                            <% if animator.workshop.place.name.size > 17 %>
+                              <span><%= animator.workshop.place.name[0..16] %>...</span>
+                            <% else %>
+                              <span><%= animator.workshop.place.name %></span>
+                            <% end %>
                           </div>
                           <div class="ws-card-title">
                             <% if animator.workshop.title.size > 33 %>
-                              <h2><%= animator.workshop.title[0..31] %>...</h2>
+                              <h4><%= animator.workshop.title[0..31] %>...</h4>
                             <% else %>
-                              <h2><%= animator.workshop.title %></h2>
+                              <h4><%= animator.workshop.title %></h4>
                             <% end %>
                           </div>
                         </div>
