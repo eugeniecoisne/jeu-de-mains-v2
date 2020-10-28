@@ -23,7 +23,7 @@
         <!-- Order -->
 
         <% if params[:search][:order].present? && params[:search][:order] != "Recommandation" %>
-          <div class="ws-index-search-tag">
+          <div class="ws-index-search-tag form-container-order">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
               <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_1" %>
               <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_1" %>
@@ -46,8 +46,8 @@
         <!-- Thematic -->
 
         <% if params[:search][:keyword].present? %>
-          <div class="ws-index-search-tag">
-            <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+          <div class="ws-index-search-tag form-container-keyword">
+            <%= simple_form_for :search, url: workshops_path, method: :get, remote: true do |f| %>
               <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_2" %>
               <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_2" %>
               <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_2" %>
@@ -69,7 +69,7 @@
         <!-- City / District -->
 
         <% if params[:search][:place].present? %>
-          <div class="ws-index-search-tag">
+          <div class="ws-index-search-tag form-container-place">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
               <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_3" %>
               <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_3" %>
@@ -93,7 +93,7 @@
 
         <% if params[:search][:selection].present? %>
           <% if params[:search][:keyword].size > 1 %>
-            <div class="ws-index-search-tag">
+            <div class="ws-index-search-tag form-container-selection">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
                 <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_4" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_4" %>
@@ -117,7 +117,7 @@
         <!-- Dates -->
 
         <% if params[:search][:starts_at].present? || params[:search][:ends_at].present? %>
-          <div class="ws-index-search-tag">
+          <div class="ws-index-search-tag form-container-dates">
             <% if params[:search][:starts_at].present? && params[:search][:ends_at].present? %>
 
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
@@ -181,7 +181,7 @@
 
         <% if params[:search][:min_price].present? || params[:search][:max_price].present? %>
           <% if params[:search][:min_price].present? && params[:search][:max_price].present? && params[:search][:min_price].to_i != 0 && params[:search][:max_price].to_i != 0 && params[:search][:max_price].to_i != @max_price %>
-            <div class="ws-index-search-tag">
+            <div class="ws-index-search-tag form-container-min-max-price">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
                 <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_8" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_8" %>
@@ -202,7 +202,7 @@
 
 
           <% elsif params[:search][:min_price].present? && params[:search][:min_price].to_i != 0 %>
-            <div class="ws-index-search-tag">
+            <div class="ws-index-search-tag form-container-min-price">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
                 <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_9" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_9" %>
@@ -223,7 +223,7 @@
 
 
           <% elsif params[:search][:max_price].present? && params[:search][:max_price].to_i != 0 && params[:search][:max_price].to_i != @max_price %>
-            <div class="ws-index-search-tag">
+            <div class="ws-index-search-tag form-container-max-price">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
                 <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_10" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_10" %>
@@ -248,7 +248,7 @@
 
         <% if params[:search][:min_capacity].present? %>
           <% if params[:search][:min_capacity].to_i > 1 %>
-            <div class="ws-index-search-tag">
+            <div class="ws-index-search-tag form-container-min-capacity">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
                 <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_11" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_11" %>
@@ -272,7 +272,7 @@
         <!-- Level -->
 
         <% if params[:search][:level].present? %>
-          <div class="ws-index-search-tag">
+          <div class="ws-index-search-tag form-container-level">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
               <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_12" %>
               <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_12" %>
@@ -295,7 +295,7 @@
         <!-- Moment of the day -->
 
         <% if params[:search][:moment].present? %>
-          <div class="ws-index-search-tag">
+          <div class="ws-index-search-tag form-container-moment">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
               <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_13" %>
               <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_13" %>
@@ -319,7 +319,7 @@
 
         <% if params[:search][:ephemeral].present? %>
           <% if params[:search][:ephemeral] == 'false' %>
-            <div class="ws-index-search-tag">
+            <div class="ws-index-search-tag form-container-ephemeral">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
                 <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_14" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_14" %>
