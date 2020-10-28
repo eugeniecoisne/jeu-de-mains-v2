@@ -15,11 +15,11 @@
           <div>
             <%= f.input :order, as: :radio_buttons, collection: ['Recommandation', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par', namespace: "unique_prefix_to_be_prepended_to_id", checked: params[:search][:order] %>
           </div>
-          <div class="d-flex">
+          <div class="indew-ws-two-inputs-row">
             <%= f.input :min_price, as: :float, required: false, label: 'Prix min. €', input_html: { value: params[:search][:min_price].to_f, id: "search_min_price_15" } %>
             <%= f.input :max_price, as: :float, required: false, label: 'Prix max. €', input_html: { value: params[:search][:max_price].to_f, id: "search_max_price_15" } %>
           </div>
-          <div class="d-flex">
+          <div class="indew-ws-two-inputs-row">
             <%= f.input :min_capacity, as: :integer, required: false, label: "Nb personne(s) min.", input_html: { value: params[:search][:min_capacity].to_i, id: "search_min_capacity_15" } %>
             <%= f.input :level, required: false, label: "Niveau", prompt: "Tous niveaux", collection: Workshop::LEVELS, selected: params[:search][:level], input_html: { id: "search_level_15" } %>
           </div>
@@ -63,11 +63,11 @@
           <div>
             <%= f.input :order, as: :radio_buttons, collection: ['Recommandation', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par', checked: 'Recommandation', namespace: "unique_prefix_to_be_prepended_to_id" %>
           </div>
-          <div class="d-flex">
+          <div class="indew-ws-two-inputs-row">
             <%= f.input :min_price, as: :float, required: false, label: 'Prix min. €', input_html: { value: 0, id: "search_min_price_16" } %>
             <%= f.input :max_price, as: :float, required: false, label: 'Prix max. €', input_html: { value: @max_price, id: "search_max_price_16" } %>
           </div>
-          <div class="d-flex">
+          <div class="indew-ws-two-inputs-row">
             <%= f.input :min_capacity, as: :integer, required: false, label: "Nb personne(s) min.", input_html: { id: "search_min_capacity_16" } %>
             <%= f.input :level, required: false, label: "Niveau", prompt: "Tous niveaux", collection: Workshop::LEVELS, input_html: { id: "search_level_16" } %>
           </div>
