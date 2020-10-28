@@ -72,6 +72,8 @@
 }
 
 .map-ws-popup-workshops {
+  max-height: 300px;
+  overflow-y: scroll;
   a {
     text-decoration: none;
   }
@@ -147,6 +149,9 @@
   }
   .mapboxgl-popup {
     transform: translate(5vw, 17vh) !important;
+  }
+  .map-ws-popup-workshops {
+    max-height: 275px;
   }
 }
 

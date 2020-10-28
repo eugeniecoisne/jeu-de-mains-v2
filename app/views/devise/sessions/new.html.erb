@@ -8,6 +8,27 @@
 
     <h2 class="sign-title">Connexion</h2>
 
+    <div class="omniauth-container">
+      <div class="omniauth-box omniauth-box-facebook">
+        <%= link_to user_facebook_omniauth_authorize_path do %>
+          <i class="fab fa-facebook-f mr-4"></i>
+          Me connecter avec Facebook
+        <% end %>
+      </div>
+      <div class="omniauth-box omniauth-box-google">
+        <%= link_to user_google_oauth2_omniauth_authorize_path do %>
+          <i class="fab fa-google mr-4"></i>
+          Me connecter avec Google
+        <% end %>
+      </div>
+    </div>
+
+    <div class="authentication-or-container">
+      <div class="authentication-or-left"></div>
+      <span class="authentication-or">ou</span>
+      <div class="authentication-or-right"></div>
+    </div>
+
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="form-inputs">
         <%= f.input :email,
@@ -21,7 +42,7 @@
       </div>
 
       <div class="form-actions">
-        <%= f.button :submit, t(".sign_in") %>
+        <%= f.button :submit, t(".sign_in"), id: "btn-blue" %>
       </div>
       <div class="sign-empty-div">
       </div>

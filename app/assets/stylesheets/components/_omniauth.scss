@@ -1,0 +1,46 @@
+.omniauth-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 15px;
+  margin-top: 2rem;
+}
+
+.omniauth-box {
+  background-color: $light-blue;
+  padding: 7px 15px;
+  border-radius: 4px;
+  text-align: center;
+  a {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    outline: none;
+  }
+  .fa-google {
+    font-size: 14px;
+  }
+}
+.omniauth-box:hover {
+  background-color: $blue;
+}
+
+.authentication-or-container {
+  display: grid;
+  grid-template-columns: 10fr 1fr 10fr;
+  grid-gap: 10px;
+  margin: 30px 0 20px 0;
+}
+.authentication-or {
+  text-align: center;
+}
+
+.authentication-or-left {
+  border-bottom: 1px solid $gray;
+  margin-bottom: 10px;
+}
+
+.authentication-or-right {
+  border-bottom: 1px solid $gray;
+  margin-bottom: 10px;
+
+}
