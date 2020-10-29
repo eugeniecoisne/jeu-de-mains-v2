@@ -41,7 +41,7 @@
     background-color: $green;
     font-size: 16px;
     font-weight: 600;
-    border-radius: 5px;
+    border-radius: 4px;
     opacity: 100%;
   }
   .btn:hover {
@@ -49,6 +49,9 @@
   }
   .btn:focus {
     opacity: 80%
+  }
+  #btn-blue {
+    background-color: $blue;
   }
 }
 

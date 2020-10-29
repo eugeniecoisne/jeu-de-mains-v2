@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   root to: 'pages#home'
   get 'devenir-partenaire', to: 'pages#partners'
   get 'a-propos', to: 'pages#about'
