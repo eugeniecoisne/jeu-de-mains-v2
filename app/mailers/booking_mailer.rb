@@ -83,4 +83,29 @@ class BookingMailer < ApplicationMailer
       track_opens: 'true',
       message_stream: 'outbound')
   end
+
+  def reminder_booking_btoc
+    @booking = params[:booking]
+
+    if @booking.db_status == true
+      mail(
+        to:       @booking.user.email,
+        subject:  "Rappel : Vous avez un atelier demain !",
+        track_opens: 'true',
+        message_stream: 'outbound')
+    end
+  end
+
+  def ask_review_btoc
+    @booking = params[:booking]
+
+    if @booking.db_status == true
+      mail(
+        to:       @booking.user.email,
+        subject:  "Donnez-nous votre avis sur l'atelier d'hier",
+        track_opens: 'true',
+        message_stream: 'outbound')
+    end
+
+  end
 end

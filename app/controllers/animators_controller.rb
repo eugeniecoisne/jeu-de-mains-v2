@@ -11,7 +11,7 @@ class AnimatorsController < ApplicationController
     @animator.user = User.find(params[:animator][:user_id])
     if @animator.save
       mail = AnimatorMailer.with(animator: @animator).new_animator
-      mail.deliver_now
+      mail.deliver_later
       flash[:notice] = "L'animateur #{@animator.user.profile.company} a bien été ajouté !"
       redirect_back fallback_location: root_path
     else
@@ -28,7 +28,7 @@ class AnimatorsController < ApplicationController
     @animator.update(user: @user)
     if @animator.save
       mail = AnimatorMailer.with(animator: @animator).new_animator
-      mail.deliver_now
+      mail.deliver_later
       redirect_back fallback_location: root_path
     else
       redirect_back fallback_location: root_path

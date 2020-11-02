@@ -23,6 +23,10 @@ Rails.application.routes.draw do
     match "/inscription", to: "devise/registrations#new", via: :get
   end
 
+  require "sidekiq/web"
+  authenticate :user, ->(user) { user.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   resources :profiles, :path => :membres, :as => :profiles, only: %i(show edit update) do
     resources :reviews, :path => :avis, :as => :reviews, only: %i(index)

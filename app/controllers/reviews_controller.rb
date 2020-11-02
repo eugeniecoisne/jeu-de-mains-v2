@@ -17,7 +17,7 @@ class ReviewsController < ApplicationController
     @review.user = current_user
     if @review.save
       mail = ReviewMailer.with(review: @review).new_review
-      mail.deliver_now
+      mail.deliver_later
       flash[:notice] = "Votre avis a bien été posté !"
       redirect_to tableau_de_bord_profile_path(current_user.profile)
     else
