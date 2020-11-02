@@ -17,6 +17,7 @@ module JeuDeMainsV2
     config.load_defaults 6.0
     config.i18n.default_locale = :fr
 
+  config.active_job.queue_adapter = :sidekiq
   config.time_zone = 'Europe/Paris'
   config.active_record.default_timezone = :local
 

@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
     if @message.save
       if my_today_messages.size == 0
         mail = MessageMailer.with(message: @message).new_message
-        mail.deliver_now
+        mail.deliver_later
       end
       redirect_to chatroom_path(@chatroom, anchor: "message-#{@message.id}")
     else
