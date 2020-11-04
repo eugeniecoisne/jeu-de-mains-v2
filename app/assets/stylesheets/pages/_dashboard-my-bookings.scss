@@ -155,7 +155,7 @@
     .call-btn {
       display: block;
       font-size: 17px;
-      margin-left: 1.3rem;
+      margin-right: 1rem;
       margin-bottom: -4px;
     }
     .call-btn:hover {
@@ -164,9 +164,8 @@
     .localize-btn {
       display: block;
       font-size: 19px;
-      margin-left: 1rem;
+      margin-right: 1rem;
       margin-bottom: -3px;
-      margin-right: 2px;
     }
     .localize-btn:hover {
       color: $light-blue;

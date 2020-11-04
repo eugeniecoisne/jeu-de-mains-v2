@@ -1,6 +1,6 @@
 // ADD TO AGENDA BUTTON FOR MY BOOKINGS
 
-.addeventatc              {display:inline-block;position:relative;cursor:pointer;color:$blue!important;font-weight:500;font-size:23px;text-decoration:none;cursor:pointer;margin-left: 0.8em;-webkit-font-smoothing:antialiased!important;outline:none;}
+.addeventatc              {display:inline-block;position:relative;cursor:pointer;color:$blue!important;font-weight:500;font-size:23px;text-decoration:none;cursor:pointer;margin-right: 0.8em;-webkit-font-smoothing:antialiased!important;outline:none;}
 .addeventatc:hover            {color:$light-blue!important;text-decoration:none;}
 .addeventatc-selected           {color:$light-blue!important;}
 .addeventatc .start, .addeventatc .end, .addeventatc .timezone, .addeventatc .title, .addeventatc .description, .addeventatc .location, .addeventatc .organizer, .addeventatc .organizer_email, .addeventatc .facebook_event, .addeventatc .all_day_event, .addeventatc .date_format, .addeventatc .alarm_reminder, .addeventatc .recurring, .addeventatc .attendees, .addeventatc .calname, .addeventatc .uid, .addeventatc .status, .addeventatc .method, .addeventatc .client, .addeventatc .transp {display:none!important;}
