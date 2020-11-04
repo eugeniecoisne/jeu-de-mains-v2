@@ -21,32 +21,20 @@ puts "--------------------------------"
 puts "CREATION DE 3 PARTICIPANTS"
 
 #   ALEXIA : PARTICIPANTE
-User.create!(email: 'a@a.com', password: '123456')
+User.create!(email: 'a@a.com', password: '123456', last_name: 'Dupont', first_name: 'Alexia')
 alexia = Profile.last
-alexia.update!(
-  last_name: 'Dupont',
-  first_name: 'Alexia',
-)
 file = URI.open('https://24.media.tumblr.com/tumblr_m5koiyLN9P1rut9u9o1_500.png')
 alexia.photo.attach(io: file, filename: 'alexia.png', content_type: 'image/png')
 
 #   HELOISE : PARTICIPANTE
-User.create!(email: 'b@b.com', password: '123456')
+User.create!(email: 'b@b.com', password: '123456', last_name: 'Janin', first_name: 'Héloïse')
 heloise = Profile.last
-heloise.update!(
-  last_name: 'Janin',
-  first_name: 'Héloïse',
-)
 file = URI.open('https://i.pinimg.com/474x/59/86/69/598669c4a978ce3740c7ce61f18a7c23.jpg')
 heloise.photo.attach(io: file, filename: 'heloise.png', content_type: 'image/png')
 
 #   ZOÉ : PARTICIPANTE
-User.create!(email: 'c@c.com', password: '123456')
+User.create!(email: 'c@c.com', password: '123456', last_name: 'Damart', first_name: 'Zoé')
 zoe = Profile.last
-zoe.update!(
-  last_name: 'Damart',
-  first_name: 'Zoé',
-)
 file = URI.open('https://fr.web.img3.acsta.net/newsv7/19/10/23/12/10/2270700.jpg')
 zoe.photo.attach(io: file, filename: 'zoe.jpg', content_type: 'image/jpg')
 
@@ -56,10 +44,9 @@ puts "CREATION DE 4 ORGANISATEURS"
 
 # LES HERBES HAUTES : ORGANISATEUR
 puts "Organisateur : Les Herbes Hautes"
-lesherbeshautes_user = User.create!(email: 'hello@herbes.com', password: '123456')
+lesherbeshautes_user = User.create!(email: 'hello@herbes.com', password: '123456', last_name: 'Préchat', first_name: 'Hélène')
 lesherbeshautes = Profile.last
 lesherbeshautes.update!(
-  last_name: 'Préchat', first_name: 'Hélène',
   address: '85 Boulevard Voltaire', zip_code: '75011', city: 'Paris',
   phone_number: '0952090027',
   role: 'organisateur',
@@ -72,10 +59,9 @@ lesherbeshautes.photo.attach(io: file, filename: 'lesherbeshautes.jpg', content_
 
 # HAPPY FOLK : ORGANISATEUR
 puts "Organisateur : Happy Folk"
-happyfolk_user = User.create!(email: 'hello@happy.com', password: '123456')
+happyfolk_user = User.create!(email: 'hello@happy.com', password: '123456', last_name: 'Riera', first_name: 'Nathalie')
 happyfolk = Profile.last
 happyfolk.update!(
-  last_name: 'Riera', first_name: 'Nathalie',
   address: '64 Boulevard Voltaire', zip_code: '75011', city: 'Paris',
   phone_number: '0184790117',
   role: 'organisateur',
@@ -84,15 +70,14 @@ happyfolk.update!(
   instagram: 'https://www.instagram.com/happyfolk.fr/'
 )
 
-file = URI.open('https://scontent-cdt1-1.xx.fbcdn.net/v/t1.0-9/50862043_773582539675794_2005401804816252928_o.jpg?_nc_cat=106&_nc_sid=7aed08&_nc_ohc=W87Tr4qXyWoAX_6boD5&_nc_ht=scontent-cdt1-1.xx&oh=a9176ef43bca2239cd56ebd9b4915e28&oe=5EF2B4EB')
+file = URI.open("https://res.cloudinary.com/jeudemains/image/upload/v1592745477/mj5b0czoomnt65e810uunwlgw93o.jpg")
 happyfolk.photo.attach(io: file, filename: 'happyfolk.jpg', content_type: 'image/jpg')
 
 # LA PETITE EPICERIE : ORGANISATEUR
 puts "Organisateur : La Petite Epicerie"
-epicerie_user = User.create!(email: 'hello@epicerie.com', password: '123456')
+epicerie_user = User.create!(email: 'hello@epicerie.com', password: '123456', last_name: 'Nicoulaud', first_name: 'Laura')
 epicerie = Profile.last
 epicerie.update!(
-  last_name: 'Nicoulaud', first_name: 'Laura',
   address: '74 Rue de la Verrerie', zip_code: '75004', city: 'Paris',
   phone_number: '0173756518',
   role: 'organisateur',
@@ -100,15 +85,14 @@ epicerie.update!(
   website: 'https://la-petite-epicerie.fr/fr/',
   instagram: 'https://www.instagram.com/lapetiteepicerie/'
   )
-file = URI.open('https://res.cloudinary.com/eugcoi/image/upload/v1583255493/la_petite_epicerie_x7mcpd.png')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745480/v0tsq8qnkyon5u0e5hrtuomvu9hv.png')
 epicerie.photo.attach(io: file, filename: 'la-petite-epicerie.png', content_type: 'image/png')
 
 # LE POP UP DE STELLA : ORGANISATEUR
 puts "Organisateur : Le Pop Up de Stella"
-stella_user = User.create!(email: 'hello@stella.com', password: '123456')
+stella_user = User.create!(email: 'hello@stella.com', password: '123456', last_name: 'Haumont', first_name: 'Stella')
 stella = Profile.last
 stella.update!(
-  last_name: 'Haumont', first_name: 'Stella',
   address: '4 rue Jean Brunet', zip_code: '92270', city: 'Bois-Colombes',
   phone_number: '0661439481',
   role: 'organisateur',
@@ -116,7 +100,7 @@ stella.update!(
   website: 'https://www.stella-popup-store.com/',
   instagram: 'https://www.instagram.com/le_pop_up_de_stella/'
   )
-file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1591708434/popupstella.jpg')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745482/eicboqfmbvrc82q14ep11r4vncmm.jpg')
 stella.photo.attach(io: file, filename: 'le-pop-up-de-stella.jpg', content_type: 'image/jpg')
 
 
@@ -125,10 +109,9 @@ puts "CREATION DE 3 ANIMATEURS"
 
 # JULIE WEAVES : ANIMATEUR
 puts "Animateur : Julie Weaves"
-julieweaves_user = User.create!(email: 'hello@julie.com', password: '123456')
+julieweaves_user = User.create!(email: 'hello@julie.com', password: '123456', last_name: 'Robert', first_name: 'Julie')
 julieweaves = Profile.last
 julieweaves.update!(
-  last_name: 'Robert', first_name: 'Julie',
   address: '6 rue Jean Moulin', zip_code: '92400', city: 'Courbevoie',
   phone_number: '0123456788',
   role: 'animateur',
@@ -137,15 +120,14 @@ julieweaves.update!(
   instagram: 'https://www.instagram.com/julie_weaves/',
   description: 'Julie Robert explore, détourne et valorise des techniques anciennes comme le tissage, la broderie, le point noué et le punch needle à travers ses créations et ses photographies.'
   )
-file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1591709757/julieweaves.png')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745485/0hil5wr6ku5ztmm4k3oprrmu1lo4.png')
 julieweaves.photo.attach(io: file, filename: 'julie-weaves.png', content_type: 'image/png')
 
 # AMELIE'S WORKSHOP : ANIMATEUR
 puts "Animateur : Amelie's workshop"
-amelie_user = User.create!(email: 'hello@amelie.com', password: '123456')
+amelie_user = User.create!(email: 'hello@amelie.com', password: '123456', last_name: 'Lee', first_name: 'Amélie')
 amelie = Profile.last
 amelie.update!(
-  last_name: 'Lee', first_name: 'Amélie',
   address: '', zip_code: '75020', city: 'Paris',
   phone_number: '0123456788',
   role: 'animateur',
@@ -157,15 +139,14 @@ Diplômée d’un master en design graphique et numérique, aussi blogueuse diy 
 
 Être un couteau suisse créatif, c’est savoir s’enrichir et s’inspirer, développer son style, imaginer des univers et créer du tangible.'
   )
-file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1591711084/ameliesworkshop.jpg')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745487/8yojvk6z1ietw5qklndfpstewq6g.jpg')
 amelie.photo.attach(io: file, filename: 'amelies-workshop.jpg', content_type: 'image/jpg')
 
 # MY HOME FACTORY : ANIMATEUR
 puts "Animateur : My Home Factory"
-homefactory_user = User.create!(email: 'hello@factory.com', password: '123456')
+homefactory_user = User.create!(email: 'hello@factory.com', password: '123456', last_name: 'Gonzales', first_name: 'Charlotte')
 homefactory = Profile.last
 homefactory.update!(
-  last_name: 'Gonzales', first_name: 'Charlotte',
   address: '', zip_code: '92700', city: 'Colombes',
   phone_number: '01234500044',
   role: 'animateur',
@@ -176,7 +157,7 @@ homefactory.update!(
 
 Aujourd’hui, plus épanouie que jamais grâce à ce nouvel équilibre trouvé, j’ai souhaité partager avec vous ces remèdes qui m’ont permis de trouver un nouveau sens à ma vie.'
   )
-file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1591711427/my-home-factory.jpg')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592808526/zbxex5lhyhq5b7gmc1ga94x0iagz.jpg')
 homefactory.photo.attach(io: file, filename: 'my-home-factory.jpg', content_type: 'image/jpg')
 
 
@@ -217,7 +198,7 @@ La sélections de créateurs, d’artisans ou de start-up slow de talents, les p
   )
 place2.user = happyfolk_user
 place2.save!
-file = URI.open('https://scontent-cdt1-1.xx.fbcdn.net/v/t1.0-9/50862043_773582539675794_2005401804816252928_o.jpg?_nc_cat=106&_nc_sid=7aed08&_nc_ohc=W87Tr4qXyWoAX_6boD5&_nc_ht=scontent-cdt1-1.xx&oh=a9176ef43bca2239cd56ebd9b4915e28&oe=5EF2B4EB')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745477/mj5b0czoomnt65e810uunwlgw93o.jpg')
 place2.photo.attach(io: file, filename: 'happyfolk.jpg', content_type: 'image/jpg')
 
 # LA PETITE EPICERIE : 3 LIEUX
@@ -237,7 +218,7 @@ Venez partager un moment convivial et créatif avec d'autres passionnés à l'oc
   )
 place3.user = epicerie_user
 place3.save!
-file = URI.open('https://res.cloudinary.com/eugcoi/image/upload/v1583255493/la_petite_epicerie_x7mcpd.png')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745480/v0tsq8qnkyon5u0e5hrtuomvu9hv.png')
 place3.photo.attach(io: file, filename: 'la-petite-epicerie.png', content_type: 'image/png')
 
 place4 = Place.new(
@@ -255,7 +236,7 @@ Venez partager un moment convivial et créatif avec d'autres passionnés à l'oc
   )
 place4.user = epicerie_user
 place4.save!
-file = URI.open('https://res.cloudinary.com/eugcoi/image/upload/v1583255493/la_petite_epicerie_x7mcpd.png')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745480/v0tsq8qnkyon5u0e5hrtuomvu9hv.png')
 place4.photo.attach(io: file, filename: 'la-petite-epicerie.png', content_type: 'image/png')
 
 place5 = Place.new(
@@ -273,7 +254,7 @@ Venez partager un moment convivial et créatif avec d'autres passionnés à l'oc
   )
 place5.user = epicerie_user
 place5.save!
-file = URI.open('https://res.cloudinary.com/eugcoi/image/upload/v1583255493/la_petite_epicerie_x7mcpd.png')
+file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745480/v0tsq8qnkyon5u0e5hrtuomvu9hv.png')
 place5.photo.attach(io: file, filename: 'la-petite-epicerie.png', content_type: 'image/png')
 
 # L'APPARTEMENT DU SLOW' : LIEU

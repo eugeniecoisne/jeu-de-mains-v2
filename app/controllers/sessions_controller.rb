@@ -53,6 +53,7 @@ class SessionsController < ApplicationController
       @session = Session.find(params[:session_id])
       authorize @session
     end
+    @infomessage = Infomessage.new
   end
 
   private

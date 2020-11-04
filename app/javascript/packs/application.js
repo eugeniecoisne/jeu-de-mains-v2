@@ -16,6 +16,7 @@ import { initRating } from '../plugins/init_rating';
 import { showActions } from '../plugins/show_actions';
 import { toggleBtnKpis } from '../plugins/toggle_btn_kpis';
 import { prevNextNewWs } from '../plugins/prev_next_new_ws';
+import { showInfomessageBox } from '../plugins/show_infomessage_box';
 import { showIndexFilters } from '../plugins/show_index_filters';
 import { initChatroomCable } from '../channels/chatroom_channel';
 
@@ -35,6 +36,7 @@ document.addEventListener('turbolinks:load', () => {
   showActions();
   toggleBtnKpis();
   prevNextNewWs();
+  showInfomessageBox();
   showIndexFilters();
   initChatroomCable();
 });
