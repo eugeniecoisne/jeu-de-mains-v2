@@ -12,7 +12,7 @@ class ReviewMailer < ApplicationMailer
       @animator = @review.booking.session.workshop.animators.where(db_status: true).last.user
 
       mail(
-        to:       "#{@organizer.email}, #{@animator.email}",
+        bcc:       "#{@organizer.email}, #{@animator.email}",
         subject:  "Vous avez reçu un nouvel avis !",
         track_opens: 'true',
         message_stream: 'outbound')

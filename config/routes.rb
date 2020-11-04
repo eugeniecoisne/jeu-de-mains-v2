@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'infomessages/create'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   root to: 'pages#home'
   get 'devenir-partenaire', to: 'pages#partners'
@@ -56,6 +57,10 @@ Rails.application.routes.draw do
   resources :sessions, only: %i() do
     get 'search-places'
     get 'participants'
+  end
+
+  resources :sessions, only: %i() do
+    resources :infomessages, only: %i(new create)
   end
 
   resources :sessions, only: %i(destroy)
