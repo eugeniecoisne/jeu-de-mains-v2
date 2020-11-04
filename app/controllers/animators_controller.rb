@@ -12,8 +12,8 @@ class AnimatorsController < ApplicationController
     if @animator.save
       mail = AnimatorMailer.with(animator: @animator).new_animator
       mail.deliver_later
-      flash[:notice] = "L'animateur #{@animator.user.profile.company} a bien été ajouté !"
       redirect_back fallback_location: root_path
+      flash[:notice] = "L'animateur #{@animator.user.profile.company} a bien été ajouté !"
     else
       @users = User.all.select { |user| user.profile.role == 'animateur' }
       render 'new'
