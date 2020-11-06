@@ -23,6 +23,9 @@
     max-height: 80px;
     overflow-y: scroll;
   }
+  .scroller-workshops {
+    overflow-y: scroll;
+  }
 }
 
 // Large devices (desktops, 992px and up)
@@ -32,9 +35,19 @@
     max-height: 80px;
     overflow-y: scroll;
   }
+  .scroller-workshops {
+    overflow-y: scroll;
+  }
 }
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
-
+  .scroller {
+    max-width: 1500px;
+    max-height: 80px;
+    overflow-y: scroll;
+  }
+  .scroller-workshops {
+    overflow-y: scroll;
+  }
 }

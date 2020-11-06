@@ -15,6 +15,7 @@
           <%= f.input :place, required: false, label: "Lieu", prompt: "Toutes les villes", collection: Place.cities_and_districts  %>
           <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date"}, placeholder: "À tout moment", label: "À partir du" %>
           <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
+          <%= f.hidden_field :order, value: "Recommandation" %>
           <button type="submit" class="search-button">
             <i class="fas fa-search"></i>
           </button>

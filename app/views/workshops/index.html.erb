@@ -31,12 +31,21 @@
               <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_1" %>
               <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_1" %>
               <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_1" %>
-              <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_1" %>
               <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_1" if params[:search][:starts_at].present? %>
               <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_1" if params[:search][:ends_at].present? %>
               <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_1" %>
-              <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_1" %>
-              <%= f.hidden_field :order, value: "Recommandation", id: "search_order_1" %>
+              <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_1" %>
+              <% if params[:search][:max_price].present? %>
+                <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_1" %>
+              <% else %>
+                <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_1" %>
+              <% end %>
+              <% if params[:search][:ephemeral].present? %>
+                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_1" %>
+              <% else %>
+                <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_1" %>
+              <% end %>
+
               <%= f.submit params[:search][:order] %>
             <% end %>
             <i class="fas fa-times ml-2"></i>
@@ -47,19 +56,32 @@
 
         <% if params[:search][:keyword].present? %>
           <div class="ws-index-search-tag form-container-keyword">
-            <%= simple_form_for :search, url: workshops_path, method: :get, remote: true do |f| %>
-              <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_2" %>
+            <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
               <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_2" %>
               <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_2" %>
               <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_2" %>
               <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_2" %>
               <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_2" %>
-              <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_2" %>
               <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_2" if params[:search][:starts_at].present? %>
               <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_2" if params[:search][:ends_at].present? %>
               <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_2" %>
-              <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_2" %>
               <%= f.hidden_field :keyword, id: "search_keyword_2" %>
+              <% if params[:search][:max_price].present? %>
+                <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_2" %>
+              <% else %>
+                <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_2" %>
+              <% end %>
+              <% if params[:search][:order].present?  %>
+                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_2" %>
+              <% else %>
+                <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_2" %>
+              <% end %>
+              <% if params[:search][:ephemeral].present? %>
+                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_2" %>
+              <% else %>
+                <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_2" %>
+              <% end %>
+
               <%= f.submit params[:search][:keyword] %>
             <% end %>
             <i class="fas fa-times ml-2"></i>
@@ -71,18 +93,30 @@
         <% if params[:search][:place].present? %>
           <div class="ws-index-search-tag form-container-place">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-              <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_3" %>
               <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_3" %>
               <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_3" %>
               <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_3" %>
               <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_3" %>
               <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_3" %>
-              <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_3" %>
               <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_3" if params[:search][:starts_at].present? %>
               <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_3" if params[:search][:ends_at].present? %>
               <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_3" %>
-              <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_3" %>
               <%= f.hidden_field :place, id: "search_place_3" %>
+              <% if params[:search][:max_price].present? %>
+                <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_3" %>
+              <% else %>
+                <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_3" %>
+              <% end %>
+              <% if params[:search][:order].present?  %>
+                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_3" %>
+              <% else %>
+                <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_3" %>
+              <% end %>
+              <% if params[:search][:ephemeral].present? %>
+                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_3" %>
+              <% else %>
+                <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_3" %>
+              <% end %>
               <%= f.submit params[:search][:place] %>
             <% end %>
             <i class="fas fa-times ml-2"></i>
@@ -95,18 +129,31 @@
           <% if params[:search][:keyword].size > 1 %>
             <div class="ws-index-search-tag form-container-selection">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_4" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_4" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_4" %>
                 <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_4" %>
                 <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_4" %>
                 <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_4" %>
-                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_4" %>
                 <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_4" if params[:search][:starts_at].present? %>
                 <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_4" if params[:search][:ends_at].present? %>
                 <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_4" %>
-                <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_4" %>
                 <%= f.hidden_field :selection, id: "search_selection_4" %>
+                <% if params[:search][:max_price].present? %>
+                  <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_4" %>
+                <% else %>
+                  <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_4" %>
+                <% end %>
+                <% if params[:search][:order].present?  %>
+                  <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_4" %>
+                <% else %>
+                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_4" %>
+                <% end %>
+                <% if params[:search][:ephemeral].present? %>
+                  <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_4" %>
+                <% else %>
+                  <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_4" %>
+                <% end %>
+
                 <%= f.submit params[:search][:selection] %>
               <% end %>
               <i class="fas fa-times ml-2"></i>
@@ -121,54 +168,93 @@
             <% if params[:search][:starts_at].present? && params[:search][:ends_at].present? %>
 
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_5" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_5" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_5" %>
                 <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_5" %>
                 <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_5" %>
                 <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_5" %>
                 <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_5" %>
-                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_5" %>
                 <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_5" %>
-                <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_5" %>
                 <%= f.hidden_field :starts_at, id: "search_starts_at_5" %>
                 <%= f.hidden_field :ends_at, id: "search_ends_at_5" %>
+                <% if params[:search][:max_price].present? %>
+                  <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_5" %>
+                <% else %>
+                  <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_5" %>
+                <% end %>
+                <% if params[:search][:order].present?  %>
+                  <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_5" %>
+                <% else %>
+                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_5" %>
+                <% end %>
+                <% if params[:search][:ephemeral].present? %>
+                  <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_5" %>
+                <% else %>
+                  <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_5" %>
+                <% end %>
+
                 <%= f.submit "#{Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y')} au #{Date.strptime(params[:search][:ends_at], '%Y-%m-%d').strftime('%d/%m/%Y')}" %>
               <% end %>
 
             <% elsif params[:search][:starts_at].present? %>
 
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_6" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_6" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_6" %>
                 <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_6" %>
                 <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_6" %>
                 <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_6" %>
                 <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_6" %>
-                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_6" %>
                 <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_6" if params[:search][:ends_at].present? %>
                 <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_6" %>
-                <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_6" %>
                 <%= f.hidden_field :starts_at, id: "search_starts_at_6" %>
+                <% if params[:search][:max_price].present? %>
+                  <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_6" %>
+                <% else %>
+                  <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_6" %>
+                <% end %>
+                <% if params[:search][:order].present?  %>
+                  <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_6" %>
+                <% else %>
+                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_6" %>
+                <% end %>
+                <% if params[:search][:ephemeral].present? %>
+                  <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_6" %>
+                <% else %>
+                  <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_6" %>
+                <% end %>
+
                 <%= f.submit "À partir du #{Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y')}" %>
               <% end %>
 
             <% elsif params[:search][:ends_at].present? %>
 
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_7" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_7" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_7" %>
                 <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_7" %>
                 <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_7" %>
                 <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_7" %>
                 <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_7" %>
-                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_7" %>
                 <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_7" if params[:search][:starts_at].present? %>
                 <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_7" %>
-                <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_7" %>
                 <%= f.hidden_field :ends_at, id: "search_ends_at_7" %>
+                <% if params[:search][:max_price].present? %>
+                  <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_7" %>
+                <% else %>
+                  <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_7" %>
+                <% end %>
+                <% if params[:search][:order].present?  %>
+                  <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_7" %>
+                <% else %>
+                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_7" %>
+                <% end %>
+                <% if params[:search][:ephemeral].present? %>
+                  <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_7" %>
+                <% else %>
+                  <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_7" %>
+                <% end %>
+
                 <%= f.submit "Jusqu'au #{Date.strptime(params[:search][:ends_at], '%Y-%m-%d').strftime('%d/%m/%Y')}" %>
               <% end %>
 
@@ -183,18 +269,27 @@
           <% if params[:search][:min_price].present? && params[:search][:max_price].present? && params[:search][:min_price].to_i != 0 && params[:search][:max_price].to_i != 0 && params[:search][:max_price].to_i != @max_price %>
             <div class="ws-index-search-tag form-container-min-max-price">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_8" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_8" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_8" %>
                 <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_8" %>
                 <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_8" %>
                 <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_8" %>
                 <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_8" %>
-                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_8" %>
                 <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_8" if params[:search][:starts_at].present? %>
                 <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_8" if params[:search][:ends_at].present? %>
                 <%= f.hidden_field :min_price, value: 0, id: "search_min_price_8" %>
                 <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_8" %>
+                <% if params[:search][:order].present?  %>
+                  <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_8" %>
+                <% else %>
+                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_8" %>
+                <% end %>
+                <% if params[:search][:ephemeral].present? %>
+                  <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_8" %>
+                <% else %>
+                  <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_8" %>
+                <% end %>
+
                 <%= f.submit "De #{params[:search][:min_price].to_i} à #{params[:search][:max_price].to_i} €" %>
               <% end %>
               <i class="fas fa-times ml-2"></i>
@@ -204,18 +299,31 @@
           <% elsif params[:search][:min_price].present? && params[:search][:min_price].to_i != 0 %>
             <div class="ws-index-search-tag form-container-min-price">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_9" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_9" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_9" %>
                 <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_9" %>
                 <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_9" %>
                 <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_9" %>
                 <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_9" %>
-                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_9" %>
                 <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_9" if params[:search][:starts_at].present? %>
                 <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_9" if params[:search][:ends_at].present? %>
-                <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_9" %>
                 <%= f.hidden_field :min_price, value: 0, id: "search_min_price_9" %>
+                <% if params[:search][:max_price].present? %>
+                  <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_9" %>
+                <% else %>
+                  <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_9" %>
+                <% end %>
+                <% if params[:search][:order].present?  %>
+                  <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_9" %>
+                <% else %>
+                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_9" %>
+                <% end %>
+                <% if params[:search][:ephemeral].present? %>
+                  <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_9" %>
+                <% else %>
+                  <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_9" %>
+                <% end %>
+
                 <%= f.submit "Min. #{params[:search][:min_price].to_i} €" %>
               <% end %>
               <i class="fas fa-times ml-2"></i>
@@ -225,18 +333,27 @@
           <% elsif params[:search][:max_price].present? && params[:search][:max_price].to_i != 0 && params[:search][:max_price].to_i != @max_price %>
             <div class="ws-index-search-tag form-container-max-price">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_10" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_10" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_10" %>
                 <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_10" %>
                 <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_10" %>
                 <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_10" %>
                 <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_10" %>
-                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_10" %>
                 <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_10" if params[:search][:starts_at].present? %>
                 <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_10" if params[:search][:ends_at].present? %>
                 <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_10" %>
                 <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_10" %>
+                <% if params[:search][:order].present?  %>
+                  <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_10" %>
+                <% else %>
+                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_10" %>
+                <% end %>
+                <% if params[:search][:ephemeral].present? %>
+                  <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_10" %>
+                <% else %>
+                  <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_10" %>
+                <% end %>
+
                 <%= f.submit "Max. #{params[:search][:max_price].to_i} €" %>
               <% end %>
               <i class="fas fa-times ml-2"></i>
@@ -250,18 +367,31 @@
           <% if params[:search][:min_capacity].to_i > 1 %>
             <div class="ws-index-search-tag form-container-min-capacity">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_11" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_11" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_11" %>
                 <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_11" %>
                 <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_11" %>
                 <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_11" %>
-                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_11" %>
                 <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_11" if params[:search][:starts_at].present? %>
                 <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_11" if params[:search][:ends_at].present? %>
                 <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_11" %>
-                <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_11" %>
                 <%= f.hidden_field :min_capacity, id: "search_min_capacity_11" %>
+                <% if params[:search][:max_price].present? %>
+                  <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_11" %>
+                <% else %>
+                  <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_11" %>
+                <% end %>
+                <% if params[:search][:order].present?  %>
+                  <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_11" %>
+                <% else %>
+                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_11" %>
+                <% end %>
+                <% if params[:search][:ephemeral].present? %>
+                  <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_11" %>
+                <% else %>
+                  <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_11" %>
+                <% end %>
+
                 <%= f.submit "Min. #{params[:search][:min_capacity]} personnes" %>
               <% end %>
               <i class="fas fa-times ml-2"></i>
@@ -274,18 +404,31 @@
         <% if params[:search][:level].present? %>
           <div class="ws-index-search-tag form-container-level">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-              <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_12" %>
               <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_12" %>
               <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_12" %>
               <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_12" %>
               <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_12" %>
               <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_12" %>
-              <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_12" %>
               <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_12" if params[:search][:starts_at].present? %>
               <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_12" if params[:search][:ends_at].present? %>
               <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_12" %>
-              <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_12" %>
               <%= f.hidden_field :level, id: "search_level_12" %>
+              <% if params[:search][:max_price].present? %>
+                <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_12" %>
+              <% else %>
+                <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_12" %>
+              <% end %>
+              <% if params[:search][:order].present?  %>
+                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_12" %>
+              <% else %>
+                <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_12" %>
+              <% end %>
+              <% if params[:search][:ephemeral].present? %>
+                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_12" %>
+              <% else %>
+                <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_12" %>
+              <% end %>
+
               <%= f.submit params[:search][:level] %>
             <% end %>
             <i class="fas fa-times ml-2"></i>
@@ -297,18 +440,31 @@
         <% if params[:search][:moment].present? %>
           <div class="ws-index-search-tag form-container-moment">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-              <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_13" %>
               <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_13" %>
               <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_13" %>
               <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_13" %>
               <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_13" %>
               <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_13" %>
-              <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_13" %>
               <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_13" if params[:search][:starts_at].present? %>
               <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_13" if params[:search][:ends_at].present? %>
               <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_13" %>
-              <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_13" %>
               <%= f.hidden_field :moment, id: "search_moment_13" %>
+              <% if params[:search][:max_price].present? %>
+                <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_13" %>
+              <% else %>
+                <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_13" %>
+              <% end %>
+              <% if params[:search][:order].present?  %>
+                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_13" %>
+              <% else %>
+                <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_13" %>
+              <% end %>
+              <% if params[:search][:ephemeral].present? %>
+                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_13" %>
+              <% else %>
+                <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_13" %>
+              <% end %>
+
               <%= f.submit params[:search][:moment] %>
             <% end %>
             <i class="fas fa-times ml-2"></i>
@@ -321,7 +477,6 @@
           <% if params[:search][:ephemeral] == 'false' %>
             <div class="ws-index-search-tag form-container-ephemeral">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_14" %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_14" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_14" %>
                 <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_14" %>
@@ -331,8 +486,17 @@
                 <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_14" if params[:search][:starts_at].present? %>
                 <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_14" if params[:search][:ends_at].present? %>
                 <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_14" %>
-                <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_14" %>
                 <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_14" %>
+                <% if params[:search][:max_price].present? %>
+                  <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_1" %>
+                <% else %>
+                  <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_1" %>
+                <% end %>
+                <% if params[:search][:order].present?  %>
+                  <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_1" %>
+                <% else %>
+                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_1" %>
+                <% end %>
                 <%= f.submit "Permanent" %>
               <% end %>
               <i class="fas fa-times ml-2"></i>
@@ -348,10 +512,46 @@
     <%= render 'filters_modal' %>
   </div>
 
+            <!-- Appears when user wants to adapt results to an area in the map -->
+  <div class="inactive" id="adaptMapButton">
+    <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+        <%= f.hidden_field :minlongitude, id: "search_minlongitude_20" %>
+        <%= f.hidden_field :maxlongitude, id: "search_maxlongitude_20" %>
+        <%= f.hidden_field :minlatitude,  id: "search_minlatitude_20" %>
+        <%= f.hidden_field :maxlatitude,  id: "search_maxlatitude_20" %>
+        <% if params[:search].present? %>
+          <%= f.hidden_field :place, id: "search_place_20" %>
+          <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_20" %>
+          <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_20" %>
+          <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_20" %>
+          <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_20" %>
+          <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_20" %>
+          <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_20" if params[:search][:starts_at].present? %>
+          <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_20" if params[:search][:ends_at].present? %>
+          <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_20" %>
+          <% if params[:search][:max_price].present? %>
+            <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_20" %>
+          <% else %>
+            <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_20" %>
+          <% end %>
+          <% if params[:search][:order].present?  %>
+            <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_20" %>
+          <% else %>
+            <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_20" %>
+          <% end %>
+          <% if params[:search][:ephemeral].present? %>
+            <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_20" %>
+          <% else %>
+            <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_20" %>
+          <% end %>
+        <% end %>
+        <%= f.submit "Rechercher dans cette zone", class: "button" %>
+    <% end %>
+  </div>
 
   <!-- WORKSHOPS INDEX CARDS RESULTS -->
   <div class= "index-ws-cards-map-container">
-    <div class="index-ws-left-side">
+    <div class="index-ws-left-side scroller-workshops">
       <h1 id="index-ws-title">Ateliers</h1>
       <h2 id="index-ws-description">Trouvez ici l’atelier créatif qui correspond à vos attentes ! Couture, fleurs, broderie, cosmétique, upcycling, herbier, bijoux, aquarelle, maroquinerie, tricot, céramique, lettering, décoration... Réalisez un objet tendance par vous-même et profitez d’une pause conviviale et créative !</h2>
       <% if @workshops.count > 1 %>
@@ -436,13 +636,14 @@
       <% unless @workshops.empty? %>
         <%= will_paginate @workshops.paginate(page: params[:page], per_page: 20), inner_window: 1, outer_window: 0 %>
       <% end %>
-
     </div>
-    <div id="map" class="ws-map"
-             style="width: 100%; height: 100vh; top: 0;"
+    <% if @workshops.present? %>
+      <div id="map" class="ws-map"
+             style="width: 100%; height: 80vh; top: 0;"
              data-markers="<%= @markers.to_json %>"
              data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
-    </div>
+      </div>
+    <% end %>
   </div>
 
 </div>

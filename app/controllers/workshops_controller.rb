@@ -20,14 +20,24 @@ class WorkshopsController < ApplicationController
         @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true)
       end
 
-      @workshops.paginate(page: params[:page], per_page: 20)
-
       @workshops = @workshops.select { |workshop| workshop.moments.include?(params[:search][:moment]) if workshop.moments != nil }.paginate(page: params[:page], per_page: 20) if params[:search][:moment].present?
       @workshops = @workshops.select { |workshop| workshop.thematic == params[:search][:keyword] }.paginate(page: params[:page], per_page: 20) if params[:search][:keyword].present?
-      @workshops = @workshops.select { |workshop| workshop.place.district == params[:search][:place] || workshop.place.big_city == params[:search][:place] }.paginate(page: params[:page], per_page: 20) if params[:search][:place].present?
       @workshops = @workshops.select { |workshop| workshop.title.downcase.include?(params[:search][:selection]) }.paginate(page: params[:page], per_page: 20) if params[:search][:selection].present?
       @workshops = @workshops.select { |workshop| workshop.capacity >= params[:search][:min_capacity].to_i }.paginate(page: params[:page], per_page: 20) if params[:search][:min_capacity].present?
       @workshops = @workshops.select { |workshop| workshop.level == params[:search][:level] }.paginate(page: params[:page], per_page: 20) if params[:search][:level].present?
+
+      # ajust results to map lat and long
+      if params[:search][:minlatitude].present?
+        lat_zone = (params[:search][:minlatitude].to_f..params[:search][:maxlatitude].to_f)
+        long_zone = (params[:search][:minlongitude].to_f..params[:search][:maxlongitude].to_f)
+
+        @workshops = @workshops.select do |w|
+          long_zone.include?(w.place.longitude) && lat_zone.include?(w.place.latitude)
+        end
+        @workshops.paginate(page: params[:page], per_page: 20)
+      elsif params[:search][:place].present?
+        @workshops = @workshops.select { |workshop| workshop.place.district == params[:search][:place] || workshop.place.big_city == params[:search][:place] }.paginate(page: params[:page], per_page: 20)
+      end
 
       if params[:search][:min_price].present? && params[:search][:max_price].present?
 
@@ -84,7 +94,7 @@ class WorkshopsController < ApplicationController
         end
       end
     else
-      @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).paginate(page: params[:page], per_page: 20)
+      @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).sort_by { |workshop| workshop.recommendable }.reverse.paginate(page: params[:page], per_page: 20)
     end
     # authorize @workshops
 
@@ -100,6 +110,8 @@ class WorkshopsController < ApplicationController
         infoWindow: render_to_string(partial: "info_window", locals: { place: place })
       }
     end
+
+    @suggested_workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, recommendable: 3).paginate(page: params[:page], per_page: 20)
 
   end
 
