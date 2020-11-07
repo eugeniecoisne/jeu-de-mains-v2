@@ -1,5 +1,8 @@
 // CSS MAP
 
+.mapboxgl-canvas {
+  outline: none;
+}
 .mapboxgl-popup {
   max-width: 400px !important;
   transform: translate(5vw, 5vh) !important;

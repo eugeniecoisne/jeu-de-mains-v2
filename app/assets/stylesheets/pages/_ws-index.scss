@@ -51,6 +51,33 @@
   outline: none;
 }
 
+// ADAPT MAP BUTTON
+
+#adaptMapButton.inactive {
+  display: none;
+}
+
+#adaptMapButton {
+  .button {
+    position: absolute;
+    right: 20px;
+    top: 165px;
+    z-index: 3;
+    border: 1px solid white;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0.2rem 0.4rem 0px;
+    padding: 3px 14px;
+    border-radius: 30px;
+    background-color: white;
+    font-size: 14px;
+    font-weight: 500;
+    color: $dark-blue;
+    outline: none;
+  }
+  .button:hover {
+    border-color: $dark-blue;
+  }
+}
+
 // CONTAINERS
 
 .index-ws-search-filters-container {
@@ -127,7 +154,8 @@
 
 .index-ws-left-side {
   padding: 2em;
-  min-height: 70vh;
+  min-height: 80vh;
+  max-height: 80vh;
   #index-ws-title {
     font-size: 30px;
     color: $dark-blue;
@@ -168,6 +196,9 @@
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
+  #adaptMapButton {
+    display: none;
+  }
   .index-ws-cards {
     grid-template-columns: 1fr 1fr;
     grid-row-gap: 1.2em;
@@ -200,7 +231,7 @@
   .index-ws-cards-map-container.fullmap {
     padding: 0;
     position: fixed;
-    height: 83vh;
+    height: 80vh;
     width: 100vw;
     bottom: 0;
     .index-ws-left-side {
@@ -224,6 +255,9 @@
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
+  #adaptMapButton {
+    display: none;
+  }
   .index-ws-cards {
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 0.8em;
@@ -254,7 +288,7 @@
   .index-ws-cards-map-container.fullmap {
     padding: 0;
     position: fixed;
-    height: 79vh;
+    height: 80vh;
     width: 100vw;
     bottom: 0;
     .index-ws-left-side {
@@ -313,9 +347,6 @@
   #listButton {
     display: none;
   }
-  #map {
-    position: sticky;
-  }
 }
 
 // Extra large devices (large desktops, 1200px and up)
@@ -325,9 +356,6 @@
   }
   #mapButton {
     display: none;
-  }
-  #map {
-    position: sticky;
   }
   #listButton {
     display: none;
