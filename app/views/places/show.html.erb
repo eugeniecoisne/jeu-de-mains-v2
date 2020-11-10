@@ -73,11 +73,11 @@
     <div class="public-profile-main-figures" loading="lazy" style="background-image: url(<%= cl_image_path("https://res.cloudinary.com/jeudemains/image/upload/v1593193954/jeu-de-mains-fond-vague.svg") %>)">
       <div class="public-profile-main-figures-text">
         <div class="public-profile-main-figure public-profile-number-of-ws">
-          <span id="number"><%= @place.workshops.where(status: "en ligne", db_status: true).count %></span>
-          <% if @place.workshops.where(status: "en ligne", db_status: true).count > 1 %>
-            <span id="text">ateliers proposés</span>
+          <span id="number"><%= @workshops.count %></span>
+          <% if @workshops.count > 1 %>
+            <span id="text">ateliers en ligne</span>
           <% else %>
-            <span id="text">atelier proposé</span>
+            <span id="text">atelier en ligne</span>
           <% end %>
         </div>
         <% if @place.ephemeral %>
@@ -122,9 +122,9 @@
 
       <div class="public-profile-our-ws about-ws-reviews-box">
         <h2 class="public-profile-our-ws-title profile-title">Nos ateliers</h2>
-        <% if @place.workshops.where(status: "en ligne", db_status: true).present? %>
+        <% if @workshops.present? %>
           <div class="public-profile-our-ws-cards">
-            <% @place.workshops.where(status: "en ligne", db_status: true).each do |workshop| %>
+            <% @workshops.each do |workshop| %>
               <div class="ws-card" id="place-show-ws-card">
                 <%= link_to(workshop, data: { turbolinks: false }) do  %>
                   <div class="ws-card-image-and-rating">
@@ -158,7 +158,7 @@
                       </div>
                       <% if workshop.animators.where(db_status: true).first %>
                         <div class="ws-card-place" id="show-place-ws-card-place">
-                          <h3>Avec <%= workshop.animators.where(db_status: true).first.user.profile.company %></h3>
+                          <span>Avec <%= workshop.animators.where(db_status: true).first.user.profile.company %></span>
                         </div>
                       <% end %>
                     </div>
@@ -173,7 +173,7 @@
         <% else %>
           <p><%= @place.name %> n'a pas d'atelier en ligne.</p>
         <% end %>
-        <% if @place.workshops.where(status: "en ligne", db_status: true).count > 4 %>
+        <% if @workshops.count > 4 %>
           <div class="show-more-workshops active">
             <a id="showMoreWsButton" class="blue-btn active">Voir plus d'ateliers</a>
           </div>

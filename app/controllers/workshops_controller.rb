@@ -9,15 +9,16 @@ class WorkshopsController < ApplicationController
     if params[:search].present?
       if params[:search][:starts_at].present? && params[:search][:ends_at].present?
         dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.strptime(params[:search][:ends_at], '%Y-%m-%d')).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
       elsif params[:search][:starts_at].present?
-        dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.today + 3.months).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }
+        dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.today + 1.year).to_a
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
       elsif params[:search][:ends_at].present?
         dates = (Date.today..Date.strptime(params[:search][:ends_at], '%Y-%m-%d')).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } }
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
       else
-        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true)
+        dates = (Date.today..Date.today + 1.year).to_a
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
       end
 
       @workshops = @workshops.select { |workshop| workshop.moments.include?(params[:search][:moment]) if workshop.moments != nil }.paginate(page: params[:page], per_page: 20) if params[:search][:moment].present?
@@ -92,9 +93,12 @@ class WorkshopsController < ApplicationController
         when 'Les mieux notés'
           @workshops = @workshops.sort_by { |workshop| workshop.rating.present? ? workshop.rating : 0 }.reverse.paginate(page: params[:page], per_page: 20)
         end
+      else
+        @workshops = @workshops.sort_by { |workshop| workshop.recommendable }.reverse.paginate(page: params[:page], per_page: 20)
       end
     else
-      @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).sort_by { |workshop| workshop.recommendable }.reverse.paginate(page: params[:page], per_page: 20)
+      dates = (Date.today..Date.today + 1.year).to_a
+      @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }.sort_by { |workshop| workshop.recommendable }.reverse.paginate(page: params[:page], per_page: 20)
     end
     # authorize @workshops
 
@@ -111,7 +115,8 @@ class WorkshopsController < ApplicationController
       }
     end
 
-    @suggested_workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, recommendable: 3).paginate(page: params[:page], per_page: 20)
+    dates = (Date.today..Date.today + 1.year).to_a
+    @suggested_workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 && workshop.recommendable >= 2 }.first(12)
 
   end
 
@@ -122,6 +127,8 @@ class WorkshopsController < ApplicationController
         @animator = @workshop.animators.first
       end
     end
+    dates = (Date.today..Date.today + 1.year).to_a
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 && workshop.place.district == @workshop.place.district && workshop.thematic == @workshop.thematic }.sort_by { |workshop| workshop.recommendable }.first(6)
   end
 
   def edit

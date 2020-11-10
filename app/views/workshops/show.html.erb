@@ -170,6 +170,8 @@
         </div>
       </div>
 
+      <!-- WORKSHOP SHOW FINAL PRODUCT -->
+
       <div class="ws-show-informations-final-product">
         <h2>Vous repartez avec</h2>
         <% if @workshop.final_product.present? %>
@@ -178,6 +180,24 @@
           <p>Non renseigné.</p>
         <% end %>
       </div>
+
+      <!-- WORKSHOP SHOW PLACE -->
+
+      <div class="ws-show-informations-organizer-animator-description">
+        <h2>Chez <%= @workshop.place.name %></h2>
+        <p id="place-description-paragraph"><%= @workshop.place.description[0..285] %>...</p>
+        <%= link_to "Voir le profil", place_path(@workshop.place) %>
+      </div>
+
+      <!-- WORKSHOP SHOW ANIMATOR -->
+
+      <% if @animator.present? %>
+        <div class="ws-show-informations-organizer-animator-description">
+          <h2>Animé par <%= @animator.user.profile.company %></h2>
+          <p id="animator-description-paragraph"><%= @animator.user.profile.description[0..285] %>...</p>
+          <%= link_to "Voir le profil", profile_public_path(@animator.user.profile) %>
+        </div>
+      <% end %>
 
       <!-- WORKSHOP SHOW INFORMATIONS REVIEWS-->
 
@@ -220,34 +240,83 @@
         <% end %>
       </div>
 
-      <div class="ws-show-link-to-organizers">
-        <%= link_to place_path(@workshop.place) do %>
-          <div class="ws-show-organizer-link">
-            <p>Plus d'infos sur
-              <% if @workshop.place.name.size > 21 %>
-                <%= @workshop.place.name[0..19] %>...
-              <% else %>
-                <%= @workshop.place.name %>
-              <% end %>
-            </p>
-            <i class="fas fa-chevron-right"></i>
-          </div>
-        <% end %>
-        <% if @animator.present? %>
-          <%= link_to profile_public_path(@animator.user) do %>
-            <div class="ws-show-organizer-link">
-              <p>Plus d'infos sur
-                <% if @animator.user.profile.company.size > 21 %>
-                  <%= @animator.user.profile.company[0..19] %>...
-                <% else %>
-                  <%= @animator.user.profile.company %>
+      <!-- WORKSHOP SHOW OTHER WS SUGGESTIONS -->
+
+      <% if @workshops.count > 0 %>
+        <div class="show-ws-suggestions">
+          <h2 class="show-ws-cards-title">Vous aimerez aussi</h2>
+
+          <div class= "show-ws-cards">
+            <% @workshops.each do |workshop| %>
+
+              <div class="ws-card" id="show-ws-card">
+                <%= link_to(workshop, data: { turbolinks: false }) do  %>
+                  <div class="ws-card-image-and-rating" id="show-ws-card-image-and-rating">
+                    <div class="ws-card-tags" id="show-ws-card-tags">
+                      <% if workshop.rating %>
+                        <div class="ws-card-tag ws-card-rating" id="show-ws-card-rating">
+                          <i class="fas fa-star"></i><span><%= workshop.rating %></span>
+                        </div>
+                      <% else %>
+                        <div class="ws-card-tag ws-card-rating" id="show-ws-card-rating">
+                          <span>nouveau</span>
+                        </div>
+                      <% end %>
+                      <% if workshop.place.ephemeral == true %>
+                        <div class="ws-card-tag ws-card-ephemeral" id="show-ws-card-ephemeral">
+                          <span>éphémère</span>
+                        </div>
+                      <% end %>
+                    </div>
+                    <%= render "ws-index-carousel", workshop: workshop %>
+                  </div>
                 <% end %>
-              </p>
-              <i class="fas fa-chevron-right"></i>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
+                <%= link_to(workshop, data: { turbolinks: false }) do  %>
+                  <div class="ws-card-infos" id="show-ws-card-infos">
+                    <div>
+                      <div class="ws-card-place" id="show-ws-card-place-desktop">
+                        <% if workshop.place.name.size > 19 %>
+                          <span><%= workshop.place.name[0..17] %>...</span>
+                        <% else %>
+                          <span><%= workshop.place.name %></span>
+                        <% end %>
+                      </div>
+                      <div class="ws-card-place" id="show-ws-card-place-mobile">
+                        <% if workshop.place.name.size > 17 %>
+                          <span><%= workshop.place.name[0..16] %>...</span>
+                        <% else %>
+                          <span><%= workshop.place.name %></span>
+                        <% end %>
+                      </div>
+                      <div class="ws-card-title" id="show-ws-card-title">
+                        <% if workshop.title.size > 33 %>
+                          <h4><%= workshop.title[0..31] %>...</h4>
+                        <% else %>
+                          <h4><%= workshop.title %></h4>
+                        <% end %>
+                      </div>
+                    </div>
+                    <div class="ws-card-price-and-city" id="show-ws-card-price-and-city">
+                      <div class="ws-card-price" id="show-ws-card-price">
+                        <%= workshop.price %> €
+                      </div>
+                      <div class="ws-card-city" id="show-ws-card-city">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <% if workshop.place.city.size >= 11 %>
+                          <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
+                        <% else %>
+                          <span id="city-name"><%= workshop.place.city.capitalize %></span>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
     </div>
   </div>
 

@@ -5,14 +5,18 @@
 
 <div class="index-ws-container">
 
-  <button id="mapButton" class="index-ws-map-and-list-button">
-    <span>Carte</span>
-    <i class="fas fa-map-marked-alt"></i>
-  </button>
+  <% if @workshops.count > 0 %>
+    <button id="mapButton" class="index-ws-map-and-list-button">
+      <span>Carte</span>
+      <i class="fas fa-map-marked-alt"></i>
+    </button>
+  <% end %>
+
   <button id="listButton" class="index-ws-map-and-list-button inactive">
     <span>Liste</span>
     <i class="fas fa-list-ul"></i>
   </button>
+
 
   <!-- WORKSHOPS INDEX SEARCH & FILTERS -->
 
@@ -126,39 +130,37 @@
         <!-- Key-word -->
 
         <% if params[:search][:selection].present? %>
-          <% if params[:search][:keyword].size > 1 %>
-            <div class="ws-index-search-tag form-container-selection">
-              <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-                <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_4" %>
-                <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_4" %>
-                <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_4" %>
-                <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_4" %>
-                <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_4" %>
-                <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_4" if params[:search][:starts_at].present? %>
-                <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_4" if params[:search][:ends_at].present? %>
-                <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_4" %>
-                <%= f.hidden_field :selection, id: "search_selection_4" %>
-                <% if params[:search][:max_price].present? %>
-                  <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_4" %>
-                <% else %>
-                  <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_4" %>
-                <% end %>
-                <% if params[:search][:order].present?  %>
-                  <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_4" %>
-                <% else %>
-                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_4" %>
-                <% end %>
-                <% if params[:search][:ephemeral].present? %>
-                  <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_4" %>
-                <% else %>
-                  <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_4" %>
-                <% end %>
-
-                <%= f.submit params[:search][:selection] %>
+          <div class="ws-index-search-tag form-container-selection">
+            <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+              <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_4" %>
+              <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_4" %>
+              <%= f.hidden_field :min_capacity, value: params[:search][:min_capacity], id: "search_min_capacity_4" %>
+              <%= f.hidden_field :level, value: params[:search][:level], id: "search_level_4" %>
+              <%= f.hidden_field :moment, value: params[:search][:moment], id: "search_moment_4" %>
+              <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_4" if params[:search][:starts_at].present? %>
+              <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_4" if params[:search][:ends_at].present? %>
+              <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_4" %>
+              <%= f.hidden_field :selection, id: "search_selection_4" %>
+              <% if params[:search][:max_price].present? %>
+                <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_4" %>
+              <% else %>
+                <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_4" %>
               <% end %>
-              <i class="fas fa-times ml-2"></i>
-            </div>
-          <% end %>
+              <% if params[:search][:order].present?  %>
+                <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_4" %>
+              <% else %>
+                <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_4" %>
+              <% end %>
+              <% if params[:search][:ephemeral].present? %>
+                <%= f.hidden_field :ephemeral, value: params[:search][:ephemeral], id: "search_ephemeral_4" %>
+              <% else %>
+                <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_4" %>
+              <% end %>
+
+              <%= f.submit "Mot-clé : #{params[:search][:selection]}" %>
+            <% end %>
+            <i class="fas fa-times ml-2"></i>
+          </div>
         <% end %>
 
         <!-- Dates -->
@@ -555,95 +557,96 @@
       <h1 id="index-ws-title">Ateliers</h1>
       <h2 id="index-ws-description">Trouvez ici l’atelier créatif qui correspond à vos attentes ! Couture, fleurs, broderie, cosmétique, upcycling, herbier, bijoux, aquarelle, maroquinerie, tricot, céramique, lettering, décoration... Réalisez un objet tendance par vous-même et profitez d’une pause conviviale et créative !</h2>
       <% if @workshops.count > 1 %>
-        <% if @workshops %>
-          <h3 id="index-ws-results">> Nous avons trouvé <span><%= @workshops.count %> ateliers créatifs</span> correspondant à votre recherche</h3>
-        <% elsif @workshops.count == 1 %>
-          <h3 id="index-ws-results">> Nous avons trouvé <span><%= @workshops.count %> atelier créatif</span> correspondant à votre recherche</h3>
-        <% end %>
-
-        <div class= "index-ws-cards">
-          <% @workshops.each do |workshop| %>
-
-            <div class="ws-card" id="index-ws-card">
-              <%= link_to(workshop, data: { turbolinks: false }) do  %>
-                <div class="ws-card-image-and-rating" id="index-ws-card-image-and-rating">
-                  <div class="ws-card-tags" id="index-ws-card-tags">
-                    <% if workshop.rating %>
-                      <div class="ws-card-tag ws-card-rating" id="index-ws-card-rating">
-                        <i class="fas fa-star"></i><span><%= workshop.rating %></span>
-                      </div>
-                    <% else %>
-                      <div class="ws-card-tag ws-card-rating" id="index-ws-card-rating">
-                        <span>nouveau</span>
-                      </div>
-                    <% end %>
-                    <% if workshop.place.ephemeral == true %>
-                      <div class="ws-card-tag ws-card-ephemeral" id="index-ws-card-ephemeral">
-                        <span>éphémère</span>
-                      </div>
-                    <% end %>
-                  </div>
-                  <%= render "ws-index-carousel", workshop: workshop %>
-                </div>
-              <% end %>
-              <%= link_to(workshop, data: { turbolinks: false }) do  %>
-                <div class="ws-card-infos" id="index-ws-card-infos">
-                  <div>
-                    <div class="ws-card-place" id="index-ws-card-place-desktop">
-                      <% if workshop.place.name.size > 19 %>
-                        <span><%= workshop.place.name[0..17] %>...</span>
-                      <% else %>
-                        <span><%= workshop.place.name %></span>
-                      <% end %>
-                    </div>
-                    <div class="ws-card-place" id="index-ws-card-place-mobile">
-                      <% if workshop.place.name.size > 17 %>
-                        <span><%= workshop.place.name[0..16] %>...</span>
-                      <% else %>
-                        <span><%= workshop.place.name %></span>
-                      <% end %>
-                    </div>
-                    <div class="ws-card-title" id="index-ws-card-title">
-                      <% if workshop.title.size > 33 %>
-                        <h4><%= workshop.title[0..31] %>...</h4>
-                      <% else %>
-                        <h4><%= workshop.title %></h4>
-                      <% end %>
-                    </div>
-                  </div>
-                  <div class="ws-card-price-and-city" id="index-ws-card-price-and-city">
-                    <div class="ws-card-price" id="index-ws-card-price">
-                      <%= workshop.price %> €
-                    </div>
-                    <div class="ws-card-city" id="index-ws-card-city">
-                      <i class="fas fa-map-marker-alt"></i>
-                      <% if workshop.place.city.size >= 11 %>
-                        <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
-                      <% else %>
-                        <span id="city-name"><%= workshop.place.city.capitalize %></span>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
+        <h3 class="index-ws-results">> Nous avons trouvé <span><%= @workshops.count %> ateliers créatifs</span> correspondant à votre recherche</h3>
+      <% elsif @workshops.count == 1 %>
+        <h3 class="index-ws-results">> Nous avons trouvé <span><%= @workshops.count %> atelier créatif</span> correspondant à votre recherche</h3>
       <% else %>
-        <h3 id="index-ws-results">> Nous n'avons trouvé aucun atelier créatif correspondant à votre recherche</h3>
+        <h3 class="index-ws-results mt-4">> Nous n'avons trouvé aucun atelier créatif correspondant à votre recherche.</h3>
+        <h3 class="index-ws-results mt-3"><strong>Voici nos suggestions :</strong></h3>
       <% end %>
+
+      <% if @workshops.count > 0 %>
+        <% all_workshops = @workshops %>
+      <% else %>
+        <% all_workshops = @suggested_workshops %>
+      <% end %>
+      <div class= "index-ws-cards">
+        <% all_workshops.each do |workshop| %>
+
+          <div class="ws-card" id="index-ws-card">
+            <%= link_to(workshop, data: { turbolinks: false }) do  %>
+              <div class="ws-card-image-and-rating" id="index-ws-card-image-and-rating">
+                <div class="ws-card-tags" id="index-ws-card-tags">
+                  <% if workshop.rating %>
+                    <div class="ws-card-tag ws-card-rating" id="index-ws-card-rating">
+                      <i class="fas fa-star"></i><span><%= workshop.rating %></span>
+                    </div>
+                  <% else %>
+                    <div class="ws-card-tag ws-card-rating" id="index-ws-card-rating">
+                      <span>nouveau</span>
+                    </div>
+                  <% end %>
+                  <% if workshop.place.ephemeral == true %>
+                    <div class="ws-card-tag ws-card-ephemeral" id="index-ws-card-ephemeral">
+                      <span>éphémère</span>
+                    </div>
+                  <% end %>
+                </div>
+                <%= render "ws-index-carousel", workshop: workshop %>
+              </div>
+            <% end %>
+            <%= link_to(workshop, data: { turbolinks: false }) do  %>
+              <div class="ws-card-infos" id="index-ws-card-infos">
+                <div>
+                  <div class="ws-card-place" id="index-ws-card-place-desktop">
+                    <% if workshop.place.name.size > 19 %>
+                      <span><%= workshop.place.name[0..17] %>...</span>
+                    <% else %>
+                      <span><%= workshop.place.name %></span>
+                    <% end %>
+                  </div>
+                  <div class="ws-card-place" id="index-ws-card-place-mobile">
+                    <% if workshop.place.name.size > 17 %>
+                      <span><%= workshop.place.name[0..16] %>...</span>
+                    <% else %>
+                      <span><%= workshop.place.name %></span>
+                    <% end %>
+                  </div>
+                  <div class="ws-card-title" id="index-ws-card-title">
+                    <% if workshop.title.size > 33 %>
+                      <h4><%= workshop.title[0..31] %>...</h4>
+                    <% else %>
+                      <h4><%= workshop.title %></h4>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="ws-card-price-and-city" id="index-ws-card-price-and-city">
+                  <div class="ws-card-price" id="index-ws-card-price">
+                    <%= workshop.price %> €
+                  </div>
+                  <div class="ws-card-city" id="index-ws-card-city">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <% if workshop.place.city.size >= 11 %>
+                      <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
+                    <% else %>
+                      <span id="city-name"><%= workshop.place.city.capitalize %></span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
 
       <% unless @workshops.empty? %>
         <%= will_paginate @workshops.paginate(page: params[:page], per_page: 20), inner_window: 1, outer_window: 0 %>
       <% end %>
     </div>
-    <% if @workshops.present? %>
-      <div id="map" class="ws-map"
-             style="width: 100%; height: 80vh; top: 0;"
-             data-markers="<%= @markers.to_json %>"
-             data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
-      </div>
-    <% end %>
+    <div id="map" class="ws-map"
+           style="width: 100%; height: 80vh; top: 0;"
+           data-markers="<%= @markers.to_json %>"
+           data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
   </div>
-
 </div>

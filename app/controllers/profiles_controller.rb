@@ -49,8 +49,9 @@ class ProfilesController < ApplicationController
     if Profile.friendly.find(params[:profile_id]).db_status == true
       @profile = Profile.friendly.find(params[:profile_id])
       authorize @profile
+      dates = (Date.today..Date.today + 2.year).to_a
+      @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
     end
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true)
   end
 
   private
