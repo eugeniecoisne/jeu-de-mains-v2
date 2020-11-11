@@ -77,9 +77,9 @@
               <%= workshops_count %>
             </span>
             <% if workshops_count > 1 %>
-              <span id="text">ateliers proposés</span>
+              <span id="text">ateliers en ligne</span>
             <% else %>
-              <span id="text">atelier proposé</span>
+              <span id="text">atelier en ligne</span>
             <% end %>
           </div>
           <div class="public-profile-main-figure public-profile-participants-nb">
@@ -123,7 +123,7 @@
             <div class="public-profile-our-ws-cards">
 
               <% @profile.user.animators.each do |animator| %>
-                <% if animator.workshop.status == "en ligne" && animator.workshop.db_status == true %>
+                <% if @workshops.include?(animator.workshop) %>
                   <div class="ws-card" id="public-profile-ws-card">
                     <%= link_to(animator.workshop, data: { turbolinks: false }) do  %>
                       <div class="ws-card-image-and-rating">

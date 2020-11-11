@@ -14,6 +14,8 @@ class PlacesController < ApplicationController
   end
 
   def show
+    dates = (Date.today..Date.today + 2.year).to_a
+    @workshops = @place.workshops.where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
   def new
