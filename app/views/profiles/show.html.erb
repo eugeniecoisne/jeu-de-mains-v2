@@ -7,11 +7,11 @@
     <h1>
       Hello <span>
         <% if @profile.company %>
-          <%= @profile.company %>
+          <%= @profile.company %>,
         <% else %>
-          <%= @profile.user.first_name.capitalize %>
+          <%= @profile.user.first_name.capitalize %>,
         <% end %>
-        </span>,
+        </span>
         <br>bienvenue sur votre compte !
     </h1>
   </div>
