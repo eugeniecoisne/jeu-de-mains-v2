@@ -222,7 +222,7 @@
                   <p><%= review.content %></p>
                 </div>
                 <div class="review-card-author">
-                  <p><span><%= review.user.profile.first_name %></span>, le <%= review.created_at.strftime("%d/%m/%Y") %></p>
+                  <p><span><%= review.user.first_name %></span>, le <%= review.created_at.strftime("%d/%m/%Y") %></p>
                 </div>
               </div>
             <% end %>

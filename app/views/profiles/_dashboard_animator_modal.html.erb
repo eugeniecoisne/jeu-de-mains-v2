@@ -28,7 +28,7 @@
                 <div class="dashboard-modal-one-review" type="button" data-toggle="collapse" data-target="#collapse0" aria-expanded="false" aria-controls="collapse0">
                   <div><%= review.created_at.strftime("%d/%m/%Y") %></div>
                   <div class="d-flex justify-content-center align-items-center"><%= review.rating %><i class="fas fa-star"></i></div>
-                  <div><%= review.user.profile.first_name %></div>
+                  <div><%= review.user.first_name %></div>
                   <% if review.rating <= 2 %>
                     <div class="d-flex justify-content-end align-items-center"><button class="button">Signaler</button></div>
                   <% else %>
@@ -58,7 +58,7 @@
                 <div class="dashboard-modal-one-review collapsed" type="button" data-toggle="collapse" data-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
                   <div><%= review.created_at.strftime("%d/%m/%Y") %></div>
                   <div class="d-flex justify-content-center align-items-center"><%= review.rating %><i class="fas fa-star"></i></div>
-                  <div><%= review.user.profile.first_name %></div>
+                  <div><%= review.user.first_name %></div>
                   <% if review.rating <= 2 %>
                     <div class="d-flex justify-content-end align-items-center"><button class="button">Signaler</button></div>
                   <% else %>
