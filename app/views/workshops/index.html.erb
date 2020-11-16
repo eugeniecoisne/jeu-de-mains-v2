@@ -27,7 +27,7 @@
         <!-- Order -->
 
         <% if params[:search][:order].present? && params[:search][:order] != "Recommandation" %>
-          <div class="ws-index-search-tag form-container-order">
+          <div class="form-container-order">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
               <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_1" %>
               <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_1" %>
@@ -50,16 +50,17 @@
                 <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_1" %>
               <% end %>
 
-              <%= f.submit params[:search][:order] %>
+              <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                <%= params[:search][:order] %> <i class="fas fa-times ml-2"></i>
+              <% end %>
             <% end %>
-            <i class="fas fa-times ml-2"></i>
           </div>
         <% end %>
 
         <!-- Thematic -->
 
         <% if params[:search][:keyword].present? %>
-          <div class="ws-index-search-tag form-container-keyword">
+          <div class="form-container-keyword">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
               <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_2" %>
               <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_2" %>
@@ -86,16 +87,17 @@
                 <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_2" %>
               <% end %>
 
-              <%= f.submit params[:search][:keyword] %>
+              <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                <%= params[:search][:keyword] %> <i class="fas fa-times ml-2"></i>
+              <% end %>
             <% end %>
-            <i class="fas fa-times ml-2"></i>
           </div>
         <% end %>
 
         <!-- City / District -->
 
         <% if params[:search][:place].present? %>
-          <div class="ws-index-search-tag form-container-place">
+          <div class="form-container-place">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
               <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_3" %>
               <%= f.hidden_field :selection, value: params[:search][:selection], id: "search_selection_3" %>
@@ -121,16 +123,17 @@
               <% else %>
                 <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_3" %>
               <% end %>
-              <%= f.submit params[:search][:place] %>
+              <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                <%= params[:search][:place] %> <i class="fas fa-times ml-2"></i>
+              <% end %>
             <% end %>
-            <i class="fas fa-times ml-2"></i>
           </div>
         <% end %>
 
         <!-- Key-word -->
 
         <% if params[:search][:selection].present? %>
-          <div class="ws-index-search-tag form-container-selection">
+          <div class="form-container-selection">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
               <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_4" %>
               <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_4" %>
@@ -157,16 +160,17 @@
                 <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_4" %>
               <% end %>
 
-              <%= f.submit "Mot-clé : #{params[:search][:selection]}" %>
+              <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                Mot-clé : <%= params[:search][:selection] %> <i class="fas fa-times ml-2"></i>
+              <% end %>
             <% end %>
-            <i class="fas fa-times ml-2"></i>
           </div>
         <% end %>
 
         <!-- Dates -->
 
         <% if params[:search][:starts_at].present? || params[:search][:ends_at].present? %>
-          <div class="ws-index-search-tag form-container-dates">
+          <div class="form-container-dates">
             <% if params[:search][:starts_at].present? && params[:search][:ends_at].present? %>
 
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
@@ -195,7 +199,9 @@
                   <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_5" %>
                 <% end %>
 
-                <%= f.submit "#{Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y')} au #{Date.strptime(params[:search][:ends_at], '%Y-%m-%d').strftime('%d/%m/%Y')}" %>
+                <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                  <%= Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y') %> au <%= Date.strptime(params[:search][:ends_at], '%Y-%m-%d').strftime('%d/%m/%Y')%> <i class="fas fa-times ml-2"></i>
+                <% end %>
               <% end %>
 
             <% elsif params[:search][:starts_at].present? %>
@@ -225,8 +231,9 @@
                 <% else %>
                   <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_6" %>
                 <% end %>
-
-                <%= f.submit "À partir du #{Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y')}" %>
+                <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                  À partir du <%= Date.strptime(params[:search][:starts_at], '%Y-%m-%d').strftime('%d/%m/%Y') %> <i class="fas fa-times ml-2"></i>
+                <% end %>
               <% end %>
 
             <% elsif params[:search][:ends_at].present? %>
@@ -256,12 +263,12 @@
                 <% else %>
                   <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_7" %>
                 <% end %>
-
-                <%= f.submit "Jusqu'au #{Date.strptime(params[:search][:ends_at], '%Y-%m-%d').strftime('%d/%m/%Y')}" %>
+                <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                  Jusqu'au <%= Date.strptime(params[:search][:ends_at], '%Y-%m-%d').strftime('%d/%m/%Y') %> <i class="fas fa-times ml-2"></i>
+                <% end %>
               <% end %>
 
             <% end %>
-            <i class="fas fa-times ml-2"></i>
           </div>
         <% end %>
 
@@ -269,7 +276,7 @@
 
         <% if params[:search][:min_price].present? || params[:search][:max_price].present? %>
           <% if params[:search][:min_price].present? && params[:search][:max_price].present? && params[:search][:min_price].to_i != 0 && params[:search][:max_price].to_i != 0 && params[:search][:max_price].to_i != @max_price %>
-            <div class="ws-index-search-tag form-container-min-max-price">
+            <div class="form-container-min-max-price">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_8" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_8" %>
@@ -291,15 +298,15 @@
                 <% else %>
                   <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_8" %>
                 <% end %>
-
-                <%= f.submit "De #{params[:search][:min_price].to_i} à #{params[:search][:max_price].to_i} €" %>
+                <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                  De <%= params[:search][:min_price].to_i %> à <%= params[:search][:max_price].to_i %> € <i class="fas fa-times ml-2"></i>
+                <% end %>
               <% end %>
-              <i class="fas fa-times ml-2"></i>
             </div>
 
 
           <% elsif params[:search][:min_price].present? && params[:search][:min_price].to_i != 0 %>
-            <div class="ws-index-search-tag form-container-min-price">
+            <div class="form-container-min-price">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_9" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_9" %>
@@ -326,14 +333,15 @@
                   <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_9" %>
                 <% end %>
 
-                <%= f.submit "Min. #{params[:search][:min_price].to_i} €" %>
+                <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                  Min. <%= params[:search][:min_price].to_i %> € <i class="fas fa-times ml-2"></i>
+                <% end %>
               <% end %>
-              <i class="fas fa-times ml-2"></i>
             </div>
 
 
           <% elsif params[:search][:max_price].present? && params[:search][:max_price].to_i != 0 && params[:search][:max_price].to_i != @max_price %>
-            <div class="ws-index-search-tag form-container-max-price">
+            <div class="form-container-max-price">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_10" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_10" %>
@@ -355,10 +363,10 @@
                 <% else %>
                   <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_10" %>
                 <% end %>
-
-                <%= f.submit "Max. #{params[:search][:max_price].to_i} €" %>
+                <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                  Max. <%= params[:search][:max_price].to_i %> € <i class="fas fa-times ml-2"></i>
+                <% end %>
               <% end %>
-              <i class="fas fa-times ml-2"></i>
             </div>
           <% end %>
         <% end %>
@@ -367,7 +375,7 @@
 
         <% if params[:search][:min_capacity].present? %>
           <% if params[:search][:min_capacity].to_i > 1 %>
-            <div class="ws-index-search-tag form-container-min-capacity">
+            <div class="form-container-min-capacity">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_11" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_11" %>
@@ -393,10 +401,10 @@
                 <% else %>
                   <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_11" %>
                 <% end %>
-
-                <%= f.submit "Min. #{params[:search][:min_capacity]} personnes" %>
+                <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                  Min. <%= params[:search][:min_capacity] %> personnes <i class="fas fa-times ml-2"></i>
+                <% end %>
               <% end %>
-              <i class="fas fa-times ml-2"></i>
             </div>
           <% end %>
         <% end %>
@@ -404,7 +412,7 @@
         <!-- Level -->
 
         <% if params[:search][:level].present? %>
-          <div class="ws-index-search-tag form-container-level">
+          <div class="form-container-level">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
               <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_12" %>
               <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_12" %>
@@ -431,16 +439,17 @@
                 <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_12" %>
               <% end %>
 
-              <%= f.submit params[:search][:level] %>
+              <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                <%= params[:search][:level] %> <i class="fas fa-times ml-2"></i>
+              <% end %>
             <% end %>
-            <i class="fas fa-times ml-2"></i>
           </div>
         <% end %>
 
         <!-- Moment of the day -->
 
         <% if params[:search][:moment].present? %>
-          <div class="ws-index-search-tag form-container-moment">
+          <div class="form-container-moment">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
               <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_13" %>
               <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_13" %>
@@ -466,10 +475,11 @@
               <% else %>
                 <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_13" %>
               <% end %>
-
-              <%= f.submit params[:search][:moment] %>
+              <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                <%= params[:search][:moment] %> <i class="fas fa-times ml-2"></i>
+              <% end %>
             <% end %>
-            <i class="fas fa-times ml-2"></i>
+
           </div>
         <% end %>
 
@@ -477,7 +487,7 @@
 
         <% if params[:search][:ephemeral].present? %>
           <% if params[:search][:ephemeral] == 'false' %>
-            <div class="ws-index-search-tag form-container-ephemeral">
+            <div class="form-container-ephemeral">
               <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
                 <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_14" %>
                 <%= f.hidden_field :place, value: params[:search][:place], id: "search_place_14" %>
@@ -499,9 +509,10 @@
                 <% else %>
                   <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_1" %>
                 <% end %>
-                <%= f.submit "Permanent" %>
+                <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
+                  Permanent <i class="fas fa-times ml-2"></i>
+                <% end %>
               <% end %>
-              <i class="fas fa-times ml-2"></i>
             </div>
           <% end %>
         <% end %>

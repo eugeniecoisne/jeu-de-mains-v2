@@ -16,6 +16,10 @@ class SessionPolicy < ApplicationPolicy
     record.workshop.place.user == user || record.workshop.animators.last.user || user.admin?
   end
 
+  def annulation_et_remboursement?
+    record.workshop.place.user == user || record.workshop.animators.last.user || user.admin?
+  end
+
   def participants?
     record.workshop.place.user == user || record.workshop.animators.last.user || user.admin?
   end

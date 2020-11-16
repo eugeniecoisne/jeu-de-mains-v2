@@ -1,0 +1,80 @@
+#annulation-page {
+  .sign-form {
+    margin: 1em 3em 5em 3em;
+  }
+  .sign-title {
+    margin-top: 3em;
+  }
+  p {
+    color: $dark-blue;
+    font-weight: 400;
+    strong {
+      font-weight: 600;
+    }
+  }
+  #btn-annulation {
+    background-color: $blue;
+    opacity: 1;
+  }
+  #btn-annulation:hover {
+    background-color: $dark-blue;
+    opacity: 1;
+  }
+}
+
+
+#annulation-title {
+  font-size: 20px;
+}
+
+
+// RESPONSIVE ANNULATION & REMBOURSEMENT //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  #annulation-page {
+    .sign-form {
+      margin: 1.5em;
+      width: unset;
+    }
+    .sign-title {
+      margin-top: 1.5em;
+      font-size: 17px;
+    }
+    .back-button {
+      font-size: 95%;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+  #annulation-page {
+    .sign-form {
+      margin: 2em;
+      width: unset;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+  #annulation-page {
+    .sign-form {
+      margin: 1em 2em;
+      width: unset;
+    }
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+  #sessions-index-container {
+    grid-template-columns: 1fr 0.75fr;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
