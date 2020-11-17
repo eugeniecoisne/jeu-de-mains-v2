@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_16_134927) do
+ActiveRecord::Schema.define(version: 2020_11_17_172430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,22 @@ ActiveRecord::Schema.define(version: 2020_11_16_134927) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "giftcards", force: :cascade do |t|
+    t.float "amount"
+    t.string "code"
+    t.integer "buyer"
+    t.integer "receiver"
+    t.string "status"
+    t.boolean "db_status", default: true
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "receiver_name"
+    t.string "buyer_name"
+    t.string "message"
+    t.index ["user_id"], name: "index_giftcards_on_user_id"
   end
 
   create_table "infomessages", force: :cascade do |t|
@@ -225,6 +241,7 @@ ActiveRecord::Schema.define(version: 2020_11_16_134927) do
   add_foreign_key "animators", "workshops"
   add_foreign_key "bookings", "sessions"
   add_foreign_key "bookings", "users"
+  add_foreign_key "giftcards", "users"
   add_foreign_key "infomessages", "sessions"
   add_foreign_key "informations", "sessions"
   add_foreign_key "messages", "chatrooms"

@@ -28,6 +28,22 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def mes_cartes_cadeaux
+    if Profile.friendly.find(params[:id]).db_status == true && Profile.friendly.find(params[:id]).role.present? == false
+      @profile = Profile.friendly.find(params[:id])
+      authorize @profile
+    end
+    if params[:giftcard].present?
+      if params[:giftcard][:code].present?
+        @giftcard = Giftcard.find_by(code: params[:giftcard][:code])
+        @giftcard.update(user_id: current_user.id)
+        @giftcard.update(receiver: current_user.id)
+        @giftcard.save
+        redirect_to mes_cartes_cadeaux_profile_path(@profile)
+      end
+    end
+  end
+
   def tableau_de_bord
     @users = User.all.where(db_status: true).select { |user| user.profile.role == 'animateur' }
     @animator = Animator.new

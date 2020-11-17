@@ -1,0 +1,10 @@
+<h1>Offrir une carte cadeau</h1>
+
+<h2>Choisissez un montant :</h2>
+
+<%= simple_form_for :giftcard, url: new_giftcard_path, method: :get do |f| %>
+  <%= f.input :amount, required: true, label: false, collection: [10.0, 20.0, 30.0, 40.0, 50.0] %>
+  <%= f.submit "Rechercher" %>
+<% end %>
+
+<p>Vous avez reçu une carte cadeau et souhaitez l'utiliser ? Créez votre compte</p>

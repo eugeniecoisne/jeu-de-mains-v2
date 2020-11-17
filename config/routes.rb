@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
+  get 'giftcards/new'
+  get 'giftcards/create'
+  get 'giftcards/update'
+  get 'giftcards/show'
   get 'infomessages/create'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   root to: 'pages#home'
+  get 'offrir-une-carte-cadeau', to: 'pages#offer_giftcard'
   get 'devenir-partenaire', to: 'pages#partners'
   get 'a-propos', to: 'pages#about'
   get 'contact', to: 'pages#contact'
@@ -33,6 +38,7 @@ Rails.application.routes.draw do
     resources :reviews, :path => :avis, :as => :reviews, only: %i(index)
     member do
       get 'tableau_de_bord'
+      get 'mes_cartes_cadeaux'
       get 'messagerie'
     end
   end
@@ -77,5 +83,7 @@ Rails.application.routes.draw do
   resources :chatrooms, :path => :conversations, :as => :chatrooms, only: %i(show create update) do
     resources :messages, only: :create
   end
+
+  resources :giftcards, :path => :carte_cadeau, :as => :giftcards, only: %i(new create update show)
 
 end

@@ -1,0 +1,13 @@
+<h1>Mes cartes cadeaux</h1>
+
+<p>Ajouter une carte cadeau</p>
+<%= simple_form_for :giftcard, url: mes_cartes_cadeaux_profile_path(@profile), method: :get do |f| %>
+  <%= f.input :code, required: true, label: false %>
+  <%= f.submit "Rechercher" %>
+<% end %>
+
+<ul>
+  <% @profile.user.giftcards.each do |giftcard| %>
+    <li>Une carte de <%= giftcard.amount %> € offerte par <%= giftcard.buyer_name %>, valable jusqu'au <%= giftcard.created_at + 1.year %></li>
+  <% end %>
+</ul>
