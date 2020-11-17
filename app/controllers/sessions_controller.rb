@@ -31,14 +31,34 @@ class SessionsController < ApplicationController
     end
   end
 
+  def annulation_et_remboursement
+    @session = Session.find(params[:session_id])
+    authorize @session
+  end
+
   def destroy
     @session = Session.find(params[:id])
     authorize @session
-    if @session.bookings.empty?
+    if @session.bookings.where(db_status: true).empty?
       @session.update(db_status: false)
       @session.save
+      redirect_back fallback_location: root_path
+    else
+      @session.update(session_params)
+      @session.update(db_status: false)
+      @session.save
+      mail = SessionMailer.with(session: @session).cancel_and_giveback
+      mail.deliver_now
+      @session.bookings.where(db_status: true).each do |b|
+        b.update(db_status: false)
+        b.save
+        mail = BookingMailer.with(booking: b).cancel_booking_btoc
+        mail.deliver_now
+      end
+      redirect_back fallback_location: root_path
+      flash[:notice] = "Votre session a bien été annulée et les participants ont été prévenus par e-mail."
+          # rembourser participants base 100%
     end
-    redirect_back fallback_location: root_path
   end
 
   def search_places
@@ -59,6 +79,6 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:session).permit(:date, :start_at, :capacity)
+    params.require(:session).permit(:date, :start_at, :capacity, :reason)
   end
 end

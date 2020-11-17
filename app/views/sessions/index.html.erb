@@ -52,7 +52,7 @@
             </div>
           </div>
 
-          <% @sessions.sort_by { |session| session.date }.each_with_index do |session, index| %>
+          <% @sessions.select {|session| session.date >= Date.today}.sort_by { |session| session.date }.each_with_index do |session, index| %>
             <div class="sessions-index-one-session">
               <div>
                 <h3><%= l(session.date, format: '%A %d %B %Y').capitalize %> à <%= session.start_at %></h3>
@@ -80,26 +80,7 @@
                     class: "action-button",
                     id: "delete-session" %>
                 <% else %>
-                  <a href="#disabledSessionModal<%= index +1 %>" class="action-button" data-toggle="modal" data-whatever="@mdo" id="delete-session-disabled">
-                    Déprogrammer
-                  </a>
-
-                  <div class="modal fade disabled-modal" id="disabledSessionModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="disabledSessionModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="form-group">
-                          <div class="modal-body">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
-                            </button>
-                            <div class="mt-3">
-                              Vous avez déjà des réservations pour cette session, vous ne pouvez pas la déprogrammer.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <%= link_to "Annuler & rembourser", session_annulation_et_remboursement_path(session), class: "action-button", id:"delete-session-cancel" %>
                 <% end %>
               </div>
             </div>
