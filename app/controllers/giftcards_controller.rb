@@ -10,7 +10,7 @@ class GiftcardsController < ApplicationController
   def new
     if params[:giftcard][:amount].present?
       @giftcard = Giftcard.new
-      @giftcard.amount = params[:giftcard][:amount]
+      @giftcard.amount = params[:giftcard][:amount].first(3).to_f
       authorize @giftcard
     end
   end

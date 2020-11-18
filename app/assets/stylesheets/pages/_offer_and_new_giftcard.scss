@@ -1,0 +1,377 @@
+.offer-and-new-giftcard {
+  margin: 2rem 7rem;
+  min-height: 700px;
+}
+
+.offer-and-new-giftcard-banner {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+  grid-gap: 2.5rem;
+  margin: 1rem 0rem;
+}
+
+.offer-and-new-giftcard-banner-search-and-title {
+  position: absolute;
+  z-index: 1;
+  width: 500px;
+  left: 9rem;
+}
+
+.offer-and-new-giftcard-banner-title {
+  margin: 0 1rem 2rem 0.7rem;
+  h1 {
+    font-size: 40px;
+    color: $dark-blue;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: "Amiri", serif;
+    margin-top: 3rem;
+    line-height: 1;
+  }
+  h2 {
+    font-size: 16px;
+    color: $dark-blue;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+}
+
+.offer-and-new-giftcard-banner-image {
+  position: relative;
+  padding: 1rem 2rem;
+  img {
+    width: 100%;
+    height: 570px;
+    object-fit: cover;
+  }
+}
+
+.offer-and-new-giftcard-search {
+  box-shadow: rgba(139, 159, 196, 0.3) 0px 0.2rem 0.4rem 0px;
+  background-color: white;
+  border-radius: 5px;
+  padding: 0.5rem;
+
+  .simple_form {
+    margin: 1rem;
+  }
+  .search-button {
+    width: 100%;
+    outline: none;
+    background-color: $dark-blue;
+    color: white;
+    font-weight: 600;
+    border: unset;
+    border-radius: 4px;
+    padding: 6px 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+  }
+  .form-control {
+    background-color: white;
+    border-radius: 5px;
+    padding: 0.5rem;
+    font-size: 15px;
+    width: 100%;
+  }
+  label {
+    font-weight: 700;
+    color: $dark-blue;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 13px;
+  }
+}
+
+
+// RESPONSIVE THEMATICS BANNER
+@media (min-width: 100px) and (max-width: 575px) {
+  .offer-and-new-giftcard {
+    margin: 0;
+  }
+  .offer-and-new-giftcard-banner-search-and-title {
+    position: relative;
+    z-index: unset;
+    left: unset;
+    width: unset;
+    margin-top: 18rem;
+  }
+  .offer-and-new-giftcard-banner-image {
+    position: absolute;
+    width: 100%;
+    padding: unset;
+    img {
+      height: 250px;
+      width: 100%;
+    }
+  }
+  .offer-and-new-giftcard-banner {
+    margin: unset;
+    grid-template-columns: unset;
+    grid-gap: unset;
+  }
+
+  .offer-and-new-giftcard-banner-title {
+    margin: 0 1rem 3rem 1rem;
+    h1 {
+      font-size: 32px;
+    }
+    h2 {
+      font-size: 14px;
+      margin-bottom: -2rem;
+    }
+  }
+  .offer-and-new-giftcard-search-container {
+    padding-top: 1.5rem;
+    padding-bottom: 4rem;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 599px) {
+  .offer-and-new-giftcard {
+    margin: 0rem;
+  }
+  .offer-and-new-giftcard-banner-title {
+    margin: 0 0 2rem 13rem;
+    h1 {
+      margin-top: 2rem;
+      margin-bottom: 0.6rem;
+      font-size: 38px;
+    }
+    h2 {
+      font-size: 15px;
+    }
+  }
+  .offer-and-new-giftcard-banner-search-and-title {
+    position: relative;
+    z-index: unset;
+    left: unset;
+    width: unset;
+  }
+  .offer-and-new-giftcard-banner-title {
+    h1 {
+      font-size: 33px;
+    }
+    h2 {
+      font-size: 14px;
+    }
+  }
+  .offer-and-new-giftcard-banner-image {
+    position: absolute;
+    z-index: 1;
+    top: 7rem;
+    left: 1.6rem;
+    margin: 0rem;
+    padding: unset;
+    img {
+      height: 220px;
+      width: 180px;
+    }
+  }
+  .offer-and-new-giftcard-banner {
+    grid-template-columns: 1fr;
+    grid-gap: unset;
+    margin: 1rem 1rem;
+  }
+  .offer-and-new-giftcard-search-container {
+    padding-top: 1.5rem;
+    padding-bottom: 4rem;
+  }
+
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .offer-and-new-giftcard {
+    margin: 0rem;
+  }
+  .offer-and-new-giftcard-banner-title {
+    margin: 0 0 3rem 16rem;
+    h1 {
+      margin-top: 2rem;
+      font-size: 40px;
+    }
+    h2 {
+      font-size: 15px;
+    }
+  }
+  .offer-and-new-giftcard-banner-search-and-title {
+    position: relative;
+    z-index: unset;
+    left: unset;
+    width: unset;
+  }
+  .offer-and-new-giftcard-banner-title {
+    h1 {
+      font-size: 33px;
+    }
+    h2 {
+      font-size: 15px;
+    }
+  }
+  .offer-and-new-giftcard-banner-image {
+    position: absolute;
+    z-index: 1;
+    top: 7rem;
+    left: 3.6rem;
+    margin: 0rem;
+    padding: unset;
+    img {
+      height: 280px;
+      width: 220px;
+    }
+  }
+  .offer-and-new-giftcard-banner {
+    grid-template-columns: 1fr;
+    grid-gap: unset;
+    margin: 1rem 3rem;
+  }
+  .offer-and-new-giftcard-search-container {
+    padding-top: 1.5rem;
+    padding-bottom: 4rem;
+  }
+}
+
+
+@media (min-width: 768px) and (max-width: 879px)  {
+  .offer-and-new-giftcard {
+    margin: 2rem 0rem;
+  }
+  .offer-and-new-giftcard-banner-search-and-title {
+    left: 1rem;
+    width: 310px;
+  }
+  .offer-and-new-giftcard-banner-title {
+    h1 {
+      font-size: 35px;
+    }
+    h2 {
+      font-size: 15px;
+    }
+  }
+  .offer-and-new-giftcard-banner {
+    grid-template-columns: 1fr 1.5fr;
+    grid-gap: 1rem;
+    margin: 1rem 0rem;
+  }
+  .offer-and-new-giftcard-banner-image {
+    img {
+      object-fit: cover;
+      object-position: center;
+      height: 520px;
+    }
+  }
+  #new-giftcard-text-side {
+    width: 360px;
+  }
+  #new-giftcard-banner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 880px) and (max-width: 991px)  {
+  .offer-and-new-giftcard {
+    margin: 2rem 0rem;
+  }
+  .offer-and-new-giftcard-banner-search-and-title {
+    left: 1rem;
+    width: 305px;
+  }
+  .offer-and-new-giftcard-banner-title {
+    h1 {
+      font-size: 35px;
+    }
+    h2 {
+      font-size: 15px;
+    }
+  }
+  #new-giftcard-text-side {
+    width: 420px;
+  }
+  #new-giftcard-banner {
+    grid-template-columns: 1fr 1fr;
+  }
+  .offer-and-new-giftcard-banner-image {
+    img {
+      height: 530px;
+    }
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1099px) {
+  .offer-and-new-giftcard {
+    margin: 2rem 3rem;
+  }
+  .offer-and-new-giftcard-banner {
+    grid-template-columns: 1fr 1.5fr;
+  }
+  .offer-and-new-giftcard-banner-search-and-title {
+    left: 4rem;
+    width: 360px;
+  }
+  .offer-and-new-giftcard-banner-title {
+    h1 {
+      font-size: 35px;
+    }
+    h2 {
+      font-size: 15px;
+    }
+  }
+  #new-giftcard-banner {
+    grid-template-columns: 1fr 1fr;
+  }
+  #new-giftcard-text-side {
+    width: 440px;
+  }
+  .offer-and-new-giftcard-banner-image {
+    img {
+      height: 500px;
+    }
+  }
+}
+
+@media (min-width: 1100px) and (max-width: 1249px) {
+  .offer-and-new-giftcard {
+    margin: 2rem 4rem;
+  }
+  .offer-and-new-giftcard-banner {
+    grid-template-columns: 1fr 1.5fr;
+  }
+  .offer-and-new-giftcard-banner-search-and-title {
+    left: 5rem;
+    width: 400px;
+  }
+  #new-giftcard-banner {
+    grid-template-columns: 1fr 1fr;
+  }
+  #new-giftcard-text-side {
+    width: 460px;
+  }
+  .offer-and-new-giftcard-banner-image {
+    img {
+      height: 500px;
+    }
+  }
+}
+
+
+@media (min-width: 1250px) and (max-width: 1400px) {
+  .offer-and-new-giftcard {
+    margin: 2rem 7rem;
+  }
+  .offer-and-new-giftcard-banner-search-and-title {
+    left: 8rem;
+    width: 365px;
+  }
+  #new-giftcard-banner {
+    grid-template-columns: 1fr 1fr;
+  }
+  #new-giftcard-text-side {
+    width: 520px;
+  }
+}
+
+
+
+
