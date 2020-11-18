@@ -61,6 +61,16 @@
             <% end %>
           </div>
         </li>
+        <% if current_user.profile.role.present? == false %>
+          <li class="list-group-item">
+            <div class="list-item-menu">
+              <%= link_to mes_cartes_cadeaux_profile_path(current_user.profile), class: "menu-blue-link" do %>
+                <i class="fas fa-gift menu-icon menu-blue-icon mr-2"></i>
+                Mes cartes cadeaux
+              <% end %>
+            </div>
+          </li>
+        <% end %>
         <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
           <li class="list-group-item">
             <div class="list-item-menu">

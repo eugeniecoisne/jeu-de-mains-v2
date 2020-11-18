@@ -24,6 +24,10 @@ class ProfilePolicy < ApplicationPolicy
     update?
   end
 
+  def mes_cartes_cadeaux?
+    update?
+  end
+
   def public?
     true
   end

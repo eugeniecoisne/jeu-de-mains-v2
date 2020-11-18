@@ -1,0 +1,12 @@
+<h1>Carte cadeau de <%= @giftcard.amount %></h1>
+
+<%= simple_form_for(@giftcard) do |f| %>
+  <%= f.input :buyer_name %>
+  <%= f.input :receiver_name %>
+  <%= f.input :message %>
+  <%= f.input :amount, value: @giftcard.amount %>
+  <%= f.hidden_field :buyer, value: current_user.id %>
+  <%= f.submit %>
+
+<% end %>
+
