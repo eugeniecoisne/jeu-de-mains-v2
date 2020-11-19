@@ -32,6 +32,7 @@ class ProfilesController < ApplicationController
     if Profile.friendly.find(params[:id]).db_status == true && Profile.friendly.find(params[:id]).role.present? == false
       @profile = Profile.friendly.find(params[:id])
       authorize @profile
+      @giftcards = policy_scope(Giftcard).all
     end
     if params[:giftcard].present?
       if params[:giftcard][:code].present?

@@ -1,12 +1,36 @@
-<h1>Carte cadeau de <%= @giftcard.amount %></h1>
+<div class="offer-and-new-giftcard">
+  <div class="offer-and-new-giftcard-banner" id="new-giftcard-banner">
 
-<%= simple_form_for(@giftcard) do |f| %>
-  <%= f.input :buyer_name %>
-  <%= f.input :receiver_name %>
-  <%= f.input :message %>
-  <%= f.input :amount, value: @giftcard.amount %>
-  <%= f.hidden_field :buyer, value: current_user.id %>
-  <%= f.submit %>
+    <div>
+      <div class="offer-and-new-giftcard-banner-search-and-title" id="new-giftcard-text-side">
+        <div class="offer-and-new-giftcard-banner-title">
+          <h1>Offrez une carte cadeau de <%= @giftcard.amount.to_i %> euros</h1>
+          <h2>Vous vous apprétez à offrir une carte cadeau Jeu de Mains de <%= @giftcard.amount.to_i %> euros pour le plus grand bonheur de l'un de vos proches.<br>Afin de personnaliser sa carte cadeau digitale, merci de compléter la personnalisation ci-dessous avant de procéder à la finalisation de votre achat !</h2>
+        </div>
+        <div class="offer-and-new-giftcard-search-container">
+          <div class="offer-and-new-giftcard-search">
+            <%= simple_form_for(@giftcard) do |f| %>
+              <div class="offer-and-new-giftcard-search-inputs-and-submit">
+                <%= f.input :buyer_name, required: true, label: "De la part de...", placeholder: "Votre prénom ou surnom" %>
+                <%= f.input :receiver_name, required: true, label: "Pour...", placeholder: "Le prénom ou surnom du bénéficiaire" %>
+                <%= f.input :message, as: :text, required: false, input_html: { row: 4 }, label: "Votre message (optionnel)", placeholder: "Rédigez quelques mots pour personnaliser la carte" %>
+                <%= f.hidden_field :amount, required: true, value: @giftcard.amount %>
+                <%= f.hidden_field :buyer, required: true, value: current_user.id %>
+                <%= f.submit "Procéder au paiement", class: "search-button" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<% end %>
+    <div class="offer-and-new-giftcard-banner-image" id="new-giftcard-image-side">
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1605714510/jdm_carte_cadeau.jpg", :loading => "lazy", :width => 600, :crop => :fill, :alt => "jeu-de-mains-carte-cadeau", :title => "jeu-de-mains-carte-cadeau") %>
+    </div>
+
+  </div>
+
+</div>
+
+
 

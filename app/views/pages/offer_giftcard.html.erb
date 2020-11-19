@@ -1,10 +1,35 @@
-<h1>Offrir une carte cadeau</h1>
+<div class="offer-and-new-giftcard">
+  <div class="offer-and-new-giftcard-banner">
 
-<h2>Choisissez un montant :</h2>
+    <div>
+      <div class="offer-and-new-giftcard-banner-search-and-title">
+        <div class="offer-and-new-giftcard-banner-title">
+          <h1>Faites plaisir à un proche, offrez-lui une carte cadeau !</h1>
+          <h2>La carte cadeau Jeu de Mains d'une valeur de 20 à 150 euros est valable 1 an sur tout le site jeudemains.com. <br>Avec sa carte cadeau votre proche pourra réserver un atelier couture, tricot, art floral, cosmétique, broderie, paper art, céramique, peinture, bijoux et plein d’autres encore !</h2>
+        </div>
+        <div class="offer-and-new-giftcard-search-container">
+          <div class="offer-and-new-giftcard-search">
+            <%= simple_form_for :giftcard, url: new_giftcard_path, method: :get do |f| %>
+              <div class="offer-and-new-giftcard-search-inputs-and-submit">
+                <%= f.input :amount, required: true, label: false, prompt: "Sélectionnez un montant", collection: [" 20 €", " 30 €", " 40 €", " 50 €", " 60 €", " 70 €", " 80 €", " 90 €", "100 €", "110 €", "120 €", "130 €", "140 €", "150 €"] %>
+                <%= f.submit "Offrir", class: "search-button" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<%= simple_form_for :giftcard, url: new_giftcard_path, method: :get do |f| %>
-  <%= f.input :amount, required: true, label: false, collection: [10.0, 20.0, 30.0, 40.0, 50.0] %>
-  <%= f.submit "Rechercher" %>
-<% end %>
+    <div class="offer-and-new-giftcard-banner-image">
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1605714510/jdm_carte_cadeau.jpg", :loading => "lazy", :width => 600, :crop => :fill, :alt => "jeu-de-mains-carte-cadeau", :title => "jeu-de-mains-carte-cadeau") %>
+    </div>
 
-<p>Vous avez reçu une carte cadeau et souhaitez l'utiliser ? Créez votre compte</p>
+  </div>
+  <p>Vous avez reçu une carte cadeau et souhaitez l'utiliser ? Créez votre compte</p>
+
+</div>
+
+
+
+
+

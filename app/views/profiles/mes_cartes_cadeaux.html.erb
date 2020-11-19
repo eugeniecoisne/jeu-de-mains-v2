@@ -1,13 +1,29 @@
 <h1>Mes cartes cadeaux</h1>
 
-<p>Ajouter une carte cadeau</p>
+<p>J'ai reçu une carte cadeau</p>
 <%= simple_form_for :giftcard, url: mes_cartes_cadeaux_profile_path(@profile), method: :get do |f| %>
-  <%= f.input :code, required: true, label: false %>
-  <%= f.submit "Rechercher" %>
+  <%= f.input :code, required: true, label: false, placeholder: "J'entre le code de ma carte cadeau" %>
+  <%= f.submit "Ajouter ma carte cadeau" %>
 <% end %>
 
 <ul>
-  <% @profile.user.giftcards.each do |giftcard| %>
-    <li>Une carte de <%= giftcard.amount %> € offerte par <%= giftcard.buyer_name %>, valable jusqu'au <%= giftcard.created_at + 1.year %></li>
+  <h2>Cartes cadeaux reçues</h2>
+  <% @profile.user.giftcards.select { |giftcard| giftcard.buyer != current_user.id }.each do |giftcard| %>
+    <li>Une carte de <%= giftcard.amount %> € offerte par <%= giftcard.buyer_name %>, valable jusqu'au <%= (giftcard.created_at + 1.year - 1.day).strftime("%d/%m/%Y") %> à 23h59</li>
   <% end %>
 </ul>
+
+<ul>
+  <h2>Cartes cadeaux offertes</h2>
+  <% @giftcards.select { |giftcard| giftcard.buyer == current_user.id }.each do |giftcard| %>
+    <li>Une carte de <%= giftcard.amount %> € offerte à <%= giftcard.receiver_name %>, valable jusqu'au <%= (giftcard.created_at + 1.year - 1.day).strftime("%d/%m/%Y") %> à 23h59,
+      <% if giftcard.receiver.present? %>
+        activée par <%= giftcard.receiver_name %>
+      <% else %>
+        en attente d'activation par <%= giftcard.receiver_name %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+La carte cadeau a une validité d'un an pour réserver. L'atelier peut tout à fait avoir lieu plus tard tant qu'il a été réservé dans les temps.
