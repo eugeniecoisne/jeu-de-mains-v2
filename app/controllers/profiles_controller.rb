@@ -40,7 +40,7 @@ class ProfilesController < ApplicationController
         @giftcard.update(user_id: current_user.id)
         @giftcard.update(receiver: current_user.id)
         @giftcard.save
-        redirect_to mes_cartes_cadeaux_profile_path(@profile)
+        redirect_to giftcard_confirmation_enregistrement_path(@giftcard)
       end
     end
   end

@@ -1,23 +1,23 @@
-.offer-and-new-giftcard {
+.offer-register-new-giftcard {
   margin: 2rem 7rem;
   min-height: 700px;
 }
 
-.offer-and-new-giftcard-banner {
+.offer-register-new-giftcard-banner {
   display: grid;
   grid-template-columns: 0.5fr 1fr;
   grid-gap: 2.5rem;
   margin: 1rem 0rem;
 }
 
-.offer-and-new-giftcard-banner-search-and-title {
+.offer-register-new-giftcard-banner-search-and-title {
   position: absolute;
   z-index: 1;
   width: 500px;
   left: 9rem;
 }
 
-.offer-and-new-giftcard-banner-title {
+.offer-register-new-giftcard-banner-title {
   margin: 0 1rem 2rem 0.7rem;
   h1 {
     font-size: 40px;
@@ -36,7 +36,7 @@
   }
 }
 
-.offer-and-new-giftcard-banner-image {
+.offer-register-new-giftcard-banner-image {
   position: relative;
   padding: 1rem 2rem;
   img {
@@ -46,8 +46,7 @@
   }
 }
 
-.offer-and-new-giftcard-search {
-  box-shadow: rgba(139, 159, 196, 0.3) 0px 0.2rem 0.4rem 0px;
+.offer-register-new-giftcard-search {
   background-color: white;
   border-radius: 5px;
   padding: 0.5rem;
@@ -86,19 +85,20 @@
 }
 
 
+
 // RESPONSIVE THEMATICS BANNER
 @media (min-width: 100px) and (max-width: 575px) {
-  .offer-and-new-giftcard {
+  .offer-register-new-giftcard {
     margin: 0;
   }
-  .offer-and-new-giftcard-banner-search-and-title {
+  .offer-register-new-giftcard-banner-search-and-title {
     position: relative;
     z-index: unset;
     left: unset;
     width: unset;
     margin-top: 18rem;
   }
-  .offer-and-new-giftcard-banner-image {
+  .offer-register-new-giftcard-banner-image {
     position: absolute;
     width: 100%;
     padding: unset;
@@ -107,13 +107,13 @@
       width: 100%;
     }
   }
-  .offer-and-new-giftcard-banner {
+  .offer-register-new-giftcard-banner {
     margin: unset;
     grid-template-columns: unset;
     grid-gap: unset;
   }
 
-  .offer-and-new-giftcard-banner-title {
+  .offer-register-new-giftcard-banner-title {
     margin: 0 1rem 3rem 1rem;
     h1 {
       font-size: 32px;
@@ -123,17 +123,17 @@
       margin-bottom: -2rem;
     }
   }
-  .offer-and-new-giftcard-search-container {
-    padding-top: 1.5rem;
-    padding-bottom: 4rem;
+  .offer-register-new-giftcard-search-container {
+    padding-top: 0;
+    padding-bottom: 1em;
   }
 }
 
 @media (min-width: 576px) and (max-width: 599px) {
-  .offer-and-new-giftcard {
+  .offer-register-new-giftcard {
     margin: 0rem;
   }
-  .offer-and-new-giftcard-banner-title {
+  .offer-register-new-giftcard-banner-title {
     margin: 0 0 2rem 13rem;
     h1 {
       margin-top: 2rem;
@@ -144,13 +144,13 @@
       font-size: 15px;
     }
   }
-  .offer-and-new-giftcard-banner-search-and-title {
+  .offer-register-new-giftcard-banner-search-and-title {
     position: relative;
     z-index: unset;
     left: unset;
     width: unset;
   }
-  .offer-and-new-giftcard-banner-title {
+  .offer-register-new-giftcard-banner-title {
     h1 {
       font-size: 33px;
     }
@@ -158,7 +158,7 @@
       font-size: 14px;
     }
   }
-  .offer-and-new-giftcard-banner-image {
+  .offer-register-new-giftcard-banner-image {
     position: absolute;
     z-index: 1;
     top: 7rem;
@@ -170,23 +170,22 @@
       width: 180px;
     }
   }
-  .offer-and-new-giftcard-banner {
+  .offer-register-new-giftcard-banner {
     grid-template-columns: 1fr;
     grid-gap: unset;
     margin: 1rem 1rem;
   }
-  .offer-and-new-giftcard-search-container {
+  .offer-register-new-giftcard-search-container {
     padding-top: 1.5rem;
     padding-bottom: 4rem;
   }
-
 }
 
 @media (min-width: 600px) and (max-width: 767px) {
-  .offer-and-new-giftcard {
+  .offer-register-new-giftcard {
     margin: 0rem;
   }
-  .offer-and-new-giftcard-banner-title {
+  .offer-register-new-giftcard-banner-title {
     margin: 0 0 3rem 16rem;
     h1 {
       margin-top: 2rem;
@@ -196,13 +195,13 @@
       font-size: 15px;
     }
   }
-  .offer-and-new-giftcard-banner-search-and-title {
+  .offer-register-new-giftcard-banner-search-and-title {
     position: relative;
     z-index: unset;
     left: unset;
     width: unset;
   }
-  .offer-and-new-giftcard-banner-title {
+  .offer-register-new-giftcard-banner-title {
     h1 {
       font-size: 33px;
     }
@@ -210,7 +209,7 @@
       font-size: 15px;
     }
   }
-  .offer-and-new-giftcard-banner-image {
+  .offer-register-new-giftcard-banner-image {
     position: absolute;
     z-index: 1;
     top: 7rem;
@@ -222,27 +221,27 @@
       width: 220px;
     }
   }
-  .offer-and-new-giftcard-banner {
+  .offer-register-new-giftcard-banner {
     grid-template-columns: 1fr;
     grid-gap: unset;
     margin: 1rem 3rem;
   }
-  .offer-and-new-giftcard-search-container {
-    padding-top: 1.5rem;
-    padding-bottom: 4rem;
+  .offer-register-new-giftcard-search-container {
+    padding-top: 0;
+    padding-bottom: 3rem;
   }
 }
 
 
 @media (min-width: 768px) and (max-width: 879px)  {
-  .offer-and-new-giftcard {
+  .offer-register-new-giftcard {
     margin: 2rem 0rem;
   }
-  .offer-and-new-giftcard-banner-search-and-title {
+  .offer-register-new-giftcard-banner-search-and-title {
     left: 1rem;
     width: 310px;
   }
-  .offer-and-new-giftcard-banner-title {
+  .offer-register-new-giftcard-banner-title {
     h1 {
       font-size: 35px;
     }
@@ -250,12 +249,12 @@
       font-size: 15px;
     }
   }
-  .offer-and-new-giftcard-banner {
+  .offer-register-new-giftcard-banner {
     grid-template-columns: 1fr 1.5fr;
     grid-gap: 1rem;
     margin: 1rem 0rem;
   }
-  .offer-and-new-giftcard-banner-image {
+  .offer-register-new-giftcard-banner-image {
     img {
       object-fit: cover;
       object-position: center;
@@ -268,17 +267,20 @@
   #new-giftcard-banner {
     grid-template-columns: 1fr 1fr;
   }
+  #add-my-giftcard-btn {
+    font-size: 14px;
+  }
 }
 
 @media (min-width: 880px) and (max-width: 991px)  {
-  .offer-and-new-giftcard {
+  .offer-register-new-giftcard {
     margin: 2rem 0rem;
   }
-  .offer-and-new-giftcard-banner-search-and-title {
+  .offer-register-new-giftcard-banner-search-and-title {
     left: 1rem;
     width: 305px;
   }
-  .offer-and-new-giftcard-banner-title {
+  .offer-register-new-giftcard-banner-title {
     h1 {
       font-size: 35px;
     }
@@ -292,25 +294,28 @@
   #new-giftcard-banner {
     grid-template-columns: 1fr 1fr;
   }
-  .offer-and-new-giftcard-banner-image {
+  .offer-register-new-giftcard-banner-image {
     img {
       height: 530px;
     }
   }
+  #add-my-giftcard-btn {
+    font-size: 14px;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1099px) {
-  .offer-and-new-giftcard {
+  .offer-register-new-giftcard {
     margin: 2rem 3rem;
   }
-  .offer-and-new-giftcard-banner {
+  .offer-register-new-giftcard-banner {
     grid-template-columns: 1fr 1.5fr;
   }
-  .offer-and-new-giftcard-banner-search-and-title {
+  .offer-register-new-giftcard-banner-search-and-title {
     left: 4rem;
     width: 360px;
   }
-  .offer-and-new-giftcard-banner-title {
+  .offer-register-new-giftcard-banner-title {
     h1 {
       font-size: 35px;
     }
@@ -324,21 +329,24 @@
   #new-giftcard-text-side {
     width: 440px;
   }
-  .offer-and-new-giftcard-banner-image {
+  .offer-register-new-giftcard-banner-image {
     img {
       height: 500px;
     }
   }
+  #add-my-giftcard-btn {
+    font-size: 14px;
+  }
 }
 
 @media (min-width: 1100px) and (max-width: 1249px) {
-  .offer-and-new-giftcard {
+  .offer-register-new-giftcard {
     margin: 2rem 4rem;
   }
-  .offer-and-new-giftcard-banner {
+  .offer-register-new-giftcard-banner {
     grid-template-columns: 1fr 1.5fr;
   }
-  .offer-and-new-giftcard-banner-search-and-title {
+  .offer-register-new-giftcard-banner-search-and-title {
     left: 5rem;
     width: 400px;
   }
@@ -348,7 +356,7 @@
   #new-giftcard-text-side {
     width: 460px;
   }
-  .offer-and-new-giftcard-banner-image {
+  .offer-register-new-giftcard-banner-image {
     img {
       height: 500px;
     }
@@ -356,11 +364,11 @@
 }
 
 
-@media (min-width: 1250px) and (max-width: 1400px) {
-  .offer-and-new-giftcard {
+@media (min-width: 1250px) {
+  .offer-register-new-giftcard {
     margin: 2rem 7rem;
   }
-  .offer-and-new-giftcard-banner-search-and-title {
+  .offer-register-new-giftcard-banner-search-and-title {
     left: 8rem;
     width: 365px;
   }

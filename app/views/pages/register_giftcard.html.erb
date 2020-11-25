@@ -4,15 +4,15 @@
     <div>
       <div class="offer-register-new-giftcard-banner-search-and-title">
         <div class="offer-register-new-giftcard-banner-title">
-          <h1>Faites plaisir à un proche, offrez-lui une carte cadeau !</h1>
-          <h2>La carte cadeau Jeu de Mains d'une valeur de 20 à 150 euros est valable 1 an à compter de la date d'achat sur tout le site jeudemains.com. <br>Avec sa carte cadeau votre proche pourra réserver un atelier couture, tricot, art floral, cosmétique, broderie, paper art, céramique, peinture, bijoux et plein d’autres encore !</h2>
+          <h1>J'ai reçu une carte cadeau !</h1>
+          <h2>Votre carte cadeau Jeu de Mains est valable 1 an à compter de la date d'achat sur tout le site jeudemains.com et utilisable en plusieurs fois. <br>Réservez un atelier couture, tricot, art floral, cosmétique, broderie, paper art, céramique, peinture, bijoux et plein d’autres encore !</h2>
         </div>
         <div class="offer-register-new-giftcard-search-container">
           <div class="offer-register-new-giftcard-search">
-            <%= simple_form_for :giftcard, url: new_giftcard_path, method: :get do |f| %>
+            <%= simple_form_for :giftcard, url: enregistrer_une_carte_cadeau_path, method: :get do |f| %>
               <div class="offer-register-new-giftcard-search-inputs-and-submit">
-                <%= f.input :amount, required: true, label: false, prompt: "Sélectionnez un montant", collection: [" 20 €", " 30 €", " 40 €", " 50 €", " 60 €", " 70 €", " 80 €", " 90 €", "100 €", "110 €", "120 €", "130 €", "140 €", "150 €"] %>
-                <%= f.submit "J'offre", class: "search-button" %>
+                <%= f.input :code, required: true, label: false, placeholder: "J'entre le code de ma carte cadeau" %>
+                <%= f.submit "Ajouter ma carte cadeau", class: "search-button", id:"add-my-giftcard-btn" %>
               </div>
             <% end %>
           </div>
@@ -26,8 +26,3 @@
 
   </div>
 </div>
-
-
-
-
-

@@ -271,4 +271,24 @@
       </div>
     <% end %>
   </div>
+  <div class="home-offer-giftcard-container">
+    <div class="home-offer-giftcard">
+      <div class="home-selection-text pl-2">
+        <div>
+          <h2>Faites plaisir à un proche<br></h2>
+          <h3>Offrez-lui une carte cadeau Jeu de Mains d'une valeur de 20 à 150 euros !</h3>
+        </div>
+        <div class="home-offer-giftcard-buttons">
+          <div>
+            <%= link_to "J'offre une carte cadeau", offrir_une_carte_cadeau_path, class: "home-offer-giftcard-btn", id: "home-offert-giftcard-button" %>
+          </div>
+          <div>
+            <%= link_to "J'ai reçu une carte cadeau", enregistrer_une_carte_cadeau_path, class: "home-offer-giftcard-btn" %>
+          </div>
+        </div>
+      </div>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1606127708/jeu-de-mains-carte-cadeau.jpg", :loading => "lazy", :width => 600, :crop => :fill, :alt => "jeu-de-mains-carte-cadeau", :title => "jeu-de-mains-carte-cadeau") %>
+    </div>
+  </div>
 </div>
+

@@ -1,0 +1,143 @@
+#add-new-giftcard-dashboard {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+
+#buy-new-giftcard-dashboard {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+
+#dashboard-my-giftcards-nav-and-tab {
+  line-height: 1.2;
+  .nav-link {
+    line-height: 1.5;
+  }
+  .tab-pane {
+    max-width: 500px;
+  }
+  h3 {
+    margin-top: 30px;
+    font-size: 15px;
+    color: $dark-blue;
+    margin-bottom: 20px;
+  }
+  .discover-ws-link {
+    text-decoration: none;
+    font-weight: 15px;
+    color: white;
+    background-color: $light-blue;
+    padding: 5px 10px;
+    outline: none;
+  }
+  .discover-ws-link:hover {
+    background-color: $green;
+  }
+  .giftcard-confirmation-simulation {
+    margin-top: 2rem;
+    margin-bottom: 10px;
+  }
+  .dashboard-legal-mention-giftcard {
+    font-size: 11px;
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+  .giftcard-activation-status {
+    padding-left: 25px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    .fa-circle {
+      font-size: 12px;
+    }
+  }
+  #giftcard-activated {
+    color: $flashy-green;
+  }
+  #giftcard-not-activated {
+    color: $flashy-red;
+  }
+    #giftcard-valid {
+    color: $flashy-green;
+  }
+  #giftcard-not-valid {
+    color: $flashy-red;
+  }
+}
+
+// RESPONSIVE DASHBOARD MY GIFTCARDS//
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  #dashboard-my-giftcards-nav-and-tab {
+    .nav {
+      display: grid;
+      justify-content: center;
+    }
+    .nav-link {
+      width: 100%;
+      padding: 6px 32px;
+    }
+    .tab-content {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .giftcard-simulation-information {
+      margin-left: 0;
+      padding-left: 0;
+    }
+    h3 {
+      font-size: 14px;
+    }
+    .dashboard-legal-mention-giftcard {
+      font-size: 12px;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+  #dashboard-my-giftcards-nav-and-tab {
+    .tab-content {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    h3 {
+      font-size: 14px;
+    }
+    .dashboard-legal-mention-giftcard {
+      font-size: 12px;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
+

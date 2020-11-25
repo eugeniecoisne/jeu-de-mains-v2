@@ -110,7 +110,18 @@ class PagesController < ApplicationController
   end
 
   def offer_giftcard
+  end
 
+  def register_giftcard
+    if params[:giftcard].present?
+      if params[:giftcard][:code].present?
+        @giftcard = Giftcard.find_by(code: params[:giftcard][:code])
+        @giftcard.update(user_id: current_user.id)
+        @giftcard.update(receiver: current_user.id)
+        @giftcard.save
+        redirect_to giftcard_confirmation_enregistrement_path(@giftcard)
+      end
+    end
   end
 
   def about

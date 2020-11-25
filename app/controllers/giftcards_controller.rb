@@ -19,25 +19,27 @@ class GiftcardsController < ApplicationController
     @giftcard = Giftcard.new(giftcard_params)
     authorize @giftcard
     @giftcard.user = current_user
-    @giftcard.code = "#{current_user.id}#{SecureRandom.urlsafe_base64(15)}"
+    @giftcard.code = "#{current_user.id}#{SecureRandom.hex(6)}"
     if @giftcard.save
       # envoi emails confirmation achat et PDF carte cadeau
       flash[:notice] = "Votre carte cadeau a bien été créée !"
-      redirect_to giftcard_path(@giftcard)
+      redirect_to giftcard_confirmation_achat_path(@giftcard)
     else
       render 'new'
     end
   end
 
   def update
-    @giftcard.update(giftcard_params)
-    if @giftcard.save
-      flash[:notice] = "Votre carte cadeau a bien été ajoutée !"
-      redirect_to tableau_de_bord_profile_path(current_user.profile)
-    else
-      flash[:alert] = "Votre carte cadeau n'a pas pu être ajoutée. Réessayez et contactez-nous si besoin."
-      redirect_to tableau_de_bord_profile_path(current_user.profile)
-    end
+  end
+
+  def confirmation_achat
+    @giftcard = Giftcard.find(params[:giftcard_id])
+    authorize @giftcard
+  end
+
+  def confirmation_enregistrement
+    @giftcard = Giftcard.find(params[:giftcard_id])
+    authorize @giftcard
   end
 
   private
