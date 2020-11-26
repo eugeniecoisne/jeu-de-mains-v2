@@ -1,29 +1,187 @@
-<h1>Mes cartes cadeaux</h1>
 
-<p>J'ai reçu une carte cadeau</p>
-<%= simple_form_for :giftcard, url: mes_cartes_cadeaux_profile_path(@profile), method: :get do |f| %>
-  <%= f.input :code, required: true, label: false, placeholder: "J'entre le code de ma carte cadeau" %>
-  <%= f.submit "Ajouter ma carte cadeau" %>
+<% if @profile.user == current_user %>
+
+  <!-- DASHBOARD - MY BOOKINGS -->
+
+  <% content_for :meta_title, "Jeu de Mains | Mes Cartes Cadeaux" %>
+
+  <div class="dashboard-title-container">
+    <h1>
+      Hello <span><%= @profile.user.first_name.capitalize %></span>,<br>retrouve ici tes cartes cadeaux offertes et reçues !
+    </h1>
+  </div>
+
+  <div class="dashboard-container">
+    <div class="dashboard-contact-us">
+      <%= link_to contact_path do %>
+        <i class="fas fa-question"></i>
+      <% end %>
+    </div>
+    <div class="dashboard-nav-and-tab" id="dashboard-my-giftcards-nav-and-tab">
+
+      <!-- NAV PILLS DESKTOP & TABLET -->
+
+      <div class="dashboard-nav-desktop-tablet">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a class="nav-link active" id="v-pills-received-giftcards-tab" data-toggle="pill" href="#v-pills-received-giftcards" role="tab" aria-controls="v-pills-received-giftcards" aria-selected="true">
+            Cartes cadeaux reçues
+          </a>
+          <a class="nav-link" id="v-pills-bought-giftcards-tab" data-toggle="pill" href="#v-pills-bought-giftcards" role="tab" aria-controls="v-pills-bought-giftcards" aria-selected="false">
+            Cartes cadeaux offertes
+          </a>
+        </div>
+      </div>
+
+      <!-- NAV PILLS MOBILE -->
+
+      <div class="dashboard-nav-mobile">
+        <div class="nav nav-pills" id="pills-tab" role="tablist">
+          <a class="nav-link active" id="v-pills-received-giftcards-tab" data-toggle="pill" href="#v-pills-received-giftcards" role="tab" aria-controls="v-pills-received-giftcards" aria-selected="true">
+            Cartes cadeaux reçues
+          </a>
+          <a class="nav-link" id="v-pills-bought-giftcards-tab" data-toggle="pill" href="#v-pills-bought-giftcards" role="tab" aria-controls="v-pills-bought-giftcards" aria-selected="false">
+            Cartes cadeaux offertes
+          </a>
+        </div>
+      </div>
+
+      <!-- NAV TABS -->
+
+      <div class="dashboard-tabs">
+        <div class="tab-content" id="pills-tabContent">
+
+          <!-- RECEIVED GIFTCARDS -->
+
+          <div class="tab-pane fade show active" id="v-pills-received-giftcards" role="tabpanel" aria-labelledby="v-pills-received-giftcards-tab">
+            <%= link_to enregistrer_une_carte_cadeau_path, id: "add-new-giftcard-dashboard" do %>
+              <i class="fas fa-plus mr-1"></i>
+              <span>J'ai reçu une nouvelle carte cadeau</span>
+            <% end %>
+            <h3>Retrouve ici les cartes cadeaux que tu as reçues et déjà enregistrées. Pour les utiliser, ça se passe à l'étape "paiement" d'une réservation ! Bonne découverte des ateliers Jeu de Mains !</h3>
+            <h4><%= link_to "Découvrir les ateliers", workshops_path, class: "discover-ws-link" %></h4>
+
+
+            <% @profile.user.giftcards.select { |giftcard| giftcard.buyer != current_user.id }.reverse.each do |giftcard| %>
+              <div class="giftcard-confirmation-simulation" loading="lazy">
+                <div class="giftcard-confirmation-simulation-row">
+                  <p>Offert par</p>
+                  <div class="giftcard-simulation-information">
+                    <%= giftcard.buyer_name %>
+                  </div>
+                </div>
+                <div class="giftcard-confirmation-simulation-row">
+                  <p>Pour</p>
+                  <div class="giftcard-simulation-information">
+                    <%= giftcard.receiver_name %>
+                  </div>
+                </div>
+                <div class="giftcard-confirmation-simulation-row">
+                  <p>Montant</p>
+                  <div class="giftcard-simulation-information">
+                    <%= giftcard.amount.to_i %> euros
+                  </div>
+                </div>
+                <div class="giftcard-confirmation-simulation-row">
+                  <p>Restant</p>
+                  <div class="giftcard-simulation-information">
+                    <%= giftcard.amount.to_i %> euros
+                  </div>
+                </div>
+                <div class="giftcard-confirmation-simulation-row">
+                  <p>Valable</p>
+                  <div class="giftcard-simulation-information">
+                    jusqu'au <%= (giftcard.created_at + 1.year - 1.day).strftime("%d/%m/%Y") %> à 23h59
+                  </div>
+                </div>
+                <div class="giftcard-confirmation-simulation-row">
+                  <p>N° Carte</p>
+                  <div class="giftcard-simulation-information">
+                    <%= giftcard.code %>
+                  </div>
+                </div>
+              </div>
+
+              <% if giftcard.created_at + 1.year > Date.today %>
+                <div class="giftcard-activation-status" id="giftcard-valid">
+                  <i class="fas fa-circle mr-2"></i>
+                  valide, <%= giftcard.amount %> euros disponibles
+                </div>
+              <% else %>
+                <div class="giftcard-activation-status" id="giftcard-not-valid">
+                  <i class="fas fa-circle mr-2"></i>
+                  date de validité dépassée
+                </div>
+              <% end %>
+
+              <span class="dashboard-legal-mention-giftcard"><em>La carte cadeau a une validité d'un an à partir de la date d'achat et est utilisable en plusieurs fois. La date limite de validité correspond à la date limite pour réserver et l'atelier peut tout à fait avoir lieu plus tard.</em></span>
+            <% end %>
+
+          </div>
+
+          <!-- BOUGHT GIFTCARDS -->
+
+          <div class="tab-pane fade" id="v-pills-bought-giftcards" role="tabpanel" aria-labelledby="v-pills-bought-giftcards-tab">
+
+            <%= link_to offrir_une_carte_cadeau_path, id: "buy-new-giftcard-dashboard" do %>
+              <i class="fas fa-plus mr-1"></i>
+              <span>J'offre une carte cadeau à un proche</span>
+            <% end %>
+
+            <h3>Retrouve ici les cartes cadeaux offertes à tes proches !</h3>
+
+
+            <% @giftcards.select { |giftcard| giftcard.buyer == current_user.id }.reverse.each do |giftcard| %>
+              <div class="giftcard-confirmation-simulation" loading="lazy">
+                <div class="giftcard-confirmation-simulation-row">
+                  <p>Offert par</p>
+                  <div class="giftcard-simulation-information">
+                    <%= giftcard.buyer_name %>
+                  </div>
+                </div>
+                <div class="giftcard-confirmation-simulation-row">
+                  <p>Pour</p>
+                  <div class="giftcard-simulation-information">
+                    <%= giftcard.receiver_name %>
+                  </div>
+                </div>
+                <div class="giftcard-confirmation-simulation-row">
+                  <p>Montant</p>
+                  <div class="giftcard-simulation-information">
+                    <%= giftcard.amount.to_i %> euros
+                  </div>
+                </div>
+                <div class="giftcard-confirmation-simulation-row">
+                  <p>Valable</p>
+                  <div class="giftcard-simulation-information">
+                    jusqu'au <%= (giftcard.created_at + 1.year - 1.day).strftime("%d/%m/%Y") %> à 23h59
+                  </div>
+                </div>
+                <div class="giftcard-confirmation-simulation-row">
+                  <p>N° Carte</p>
+                  <div class="giftcard-simulation-information">
+                    <%= giftcard.code %>
+                  </div>
+                </div>
+              </div>
+
+              <% if giftcard.receiver.present? %>
+                <div class="giftcard-activation-status" id="giftcard-activated">
+                  <i class="fas fa-circle mr-2"></i>
+                  activée par <%= giftcard.receiver_name %>
+                </div>
+              <% else %>
+                <div class="giftcard-activation-status" id="giftcard-not-activated">
+                  <i class="fas fa-circle mr-2"></i>
+                  en attente d'activation par <%= giftcard.receiver_name %>
+                </div>
+              <% end %>
+
+              <span class="dashboard-legal-mention-giftcard"><em>La carte cadeau a une validité d'un an à partir de la date d'achat et est utilisable en plusieurs fois. La date limite de validité correspond à la date limite pour réserver et l'atelier peut tout à fait avoir lieu plus tard.</em></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
 
-<ul>
-  <h2>Cartes cadeaux reçues</h2>
-  <% @profile.user.giftcards.select { |giftcard| giftcard.buyer != current_user.id }.each do |giftcard| %>
-    <li>Une carte de <%= giftcard.amount %> € offerte par <%= giftcard.buyer_name %>, valable jusqu'au <%= (giftcard.created_at + 1.year - 1.day).strftime("%d/%m/%Y") %> à 23h59</li>
-  <% end %>
-</ul>
-
-<ul>
-  <h2>Cartes cadeaux offertes</h2>
-  <% @giftcards.select { |giftcard| giftcard.buyer == current_user.id }.each do |giftcard| %>
-    <li>Une carte de <%= giftcard.amount %> € offerte à <%= giftcard.receiver_name %>, valable jusqu'au <%= (giftcard.created_at + 1.year - 1.day).strftime("%d/%m/%Y") %> à 23h59,
-      <% if giftcard.receiver.present? %>
-        activée par <%= giftcard.receiver_name %>
-      <% else %>
-        en attente d'activation par <%= giftcard.receiver_name %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-
-La carte cadeau a une validité d'un an pour réserver. L'atelier peut tout à fait avoir lieu plus tard tant qu'il a été réservé dans les temps.

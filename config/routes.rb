@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   root to: 'pages#home'
   get 'offrir-une-carte-cadeau', to: 'pages#offer_giftcard'
+  get 'enregistrer-une-carte-cadeau', to: 'pages#register_giftcard'
   get 'devenir-partenaire', to: 'pages#partners'
   get 'a-propos', to: 'pages#about'
   get 'contact', to: 'pages#contact'
@@ -84,6 +85,10 @@ Rails.application.routes.draw do
     resources :messages, only: :create
   end
 
-  resources :giftcards, :path => :carte_cadeau, :as => :giftcards, only: %i(new create update show)
+  resources :giftcards, :path => :carte_cadeau, :as => :giftcards, only: %i(new create update)
 
+  resources :giftcards, :path => :carte_cadeau, :as => :giftcards, only: %i() do
+    get 'confirmation_achat'
+    get 'confirmation_enregistrement'
+  end
 end
