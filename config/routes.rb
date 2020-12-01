@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self)
   get 'giftcards/new'
   get 'giftcards/create'
   get 'giftcards/update'
