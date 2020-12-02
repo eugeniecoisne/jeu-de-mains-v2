@@ -19,3 +19,68 @@ fr:
         many: Ateliers
         few : Ateliers
         other: Ateliers
+      user:
+        one: Utilisateur
+        many: Utilisateurs
+        few : Utilisateurs
+        other: Utilisateurs
+      profile:
+        one: Profil
+        many: Profils
+        few : Profils
+        other: Profils
+    attributes:
+      profile:
+        address: Adresse postale
+        zip_code: Code postal
+        city: Ville
+        phone_number: N° de téléphone
+        siret_number: SIRET
+        website: Site internet
+        company: Nom de l'entreprise
+        db_status: Statut db
+        role: Rôle
+        user: Utilisateur
+      place:
+        name: Nom du lieu
+        address: Adresse postale
+        zip_code: Code postal
+        city: Ville
+        phone_number: N° de téléphone
+        siret_number: SIRET
+        website: Site internet
+        db_status: Statut db
+        user: Utilisateur
+        ephemeral: Éphémère
+        email: E-mail du lieu
+        verified: Vérifié
+      workshop:
+        title: Titre
+        place: Lieu
+        thematic: Thématique
+        level: Niveau
+        duration: Durée
+        capacity: Capacité
+        price: Prix
+        program: Programme
+        final_product: Repartez avec
+        recommendable: Note JDM
+        verified: Vérifié
+        status: Statut
+        db_status: Statut db
+        created_at: Créé le
+        updated_at: Modifié le
+      user:
+        first_name: Prénom
+        last_name: Nom
+        email: E-mail
+        profile: Profil
+        db_status: Statut db
+        provider: Authentification
+        created_at: Créé le
+        updated_at: Modifié le
+        confirmed_at: Confirmé le
+
+
+
+

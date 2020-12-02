@@ -34,12 +34,61 @@
       border-color: white;
       background: unset;
     }
+    ul.tabs > li.has_nested > a {
+      padding: 6px 13px;
+      border-radius: 30px;
+      border: 1px solid transparent;
+      background: unset;
+    }
+    ul.tabs > li.has_nested > a:hover {
+      border-color: white;
+      background: unset;
+      color: white;
+    }
     ul.tabs > li.current > a {
       background: #FFF;
       color: #235B6A;
     }
+    ul.tabs > li ul {
+      background: unset;
+      border-top-right-radius: unset;
+      border-bottom-right-radius: unset;
+      border-bottom-left-radius: unset;
+      box-shadow: unset;
+      width: auto;
+      min-width: 100%;
+      max-width: unset;
+      margin-top: 2px;
+    }
+    ul.tabs > li ul > li {
+      background: #F2F2F2;
+      border: none;
+      box-shadow: unset;
+      border-radius: 30px;
+      margin-top: 5px;
+    }
+    ul.tabs > li ul > li:hover {
+      background: #FFF;
+      box-shadow: unset;
+      border-radius: 30px;
+      border: none;
+    }
+    ul.tabs > li ul > li > a {
+      color: #235B6A;
+    }
+    ul.tabs > li ul > li > a:hover {
+      color: #235B6A;
+    }
     #current_user {
       color: white;
+      font-weight: normal;
+    }
+    #current_user > a {
+      border: unset;
+    }
+    #current_user > a:hover {
+      border: unset;
+      font-weight: bolder;
     }
     #logout > a:hover {
       border-color: white;
