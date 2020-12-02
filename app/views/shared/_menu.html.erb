@@ -5,6 +5,16 @@
     <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer", :id => "menuClose") %>
     <ul class="list-group list-group-flush">
       <% if user_signed_in? %>
+        <% if current_user.admin %>
+          <li class="list-group-item">
+            <div class="list-item-menu">
+              <%= link_to admin_dashboard_path, class: "menu-blue-link" do %>
+                <i class="fas fa-tachometer-alt menu-icon menu-blue-icon mr-2"></i>
+                Portail admin
+              <% end %>
+            </div>
+          </li>
+        <% end %>
         <li class="list-group-item">
           <div class="list-item-menu">
             <%= link_to workshops_path, class: "menu-blue-link" do %>

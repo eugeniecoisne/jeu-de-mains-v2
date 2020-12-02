@@ -81,6 +81,6 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:last_name, :first_name, :address, :zip_code, :city, :phone_number, :company, :siret_number, :website, :instagram, :description, :photo)
+    params.require(:profile).permit(:address, :zip_code, :city, :phone_number, :company, :siret_number, :website, :instagram, :role, :description, :photo)
   end
 end

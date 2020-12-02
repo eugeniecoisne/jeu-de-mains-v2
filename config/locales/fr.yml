@@ -6,3 +6,16 @@ fr:
     next: "suivant"
     page_aria_label: "page"
     page_gap: "..."
+fr:
+  activerecord:
+    models:
+      place:
+        one: Lieu
+        many: Lieux
+        few : Lieux
+        other: Lieux
+      workshop:
+        one: Atelier
+        many: Ateliers
+        few : Ateliers
+        other: Ateliers

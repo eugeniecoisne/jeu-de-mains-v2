@@ -1,0 +1,77 @@
+// Sass variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Active Admin's got SASS!
+@import "active_admin/mixins";
+@import "active_admin/base";
+
+.active_admin {
+
+  font-size: 12.5px;
+
+  #header {
+    background-color: #52828D;
+    border-bottom: unset;
+    background-image: unset;
+    text-shadow: unset;
+    font-size: 13px;
+    font-weight: bolder;
+    a {
+      color: white;
+    }
+    ul.tabs > li > a {
+      padding: 6px 13px;
+      border-radius: 30px;
+      border: 1px solid #52828D;
+    }
+    ul.tabs > li > a:hover {
+      border-color: white;
+      background: unset;
+    }
+    ul.tabs > li.current > a {
+      background: #FFF;
+      color: #235B6A;
+    }
+    #current_user {
+      color: white;
+    }
+    #logout > a:hover {
+      border-color: white;
+    }
+  }
+
+  #title_bar {
+    background-color: #F2F2F2;
+    background-image: unset;
+    text-shadow: unset;
+    border: unset;
+    border-bottom: 1px solid #E5E5E5;
+    box-shadow: unset;
+    color: #235B6A;
+    h2 {
+      color: #235B6A;
+      font-size: 20px;
+    }
+  }
+
+  #active_admin_content #main_content_wrapper #main_content {
+    max-width: 1000px;
+  }
+  .paginated_collection {
+    max-width: 1000px;
+    overflow-x: scroll;
+  }
+
+}
+
+
+// Overriding any non-variable Sass must be done after the fact.
+// For example, to change the default status-tag color:
+//
+//   .status_tag { background: #6090DB; }
