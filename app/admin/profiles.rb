@@ -1,6 +1,7 @@
 ActiveAdmin.register Profile do
   menu parent: "Comptes"
-  actions :index, :show, :edit, :update
+  PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
+
 
   controller do
     def find_resource
@@ -31,14 +32,132 @@ ActiveAdmin.register Profile do
     column :address
     column :website
     column :instagram
-    column "Voir le profil", :slug do |profile|
+    column :photo do |profile|
+      if profile.photo.attached?
+        link_to "Lien photo", "#{cl_image_path profile.photo.key}", target: "_blank"
+      end
+    end
+    column "Profil animateur" do |profile|
       if profile.role == "animateur"
-        link_to "Lien", "#{profile_public_path(profile)}", target: "_blank"
+        link_to "Lien profil", "#{profile_public_path(profile)}", target: "_blank"
+      end
+    end
+    column "Nombre de lieux" do |profile|
+      profile.user.places.count
+    end
+    column "Lieu 1" do |profile|
+      if profile.user.places.present?
+        link_to "Lieu 1", "#{admin_place_path(profile.user.places[0])}"
+      end
+    end
+    column "Lieu 2" do |profile|
+      if profile.user.places.present? && profile.user.places.count > 1
+        link_to "Lieu 2", "#{admin_place_path(profile.user.places[1])}"
+      end
+    end
+    column "Lieu 3" do |profile|
+      if profile.user.places.present? && profile.user.places.count > 2
+        link_to "Lieu 3", "#{admin_place_path(profile.user.places[2])}"
+      end
+    end
+    column "Lieu 4" do |profile|
+      if profile.user.places.present? && profile.user.places.count > 3
+        link_to "Lieu 4", "#{admin_place_path(profile.user.places[3])}"
       end
     end
   end
 
-  PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
+  # CSV
+
+  csv do
+    column :id
+    column :db_status
+    column "Prénom" do |profile|
+      profile.user.first_name
+    end
+    column "Nom" do |profile|
+      profile.user.last_name
+    end
+    column :role
+    column :company
+    column :siret_number
+    column :description
+    column :city
+    column :zip_code
+    column :address
+    column :website
+    column :instagram
+    column :photo do |profile|
+      if profile.photo.attached?
+        cl_image_path profile.photo.key
+      end
+    end
+    column "Nombre de lieux" do |profile|
+      profile.user.places.count
+    end
+    column "Lieu 1" do |profile|
+      if profile.user.places.present?
+        profile.user.places[0].name
+      end
+    end
+    column "Lieu 2" do |profile|
+      if profile.user.places.present? && profile.user.places.count > 1
+        profile.user.places[1].name
+      end
+    end
+    column "Lieu 3" do |profile|
+      if profile.user.places.present? && profile.user.places.count > 2
+        profile.user.places[2].name
+      end
+    end
+    column "Lieu 4" do |profile|
+      if profile.user.places.present? && profile.user.places.count > 3
+        profile.user.places[3].name
+      end
+    end
+  end
+
+  show do |profile|
+    attributes_table do
+      row "Photo", :photo do |profile|
+        if profile.photo.attached?
+          cl_image_tag profile.photo.key, width: 100, height: 100
+        end
+      end
+      row :company
+      row :role
+      row :user
+      row :address
+      row :zip_code
+      row :city
+      row :phone_number
+      row :siret_number
+      row :website
+      row :instagram
+      row :description
+      row :db_status
+      row :created_at
+      row :updated_at
+      row :slug
+      row "Nombre de lieux" do |profile|
+        profile.user.places.count
+      end
+    end
+
+    if profile.user.places.present?
+      panel "Lieux" do
+        table_for profile.user.places do
+          column :name
+          column "Page lieu BO", :slug do |place|
+            link_to "Lien lieu BO", "#{admin_place_path(place)}"
+          end
+          column "Page lieu site", :slug do |place|
+            link_to "Lien lieu site", "#{place_path(place)}"
+          end
+        end
+      end
+    end
+  end
 
   form do |f|
     f.inputs "Utilisateur, nom d'entreprise et rôle" do
