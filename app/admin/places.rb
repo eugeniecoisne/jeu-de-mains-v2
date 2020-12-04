@@ -1,6 +1,8 @@
 ActiveAdmin.register Place do
   remove_filter :slug, :photo_attachment, :photo_blob, :latitude, :longitude
   preserve_default_filters!
+  PLACE_USERS = User.all.select { |u| u.profile.company.present? == true }.map { |u| [u.profile.company, u.id] }.to_h
+
 
   controller do
     def find_resource
@@ -41,8 +43,6 @@ ActiveAdmin.register Place do
       link_to "Lien photo", "#{cl_image_path place.photo.key}", target: "_blank"
     end
   end
-
-  PLACE_USERS = User.all.select { |u| u.profile.company.present? == true }.map { |u| [u.profile.company, u.id] }.to_h
 
   form do |f|
     f.inputs "Propriétaire et nom du lieu" do
