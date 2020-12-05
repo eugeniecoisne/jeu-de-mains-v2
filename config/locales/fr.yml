@@ -29,6 +29,17 @@ fr:
         many: Profils
         few : Profils
         other: Profils
+      booking:
+        one: Réservation
+        many: Réservations
+        few : Réservations
+        other: Réservations
+      review:
+        one: Avis
+        many: Avis
+        few : Avis
+        other: Avis
+
     attributes:
       profile:
         address: Adresse postale
@@ -41,6 +52,8 @@ fr:
         db_status: Statut db
         role: Rôle
         user: Utilisateur
+        created_at: Créé le
+        updated_at: Modifié le
       place:
         name: Nom du lieu
         address: Adresse postale
@@ -54,6 +67,8 @@ fr:
         ephemeral: Éphémère
         email: E-mail du lieu
         verified: Vérifié
+        created_at: Créé le
+        updated_at: Modifié le
       workshop:
         title: Titre
         place: Lieu
@@ -64,7 +79,8 @@ fr:
         price: Prix
         program: Programme
         final_product: Repartez avec
-        recommendable: Note JDM
+        rating: Note publique
+        recommendable: Recommandation
         verified: Vérifié
         status: Statut
         db_status: Statut db
@@ -80,7 +96,36 @@ fr:
         created_at: Créé le
         updated_at: Modifié le
         confirmed_at: Confirmé le
-
+      session:
+        date: Date de session
+        start_at: Commence à
+        capacity: Capacité
+        workshop: Atelier
+        workshop_id: ID Atelier
+        db_status: Statut db
+        reason: Raison d'annulation
+        created_at: Créé le
+        updated_at: Modifié le
+      booking:
+        quantity: Quantité
+        status: Statut
+        amount: Montant
+        user_id: ID Acheteur
+        user: Acheteur
+        workshop: Atelier
+        db_status: Statut db
+        session_id: ID Session
+        created_at: Créé le
+        updated_at: Modifié le
+      review:
+        content: Contenu de l'avis
+        rating: Note
+        user_id: ID Auteur
+        user: Auteur
+        booking_id: ID Réservation
+        db_status: Statut db
+        created_at: Créé le
+        updated_at: Modifié le
 
 
 

@@ -121,7 +121,7 @@ ActiveAdmin.register Profile do
     attributes_table do
       row "Photo", :photo do |profile|
         if profile.photo.attached?
-          cl_image_tag profile.photo.key, width: 100, height: 100
+          cl_image_tag profile.photo.key, width: 100, height: 100, crop: :fill
         end
       end
       row :company
