@@ -4,8 +4,6 @@
 @import "config/bootstrap_variables";
 
 // External libraries part 1
-@import "font-awesome-sprockets";
-@import "font-awesome";
 @import "bootstrap/scss/bootstrap";
 
 // Your CSS partials
@@ -13,6 +11,8 @@
 @import "pages/index";
 
 // External libraries part 2
+@import "font-awesome-sprockets";
+@import "font-awesome";
 @import "flatpickr/dist/flatpickr";
 @import 'mapbox-gl/dist/mapbox-gl';
 @import "jquery-bar-rating/dist/themes/css-stars";

@@ -9,7 +9,7 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 Rails.application.config.public_file_server.headers = {
-  'Cache-Control' => "public, max-age=86400"
+  'Cache-Control' => "public, max-age=2592000"
 }
 
 # Precompile additional assets.
