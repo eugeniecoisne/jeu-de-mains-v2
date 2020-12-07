@@ -13,10 +13,10 @@
         <div class="home-search-inputs-and-submit">
           <%= f.input :keyword, required: false, label: "Type d'atelier", prompt: "Tous types", collection: Workshop::THEMATICS %>
           <%= f.input :place, required: false, label: "Lieu", prompt: "Toutes les villes", collection: Place.cities_and_districts  %>
-          <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date"}, placeholder: "À tout moment", label: "À partir du" %>
-          <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
+          <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date", tabindex: "0", label: "Datepicker Start Date"}, placeholder: "À tout moment", label: "À partir du" %>
+          <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker", tabindex: "0", label: "Datepicker End Date"}, placeholder: "À tout moment", label: "Jusqu'au" %>
           <%= f.hidden_field :order, value: "Recommandation" %>
-          <button type="submit" class="search-button">
+          <button type="submit" class="search-button" aria-label="Search Workshops">
             <i class="fas fa-search"></i>
           </button>
         </div>
@@ -69,7 +69,7 @@
         <div class="home-ws-cards home-ws-cards-best-ratings" id="home-ws-cards-best-ratings">
           <% @best_workshops.first(6).each do |workshop| %>
             <div class="ws-card" id="home-ws-card">
-              <%= link_to(workshop, data: { turbolinks: false }) do  %>
+              <%= link_to(workshop, data: { turbolinks: false }, label: "#{workshop.title}") do  %>
                 <div class="ws-card-image-and-rating" id="home-ws-card-image-and-rating">
                   <div class="ws-card-tags" id="home-ws-card-tags">
                     <% if workshop.rating %>
@@ -90,7 +90,7 @@
                   <%= render "workshops/ws-index-carousel", workshop: workshop %>
                 </div>
               <% end %>
-              <%= link_to(workshop, data: { turbolinks: false }) do  %>
+              <%= link_to(workshop, data: { turbolinks: false }, label: "#{workshop.title}") do  %>
                 <div class="ws-card-infos" id="home-ws-card-infos">
                   <div>
                     <div class="ws-card-place" id="home-ws-card-place-desktop">
@@ -212,7 +212,7 @@
         <div class="home-ws-cards home-ws-cards-last-minute">
           <% @last_minute.first(6).each do |session| %>
               <div class="ws-card" id="home-ws-card">
-                <%= link_to(session.workshop, data: { turbolinks: false }) do  %>
+                <%= link_to(session.workshop, data: { turbolinks: false }, label: "#{session.workshop.title}") do  %>
                   <div class="ws-card-image-and-rating" id="home-ws-card-image-and-rating">
                     <div class="ws-card-tags" id="home-ws-card-tags-last-minute">
                       <div class="ws-card-tag ws-card-last-minute-tickets" id="home-ws-card-tickets">
@@ -225,7 +225,7 @@
                     <%= render "workshops/ws-index-carousel", workshop: session.workshop %>
                   </div>
                 <% end %>
-                <%= link_to(session.workshop, data: { turbolinks: false }) do  %>
+                <%= link_to(session.workshop, data: { turbolinks: false }, label: "#{session.workshop.title}") do  %>
                   <div class="ws-card-infos" id="home-ws-card-infos">
                     <div>
                       <div class="ws-card-place" id="home-ws-card-place-desktop">
