@@ -3,14 +3,17 @@
 @import "config/colors";
 @import "config/bootstrap_variables";
 
-// External libraries
+// External libraries part 1
+@import "font-awesome-sprockets";
+@import "font-awesome";
 @import "bootstrap/scss/bootstrap";
-// @import "font-awesome-sprockets";
-// @import "font-awesome";
-@import "flatpickr/dist/flatpickr";
-@import 'mapbox-gl/dist/mapbox-gl';
-@import "jquery-bar-rating/dist/themes/css-stars";
 
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+// External libraries part 2
+@import "flatpickr/dist/flatpickr";
+@import 'mapbox-gl/dist/mapbox-gl';
+@import "jquery-bar-rating/dist/themes/css-stars";
+

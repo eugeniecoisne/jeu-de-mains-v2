@@ -13,8 +13,8 @@
         <div class="home-search-inputs-and-submit">
           <%= f.input :keyword, required: false, label: "Type d'atelier", prompt: "Tous types", collection: Workshop::THEMATICS %>
           <%= f.input :place, required: false, label: "Lieu", prompt: "Toutes les villes", collection: Place.cities_and_districts  %>
-          <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date", tabindex: "0", label: "Datepicker Start Date"}, placeholder: "À tout moment", label: "À partir du" %>
-          <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker", tabindex: "0", label: "Datepicker End Date"}, placeholder: "À tout moment", label: "Jusqu'au" %>
+          <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date", tabindex: "0"}, for: "datepicker_start_date",tabindex: "0", placeholder: "À tout moment", label: "À partir du" %>
+          <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker", tabindex: "0"}, for: "datepicker_end_date",tabindex: "0", placeholder: "À tout moment", label: "Jusqu'au" %>
           <%= f.hidden_field :order, value: "Recommandation" %>
           <button type="submit" class="search-button" aria-label="Search Workshops">
             <i class="fas fa-search"></i>
@@ -69,7 +69,7 @@
         <div class="home-ws-cards home-ws-cards-best-ratings" id="home-ws-cards-best-ratings">
           <% @best_workshops.first(6).each do |workshop| %>
             <div class="ws-card" id="home-ws-card">
-              <%= link_to(workshop, data: { turbolinks: false }, label: "#{workshop.title}") do  %>
+              <%= link_to(workshop, data: { turbolinks: false }, title: "#{workshop.title}") do  %>
                 <div class="ws-card-image-and-rating" id="home-ws-card-image-and-rating">
                   <div class="ws-card-tags" id="home-ws-card-tags">
                     <% if workshop.rating %>
@@ -90,7 +90,7 @@
                   <%= render "workshops/ws-index-carousel", workshop: workshop %>
                 </div>
               <% end %>
-              <%= link_to(workshop, data: { turbolinks: false }, label: "#{workshop.title}") do  %>
+              <%= link_to(workshop, data: { turbolinks: false }, title: "#{workshop.title}") do  %>
                 <div class="ws-card-infos" id="home-ws-card-infos">
                   <div>
                     <div class="ws-card-place" id="home-ws-card-place-desktop">
@@ -141,7 +141,7 @@
 
   <div class="home-selection-cards">
     <div class="home-selection-card" id="home-selection-first">
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593179636/jeu-de-mains-selection-estivale.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-selection-estivale", :title => "jeu-de-mains-selection-estivale") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_500/v1593179636/jeu-de-mains-selection-estivale.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-selection-estivale", :title => "jeu-de-mains-selection-estivale") %>
       <div class="home-selection-text">
         <div>
           <h2>Ça sent bon l’été</h2>
@@ -157,7 +157,7 @@
     </div>
 
     <div class="home-selection-card" id="home-selection-second">
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593179634/jeu-de-mains-selection-masque.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-selection-masque", :title => "jeu-de-mains-selection-masque") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_500/v1593179634/jeu-de-mains-selection-masque.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-selection-masque", :title => "jeu-de-mains-selection-masque") %>
       <div class="home-selection-text">
         <div>
           <h2>Bal masqué</h2>
@@ -175,7 +175,7 @@
     <!-- THEMATICS SELECTION -->
 
     <div class="home-selection-card" id="home-thematic-first">
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-vegetal.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-vegetal", :title => "jeu-de-mains-ateliers-vegetal") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_500/v1603214470/jeu-de-mains-vegetal.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-vegetal", :title => "jeu-de-mains-ateliers-vegetal") %>
       <div class="home-selection-text">
         <div>
           <h2>La belle nature</h2>
@@ -188,7 +188,7 @@
     </div>
 
     <div class="home-selection-card" id="home-thematic-second">
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603214469/jeu-de-mains-cosmetique-entretien.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-cosmetique-entretien", :title => "jeu-de-mains-ateliers-cosmetique-entretien") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_500/v1603214469/jeu-de-mains-cosmetique-entretien.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-cosmetique-entretien", :title => "jeu-de-mains-ateliers-cosmetique-entretien") %>
       <div class="home-selection-text">
         <div>
           <h2>Je prends soin de moi</h2>
@@ -212,7 +212,7 @@
         <div class="home-ws-cards home-ws-cards-last-minute">
           <% @last_minute.first(6).each do |session| %>
               <div class="ws-card" id="home-ws-card">
-                <%= link_to(session.workshop, data: { turbolinks: false }, label: "#{session.workshop.title}") do  %>
+                <%= link_to(session.workshop, data: { turbolinks: false }, title: "#{session.workshop.title}") do  %>
                   <div class="ws-card-image-and-rating" id="home-ws-card-image-and-rating">
                     <div class="ws-card-tags" id="home-ws-card-tags-last-minute">
                       <div class="ws-card-tag ws-card-last-minute-tickets" id="home-ws-card-tickets">
@@ -225,7 +225,7 @@
                     <%= render "workshops/ws-index-carousel", workshop: session.workshop %>
                   </div>
                 <% end %>
-                <%= link_to(session.workshop, data: { turbolinks: false }, label: "#{session.workshop.title}") do  %>
+                <%= link_to(session.workshop, data: { turbolinks: false }, title: "#{session.workshop.title}") do  %>
                   <div class="ws-card-infos" id="home-ws-card-infos">
                     <div>
                       <div class="ws-card-place" id="home-ws-card-place-desktop">
@@ -287,7 +287,7 @@
           </div>
         </div>
       </div>
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1606127708/jeu-de-mains-carte-cadeau.jpg", :loading => "lazy", :width => 600, :crop => :fill, :alt => "jeu-de-mains-carte-cadeau", :title => "jeu-de-mains-carte-cadeau") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_800/v1606127708/jeu-de-mains-carte-cadeau.jpg", :loading => "lazy", :width => 600, :crop => :fill, :alt => "jeu-de-mains-carte-cadeau", :title => "jeu-de-mains-carte-cadeau") %>
     </div>
   </div>
 </div>
