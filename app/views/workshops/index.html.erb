@@ -585,7 +585,7 @@
         <% all_workshops.each do |workshop| %>
 
           <div class="ws-card" id="index-ws-card">
-            <%= link_to(workshop, data: { turbolinks: false }) do  %>
+            <%= link_to(workshop, data: { turbolinks: false }, title: "#{workshop.title}") do  %>
               <div class="ws-card-image-and-rating" id="index-ws-card-image-and-rating">
                 <div class="ws-card-tags" id="index-ws-card-tags">
                   <% if workshop.rating %>
@@ -606,7 +606,7 @@
                 <%= render "ws-index-carousel", workshop: workshop %>
               </div>
             <% end %>
-            <%= link_to(workshop, data: { turbolinks: false }) do  %>
+            <%= link_to(workshop, data: { turbolinks: false }, title: "#{workshop.title}") do  %>
               <div class="ws-card-infos" id="index-ws-card-infos">
                 <div>
                   <div class="ws-card-place" id="index-ws-card-place-desktop">
