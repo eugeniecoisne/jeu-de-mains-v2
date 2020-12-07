@@ -19,7 +19,7 @@ ActiveAdmin.register Profile do
     column :id
     column :db_status
     column :user do |profile|
-      link_to "#{profile.user.first_name} #{profile.user.last_name}", "#{admin_user_path(profile.user)}"
+      link_to "#{profile.user.fullname}", "#{admin_user_path(profile.user)}"
     end
     column :role
     column :company
@@ -117,7 +117,7 @@ ActiveAdmin.register Profile do
     end
   end
 
-  show do |profile|
+  show :title => :company do
     attributes_table do
       row "Photo", :photo do |profile|
         if profile.photo.attached?
@@ -126,7 +126,9 @@ ActiveAdmin.register Profile do
       end
       row :company
       row :role
-      row :user
+      row :user do |profile|
+        link_to profile.user.fullname, "#{admin_user_path(profile.user)}"
+      end
       row :address
       row :zip_code
       row :city
@@ -147,13 +149,15 @@ ActiveAdmin.register Profile do
     if profile.user.places.present?
       panel "Lieux" do
         table_for profile.user.places do
-          column :name
-          column "Page lieu BO", :slug do |place|
-            link_to "Lien lieu BO", "#{admin_place_path(place)}"
+          column :name do |place|
+            link_to place.name, "#{admin_place_path(place)}"
           end
-          column "Page lieu site", :slug do |place|
-            link_to "Lien lieu site", "#{place_path(place)}"
+          column :created_at do |place|
+            place.created_at.strftime('%d/%m/%Y')
           end
+          column :city
+          column :db_status
+          column :verified
         end
       end
     end

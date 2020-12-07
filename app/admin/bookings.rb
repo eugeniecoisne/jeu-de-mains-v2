@@ -3,43 +3,39 @@ ActiveAdmin.register Booking do
   permit_params :quantity, :status, :amount, :user_id, :user, :session_id, :session, :db_status, :workshop
 
 
-  def scoped_collection
-    super.includes :workshop # prevents N+1 queries to your database
-  end
-
   index do
     selectable_column
     actions
     column :id
     column :status
     column :db_status
-    column :user_id
-    column :workshop
-    column "Nom" do |booking|
-      booking.user.last_name
-    end
-    column "Prénom" do |booking|
-      booking.user.first_name
-    end
-    column :created_at
-    column :updated_at
-    column :quantity
-    column :amount
-    column :session_id
-    column "Date de l'atelier" do |booking|
-      booking.session.date.strftime('%d/%m/%y')
-    end
     column "Atelier" do |booking|
-      link_to "#{booking.session.workshop.title}", "#{admin_workshop_path(booking.session.workshop.title)}"
+      link_to "#{booking.session.workshop.title}", "#{admin_workshop_path(booking.session.workshop)}"
     end
     column "Organisateur" do |booking|
-      booking.session.workshop.place.user.profile.company
+      link_to booking.session.workshop.place.user.profile.company, "#{admin_profile_path(booking.session.workshop.place.user.profile)}"
     end
-    column "Ville" do |booking|
+    column :session do |booking|
+      link_to "#{booking.session.date.strftime('%d/%m/%y')} à #{booking.session.start_at}", "#{admin_session_path(booking.session)}"
+    end
+    column "Acheteur" do |booking|
+      link_to booking.user.fullname, "#{admin_user_path(booking.user)}"
+    end
+    column :quantity
+    column :amount
+    column :created_at
+    column :updated_at
+    column "Ville Atelier" do |booking|
       booking.session.workshop.place.city
     end
-    column "Code Postal" do |booking|
+    column "Code Postal Atelier" do |booking|
       booking.session.workshop.place.zip_code
+    end
+    column "Avis posté ?" do |booking|
+      booking.reviews.present? ? true : false
+    end
+    column "Note donnée /5" do |booking|
+      booking.reviews.last.rating if booking.reviews.present?
     end
   end
 

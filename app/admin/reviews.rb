@@ -2,7 +2,7 @@ ActiveAdmin.register Review do
 
   permit_params :content, :rating, :user_id, :booking_id, :db_status
   REVIEW_USERS = User.all.select { |u| u.profile.company.present? == false }.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
-  REVIEW_BOOKINGS = Booking.all.where(db_status: true).select { |b| b.reviews.present? == false }.map { |b| ["Réservation n° #{b.id} du #{b.created_at} de #{b.user.first_name} #{b.user.last_name}", b.id] }.to_h
+  REVIEW_BOOKINGS = Booking.all.where(db_status: true).select { |b| b.reviews.present? == false }.map { |b| ["Réservation n° #{b.id} du #{b.created_at} de #{b.user.fullname}", b.id] }.to_h
 
   index do
     selectable_column
@@ -91,7 +91,7 @@ ActiveAdmin.register Review do
       row :content
       row :rating
       row :user do |review|
-        link_to "#{review.user.id} - #{review.user.first_name} #{review.user.last_name}", "#{admin_user_path(review.user)}"
+        link_to "#{review.user.id} - #{review.user.fullname}", "#{admin_user_path(review.user)}"
       end
       row :created_at
       row :updated_at

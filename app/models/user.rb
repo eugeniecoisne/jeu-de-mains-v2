@@ -25,6 +25,10 @@ class User < ApplicationRecord
       user
   end
 
+  def fullname
+    "#{last_name.upcase} #{first_name}"
+  end
+
   private
 
   def send_welcome_email
