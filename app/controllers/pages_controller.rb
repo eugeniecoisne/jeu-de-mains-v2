@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   def home
     dates = (Date.today..Date.today + 1.year).to_a
     @best_workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |w| w.dates.any? { |date| dates.include?(date) } && w.sessions.count > 0 && w.rating.present? }.sort_by { |w| w.rating }.reverse
+    expires_in 12.hours
     @last_minute = []
     Session.all.where(db_status: true).each do |session|
       if session.workshop.db_status == true && session.workshop.status == "en ligne"
@@ -13,6 +14,7 @@ class PagesController < ApplicationController
       end
     end
     @last_minute = @last_minute.sort_by { |session| session.date }
+    expires_in 12.hours
   end
 
   def autour_du_fil
