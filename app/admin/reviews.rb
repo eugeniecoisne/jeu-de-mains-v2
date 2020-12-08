@@ -1,5 +1,4 @@
 ActiveAdmin.register Review do
-
   permit_params :content, :rating, :user_id, :booking_id, :db_status
   REVIEW_USERS = User.all.select { |u| u.profile.company.present? == false }.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
   REVIEW_BOOKINGS = Booking.all.where(db_status: true).select { |b| b.reviews.present? == false }.map { |b| ["Réservation n° #{b.id} du #{b.created_at} de #{b.user.fullname}", b.id] }.to_h
@@ -9,12 +8,9 @@ ActiveAdmin.register Review do
     actions
     column :id
     column :db_status
-    column :user_id
-    column "Nom" do |review|
-      review.booking.user.last_name
-    end
-    column "Prénom" do |review|
-      review.booking.user.first_name
+    column :created_at
+    column "Auteur" do |review|
+      link_to review.booking.user.fullname, "#{admin_user_path(review.booking.user)}"
     end
     column :rating
     column :content
@@ -22,13 +18,14 @@ ActiveAdmin.register Review do
     column "Atelier" do |review|
       link_to "#{review.booking.session.workshop.title}", "#{admin_workshop_path(review.booking.session.workshop)}"
     end
-    column :created_at
-    column :updated_at
     column "Session" do |review|
-      link_to "#{review.booking.session.date.strftime('%d/%m/%y')}", "#{admin_session_path(review.booking.session)}"
+      link_to "#{review.booking.session.date.strftime('%d/%m/%y')} à #{review.booking.session.start_at}", "#{admin_session_path(review.booking.session)}"
+    end
+    column "Lieu" do |review|
+      link_to "#{review.booking.session.workshop.place.name}", "#{admin_place_path(review.booking.session.workshop.place)}"
     end
     column "Organisateur" do |review|
-      review.booking.session.workshop.place.user.profile.company
+      link_to review.booking.session.workshop.place.user.profile.company, "#{admin_profile_path(review.booking.session.workshop.place.user.profile)}"
     end
     column "Ville" do |review|
       review.booking.session.workshop.place.city
@@ -36,11 +33,13 @@ ActiveAdmin.register Review do
     column "Code Postal" do |review|
       review.booking.session.workshop.place.zip_code
     end
+    column :updated_at
   end
 
   csv do
     column :id
     column :db_status
+    column :created_at
     column :user_id
     column "Nom" do |review|
       review.booking.user.last_name
@@ -54,13 +53,14 @@ ActiveAdmin.register Review do
     column "Atelier" do |review|
       review.booking.session.workshop.title
     end
-    column :created_at
-    column :updated_at
     column "Date de session" do |review|
       review.booking.session.date.strftime('%d/%m/%y')
     end
     column "Heure de session" do |review|
       review.booking.session.start_at
+    end
+    column "Lieu" do |review|
+      review.booking.session.workshop.place.name
     end
     column "Organisateur" do |review|
       review.booking.session.workshop.place.user.profile.company
@@ -71,6 +71,7 @@ ActiveAdmin.register Review do
     column "Code Postal" do |review|
       review.booking.session.workshop.place.zip_code
     end
+    column :updated_at
   end
 
   show do |review|

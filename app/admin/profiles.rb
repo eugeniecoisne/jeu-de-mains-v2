@@ -1,5 +1,5 @@
 ActiveAdmin.register Profile do
-  menu parent: "Comptes"
+  menu parent: "Fiches"
   PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
 
@@ -159,6 +159,68 @@ ActiveAdmin.register Profile do
           column :db_status
           column :verified
         end
+      end
+    end
+
+    if profile.user.animators.present?
+      panel "Ateliers animés" do
+        table_for profile.user.animators do
+          column "ID Atelier" do |animator|
+            animator.workshop.id
+          end
+          column "Atelier" do |animator|
+            link_to animator.workshop.title, "#{admin_workshop_path(animator.workshop)}"
+          end
+          column "Lieu" do |animator|
+            link_to animator.workshop.place.name, "#{admin_place_path(animator.workshop.place)}"
+          end
+          column "Ville" do |animator|
+            animator.workshop.place.city
+          end
+
+          column "Créé le" do |animator|
+            animator.workshop.created_at.strftime("%d/%m/%Y")
+          end
+          column "Éphémère ?" do |animator|
+            animator.workshop.place.ephemeral
+          end
+          column "Nb sessions en ligne" do |animator|
+            animator.workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
+          end
+          column "Participants reçus" do |animator|
+            participants = 0
+            Session.all.select { |s| s.workshop == animator.workshop && s.date < Date.today }.each { |s| participants += s.sold }
+            participants
+          end
+          column "Statut" do |animator|
+            animator.workshop.status
+          end
+          column "Statut DB" do |animator|
+            animator.workshop.db_status
+          end
+        end
+      end
+    end
+
+    PROFILE_REVIEWS = Review.all.where(db_status: true).select { |r| r.booking.session.workshop.animators.where(db_status: true).last.user.profile == profile }.sort_by { |r| r.created_at }
+
+    if profile.user.animators.present?
+      panel "Avis animateur" do
+        table_for PROFILE_REVIEWS do
+          column "Avis" do |review|
+            link_to "Avis ##{review.id}", "#{admin_review_path(review)}"
+          end
+          column :rating
+          column "Contenu" do |review|
+            review.content[0..40]...
+          end
+          column "Auteur" do |review|
+            link_to "#{review.user.fullname}", "#{admin_user_path(review.user)}"
+          end
+          column :created_at
+          column :db_status
+        end
+
       end
     end
   end

@@ -1,6 +1,12 @@
 ActiveAdmin.register Workshop do
+  menu parent: "Fiches"
   remove_filter :slug, :photos_attachments, :photos_blobs
   permit_params :title, :thematic, :level, :duration, :capacity, :price, :program, :final_product, :recommendable, :verified, :status, :db_status, :slug, :place, :place_id, photos:[]
+
+  action_item "Ajouter un animateur" do
+    link_to("Ajouter un animateur", new_admin_animator_path, class: :button)
+  end
+
   # find record with slug(friendly_id)
   controller do
     def find_resource
@@ -22,7 +28,17 @@ ActiveAdmin.register Workshop do
     column :title
     column :thematic
     column :place do |workshop|
-     link_to "#{workshop.place.name}", "#{admin_place_path(workshop.place)}"
+      link_to workshop.place.name, "#{admin_place_path(workshop.place)}"
+    end
+    column "Animateur" do |workshop|
+      if workshop.animators.where(db_status: true).present?
+        link_to workshop.animators.where(db_status: true).last.user.profile.company, "#{admin_profile_path(workshop.animators.where(db_status: true).last.user.profile)}"
+      end
+    end
+    column "ID Animation" do |workshop|
+      if workshop.animators.where(db_status: true).present?
+        link_to workshop.animators.where(db_status: true).last.id, "#{admin_animator_path(workshop.animators.where(db_status: true).last)}"
+      end
     end
     column "Ville" do |workshop|
       workshop.place.city
@@ -116,6 +132,16 @@ ActiveAdmin.register Workshop do
     column "Ville" do |workshop|
       workshop.place.city
     end
+    column "Animateur" do |workshop|
+      if workshop.animators.where(db_status: true).present?
+        workshop.animators.where(db_status: true).last.user.profile.company
+      end
+    end
+    column "ID Animation" do |workshop|
+      if workshop.animators.where(db_status: true).present?
+        workshop.animators.where(db_status: true).last.id
+      end
+    end
     column :level
     column :duration
     column :capacity
@@ -178,6 +204,7 @@ ActiveAdmin.register Workshop do
           cl_image_tag workshop.photos[0].key, width: 100, height: 100, crop: :fill
         end
       end
+      row :id
       row :title
       row :place
       row "Auteur" do |workshop|
@@ -185,6 +212,16 @@ ActiveAdmin.register Workshop do
       end
       row "Ville" do |workshop|
         workshop.place.city
+      end
+      row "Animateur" do |workshop|
+        if workshop.animators.where(db_status: true).present?
+          link_to workshop.animators.where(db_status: true).last.user.profile.company, "#{admin_profile_path(workshop.animators.where(db_status: true).last.user.profile)}"
+        end
+      end
+      row "ID Animation" do |workshop|
+        if workshop.animators.where(db_status: true).present?
+          link_to workshop.animators.where(db_status: true).last.id, "#{admin_animator_path(workshop.animators.where(db_status: true).last)}"
+        end
       end
       row :program
       row :final_product
@@ -209,6 +246,7 @@ ActiveAdmin.register Workshop do
       row :created_at
       row :updated_at
       row :verified
+      row :status
       row :db_status
       row :slug
       row "Voir page publique" do |workshop|
@@ -263,11 +301,14 @@ ActiveAdmin.register Workshop do
   end
 
   form do |f|
-    f.inputs :except => [:thematic, :level, :slug]
+    f.inputs :except => [:thematic, :level, :slug, :status]
 
     f.inputs "Filtres" do
       f.input :thematic, collection: Workshop::THEMATICS
       f.input :level, collection: Workshop::LEVELS
+    end
+    f.inputs "Statut (Mettre 'hors ligne' par défaut)" do
+      f.input :status, collection:["en ligne", "hors ligne"]
     end
     f.inputs "Photos" do
       f.input :photos, as: :file, input_html: { multiple: true, accept: "image/*"}

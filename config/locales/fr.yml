@@ -39,6 +39,16 @@ fr:
         many: Avis
         few : Avis
         other: Avis
+      animator:
+        one: Animation
+        many: Animations
+        few : Animations
+        other: Animations
+      giftcard:
+        one: Carte cadeau
+        many: Cartes cadeaux
+        few : Cartes cadeaux
+        other: Cartes cadeaux
 
     attributes:
       profile:
@@ -127,6 +137,25 @@ fr:
         db_status: Statut db
         created_at: Créé le
         updated_at: Modifié le
+      animator:
+        workshop: Atelier
+        workshop_id: ID Atelier
+        user: Animateur
+        user_id: ID Animateur
+        db_status: Statut db
+        created_at: Créé le
+        updated_at: Modifié le
+      giftcard:
+        amount: Montant
+        code: Code Carte
+        buyer: Acheteur
+        buyer_name: Nom de l'acheteur
+        receiver: Bénéficiaire
+        receiver_name: Nom du Bénéficiaire
+        status: Statut
+        db_status: Statut db
+        user_id: ID Utilisateur
+        user: Utilisateur
 
 
 

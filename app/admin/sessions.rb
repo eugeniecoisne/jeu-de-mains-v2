@@ -1,5 +1,5 @@
 ActiveAdmin.register Session do
-  menu parent: "Sessions & Résa"
+  menu parent: "Fiches"
   permit_params :date, :start_at, :capacity, :workshop_id, :workshop, :db_status, :reason
   SESSION_WORKSHOPS = Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} par #{w.place.name} - capacité #{w.capacity} places", w.id] }.to_h
 
@@ -15,8 +15,21 @@ ActiveAdmin.register Session do
     end
     column :capacity
     column :workshop
+    column "Lieu" do |session|
+      link_to session.workshop.place.name, "#{admin_place_path(session.workshop.place)}"
+    end
     column "Organisateur" do |session|
-      session.workshop.place.user.profile.company
+      link_to session.workshop.place.user.profile.company, "#{admin_profile_path(session.workshop.place.user.profile)}"
+    end
+    column "Animateur" do |session|
+      if session.workshop.animators.where(db_status: true).present?
+        link_to session.workshop.animators.where(db_status: true).last.user.profile.company, "#{admin_profile_path(session.workshop.animators.where(db_status: true).last.user.profile)}"
+      end
+    end
+    column "ID Animation" do |session|
+      if session.workshop.animators.where(db_status: true).present?
+        link_to session.workshop.animators.where(db_status: true).last.id, "#{admin_animator_path(session.workshop.animators.where(db_status: true).last)}"
+      end
     end
     column "Thématique" do |session|
       session.workshop.thematic
@@ -34,6 +47,8 @@ ActiveAdmin.register Session do
       session.workshop.recommendable
     end
     column :reason
+    column :created_at
+    column :updated_at
   end
 
   csv do
@@ -48,8 +63,21 @@ ActiveAdmin.register Session do
     column :workshop do |session|
       session.workshop.title
     end
+    column "Lieu" do |session|
+      session.workshop.place.name
+    end
     column "Organisateur" do |session|
       session.workshop.place.user.profile.company
+    end
+    column "Animateur" do |session|
+      if session.workshop.animators.where(db_status: true).present?
+        session.workshop.animators.where(db_status: true).last.user.profile.company
+      end
+    end
+    column "ID Animation" do |session|
+      if session.workshop.animators.where(db_status: true).present?
+        session.workshop.animators.where(db_status: true).last.id
+      end
     end
     column "Thématique" do |session|
       session.workshop.thematic
@@ -67,6 +95,8 @@ ActiveAdmin.register Session do
       session.workshop.recommendable
     end
     column :reason
+    column :created_at
+    column :updated_at
   end
 
   show do |session|
@@ -76,6 +106,16 @@ ActiveAdmin.register Session do
       end
       row "Organisateur" do |session|
         link_to "#{session.workshop.place.name}", "#{admin_place_path(session.workshop.place)}"
+      end
+      row "Animateur" do |session|
+        if session.workshop.animators.where(db_status: true).present?
+          link_to session.workshop.animators.where(db_status: true).last.user.profile.company, "#{admin_profile_path(session.workshop.animators.where(db_status: true).last.user.profile)}"
+        end
+      end
+      row "ID Animation" do |session|
+        if session.workshop.animators.where(db_status: true).present?
+          link_to session.workshop.animators.where(db_status: true).last.id, "#{admin_animator_path(session.workshop.animators.where(db_status: true).last)}"
+        end
       end
       row "Ville" do |session|
         session.workshop.place.city
