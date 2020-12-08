@@ -21,26 +21,183 @@ ActiveAdmin.register Place do
     column :db_status
     column :verified
     column :name
-    column :city
-    column :zip_code
+    column "Auteur" do |place|
+      link_to "#{place.user.fullname} / #{place.user.profile.company}", "#{admin_user_path(place.user)}"
+    end
+    column :ephemeral
+    column :siret_number
     column :address
+    column :zip_code
+    column :city
+    column :phone_number
+    column :email
+    column :website
+    column :instagram
     column :description do |place|
       place.description.present? ? true : false
     end
-    column :phone_number
-    column :email
-    column :ephemeral
-    column :siret_number
-    column :website
-    column :instagram
-    column :user do |place|
-      "#{place.user.first_name} #{place.user.last_name}"
+    column "Nb ateliers en ligne" do |place|
+      place.workshops.where(db_status: true, status: "en ligne").count
     end
-    column "Voir la page", :slug do |place|
+    column "Nb sessions en ligne" do |place|
+      Session.all.where(db_status: true).select { |s| s.workshop.place == place && s.date > Date.today }.count
+    end
+    column "Participants reçus" do |place|
+      participants = 0
+      Session.all.select { |s| s.workshop.place == place && s.date < Date.today }.each { |s| participants += s.sold }
+      participants
+    end
+    column :rating
+    column "Nombre d'avis" do |place|
+      PLACE_REVIEWS.count
+    end
+    column :created_at
+    column :updated_at
+    column "Voir page publique" do |place|
       link_to "Lien page", "#{place_path(place)}", target: "_blank"
     end
-    column "Photo", :photo do |place|
+    column "Photo" do |place|
       link_to "Lien photo", "#{cl_image_path place.photo.key}", target: "_blank"
+    end
+  end
+
+
+  csv do
+    column :id
+    column :db_status
+    column :verified
+    column :name
+    column :user_id
+    column "Propriétaire Prénom Nom" do |place|
+      place.user.fullname
+    end
+    column "Propriétaire Entreprise" do |place|
+      place.user.profile.company
+    end
+    column :ephemeral
+    column :siret_number
+    column :address
+    column :zip_code
+    column :city
+    column :phone_number
+    column :email
+    column :website
+    column :instagram
+    column :description
+    column "Nb ateliers en ligne" do |place|
+      place.workshops.where(db_status: true, status: "en ligne").count
+    end
+    column "Nb sessions en ligne" do |place|
+      Session.all.where(db_status: true).select { |s| s.workshop.place == place && s.date > Date.today }.count
+    end
+    column "Participants reçus" do |place|
+      participants = 0
+      Session.all.select { |s| s.workshop.place == place && s.date < Date.today }.each { |s| participants += s.sold }
+      participants
+    end
+    column :rating
+    column "Nombre d'avis" do |place|
+      PLACE_REVIEWS.count
+    end
+    column :created_at
+    column :updated_at
+    column "Photo" do |place|
+      "#{cl_image_path place.photo.key}"
+    end
+  end
+
+  show do |place|
+
+    PLACE_REVIEWS = Review.all.where(db_status: true).select { |r| r.booking.session.workshop.place == place }.sort_by { |r| r.created_at }
+
+    attributes_table do
+      row "Photo" do |place|
+        if place.photo.attached?
+          cl_image_tag place.photo.key, width: 100, height: 100, crop: :fill
+        end
+      end
+      row :name
+      row "Auteur" do |place|
+        link_to "#{place.user.fullname} / #{place.user.profile.company}", "#{admin_user_path(place.user)}"
+      end
+      row :ephemeral
+      row :siret_number
+      row :address
+      row :zip_code
+      row :city
+      row :phone_number
+      row :email
+      row :website
+      row :instagram
+      row :description
+      row "Nb ateliers en ligne" do |place|
+        place.workshops.where(db_status: true, status: "en ligne").count
+      end
+      row "Nb sessions en ligne" do |place|
+        Session.all.where(db_status: true).select { |s| s.workshop.place == place && s.date > Date.today }.count
+      end
+      row "Participants reçus" do |place|
+        participants = 0
+        Session.all.select { |s| s.workshop.place == place && s.date < Date.today }.each { |s| participants += s.sold }
+        participants
+      end
+      row :rating
+      row "Nombre d'avis" do |place|
+        PLACE_REVIEWS.count
+      end
+      row :created_at
+      row :updated_at
+      row :db_status
+      row :verified
+      row :latitude
+      row :longitude
+      row :slug
+      row "Voir page publique" do |workshop|
+        link_to "Voir", "#{place_path(place)}", target: "_blank"
+      end
+    end
+
+    if place.workshops.present?
+      panel "Ateliers" do
+        table_for place.worshops.sort_by { |workshop| workshop.created_at } do
+          column "Atelier" do |workshop|
+            link_to "Voir", "#{admin_workshop_path(workshop)}"
+          end
+          column :title
+          column "Créé le" do |workshop|
+            workshop.created_at.strftime("%d/%m/%Y")
+          end
+          column :ephemeral
+          column "Nb sessions en ligne" do |workshop|
+            workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
+          end
+          column "Participants reçus" do |workshop|
+            participants = 0
+            Session.all.select { |s| s.workshop == workshop && s.date < Date.today }.each { |s| participants += s.sold }
+            participants
+          end
+          column :status
+          column :db_status
+        end
+      end
+    end
+    if PLACE_REVIEWS.size > 0
+      panel "Avis" do
+        table_for PLACE_REVIEWS do
+          column "Avis" do |review|
+            link_to "Voir", "#{admin_review_path(review)}"
+          end
+          column :rating
+          column "Contenu" do |review|
+            review.content[0..40]...
+          end
+          column "Auteur" do |review|
+            link_to "#{review.user.fullname}", "#{admin_user_path(review.user)}"
+          end
+          column :created_at
+          column :db_status
+        end
+      end
     end
   end
 

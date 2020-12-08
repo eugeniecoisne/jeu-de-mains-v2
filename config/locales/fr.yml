@@ -69,6 +69,7 @@ fr:
         verified: Vérifié
         created_at: Créé le
         updated_at: Modifié le
+        rating: Note publique /5
       workshop:
         title: Titre
         place: Lieu
@@ -79,8 +80,8 @@ fr:
         price: Prix
         program: Programme
         final_product: Repartez avec
-        rating: Note publique
-        recommendable: Recommandation
+        rating: Note publique /5
+        recommendable: Recommandation /3
         verified: Vérifié
         status: Statut
         db_status: Statut db

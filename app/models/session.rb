@@ -36,6 +36,14 @@ class Session < ApplicationRecord
     capacity - counter
   end
 
+  def sold
+    counter = 0
+    bookings.where(db_status: true).each do |booking|
+      counter += booking.quantity
+    end
+    counter
+  end
+
   def moment
     if ['06h00', '06h15', '06h30', '06h45',
         '07h00', '07h15', '07h30', '07h45',

@@ -45,50 +45,55 @@ ActiveAdmin.register Workshop do
     column "Sessions en ligne" do |workshop|
       workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
     end
+    column "Participants reçus" do |workshop|
+      participants = 0
+      Session.all.select { |s| s.workshop == workshop && s.date < Date.today }.each { |s| participants += s.sold }
+      participants
+    end
     column :created_at
     column :updated_at
-    column "Voir la page", :slug do |workshop|
+    column "Voir page publique", :slug do |workshop|
       link_to "Lien", "#{workshop_path(workshop)}", target: "_blank"
     end
-    column "Nb photos", :photos do |workshop|
+    column "Nb photos" do |workshop|
       workshop.photos.count
     end
-    column "Photo 1", :photos do |workshop|
+    column "Photo 1" do |workshop|
       if workshop.photos.count > 0
         link_to "Lien 1", "#{cl_image_path workshop.photos[0].key}", target: "_blank"
       end
     end
-    column "Photo 2", :photos do |workshop|
+    column "Photo 2" do |workshop|
       if workshop.photos.count > 1
         link_to "Lien 2", "#{cl_image_path workshop.photos[1].key}", target: "_blank"
       end
     end
-    column "Photo 3", :photos do |workshop|
+    column "Photo 3" do |workshop|
       if workshop.photos.count > 2
         link_to "Lien 3", "#{cl_image_path workshop.photos[2].key}", target: "_blank"
       end
     end
-    column "Photo 4", :photos do |workshop|
+    column "Photo 4" do |workshop|
       if workshop.photos.count > 3
         link_to "Lien 4", "#{cl_image_path workshop.photos[3].key}", target: "_blank"
       end
     end
-    column "Photo 5", :photos do |workshop|
+    column "Photo 5" do |workshop|
       if workshop.photos.count > 4
         link_to "Lien 5", "#{cl_image_path workshop.photos[4].key}", target: "_blank"
       end
     end
-    column "Photo 6", :photos do |workshop|
+    column "Photo 6" do |workshop|
       if workshop.photos.count > 5
         link_to "Lien 6", "#{cl_image_path workshop.photos[5].key}", target: "_blank"
       end
     end
-    column "Photo 7", :photos do |workshop|
+    column "Photo 7" do |workshop|
       if workshop.photos.count > 6
         link_to "Lien 7", "#{cl_image_path workshop.photos[6].key}", target: "_blank"
       end
     end
-    column "Photo 8", :photos do |workshop|
+    column "Photo 8" do |workshop|
       if workshop.photos.count > 7
         link_to "Lien 8", "#{cl_image_path workshop.photos[7].key}", target: "_blank"
       end
@@ -129,12 +134,41 @@ ActiveAdmin.register Workshop do
     column "Sessions en ligne" do |workshop|
       workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
     end
+    column "Participants reçus" do |workshop|
+      participants = 0
+      Session.all.select { |s| s.workshop == workshop && s.date < Date.today }.each { |s| participants += s.sold }
+      participants
+    end
     column :created_at
     column :updated_at
+    column :slug
     column "Nb photos" do |workshop|
       workshop.photos.count
     end
-    column :slug
+    column "Photo 1" do |workshop|
+      "#{cl_image_path workshop.photos[0].key}" if workshop.photos.count > 0
+    end
+    column "Photo 2" do |workshop|
+      "#{cl_image_path workshop.photos[1].key}" if workshop.photos.count > 1
+    end
+    column "Photo 3" do |workshop|
+      "#{cl_image_path workshop.photos[2].key}" if workshop.photos.count > 2
+    end
+    column "Photo 4" do |workshop|
+      "#{cl_image_path workshop.photos[3].key}" if workshop.photos.count > 3
+    end
+    column "Photo 5" do |workshop|
+      "#{cl_image_path workshop.photos[4].key}" if workshop.photos.count > 4
+    end
+    column "Photo 6" do |workshop|
+      "#{cl_image_path workshop.photos[5].key}" if workshop.photos.count > 5
+    end
+    column "Photo 7" do |workshop|
+      "#{cl_image_path workshop.photos[6].key}" if workshop.photos.count > 6
+    end
+    column "Photo 8" do |workshop|
+      "#{cl_image_path workshop.photos[7].key}" if workshop.photos.count > 7
+    end
   end
 
   show do |workshop|
@@ -146,6 +180,9 @@ ActiveAdmin.register Workshop do
       end
       row :title
       row :place
+      row "Auteur" do |workshop|
+        link_to "#{workshop.place.user.fullname} / #{workshop.place.user.profile.company}", "#{admin_user_path(workshop.place.user)}"
+      end
       row "Ville" do |workshop|
         workshop.place.city
       end
@@ -163,6 +200,11 @@ ActiveAdmin.register Workshop do
       row "Sessions en ligne" do |workshop|
         workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
       end
+      row "Participants reçus" do |workshop|
+        participants = 0
+        Session.all.select { |s| s.workshop == workshop && s.date < Date.today }.each { |s| participants += s.sold }
+        participants
+      end
       row :recommendable
       row :created_at
       row :updated_at
@@ -170,7 +212,7 @@ ActiveAdmin.register Workshop do
       row :db_status
       row :slug
       row "Voir page publique" do |workshop|
-        link_to "Voir", "#{workshop_path(workshop)}"
+        link_to "Voir", "#{workshop_path(workshop)}", target: "_blank"
       end
     end
 
@@ -187,10 +229,13 @@ ActiveAdmin.register Workshop do
           end
           column :start_at
           column :capacity
+          column "Places vendues" do |session|
+            session.capacity - session.available
+          end
           column "Places restantes" do |session|
             session.available
           end
-          column "En ligne ?" do |session|
+          column "À venir ?" do |session|
             session.date > Date.today ? true : false
           end
           column :db_status
@@ -208,7 +253,7 @@ ActiveAdmin.register Workshop do
             review.content[0..40]...
           end
           column "Auteur" do |review|
-            link_to "#{review.user.first_name} #{review.user.last_name}", "#{admin_user_path(review.user)}"
+            link_to "#{review.user.fullname}", "#{admin_user_path(review.user)}"
           end
           column :created_at
           column :db_status

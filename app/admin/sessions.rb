@@ -100,7 +100,7 @@ ActiveAdmin.register Session do
       panel "Réservations" do
         table_for session.bookings do
           column :user do |booking|
-            link_to "#{booking.user.first_name} #{booking.user.last_name}", "#{admin_user_path(booking.user)}"
+            link_to "#{booking.user.fullname}", "#{admin_user_path(booking.user)}"
           end
           column "Réservation" do |booking|
             link_to "#{booking.id}", "#{admin_booking_path(booking)}"
