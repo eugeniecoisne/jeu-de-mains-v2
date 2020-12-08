@@ -2,7 +2,7 @@ ActiveAdmin.register Booking do
   menu parent: "Sessions & Résa"
   permit_params :quantity, :status, :amount, :user_id, :user, :session_id, :session, :db_status, :workshop
 
-
+  # verif modif
   index do
     selectable_column
     actions
