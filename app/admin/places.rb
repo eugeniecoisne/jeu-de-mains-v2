@@ -15,6 +15,7 @@ ActiveAdmin.register Place do
   end
 
   index do
+
     selectable_column
     actions
     column :id
@@ -37,7 +38,7 @@ ActiveAdmin.register Place do
       place.description.present? ? true : false
     end
     column "Nb ateliers en ligne" do |place|
-      place.workshops.where(db_status: true, status: "en ligne").count
+      Workshop.all.where(db_status: true, status: "en ligne").select { |w| w.place == place}.count
     end
     column "Nb sessions en ligne" do |place|
       Session.all.where(db_status: true).select { |s| s.workshop.place == place && s.date > Date.today }.count
@@ -49,7 +50,7 @@ ActiveAdmin.register Place do
     end
     column :rating
     column "Nombre d'avis" do |place|
-      PLACE_REVIEWS.count
+      Review.all.where(db_status: true).select { |r| r.booking.session.workshop.place == place }.count
     end
     column :created_at
     column :updated_at
@@ -63,6 +64,7 @@ ActiveAdmin.register Place do
 
 
   csv do
+
     column :id
     column :db_status
     column :verified
@@ -85,7 +87,7 @@ ActiveAdmin.register Place do
     column :instagram
     column :description
     column "Nb ateliers en ligne" do |place|
-      place.workshops.where(db_status: true, status: "en ligne").count
+      Workshop.all.where(db_status: true, status: "en ligne").select { |w| w.place == place}.count
     end
     column "Nb sessions en ligne" do |place|
       Session.all.where(db_status: true).select { |s| s.workshop.place == place && s.date > Date.today }.count
@@ -97,7 +99,7 @@ ActiveAdmin.register Place do
     end
     column :rating
     column "Nombre d'avis" do |place|
-      PLACE_REVIEWS.count
+      Review.all.where(db_status: true).select { |r| r.booking.session.workshop.place == place }.count
     end
     column :created_at
     column :updated_at
@@ -131,7 +133,7 @@ ActiveAdmin.register Place do
       row :instagram
       row :description
       row "Nb ateliers en ligne" do |place|
-        place.workshops.where(db_status: true, status: "en ligne").count
+        Workshop.all.where(db_status: true, status: "en ligne").select { |w| w.place == place}.count
       end
       row "Nb sessions en ligne" do |place|
         Session.all.where(db_status: true).select { |s| s.workshop.place == place && s.date > Date.today }.count
@@ -157,9 +159,9 @@ ActiveAdmin.register Place do
       end
     end
 
-    if place.workshops.present?
+    if Workshop.all.select { |w| w.place == place}.count > 0
       panel "Ateliers" do
-        table_for place.worshops.sort_by { |workshop| workshop.created_at } do
+        table_for Workshop.all.select { |w| w.place == place}.sort_by { |w| w.created_at } do
           column "Atelier" do |workshop|
             link_to "Voir", "#{admin_workshop_path(workshop)}"
           end
