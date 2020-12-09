@@ -1,5 +1,4 @@
 ActiveAdmin.register User do
-  menu parent: "Comptes"
   remove_filter :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :confirmation_token, :confirmation_sent_at, :uid
   permit_params :id, :first_name, :last_name, :email, :password, :password_confirmation
 

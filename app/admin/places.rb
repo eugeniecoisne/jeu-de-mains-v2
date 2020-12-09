@@ -1,4 +1,5 @@
 ActiveAdmin.register Place do
+  menu parent: "Fiches"
   remove_filter :slug, :photo_attachment, :photo_blob, :latitude, :longitude
   preserve_default_filters!
   PLACE_USERS = User.all.select { |u| u.profile.company.present? == true }.map { |u| [u.profile.company, u.id] }.to_h
@@ -163,9 +164,13 @@ ActiveAdmin.register Place do
       panel "Ateliers" do
         table_for Workshop.all.select { |w| w.place == place}.sort_by { |w| w.created_at } do
           column "Atelier" do |workshop|
-            link_to "Voir", "#{admin_workshop_path(workshop)}"
+            link_to workshop.title, "#{admin_workshop_path(workshop)}"
           end
-          column :title
+          column "Animé par" do |workshop|
+            if workshop.animators.where(db_status: true).present?
+              link_to workshop.animators.where(db_status: true).last.user.profile.company, "#{admin_profile_path(workshop.animators.where(db_status: true).last.user.profile)}"
+            end
+          end
           column "Créé le" do |workshop|
             workshop.created_at.strftime("%d/%m/%Y")
           end
@@ -187,7 +192,7 @@ ActiveAdmin.register Place do
       panel "Avis" do
         table_for PLACE_REVIEWS do
           column "Avis" do |review|
-            link_to "Voir", "#{admin_review_path(review)}"
+            link_to "Avis ##{review.id}", "#{admin_review_path(review)}"
           end
           column :rating
           column "Contenu" do |review|
