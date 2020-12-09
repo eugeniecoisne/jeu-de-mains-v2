@@ -49,6 +49,11 @@ fr:
         many: Cartes cadeaux
         few : Cartes cadeaux
         other: Cartes cadeaux
+      chatroom:
+        one: Discussion
+        many: Discussions
+        few : Discussions
+        other: Discussions
 
     attributes:
       profile:
@@ -149,13 +154,22 @@ fr:
         amount: Montant
         code: Code Carte
         buyer: Acheteur
-        buyer_name: Nom de l'acheteur
+        buyer_name: Surnom acheteur
         receiver: Bénéficiaire
-        receiver_name: Nom du Bénéficiaire
+        receiver_name: Surnom bénéficiaire
         status: Statut
         db_status: Statut db
         user_id: ID Utilisateur
         user: Utilisateur
+        created_at: Créé le
+        updated_at: Modifié le
+      chatroom:
+        room_name: Nom de la discussion
+        user1: Chateur 1
+        user2: Chateur 2
+        created_at: Créé le
+        updated_at: Modifié le
+
 
 
 

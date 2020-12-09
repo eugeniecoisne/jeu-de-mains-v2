@@ -65,6 +65,66 @@ ActiveAdmin.register User do
       row :updated_at
       row :provider
     end
+
+    GIFTCARDS_OFFERED = Giftcard.all.select { |g| g.buyer == user.id }
+
+    if GIFTCARDS_OFFERED.count > 0
+      panel "Cartes cadeaux offertes" do
+        table_for GIFTCARDS_OFFERED do
+          column :id do |giftcard|
+            link_to giftcard.id, "#{admin_giftcard_path(giftcard)}"
+          end
+          column :amount
+          column :code
+          column :created_at do |giftcard|
+            giftcard.created_at.strftime('%d/%m/%Y')
+          end
+          column "Valable jusqu'au" do |giftcard|
+            (giftcard.created_at + 1.year - 1.day).strftime("%d/%m/%Y")
+          end
+          column "Activée ?" do |giftcard|
+            giftcard.receiver == giftcard.user.id ? true : false
+          end
+          column :receiver do |giftcard|
+            if giftcard.receiver.present?
+              link_to User.all.select { |u| u.id == giftcard.receiver.to_i }.first.fullname, "#{admin_user_path(User.all.select { |u| u.id == giftcard.receiver.to_i })}"
+            end
+          end
+          column :status
+          column :db_status
+        end
+      end
+    end
+
+    GIFTCARDS_RECEIVED = Giftcard.all.select { |g| g.receiver == user.id }
+
+    if GIFTCARDS_RECEIVED.count > 0
+      panel "Cartes cadeaux reçues" do
+        table_for GIFTCARDS_RECEIVED do
+          column :id do |giftcard|
+            link_to giftcard.id, "#{admin_giftcard_path(giftcard)}"
+          end
+          column :amount
+          column :code
+          column :created_at do |giftcard|
+            giftcard.created_at.strftime('%d/%m/%Y')
+          end
+          column "Valable jusqu'au" do |giftcard|
+            (giftcard.created_at + 1.year - 1.day).strftime("%d/%m/%Y")
+          end
+          column "Activée ?" do |giftcard|
+            giftcard.receiver == giftcard.user.id ? true : false
+          end
+          column :buyer do |giftcard|
+            if giftcard.buyer.present?
+              link_to User.all.select { |u| u.id == giftcard.buyer.to_i }.first.fullname, "#{admin_user_path(User.all.select { |u| u.id == giftcard.buyer.to_i })}"
+            end
+          end
+          column :status
+          column :db_status
+        end
+      end
+    end
   end
 
   form do |f|
