@@ -3,16 +3,6 @@ ActiveAdmin.register Session do
   permit_params :date, :start_at, :capacity, :workshop_id, :workshop, :db_status, :reason
   SESSION_WORKSHOPS = Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} par #{w.place.name} - capacité #{w.capacity} places", w.id] }.to_h
 
-  controller do
-    def find_resource
-      begin
-        scoped_collection.where(slug: params[:id]).first!
-      rescue ActiveRecord::RecordNotFound
-        scoped_collection.find(params[:id])
-      end
-    end
-  end
-
   index do
     selectable_column
     actions
