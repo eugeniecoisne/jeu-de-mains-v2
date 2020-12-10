@@ -4,7 +4,6 @@ ActiveAdmin.register Place do
   preserve_default_filters!
   PLACE_USERS = User.all.select { |u| u.profile.company.present? == true }.map { |u| [u.profile.company, u.id] }.to_h
 
-
   controller do
     def find_resource
       begin

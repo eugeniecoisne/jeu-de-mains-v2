@@ -4,16 +4,6 @@ ActiveAdmin.register Booking do
   BOOKING_SESSIONS = Session.all.where(db_status: true).sort_by { |s| s.date }.map { |s| ["#{s.id} - #{s.date.strftime("%d/%m/%y")} à #{s.start_at} - #{s.workshop.title} chez #{s.workshop.place.name} - #{s.available} places restantes", s.id] }.to_h
   BOOKING_USERS = User.all.select { |u| u.profile.company.present? == false }.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
-  controller do
-    def find_resource
-      begin
-        scoped_collection.where(slug: params[:id]).first!
-      rescue ActiveRecord::RecordNotFound
-        scoped_collection.find(params[:id])
-      end
-    end
-  end
-
   index do
     selectable_column
     actions

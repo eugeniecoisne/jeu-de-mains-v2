@@ -162,9 +162,9 @@ ActiveAdmin.register Profile do
       end
     end
 
-    if profile.user.animators.present?
+    if User.find(profile.id).animators.present?
       panel "Ateliers animés" do
-        table_for profile.user.animators do
+        table_for User.find(profile.id).animators do
           column "ID Atelier" do |animator|
             animator.workshop.id
           end
@@ -177,7 +177,6 @@ ActiveAdmin.register Profile do
           column "Ville" do |animator|
             animator.workshop.place.city
           end
-
           column "Créé le" do |animator|
             animator.workshop.created_at.strftime("%d/%m/%Y")
           end
@@ -202,9 +201,17 @@ ActiveAdmin.register Profile do
       end
     end
 
-    PROFILE_REVIEWS = Review.all.where(db_status: true).select { |r| r.booking.session.workshop.animators.where(db_status: true).last.user.profile == profile }.sort_by { |r| r.created_at }
+    PROFILE_REVIEWS = []
 
-    if profile.user.animators.present?
+    User.find(profile.id).animators.each do |animator|
+      if animator.workshop.reviews.present?
+        animator.workshop.reviews.each do |review|
+          PROFILE_REVIEWS << review
+        end
+      end
+    end
+
+    if PROFILE_REVIEWS.count > 0
       panel "Avis animateur" do
         table_for PROFILE_REVIEWS do
           column "Avis" do |review|

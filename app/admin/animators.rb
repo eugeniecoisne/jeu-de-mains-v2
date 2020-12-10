@@ -4,16 +4,6 @@ ActiveAdmin.register Animator do
   ANIMATOR_WORKSHOPS = Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} chez #{w.place.name} - créé le #{w.created_at.strftime("%d/%m/%y")}", w.id] }.to_h
   ANIMATOR_USERS = User.all.select { |u| u.profile.role == "animateur" }.map { |u| ["#{u.fullname} - #{u.profile.company}", u.id] }.to_h
 
-  controller do
-    def find_resource
-      begin
-        scoped_collection.where(slug: params[:id]).first!
-      rescue ActiveRecord::RecordNotFound
-        scoped_collection.find(params[:id])
-      end
-    end
-  end
-
   index do
     selectable_column
     actions
