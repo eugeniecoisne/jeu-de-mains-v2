@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :giftcards
   after_create :create_profile
   # Include default devise modules. Others available are:
-  # :lockable, :timeoutable, :trackable and :omniauthable
+  # :lockable, :timeoutable, :trackable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable,
          :omniauthable, omniauth_providers: %i[facebook google_oauth2]
@@ -16,6 +16,14 @@ class User < ApplicationRecord
   def after_confirmation
     send_welcome_email
     super
+  end
+
+  def destroy
+    update_attributes(db_status: false)
+  end
+
+  def active_for_authentication?
+      super && !(db_status == false)
   end
 
   def self.from_omniauth(auth)

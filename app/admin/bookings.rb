@@ -1,5 +1,6 @@
 ActiveAdmin.register Booking do
   menu parent: "Achats"
+  config.per_page = 50
   permit_params :quantity, :status, :amount, :user_id, :user, :session_id, :session, :db_status, :workshop
   BOOKING_SESSIONS = Session.all.where(db_status: true).sort_by { |s| s.date }.map { |s| ["#{s.id} - #{s.date.strftime("%d/%m/%y")} à #{s.start_at} - #{s.workshop.title} chez #{s.workshop.place.name} - #{s.available} places restantes", s.id] }.to_h
   BOOKING_USERS = User.all.select { |u| u.profile.company.present? == false }.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h

@@ -1,5 +1,6 @@
 ActiveAdmin.register Workshop do
   menu parent: "Fiches"
+  config.per_page = 50
   remove_filter :slug, :photos_attachments, :photos_blobs
   permit_params :title, :thematic, :level, :duration, :capacity, :price, :program, :final_product, :recommendable, :verified, :status, :db_status, :slug, :place, :place_id, photos:[]
 

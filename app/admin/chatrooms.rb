@@ -1,5 +1,6 @@
 ActiveAdmin.register Chatroom do
   permit_params :room_name, :user1, :user2
+  config.per_page = 50
   actions :index
 
   index do

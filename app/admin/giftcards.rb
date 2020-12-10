@@ -1,5 +1,6 @@
 ActiveAdmin.register Giftcard do
   menu parent: "Achats"
+  config.per_page = 50
   permit_params :amount, :code, :buyer, :receiver, :status, :db_status, :user_id, :receiver_name, :buyer_name, :message
   GIFTCARD_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 

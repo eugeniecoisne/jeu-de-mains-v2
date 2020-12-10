@@ -1,5 +1,6 @@
 ActiveAdmin.register Profile do
   menu parent: "Fiches"
+  config.per_page = 50
   PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
 

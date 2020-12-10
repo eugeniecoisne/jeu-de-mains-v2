@@ -1,5 +1,6 @@
 ActiveAdmin.register Animator do
   menu parent: "Fiches"
+  config.per_page = 50
   permit_params :user_id, :workshop_id, :workshop, :user, :db_status
   ANIMATOR_WORKSHOPS = Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} chez #{w.place.name} - créé le #{w.created_at.strftime("%d/%m/%y")}", w.id] }.to_h
   ANIMATOR_USERS = User.all.select { |u| u.profile.role == "animateur" }.map { |u| ["#{u.fullname} - #{u.profile.company}", u.id] }.to_h

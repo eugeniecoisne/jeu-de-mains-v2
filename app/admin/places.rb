@@ -1,5 +1,6 @@
 ActiveAdmin.register Place do
   menu parent: "Fiches"
+  config.per_page = 50
   remove_filter :slug, :photo_attachment, :photo_blob, :latitude, :longitude
   preserve_default_filters!
   PLACE_USERS = User.all.select { |u| u.profile.company.present? == true }.map { |u| [u.profile.company, u.id] }.to_h
