@@ -2,6 +2,17 @@ ActiveAdmin.register User do
   remove_filter :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :confirmation_token, :confirmation_sent_at, :uid
   permit_params :id, :first_name, :last_name, :email, :password, :password_confirmation
 
+
+  controller do
+    def find_resource
+      begin
+        scoped_collection.where(slug: params[:id]).first!
+      rescue ActiveRecord::RecordNotFound
+        scoped_collection.find(params[:id])
+      end
+    end
+  end
+
   index do
     selectable_column
     actions

@@ -2,6 +2,16 @@ ActiveAdmin.register Chatroom do
   permit_params :room_name, :user1, :user2
   actions :index
 
+  controller do
+    def find_resource
+      begin
+        scoped_collection.where(slug: params[:id]).first!
+      rescue ActiveRecord::RecordNotFound
+        scoped_collection.find(params[:id])
+      end
+    end
+  end
+
   index do
     selectable_column
     column :id

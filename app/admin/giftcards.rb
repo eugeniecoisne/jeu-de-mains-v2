@@ -3,6 +3,16 @@ ActiveAdmin.register Giftcard do
   permit_params :amount, :code, :buyer, :receiver, :status, :db_status, :user_id, :receiver_name, :buyer_name, :message
   GIFTCARD_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
+  controller do
+    def find_resource
+      begin
+        scoped_collection.where(slug: params[:id]).first!
+      rescue ActiveRecord::RecordNotFound
+        scoped_collection.find(params[:id])
+      end
+    end
+  end
+
   index do
     selectable_column
     actions
