@@ -27,6 +27,16 @@ ActiveAdmin.register Review do
     column "Organisateur" do |review|
       link_to review.booking.session.workshop.place.user.profile.company, "#{admin_profile_path(review.booking.session.workshop.place.user.profile)}"
     end
+    column "Animateur" do |review|
+      if review.booking.session.workshop.animators.where(db_status: true).present?
+        link_to review.booking.session.workshop.animators.where(db_status: true).last.user.profile.company, "#{admin_profile_path(review.booking.session.workshop.animators.where(db_status: true).last.user.profile)}"
+      end
+    end
+    column "ID Animation" do |review|
+      if review.booking.session.workshop.animators.where(db_status: true).present?
+        link_to review.booking.session.workshop.animators.where(db_status: true).last.id, "#{admin_animator_path(review.booking.session.workshop.animators.where(db_status: true).last)}"
+      end
+    end
     column "Ville" do |review|
       review.booking.session.workshop.place.city
     end
@@ -65,6 +75,16 @@ ActiveAdmin.register Review do
     column "Organisateur" do |review|
       review.booking.session.workshop.place.user.profile.company
     end
+    column "Animateur" do |review|
+      if review.booking.session.workshop.animators.where(db_status: true).present?
+        review.booking.session.workshop.animators.where(db_status: true).last.user.profile.company
+      end
+    end
+    column "ID Animation" do |review|
+      if review.booking.session.workshop.animators.where(db_status: true).present?
+        review.booking.session.workshop.animators.where(db_status: true).last.id
+      end
+    end
     column "Ville" do |review|
       review.booking.session.workshop.place.city
     end
@@ -81,6 +101,16 @@ ActiveAdmin.register Review do
       end
       row "Organisateur" do |review|
         link_to "#{review.booking.session.workshop.place.name}", "#{admin_place_path(review.booking.session.workshop.place)}"
+      end
+      row "Animateur" do |review|
+        if review.booking.session.workshop.animators.where(db_status: true).present?
+          link_to review.booking.session.workshop.animators.where(db_status: true).last.user.profile.company, "#{admin_profile_path(review.booking.session.workshop.animators.where(db_status: true).last.user.profile)}"
+        end
+      end
+      row "ID Animation" do |review|
+        if review.booking.session.workshop.animators.where(db_status: true).present?
+          link_to review.booking.session.workshop.animators.where(db_status: true).last.id, "#{admin_animator_path(review.booking.session.workshop.animators.where(db_status: true).last)}"
+        end
       end
       row "Ville" do |review|
         review.booking.session.workshop.place.city
