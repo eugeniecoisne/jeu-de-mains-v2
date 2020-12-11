@@ -1,5 +1,6 @@
 ActiveAdmin.register Session do
   menu parent: "Fiches"
+  config.per_page = 50
   permit_params :date, :start_at, :capacity, :workshop_id, :workshop, :db_status, :reason
   SESSION_WORKSHOPS = Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} par #{w.place.name} - capacité #{w.capacity} places", w.id] }.to_h
 
@@ -8,12 +9,18 @@ ActiveAdmin.register Session do
     actions
     column :id
     column :db_status
+    column "En ligne ?" do |session|
+      session.date >= Date.today && session.workshop.status == "en ligne" && session.db_status == true ? true : false
+    end
     column :date
     column :start_at
     column "Durée" do |session|
       session.workshop.duration
     end
     column :capacity
+    column "Places vendues" do |session|
+      session.capacity - session.available
+    end
     column :workshop
     column "Lieu" do |session|
       link_to session.workshop.place.name, "#{admin_place_path(session.workshop.place)}"
@@ -54,12 +61,18 @@ ActiveAdmin.register Session do
   csv do
     column :id
     column :db_status
+    column "En ligne ?" do |session|
+      session.date >= Date.today && session.workshop.status == "en ligne" && session.db_status == true ? true : false
+    end
     column :date
     column :start_at
     column "Durée" do |session|
       session.workshop.duration
     end
     column :capacity
+    column "Places vendues" do |session|
+      session.capacity - session.available
+    end
     column :workshop do |session|
       session.workshop.title
     end
@@ -134,6 +147,9 @@ ActiveAdmin.register Session do
       row :created_at
       row :updated_at
       row :db_status
+      row "En ligne ?" do |session|
+        session.date >= Date.today && session.workshop.status == "en ligne" && session.db_status == true ? true : false
+      end
       row :reason
     end
     if session.bookings.present?

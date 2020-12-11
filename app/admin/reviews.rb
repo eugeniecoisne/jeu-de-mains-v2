@@ -1,4 +1,5 @@
 ActiveAdmin.register Review do
+  config.per_page = 50
   permit_params :content, :rating, :user_id, :booking_id, :db_status
   REVIEW_USERS = User.all.select { |u| u.profile.company.present? == false }.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
   REVIEW_BOOKINGS = Booking.all.where(db_status: true).select { |b| b.reviews.present? == false }.map { |b| ["Réservation n° #{b.id} du #{b.created_at} de #{b.user.fullname}", b.id] }.to_h
