@@ -159,14 +159,14 @@ ActiveAdmin.register_page "Dashboard" do
         panel "TOP 5 ANIMATEURS EN LIGNE" do
           ul do
             animators_by_rating.reverse.first(5).map do |p|
-              li link_to("#{p.id} - #{p.company} - #{p.rating}/ 5", admin_place_path(p))
+              li link_to("#{p.id} - #{p.company} - #{p.rating}/ 5", admin_profile_path(p))
             end
           end
         end
         panel "FLOP 5 ANIMATEURS EN LIGNE" do
           ul do
             animators_by_rating.first(5).map do |p|
-              li link_to("#{p.id} - #{p.company} - #{p.rating}/ 5", admin_place_path(p))
+              li link_to("#{p.id} - #{p.company} - #{p.rating}/ 5", admin_profile_path(p))
             end
           end
         end
