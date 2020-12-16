@@ -11,7 +11,7 @@ class User < ApplicationRecord
   # :lockable, :timeoutable, :trackable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable,
-         :omniauthable, omniauth_providers: %i[facebook google_oauth2]
+         :omniauthable, omniauth_providers: %i[facebook google_oauth2 stripe_connect]
 
   def after_confirmation
     send_welcome_email
@@ -35,6 +35,10 @@ class User < ApplicationRecord
 
   def fullname
     "#{last_name} #{first_name}"
+  end
+
+  def can_receive_payments?
+    stripe_uid? && stripe_provider? && access_code? && publishable_key?
   end
 
   private
