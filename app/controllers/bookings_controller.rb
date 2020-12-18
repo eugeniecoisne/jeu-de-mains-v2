@@ -8,22 +8,42 @@ class BookingsController < ApplicationController
       quantity: quantity,
       amount: quantity * workshop.price,
       session: session,
+      status: 'pending',
       user: current_user
       )
     authorize @booking
-    mail_new_btob = BookingMailer.with(booking: @booking).new_booking_btob
-    mail_new_btob.deliver_later
-    if @booking.session.workshop.animators.where(db_status: true).present?
-      mail_new_btob_2 = BookingMailer.with(booking: @booking).new_booking_btob_animator
-      mail_new_btob_2.deliver_later
-    end
-    mail_new_btoc = BookingMailer.with(booking: @booking).new_booking_btoc
-    mail_new_btoc.deliver_later
-    mail_reminder_btoc = BookingMailer.with(booking: @booking).reminder_booking_btoc
-    mail_reminder_btoc.deliver_later(wait_until: (@booking.session.date - 1).noon)
-    mail_ask_review = BookingMailer.with(booking: @booking).ask_review_btoc
-    mail_ask_review.deliver_later(wait_until: (@booking.session.date + 1).noon)
-    redirect_to tableau_de_bord_profile_path(current_user.profile)
+
+    key = @booking.session.workshop.place.user.access_code
+    Stripe.api_key = key
+
+    price = Stripe::Price.retrieve(@booking.session.stripe_price_id)
+
+    customer = if current_user.stripe_id?
+                Stripe::Customer.retrieve(current_user.stripe_id)
+              else
+                Stripe::Customer.create(email: current_user.email)
+              end
+    current_user.update(stripe_id: customer.id)
+
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      customer: customer,
+      payment_intent_data: {
+        application_fee_amount: (0.18 * @booking.amount * 100).to_i,
+      },
+      line_items: [{
+        price: price,
+        quantity: @booking.quantity
+      }],
+      mode: 'payment',
+      success_url: tableau_de_bord_profile_url(current_user.profile),
+      cancel_url: tableau_de_bord_profile_url(current_user.profile)
+    )
+
+    @booking.update(checkout_session_id: session.id)
+
+    redirect_to new_booking_payment_path(@booking)
+
   end
 
   def destroy

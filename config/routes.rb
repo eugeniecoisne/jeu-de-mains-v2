@@ -36,6 +36,8 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  mount StripeEvent::Engine, at: '/stripe-webhooks'
+
   resources :profiles, :path => :membres, :as => :profiles, only: %i(show edit update) do
     resources :reviews, :path => :avis, :as => :reviews, only: %i(index)
     member do
@@ -76,7 +78,8 @@ Rails.application.routes.draw do
 
   resources :bookings, :path => :reservations, :as => :bookings, only: %i(create destroy)
 
-  resources :booking, :path => :reservations, :as => :bookings, only: %i() do
+  resources :bookings, :path => :reservations, :as => :bookings, only: %i() do
+    resources :payments, only: :new
     resources :reviews, :path => :avis, :as => :reviews, only: %i(new create)
   end
 

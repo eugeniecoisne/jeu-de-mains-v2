@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row py-4">
+    <div class="col">
+      <h1><%= @booking.user.first_name %>, vous êtes sur le point de réserver</h1>
+      <p><%= @booking.quantity %> place(s) au tarif de <%= @booking.session.workshop.price %>€</p>
+      <p>Pour l'atelier <%= @booking.session.workshop.title %></p>
+      <p>Qui aura lieu le <%= @booking.session.date.strftime("%d/%m/%y") %> à <%= @booking.session.start_at %></p>
+      <p>Chez <%= @booking.session.workshop.place.name %></p>
+      <p>Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
+
+      <button id="pay" class="btn btn-primary">Procéder au paiement</button>
+
+      <script src="https://js.stripe.com/v3/"></script>
+      <script>
+        const paymentButton = document.getElementById('pay');
+        paymentButton.addEventListener('click', () => {
+          const stripe = Stripe('<%= @booking.session.workshop.place.user.publishable_key %>');
+          stripe.redirectToCheckout({
+            sessionId: '<%= @booking.checkout_session_id %>'
+          });
+        });
+      </script>
+    </div>
+  </div>
+</div>
