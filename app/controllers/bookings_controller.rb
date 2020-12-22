@@ -49,18 +49,22 @@ class BookingsController < ApplicationController
   def destroy
     @booking = Booking.find(params[:id])
     authorize @booking
-    if @booking.session.date > Date.today + 2
-      @booking.update(db_status: false)
-      @booking.save
-      mail_cancel_btob = BookingMailer.with(booking: @booking).cancel_booking_btob
-      mail_cancel_btob.deliver_now
-      if @booking.session.workshop.animators.where(db_status: true).present?
-        mail_cancel_btob_2 = BookingMailer.with(booking: @booking).cancel_booking_btob_animator
-        mail_cancel_btob_2.deliver_now
-      end
-      mail_cancel_btoc = BookingMailer.with(booking: @booking).cancel_booking_btoc
-      mail_cancel_btoc.deliver_later
-    end
+
+    key = @booking.session.workshop.place.user.access_code
+    Stripe.api_key = key
+
+    # Retrouver si paiement que en carte bancaire ou CC + CB ou CC uniquement
+    # Prévoir aussi règles de J-2 avant événement, 50% remboursés etc
+
+    refund = Stripe::Refund.create({
+      payment_intent: @booking.payment_intent_id,
+      amount: (@booking.amount * 100).to_i,
+      refund_application_fee: true
+    })
+
+    @booking.update(refund_id: refund.id, charge_id: refund.charge, db_status: false)
+    @booking.save
+
     redirect_back fallback_location: root_path
   end
 
