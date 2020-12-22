@@ -18,11 +18,8 @@ class BookingsController < ApplicationController
 
     price = Stripe::Price.retrieve(@booking.session.stripe_price_id)
 
-    customer = if current_user.stripe_id?
-                Stripe::Customer.retrieve(current_user.stripe_id)
-              else
-                Stripe::Customer.create(email: current_user.email)
-              end
+    customer = Stripe::Customer.create(email: current_user.email)
+
     current_user.update(stripe_id: customer.id)
 
     session = Stripe::Checkout::Session.create(

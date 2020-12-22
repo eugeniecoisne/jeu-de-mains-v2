@@ -33,7 +33,7 @@ class GiftcardsController < ApplicationController
     @giftcard.status = "pending"
     @giftcard.code = "#{current_user.id}#{SecureRandom.hex(6)}"
 
-    key = "sk_test_51HxAxuHxDdHs6IJa1UTq9izcm9v0r2bECNyd0tk7Exyqj2puQ4mh29mxmfgxEWbpYzR4EKmwEaDLCiZOcSZXvTSo00SQ5LZktq"
+    key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
     Stripe.api_key = key
 
     price = Stripe::Price.retrieve(GIFTCARD_PRICES["#{@giftcard.amount.to_i}"])
