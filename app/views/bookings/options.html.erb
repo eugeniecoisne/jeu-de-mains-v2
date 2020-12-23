@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="row py-4">
+    <div class="col">
+      <h1><%= @booking.user.first_name %>, vous êtes sur le point de réserver</h1>
+      <p><%= @booking.quantity %> place(s) au tarif de <%= @booking.session.workshop.price %>€</p>
+      <p>Pour l'atelier <%= @booking.session.workshop.title %></p>
+      <p>Qui aura lieu le <%= @booking.session.date.strftime("%d/%m/%y") %> à <%= @booking.session.start_at %></p>
+      <p>Chez <%= @booking.session.workshop.place.name %></p>
+      <p>Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
+      <br>
+      <br>
+      <% if @booking.giftcard_amount_spent.nil? %>
+        <p>Vous avez reçu une carte cadeau ? C'est le moment de l'utiliser !</p>
+      <% end %>
+
+      <% if current_user.giftcards.select { |giftcard| giftcard.buyer != current_user.id && giftcard.amount.to_i > 0 }.present? && @booking.giftcard_amount_spent.nil? %>
+
+        <form class="simple_form edit_booking" id="edit_booking_<%=@booking.id%>" novalidate="novalidate" action="/reservations/<%=@booking.id%>" accept-charset="UTF-8" method="post">
+          <input type="hidden" name="_method" value="patch">
+          <fieldset class="form-group radio_buttons optional booking_status form-group-valid">
+              <% current_user.giftcards.select { |giftcard| giftcard.buyer != current_user.id }.reverse.each do |giftcard| %>
+
+                <div class="form-check">
+                  <input class="form-check-input is-valid radio_buttons optional" type="radio" value="<%=giftcard.id%>" name="booking[giftcard_id]" id="booking_giftcard_id_<%=giftcard.id%>">
+                  <label class="form-check-label collection_radio_buttons" for="booking_giftcard_id_<%=giftcard.id%>">
+                    <span>Carte Cadeau offerte par <%= giftcard.buyer_name %> d'un montant de <%= giftcard.initial_amount %> euros</span><br>
+                    <span>Valable jusqu'au <%= (giftcard.created_at + 1.year - 1.day).strftime("%d/%m/%Y") %></span><br>
+                    <span>Montant restant : <%= giftcard.amount %> euros</span>
+                  </label>
+                </div>
+              <% end %>
+
+          </fieldset>
+        </form>
+
+      <% end %>
+
+
+      <% if @booking.giftcard_amount_spent.present? %>
+        Vous souhaitez utiliser <%= @booking.giftcard_amount_spent %> euros
+          <% giftcard = Giftcard.find(@booking.giftcard_id.to_i) %>
+          <span>de la carte cadeau offerte par <%= giftcard.buyer_name %> d'un montant de <%= giftcard.initial_amount %> euros</span><br>
+          <span>Après la réservation il vous restera sur cette carte : <%= giftcard.amount - @booking.giftcard_amount_spent %> euros</span>
+      <% end %>
+
+      <br>
+      <br>
+
+      <%= form_for(@booking) do |f|%>
+        <%= f.check_box :cgv_agreement %>
+        <span>J'ai lu et j'accepte les <%= link_to "conditions générales de vente", cgv_path, target: "_blank" %></span>
+      <%end%>
+
+      <br>
+      <br>
+
+      <%= link_to "Accéder au récapitulatif avant paiement", new_booking_payment_path(@booking), class: "button" %>
+
+
+
+
+      <!-- Prévoir aller vers page de paiement new ou page confirmation direct car CC a payé tout -->
+    </div>
+  </div>
+</div>
+
+<script>
+  const input = document.querySelector('input[type=checkbox]');
+  const form = document.querySelector(".edit_booking");
+
+  if (input) {
+    input.addEventListener("change", (event) => {
+      event.preventDefault();
+      form.submit();
+    });
+  }
+
+  const giftcardForm = document.querySelector('.simple_form');
+
+  if (giftcardForm) {
+    giftcardForm.addEventListener("change", (event) => {
+      event.preventDefault();
+      form.submit();
+    });
+  }
+</script>

@@ -10,7 +10,7 @@
       <script>
         const paymentButton = document.getElementById('pay');
         paymentButton.addEventListener('click', () => {
-          const stripe = Stripe(ENV['STRIPE_CONNECT_PUBLIC_KEY']);
+          const stripe = Stripe('<%= ENV['STRIPE_CONNECT_PUBLIC_KEY'] %>');
           stripe.redirectToCheckout({
             sessionId: '<%= @giftcard.checkout_session_id %>'
           });

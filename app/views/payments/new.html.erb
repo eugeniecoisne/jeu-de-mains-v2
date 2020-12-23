@@ -14,7 +14,7 @@
       <script>
         const paymentButton = document.getElementById('pay');
         paymentButton.addEventListener('click', () => {
-          const stripe = Stripe('<%= @booking.session.workshop.place.user.publishable_key %>');
+          const stripe = Stripe('<%= ENV['STRIPE_CONNECT_PUBLIC_KEY'] %>');
           stripe.redirectToCheckout({
             sessionId: '<%= @booking.checkout_session_id %>'
           });

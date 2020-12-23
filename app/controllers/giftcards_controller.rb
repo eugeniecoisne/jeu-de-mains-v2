@@ -69,6 +69,9 @@ class GiftcardsController < ApplicationController
   end
 
   def update
+    @giftcard = Giftcard.find(params[:id])
+    authorize @giftcard
+    @giftcard.update(giftcard_params)
   end
 
   def confirmation_achat
@@ -84,7 +87,7 @@ class GiftcardsController < ApplicationController
   private
 
   def giftcard_params
-    params.require(:giftcard).permit(:amount, :buyer, :buyer_name, :receiver, :receiver_name, :message, :status, :db_status)
+    params.require(:giftcard).permit(:amount, :code, :initial_amount, :buyer, :buyer_name, :receiver, :receiver_name, :message, :status, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id)
   end
 
 end

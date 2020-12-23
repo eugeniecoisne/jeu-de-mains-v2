@@ -5,7 +5,7 @@ class GiftcardPolicy < ApplicationPolicy
   end
 
   def update?
-    record.user == user || user.admin?
+    user
   end
 
   def create?

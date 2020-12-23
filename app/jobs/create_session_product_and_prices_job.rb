@@ -2,15 +2,15 @@ class CreateSessionProductAndPricesJob < ApplicationJob
   queue_as :default
 
   def perform(session)
-    key = session.workshop.place.user.access_code
+    key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
     Stripe.api_key = key
 
     product = Stripe::Product.create({
       id: "prod_#{session.id}#{session.workshop.id}_jdm",
-      name: "atelier-#{session.workshop.title.parameterize}-du-#{session.date.strftime("%d-%m-%y")}-a-#{session.start_at}",
+      name: "Atelier #{session.workshop.title} du #{session.date.strftime("%d/%m/%y")} à #{session.start_at}",
       unit_label: "place(s)",
       description: "#{session.workshop.program[0..150]}(...)",
-      statement_descriptor: "#{session.workshop.place.name.parameterize[0..30]}",
+      statement_descriptor: "#{session.workshop.place.name[0..30]}",
       images: [session.workshop.photos[0].service_url]
     })
 

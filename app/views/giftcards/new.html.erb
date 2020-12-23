@@ -15,6 +15,7 @@
                 <%= f.input :receiver_name, required: true, label: "Pour", placeholder: "Le prénom ou surnom du bénéficiaire" %>
                 <%= f.input :message, as: :text, required: false, input_html: { row: 4 }, label: "Votre message", placeholder: "Personnalisez la carte (optionnel)" %>
                 <%= f.hidden_field :amount, required: true, value: @giftcard.amount %>
+                <%= f.hidden_field :initial_amount, required: true, value: @giftcard.amount %>
                 <%= f.hidden_field :buyer, required: true, value: current_user.id %>
                 <%= f.submit "Je passe au paiement", class: "search-button" %>
               </div>

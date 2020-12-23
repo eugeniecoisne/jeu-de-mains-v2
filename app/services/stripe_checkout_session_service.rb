@@ -5,6 +5,12 @@ class StripeCheckoutSessionService
       booking = Booking.find_by(checkout_session_id: event.data.object.id)
       booking.update(status: 'paid', payment_intent_id: event.data.object.payment_intent)
 
+      if booking.giftcard_id.present?
+        giftcard = Giftcard.find(booking.giftcard_id.to_i)
+        new_amount = giftcard.amount - booking.giftcard_amount_spent
+        giftcard.update(amount: new_amount)
+      end
+
       mail_new_btob = BookingMailer.with(booking: booking).new_booking_btob
       mail_new_btob.deliver_later
       if booking.session.workshop.animators.where(db_status: true).present?

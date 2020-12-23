@@ -76,11 +76,12 @@ Rails.application.routes.draw do
 
   resources :sessions, only: %i(destroy)
 
-  resources :bookings, :path => :reservations, :as => :bookings, only: %i(create destroy)
+  resources :bookings, :path => :reservations, :as => :bookings, only: %i(create update destroy)
 
   resources :bookings, :path => :reservations, :as => :bookings, only: %i() do
     resources :payments, only: :new
     resources :reviews, :path => :avis, :as => :reviews, only: %i(new create)
+    get 'options'
   end
 
   resources :animators, :path => :animateurs, :as => :animators, only: %i(edit update)
