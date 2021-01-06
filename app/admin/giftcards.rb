@@ -13,7 +13,7 @@ ActiveAdmin.register Giftcard do
     column :amount
     column :created_at
     column "Valable jusqu'au" do |giftcard|
-      (giftcard.created_at + 1.year - 1.day).strftime("%d/%m/%Y")
+      (giftcard.deadline_date).strftime("%d/%m/%Y")
     end
     column "Activée ?" do |giftcard|
       giftcard.receiver == giftcard.user.id ? true : false
@@ -44,7 +44,7 @@ ActiveAdmin.register Giftcard do
     column :amount
     column :created_at
     column "Valable jusqu'au" do |giftcard|
-      (giftcard.created_at + 1.year - 1.day).strftime("%d/%m/%Y")
+      (giftcard.deadline_date).strftime("%d/%m/%Y")
     end
     column "Activée ?" do |giftcard|
       giftcard.receiver == giftcard.user.id ? true : false
@@ -76,7 +76,7 @@ ActiveAdmin.register Giftcard do
       row :amount
       row :created_at
       row "Valable jusqu'au" do |giftcard|
-        (giftcard.created_at + 1.year - 1.day).strftime("%d/%m/%Y")
+        (giftcard.deadline_date).strftime("%d/%m/%Y")
       end
       row "Activée ?" do |giftcard|
         giftcard.receiver == giftcard.user.id ? true : false

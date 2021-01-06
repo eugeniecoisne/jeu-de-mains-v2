@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_23_174205) do
+ActiveRecord::Schema.define(version: 2021_01_05_154431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,8 @@ ActiveRecord::Schema.define(version: 2020_12_23_174205) do
     t.boolean "cgv_agreement", default: false
     t.string "giftcard_id"
     t.float "giftcard_amount_spent"
+    t.string "stripe_giftcard_transfer"
+    t.date "cancelled_at"
     t.index ["session_id"], name: "index_bookings_on_session_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -117,6 +119,8 @@ ActiveRecord::Schema.define(version: 2020_12_23_174205) do
     t.string "refund_id"
     t.string "checkout_session_id"
     t.float "initial_amount"
+    t.text "stripe_transfers", default: ""
+    t.date "deadline_date"
     t.index ["user_id"], name: "index_giftcards_on_user_id"
   end
 

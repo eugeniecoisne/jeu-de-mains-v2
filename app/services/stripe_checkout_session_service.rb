@@ -1,3 +1,5 @@
+require 'stripe'
+
 class StripeCheckoutSessionService
   def call(event)
 
@@ -9,6 +11,23 @@ class StripeCheckoutSessionService
         giftcard = Giftcard.find(booking.giftcard_id.to_i)
         new_amount = giftcard.amount - booking.giftcard_amount_spent
         giftcard.update(amount: new_amount)
+
+        key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
+        Stripe.api_key = key
+
+        charge = Stripe::PaymentIntent.retrieve(giftcard.payment_intent_id).charges.first
+
+        transfer = Stripe::Transfer.create({
+          amount: ((booking.giftcard_amount_spent - (booking.giftcard_amount_spent * 0.2)) * 100).to_i,
+          currency: 'eur',
+          transfer_group: "GIFTCARD_#{giftcard.id}",
+          source_transaction: charge.id,
+          destination: booking.session.workshop.place.user.stripe_uid,
+        })
+
+        giftcard.stripe_transfers << "#{transfer.id},"
+        giftcard.save
+        booking.update(stripe_giftcard_transfer: transfer.id)
       end
 
       mail_new_btob = BookingMailer.with(booking: booking).new_booking_btob

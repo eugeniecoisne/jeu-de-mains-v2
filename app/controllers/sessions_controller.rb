@@ -8,9 +8,6 @@ class SessionsController < ApplicationController
     @session.workshop = Workshop.friendly.find(params[:workshop_id])
     @session.capacity = @session.workshop.capacity if @session.capacity.nil?
     if @session.save
-      if @session.workshop.place.user.can_receive_payments?
-        CreateSessionProductAndPricesJob.perform_now(@session)
-      end
       flash[:notice] = "Votre session a bien été ajoutée !"
     end
     redirect_back fallback_location: root_path
