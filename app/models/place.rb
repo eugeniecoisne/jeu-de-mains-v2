@@ -1,18 +1,12 @@
 class Place < ApplicationRecord
 
-  extend FriendlyId
-  friendly_id :name, use: :slugged
-
-  has_one_attached :photo
   belongs_to :user
   has_many :workshops, dependent: :destroy
   has_many :sessions, through: :workshops
   has_many :bookings, through: :sessions
   has_many :reviews, through: :sessions
 
-  validates :name, :address, :zip_code, :city, :siret_number, presence: true, allow_blank: false
-  validates :name, :siret_number, uniqueness: true
-  validate :attachment_size
+  validates :name, :address, :zip_code, :city, presence: true, allow_blank: false
 
   geocoded_by :full_address
   after_validation :geocode, if: :will_save_change_to_address?
@@ -150,7 +144,7 @@ class Place < ApplicationRecord
   def self.cities_and_districts
     districts_to_show = []
     big_cities_to_show = []
-    Place.all.where(db_status: true).each do |place|
+    Place.all.where(db_status: true).select { |place| place.workshops.where(db_status: true, status: "en ligne").present? }.each do |place|
       if place.zip_code.first(2) == "97"
         districts_to_show << DISTRICTS[place.zip_code.first(3)]
       else
@@ -161,15 +155,6 @@ class Place < ApplicationRecord
       end
     end
     big_cities_to_show.uniq!.sort.concat(districts_to_show.uniq!.sort)
-  end
-
-  def rating
-    ratings = []
-    @average = 0
-    if reviews.where(db_status: true).present?
-      reviews.where(db_status: true).each { |review| ratings << review.rating }
-      @average = ratings.sum.fdiv(reviews.where(db_status: true).count).round(2)
-    end
   end
 
   def thematics
@@ -195,16 +180,5 @@ class Place < ApplicationRecord
   def full_address
     "#{address} #{zip_code} #{city}"
   end
-
-
-  def attachment_size
-    if self.photo.attached?
-    photo_size = self.photo.byte_size
-      if photo_size > 3.megabytes
-        errors.add(:attachments, "limite de poids max 3 Mo")
-      end
-    end
-  end
-
 
 end

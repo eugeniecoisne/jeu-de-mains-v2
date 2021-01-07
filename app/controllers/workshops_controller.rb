@@ -122,9 +122,13 @@ class WorkshopsController < ApplicationController
 
   def show
     if @workshop
-      @booking = Booking.new
-      if @workshop.animators.present? && @workshop.animators.first.user.profile.db_status == true
-        @animator = @workshop.animators.first
+      if (@workshop.db_status == true && @workshop.status == "en ligne") || @workshop.place.user == current_user || current_user.admin
+        @booking = Booking.new
+        if @workshop.animators.where(db_status: true).present? && @workshop.animators.first.user.profile.db_status == true
+          @animator = @workshop.animators.where(db_status: true).first
+        end
+      else
+        render :file => 'public/404.html', :status => :not_found, :layout => false
       end
     end
     dates = (Date.today..Date.today + 1.year).to_a
@@ -134,7 +138,7 @@ class WorkshopsController < ApplicationController
   def edit
     if @workshop
       @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
-      @animators = Profile.where(role: 'animateur', db_status: true)
+      @animators = Profile.where(db_status: true).select { |profile| profile.role.present? }
     end
   end
 
@@ -169,13 +173,13 @@ class WorkshopsController < ApplicationController
     @workshop = Workshop.new
     authorize @workshop
     @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
-    @animators = Profile.where(role: 'animateur', db_status: true)
+    @animators = Profile.where(db_status: true).select { |profile| profile.role.present? }
   end
 
   def create
     @workshop = Workshop.new(workshop_params)
     authorize @workshop
-    @workshop.place = Place.friendly.find(params[:workshop][:place_id])
+    @workshop.place = Place.find(params[:workshop][:place_id])
     @workshop.status = 'hors ligne'
     if @workshop.photos.attached? == false
       all_initial_ws = Workshop.all.select { |workshop| workshop.title == @workshop.title }
@@ -203,7 +207,7 @@ class WorkshopsController < ApplicationController
 
   def confirmation
     if @workshop
-      @users = User.all.where(db_status: true).select { |user| user.profile.role == 'animateur' }
+      @users = User.all.where(db_status: true).select { |user| user.profile.role.present? }
       @animator = Animator.new
       @session = Session.new
     end

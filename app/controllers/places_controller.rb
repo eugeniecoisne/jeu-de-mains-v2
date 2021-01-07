@@ -1,27 +1,10 @@
 class PlacesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i(show)
-  before_action :set_place, only: %i(show edit update)
-
-  def index
-    @chatroom = Chatroom.new
-    @places = policy_scope(Place).where(db_status: true)
-    authorize @places
-    if params[:search].present?
-      @places = @places.select { |place| place.name.include?(params[:search][:company])} if params[:search][:company].present?
-      @places = @places.select { |place| place.thematics.include?(params[:search][:keyword])} if params[:search][:keyword].present?
-      @places = @places.select { |place| place.district == params[:search][:place] || place.big_city == params[:search][:place] } if params[:search][:place].present?
-    end
-  end
-
-  def show
-    dates = (Date.today..Date.today + 2.year).to_a
-    @workshops = @place.workshops.where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
-  end
+  before_action :set_place, only: %i(edit update)
 
   def new
     @place = Place.new
     authorize @place
-    @users = User.all.where(db_status: true).select { |user| user.profile.role == "organisateur"}
+    @users = User.all.where(db_status: true).select { |user| user.profile.role.present? }
   end
 
   def create
@@ -29,9 +12,9 @@ class PlacesController < ApplicationController
     authorize @place
     @place.user = User.find(params[:place][:user_id])
     if @place.save
-      redirect_to place_path(@place)
+      redirect_back fallback_location: root_path
     else
-      @users = User.all.where(db_status: true).select { |user| user.profile.role == "organisateur"}
+      @users = User.all.where(db_status: true).select { |user| user.profile.role.present? }
       render 'new'
     end
   end
@@ -42,7 +25,7 @@ class PlacesController < ApplicationController
   def update
     @place.update(place_params)
     if @place.save
-      redirect_to place_path(@place)
+      redirect_back fallback_location: root_path
     else
       render 'edit'
     end
@@ -51,14 +34,14 @@ class PlacesController < ApplicationController
   private
 
   def set_place
-    if Place.friendly.find(params[:id]).db_status == true
-      @place = Place.friendly.find(params[:id])
+    if Place.find(params[:id]).db_status == true
+      @place = Place.find(params[:id])
       authorize @place
     end
   end
 
   def place_params
-    params.require(:place).permit(:name, :address, :zip_code, :city, :description, :phone_number, :email, :ephemeral, :siret_number, :website, :instagram, :photo)
+    params.require(:place).permit(:name, :address, :zip_code, :city, :description, :phone_number, :email, :ephemeral, :siret_number, :website, :instagram)
   end
 
 end

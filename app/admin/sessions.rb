@@ -2,7 +2,7 @@ ActiveAdmin.register Session do
   menu parent: "Fiches"
   config.per_page = 50
   permit_params :date, :start_at, :capacity, :workshop_id, :workshop, :db_status, :reason
-  SESSION_WORKSHOPS = Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} par #{w.place.name} - capacité #{w.capacity} places", w.id] }.to_h
+  SESSION_WORKSHOPS = Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} par #{w.place.user.profile.company} - capacité #{w.capacity} places", w.id] }.to_h
 
   index do
     selectable_column

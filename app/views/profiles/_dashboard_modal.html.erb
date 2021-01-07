@@ -13,15 +13,8 @@
         Vous souhaitez signaler un autre avis ? <%= link_to "Écrivez à l'équipe Jeu de Mains." , "#" %>
       </p>
 
-      <% my_reviews = [] %>
-      <% profile.user.places.where(db_status: true).each do |place| %>
-        <% place.reviews.where(db_status: true).each do |review| %>
-          <% my_reviews << review %>
-        <% end %>
-      <% end %>
-
       <div class="accordion" id="accordionDashboardReviews">
-        <% my_reviews.sort_by { |review| review.created_at }.reverse.each_with_index do |review, index| %>
+        <% @profile.reviews.sort_by { |review| review.created_at }.reverse.each_with_index do |review, index| %>
           <% if index == 0 %>
             <div class="card">
               <div class="card-header" id="heading0">

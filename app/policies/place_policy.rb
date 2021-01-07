@@ -1,15 +1,7 @@
 class PlacePolicy < ApplicationPolicy
 
-  def index?
-    user
-  end
-
-  def show?
-    true
-  end
-
   def create?
-    user.admin?
+    user.profile.role.present? || user.admin?
   end
 
   def new?

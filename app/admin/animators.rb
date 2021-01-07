@@ -3,7 +3,7 @@ ActiveAdmin.register Animator do
   config.per_page = 50
   permit_params :user_id, :workshop_id, :workshop, :user, :db_status
   ANIMATOR_WORKSHOPS = Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} chez #{w.place.name} - créé le #{w.created_at.strftime("%d/%m/%y")}", w.id] }.to_h
-  ANIMATOR_USERS = User.all.select { |u| u.profile.role == "animateur" }.map { |u| ["#{u.fullname} - #{u.profile.company}", u.id] }.to_h
+  ANIMATOR_USERS = User.all.select { |u| u.profile.role.present? }.map { |u| ["#{u.fullname} - #{u.profile.company}", u.id] }.to_h
 
   index do
     selectable_column
@@ -16,8 +16,8 @@ ActiveAdmin.register Animator do
     column :workshop do |animator|
       link_to animator.workshop.title, "#{admin_workshop_path(animator.workshop)}"
     end
-    column "Lieu" do |animator|
-      link_to animator.workshop.place.name, "#{admin_place_path(animator.workshop.place)}"
+    column "Organisateur" do |animator|
+      link_to animator.workshop.place.user.profile.company, "#{admin_profile_path(animator.workshop.place.user.profile)}"
     end
     column :created_at
     column :updated_at
@@ -32,8 +32,8 @@ ActiveAdmin.register Animator do
     column :workshop do |animator|
       animator.workshop.title
     end
-    column "Lieu" do |animator|
-      animator.workshop.place.name
+    column "Organisateur" do |animator|
+      animator.workshop.place.user.profile.company
     end
     column :created_at
     column :updated_at
@@ -47,6 +47,9 @@ ActiveAdmin.register Animator do
       end
       row :workshop do |animator|
         link_to animator.workshop.title, "#{admin_workshop_path(animator.workshop)}"
+      end
+      row "Organisateur" do |animator|
+        link_to animator.workshop.place.user.profile.company, "#{admin_profile_path(animator.workshop.place.user.profile)}"
       end
       row :created_at
       row :updated_at

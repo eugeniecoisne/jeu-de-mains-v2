@@ -57,7 +57,7 @@
                   <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
                     <span style="color: #1C1C1C; font-size: 15px;">Pour l'atelier
                       <strong><%= link_to @review.booking.session.workshop.title, workshop_url(@review.booking.session.workshop), target: "_blank" %></strong><br>
-                      chez <%= @review.booking.session.workshop.place.name %><br>
+                      organisé par <%= @review.booking.session.workshop.place.user.profile.company %><br>
                       <% if @review.booking.session.workshop.animators.where(db_status: true).present? %>
                         animé par <%= @review.booking.session.workshop.animators.where(db_status: true).last.user.profile.company %><br>
                       <% end %>

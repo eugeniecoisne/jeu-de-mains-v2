@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get 'offrir-une-carte-cadeau', to: 'pages#offer_giftcard'
   get 'enregistrer-une-carte-cadeau', to: 'pages#register_giftcard'
-  get 'devenir-partenaire', to: 'pages#partners'
+  get 'devenir-partenaire', to: 'pages#become_partner'
   get 'a-propos', to: 'pages#about'
   get 'contact', to: 'pages#contact'
   get 'mentions-legales', to: 'pages#legal_notice'
@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     match '/sessions/user', to: 'devise/sessions#create', via: :post
     match "/connexion", to: "devise/sessions#new", via: :get
+    match "/deconnexion", to: "devise/sessions#destroy", via: :delete
     match "/inscription", to: "devise/registrations#new", via: :get
   end
 
@@ -49,9 +50,7 @@ Rails.application.routes.draw do
     get 'public'
   end
 
-  resources :places, :path => :lieux, :as => :places, except: %i(destroy) do
-    resources :reviews, :path => :avis, :as => :reviews, only: %i(index)
-  end
+  resources :places, :path => :lieux, :as => :places, except: %i(show destroy index)
 
   resources :workshops, :path => :ateliers, :as => :workshops, except: %i() do
     resources :sessions, only: %i(new create index update)

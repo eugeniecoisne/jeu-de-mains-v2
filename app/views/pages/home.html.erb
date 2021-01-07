@@ -44,8 +44,8 @@
     </div>
     <div class="home-step-presentation">
       <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1594368949/jeu-de-mains-annuaire.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "jeu-de-mains-annuaire", :title => "jeu-de-mains-annuaire") %>
-      <h3>Accès illimité à l'annuaire des lieux et animateurs</h3>
-      <p>Profitez d'un accès à la liste des partenaires lieux et animateurs et leurs pages dédiées</p>
+      <h3>Accès illimité à l'annuaire des partenaires</h3>
+      <p>Profitez d'un accès à la communauté des partenaires et leurs pages dédiées</p>
     </div>
   </div>
 
@@ -93,18 +93,18 @@
               <%= link_to(workshop, data: { turbolinks: false }, title: "#{workshop.title}") do  %>
                 <div class="ws-card-infos" id="home-ws-card-infos">
                   <div>
-                    <div class="ws-card-place" id="home-ws-card-place-desktop">
-                      <% if workshop.place.name.size > 25 %>
-                        <span><%= workshop.place.name[0..24] %>...</span>
+                    <div class="ws-card-organizer" id="home-ws-card-organizer-desktop">
+                      <% if workshop.place.user.profile.company.size > 25 %>
+                        <span><%= workshop.place.user.profile.company[0..24] %>...</span>
                       <% else %>
-                        <span><%= workshop.place.name %></span>
+                        <span><%= workshop.place.user.profile.company %></span>
                       <% end %>
                     </div>
-                    <div class="ws-card-place" id="home-ws-card-place-mobile">
-                      <% if workshop.place.name.size > 17 %>
-                        <span><%= workshop.place.name[0..16] %>...</span>
+                    <div class="ws-card-organizer" id="home-ws-card-organizer-mobile">
+                      <% if workshop.place.user.profile.company.size > 17 %>
+                        <span><%= workshop.place.user.profile.company[0..16] %>...</span>
                       <% else %>
-                        <span><%= workshop.place.name %></span>
+                        <span><%= workshop.place.user.profile.company %></span>
                       <% end %>
                     </div>
                     <div class="ws-card-title" id="home-ws-card-title">
@@ -228,18 +228,18 @@
                 <%= link_to(session.workshop, data: { turbolinks: false }, title: "#{session.workshop.title}") do  %>
                   <div class="ws-card-infos" id="home-ws-card-infos">
                     <div>
-                      <div class="ws-card-place" id="home-ws-card-place-desktop">
-                        <% if session.workshop.place.name.size > 25 %>
-                          <span><%= session.workshop.place.name[0..24] %>...</span>
+                      <div class="ws-card-organizer" id="home-ws-card-organizer-desktop">
+                        <% if session.workshop.place.user.profile.company.size > 25 %>
+                          <span><%= session.workshop.place.user.profile.company[0..24] %>...</span>
                         <% else %>
-                          <span><%= session.workshop.place.name %></span>
+                          <span><%= session.workshop.place.user.profile.company %></span>
                         <% end %>
                       </div>
-                      <div class="ws-card-place" id="home-ws-card-place-mobile">
-                        <% if session.workshop.place.name.size > 17 %>
-                          <span><%= session.workshop.place.name[0..16] %>...</span>
+                      <div class="ws-card-organizer" id="home-ws-card-organizer-mobile">
+                        <% if session.workshop.place.user.profile.company.size > 17 %>
+                          <span><%= session.workshop.place.user.profile.company[0..16] %>...</span>
                         <% else %>
-                          <span><%= session.workshop.place.name %></span>
+                          <span><%= session.workshop.place.user.profile.company %></span>
                         <% end %>
                       </div>
                       <div class="ws-card-title" id="home-ws-card-title">

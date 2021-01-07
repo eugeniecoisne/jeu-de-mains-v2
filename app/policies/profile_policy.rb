@@ -5,7 +5,7 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def show?
-    user
+    record.user == user || user.admin?
   end
 
   def update?

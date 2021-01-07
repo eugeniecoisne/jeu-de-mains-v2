@@ -4,8 +4,7 @@ class ProfilesController < ApplicationController
 
   def index
     @chatroom = Chatroom.new
-    @profiles = policy_scope(Profile).where(role: 'animateur', db_status: true)
-    authorize @profiles
+    @profiles = policy_scope(Profile).where(db_status: true).select { |profile| profile.role.present? }
     if params[:search].present?
       @profiles = @profiles.select { |profile| profile.company.include?(params[:search][:company])} if params[:search][:company].present?
       @profiles = @profiles.select { |profile| profile.thematics.include?(params[:search][:keyword])} if params[:search][:keyword].present?
@@ -46,10 +45,11 @@ class ProfilesController < ApplicationController
   end
 
   def tableau_de_bord
-    @users = User.all.where(db_status: true).select { |user| user.profile.role == 'animateur' }
+    @users = User.all.where(db_status: true).select { |user| user.profile.role.present? }
     @animator = Animator.new
     @session = Session.new
     @workshop = Workshop.new
+    @chatroom = Chatroom.new
   end
 
   def messagerie
