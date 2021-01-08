@@ -15,11 +15,11 @@
     <div class="place-animator-index-search">
       <%= simple_form_for :search, url: profiles_path, method: :get do |f| %>
         <% if params[:search].present? %>
-            <%= f.input :company, required: false, label: false, prompt: "Partenaires", collection: Profile.companies.sort, selected: params[:search][:company] %>
-            <%= f.input :keyword, required: false, label: false, prompt: "Tous types", collection: Workshop::THEMATICS, selected: params[:search][:keyword] %>
-            <%= f.input :place, required: false, label: false, prompt: "Toutes les villes", collection: Profile.cities_and_districts, selected: params[:search][:place] %>
+            <%= f.input :company, required: false, label: false, collection: ["Tous les partenaires"].concat(Profile.companies.sort), selected: params[:search][:company] %>
+            <%= f.input :keyword, required: false, label: false, collection: ["Tous types"].concat(Workshop::THEMATICS), selected: params[:search][:keyword] %>
+            <%= f.input :place, required: false, label: false, collection: ["Toutes les villes"].concat(Profile.cities_and_districts), selected: params[:search][:place] %>
         <% else %>
-            <%= f.input :company, required: false, label: false, prompt: "Partenaires", collection: Profile.companies.sort %>
+            <%= f.input :company, required: false, label: false, prompt: "Tous les Partenaires", collection: Profile.companies.sort %>
             <%= f.input :keyword, required: false, label: false, prompt: "Tous types", collection: Workshop::THEMATICS %>
             <%= f.input :place, required: false, label: false, prompt: "Toutes les villes", collection: Profile.cities_and_districts %>
         <% end %>

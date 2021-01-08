@@ -8,7 +8,7 @@ class Place < ApplicationRecord
 
   validates :name, :address, :zip_code, :city, presence: true, allow_blank: false
 
-  geocoded_by :full_address
+  geocoded_by :geocoded_full_address
   after_validation :geocode, if: :will_save_change_to_address?
 
   BIG_CITIES = {
@@ -175,9 +175,13 @@ class Place < ApplicationRecord
     end
   end
 
+  def full_address
+    address + " " + zip_code + " " + city.capitalize
+  end
+
   private
 
-  def full_address
+  def geocoded_full_address
     "#{address} #{zip_code} #{city}"
   end
 

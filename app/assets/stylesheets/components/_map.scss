@@ -8,8 +8,10 @@
   transform: translate(5vw, 5vh) !important;
 }
 
-.mapboxgl-popup-anchor-top-left {
-  border-top-left-radius: unset !important;
+.mapboxgl-popup-anchor-bottom-left {
+  .mapboxgl-popup-content {
+    border-bottom-left-radius: 3px !important;
+  }
 }
 
 .mapboxgl-popup-content {
@@ -19,7 +21,7 @@
   min-height: 8em;
   display: flex;
   flex-direction: column;
-  padding: 0;
+  padding: 0px 0px 10px 0px !important;
 }
 
 .mapboxgl-popup-tip {
@@ -29,6 +31,8 @@
 .mapboxgl-popup-close-button {
   font-size: 24px;
   color: white;
+  right: 2px !important;
+  top: 2px !important;
 }
 
 .mapboxgl-popup-close-button:hover {
@@ -40,37 +44,15 @@
 }
 
 .map-ws-popup {
-  background-color: $green;
-}
-
-.map-ws-text-popup {
-  padding: 0.5em 0.5em 0.5em 1em;
+  background-color: $dark-blue;
+  height: 31px;
+  border-top-right-radius: 3px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  border-radius: 5px;
-}
-
-.map-ws-name-rating {
-  h2 {
-    font-size: 1.3em;
-    color: white;
-    font-weight: 600;
-    margin-bottom: 0.2em;
-  }
-  .fa-star {
-    color: white;
-  }
+  align-items: center;
   span {
-    font-size: 1.1em;
     color: white;
-  }
-  #ws-popup-rating {
-    font-weight: 600;
-  }
-  #ws-popup-nb-reviews {
-    opacity: 80%;
+    font-weight: 500;
+    margin-left: 10px;
   }
 }
 
@@ -82,34 +64,69 @@
   }
 }
 .popup-workshop {
-  padding: 0.5em;
+  padding: 8px 10px;
   display: flex;
   justify-content: space-between;
-  height: 7em;
-  border-bottom: 1px solid $gray;
+  height: 8em;
+  border-top: 1px solid $gray;
+}
+
+#first-popup-workshop {
+  border-top: unset;
+  margin-top: 6px;
 }
 
 .popup-workshop-left-side {
-  padding: 0.5em;
+  padding-left: 3px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  .fa-star {
-    color: $light-blue;
-  }
 }
 
 .popup-workshop-right-side {
+  position: relative;
   img {
     width: 6em;
     height: 100%;
     object-fit: cover;
   }
+  .popup-workshop-rating-tag-container {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+  }
+  .popup-workshop-rating {
+    padding: 0px 3px;
+    background-color: white;
+    opacity: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 90%;
+    .fa-star {
+      color: $light-blue;
+    }
+    span {
+      color: $dark-blue;
+      font-weight: 700;
+      padding-left: 3.25px;
+      padding-right: 2px;
+      font-family: "Montserrat", Helvetica, sans-serif;
+    }
+  }
+}
+
+.popup-workshop-organizer {
+  color: $light-blue;
+  font-weight: 600;
+  font-size: 12.5px;
+  font-family: "Montserrat", Helvetica, sans-serif;
 }
 
 .popup-workshop-title {
   h3 {
-    font-size: 1.1em;
+    font-size: 13.5px;
     font-weight: 600;
     color: $dark-blue;
     margin-bottom: 0.1em;
@@ -117,39 +134,16 @@
 }
 
 .popup-workshop-price {
-  font-weight: 500;
-  font-size: 1.1em;
-  color: $light-blue;
-}
-
-.map-ws-popup-see-place {
-  width: 100%;
-  text-decoration: none !important;
-  background-color: $light-blue;
-  height: 2.5em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  a {
-    text-decoration: none !important;
-    font-size: 1.2em;
-    font-weight: 500;
-    color: white;
-    margin: 0;
-    padding: 0;
-  }
-}
-.map-ws-popup-see-place:hover {
-  background-color: $blue;
+  font-weight: 600;
+  font-size: 15.2px;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  color: $dark-blue;
 }
 
 // RESPONSIVE MAP //
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
-  .popup-workshop-title-long {
-    display: none;
-  }
   .mapboxgl-popup {
     transform: translate(5vw, 17vh) !important;
   }
@@ -167,9 +161,6 @@
   .mapboxgl-popup-content {
     width: 80vw;
   }
-  .popup-workshop-title-short {
-    display: none;
-  }
 }
 
 // Medium devices (tablets, 768px and up)
@@ -180,9 +171,6 @@
   }
   .mapboxgl-popup-content {
     width: 36vw;
-  }
-  .popup-workshop-title-long {
-    display: none;
   }
 }
 
@@ -195,9 +183,6 @@
   .mapboxgl-popup-content {
     width: 32.5vw;
   }
-  .popup-workshop-title-short {
-    display: none;
-  }
 }
 
 // Extra large devices (large desktops, 1200px and up)
@@ -208,8 +193,5 @@
   }
   .mapboxgl-popup-content {
     width: 29.5vw;
-  }
-  .popup-workshop-title-short {
-    display: none;
   }
 }

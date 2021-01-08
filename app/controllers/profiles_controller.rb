@@ -1,14 +1,15 @@
 class ProfilesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(public)
-  before_action :set_profile, only: %i(show edit update tableau_de_bord messagerie)
+  before_action :set_profile, only: %i(edit update messagerie)
+  before_action :set_profile_and_verify, only: %i(show tableau_de_bord)
 
   def index
     @chatroom = Chatroom.new
     @profiles = policy_scope(Profile).where(db_status: true).select { |profile| profile.role.present? }
     if params[:search].present?
-      @profiles = @profiles.select { |profile| profile.company.include?(params[:search][:company])} if params[:search][:company].present?
-      @profiles = @profiles.select { |profile| profile.thematics.include?(params[:search][:keyword])} if params[:search][:keyword].present?
-      @profiles = @profiles.select { |profile| profile.district == params[:search][:place] || profile.big_city == params[:search][:place] } if params[:search][:place].present?
+      @profiles = @profiles.select { |profile| profile.company.include?(params[:search][:company])} if params[:search][:company].present? && params[:search][:company].include?("Tous les partenaires") == false
+      @profiles = @profiles.select { |profile| profile.thematics.include?(params[:search][:keyword])} if params[:search][:keyword].present? && params[:search][:keyword].include?("Tous types") == false
+      @profiles = @profiles.select { |profile| profile.district == params[:search][:place] || profile.big_city == params[:search][:place] } if params[:search][:place].present? && params[:search][:place].include?("Toutes les villes") == false
     end
   end
 
@@ -77,6 +78,15 @@ class ProfilesController < ApplicationController
     if Profile.friendly.find(params[:id]).db_status == true
       @profile = Profile.friendly.find(params[:id])
       authorize @profile
+    end
+  end
+
+  def set_profile_and_verify
+    if Profile.friendly.find(params[:id]).db_status == true
+      @profile = Profile.friendly.find(params[:id])
+      if @profile.user == current_user
+        authorize @profile
+      end
     end
   end
 

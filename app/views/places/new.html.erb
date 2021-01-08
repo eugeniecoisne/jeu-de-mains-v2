@@ -2,59 +2,13 @@
   <div class="row justify-content-center">
     <div class="col-12">
       <%= simple_form_for(@place) do |f| %>
-        <div class="form-group select required place_user">
-          <label class="select required" for="place_user_id">Utilisateur</label>
-          <select class="form-control select required" name="place[user_id]" id="place_user_id">
-            <% @users.sort_by { |user| user.profile.company }.each do |user| %>
-              <option value="<%= user.id %>"><%= user.profile.company %></option>
-            <% end %>
-          </select>
-        </div>
-
         <%= f.input :name %>
         <%= f.input :address %>
         <%= f.input :zip_code %>
         <%= f.input :city %>
-        <%= f.input :description %>
         <%= f.input :phone_number %>
-        <%= f.input :email %>
-        <%= f.input :ephemeral %>
-        <%= f.input :siret_number %>
-        <%= f.input :website %>
-        <%= f.input :instagram %>
-        <%= f.input :photo, as: :file, input_html: { accept: "image/*", id: "picture", onchange: "Filevalidation()" } %>
-        <p id="bytesSize"></p>
-
         <%= f.submit 'Valider' %>
-
       <% end %>
     </div>
   </div>
 </div>
-
-<script>
-    Filevalidation = () => {
-        const fi = document.getElementById('picture');
-        // Check if any file is selected.
-        if (fi.files.length > 0) {
-
-            let sum = 0;
-            let i = 0;
-
-            for ( i = 0; i <= fi.files.length - 1; i++) {
-
-                sum += Math.round(((fi.files.item(i).size) / 1024));
-                // The size of the file.
-
-            }
-
-            if (sum >= 3100) {
-                alert(
-                  "Poids total dépassé. Sélectionnez une photo de moins de 3 Mo");
-            } else {
-                document.getElementById('bytesSize').innerHTML = '<b> ✔ '
-                + (sum / 1000) + '</b> Mo / 3 Mo poids max';
-            }
-        }
-    }
-</script>

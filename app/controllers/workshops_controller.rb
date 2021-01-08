@@ -172,6 +172,7 @@ class WorkshopsController < ApplicationController
   def new
     @workshop = Workshop.new
     authorize @workshop
+    @place = Place.new
     @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
     @animators = Profile.where(db_status: true).select { |profile| profile.role.present? }
   end

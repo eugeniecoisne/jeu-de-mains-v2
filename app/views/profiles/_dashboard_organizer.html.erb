@@ -506,7 +506,21 @@
                                 <h3><%= session_start_time.strftime("%Hh%M") %> à <%= session_end_time.strftime("%Hh%M") %> - <%= session.workshop.title %></h3>
                               <% end %>
                             <% end %>
+
                             <div class="mobile-dashboard-my-agenda-workshop-infos">
+
+                              <% if session.workshop.place.user == current_user %>
+                                <h4 class="mobile-my-agenda-ws-animator">
+                                  <i class="fas fa-user-shield mr-1"></i>
+                                  <strong>Vous êtes organisateur</strong>
+                                </h4>
+                              <% else %>
+                                <h4 class="mobile-my-agenda-ws-animator">
+                                  <i class="fas fa-graduation-cap mr-1"></i>
+                                  <strong>Vous êtes animateur</strong>
+                                </h4>
+                              <% end %>
+
                               <h4 class="mobile-my-agenda-ws-place-name">
                                 <%= link_to "https://www.google.fr/maps/search/#{session.workshop.place.address}, #{session.workshop.place.zip_code} #{session.workshop.place.city.upcase}", target: "_blank" do %>
                                   <i class="fas fa-map-marker-alt mr-2"></i>
@@ -527,7 +541,6 @@
                                   Organisé par <%= session.workshop.animators.first.user.profile.company %>
                                 </h4>
                               <% end %>
-
 
                               <h4 class="mobile-my-agenda-ws-duration">
                                 <i class="far fa-clock mr-2"></i>

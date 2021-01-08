@@ -148,7 +148,8 @@
   color: white;
   font-weight: 500;
   font-size: 14px;
-  height: 4em;
+  height: 3em;
+  padding: 0 8px;
   span {
     text-align: center;
   }
@@ -260,10 +261,10 @@
   grid-gap: 2em;
   margin-top: 2em;
   h2 {
-    color: $light-blue;
+    color: $blue;
     text-transform: uppercase;
-    font-size: 19px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
   }
   p {
     margin: 0;

@@ -10,6 +10,10 @@
   }
 }
 
+.ws-card:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0.3rem 0.5rem 0px;
+}
+
 .ws-card-tags {
   display: flex;
   position: absolute;

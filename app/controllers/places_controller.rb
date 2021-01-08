@@ -4,17 +4,15 @@ class PlacesController < ApplicationController
   def new
     @place = Place.new
     authorize @place
-    @users = User.all.where(db_status: true).select { |user| user.profile.role.present? }
   end
 
   def create
     @place = Place.new(place_params)
     authorize @place
-    @place.user = User.find(params[:place][:user_id])
+    @place.user = current_user
     if @place.save
-      redirect_back fallback_location: root_path
+      redirect_to new_workshop_path
     else
-      @users = User.all.where(db_status: true).select { |user| user.profile.role.present? }
       render 'new'
     end
   end
