@@ -25,13 +25,13 @@
     <div class="giftcard-confirmation-simulation-row">
       <p>Montant</p>
       <div class="giftcard-simulation-information">
-        <%= @giftcard.amount.to_i %> euros
+        <%= @giftcard.initial_amount.to_i %> euros
       </div>
     </div>
     <div class="giftcard-confirmation-simulation-row">
       <p>Valable</p>
       <div class="giftcard-simulation-information">
-        jusqu'au <%= (@giftcard.created_at + 1.year - 1.day).strftime("%d/%m/%Y") %> à 23h59
+        jusqu'au <%= (@giftcard.deadline_date).strftime("%d/%m/%Y") %> à 23h59
       </div>
     </div>
     <div class="giftcard-confirmation-simulation-row">

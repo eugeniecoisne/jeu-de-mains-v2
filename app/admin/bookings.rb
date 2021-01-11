@@ -24,6 +24,7 @@ ActiveAdmin.register Booking do
     column :amount
     column :created_at
     column :updated_at
+    column :cancelled_at
     column "Lieu" do |booking|
       link_to booking.session.workshop.place.name, "#{admin_place_path(booking.session.workshop.place)}"
     end
@@ -81,6 +82,7 @@ ActiveAdmin.register Booking do
     column :amount
     column :created_at
     column :updated_at
+    column :cancelled_at
     column "Lieu" do |booking|
       booking.session.workshop.place.name
     end
@@ -132,6 +134,7 @@ ActiveAdmin.register Booking do
       row :amount
       row :created_at
       row :updated_at
+      row :cancelled_at
       row "Lieu" do |booking|
         link_to booking.session.workshop.place.name, "#{admin_place_path(booking.session.workshop.place)}"
       end

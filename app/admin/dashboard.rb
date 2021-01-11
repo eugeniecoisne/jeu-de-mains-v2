@@ -252,19 +252,19 @@ ActiveAdmin.register_page "Dashboard" do
             column do
               para "7 jrs"
               bookings_7_sum = 0
-              Booking.all.where(db_status: true).select { |b| b.created_at > (Date.today - 7.day)}.each { |b| bookings_7_sum += b.quantity }
+              Booking.all.where(db_status: true, status: "paid").select { |b| b.created_at > (Date.today - 7.day)}.each { |b| bookings_7_sum += b.quantity }
               h2 "#{bookings_7_sum}"
             end
             column do
               para "30 jrs"
               bookings_30_sum = 0
-              Booking.all.where(db_status: true).select { |b| b.created_at > (Date.today - 30.day)}.each { |b| bookings_30_sum += b.quantity }
+              Booking.all.where(db_status: true, status: "paid").select { |b| b.created_at > (Date.today - 30.day)}.each { |b| bookings_30_sum += b.quantity }
               h2 "#{bookings_30_sum}"
             end
             column do
               para "Début"
               bookings_sum = 0
-              Booking.all.where(db_status: true).each { |b| bookings_sum += b.quantity }
+              Booking.all.where(db_status: true, status: "paid").each { |b| bookings_sum += b.quantity }
               h2 "#{bookings_sum}"
             end
           end
@@ -274,19 +274,19 @@ ActiveAdmin.register_page "Dashboard" do
             column do
               para "7 jrs"
               cancel_bookings_7_sum = 0
-              Booking.all.where(db_status: false).select { |b| b.updated_at > (Date.today - 7.day)}.each { |b| cancel_bookings_7_sum += b.quantity }
+              Booking.all.where(db_status: false, status: "refunded").select { |b| b.cancelled_at > (Date.today - 7.day)}.each { |b| cancel_bookings_7_sum += b.quantity }
               h2 "#{cancel_bookings_7_sum}"
             end
             column do
               para "30 jrs"
               cancel_bookings_30_sum = 0
-              Booking.all.where(db_status: false).select { |b| b.updated_at > (Date.today - 30.day)}.each { |b| cancel_bookings_30_sum += b.quantity }
+              Booking.all.where(db_status: false, status: "refunded").select { |b| b.cancelled_at > (Date.today - 30.day)}.each { |b| cancel_bookings_30_sum += b.quantity }
               h2 "#{cancel_bookings_30_sum}"
             end
             column do
               para "Début"
               cancel_bookings_sum = 0
-              Booking.all.where(db_status: false).each { |b| cancel_bookings_sum += b.quantity }
+              Booking.all.where(db_status: false, status: "refunded").each { |b| cancel_bookings_sum += b.quantity }
               h2 "#{cancel_bookings_sum}"
             end
           end
@@ -302,17 +302,17 @@ ActiveAdmin.register_page "Dashboard" do
           columns do
             column do
               para "7 jrs"
-              giftcards_7 = Giftcard.all.where(db_status: true).select { |g| g.created_at > (Date.today - 7.day)}
+              giftcards_7 = Giftcard.all.where(db_status: true, status: "paid").select { |g| g.created_at > (Date.today - 7.day)}
               h2 "#{giftcards_7.count}"
             end
             column do
               para "30 jrs"
-              giftcards_30 = Giftcard.all.where(db_status: true).select { |g| g.created_at > (Date.today - 30.day)}
+              giftcards_30 = Giftcard.all.where(db_status: true, status: "paid").select { |g| g.created_at > (Date.today - 30.day)}
               h2 "#{giftcards_30.count}"
             end
             column do
               para "Début"
-              giftcards = Giftcard.all.where(db_status: true)
+              giftcards = Giftcard.all.where(db_status: true, status: "paid")
               h2 "#{giftcards.count}"
             end
           end
@@ -321,17 +321,17 @@ ActiveAdmin.register_page "Dashboard" do
           columns do
             column do
               para "7 jrs"
-              giftcards_7 = Giftcard.all.where(db_status: true).select { |g| g.created_at > (Date.today - 7.day) && [20, 30, 40].include?(g.amount.to_i)}
+              giftcards_7 = Giftcard.all.where(db_status: true, status: "paid").select { |g| g.created_at > (Date.today - 7.day) && [20, 30, 40].include?(g.amount.to_i)}
               h2 "#{giftcards_7.count}"
             end
             column do
               para "30 jrs"
-              giftcards_30 = Giftcard.all.where(db_status: true).select { |g| g.created_at > (Date.today - 30.day) && [20, 30, 40].include?(g.amount.to_i)}
+              giftcards_30 = Giftcard.all.where(db_status: true, status: "paid").select { |g| g.created_at > (Date.today - 30.day) && [20, 30, 40].include?(g.amount.to_i)}
               h2 "#{giftcards_30.count}"
             end
             column do
               para "Début"
-              giftcards = Giftcard.all.where(db_status: true).select { |g| [20, 30, 40].include?(g.amount.to_i)}
+              giftcards = Giftcard.all.where(db_status: true, status: "paid").select { |g| [20, 30, 40].include?(g.amount.to_i)}
               h2 "#{giftcards.count}"
             end
           end
@@ -340,17 +340,17 @@ ActiveAdmin.register_page "Dashboard" do
           columns do
             column do
               para "7 jrs"
-              giftcards_7 = Giftcard.all.where(db_status: true).select { |g| g.created_at > (Date.today - 7.day) && [50, 60, 70].include?(g.amount.to_i)}
+              giftcards_7 = Giftcard.all.where(db_status: true, status: "paid").select { |g| g.created_at > (Date.today - 7.day) && [50, 60, 70].include?(g.amount.to_i)}
               h2 "#{giftcards_7.count}"
             end
             column do
               para "30 jrs"
-              giftcards_30 = Giftcard.all.where(db_status: true).select { |g| g.created_at > (Date.today - 30.day) && [50, 60, 70].include?(g.amount.to_i)}
+              giftcards_30 = Giftcard.all.where(db_status: true, status: "paid").select { |g| g.created_at > (Date.today - 30.day) && [50, 60, 70].include?(g.amount.to_i)}
               h2 "#{giftcards_30.count}"
             end
             column do
               para "Début"
-              giftcards = Giftcard.all.where(db_status: true).select { |g| [50, 60, 70].include?(g.amount.to_i)}
+              giftcards = Giftcard.all.where(db_status: true, status: "paid").select { |g| [50, 60, 70].include?(g.amount.to_i)}
               h2 "#{giftcards.count}"
             end
           end
@@ -359,17 +359,17 @@ ActiveAdmin.register_page "Dashboard" do
           columns do
             column do
               para "7 jrs"
-              giftcards_7 = Giftcard.all.where(db_status: true).select { |g| g.created_at > (Date.today - 7.day) && [80, 90, 100].include?(g.amount.to_i)}
+              giftcards_7 = Giftcard.all.where(db_status: true, status: "paid").select { |g| g.created_at > (Date.today - 7.day) && [80, 90, 100].include?(g.amount.to_i)}
               h2 "#{giftcards_7.count}"
             end
             column do
               para "30 jrs"
-              giftcards_30 = Giftcard.all.where(db_status: true).select { |g| g.created_at > (Date.today - 30.day) && [80, 90, 100].include?(g.amount.to_i)}
+              giftcards_30 = Giftcard.all.where(db_status: true, status: "paid").select { |g| g.created_at > (Date.today - 30.day) && [80, 90, 100].include?(g.amount.to_i)}
               h2 "#{giftcards_30.count}"
             end
             column do
               para "Début"
-              giftcards = Giftcard.all.where(db_status: true).select { |g| [80, 90, 100].include?(g.amount.to_i)}
+              giftcards = Giftcard.all.where(db_status: true, status: "paid").select { |g| [80, 90, 100].include?(g.amount.to_i)}
               h2 "#{giftcards.count}"
             end
           end
@@ -378,17 +378,17 @@ ActiveAdmin.register_page "Dashboard" do
           columns do
             column do
               para "7 jrs"
-              giftcards_7 = Giftcard.all.where(db_status: true).select { |g| g.created_at > (Date.today - 7.day) && [110, 120, 130, 140, 150].include?(g.amount.to_i)}
+              giftcards_7 = Giftcard.all.where(db_status: true, status: "paid").select { |g| g.created_at > (Date.today - 7.day) && [110, 120, 130, 140, 150].include?(g.amount.to_i)}
               h2 "#{giftcards_7.count}"
             end
             column do
               para "30 jrs"
-              giftcards_30 = Giftcard.all.where(db_status: true).select { |g| g.created_at > (Date.today - 30.day) && [110, 120, 130, 140, 150].include?(g.amount.to_i)}
+              giftcards_30 = Giftcard.all.where(db_status: true, status: "paid").select { |g| g.created_at > (Date.today - 30.day) && [110, 120, 130, 140, 150].include?(g.amount.to_i)}
               h2 "#{giftcards_30.count}"
             end
             column do
               para "Début"
-              giftcards = Giftcard.all.where(db_status: true).select { |g| [110, 120, 130, 140, 150].include?(g.amount.to_i)}
+              giftcards = Giftcard.all.where(db_status: true, status: "paid").select { |g| [110, 120, 130, 140, 150].include?(g.amount.to_i)}
               h2 "#{giftcards.count}"
             end
           end

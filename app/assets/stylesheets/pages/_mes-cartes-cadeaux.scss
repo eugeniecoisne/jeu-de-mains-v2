@@ -37,7 +37,7 @@
     outline: none;
   }
   .discover-ws-link:hover {
-    background-color: $green;
+    background-color: $dark-blue;
   }
   .giftcard-confirmation-simulation {
     margin-top: 2rem;
@@ -65,11 +65,14 @@
   #giftcard-not-activated {
     color: $flashy-red;
   }
-    #giftcard-valid {
+  #giftcard-valid {
     color: $flashy-green;
   }
   #giftcard-not-valid {
     color: $flashy-red;
+  }
+  #giftcard-fully-spent {
+    color: $flashy-green;
   }
 }
 

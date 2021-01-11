@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row py-4">
+    <div class="col">
+      <% if @booking.giftcard_amount_spent.nil? %>
+        <h1><%= @booking.user.first_name %>, vous êtes sur le point de réserver</h1>
+        <p><%= @booking.quantity %> place(s) au tarif de <%= @booking.session.workshop.price %>€</p>
+        <p>Pour l'atelier <%= @booking.session.workshop.title %></p>
+        <p>Qui aura lieu le <%= @booking.session.date.strftime("%d/%m/%y") %> à <%= @booking.session.start_at %></p>
+        <p>Chez <%= @booking.session.workshop.place.name %></p>
+        <p>Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
+
+      <% else %>
+
+        <h1><%= @booking.user.first_name %>, vous êtes sur le point de réserver</h1>
+        <p><%= @booking.quantity %> place(s) au tarif de <%= @booking.session.workshop.price %>€</p>
+        <p>Soit un total de <%= @booking.amount %>€</p>
+        <p>Vous utilisez <%= @booking.giftcard_amount_spent %> € en carte cadeau</p>
+        <p>Il vous reste <%= @booking.amount - @booking.giftcard_amount_spent %>€ à régler</p>
+        <p>Pour l'atelier <%= @booking.session.workshop.title %></p>
+        <p>Qui aura lieu le <%= @booking.session.date.strftime("%d/%m/%y") %> à <%= @booking.session.start_at %></p>
+        <p>Chez <%= @booking.session.workshop.place.name %></p>
+        <p>Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
+
+      <% end %>
+
+      <% if @booking.giftcard_amount_spent.present? && @booking.giftcard_amount_spent == @booking.amount %>
+        <%= simple_form_for(@booking) do |f| %>
+          <%= f.hidden_field :confirm_giftcard, value: true %>
+          <%= f.submit 'Confirmer ma réservation', class: "btn btn-primary"%>
+        <% end %>
+      <% else %>
+        <button id="pay" class="btn btn-primary">Procéder au paiement</button>
+      <% end %>
+
+
+      <script src="https://js.stripe.com/v3/"></script>
+      <script>
+        const paymentButton = document.getElementById('pay');
+        paymentButton.addEventListener('click', () => {
+          const stripe = Stripe('<%= ENV['STRIPE_CONNECT_PUBLIC_KEY'] %>');
+          stripe.redirectToCheckout({
+            sessionId: '<%= @booking.checkout_session_id %>'
+          });
+        });
+      </script>
+    </div>
+  </div>
+</div>

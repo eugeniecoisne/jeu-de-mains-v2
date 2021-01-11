@@ -116,10 +116,15 @@ class PagesController < ApplicationController
     if params[:giftcard].present?
       if params[:giftcard][:code].present?
         @giftcard = Giftcard.find_by(code: params[:giftcard][:code])
-        @giftcard.update(user_id: current_user.id)
-        @giftcard.update(receiver: current_user.id)
-        @giftcard.save
-        redirect_to giftcard_confirmation_enregistrement_path(@giftcard)
+        if @giftcard.receiver.present? == false
+          @giftcard.update(user_id: current_user.id)
+          @giftcard.update(receiver: current_user.id)
+          @giftcard.save
+          redirect_to giftcard_confirmation_enregistrement_path(@giftcard)
+        else
+          flash[:alert] = "Votre code est déjà utilisé ou erroné"
+          redirect_back fallback_location: root_path
+        end
       end
     end
   end

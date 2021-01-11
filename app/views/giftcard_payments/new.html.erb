@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row py-4">
+    <div class="col">
+      <h1><%= @giftcard.user.first_name %>, vous êtes sur le point de commander</h1>
+      <p>une carte cadeau d'une valeur de <%= @giftcard.amount.to_i %> euros pour un proche.</p>
+
+      <button id="pay" class="btn btn-primary">Procéder au paiement</button>
+
+      <script src="https://js.stripe.com/v3/"></script>
+      <script>
+        const paymentButton = document.getElementById('pay');
+        paymentButton.addEventListener('click', () => {
+          const stripe = Stripe('<%= ENV['STRIPE_CONNECT_PUBLIC_KEY'] %>');
+          stripe.redirectToCheckout({
+            sessionId: '<%= @giftcard.checkout_session_id %>'
+          });
+        });
+      </script>
+    </div>
+  </div>
+</div>

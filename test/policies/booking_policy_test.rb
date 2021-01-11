@@ -10,6 +10,9 @@ class BookingPolicyTest < ActiveSupport::TestCase
   def test_create
   end
 
+  def test_options
+  end
+
   def test_update
   end
 
