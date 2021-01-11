@@ -21,23 +21,15 @@ ActiveAdmin.register Place do
     actions
     column :id
     column :db_status
-    column :verified
     column :name
     column "Auteur" do |place|
       link_to "#{place.user.fullname} / #{place.user.profile.company}", "#{admin_user_path(place.user)}"
     end
     column :ephemeral
-    column :siret_number
     column :address
     column :zip_code
     column :city
     column :phone_number
-    column :email
-    column :website
-    column :instagram
-    column :description do |place|
-      place.description.present? ? true : false
-    end
     column "Nb ateliers en ligne" do |place|
       Workshop.all.where(db_status: true, status: "en ligne").select { |w| w.place == place}.count
     end
@@ -49,18 +41,8 @@ ActiveAdmin.register Place do
       Session.all.select { |s| s.workshop.place == place && s.date < Date.today }.each { |s| participants += s.sold }
       participants
     end
-    column :rating
-    column "Nombre d'avis" do |place|
-      Review.all.where(db_status: true).select { |r| r.booking.session.workshop.place == place }.count
-    end
     column :created_at
     column :updated_at
-    column "Voir page publique" do |place|
-      link_to "Lien page", "#{place_path(place)}", target: "_blank"
-    end
-    column "Photo" do |place|
-      link_to "Lien photo", "#{cl_image_path place.photo.key}", target: "_blank"
-    end
   end
 
 
@@ -68,7 +50,6 @@ ActiveAdmin.register Place do
 
     column :id
     column :db_status
-    column :verified
     column :name
     column :user_id
     column "Propriétaire Prénom Nom" do |place|
@@ -78,15 +59,10 @@ ActiveAdmin.register Place do
       place.user.profile.company
     end
     column :ephemeral
-    column :siret_number
     column :address
     column :zip_code
     column :city
     column :phone_number
-    column :email
-    column :website
-    column :instagram
-    column :description
     column "Nb ateliers en ligne" do |place|
       Workshop.all.where(db_status: true, status: "en ligne").select { |w| w.place == place}.count
     end
@@ -98,41 +74,22 @@ ActiveAdmin.register Place do
       Session.all.select { |s| s.workshop.place == place && s.date < Date.today }.each { |s| participants += s.sold }
       participants
     end
-    column :rating
-    column "Nombre d'avis" do |place|
-      Review.all.where(db_status: true).select { |r| r.booking.session.workshop.place == place }.count
-    end
     column :created_at
     column :updated_at
-    column "Photo" do |place|
-      "#{cl_image_path place.photo.key}"
-    end
   end
 
   show do |place|
 
-    PLACE_REVIEWS = Review.all.where(db_status: true).select { |r| r.booking.session.workshop.place == place }.sort_by { |r| r.created_at }
-
     attributes_table do
-      row "Photo" do |place|
-        if place.photo.attached?
-          cl_image_tag place.photo.key, width: 100, height: 100, crop: :fill
-        end
-      end
       row :name
       row "Auteur" do |place|
         link_to "#{place.user.fullname} / #{place.user.profile.company}", "#{admin_user_path(place.user)}"
       end
       row :ephemeral
-      row :siret_number
       row :address
       row :zip_code
       row :city
       row :phone_number
-      row :email
-      row :website
-      row :instagram
-      row :description
       row "Nb ateliers en ligne" do |place|
         Workshop.all.where(db_status: true, status: "en ligne").select { |w| w.place == place}.count
       end
@@ -144,20 +101,11 @@ ActiveAdmin.register Place do
         Session.all.select { |s| s.workshop.place == place && s.date < Date.today }.each { |s| participants += s.sold }
         participants
       end
-      row :rating
-      row "Nombre d'avis" do |place|
-        PLACE_REVIEWS.count
-      end
       row :created_at
       row :updated_at
       row :db_status
-      row :verified
       row :latitude
       row :longitude
-      row :slug
-      row "Voir page publique" do |workshop|
-        link_to "Voir", "#{place_path(place)}", target: "_blank"
-      end
     end
 
     if Workshop.all.select { |w| w.place == place}.count > 0
@@ -188,24 +136,6 @@ ActiveAdmin.register Place do
         end
       end
     end
-    if PLACE_REVIEWS.size > 0
-      panel "Avis" do
-        table_for PLACE_REVIEWS do
-          column "Avis" do |review|
-            link_to "Avis ##{review.id}", "#{admin_review_path(review)}"
-          end
-          column :rating
-          column "Contenu" do |review|
-            review.content[0..40]...
-          end
-          column "Auteur" do |review|
-            link_to "#{review.user.fullname}", "#{admin_user_path(review.user)}"
-          end
-          column :created_at
-          column :db_status
-        end
-      end
-    end
   end
 
   form do |f|
@@ -221,17 +151,8 @@ ActiveAdmin.register Place do
     end
     f.inputs "Coordonnées" do
       f.input :phone_number
-      f.input :email
-      f.input :siret_number
-      f.input :website
-      f.input :instagram
-    end
-    f.inputs "Fiche" do
-      f.input :description
-      f.input :photo, as: :file, input_html: { accept: "image/*"}
     end
     f.inputs "Statuts" do
-      f.input :verified, as: :boolean
       f.input :db_status, as: :boolean
     end
     f.actions

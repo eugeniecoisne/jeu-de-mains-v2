@@ -31,6 +31,9 @@ ActiveAdmin.register Workshop do
     column :place do |workshop|
       link_to workshop.place.name, "#{admin_place_path(workshop.place)}"
     end
+    column "Organisateur" do |workshop|
+      link_to workshop.place.user.profile.company, "#{admin_profile_path(workshop.place.user.profile)}"
+    end
     column "Animateur" do |workshop|
       if workshop.animators.where(db_status: true).present?
         link_to workshop.animators.where(db_status: true).last.user.profile.company, "#{admin_profile_path(workshop.animators.where(db_status: true).last.user.profile)}"
@@ -127,6 +130,9 @@ ActiveAdmin.register Workshop do
     column :place do |workshop|
       workshop.place.name
     end
+    column "Organisateur" do |workshop|
+      workshop.place.user.profile.company
+    end
     column "Adresse postale" do |workshop|
       "#{workshop.place.address} #{workshop.place.zip_code} #{workshop.place.city}"
     end
@@ -209,7 +215,7 @@ ActiveAdmin.register Workshop do
       row :title
       row :place
       row "Auteur" do |workshop|
-        link_to "#{workshop.place.user.fullname} / #{workshop.place.user.profile.company}", "#{admin_user_path(workshop.place.user)}"
+        link_to "#{workshop.place.user.fullname} / #{workshop.place.user.profile.company}", "#{admin_profile_path(workshop.place.user.profile)}"
       end
       row "Ville" do |workshop|
         workshop.place.city

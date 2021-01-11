@@ -95,7 +95,7 @@
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
-  #thematic-show-ws-card-place-desktop {
+  #thematic-show-ws-card-organizer-desktop {
     display: none;
   }
 
@@ -126,7 +126,7 @@
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
 
-  #thematic-show-ws-card-place-desktop {
+  #thematic-show-ws-card-organizer-desktop {
     display: none;
   }
   .thematic-show-ws-cards {
@@ -142,7 +142,7 @@
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
-  #thematic-show-ws-card-place-desktop {
+  #thematic-show-ws-card-organizer-desktop {
     display: none;
   }
   .thematic-show-ws-cards {
@@ -154,7 +154,7 @@
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1249px)  {
-  #thematic-show-ws-card-place-mobile {
+  #thematic-show-ws-card-organizer-mobile {
     display: none;
   }
   .thematic-show-ws-cards {
@@ -166,7 +166,7 @@
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1250px) {
-  #thematic-show-ws-card-place-mobile {
+  #thematic-show-ws-card-organizer-mobile {
     display: none;
   }
 }

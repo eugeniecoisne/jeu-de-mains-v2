@@ -33,6 +33,18 @@
 .ws-dashboard-organizer-card-container {
   border-left: 4px solid $flashy-green;
   padding: 1px 5px 1px 15px;
+
+  #dashboard-workshop-status {
+    position: absolute;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: lowercase;
+    color: white;
+    background-color: $flashy-green;
+    padding: 0px 5px 0px 5px;
+    border-bottom-right-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0.2rem 0.4rem 0px;
+  }
 }
 
 #add-new-workshop {
@@ -53,10 +65,8 @@
 
 #offline-ws {
   border-color: $medium-gray;
-  .ws-dashboard-organizer-text {
-    span {
-      color: $medium-gray;
-    }
+  #dashboard-workshop-status {
+    background-color: $medium-gray;
   }
 }
 
@@ -149,6 +159,7 @@
 }
 
 .ws-dashboard-organizer-text {
+  padding-bottom: 6px;
   a {
     h2 {
       color: $dark-gray;
@@ -165,15 +176,17 @@
   }
   h3 {
     color: $dark-gray;
-    opacity: 0.7;
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 1px;
-  }
-  span {
-    font-weight: 600;
+    opacity: 0.9;
     font-size: 14px;
-    color: $flashy-green;
+    font-weight: 500;
+    margin-bottom: 2px;
+    font-family: "Raleway", Helvetica, sans-serif;
+  }
+  .ws-dashboard-organizer-text-your-role {
+    color: $blue;
+    font-weight: 600;
+    opacity: 1;
+    font-size: 14px;
   }
 }
 
@@ -520,7 +533,14 @@
   // my workshops
 
   .ws-dashboard-organizer-card-container {
-    padding: 1px 4px 1px 10px;
+    padding: 1px 4px 1px 0px;
+    border-left: unset;
+    #dashboard-workshop-status {
+      width: 70px;
+      border-radius: unset;
+      box-shadow: unset;
+      text-align: center;
+    }
   }
 
   .ws-dashboard-organizer-image {
@@ -546,9 +566,8 @@
       font-weight: 500;
       margin-bottom: 1px;
     }
-    span {
-      font-weight: 600;
-      font-size: 13px;
+    .ws-dashboard-organizer-text-your-role {
+      font-size: 12.5px;
     }
   }
 
@@ -565,36 +584,22 @@
       display: block;
       margin-top: 5px;
       .button {
-        color: white;
-        background-color: $flashy-green;
-        border-color: $flashy-green;
+        background-color: unset;
+        color: $dark-blue;
+        border-color: $dark-blue;
         margin-bottom: unset;
-        width: 61px;
+        width: 70px;
       }
     }
     .show-actions-button.active:hover {
       .button {
-        color: $flashy-green;
-        background-color : unset;
+        color: white;
+        border-color: $blue;
+        background-color : $blue;
       }
     }
     .show-actions-button {
       display: none;
-    }
-  }
-
-  #offline-ws {
-    .show-actions-button.active {
-      .button {
-        background-color: $medium-gray;
-        border-color: $medium-gray;
-      }
-    }
-    .show-actions-button.active:hover {
-      .button {
-        color: $medium-gray;
-        background-color : unset;
-      }
     }
   }
 

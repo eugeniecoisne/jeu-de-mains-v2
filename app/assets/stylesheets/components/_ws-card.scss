@@ -10,6 +10,10 @@
   }
 }
 
+.ws-card:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0.3rem 0.5rem 0px;
+}
+
 .ws-card-tags {
   display: flex;
   position: absolute;
@@ -84,7 +88,7 @@
   height: 9em;
 }
 
-.ws-card-place {
+.ws-card-organizer {
   margin-bottom: 2px;
   span {
     font-family: "Montserrat", "Helvetica", "sans-serif";
@@ -152,7 +156,7 @@
       font-size: 0.9em;
     }
   }
-  .ws-card-place {
+  .ws-card-organizer {
     span {
       font-size: 0.8em;
     }

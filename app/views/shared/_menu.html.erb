@@ -23,7 +23,7 @@
             <% end %>
           </div>
         </li>
-        <% if current_user.profile.role.present? && current_user.profile.role == "organisateur" %>
+        <% if current_user.profile.role %>
           <li class="list-group-item">
             <div class="list-item-menu">
               <%= link_to new_workshop_path, class: "menu-blue-link" do %>
@@ -44,17 +44,9 @@
         <% end %>
         <li class="list-group-item">
           <div class="list-item-menu">
-            <%= link_to places_path, class: "menu-blue-link" do %>
-              <i class="fas fa-map-marker-alt menu-icon menu-blue-icon mr-2"></i>
-              Découvrir les lieux
-            <% end %>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="list-item-menu">
             <%= link_to profiles_path, class: "menu-blue-link" do %>
               <i class="fas fa-graduation-cap menu-icon menu-blue-icon mr-1"></i>
-              Découvrir les animateurs
+              Découvrir les partenaires
             <% end %>
           </div>
         </li>
@@ -71,7 +63,7 @@
             <% end %>
           </div>
         </li>
-        <% if current_user.profile.role.present? == false %>
+        <% if current_user.profile.role.nil? %>
           <li class="list-group-item">
             <div class="list-item-menu">
               <%= link_to mes_cartes_cadeaux_profile_path(current_user.profile), class: "menu-blue-link" do %>
@@ -81,7 +73,7 @@
             </div>
           </li>
         <% end %>
-        <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
+        <% if current_user.profile.role %>
           <li class="list-group-item">
             <div class="list-item-menu">
               <%= link_to messagerie_profile_path(current_user.profile), class: "menu-blue-link" do %>
@@ -102,7 +94,7 @@
          <li class="list-group-item">
         </li>
         <li class="list-group-item">
-          <%= link_to destroy_user_session_path, method: :delete, id: "log-out-menu", class: "menu-white-link" do %>
+          <%= link_to deconnexion_path, method: :delete, id: "log-out-menu", class: "menu-white-link" do %>
             <div class="list-item-sign" id="sign-out">
               <i class="fas fa-sign-out-alt menu-icon menu-white-icon mr-1"></i>
               Me déconnecter

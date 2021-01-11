@@ -1,8 +1,7 @@
-<% if @workshop || @place || @profile %>
+<% if @workshop || @profile %>
+
   <% if @workshop %>
     <% content_for :meta_title, "Jeu de Mains | Avis sur #{@workshop.title[0..36]}" %>
-  <% elsif @place %>
-    <% content_for :meta_title, "Jeu de Mains | Avis sur #{@place.name[0..36]}" %>
   <% elsif @profile %>
     <% content_for :meta_title, "Jeu de Mains | Avis sur #{@profile.company[0..36]}" %>
   <% end %>
@@ -20,10 +19,10 @@
       <% if @workshop.reviews.where(db_status: true).present? %>
         <div class= "reviews-index-title">
           <h2>Avis sur l'atelier <br><span><%= @workshop.title %></span></h2>
-          <p>Note moyenne : <strong><%= @workshop.rating %> /5</strong> (<%= @workshop.reviews.count %> avis)</p>
+          <p>Note moyenne : <strong><%= @workshop.rating %> /5</strong> (<%= @workshop.reviews.where(db_status: true).count %> avis)</p>
         </div>
         <div class= "reviews-cards">
-          <% @workshop.reviews.sort_by { |review| review.created_at }.reverse.each do |review| %>
+          <% @workshop.reviews.where(db_status: true).sort_by { |review| review.created_at }.reverse.each do |review| %>
             <div class="review-card">
               <div class="review-card-stars">
                 <% review.rating.times do %>
@@ -50,14 +49,19 @@
       <% end %>
 
 
-    <% elsif @place %>
-       <% if @place.reviews.where(db_status: true).present? %>
+    <!-- ANIMATOR REVIEWS INDEX -->
+
+    <% elsif @profile && @profile.role.present? %>
+
+      <% if @profile.reviews.count > 0 %>
+
         <div class= "reviews-index-title">
-          <h2>Avis sur le lieu <br><span><%= @place.name %></span></h2>
-          <p>Note moyenne : <strong><%= @place.rating %> /5</strong> (<%= @place.reviews.count %> avis)</p>
+          <h2>Avis sur sur l'organisateur <br><span><%= @profile.company %></span></h2>
+          <p>Note moyenne : <strong><%= @profile.rating %> /5</strong> (<%= @profile.reviews.count %> avis)</p>
         </div>
+
         <div class= "reviews-cards">
-          <% @place.reviews.sort_by { |review| review.created_at }.reverse.each do |review| %>
+          <% @profile.reviews.sort_by { |review| review.created_at }.reverse.each do |review| %>
             <div class="review-card">
               <div class="review-card-stars">
                 <% review.rating.times do %>
@@ -78,53 +82,8 @@
         </div>
       <% else %>
         <div class= "reviews-index-title">
-          <h2>Avis sur le lieu <br><span><%= @place.name %></span></h2>
-          <p>Cet atelier n'a pas encore d'avis.</p>
-        </div>
-      <% end %>
-
-    <!-- ANIMATOR REVIEWS INDEX -->
-
-    <% elsif @profile && @profile.role == "animateur" %>
-      <% reviews_count = 0 %>
-      <% @profile.user.animators.each do |animator| %>
-        <% if animator.workshop.reviews.where(db_status: true).present? %>
-          <% reviews_count += animator.workshop.reviews.where(db_status: true).count %>
-        <% end %>
-      <% end %>
-      <% if reviews_count > 0 %>
-        <div class= "reviews-index-title">
-          <h2>Avis sur l'animateur <br><span><%= @profile.company %></span></h2>
-          <p>Note moyenne : <strong><%= @profile.rating %> /5</strong> (<%= reviews_count %> avis)</p>
-        </div>
-        <div class= "reviews-cards">
-          <% @profile.user.animators.each do |animator| %>
-            <% if animator.workshop.reviews.where(db_status: true).present? %>
-              <% animator.workshop.reviews.where(db_status: true).sort_by { |review| review.created_at }.reverse.each do |review| %>
-                <div class="review-card">
-                  <div class="review-card-stars">
-                    <% review.rating.times do %>
-                      <i class="fas fa-star"></i>
-                    <% end %>
-                    <% (5 - review.rating).times do %>
-                      <i class="far fa-star"></i>
-                    <% end %>
-                  </div>
-                  <div class="review-card-message">
-                    <p><%= review.content %></p>
-                  </div>
-                  <div class="review-card-author">
-                    <p><span><%= review.user.first_name %></span>, le <%= review.created_at.strftime("%d/%m/%Y") %></p>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
-          <% end %>
-        </div>
-      <% else %>
-        <div class= "reviews-index-title">
-          <h2>Avis sur l'animateur <br><span><%= @place.name %></span></h2>
-          <p>Cet atelier n'a pas encore d'avis.</p>
+          <h2>Avis sur l'organisateur <br><span><%= @profile.company %></span></h2>
+          <p>Cet organisateur n'a pas encore d'avis.</p>
         </div>
       <% end %>
     <% end %>

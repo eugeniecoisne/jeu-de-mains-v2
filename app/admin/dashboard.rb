@@ -34,40 +34,40 @@ ActiveAdmin.register_page "Dashboard" do
      # LES UTILISATEURS MEMBRES
 
       column do
-        h4 "MEMBRES"
+        h4 "MEMBRES BtoC"
 
-        panel "MEMBRES" do
-          h2 "#{User.all.select { |u| u.confirmed? && u.db_status == true }.count}"
+        panel "MEMBRES BtoC" do
+          h2 "#{User.all.select { |u| u.confirmed? && u.db_status == true && u.profile.role.nil? }.count}"
         end
-        panel "NOUVEAUX MEMBRES" do
+        panel "NOUVEAUX MEMBRES BtoC" do
           columns do
             column do
               para "7 jrs"
-              h2 "#{User.all.select { |u| u.confirmed_at > (Date.today - 7.day)}.count}"
+              h2 "#{User.all.select { |u| u.confirmed_at > (Date.today - 7.day) && u.db_status == true && u.profile.role.nil? }.count}"
             end
             column do
               para "30 jrs"
-              h2 "#{User.all.select { |u| u.confirmed_at > (Date.today - 30.day)}.count}"
+              h2 "#{User.all.select { |u| u.confirmed_at > (Date.today - 30.day) && u.db_status == true && u.profile.role.nil? }.count}"
             end
             column do
               para "Début"
-              h2 "#{User.all.select { |u| u.confirmed? }.count}"
+              h2 "#{User.all.select { |u| u.confirmed? && u.db_status == true && u.profile.role.nil? }.count}"
             end
           end
         end
-        panel "DÉSINSCRIPTIONS" do
+        panel "DÉSINSCRIPTIONS BtoC" do
           columns do
             column do
               para "7 jrs"
-              h2 "#{User.all.select { |u| u.db_status == false && u.updated_at > (Date.today - 7.day)}.count}"
+              h2 "#{User.all.select { |u| u.db_status == false && u.updated_at > (Date.today - 7.day) && u.profile.role.nil? }.count}"
             end
             column do
               para "30 jrs"
-              h2 "#{User.all.select { |u| u.db_status == false && u.updated_at > (Date.today - 30.day)}.count}"
+              h2 "#{User.all.select { |u| u.db_status == false && u.updated_at > (Date.today - 30.day) && u.profile.role.nil? }.count}"
             end
             column do
               para "Début"
-              h2 "#{User.all.select { |u| u.db_status == false }.count}"
+              h2 "#{User.all.select { |u| u.db_status == false && u.profile.role.nil? }.count}"
             end
           end
         end
@@ -80,13 +80,16 @@ ActiveAdmin.register_page "Dashboard" do
         h4 "PARTENAIRES"
 
         panel "PARTENAIRES" do
-          h2 "#{Profile.all.select { |p| p.role.present? }.count}"
+          h2 "#{Profile.all.where(db_status: true).select { |p| p.role.present? }.count}"
         end
-        panel "ORGANISATEURS" do
-          h2 "#{Profile.all.select { |p| p.role == "organisateur" }.count}"
+        panel "BOUTIQUES / ATELIERS" do
+          h2 "#{Profile.all.where(db_status: true).select { |p| p.role == "boutique / atelier" }.count}"
         end
-        panel "ANIMATEURS" do
-          h2 "#{Profile.all.select { |p| p.role == "animateur" }.count}"
+        panel "ANIMATEURS NOMADES" do
+          h2 "#{Profile.all.where(db_status: true).select { |p| p.role == "animateur nomade" }.count}"
+        end
+        panel "EVENEMENTIEL" do
+          h2 "#{Profile.all.where(db_status: true).select { |p| p.role == "événementiel" }.count}"
         end
 
       end
@@ -120,52 +123,25 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
 
-      # LES LIEUX
+      # LES PARTENAIRES TOP / FLOP
 
       column do
-        h4 "LIEUX"
+        h4 "PARTENAIRES TOP / FLOP"
+        partner_by_rating = Profile.all.where(db_status: true).select { |p| p.role.present? && p.rating.present? }.sort_by { |p| p.rating }
 
-        place_by_rating = Place.all.where(db_status: true).select { |p| p.rating.present? }.sort_by { |p| p.rating }
-
-        panel "LIEUX EN LIGNE" do
-          h2 "#{Place.all.where(db_status: true).count}"
+        panel "PARTENAIRES" do
+          h2 "#{Profile.all.where(db_status: true).select { |p| p.role.present? }.count}"
         end
-        panel "TOP 5 LIEUX EN LIGNE" do
+        panel "TOP 5 PARTENAIRES" do
           ul do
-            place_by_rating.reverse.first(5).map do |p|
-              li link_to("#{p.id} - #{p.name} - #{p.rating}/ 5", admin_place_path(p))
-            end
-          end
-        end
-        panel "FLOP 5 LIEUX EN LIGNE" do
-          ul do
-            place_by_rating.first(5).map do |p|
-              li link_to("#{p.id} - #{p.name} - #{p.rating}/ 5", admin_place_path(p))
-            end
-          end
-        end
-      end
-
-      # LES ANIMATEURS
-
-      column do
-        h4 "ANIMATEURS"
-
-        animators_by_rating = Profile.all.where(db_status: true).select { |p| p.role == "animateur" && p.rating.present? }.sort_by { |p| p.rating }
-
-        panel "ANIMATEURS EN LIGNE" do
-          h2 "#{Profile.all.where(db_status: true, role: "animateur").count}"
-        end
-        panel "TOP 5 ANIMATEURS EN LIGNE" do
-          ul do
-            animators_by_rating.reverse.first(5).map do |p|
+            partner_by_rating.reverse.first(5).map do |p|
               li link_to("#{p.id} - #{p.company} - #{p.rating}/ 5", admin_profile_path(p))
             end
           end
         end
-        panel "FLOP 5 ANIMATEURS EN LIGNE" do
+        panel "FLOP 5 PARTENAIRES" do
           ul do
-            animators_by_rating.first(5).map do |p|
+            partner_by_rating.first(5).map do |p|
               li link_to("#{p.id} - #{p.company} - #{p.rating}/ 5", admin_profile_path(p))
             end
           end

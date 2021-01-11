@@ -1,6 +1,4 @@
-<% if @profile.role == 'animateur' %>
-  <%= render 'dashboard_animator' %>
-<% elsif @profile.role == 'organisateur' %>
+<% if @profile.role %>
   <%= render 'dashboard_organizer' %>
 <% else %>
   <%= render 'dashboard_mybookings' %>

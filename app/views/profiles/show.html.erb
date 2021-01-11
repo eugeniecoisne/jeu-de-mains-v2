@@ -1,4 +1,4 @@
-<% if @profile %>
+<% if @profile.user == current_user %>
   <!-- PROFILE SHOW - MY ACCOUNT -->
 
   <% content_for :meta_title, "Jeu de Mains | Mon Compte" %>
@@ -75,7 +75,7 @@
                 </div>
                 <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button"  %>
               </li>
-              <% if @profile.company.nil? %>
+              <% if @profile.role.nil? %>
                 <li class="list-group-item my-informations-item">
                   <div class="my-informations-text">
                     <span><strong>Numéro de portable</strong></span>
@@ -109,7 +109,7 @@
 
           <!-- MY COMPANY INFORMATIONS WINDOW -->
 
-          <% if @profile.company %>
+          <% if @profile.role %>
 
             <div class="tab-pane fade" id="v-pills-company" role="tabpanel" aria-labelledby="v-pills-my-company-tab">
               <ul class="list-group my-informations">

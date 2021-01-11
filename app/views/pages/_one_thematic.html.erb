@@ -67,18 +67,18 @@
             <%= link_to(workshop, data: { turbolinks: false }) do  %>
               <div class="ws-card-infos" id="thematic-show-ws-card-infos">
                 <div>
-                  <div class="ws-card-place" id="thematic-show-ws-card-place-desktop">
-                    <% if workshop.place.name.size > 25 %>
-                      <span><%= workshop.place.name[0..24] %>...</span>
+                  <div class="ws-card-organizer" id="thematic-show-ws-card-organizer-desktop">
+                    <% if workshop.place.user.profile.company.size > 25 %>
+                      <span><%= workshop.place.user.profile.company[0..24] %>...</span>
                     <% else %>
-                      <span><%= workshop.place.name %></span>
+                      <span><%= workshop.place.user.profile.company %></span>
                     <% end %>
                   </div>
-                  <div class="ws-card-place" id="thematic-show-ws-card-place-mobile">
-                    <% if workshop.place.name.size > 17 %>
-                      <span><%= workshop.place.name[0..16] %>...</span>
+                  <div class="ws-card-organizer" id="thematic-show-ws-card-organizer-mobile">
+                    <% if workshop.place.user.profile.company.size > 17 %>
+                      <span><%= workshop.place.user.profile.company[0..16] %>...</span>
                     <% else %>
-                      <span><%= workshop.place.name %></span>
+                      <span><%= workshop.place.user.profile.company %></span>
                     <% end %>
                   </div>
                   <div class="ws-card-title" id="thematic-show-ws-card-title">

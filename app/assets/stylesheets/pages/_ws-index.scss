@@ -237,7 +237,7 @@
   .ws-map.active {
     visibility: visible;
   }
-  #index-ws-card-place-desktop {
+  #index-ws-card-organizer-desktop {
     display: none;
   }
 }
@@ -251,7 +251,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 0.8em;
   }
-  #index-ws-card-place-desktop {
+  #index-ws-card-organizer-desktop {
     display: none;
   }
   .index-ws-search-filters-container {
@@ -305,7 +305,7 @@
   .index-ws-cards-map-container {
     grid-template-columns: 1.5fr 1fr;
   }
-  #index-ws-card-place-desktop {
+  #index-ws-card-organizer-desktop {
     display: none;
   }
   #mapButton {
@@ -321,7 +321,7 @@
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199px)  {
-  #index-ws-card-place-mobile {
+  #index-ws-card-organizer-mobile {
     display: none;
   }
   .index-ws-cards-map-container {
@@ -340,7 +340,7 @@
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
-  #index-ws-card-place-mobile {
+  #index-ws-card-organizer-mobile {
     display: none;
   }
   #mapButton {

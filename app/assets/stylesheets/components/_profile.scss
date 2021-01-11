@@ -73,7 +73,7 @@
       font-size: 34px;
     }
     #text {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 500;
       font-family: "Montserrat", "sans-serif";
     }
@@ -103,10 +103,10 @@
 .about-ws-reviews-box {
   margin: 2em;
   .profile-title {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     text-transform: uppercase;
-    color: $light-blue;
+    color: $blue;
     margin-bottom: 1em;
   }
   p {
@@ -121,11 +121,6 @@
   max-height: 670px;
   overflow: hidden;
   padding-bottom: 1em;
-  #show-place-ws-card-place {
-    span {
-      color: $orange;
-    }
-  }
 }
 
 .public-profile-our-ws-cards.long {
@@ -235,7 +230,8 @@
     margin-left: -1.5em;
 
     .public-profile-main-figures-text {
-      width: 92%;
+      width: unset;
+      padding: 0px 20px;
       #number {
         font-size: 26px;
         margin-bottom: 0.2em;
@@ -245,7 +241,7 @@
         margin-bottom: 0.2em;
       }
       #text {
-        font-size: 15px;
+        font-size: 14px;
         line-height: 1.3;
       }
       .public-profile-main-figure {
@@ -258,7 +254,6 @@
     margin: 1em 0em;
     .profile-title {
       margin-bottom: 0.5em;
-      font-size: 20px;
     }
     p {
       font-size: 15px;
@@ -320,7 +315,7 @@
         font-size: 28px;
       }
       #text {
-        font-size: 15px;
+        font-size: 14px;
         line-height: 1.3;
       }
     }

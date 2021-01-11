@@ -38,32 +38,9 @@ ActiveAdmin.register Profile do
         link_to "Lien photo", "#{cl_image_path profile.photo.key}", target: "_blank"
       end
     end
-    column "Profil animateur" do |profile|
-      if profile.role == "animateur"
+    column "Profil partenaire" do |profile|
+      if profile.role.present?
         link_to "Lien profil", "#{profile_public_path(profile)}", target: "_blank"
-      end
-    end
-    column "Nombre de lieux" do |profile|
-      profile.user.places.count
-    end
-    column "Lieu 1" do |profile|
-      if profile.user.places.present?
-        link_to "Lieu 1", "#{admin_place_path(profile.user.places[0])}"
-      end
-    end
-    column "Lieu 2" do |profile|
-      if profile.user.places.present? && profile.user.places.count > 1
-        link_to "Lieu 2", "#{admin_place_path(profile.user.places[1])}"
-      end
-    end
-    column "Lieu 3" do |profile|
-      if profile.user.places.present? && profile.user.places.count > 2
-        link_to "Lieu 3", "#{admin_place_path(profile.user.places[2])}"
-      end
-    end
-    column "Lieu 4" do |profile|
-      if profile.user.places.present? && profile.user.places.count > 3
-        link_to "Lieu 4", "#{admin_place_path(profile.user.places[3])}"
       end
     end
   end
@@ -93,29 +70,6 @@ ActiveAdmin.register Profile do
         cl_image_path profile.photo.key
       end
     end
-    column "Nombre de lieux" do |profile|
-      profile.user.places.count
-    end
-    column "Lieu 1" do |profile|
-      if profile.user.places.present?
-        profile.user.places[0].name
-      end
-    end
-    column "Lieu 2" do |profile|
-      if profile.user.places.present? && profile.user.places.count > 1
-        profile.user.places[1].name
-      end
-    end
-    column "Lieu 3" do |profile|
-      if profile.user.places.present? && profile.user.places.count > 2
-        profile.user.places[2].name
-      end
-    end
-    column "Lieu 4" do |profile|
-      if profile.user.places.present? && profile.user.places.count > 3
-        profile.user.places[3].name
-      end
-    end
   end
 
   show :title => :company do
@@ -126,6 +80,11 @@ ActiveAdmin.register Profile do
         end
       end
       row :company
+      row "Profil partenaire" do |profile|
+        if profile.role.present?
+          link_to "Lien profil", "#{profile_public_path(profile)}", target: "_blank"
+        end
+      end
       row :role
       row :user do |profile|
         link_to profile.user.fullname, "#{admin_user_path(profile.user)}"
@@ -142,9 +101,6 @@ ActiveAdmin.register Profile do
       row :created_at
       row :updated_at
       row :slug
-      row "Nombre de lieux" do |profile|
-        profile.user.places.count
-      end
     end
 
     if profile.user.places.present?
@@ -158,7 +114,53 @@ ActiveAdmin.register Profile do
           end
           column :city
           column :db_status
-          column :verified
+        end
+      end
+    end
+
+    organized_workshops = []
+
+    User.find(profile.id).places.select { |place| place.workshops.present? }.each do |place|
+      place.workshops.each do |workshop|
+        organized_workshops << workshop
+      end
+    end
+
+    if User.find(profile.id).places.select { |place| place.workshops.present? }.present?
+      panel "Ateliers organisés" do
+        table_for organized_workshops do
+          column "ID Atelier" do |workshop|
+            workshop.id
+          end
+          column "Atelier" do |workshop|
+            link_to workshop.title, "#{admin_workshop_path(workshop)}"
+          end
+          column "Lieu" do |workshop|
+            link_to workshop.place.name, "#{admin_place_path(workshop.place)}"
+          end
+          column "Ville" do |workshop|
+            workshop.place.city
+          end
+          column "Créé le" do |workshop|
+            workshop.created_at.strftime("%d/%m/%Y")
+          end
+          column "Éphémère ?" do |workshop|
+            workshop.place.ephemeral
+          end
+          column "Nb sessions en ligne" do |workshop|
+            workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
+          end
+          column "Participants reçus" do |workshop|
+            participants = 0
+            Session.all.select { |s| s.workshop == workshop && s.date < Date.today }.each { |s| participants += s.sold }
+            participants
+          end
+          column "Statut" do |workshop|
+            workshop.status
+          end
+          column "Statut DB" do |workshop|
+            workshop.db_status
+          end
         end
       end
     end
@@ -204,10 +206,18 @@ ActiveAdmin.register Profile do
 
     PROFILE_REVIEWS = []
 
-    User.find(profile.id).animators.each do |animator|
-      if animator.workshop.reviews.present?
-        animator.workshop.reviews.each do |review|
-          PROFILE_REVIEWS << review
+    if User.find(profile.id).animators.count > 0
+      User.find(profile.id).animators.each do |animator|
+        if animator.workshop.sessions.map { |s| s.bookings.each {|b| b.reviews}}.count > 0
+          animator.workshop.sessions.map { |s| s.bookings.each {|b| b.reviews.each { |r| PROFILE_REVIEWS << r }}}
+        end
+      end
+    end
+
+    if User.find(profile.id).places.select { |p| p.workshops.present? }.map { |p| p.workshops }.count > 0
+      User.find(profile.id).places.select { |p| p.workshops.present? }.map { |p| p.workshops }.each do |workshop|
+        if workshop.sessions.map { |s| s.bookings.each {|b| b.reviews}}.count > 0
+          workshop.sessions.map { |s| s.bookings.each {|b| b.reviews.each { |r| PROFILE_REVIEWS << r }}}
         end
       end
     end

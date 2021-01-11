@@ -1,12 +1,12 @@
 <!-- PROFILES INDEX -->
 
-<% content_for :meta_title, "Jeu de Mains | Animateurs" %>
-<% content_for :meta_description, "Description JDM animateurs" %>
+<% content_for :meta_title, "Jeu de Mains | Partenaires" %>
+<% content_for :meta_description, "Description JDM Partenaires" %>
 
 <% if user_signed_in? %>
 
   <div class="place-animator-index-title">
-    <h1>Retrouvez ici tous les <strong>animateurs d'ateliers</strong> inscrits sur jeudemains.com</h1>
+    <h1>Retrouvez ici tous les <strong>partenaires</strong> inscrits sur jeudemains.com</h1>
 
     <div class="place-animator-index-filter">
       <%= link_to "Filtres", "#", class: "submit-btn", id: "showIndexFilters" %>
@@ -15,11 +15,11 @@
     <div class="place-animator-index-search">
       <%= simple_form_for :search, url: profiles_path, method: :get do |f| %>
         <% if params[:search].present? %>
-            <%= f.input :company, required: false, label: false, prompt: "Animateurs", collection: Profile.companies.sort, selected: params[:search][:company] %>
-            <%= f.input :keyword, required: false, label: false, prompt: "Tous types", collection: Workshop::THEMATICS, selected: params[:search][:keyword] %>
-            <%= f.input :place, required: false, label: false, prompt: "Toutes les villes", collection: Profile.cities_and_districts, selected: params[:search][:place] %>
+            <%= f.input :company, required: false, label: false, collection: ["Tous les partenaires"].concat(Profile.companies.sort), selected: params[:search][:company] %>
+            <%= f.input :keyword, required: false, label: false, collection: ["Tous types"].concat(Workshop::THEMATICS), selected: params[:search][:keyword] %>
+            <%= f.input :place, required: false, label: false, collection: ["Toutes les villes"].concat(Profile.cities_and_districts), selected: params[:search][:place] %>
         <% else %>
-            <%= f.input :company, required: false, label: false, prompt: "Animateurs", collection: Profile.companies.sort %>
+            <%= f.input :company, required: false, label: false, prompt: "Tous les Partenaires", collection: Profile.companies.sort %>
             <%= f.input :keyword, required: false, label: false, prompt: "Tous types", collection: Workshop::THEMATICS %>
             <%= f.input :place, required: false, label: false, prompt: "Toutes les villes", collection: Profile.cities_and_districts %>
         <% end %>
@@ -52,7 +52,7 @@
                     <% if profile.rating > 0 %>
                       <i class="fas fa-star"></i><%= profile.rating %>
                     <% else %>
-                      new
+                      nouveau
                     <% end %>
                   </div>
                 </div>
@@ -76,27 +76,29 @@
                     </div>
                     <div class="place-anim-card-price">
                       <% ws_prices_sum = 0 %>
-                      <% all_animators = 0 %>
-                      <% profile.user.animators.each do |animator| %>
-                        <% if animator.workshop.db_status == true %>
-                          <% ws_prices_sum += animator.workshop.price %>
-                          <% all_animators += 1 %>
+                      <% all_workshops_count = 0 %>
+                      <% profile.user.animators.each do |a| %>
+                        <% if a.workshop.db_status == true %>
+                          <% ws_prices_sum += a.workshop.price %>
+                          <% all_workshops_count += 1 %>
                         <% end %>
                       <% end %>
+                      <% profile.user.places.each { |p| p.workshops.each do |w| %>
+                        <% if w.db_status == true %>
+                          <% ws_prices_sum += w.price %>
+                          <% all_workshops_count += 1 %>
+                        <% end %>
+                      <% end %>
+                      <% } %>
+
                       <% if ws_prices_sum > 0 %>
-                        <h4>Prix moyen : <%= ws_prices_sum.fdiv(all_animators).round %> €</h4>
+                        <h4>Prix moyen : <%= ws_prices_sum.fdiv(all_workshops_count).round %> €</h4>
                       <% end %>
                     </div>
                     <div class="place-anim-card-info-tags">
 
-                      <% animator_thematics = [] %>
-                      <% profile.user.animators.each do |animator| %>
-                        <% if animator.workshop.db_status == true %>
-                          <% animator_thematics << animator.workshop.thematic %>
-                        <% end %>
-                      <% end %>
-                      <% if animator_thematics.uniq.size <= 3 %>
-                        <% animator_thematics.uniq.each do |thematic| %>
+                      <% if profile.thematics.size <= 3 %>
+                        <% profile.thematics.each do |thematic| %>
                           <div class='informations-tag'><%= thematic %></div>
                         <% end %>
                       <% else %>
@@ -104,9 +106,8 @@
                       <% end %>
                     </div>
                     <div class="place-anim-card-links-mobile">
-                      <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
+                      <% if current_user.profile.role.present? %>
                         <%= simple_form_for(@chatroom) do |f| %>
-                          <%= f.hidden_field :room_name, value: current_user.profile.company  %>
                           <%= f.hidden_field :user1, value: current_user.id %>
                           <%= f.hidden_field :user2, value: profile.user.id %>
                           <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
@@ -127,9 +128,8 @@
               <% end %>
             </div>
             <div class="place-anim-card-links-desktop">
-              <% if current_user.profile.role == "organisateur" || current_user.profile.role == "animateur" %>
+              <% if current_user.profile.role.present?  %>
                 <%= simple_form_for(@chatroom) do |f| %>
-                  <%= f.hidden_field :room_name, value: current_user.profile.company  %>
                   <%= f.hidden_field :user1, value: current_user.id %>
                   <%= f.hidden_field :user2, value: profile.user.id %>
                   <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
