@@ -1,0 +1,3 @@
+<h1>Demande de vérification de l'atelier <%= @workshop.id %> - <%= @workshop.title %></h1>
+<h2>Créé par <%= @workshop.place.user.profile.id %> - <%= @workshop.place.user.profile.company %></h2>
+<%= link_to "Vérifier l'atelier", workshop_url(@workshop) %>

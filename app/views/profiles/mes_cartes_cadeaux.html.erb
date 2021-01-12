@@ -7,7 +7,7 @@
 
   <div class="dashboard-title-container">
     <h1>
-      Hello <span><%= @profile.user.first_name.capitalize %></span>,<br>retrouve ici tes cartes cadeaux offertes et reçues !
+      Hello <span><%= @profile.user.first_name.capitalize %></span>,<br>retrouvez ici vos cartes cadeaux offertes et reçues !
     </h1>
   </div>
 
@@ -57,7 +57,7 @@
               <i class="fas fa-plus mr-1"></i>
               <span>J'ai reçu une nouvelle carte cadeau</span>
             <% end %>
-            <h3>Retrouve ici les cartes cadeaux que tu as reçues et déjà enregistrées. Pour les utiliser, ça se passe à l'étape "paiement" d'une réservation ! Bonne découverte des ateliers Jeu de Mains !</h3>
+            <h3>Retrouvez ici les cartes cadeaux que vous avez reçues et déjà enregistrées. Pour les utiliser, ça se passe à l'étape "paiement" d'une réservation ! Bonne découverte des ateliers Jeu de Mains !</h3>
             <h4><%= link_to "Découvrir les ateliers", workshops_path, class: "discover-ws-link" %></h4>
 
 
@@ -132,7 +132,7 @@
               <span>J'offre une carte cadeau à un proche</span>
             <% end %>
 
-            <h3>Retrouve ici les cartes cadeaux offertes à tes proches !</h3>
+            <h3>Retrouvez ici les cartes cadeaux offertes à vos proches !</h3>
 
 
             <% @giftcards.select { |giftcard| giftcard.buyer == current_user.id }.each do |giftcard| %>

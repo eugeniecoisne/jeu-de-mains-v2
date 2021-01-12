@@ -50,6 +50,10 @@ class Workshop < ApplicationRecord
     moments.uniq
   end
 
+  def completed?
+    program? && final_product? && title? && capacity? && duration? && thematic? && level? && price? && price > 0 && photos.attached?
+  end
+
   private
 
   def attachments_size

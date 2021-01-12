@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :profiles, :path => :animateurs, :as => :profiles, only: %i(index) do
+  resources :profiles, :path => :partenaires, :as => :profiles, only: %i(index) do
     get 'public'
   end
 
@@ -59,7 +59,10 @@ Rails.application.routes.draw do
     resources :animators, :path => :animateurs, :as => :animators, only: %i(new create)
     resources :reviews, :path => :avis, :as => :reviews, only: %i(index)
     member do
+      get 'finalisation'
       get 'confirmation'
+      get 'send_verification_mail'
+      get 'mark_as_verified_or_unverified'
     end
   end
 

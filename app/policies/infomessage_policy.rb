@@ -1,7 +1,7 @@
 class InfomessagePolicy < ApplicationPolicy
 
   def create?
-    user
+    user.profile.role.present? || user.admin?
   end
 
   class Scope < Scope

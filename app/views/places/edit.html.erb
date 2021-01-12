@@ -14,24 +14,11 @@
   </div>
 
   <div class="edit-place-container">
-    <h3>Vous pouvez modifier ici certaines informations de votre lieu. Si vous souhaitez modifier plus d'informations, comme les informations bloquées en bas de ce formulaire, merci de contacter l'équipe Jeu de Mains.</h3>
 
     <%= simple_form_for(@place) do |f| %>
 
       <%= f.input :name, label: "Nom du lieu" %>
-      <%= f.input :description, :input_html => {:rows => 8}, label: "Description du lieu" %>
       <%= f.input :phone_number, label: "Numéro de téléphone" %>
-      <%= f.input :email, label: "Adresse email" %>
-      <%= f.input :website, label: "Site internet" %>
-      <%= f.input :instagram, label: "Page instagram" %>
-      <%= f.input :photo, as: :file, label: "Photo du lieu", input_html: { accept: "image/*", id: "picture", onchange: "Filevalidation()" } %>
-      <p id="bytesSize"></p>
-      <% if @place.photo.attached? %>
-        <div class="edit-place-photos d-flex mb-4">
-          <%= cl_image_tag @place.photo.key, alt: "Photo du lieu", width: 80, crop: :fill  %>
-        </div>
-      <% end %>
-      <%= f.input :siret_number, disabled: true, label: "SIRET" %>
       <%= f.input :address, disabled: true,  label: "Adresse postale (n° et rue)" %>
       <%= f.input :zip_code, disabled: true,  label: "Code postal" %>
       <%= f.input :city, disabled: true,  label: "Ville" %>
@@ -44,30 +31,3 @@
     <% end %>
   </div>
 <% end %>
-
-<script>
-    Filevalidation = () => {
-        const fi = document.getElementById('picture');
-        // Check if any file is selected.
-        if (fi.files.length > 0) {
-
-            let sum = 0;
-            let i = 0;
-
-            for ( i = 0; i <= fi.files.length - 1; i++) {
-
-                sum += Math.round(((fi.files.item(i).size) / 1024));
-                // The size of the file.
-
-            }
-
-            if (sum >= 3100) {
-                alert(
-                  "Poids total dépassé. Sélectionnez une photo de moins de 3 Mo");
-            } else {
-                document.getElementById('bytesSize').innerHTML = '<b> ✔ '
-                + (sum / 1000) + '</b> Mo / 3 Mo poids max';
-            }
-        }
-    }
-</script>

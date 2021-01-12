@@ -274,7 +274,7 @@ ActiveAdmin.register Workshop do
           end
           column :start_at
           column :capacity
-          column "Places vendues" do |session|
+          column "Places vendues / en cours" do |session|
             session.capacity - session.available
           end
           column "Places restantes" do |session|

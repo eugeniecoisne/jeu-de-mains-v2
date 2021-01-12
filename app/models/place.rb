@@ -154,7 +154,17 @@ class Place < ApplicationRecord
         big_cities_to_show << BIG_CITIES[place.zip_code.first(2)]
       end
     end
-    big_cities_to_show.uniq!.sort.concat(districts_to_show.uniq!.sort)
+
+    districts_to_show = districts_to_show.uniq.sort
+    big_cities_to_show = big_cities_to_show.uniq.sort
+
+    if big_cities_to_show.count > 0 && districts_to_show.count > 0
+      big_cities_to_show.concat(districts_to_show)
+    elsif districts_to_show.count > 0
+      districts_to_show
+    else
+      big_cities_to_show
+    end
   end
 
   def thematics

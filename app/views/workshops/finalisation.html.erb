@@ -1,0 +1,105 @@
+<% if @workshop %>
+
+  <% content_for :meta_title, "Jeu de Mains | Finalisation création d'atelier" %>
+
+  <!-- NEW WORKSHOP FORM -->
+
+  <div class="dashboard-title-container" id="dashboard-organizer-title-container">
+    <h1>
+      <span>Dernière étape pour finaliser la création de votre atelier !</span>
+    </h1>
+  </div>
+
+  <div class="new-ws-container">
+    <div class="accordion" id="accordionNewWsTwo">
+
+      <!-- FIRST SESSION -->
+
+      <div class="card">
+        <div class="card-header card-header-1" data-toggle="collapse" data-target="#collapse-1" aria-expanded="true">
+          <span class="title">Ajoutez une première date</span>
+          <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
+        </div>
+        <div id="collapse-1" class="collapse collapse-1 show" data-parent="#accordionNewWsTwo">
+          <div class="card-body">
+            <strong>Ouvrez la réservation avec une première date d'atelier &#128521;</strong><br>
+            Vous n'avez pas encore rempli tous les champs ou ne connaissez pas la première date ? <br>
+            Vous pouvez trouver vos ateliers “en ligne” et “hors ligne” dans votre <strong><%= link_to "tableau de bord", tableau_de_bord_profile_path(current_user.profile) %></strong>.
+            <br><br>
+
+            <% if @workshop.sessions.present? %>
+              <div class="session_success">
+                <p>Votre première date a bien été ajoutée :</p>
+                <p><%= l(@workshop.sessions.last.date, format: '%A %d %b %Y').capitalize %> à <%=@workshop.sessions.last.start_at%> - capacité : <%= @workshop.sessions.last.capacity %> place(s)</p>
+              </div>
+            <% else %>
+              <div class="session_form_container">
+                <p>Ajoutez une première date :</p>
+                <%= simple_form_for([@workshop, @session]) do |f| %>
+                  <%= f.input :date, label: "Date de l'atelier" %>
+                  <%= f.input :start_at, label: "Heure de début", collection: Session::STARTS_AT %>
+                  <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier" %>
+
+                  <%= f.submit 'Ajouter', class: "new-edit-ws-submit" %>
+                <% end %>
+              </div>
+            <% end %>
+
+
+            <div class="next-previous">
+              <a class="next-previous-button btnNext" id="next-1" >Suivant</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANIMATORS -->
+
+      <div class="card">
+        <div class="card-header card-header-2 collapsed" data-toggle="collapse" data-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+          <span class="title">Animateur de votre atelier (optionnel)</span>
+          <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
+        </div>
+        <div id="collapse-2" class="collapse collapse-2" data-parent="#accordionNewWsTwo">
+          <div class="card-body">
+            <strong>Votre atelier sera animé par une personne ou entreprise externe à votre société ?</strong><br>
+            L'animateur doit avoir été mis au courant au préalable de votre collaboration. Jeu de Mains n'est pas responsable des collaborations entre organisateurs et animateurs d'ateliers. <br>
+            Si cet animateur est inscrit sur jeudemains.com, sélectionnez-le dans le menu déroulant ci-dessous. <br>
+            Si cet animateur ne fait pas encore partie de la communauté jeudemains.com, invitez-le à nous rejoindre en cliquant sur le bouton prévu ci-dessous. <br>
+            Attention, une fois l'animateur renseigné et une première réservation enregistrée, il est impossible de le modifier.
+            <br><br>
+
+            <%= form_for([@workshop, @animator]) do |f| %>
+              <div class="form-group select required animator_user">
+                <label class="select required" for="animator_user_id">L'atelier est animé par :</label>
+                <select class="form-control select required" name="animator[user_id]" id="animator_user_id">
+                  <% if @workshop.animators.where(db_status: true).present? %>
+                    <option value="<%= @workshop.animators.first.user.id %>" selected><%= @workshop.animators.where(db_status: true).first.user.profile.company %></option>
+                    <option value="">----------------</option>
+                  <% end %>
+                  <% @users.sort_by { |user| user.profile.company }.each do |user| %>
+                    <option value="<%= user.id %>"><%= user.profile.company %></option>
+                  <% end %>
+                </select>
+              </div>
+                <%= f.hidden_field :creation, value: true %>
+              <div class="d-flex justify-content-center">
+                <%= f.submit "Ajouter l'animateur", class: "new-edit-ws-submit" %>
+              </div>
+            <% end %>
+
+            <p>Passer cette étape et ne pas attribuer d'animateur :</p>
+            <%= link_to "Vérifier et soumettre", confirmation_workshop_path(@workshop) %>
+
+
+            <div class="next-previous">
+              <a class="next-previous-button btnPrevious" id="previous-2" >Retour</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<% end %>

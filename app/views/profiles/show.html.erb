@@ -181,11 +181,7 @@
                     <%= render 'update_company_modal', profile: @profile %>
                   </li>
                 <% end %>
-                <% if @profile.role == "animateur" %>
-                  <li class="list-group-item my-informations-item">
-                <% else %>
-                  <li class="list-group-item my-informations-item" id="last-my-informations-item">
-                <% end %>
+                <li class="list-group-item my-informations-item">
                   <div class="my-informations-text">
                     <span><strong>Description</strong></span>
                     <% if @profile.description %>
@@ -198,20 +194,18 @@
                   <%= render 'update_company_modal', profile: @profile %>
                 </li>
 
-                <% if @profile.role == "animateur" %>
-                  <li class="list-group-item my-informations-item" id="last-my-informations-item">
-                    <div class="my-informations-text">
-                      <span><strong>Photo de profil</strong></span>
-                      <% if @profile.photo.attached? %>
-                        <%=cl_image_tag @profile.photo.key, loading: "lazy", alt: "jeu-de-mains-ma-photo", title: "jeu-de-mains-ma-photo", width: 100, height: 100, crop: :fill %>
-                      <% else %>
-                        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 100, :height => 100, :crop => :fill, :alt => "jeu-de-mains-ma-photo", :title => "jeu-de-mains-ma-photo") %>
-                      <% end %>
-                    </div>
-                    <a href="#profilePictureModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
-                    <%= render 'update_company_modal', profile: @profile %>
-                  </li>
-                <% end %>
+                <li class="list-group-item my-informations-item" id="last-my-informations-item">
+                  <div class="my-informations-text">
+                    <span><strong>Photo de profil</strong></span>
+                    <% if @profile.photo.attached? %>
+                      <%=cl_image_tag @profile.photo.key, loading: "lazy", alt: "jeu-de-mains-ma-photo", title: "jeu-de-mains-ma-photo", width: 100, height: 100, crop: :fill %>
+                    <% else %>
+                      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 100, :height => 100, :crop => :fill, :alt => "jeu-de-mains-ma-photo", :title => "jeu-de-mains-ma-photo") %>
+                    <% end %>
+                  </div>
+                  <a href="#profilePictureModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
+                  <%= render 'update_company_modal', profile: @profile %>
+                </li>
               </ul>
             </div>
           <% end %>

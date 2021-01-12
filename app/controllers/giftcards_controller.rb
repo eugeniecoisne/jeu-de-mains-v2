@@ -65,7 +65,7 @@ class GiftcardsController < ApplicationController
     )
 
     @giftcard.update(checkout_session_id: session.id, deadline_date: (@giftcard.created_at + 1.year))
-
+    CheckGiftcardStatusJob.set(wait: 45.minutes).perform_later(@giftcard)
     redirect_to new_giftcard_giftcard_payment_path(@giftcard)
 
 

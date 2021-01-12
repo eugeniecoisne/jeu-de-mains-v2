@@ -85,8 +85,8 @@ ActiveAdmin.register_page "Dashboard" do
         panel "BOUTIQUES / ATELIERS" do
           h2 "#{Profile.all.where(db_status: true).select { |p| p.role == "boutique / atelier" }.count}"
         end
-        panel "ANIMATEURS NOMADES" do
-          h2 "#{Profile.all.where(db_status: true).select { |p| p.role == "animateur nomade" }.count}"
+        panel "ANIMATEURS D'ATELIERS" do
+          h2 "#{Profile.all.where(db_status: true).select { |p| p.role == "animation d'ateliers" }.count}"
         end
         panel "EVENEMENTIEL" do
           h2 "#{Profile.all.where(db_status: true).select { |p| p.role == "événementiel" }.count}"
@@ -127,7 +127,7 @@ ActiveAdmin.register_page "Dashboard" do
 
       column do
         h4 "PARTENAIRES TOP / FLOP"
-        partner_by_rating = Profile.all.where(db_status: true).select { |p| p.role.present? && p.rating.present? }.sort_by { |p| p.rating }
+        partner_by_rating = Profile.all.where(db_status: true).select { |p| p.role.present? && p.rating != nil && p.rating > 0 }.sort_by { |p| p.rating }
 
         panel "PARTENAIRES" do
           h2 "#{Profile.all.where(db_status: true).select { |p| p.role.present? }.count}"
@@ -154,7 +154,7 @@ ActiveAdmin.register_page "Dashboard" do
         h4 "SESSIONS"
 
         sessions_to_come = Session.all.where(db_status: true).select { |s| s.date >= Date.today && s.workshop.status == "en ligne" }
-        passed_sessions = Session.all.select { |s| s.bookings.where(db_status: true).present? == true }.select { |s| s.bookings.where(db_status: true).count > 0 && s.date < Date.today }
+        passed_sessions = Session.all.select { |s| s.bookings.where(db_status: true, status: "paid").present? == true }.select { |s| s.bookings.where(db_status: true, status: "paid").count > 0 && s.date < Date.today }
 
         panel "SESSIONS EN LIGNE" do
           h2 "#{sessions_to_come.count}"
@@ -164,15 +164,15 @@ ActiveAdmin.register_page "Dashboard" do
           columns do
             column do
               para "7 jrs"
-              h2 "#{Session.all.select { |s| s.bookings.where(db_status: true).present? == true }.select { |s| s.bookings.where(db_status: true).count > 0 && s.date < Date.today && s.date > (Date.today - 7.day) }.count }"
+              h2 "#{Session.all.select { |s| s.bookings.where(db_status: true, status: "paid").present? == true }.select { |s| s.bookings.where(db_status: true, status: "paid").count > 0 && s.date < Date.today && s.date > (Date.today - 7.day) }.count }"
             end
             column do
               para "30 jrs"
-              h2 "#{Session.all.select { |s| s.bookings.where(db_status: true).present? == true }.select { |s| s.bookings.where(db_status: true).count > 0 && s.date < Date.today && s.date > (Date.today - 30.day) }.count }"
+              h2 "#{Session.all.select { |s| s.bookings.where(db_status: true, status: "paid").present? == true }.select { |s| s.bookings.where(db_status: true, status: "paid").count > 0 && s.date < Date.today && s.date > (Date.today - 30.day) }.count }"
             end
             column do
               para "Début"
-              h2 "#{Session.all.select { |s| s.bookings.where(db_status: true).present? == true }.select { |s| s.bookings.where(db_status: true).count > 0 && s.date < Date.today }.count }"
+              h2 "#{Session.all.select { |s| s.bookings.where(db_status: true, status: "paid").present? == true }.select { |s| s.bookings.where(db_status: true, status: "paid").count > 0 && s.date < Date.today }.count }"
             end
           end
         end
@@ -181,15 +181,15 @@ ActiveAdmin.register_page "Dashboard" do
           columns do
             column do
               para "7 jrs"
-              h2 "#{Session.all.select { |s| s.date < Date.today && s.date > Date.today - 7.day }.select { |s| s.bookings.where(db_status: true).count == 0 || s.reason.present? == true }.count }"
+              h2 "#{Session.all.select { |s| s.date < Date.today && s.date > Date.today - 7.day }.select { |s| s.bookings.where(db_status: true, status: "paid").count == 0 || s.reason.present? == true }.count }"
             end
             column do
               para "30 jrs"
-              h2 "#{Session.all.select { |s| s.date < Date.today && s.date > Date.today - 30.day }.select { |s| s.bookings.where(db_status: true).count == 0 || s.reason.present? == true }.count }"
+              h2 "#{Session.all.select { |s| s.date < Date.today && s.date > Date.today - 30.day }.select { |s| s.bookings.where(db_status: true, status: "paid").count == 0 || s.reason.present? == true }.count }"
             end
             column do
               para "Début"
-              h2 "#{Session.all.select { |s| s.date < Date.today }.select { |s| s.bookings.where(db_status: true).count == 0 || s.reason.present? == true }.count }"
+              h2 "#{Session.all.select { |s| s.date < Date.today }.select { |s| s.bookings.where(db_status: true, status: "paid").count == 0 || s.reason.present? == true }.count }"
             end
           end
         end
@@ -250,19 +250,19 @@ ActiveAdmin.register_page "Dashboard" do
             column do
               para "7 jrs"
               cancel_bookings_7_sum = 0
-              Booking.all.where(db_status: false, status: "refunded").select { |b| b.cancelled_at > (Date.today - 7.day)}.each { |b| cancel_bookings_7_sum += b.quantity }
+              Booking.all.where(db_status: true, status: "refunded").select { |b| b.cancelled_at > (Date.today - 7.day) if b.cancelled_at}.each { |b| cancel_bookings_7_sum += b.quantity }
               h2 "#{cancel_bookings_7_sum}"
             end
             column do
               para "30 jrs"
               cancel_bookings_30_sum = 0
-              Booking.all.where(db_status: false, status: "refunded").select { |b| b.cancelled_at > (Date.today - 30.day)}.each { |b| cancel_bookings_30_sum += b.quantity }
+              Booking.all.where(db_status: true, status: "refunded").select { |b| b.cancelled_at > (Date.today - 30.day) if b.cancelled_at}.each { |b| cancel_bookings_30_sum += b.quantity }
               h2 "#{cancel_bookings_30_sum}"
             end
             column do
               para "Début"
               cancel_bookings_sum = 0
-              Booking.all.where(db_status: false, status: "refunded").each { |b| cancel_bookings_sum += b.quantity }
+              Booking.all.where(db_status: true, status: "refunded").each { |b| cancel_bookings_sum += b.quantity }
               h2 "#{cancel_bookings_sum}"
             end
           end

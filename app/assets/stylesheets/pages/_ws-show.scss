@@ -92,6 +92,41 @@
   }
 }
 
+// ADMIN VERIFICATION
+
+.ws-verification-box {
+  background-color: $light-blue;
+  color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 15px;
+  span {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Montserrat", Helvetica, sans-serif;
+  }
+  .simple_form {
+    margin-top: 10px;
+  }
+  .verification-btn {
+    border: unset;
+    background-color: white;
+    color: $dark-blue;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.2px;
+    font-family: "Montserrat", Helvetica, sans-serif;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    outline: none;
+  }
+  .verification-btn:hover {
+    background-color: $dark-blue;
+    color: white;
+  }
+}
+
 // ORGANIZERS
 
 .ws-show-informations-organizers {

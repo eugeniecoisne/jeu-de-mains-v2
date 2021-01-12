@@ -30,7 +30,10 @@ class Session < ApplicationRecord
 
   def available
     counter = 0
-    bookings.where(db_status: true).each do |booking|
+    bookings.where(db_status: true, status: "paid").each do |booking|
+      counter += booking.quantity
+    end
+    bookings.where(db_status: true, status: "pending").each do |booking|
       counter += booking.quantity
     end
     capacity - counter
@@ -38,7 +41,7 @@ class Session < ApplicationRecord
 
   def sold
     counter = 0
-    bookings.where(db_status: true).each do |booking|
+    bookings.where(db_status: true, status: "paid").each do |booking|
       counter += booking.quantity
     end
     counter

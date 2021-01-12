@@ -8,7 +8,7 @@ class InfomessageMailer < ApplicationMailer
   def new_information
     @infomessage = params[:infomessage]
     @place = @infomessage.session.workshop.place.email
-    @participants = @infomessage.session.bookings.where(db_status: true).map { |booking| booking.user.email}.uniq.join(",")
+    @participants = @infomessage.session.bookings.where(db_status: true, status: "paid").map { |booking| booking.user.email}.uniq.join(",")
 
     if @infomessage.session.workshop.animators.where(db_status: true).present?
       @animator = @infomessage.session.workshop.animators.where(db_status: true).last.user.email

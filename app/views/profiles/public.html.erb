@@ -35,7 +35,7 @@
         <div class="public-profile-name">
           <h1><%= @profile.company %></h1>
         </div>
-        <% if @profile.address && @profile.zip_code && @profile.city %>
+        <% if @profile.address.present? && @profile.zip_code && @profile.city %>
           <div class="public-profile-address">
             <%= link_to "https://www.google.fr/maps/search/#{@profile.address}, #{@profile.zip_code} #{@profile.city.upcase}", target: "_blank" do %>
               <i class="fas fa-map-marker-alt"></i>
@@ -82,8 +82,8 @@
         <div class="public-profile-main-figure public-profile-number-of-ws">
           <span id="number">
             <% workshops_count = 0 %>
-            <% @profile.user.animators.each { |animator| workshops_count += 1 if @workshops.include?(animator.workshop) } %>
-            <% @profile.user.places.each { |p| p.workshops.each { |w| workshops_count += 1 if @workshops.include?(w) }} %>
+            <% @profile.user.animators.where(db_status: true).each { |animator| workshops_count += 1 if @workshops.include?(animator.workshop) } %>
+            <% @profile.user.places.where(db_status: true).each { |p| p.workshops.each { |w| workshops_count += 1 if @workshops.include?(w) }} %>
             <%= workshops_count %>
           </span>
           <span id="text">
@@ -92,8 +92,8 @@
         </div>
         <div class="public-profile-main-figure public-profile-participants-nb">
           <% participants_number = 0 %>
-          <% @profile.user.animators.each { |a| a.workshop.sessions.where(db_status: true).each { |s| s.bookings.where(db_status: true, status: "paid").each { |b| participants_number += b.quantity } if s.date <= Date.today }} %>
-          <% @profile.user.places.each { |p| p.workshops.each { |w| w.sessions.where(db_status: true).each { |s| s.bookings.where(db_status: true, status: "paid").each { |b| participants_number += b.quantity } if s.date <= Date.today }}} %>
+          <% @profile.user.animators.where(db_status: true).each { |a| a.workshop.sessions.where(db_status: true).each { |s| s.bookings.where(db_status: true, status: "paid").each { |b| participants_number += b.quantity } if s.date <= Date.today }} %>
+          <% @profile.user.places.where(db_status: true).each { |p| p.workshops.each { |w| w.sessions.where(db_status: true).each { |s| s.bookings.where(db_status: true, status: "paid").each { |b| participants_number += b.quantity } if s.date <= Date.today }}} %>
           <span id="number"><%= participants_number %></span>
           <span id="text"><%= participants_number > 1 ? "participants déjà coachés" : "participant déjà coaché" %></span>
         </div>
@@ -120,8 +120,8 @@
           <div class="public-profile-our-ws-cards">
 
             <% profile_workshops = [] %>
-            <% @profile.user.animators.each { |a| profile_workshops << a.workshop if @workshops.include?(a.workshop) } %>
-            <% @profile.user.places.each { |p| p.workshops.each { |w| profile_workshops << w if @workshops.include?(w) }} %>
+            <% @profile.user.animators.where(db_status: true).each { |a| profile_workshops << a.workshop if @workshops.include?(a.workshop) } %>
+            <% @profile.user.places.where(db_status: true).each { |p| p.workshops.each { |w| profile_workshops << w if @workshops.include?(w) }} %>
 
             <% profile_workshops.each do |workshop| %>
               <% if @workshops.include?(workshop) %>

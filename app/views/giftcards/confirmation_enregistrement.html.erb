@@ -1,48 +1,51 @@
-<div class="giftcard-confirmation-image-banner">
-    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1606128931/jeu-de-mains-carte-cadeau-banner.jpg", :width => "100%", :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-carte-cadeau", :title => "jeu-de-mains-carte-cadeau") %>
-</div>
+<% if @giftcard.receiver.size > 0 %>
 
-<div class="giftcard-confirmation-container">
-  <div class="giftcard-confirmation-titles">
-    <h1>Félicitations !</h1>
-    <h2>Nous vous confirmons l'enregistrement de votre carte cadeau d'une valeur de <%= @giftcard.amount.to_i %> euros.</h2>
-    <h2>Vous pouvez dès à présent réserver l'atelier de votre souhait en utilisant votre carte cadeau enregistrée au moment du paiement. Votre carte cadeau peut être utilisée en plusieurs fois.</h2>
-    <h2>Retrouvez l'état de vos cartes cadeaux dans la rubrique <%= link_to "mes cartes cadeaux",  mes_cartes_cadeaux_profile_path(current_user.profile) %>.</h2>
+  <div class="giftcard-confirmation-image-banner">
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1606128931/jeu-de-mains-carte-cadeau-banner.jpg", :width => "100%", :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-carte-cadeau", :title => "jeu-de-mains-carte-cadeau") %>
   </div>
-  <div class="giftcard-confirmation-simulation" loading="lazy">
-    <div class="giftcard-confirmation-simulation-row">
-      <p>Offert par</p>
-      <div class="giftcard-simulation-information">
-        <%= @giftcard.buyer_name %>
-      </div>
-    </div>
-    <div class="giftcard-confirmation-simulation-row">
-      <p>Pour</p>
-      <div class="giftcard-simulation-information">
-        <%= @giftcard.receiver_name %>
-      </div>
-    </div>
-    <div class="giftcard-confirmation-simulation-row">
-      <p>Montant</p>
-      <div class="giftcard-simulation-information">
-        <%= @giftcard.initial_amount.to_i %> euros
-      </div>
-    </div>
-    <div class="giftcard-confirmation-simulation-row">
-      <p>Valable</p>
-      <div class="giftcard-simulation-information">
-        jusqu'au <%= (@giftcard.deadline_date).strftime("%d/%m/%Y") %> à 23h59
-      </div>
-    </div>
-    <div class="giftcard-confirmation-simulation-row">
-      <p>N° Carte</p>
-      <div class="giftcard-simulation-information">
-        <%= @giftcard.code %>
-      </div>
-    </div>
-  </div>
-  <div class="giftcard-confirmation-btn">
-    <%= link_to "Découvrir les ateliers", workshops_path %>
-  </div>
-</div>
 
+  <div class="giftcard-confirmation-container">
+    <div class="giftcard-confirmation-titles">
+      <h1>Félicitations !</h1>
+      <h2>Nous vous confirmons l'enregistrement de votre carte cadeau d'une valeur de <%= @giftcard.amount.to_i %> euros.</h2>
+      <h2>Vous pouvez dès à présent réserver l'atelier de votre souhait en utilisant votre carte cadeau enregistrée au moment du paiement. Votre carte cadeau peut être utilisée en plusieurs fois.</h2>
+      <h2>Retrouvez l'état de vos cartes cadeaux dans la rubrique <%= link_to "mes cartes cadeaux",  mes_cartes_cadeaux_profile_path(current_user.profile) %>.</h2>
+    </div>
+    <div class="giftcard-confirmation-simulation" loading="lazy">
+      <div class="giftcard-confirmation-simulation-row">
+        <p>Offert par</p>
+        <div class="giftcard-simulation-information">
+          <%= @giftcard.buyer_name %>
+        </div>
+      </div>
+      <div class="giftcard-confirmation-simulation-row">
+        <p>Pour</p>
+        <div class="giftcard-simulation-information">
+          <%= @giftcard.receiver_name %>
+        </div>
+      </div>
+      <div class="giftcard-confirmation-simulation-row">
+        <p>Montant</p>
+        <div class="giftcard-simulation-information">
+          <%= @giftcard.initial_amount.to_i %> euros
+        </div>
+      </div>
+      <div class="giftcard-confirmation-simulation-row">
+        <p>Valable</p>
+        <div class="giftcard-simulation-information">
+          jusqu'au <%= (@giftcard.deadline_date).strftime("%d/%m/%Y") %> à 23h59
+        </div>
+      </div>
+      <div class="giftcard-confirmation-simulation-row">
+        <p>N° Carte</p>
+        <div class="giftcard-simulation-information">
+          <%= @giftcard.code %>
+        </div>
+      </div>
+    </div>
+    <div class="giftcard-confirmation-btn">
+      <%= link_to "Découvrir les ateliers", workshops_path %>
+    </div>
+  </div>
+
+<% end %>

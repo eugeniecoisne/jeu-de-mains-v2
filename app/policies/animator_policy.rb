@@ -9,7 +9,7 @@ class AnimatorPolicy < ApplicationPolicy
   end
 
   def update?
-    record.workshop.place.user == user || user.admin
+    record.workshop.place.user == user || user.admin?
   end
 
   def edit?

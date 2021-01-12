@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
   skip_after_action :verify_policy_scoped, :only => :index
 
   def new
-    if Booking.find(params[:booking_id]).db_status == true && Booking.find(params[:booking_id]).user == current_user
+    if Booking.find(params[:booking_id]).status == "paid" && Booking.find(params[:booking_id]).db_status == true && Booking.find(params[:booking_id]).user == current_user
       @review = Review.new
       authorize @review
       @booking = Booking.find(params[:booking_id])

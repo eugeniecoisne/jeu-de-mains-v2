@@ -9,7 +9,7 @@ class WorkshopPolicy < ApplicationPolicy
   end
 
   def create?
-    user.profile.role == 'organisateur' || user.admin?
+    user.profile.role.present? || user.admin?
   end
 
   def new?
@@ -24,8 +24,20 @@ class WorkshopPolicy < ApplicationPolicy
     update?
   end
 
+  def finalisation?
+    update?
+  end
+
+  def send_verification_mail?
+    update?
+  end
+
   def confirmation?
     update?
+  end
+
+  def mark_as_verified_or_unverified?
+    user.admin?
   end
 
   def destroy?
