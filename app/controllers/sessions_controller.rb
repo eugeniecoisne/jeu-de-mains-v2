@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
   def destroy
     @session = Session.find(params[:id])
     authorize @session
-    if @session.bookings.where(db_status: true).empty?
+    if @session.bookings.where(db_status: true, status: "paid").empty?
       @session.update(db_status: false)
       @session.save
       redirect_back fallback_location: root_path
@@ -49,9 +49,8 @@ class SessionsController < ApplicationController
       @session.save
       mail = SessionMailer.with(session: @session).cancel_and_giveback
       mail.deliver_now
-      @session.bookings.where(db_status: true).each do |b|
-        b.update(db_status: false)
-        b.save
+      @session.bookings.where(db_status: true, status: "paid").each do |b|
+        b.destroy
         mail = BookingMailer.with(booking: b).cancel_booking_btoc
         mail.deliver_now
       end

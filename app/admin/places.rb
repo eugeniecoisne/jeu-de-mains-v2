@@ -96,11 +96,6 @@ ActiveAdmin.register Place do
       row "Nb sessions en ligne" do |place|
         Session.all.where(db_status: true).select { |s| s.workshop.place == place && s.date > Date.today }.count
       end
-      row "Participants reçus" do |place|
-        participants = 0
-        Session.all.select { |s| s.workshop.place == place && s.date < Date.today }.each { |s| participants += s.sold }
-        participants
-      end
       row :created_at
       row :updated_at
       row :db_status
@@ -125,11 +120,6 @@ ActiveAdmin.register Place do
           column :ephemeral
           column "Nb sessions en ligne" do |workshop|
             workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
-          end
-          column "Participants reçus" do |workshop|
-            participants = 0
-            Session.all.select { |s| s.workshop == workshop && s.date < Date.today }.each { |s| participants += s.sold }
-            participants
           end
           column :status
           column :db_status

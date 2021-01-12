@@ -3,22 +3,22 @@ require "will_paginate/array"
 
 class WorkshopsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(index show)
-  before_action :set_workshop, only: %i(show edit update confirmation destroy)
+  before_action :set_workshop, only: %i(show edit update finalisation confirmation destroy)
 
   def index
     if params[:search].present?
       if params[:search][:starts_at].present? && params[:search][:ends_at].present?
         dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.strptime(params[:search][:ends_at], '%Y-%m-%d')).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 }
       elsif params[:search][:starts_at].present?
         dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.today + 1.year).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 }
       elsif params[:search][:ends_at].present?
         dates = (Date.today..Date.strptime(params[:search][:ends_at], '%Y-%m-%d')).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 }
       else
         dates = (Date.today..Date.today + 1.year).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 }
       end
 
       @workshops = @workshops.select { |workshop| workshop.moments.include?(params[:search][:moment]) if workshop.moments != nil }.paginate(page: params[:page], per_page: 20) if params[:search][:moment].present?
@@ -98,7 +98,7 @@ class WorkshopsController < ApplicationController
       end
     else
       dates = (Date.today..Date.today + 1.year).to_a
-      @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }.sort_by { |workshop| workshop.recommendable }.reverse.paginate(page: params[:page], per_page: 20)
+      @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 }.sort_by { |workshop| workshop.recommendable }.reverse.paginate(page: params[:page], per_page: 20)
     end
     # authorize @workshops
 
@@ -132,7 +132,7 @@ class WorkshopsController < ApplicationController
       end
     end
     dates = (Date.today..Date.today + 1.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 && workshop.place.district == @workshop.place.district && workshop.thematic == @workshop.thematic }.sort_by { |workshop| workshop.recommendable }.first(6)
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 && workshop.place.district == @workshop.place.district && workshop.thematic == @workshop.thematic }.sort_by { |workshop| workshop.recommendable }.first(6)
   end
 
   def edit
@@ -157,7 +157,7 @@ class WorkshopsController < ApplicationController
     ws_bookings = []
     @workshop.sessions.where(db_status: true).each do |session|
       if session.date >= Date.today - 7
-        session.bookings.where(db_status: true).each do |booking|
+        session.bookings.where(db_status: true, status: "paid").each do |booking|
           ws_bookings << booking
         end
       end
@@ -206,12 +206,44 @@ class WorkshopsController < ApplicationController
     end
   end
 
-  def confirmation
+
+  def finalisation
     if @workshop
       @users = User.all.where(db_status: true).select { |user| user.profile.role.present? }
       @animator = Animator.new
       @session = Session.new
     end
+  end
+
+  def confirmation
+  end
+
+  def send_verification_mail
+    @workshop = Workshop.find(params[:id])
+    authorize @workshop
+    if @workshop && @workshop.completed? && @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present?
+      mail = WorkshopMailer.with(workshop: @workshop).ask_for_check_up
+      mail.deliver_later
+    else
+      flash[:alert] = "Votre atelier ne peut être soumis à vérification. Vérifiez les champs et la présence d'une première date de session."
+      redirect_back fallback_location: root_path
+    end
+  end
+
+  def mark_as_verified_or_unverified
+    if current_user.admin == true
+      @workshop = Workshop.find(params[:verification][:workshop_id])
+      authorize @workshop
+      if params[:verification][:verified] == true
+        @workshop.update(verified: true, status: "en ligne")
+        mail = WorkshopMailer.with(workshop: @workshop).workshop_is_online
+        mail.deliver_later
+      else
+        mail = WorkshopMailer.with(workshop: @workshop, message: params[:verification][:message]).workshop_cannot_be_online
+        mail.deliver_later
+      end
+    end
+    redirect_back fallback_location: root_path
   end
 
   private

@@ -1,7 +1,7 @@
 class SessionPolicy < ApplicationPolicy
 
   def create?
-    user.profile.role == 'organisateur' || user.profile.role == 'animateur' || user.admin?
+    user.profile.role.present? || user.admin?
   end
 
   def new?

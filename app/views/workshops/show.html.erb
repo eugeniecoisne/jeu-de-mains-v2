@@ -59,6 +59,17 @@
           <span>Retour</span>
         <% end %>
       </div>
+      <% if current_user.admin %>
+        <div class="ws-verification-box">
+          <span>Vérification de l'atelier par Jeu de Mains</span>
+          <%= simple_form_for :verification, url: mark_as_verified_or_unverified_workshop_path, method: :get do |f| %>
+            <%= f.hidden_field :workshop_id, value: @workshop.id %>
+            <%= f.input :verified, label: "Je valide l'atelier", as: :radio_buttons %>
+            <%= f.input :message, label: "Message d'explication en cas de refus", as: :text, required: false %>
+            <%= f.submit "Confirmer", class: "verification-btn" %>
+          <% end %>
+        </div>
+      <% end %>
 
       <!-- WORKSHOP SHOW CAROUSEL-->
 
@@ -96,7 +107,7 @@
         <div class="ws-show-ephemeral-status-mobile">
           <span>
             <i class="far fa-star pr-1"></i>
-            Cet atelier est éphémère
+              Cet atelier est éphémère
             <i class="far fa-star pl-1"></i>
           </span>
         </div>
@@ -203,7 +214,7 @@
           <% if @workshop.reviews.where(db_status: true).present? %>
             <div class= "ws-show-informations-reviews-title">
               <h2>Avis sur l'atelier</h2>
-              <p>Note moyenne : <strong><%= @workshop.rating %> /5</strong> (<%= @workshop.reviews.count %> avis)</p>
+              <p>Note moyenne : <strong><%= @workshop.rating %> /5</strong> (<%= @workshop.reviews.where(db_status: true).count %> avis)</p>
             </div>
             <div class= "reviews-cards">
               <% @workshop.reviews.where(db_status: true).sort_by { |review| review.created_at }.reverse.first(4).each do |review| %>

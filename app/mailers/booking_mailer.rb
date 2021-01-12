@@ -87,7 +87,7 @@ class BookingMailer < ApplicationMailer
   def reminder_booking_btoc
     @booking = params[:booking]
 
-    if @booking.db_status == true
+    if @booking.db_status == true && @booking.status == "paid"
       mail(
         to:       @booking.user.email,
         subject:  "Rappel : Vous avez un atelier demain !",
@@ -99,7 +99,7 @@ class BookingMailer < ApplicationMailer
   def ask_review_btoc
     @booking = params[:booking]
 
-    if @booking.db_status == true
+    if @booking.db_status == true && @booking.status == "paid"
       mail(
         to:       @booking.user.email,
         subject:  "Donnez-nous votre avis sur l'atelier d'hier",

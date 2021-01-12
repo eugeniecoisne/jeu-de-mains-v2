@@ -119,12 +119,12 @@
       <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
         <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;">
           <%= link_to place_url(@animator.workshop.place), target: "_blank" do %>
-            Chez <%= @animator.workshop.place.name %>
+            Organisé par <%= @animator.workshop.place.user.profile.company %>
           <% end %>
         </p>
         <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">
           <a href="https://www.google.fr/maps/search/<%= @animator.workshop.place.address %>, <%= @animator.workshop.place.zip_code %> <%= @animator.workshop.place.city.upcase %>" target="_blank">
-            <%= @animator.workshop.place.address %> <%= @animator.workshop.place.zip_code %> <%= @animator.workshop.place.city %>
+            au <%= @animator.workshop.place.address %> <%= @animator.workshop.place.zip_code %> <%= @animator.workshop.place.city %>
           </a>
         </p>
       </div>

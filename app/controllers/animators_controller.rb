@@ -1,9 +1,6 @@
 class AnimatorsController < ApplicationController
   before_action :set_animator, only: %i(edit update)
 
-  def new
-  end
-
   def create
     @animator = Animator.new
     authorize @animator
@@ -12,15 +9,16 @@ class AnimatorsController < ApplicationController
     if @animator.save
       mail = AnimatorMailer.with(animator: @animator).new_animator
       mail.deliver_later
-      redirect_back fallback_location: root_path
-      flash[:notice] = "L'animateur #{@animator.user.profile.company} a bien été ajouté !"
+      if params[:animator][:creation].present?
+        redirect_to confirmation_workshop_path(@animator.workshop)
+      else
+        redirect_back fallback_location: root_path
+        flash[:notice] = "L'animateur #{@animator.user.profile.company} a bien été ajouté !"
+      end
     else
       @users = User.all.select { |user| user.profile.role == 'animateur' }
       render 'new'
     end
-  end
-
-  def edit
   end
 
   def update
@@ -41,4 +39,5 @@ class AnimatorsController < ApplicationController
     @animator = Animator.find(params[:id])
     authorize @animator
   end
+
 end

@@ -67,7 +67,7 @@ ActiveAdmin.register User do
       row :provider
     end
 
-    GIFTCARDS_OFFERED = Giftcard.all.select { |g| g.buyer == user.id }
+    GIFTCARDS_OFFERED = Giftcard.all.where(db_status: true).select { |g| g.buyer == user.id }
 
     if GIFTCARDS_OFFERED.count > 0
       panel "Cartes cadeaux offertes" do
@@ -97,7 +97,7 @@ ActiveAdmin.register User do
       end
     end
 
-    GIFTCARDS_RECEIVED = Giftcard.all.select { |g| g.receiver == user.id }
+    GIFTCARDS_RECEIVED = Giftcard.all.where(db_status: true).select { |g| g.receiver == user.id }
 
     if GIFTCARDS_RECEIVED.count > 0
       panel "Cartes cadeaux reçues" do

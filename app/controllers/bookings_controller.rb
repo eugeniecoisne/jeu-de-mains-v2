@@ -14,7 +14,7 @@ class BookingsController < ApplicationController
       user: current_user
       )
     authorize @booking
-
+    CheckBookingStatusJob.set(wait: 15.minutes).perform_later(@booking)
     redirect_to booking_options_path(@booking)
   end
 
@@ -109,7 +109,7 @@ class BookingsController < ApplicationController
 
         SendCancelBookingEmailsJob.perform_now(@booking)
 
-        @booking.update(db_status: false, status: "refunded")
+        @booking.update(status: "refunded", cancelled_at: Time.now)
 
       else
 
@@ -126,7 +126,7 @@ class BookingsController < ApplicationController
           reverse_transfer: true,
         })
 
-        @booking.update(refund_id: bank_refund.id, charge_id: bank_refund.charge, db_status: false)
+        @booking.update(refund_id: bank_refund.id, charge_id: bank_refund.charge)
         @booking.save
 
         # ETAPES 2 & 3 remboursement carte cadeau restant et remboursement entre JDM et orga que si l'étape 1 a fonctionné par Stripe, voir ensuite Services > refund service
@@ -144,7 +144,7 @@ class BookingsController < ApplicationController
         reverse_transfer: true,
       })
 
-      @booking.update(refund_id: refund.id, charge_id: refund.charge, db_status: false)
+      @booking.update(refund_id: refund.id, charge_id: refund.charge)
       @booking.save
 
     end
