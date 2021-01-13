@@ -199,7 +199,7 @@ class WorkshopsController < ApplicationController
       mail = WorkshopMailer.with(workshop: @workshop).create_confirmation
       mail.deliver_later
       flash[:notice] = "Votre atelier a bien été créé !"
-      redirect_to confirmation_workshop_path(@workshop)
+      redirect_to finalisation_workshop_path(@workshop)
     else
       @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
       render 'new'
@@ -222,6 +222,7 @@ class WorkshopsController < ApplicationController
     @workshop = Workshop.find(params[:id])
     authorize @workshop
     if @workshop && @workshop.completed? && @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present?
+      @workshop.update(status: "vérification")
       mail = WorkshopMailer.with(workshop: @workshop).ask_for_check_up
       mail.deliver_later
     else
@@ -234,16 +235,31 @@ class WorkshopsController < ApplicationController
     if current_user.admin == true
       @workshop = Workshop.find(params[:verification][:workshop_id])
       authorize @workshop
-      if params[:verification][:verified] == true
+      if params[:verification][:verified] == "true"
         @workshop.update(verified: true, status: "en ligne")
-        mail = WorkshopMailer.with(workshop: @workshop).workshop_is_online
+        mail = WorkshopMailer.with(workshop: @workshop, message: params[:verification][:message]).workshop_is_online
         mail.deliver_later
+        redirect_to workshop_path(@workshop)
       else
+        @workshop.update(status: "hors ligne")
         mail = WorkshopMailer.with(workshop: @workshop, message: params[:verification][:message]).workshop_cannot_be_online
         mail.deliver_later
+        redirect_to workshop_path(@workshop)
       end
+    else
+      redirect_back fallback_location: root_path
     end
-    redirect_back fallback_location: root_path
+  end
+
+  def invitation
+    @workshop = Workshop.find(params[:invitation][:workshop_id])
+    authorize @workshop
+    if params[:invitation][:email].present?
+      mail = WorkshopMailer.with(workshop: @workshop, email: params[:invitation][:email]).invite_partner
+      mail.deliver_later
+      flash[:notice] = "L'e-mail d'invitation a bien été envoyé à #{params[:invitation][:email]} !"
+      redirect_to confirmation_workshop_path(@workshop)
+    end
   end
 
   private

@@ -70,6 +70,13 @@
   }
 }
 
+#in-validation-ws {
+  border-color: $yellow;
+  #dashboard-workshop-status {
+    background-color: $yellow;
+  }
+}
+
 .ws-dashboard-organizer-card {
   display: flex;
 }

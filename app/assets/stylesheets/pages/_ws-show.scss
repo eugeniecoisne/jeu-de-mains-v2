@@ -101,13 +101,18 @@
   margin-bottom: 20px;
   font-weight: 500;
   font-size: 15px;
+  p {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: "Montserrat", Helvetica, sans-serif;
+  }
   span {
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
     font-family: "Montserrat", Helvetica, sans-serif;
   }
   .simple_form {
-    margin-top: 10px;
+    margin-top: 20px;
   }
   .verification-btn {
     border: unset;
@@ -124,6 +129,16 @@
   .verification-btn:hover {
     background-color: $dark-blue;
     color: white;
+  }
+  .link-to-edit-ws-admin {
+    text-decoration: none;
+    outline: none;
+    font-size: 14px;
+  }
+  .link-to-edit-ws-admin:hover {
+    text-decoration: none;
+    color: white;
+    background-color: $dark-blue;
   }
 }
 

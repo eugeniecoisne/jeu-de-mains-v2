@@ -40,6 +40,10 @@ class WorkshopPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def invitation?
+    update?
+  end
+
   def destroy?
     record.place.user == user || user.admin?
   end

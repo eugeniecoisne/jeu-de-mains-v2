@@ -1,7 +1,73 @@
-<h2>confirmation <%= @workshop.title %></h2>
-<h3><strong>Votre atelier est prêt ! &#128521;</strong></h3>
-<p>Vous pouvez jeter un oeil à votre atelier à cliquant ici : <%= link_to "Prévisualiser la page", workshop_path(@workshop), class: "confirm-btn d-flex", id: "previsualize-ws", target: "_blank" %></strong><br>
-Puis dès que vous êtes prêt, vous pouvez envoyez votre nouvel atelier en vérification pour la mise en ligne.</p>
-<br><br>
+<div class="confirmation-ws-container">
 
-<%= link_to "Demander la mise en ligne", controller: "workshops", action: "send_verification_mail", id: @workshop.id %>
+  <% if @workshop.completed? && @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present? %>
+
+    <h2>Votre atelier est prêt !</h2>
+    <%= cl_image_tag @workshop.photos[0].key, loading: "lazy", width: 200, height: 200, crop: :fill, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}" %>
+    <div class="confirmation-ws-infos">
+      <h3><%= @workshop.title %></h3>
+      <p>Au <%= @workshop.place.address %> <%= @workshop.place.zip_code %> <%= @workshop.place.city %></p>
+      <% session = @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.last %>
+      <p>Première session le <%= l(session.date, format: '%A %d %b %Y').capitalize %> à <%= session.start_at %></p>
+      <% if @workshop.animators.where(db_status: true).present? %>
+        <p>Animé par <%= @workshop.animators.where(db_status: true).last.user.profile.company %></p>
+      <% end %>
+    </div>
+    <br>
+    <%= link_to "Prévisualiser la page", workshop_path(@workshop), class: "blue-btn", target: "_blank" %>
+    <br>
+
+    <a href="/ateliers/<%=@workshop.id%>/send_verification_mail" class="button">Demander la mise en ligne</a>
+
+  <% else %>
+
+    <h2>Votre atelier n'est pas encore prêt !</h2>
+    <% if @workshop.photos.attached? %>
+      <%= cl_image_tag @workshop.photos[0].key, loading: "lazy", width: 200, height: 200, crop: :fill, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}" %>
+    <% else %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", width: 200, height: 200, :crop => :fill, :alt => "jeu-de-mains", :title => "jeu-de-mains") %>
+    <% end %>
+    <div class="confirmation-ws-infos">
+      <% if @workshop.title.present? %>
+        <h3><%= @workshop.title %></h3>
+      <% end %>
+      <% if @workshop.place.present? && @workshop.place.db_status == true %>
+        <p>Au <%= @workshop.place.address %> <%= @workshop.place.zip_code %> <%= @workshop.place.city %></p>
+      <% end %>
+      <% if @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present? %>
+        <% session = @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.last %>
+        <p>Première session le <%= l(session.date, format: '%A %d %b %Y').capitalize %> à <%= session.start_at %></p>
+      <% end %>
+      <% if @workshop.animators.where(db_status: true).present? %>
+        <p>Animé par <%= @workshop.animators.where(db_status: true).last.user.profile.company %></p>
+      <% end %>
+    </div>
+    <br>
+    <%= link_to "Prévisualiser la page", workshop_path(@workshop), class: "blue-btn", target: "_blank" %>
+    <br>
+
+    <% if @workshop.completed? %>
+      <p>Votre atelier est prêt mais vous n'avez pas encore ajouté de première date de session</p>
+    <% else %>
+      <p>Votre atelier est incomplet, voici les informations non renseignées :</p><br>
+      <ul>
+        <% if @workshop.title.present? == false %><li><p>Intitulé de l'atelier</p></li><% end %>
+        <% if @workshop.title.present? == false %><li><p>Intitulé de l'atelier</p></li><% end %>
+        <% if @workshop.thematic.present? == false %><li><p>Type d'atelier</p></li><% end %>
+        <% if @workshop.level.present? == false %><li><p>Niveau requis pour participer</p></li><% end %>
+        <% if @workshop.duration.present? == false %><li><p>Durée de l'atelier</p></li><% end %>
+        <% if @workshop.final_product.present? == false %><li><p>Nombre de places proposées</p></li><% end %>
+        <% if @workshop.price.present? == false || @workshop.price == 0 %><li><p>Prix par personne</p></li><% end %>
+        <% if @workshop.program.present? == false %><li><p>Programme</p></li><% end %>
+        <% if @workshop.final_product.present? == false %><li><p>Repartez avec</p></li><% end %>
+      </ul>
+    <% end %>
+    <p>Rendez-vous sur votre tableau de bord pour finaliser votre atelier :</p><br><br>
+
+    <%= link_to "Mon tableau de bord", tableau_de_bord_profile_path(current_user.profile), class: "button" %>
+
+  <% end %>
+
+</div>
+
+

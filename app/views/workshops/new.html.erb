@@ -37,14 +37,14 @@
             <div class="form-group select required workshop_place_id">
               <label class="select optional" for="workshop_place">Sélectionnez ou créez l'adresse postale du lieu où se déroulera l'atelier</label>
 
-              <div class="d-flex">
+              <div class="new-ws-select-or-add-new-address">
                 <select class="form-control select required" name="workshop[place_id]" id="workshop_place_id">
                   <option value="">Mes adresses</option>
                 <% @places.sort_by { |place| place.name }.each do |place| %>
                   <option value="<%= place.id %>"><%= place.name %> - <%= place.full_address %></option>
                 <% end %>
                 </select>
-
+                <p id="choices-or">ou</p>
                 <div class="new-ws-add-place">
                   <%= link_to "Nouvelle adresse", new_place_path, id: "new-ws-add-place-btn" %>
                 </div>
@@ -146,8 +146,7 @@
         <div id="collapse-5" class="collapse collapse-5" data-parent="#accordionNewWs">
           <div class="card-body">
             <strong>Il est temps de valider</strong><br>
-            Une fois le bouton "valider" cliqué vous serez redirigé vers une page de confirmation. <br>
-            Votre atelier ne sera pas immédiatement mis en ligne, vous devrez encore renseigner les dates d'atelier ainsi que les éventuels champs non complétés.
+            Une fois le bouton "valider" cliqué vous serez redirigé vers une page de finalisation.<br>
             <br><br>
             <div class="d-flex justify-content-center">
               <%= f.submit 'Valider', class: "new-edit-ws-submit" %>

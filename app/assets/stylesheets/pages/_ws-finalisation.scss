@@ -1,0 +1,66 @@
+#accordionNewWsTwo {
+  .button {
+    font-size: 14px;
+    font-weight: 500;
+    border: unset;
+    text-decoration: none;
+    outline: none;
+    padding: 3px 10px;
+  }
+  .button:hover {
+    background-color: $dark-blue;
+
+  }
+  .ws-finalisation-add-animator-forms {
+    display: grid;
+    grid-template-columns: 10fr 1fr 10fr;
+    align-items: center;
+    p {
+      font-weight: 600;
+      font-size: 15px;
+      padding: 0 30px;
+      margin-bottom: 2px;
+    }
+  }
+
+}
+
+// RESPONSIVE WS FINALISATION //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 767px) {
+  #accordionNewWsTwo {
+
+    .ws-finalisation-add-animator-forms {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: unset;
+      align-items: center;
+      p {
+        font-weight: 600;
+        font-size: 15px;
+        padding: 0 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+    }
+
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
+
+

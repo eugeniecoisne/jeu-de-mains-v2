@@ -2,77 +2,59 @@
 
 // CONFIRMATION PAGE
 
-#confirmation-ws-container {
+.confirmation-ws-container {
+  margin: 30px;
+  min-height: 700px;
   display: flex;
-  .sign-title {
-    font-size: 22px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  ul {
+    text-align: left;
   }
-}
-.ws-confirmation-item {
-  margin: 2em 0;
+  img {
+    object-fit: cover;
+  }
+
+  h2 {
+    font-size: 40px;
+    color: $blue;
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-family: "Amiri", serif;
+    margin-top: 3rem;
+    line-height: 1;
+  }
   h3 {
+    font-size: 18px;
     color: $dark-blue;
-    font-size: 16px;
     font-weight: 600;
-    margin-bottom: 1em;
+    line-height: 1.4;
+    margin-bottom: 3px;
   }
   p {
-    margin-top: 1em;
-  }
-  strong {
+    font-size: 15px;
     color: $dark-blue;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: unset;
   }
-}
-.ws-confirmation-item-button {
-  margin-bottom: 2em;
-}
-
-// CONFIRMATION MODALS
-
-
-.confirm-session-modal {
-  left: 3.8em;
-  .form-group.session_date {
-    margin-top: 3em;
+  .confirmation-ws-infos {
+    margin-top: 20px;
+    text-align: center;
   }
-  select {
-    background-position-x: 98%;
+  .button {
+    background-color: $dark-blue;
+    text-decoration: none;
+    outline: none;
+    margin-bottom: 30px;
   }
-  .modal-dialog {
-    margin: 4.4em 0 0 0;
+  .button:hover {
+    text-decoration: none;
+    outline: none;
+    color: white;
+    background-color: $blue;
   }
-}
-
-.confirm-animator-modal {
-  left: 3.8em;
-  .form-group.animator_user {
-    margin-top: 2em;
-  }
-  select {
-    background-position-x: 98%;
-  }
-  .modal-dialog {
-    margin: 4.4em 0 0 0;
-  }
-}
-
-.confirm-btn {
-  background-color: $green;
-  color: white !important;
-  border-radius: 32px;
-  padding: 0.3rem 1.2rem;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  border: unset;
-  width: 200px;
-  justify-content: center;
-  outline: none;
-}
-.confirm-btn:hover {
-  background-color: $light-blue;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 #previsualize-ws {
@@ -88,105 +70,12 @@
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
-  #confirmation-ws-container {
-    .sign-title {
-      font-size: 20px;
-    }
-    .sign-form {
-      margin: 3em 2em;
-    }
-  }
-  .ws-confirmation-item {
-    margin: 2em 0;
-    h3 {
-      font-size: 15px;
-    }
-    p {
-      font-size: 15px;
-    }
-  }
-  .confirm-btn {
-    width: 100%;
-  }
-
-
-  // MODAL
-
-  .confirm-session-modal {
-    left: 0;
-    .modal-dialog {
-      max-width: unset;
-      height: 100vh;
-      width: 100vw;
-      margin: unset;
-    }
-    .modal-content {
-      width: 100vw;
-      height: 100vh;
-      border: unset;
-    }
-    .modal-body {
-      padding-top: 5em;
-    }
-  }
-  .confirm-animator-modal {
-    left: 0;
-    .modal-dialog {
-      max-width: unset;
-      height: 100vh;
-      width: 100vw;
-      margin: unset;
-    }
-    .modal-content {
-      width: 100vw;
-      height: 100vh;
-      border: unset;
-    }
-    .modal-body {
-      padding-top: 5em;
-    }
-  }
 }
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
-// MODAL
-
-  .confirm-session-modal {
-    left: 0;
-    .modal-dialog {
-      max-width: unset;
-      height: 100vh;
-      width: 100vw;
-      margin: unset;
-    }
-    .modal-content {
-      width: 100vw;
-      height: 100vh;
-      border: unset;
-    }
-    .modal-body {
-      padding: 5em;
-    }
-  }
-  .confirm-animator-modal {
-    left: 0;
-    .modal-dialog {
-      max-width: unset;
-      height: 100vh;
-      width: 100vw;
-      margin: unset;
-    }
-    .modal-content {
-      width: 100vw;
-      height: 100vh;
-      border: unset;
-    }
-    .modal-body {
-      padding: 5em;
-    }
-  }
 }
+
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {

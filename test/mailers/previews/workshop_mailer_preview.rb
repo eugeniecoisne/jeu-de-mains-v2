@@ -6,4 +6,8 @@ class WorkshopMailerPreview < ActionMailer::Preview
     WorkshopMailer.create_confirmation
   end
 
+  def invite_partner
+    WorkshopMailer.invite_partner
+  end
+
 end
