@@ -122,10 +122,10 @@ class WorkshopsController < ApplicationController
 
   def show
     if @workshop
-      if (@workshop.db_status == true && @workshop.status == "en ligne") || @workshop.place.user == current_user || current_user.admin
+      if (@workshop.db_status == true && @workshop.status == "en ligne") || @workshop.place.user == current_user || @workshop.animators.where(db_status: true).last.user == current_user || current_user.admin
         @booking = Booking.new
-        if @workshop.animators.where(db_status: true).present? && @workshop.animators.first.user.profile.db_status == true
-          @animator = @workshop.animators.where(db_status: true).first
+        if @workshop.animators.where(db_status: true).present? && @workshop.animators.last.user.profile.db_status == true
+          @animator = @workshop.animators.where(db_status: true).last
         end
       else
         render :file => 'public/404.html', :status => :not_found, :layout => false
@@ -209,7 +209,7 @@ class WorkshopsController < ApplicationController
 
   def finalisation
     if @workshop
-      @users = User.all.where(db_status: true).select { |user| user.profile.role.present? }
+      @users = User.all.where(db_status: true).select { |user| user.profile.role.present? && user != current_user }
       @animator = Animator.new
       @session = Session.new
     end

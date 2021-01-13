@@ -4,8 +4,8 @@ class AnimatorsController < ApplicationController
   def create
     @animator = Animator.new
     authorize @animator
-    @animator.workshop = Workshop.friendly.find(params[:workshop_id])
     @animator.user = User.find(params[:animator][:user_id])
+    @animator.workshop = Workshop.friendly.find(params[:workshop_id])
     if @animator.save
       mail = AnimatorMailer.with(animator: @animator).new_animator
       mail.deliver_later
@@ -16,7 +16,7 @@ class AnimatorsController < ApplicationController
         flash[:notice] = "L'animateur #{@animator.user.profile.company} a bien été ajouté !"
       end
     else
-      @users = User.all.select { |user| user.profile.role == 'animateur' }
+      @users = User.all.select { |user| user.profile.role.present? && user != current_user }
       render 'new'
     end
   end

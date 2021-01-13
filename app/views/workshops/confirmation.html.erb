@@ -2,8 +2,11 @@
 
   <% if @workshop.completed? && @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present? %>
 
-    <h2>Votre atelier est prêt !</h2>
-    <%= cl_image_tag @workshop.photos[0].key, loading: "lazy", width: 200, height: 200, crop: :fill, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}" %>
+    <h1>Votre atelier est prêt,</h1>
+    <h2>il ne vous reste plus qu'à le mettre en ligne !</h2>
+    <p>Votre atelier est sauvegardé, vous pouvez le mettre en ligne plus tard si vous le souhaitez en vous rendant sur votre <strong><%= link_to "tableau de bord", tableau_de_bord_profile_path(current_user.profile) %></strong>
+    ou bien <strong>demander sa mise en ligne en bas de cette page</strong>.</p><br>
+    <%= cl_image_tag @workshop.photos[0].key, loading: "lazy", width: 150, height: 150, crop: :fill, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}" %>
     <div class="confirmation-ws-infos">
       <h3><%= @workshop.title %></h3>
       <p>Au <%= @workshop.place.address %> <%= @workshop.place.zip_code %> <%= @workshop.place.city %></p>
@@ -21,11 +24,13 @@
 
   <% else %>
 
-    <h2>Votre atelier n'est pas encore prêt !</h2>
+    <h1>Votre atelier est incomplet,</h1>
+    <h2>il est sauvegardé sur votre tableau de bord !</h2>
+    <p>Votre atelier ne peut être mis en ligne en raison d'<strong>informations manquantes</strong> listées ci-dessous.</p><br>
     <% if @workshop.photos.attached? %>
-      <%= cl_image_tag @workshop.photos[0].key, loading: "lazy", width: 200, height: 200, crop: :fill, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}" %>
+      <%= cl_image_tag @workshop.photos[0].key, loading: "lazy", width: 150, height: 150, crop: :fill, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}" %>
     <% else %>
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", width: 200, height: 200, :crop => :fill, :alt => "jeu-de-mains", :title => "jeu-de-mains") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", width: 150, height: 150, :crop => :fill, :alt => "jeu-de-mains", :title => "jeu-de-mains") %>
     <% end %>
     <div class="confirmation-ws-infos">
       <% if @workshop.title.present? %>
@@ -62,7 +67,7 @@
         <% if @workshop.final_product.present? == false %><li><p>Repartez avec</p></li><% end %>
       </ul>
     <% end %>
-    <p>Rendez-vous sur votre tableau de bord pour finaliser votre atelier :</p><br><br>
+    <p>Rendez-vous sur votre tableau de bord pour finaliser votre atelier :</p><br>
 
     <%= link_to "Mon tableau de bord", tableau_de_bord_profile_path(current_user.profile), class: "button" %>
 

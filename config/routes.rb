@@ -52,7 +52,7 @@ Rails.application.routes.draw do
     get 'public'
   end
 
-  resources :places, :path => :lieux, :as => :places, except: %i(show destroy index)
+  resources :places, :path => :lieux, :as => :places, except: %i(show destroy index edit)
 
   resources :workshops, :path => :ateliers, :as => :workshops, except: %i() do
     resources :sessions, only: %i(new create index update)

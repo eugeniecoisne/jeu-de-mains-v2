@@ -7,7 +7,7 @@ class Profile < ApplicationRecord
   belongs_to :user
   validate :attachment_size
 
-  ROLES = ["boutique / atelier", "animation d'ateliers", "organisation d'événements"]
+  ROLES = ["Boutique / atelier", "Animation d'ateliers", "Organisation d'événements"]
 
 
   def self.cities_and_districts
@@ -66,6 +66,22 @@ class Profile < ApplicationRecord
       end
     end
     thematics.uniq
+  end
+
+  def self.thematics
+    self_thematics = []
+    Profile.all.where(db_status: true).each do |p|
+      self_thematics.concat(p.thematics)
+    end
+    self_thematics.uniq
+  end
+
+  def self.roles
+    self_roles = []
+    Profile.all.where(db_status: true).each do |p|
+      self_roles << p.role if p.role
+    end
+    self_roles.uniq
   end
 
   def rating

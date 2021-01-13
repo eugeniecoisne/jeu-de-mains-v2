@@ -16,11 +16,13 @@
       <%= simple_form_for :search, url: profiles_path, method: :get do |f| %>
         <% if params[:search].present? %>
             <%= f.input :company, required: false, label: false, collection: ["Tous les partenaires"].concat(Profile.companies.sort), selected: params[:search][:company] %>
-            <%= f.input :keyword, required: false, label: false, collection: ["Tous types"].concat(Workshop::THEMATICS), selected: params[:search][:keyword] %>
+            <%= f.input :role, required: false, label: false, collection: ["Tous profils"].concat(Profile.roles), selected: params[:search][:role] %>
+            <%= f.input :keyword, required: false, label: false, collection: ["Toutes thématiques"].concat(Profile.thematics.sort), selected: params[:search][:keyword] %>
             <%= f.input :place, required: false, label: false, collection: ["Toutes les villes"].concat(Profile.cities_and_districts), selected: params[:search][:place] %>
         <% else %>
             <%= f.input :company, required: false, label: false, prompt: "Tous les Partenaires", collection: Profile.companies.sort %>
-            <%= f.input :keyword, required: false, label: false, prompt: "Tous types", collection: Workshop::THEMATICS %>
+            <%= f.input :role, required: false, label: false, prompt: "Tous profils", collection: Profile.roles.sort %>
+            <%= f.input :keyword, required: false, label: false, prompt: "Toutes thématiques", collection: Profile.thematics.sort %>
             <%= f.input :place, required: false, label: false, prompt: "Toutes les villes", collection: Profile.cities_and_districts %>
         <% end %>
         <div class="place-animator-index-search-buttons">
@@ -37,9 +39,14 @@
   <div class="place-animator-index-container">
     <div class= "place-animator-index-cards">
       <% if @profiles.present? %>
-        <% @profiles.each do |profile| %>
+        <% last_profile_index = @profiles.size - 1 %>
+        <% @profiles.each_with_index do |profile, index| %>
 
+        <% if index == last_profile_index %>
+          <div class="place-animator-index-card" id="place-animator-index-last-card">
+        <% else %>
           <div class="place-animator-index-card">
+        <% end %>
             <div class="place-animator-index-card-image-and-infos">
               <%= link_to(profile_public_path(profile), data: { turbolinks: false }) do  %>
                 <div class="place-anim-card-image">
@@ -71,7 +78,10 @@
                     </div>
                     <div class="place-anim-card-city">
                       <h3>
-                        <span id="city-left"><%= profile.city.capitalize %></span>
+                        <span id="city-left">
+                          <%= profile.role %> -
+                          <%= profile.big_city ? profile.big_city : profile.district %>
+                          </span>
                       </h3>
                     </div>
                     <div class="place-anim-card-price">

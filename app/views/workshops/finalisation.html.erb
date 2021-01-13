@@ -56,15 +56,27 @@
 
       <div class="card">
         <div class="card-header card-header-2 collapsed" data-toggle="collapse" data-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-          <span class="title">Animateur de votre atelier (optionnel)</span>
+          <span class="title">Animateur de votre atelier</span>
           <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
         </div>
         <div id="collapse-2" class="collapse collapse-2" data-parent="#accordionNewWsTwo">
           <div class="card-body">
             Jeu de Mains est un melting pot de partenaires boutiques, ateliers d'artisans, organisateurs d'événements et animateurs freelance. La plateforme n'est pas responsable des collaborations entre les partenaires mais tient à les mettre en avant et à créer des synergies entre les partenaires de la communauté. <br><br>
-            <strong>Votre atelier sera animé par une entreprise ou un indépendant externe à votre société ?</strong><br>
-            Sélectionnez-le dans le menu déroulant ci-dessous ou invitez-le à rejoindre la communauté jeudemains.com ! <br>
-            <br>
+            Par qui cet atelier est-il animé ?<br><br>
+            <p><strong>J'organise et anime cet atelier :</strong></p>
+            <%= link_to "Valider et continuer", confirmation_workshop_path(@workshop), class: "button" %>
+            <br><br>
+
+            <p class="add-animator-options"><strong>- OU -</strong></p>
+
+            <p><strong>je ne sais pas encore qui sera l'animateur :</strong></p>
+            <%= link_to "Valider et continuer", confirmation_workshop_path(@workshop), class: "button" %>
+            <br><br>
+
+            <p class="add-animator-options"><strong>- OU -</strong></p>
+
+            <p><strong>J'organise cet atelier et il sera animé par un.e autre auto-entrepreneur / entreprise : </strong><br>
+            Si l'animateur est bien au courant de cette collaboration, sélectionnez-le dans le menu déroulant ci-dessous ou invitez-le à rejoindre la communauté jeudemains.com !</p>
 
             <div class='ws-finalisation-add-animator-forms'>
               <%= simple_form_for([@workshop, @animator]) do |f| %>
@@ -72,7 +84,7 @@
                   <label class="select required" for="animator_user_id">L'atelier est animé par :</label>
                   <select class="form-control select required" name="animator[user_id]" id="animator_user_id">
                     <% if @workshop.animators.where(db_status: true).present? %>
-                      <option value="<%= @workshop.animators.first.user.id %>" selected><%= @workshop.animators.where(db_status: true).first.user.profile.company %></option>
+                      <option value="<%= @workshop.animators.where(db_status: true).last.user.id %>" selected><%= @workshop.animators.where(db_status: true).last.user.profile.company %></option>
                       <option value="">----------------</option>
                     <% end %>
                     <% @users.sort_by { |user| user.profile.company }.each do |user| %>
@@ -84,16 +96,13 @@
                 <%= f.submit "Ajouter et continuer", class: "button" %>
               <% end %>
 
-              <p>ou</p>
+              <p id="add-animator-or">ou</p>
 
               <%= simple_form_for :invitation, url: invitation_workshop_path, method: :get do |f| %>
                 <%= f.hidden_field :workshop_id, value: @workshop.id %>
-                <%= f.input :email, required: false, label: "invitez l'animateur à rejoindre Jeu de Mains :", placeholder: "E-mail de l'animateur" %>
+                <%= f.input :email, required: false, label: "Invitez l'animateur à rejoindre Jeu de Mains :", placeholder: "E-mail de l'animateur" %>
                 <%= f.submit "Inviter et continuer", class: "button" %>
               <% end %>
-            </div>
-            <div class='d-flex align-items-center justify-content-end mt-5 mb-5'>
-              <%= link_to "Continuer sans animateur", confirmation_workshop_path(@workshop), class: "new-edit-ws-submit" %>
             </div>
 
             <div class="next-previous">

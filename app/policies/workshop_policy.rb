@@ -17,7 +17,7 @@ class WorkshopPolicy < ApplicationPolicy
   end
 
   def update?
-    record.place.user == user || user.admin? || record.animators.first.user == user
+    record.place.user == user || user.admin? || record.animators.where(db_status: true).last.user == user
   end
 
   def edit?

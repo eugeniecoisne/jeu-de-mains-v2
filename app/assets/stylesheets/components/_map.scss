@@ -178,7 +178,7 @@
 @media (min-width: 992px) and (max-width: 1199px)  {
   .mapboxgl-popup {
     max-width: 800px !important;
-    transform: translate(2vw, 3vh) !important;
+    transform: translate(2vw, 10vh) !important;
   }
   .mapboxgl-popup-content {
     width: 32.5vw;
@@ -189,7 +189,7 @@
 @media (min-width: 1200px) {
   .mapboxgl-popup {
     max-width: 800px !important;
-    transform: translate(2vw, 3vh) !important;
+    transform: translate(2vw, 10vh) !important;
   }
   .mapboxgl-popup-content {
     width: 29.5vw;

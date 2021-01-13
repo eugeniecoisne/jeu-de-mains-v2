@@ -1,5 +1,5 @@
 <!-- SESSIONS INDEX -->
-<% if @session.workshop.place.user == current_user && @session.db_status == true || @session.workshop.animators.where(db_status: true).first.user == current_user && @session.db_status == true %>
+<% if @session.workshop.place.user == current_user && @session.db_status == true || @session.workshop.animators.where(db_status: true).last.user == current_user && @session.db_status == true %>
 
   <% content_for :meta_title, "Jeu de Mains | Participants | #{@session.workshop.title[0..30]}" %>
 

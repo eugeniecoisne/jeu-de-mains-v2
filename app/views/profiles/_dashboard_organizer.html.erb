@@ -95,7 +95,7 @@
 
           <!-- ANIMÉS -->
           <% @profile.user.animators.where(db_status: true).each do |animator| %>
-            <% if animator.workshop.db_status == true  %>
+            <% if animator.workshop.db_status == true && animator.workshop.animators.where(db_status: true).last.user == @profile.user %>
               <% my_workshops << animator.workshop %>
                 <% if animator.workshop.status == "en ligne" %>
                   <% my_workshops_online << animator.workshop %>
@@ -175,8 +175,8 @@
 
                       <% if workshop.place.user == current_user && workshop.animators.where(db_status: true).present? %>
                         <h3>Animé par
-                          <%= link_to profile_public_path(workshop.animators.where(db_status: true).first.user.profile) do %>
-                            <%= workshop.animators.where(db_status: true).first.user.profile.company %>
+                          <%= link_to profile_public_path(workshop.animators.where(db_status: true).last.user.profile) do %>
+                            <%= workshop.animators.where(db_status: true).last.user.profile.company %>
                           <% end %>
                         </h3>
                       <% elsif workshop.place.user != current_user %>
@@ -283,7 +283,7 @@
                                 <div class="modal-content">
 
                                   <div class="form-group">
-                                    <%= form_for workshop.animators.first, method: :patch do |f| %>
+                                    <%= form_for workshop.animators.where(db_status: true).last, method: :patch do |f| %>
                                       <div class="modal-body">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
@@ -516,16 +516,16 @@
                               </h4>
 
                               <% if session.workshop.place.user == current_user %>
-                                <% if session.workshop.animators.first %>
+                                <% if session.workshop.animators.where(db_status: true).last %>
                                   <h4 class="mobile-my-agenda-ws-animator">
                                     <i class="fas fa-graduation-cap mr-1"></i>
-                                    Animé par <%= session.workshop.animators.first.user.profile.company %>
+                                    Animé par <%= session.workshop.animators.where(db_status: true).last.user.profile.company %>
                                   </h4>
                                 <% end %>
                               <% else %>
                                 <h4 class="mobile-my-agenda-ws-animator">
                                   <i class="fas fa-user-shield mr-1"></i>
-                                  Organisé par <%= session.workshop.animators.first.user.profile.company %>
+                                  Organisé par <%= session.workshop.place.user.profile.company %>
                                 </h4>
                               <% end %>
 

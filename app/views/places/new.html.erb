@@ -1,14 +1,30 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-12">
-      <%= simple_form_for(@place) do |f| %>
-        <%= f.input :name %>
-        <%= f.input :address %>
-        <%= f.input :zip_code %>
-        <%= f.input :city %>
-        <%= f.input :phone_number %>
-        <%= f.submit 'Valider' %>
-      <% end %>
+<div class="dashboard-title-container" id="dashboard-organizer-title-container">
+  <h1>
+    <span>Créez une nouvelle adresse</span>
+  </h1>
+</div>
+
+<div class="back-button" id="back-button-ws-new">
+  <%= link_to 'javascript:history.go(-1);' do %>
+    <i class="fas fa-chevron-left"></i>
+    <span>Annuler</span>
+  <% end %>
+</div>
+
+<div class="edit-place-container">
+
+  <%= simple_form_for(@place) do |f| %>
+
+    <%= f.input :name, required: true, label: "Nom de l'adresse (non communiqué au public)" %>
+    <%= f.input :phone_number, required: true, label: "N° de téléphone partagé aux participants en cas de besoin au sujet de cet atelier" %>
+    <%= f.input :address, required: true, label: "Adresse postale (n° et rue)" %>
+    <%= f.input :zip_code, required: true, label: "Code postal" %>
+    <%= f.input :city, required: true, label: "Ville" %>
+
+
+    <div class="d-flex justify-content-center mt-5">
+      <%= f.submit 'Créer', class: "new-edit-ws-submit" %>
     </div>
-  </div>
+
+  <% end %>
 </div>
