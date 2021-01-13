@@ -63,6 +63,7 @@ Rails.application.routes.draw do
       get 'confirmation'
       get 'send_verification_mail'
       get 'mark_as_verified_or_unverified'
+      get 'invitation'
     end
   end
 

@@ -59,15 +59,26 @@
           <span>Retour</span>
         <% end %>
       </div>
-      <% if current_user.admin %>
+      <% if current_user.admin && @workshop.status == "vérification" %>
         <div class="ws-verification-box">
-          <span>Vérification de l'atelier par Jeu de Mains</span>
+          <p>Vérification de l'atelier par Jeu de Mains</p>
+          <div>
+            <%= link_to "Modifier l'atelier", edit_workshop_path(@workshop), class: "link-to-edit-ws-admin button" %>
+          </div>
           <%= simple_form_for :verification, url: mark_as_verified_or_unverified_workshop_path, method: :get do |f| %>
             <%= f.hidden_field :workshop_id, value: @workshop.id %>
             <%= f.input :verified, label: "Je valide l'atelier", as: :radio_buttons %>
-            <%= f.input :message, label: "Message d'explication en cas de refus", as: :text, required: false %>
+            <%= f.input :message, label: "Message d'explication notamment en cas de refus", as: :text, required: false %>
             <%= f.submit "Confirmer", class: "verification-btn" %>
           <% end %>
+        </div>
+      <% elsif current_user.admin && @workshop.status == "en ligne" %>
+        <div class="ws-verification-box">
+          <span>Atelier validé par Jeu de Mains.</span>
+        </div>
+      <% elsif current_user.admin && @workshop.status == "hors ligne" %>
+        <div class="ws-verification-box">
+          <span>Cet atelier n'est pas en ligne et n'est pas vérifié.</span>
         </div>
       <% end %>
 

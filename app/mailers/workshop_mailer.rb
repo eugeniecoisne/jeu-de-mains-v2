@@ -17,6 +17,7 @@ class WorkshopMailer < ApplicationMailer
 
   def workshop_is_online
     @workshop = params[:workshop]
+    @message = params[:message] if params[:message].present?
 
     mail(
       to:       @workshop.place.user.email,
@@ -42,6 +43,17 @@ class WorkshopMailer < ApplicationMailer
     mail(
       to:       "contact@jeudemains.com",
       subject:  "Demande de vérification d'atelier #{@workshop.title}",
+      track_opens: 'true',
+      message_stream: 'outbound')
+  end
+
+  def invite_partner
+    @workshop = params[:workshop]
+    @email = params[:email]
+
+    mail(
+      to:       @email,
+      subject:  "#{@workshop.place.user.profile.company} vous invite à rejoindre Jeu de Mains",
       track_opens: 'true',
       message_stream: 'outbound')
   end

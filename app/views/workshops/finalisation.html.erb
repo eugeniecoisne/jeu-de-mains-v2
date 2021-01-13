@@ -6,7 +6,7 @@
 
   <div class="dashboard-title-container" id="dashboard-organizer-title-container">
     <h1>
-      <span>Dernière étape pour finaliser la création de votre atelier !</span>
+      <span>Finalisez la création de votre atelier !</span>
     </h1>
   </div>
 
@@ -23,7 +23,7 @@
         <div id="collapse-1" class="collapse collapse-1 show" data-parent="#accordionNewWsTwo">
           <div class="card-body">
             <strong>Ouvrez la réservation avec une première date d'atelier &#128521;</strong><br>
-            Vous n'avez pas encore rempli tous les champs ou ne connaissez pas la première date ? <br>
+            Vous n'avez pas encore rempli tous les champs de votre atelier ou ne connaissez pas la première date ? <br>
             Vous pouvez trouver vos ateliers “en ligne” et “hors ligne” dans votre <strong><%= link_to "tableau de bord", tableau_de_bord_profile_path(current_user.profile) %></strong>.
             <br><br>
 
@@ -34,13 +34,12 @@
               </div>
             <% else %>
               <div class="session_form_container">
-                <p>Ajoutez une première date :</p>
                 <%= simple_form_for([@workshop, @session]) do |f| %>
-                  <%= f.input :date, label: "Date de l'atelier" %>
+                  <%= f.input :date, label: "Première date d'atelier" %>
                   <%= f.input :start_at, label: "Heure de début", collection: Session::STARTS_AT %>
-                  <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier" %>
+                  <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier (sinon laisser vide)" %>
 
-                  <%= f.submit 'Ajouter', class: "new-edit-ws-submit" %>
+                  <%= f.submit 'Ajouter', class: "button" %>
                 <% end %>
               </div>
             <% end %>
@@ -62,35 +61,40 @@
         </div>
         <div id="collapse-2" class="collapse collapse-2" data-parent="#accordionNewWsTwo">
           <div class="card-body">
-            <strong>Votre atelier sera animé par une personne ou entreprise externe à votre société ?</strong><br>
-            L'animateur doit avoir été mis au courant au préalable de votre collaboration. Jeu de Mains n'est pas responsable des collaborations entre organisateurs et animateurs d'ateliers. <br>
-            Si cet animateur est inscrit sur jeudemains.com, sélectionnez-le dans le menu déroulant ci-dessous. <br>
-            Si cet animateur ne fait pas encore partie de la communauté jeudemains.com, invitez-le à nous rejoindre en cliquant sur le bouton prévu ci-dessous. <br>
-            Attention, une fois l'animateur renseigné et une première réservation enregistrée, il est impossible de le modifier.
-            <br><br>
+            Jeu de Mains est un melting pot de partenaires boutiques, ateliers d'artisans, organisateurs d'événements et animateurs freelance. La plateforme n'est pas responsable des collaborations entre les partenaires mais tient à les mettre en avant et à créer des synergies entre les partenaires de la communauté. <br><br>
+            <strong>Votre atelier sera animé par une entreprise ou un indépendant externe à votre société ?</strong><br>
+            Sélectionnez-le dans le menu déroulant ci-dessous ou invitez-le à rejoindre la communauté jeudemains.com ! <br>
+            <br>
 
-            <%= form_for([@workshop, @animator]) do |f| %>
-              <div class="form-group select required animator_user">
-                <label class="select required" for="animator_user_id">L'atelier est animé par :</label>
-                <select class="form-control select required" name="animator[user_id]" id="animator_user_id">
-                  <% if @workshop.animators.where(db_status: true).present? %>
-                    <option value="<%= @workshop.animators.first.user.id %>" selected><%= @workshop.animators.where(db_status: true).first.user.profile.company %></option>
-                    <option value="">----------------</option>
-                  <% end %>
-                  <% @users.sort_by { |user| user.profile.company }.each do |user| %>
-                    <option value="<%= user.id %>"><%= user.profile.company %></option>
-                  <% end %>
-                </select>
-              </div>
+            <div class='ws-finalisation-add-animator-forms'>
+              <%= simple_form_for([@workshop, @animator]) do |f| %>
+                <div class="form-group select required animator_user">
+                  <label class="select required" for="animator_user_id">L'atelier est animé par :</label>
+                  <select class="form-control select required" name="animator[user_id]" id="animator_user_id">
+                    <% if @workshop.animators.where(db_status: true).present? %>
+                      <option value="<%= @workshop.animators.first.user.id %>" selected><%= @workshop.animators.where(db_status: true).first.user.profile.company %></option>
+                      <option value="">----------------</option>
+                    <% end %>
+                    <% @users.sort_by { |user| user.profile.company }.each do |user| %>
+                      <option value="<%= user.id %>"><%= user.profile.company %></option>
+                    <% end %>
+                  </select>
+                </div>
                 <%= f.hidden_field :creation, value: true %>
-              <div class="d-flex justify-content-center">
-                <%= f.submit "Ajouter l'animateur", class: "new-edit-ws-submit" %>
-              </div>
-            <% end %>
+                <%= f.submit "Ajouter et continuer", class: "button" %>
+              <% end %>
 
-            <p>Passer cette étape et ne pas attribuer d'animateur :</p>
-            <%= link_to "Vérifier et soumettre", confirmation_workshop_path(@workshop) %>
+              <p>ou</p>
 
+              <%= simple_form_for :invitation, url: invitation_workshop_path, method: :get do |f| %>
+                <%= f.hidden_field :workshop_id, value: @workshop.id %>
+                <%= f.input :email, required: false, label: "invitez l'animateur à rejoindre Jeu de Mains :", placeholder: "E-mail de l'animateur" %>
+                <%= f.submit "Inviter et continuer", class: "button" %>
+              <% end %>
+            </div>
+            <div class='d-flex align-items-center justify-content-end mt-5 mb-5'>
+              <%= link_to "Continuer sans animateur", confirmation_workshop_path(@workshop), class: "new-edit-ws-submit" %>
+            </div>
 
             <div class="next-previous">
               <a class="next-previous-button btnPrevious" id="previous-2" >Retour</a>

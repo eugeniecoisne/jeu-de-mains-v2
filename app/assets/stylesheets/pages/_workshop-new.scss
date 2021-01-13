@@ -156,28 +156,39 @@
   cursor: pointer;
 }
 
-#new-ws-add-place-btn {
-  background-color: $blue;
-  border: 1px solid $blue;
-  color: white;
-  height: 36px;
+.new-ws-select-or-add-new-address {
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 0px 10px;
-  margin-left: 8px;
-  text-decoration: none;
-  outline: none;
-  font-weight: 600;
-  font-size: 13px;
+  #choices-or {
+    font-weight: 500;
+    font-size: 14px;
+    padding: 0 10px;
+    margin-bottom: 0;
+  }
+
+  #new-ws-add-place-btn {
+    background-color: unset;
+    border: 1px solid $blue;
+    color: $blue;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 10px;
+    text-decoration: none;
+    outline: none;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  #new-ws-add-place-btn:hover {
+    background-color: $blue;
+    color: white;
+    text-decoration: none;
+    outline: none;
+  }
 }
 
-#new-ws-add-place-btn:hover {
-  background-color: unset;
-  color: $blue;
-  text-decoration: none;
-  outline: none;
-}
 
 .new-ws-add-place-modal {
   h2 {
@@ -217,8 +228,19 @@
         font-size: 14.5px;
       }
       #workshop_place_id {
-        width: 130px;
+        width: 100%;
         font-size: 13px;
+        margin-bottom: 8px;
+      }
+    }
+    .new-ws-select-or-add-new-address {
+      flex-direction: column;
+      align-items: start;
+      #choices-or {
+        margin-bottom: 10px;
+      }
+      #new-ws-add-place-btn {
+        margin-bottom: 20px;
       }
     }
   }
