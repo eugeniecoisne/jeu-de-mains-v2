@@ -9,13 +9,17 @@
   }
   .button:hover {
     background-color: $dark-blue;
+    color: white;
 
+  }
+  .add-animator-options {
+    color: $light-blue;
   }
   .ws-finalisation-add-animator-forms {
     display: grid;
     grid-template-columns: 10fr 1fr 10fr;
     align-items: center;
-    p {
+    #add-animator-or {
       font-weight: 600;
       font-size: 15px;
       padding: 0 30px;
@@ -36,6 +40,7 @@
       grid-template-columns: 1fr;
       grid-gap: unset;
       align-items: center;
+      margin-left: 20px;
       p {
         font-weight: 600;
         font-size: 15px;

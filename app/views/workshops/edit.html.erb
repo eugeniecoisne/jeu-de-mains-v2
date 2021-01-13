@@ -43,8 +43,8 @@
         <div class="form-group select is-valid optional workshop_animator form-group-valid">
           <label class="select optional" for="workshop_animator">Animé par</label>
           <select class="form-control is-valid select optional disabled" disabled="disabled" name="workshop[animator]" id="workshop_animator">
-            <% if @workshop.animators.where(db_status: true).first.present? %>
-              <option value="<%= @workshop.animators.first.user.id %>" selected><%= @workshop.animators.where(db_status: true).first.user.profile.company %></option>
+            <% if @workshop.animators.where(db_status: true).last.present? %>
+              <option value="<%= @workshop.animators.where(db_status: true).last.user.id %>" selected><%= @workshop.animators.where(db_status: true).last.user.profile.company %></option>
             <% else %>
               <option value="" selected><%= @workshop.place.name %></option>
             <% end %>

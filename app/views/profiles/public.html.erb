@@ -35,7 +35,12 @@
         <div class="public-profile-name">
           <h1><%= @profile.company %></h1>
         </div>
-        <% if @profile.address.present? && @profile.zip_code && @profile.city %>
+
+        <div class="public-profile-role" id="public-profile-role">
+          <%= @profile.role %>
+        </div>
+
+        <% if @profile.role == "Boutique / atelier" %>
           <div class="public-profile-address">
             <%= link_to "https://www.google.fr/maps/search/#{@profile.address}, #{@profile.zip_code} #{@profile.city.upcase}", target: "_blank" do %>
               <i class="fas fa-map-marker-alt"></i>
@@ -48,7 +53,7 @@
             <%= @profile.city.capitalize %>
           </div>
         <% end %>
-        <% if @profile.phone_number %>
+        <% if @profile.phone_number && @profile.role == "Boutique / atelier" %>
           <div class="public-profile-phone-number">
             <a href="tel:+33<%= @profile.phone_number[1..-1] %>">
               <i class="fas fa-phone-alt"></i>

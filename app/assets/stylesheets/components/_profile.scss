@@ -17,9 +17,11 @@
 
   .public-profile-name {
     h1 {
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 600;
       color: $blue;
+      margin-bottom: 4px;
+      font-family: "Amiri", "Times New Roman", serif;
     }
   }
 
@@ -35,6 +37,15 @@
     i {
       color: $blue;
       padding-right: 0.3em;
+    }
+    #public-profile-role {
+      color: $light-blue;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      margin-top: 3px;
+      margin-bottom: 8px;
     }
   }
   .public-profile-instagram {
@@ -196,8 +207,9 @@
 
     .public-profile-name {
       h1 {
-        font-size: 20px;
+        font-size: 25px;
         margin-top: 1em;
+        margin-bottom: unset;
         text-align: center;
       }
     }
@@ -207,6 +219,10 @@
       align-items: center;
       font-size: 15px;
       line-height: 1.7;
+      #public-profile-role {
+        font-size: 14px;
+        margin-top: 7px;
+      }
     }
     .public-profile-address {
       text-align: center;
@@ -288,7 +304,7 @@
 
     .public-profile-name {
       h1 {
-        font-size: 16px;
+        font-size: 27px;
         margin-top: 1em;
       }
     }
@@ -296,6 +312,10 @@
     .public-profile-header-text {
       margin-left: 0;
       align-items: center;
+      #public-profile-role {
+        font-size: 14px;
+        margin-top: 7px;
+      }
     }
   }
 
@@ -334,6 +354,7 @@
 @media (min-width: 768px) and (max-width: 991px)  {
   .public-profile-header {
     padding-bottom: 4em;
+    margin-bottom: 2em;
     .public-profile-picture {
       img {
         width: 12rem;
@@ -342,7 +363,8 @@
     }
     .public-profile-name {
       h1 {
-        font-size: 25px;
+        font-size: 27px;
+        margin-bottom: unset;
       }
     }
   }

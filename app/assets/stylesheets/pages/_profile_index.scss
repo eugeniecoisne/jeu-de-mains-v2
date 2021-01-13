@@ -102,6 +102,10 @@
   }
 }
 
+#place-animator-index-last-card {
+  border-bottom: unset;
+}
+
 .place-animator-index-card-image-and-infos {
   display: flex;
   align-items: center;
@@ -125,9 +129,10 @@
   h2 {
     display: flex;
     align-items: center;
-    font-size : 17px;
+    font-size : 15px;
     color: $dark-blue;
     margin-bottom: 4px;
+    text-transform: uppercase;
   }
 }
 
@@ -158,10 +163,9 @@
     display: flex;
     align-items: center;
     font-size : 13px;
-    font-weight: 700;
+    font-weight: 600;
     color: $dark-blue;
     margin-bottom: 6px;
-    text-transform: uppercase;
     .fas {
       font-size: 15px;
       padding-right: 0.65em;
@@ -279,7 +283,7 @@
   .place-anim-card-title {
     margin-bottom: 6px;
     h2 {
-      font-size : 15px;
+      font-size : 14px;
     }
     span {
       font-size: 12px;
@@ -311,7 +315,7 @@
   .place-animator-index-search.active {
     display: block;
     margin-bottom: 0.6em;
-    height: 184px;
+    height: 231px;
     transition: height 0.5s;
     .simple_form {
       flex-direction: column;
@@ -353,7 +357,7 @@
   .place-anim-card-city {
     h3 {
       margin-bottom: 4px;
-      font-size : 12px;
+      font-size : 13px;
       .fas {
         font-size: 13px;
       }
@@ -361,7 +365,7 @@
   }
   .place-anim-card-price {
     h4 {
-      font-size : 12px;
+      font-size : 13px;
       margin-bottom: 4px;
       color: $light-blue;
     }
@@ -432,13 +436,37 @@
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
   .place-animator-index-container {
-    margin: 3em 2em;
+    margin: 2em 2em;
   }
   .place-animator-index-title {
-    #submit-desktop {
+    .submit-btn {
+      font-size: 12px;
+      margin-top: 1em;
+      align-self: flex-start;
+    }
+    #submit-mobile {
       display: none;
     }
   }
+  .place-animator-index-search {
+    .simple_form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin: 0 2em;
+    }
+    .form-group {
+      margin-right: unset;
+      margin-bottom: 0.6em;
+      width: 90%;
+    }
+  }
+  .place-animator-index-search-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
   .place-animator-index-filter {
     display: none;
   }
@@ -450,9 +478,31 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
   .place-animator-index-title {
-    #submit-desktop {
+    .submit-btn {
+      margin-top: 1em;
+      align-self: flex-start;
+    }
+    #submit-mobile {
       display: none;
     }
+  }
+  .place-animator-index-search {
+    .simple_form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin: 0 2em;
+    }
+    .form-group {
+      margin-right: unset;
+      margin-bottom: 0.6em;
+      width: 90%;
+    }
+  }
+  .place-animator-index-search-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
   }
   .place-animator-index-filter {
     display: none;

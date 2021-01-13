@@ -1,6 +1,6 @@
 <!-- SESSIONS INDEX -->
 
-<% if @workshop.place.user == current_user && @workshop.db_status == true || @workshop.animators.where(db_status: true).first.user == current_user && @workshop.db_status == true %>
+<% if @workshop.place.user == current_user && @workshop.db_status == true || @workshop.animators.where(db_status: true).last.user == current_user && @workshop.db_status == true || current_user.admin? %>
 
   <% content_for :meta_title, "Jeu de Mains | Sessions | #{@workshop.title[0..34]}" %>
 
@@ -18,39 +18,40 @@
       <h2 class="sign-title">Sessions de l'atelier<br><span><%= @workshop.title %></span></h2>
 
         <div class="sessions-index">
+          <% if @workshop.place.user == current_user && @workshop.db_status == true || current_user.admin? %>
+            <div>
+              <a href="#confirmSessionModal" class="add-session-btn d-flex" data-toggle="modal" data-whatever="@mdo">
+              <i class="fas fa-plus mr-2"></i>
+              <span>Ajouter une session</span>
+            </a>
+            </div>
 
-          <div>
-            <a href="#confirmSessionModal" class="add-session-btn d-flex" data-toggle="modal" data-whatever="@mdo">
-            <i class="fas fa-plus mr-2"></i>
-            <span>Ajouter une session</span>
-          </a>
-          </div>
+            <div class="modal fade confirm-session-modal" id="confirmSessionModal" tabindex="-1" role="dialog" aria-labelledby="confirmSessionModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
 
-          <div class="modal fade confirm-session-modal" id="confirmSessionModal" tabindex="-1" role="dialog" aria-labelledby="confirmSessionModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
+                  <div class="form-group">
+                    <%= simple_form_for([@workshop, @session]) do |f| %>
+                      <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
+                        </button>
 
-                <div class="form-group">
-                  <%= simple_form_for([@workshop, @session]) do |f| %>
-                    <div class="modal-body">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
-                      </button>
+                        <%= f.input :date, label: "Date de l'atelier" %>
+                        <%= f.input :start_at, label: "Heure de début", collection: Session::STARTS_AT %>
+                        <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier" %>
 
-                      <%= f.input :date, label: "Date de l'atelier" %>
-                      <%= f.input :start_at, label: "Heure de début", collection: Session::STARTS_AT %>
-                      <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier" %>
+                        <div class="d-flex justify-content-center">
+                          <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
+                        </div>
 
-                      <div class="d-flex justify-content-center">
-                        <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
                       </div>
-
-                    </div>
-                  <% end %>
+                    <% end %>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          <% end %>
 
           <% @sessions.select {|session| session.date >= Date.today}.sort_by { |session| session.date }.each_with_index do |session, index| %>
             <div class="sessions-index-one-session">
@@ -58,31 +59,33 @@
                 <h3><%= l(session.date, format: '%A %d %B %Y').capitalize %> à <%= session.start_at %></h3>
                 <h3 class="sessions-index-sessions-available"><%= session.available %> places restantes sur <%= session.capacity %></h3>
               </div>
-              <div class="sessions-index-buttons">
-                <%= form_for [@workshop, session], method: :patch do |f| %>
-                  <%= f.hidden_field :capacity, value: session.capacity - 1 %>
-                  <button type="submit" name="commit" class="action-button">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                <% end %>
-                <p><strong><%= session.capacity %> places</strong><br> proposées</p>
-                <%= form_for [@workshop, session], method: :patch do |f| %>
-                  <%= f.hidden_field :capacity, value: session.capacity + 1 %>
-                  <button type="submit" name="commit" class="action-button">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                <% end %>
-                <% if session.available == session.capacity %>
-                  <%= link_to "Déprogrammer",
-                    session_path(session),
-                    method: :delete,
-                    data: { confirm: "Êtes-vous sûr?" },
-                    class: "action-button",
-                    id: "delete-session" %>
-                <% else %>
-                  <%= link_to "Annuler & rembourser", session_annulation_et_remboursement_path(session), class: "action-button", id:"delete-session-cancel" %>
-                <% end %>
-              </div>
+              <% if @workshop.place.user == current_user && @workshop.db_status == true || current_user.admin? %>
+                <div class="sessions-index-buttons">
+                  <%= form_for [@workshop, session], method: :patch do |f| %>
+                    <%= f.hidden_field :capacity, value: session.capacity - 1 %>
+                    <button type="submit" name="commit" class="action-button">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  <% end %>
+                  <p><strong><%= session.capacity %> places</strong><br> proposées</p>
+                  <%= form_for [@workshop, session], method: :patch do |f| %>
+                    <%= f.hidden_field :capacity, value: session.capacity + 1 %>
+                    <button type="submit" name="commit" class="action-button">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  <% end %>
+                  <% if session.available == session.capacity %>
+                    <%= link_to "Déprogrammer",
+                      session_path(session),
+                      method: :delete,
+                      data: { confirm: "Êtes-vous sûr?" },
+                      class: "action-button",
+                      id: "delete-session" %>
+                  <% else %>
+                    <%= link_to "Annuler & rembourser", session_annulation_et_remboursement_path(session), class: "action-button", id:"delete-session-cancel" %>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
           <% end %>
         </div>
