@@ -22,7 +22,7 @@
 
         <%= f.input :title, label: "Intitulé de l'atelier" %>
         <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS, class: "updatable" %>
-        <%= f.input :ephemeral, label: "Cet atelier est éphémère (organisé à l'occasion d'un événement par exemple)", class: "updatable" %>
+        <%= f.input :ephemeral, as: :boolean, label: "Cet atelier est éphémère (organisé à l'occasion d'un événement par exemple)", class: "updatable" %>
         <%= f.input :program, label: "Programme", :input_html => {:rows => 8}, class: "updatable" %>
         <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3}, class: "updatable" %>
         <%= f.input :photos, as: :file, input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" }, label: "Photos de l'atelier" %>
