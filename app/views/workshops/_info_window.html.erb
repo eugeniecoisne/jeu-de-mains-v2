@@ -5,7 +5,7 @@
     </span>
   </div>
   <div class="map-ws-popup-workshops">
-    <% @workshops.select { |w| w.place == place }.each_with_index do |workshop, index| %>
+    <% @workshops.select { |w| w.place.longitude == place.longitude && w.place.latitude = place.latitude }.each_with_index do |workshop, index| %>
 
       <%= link_to workshop_path(workshop) do %>
 

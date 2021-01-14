@@ -9,6 +9,8 @@ class SessionsController < ApplicationController
     @session.capacity = @session.workshop.capacity if @session.capacity.nil?
     if @session.save
       flash[:notice] = "Votre session a bien été ajoutée !"
+    else
+      flash[:notice] = "Votre session n'a pas pu être ajoutée, remplissez bien les champs obligatoires."
     end
     redirect_back fallback_location: root_path
   end

@@ -5,6 +5,9 @@ class AnimatorsController < ApplicationController
     @animator = Animator.new
     authorize @animator
     @animator.user = User.find(params[:animator][:user_id])
+    if Workshop.friendly.find(params[:workshop_id]).animators.where(db_status: true).present?
+      Workshop.friendly.find(params[:workshop_id]).animators.where(db_status: true).each { |a| a.update(db_status: false)}
+    end
     @animator.workshop = Workshop.friendly.find(params[:workshop_id])
     if @animator.save
       mail = AnimatorMailer.with(animator: @animator).new_animator
@@ -15,9 +18,6 @@ class AnimatorsController < ApplicationController
         redirect_back fallback_location: root_path
         flash[:notice] = "L'animateur #{@animator.user.profile.company} a bien été ajouté !"
       end
-    else
-      @users = User.all.select { |user| user.profile.role.present? && user != current_user }
-      render 'new'
     end
   end
 
