@@ -1,19 +1,9 @@
 ActiveAdmin.register Place do
   menu parent: "Fiches"
   config.per_page = 50
-  remove_filter :slug, :photo_attachment, :photo_blob, :latitude, :longitude
+  remove_filter :latitude, :longitude
   preserve_default_filters!
   PLACE_USERS = User.all.select { |u| u.profile.company.present? == true }.map { |u| [u.profile.company, u.id] }.to_h
-
-  controller do
-    def find_resource
-      begin
-        scoped_collection.where(slug: params[:id]).first!
-      rescue ActiveRecord::RecordNotFound
-        scoped_collection.find(params[:id])
-      end
-    end
-  end
 
   index do
 
@@ -25,7 +15,6 @@ ActiveAdmin.register Place do
     column "Auteur" do |place|
       link_to "#{place.user.fullname} / #{place.user.profile.company}", "#{admin_user_path(place.user)}"
     end
-    column :ephemeral
     column :address
     column :zip_code
     column :city
@@ -58,7 +47,6 @@ ActiveAdmin.register Place do
     column "Propriétaire Entreprise" do |place|
       place.user.profile.company
     end
-    column :ephemeral
     column :address
     column :zip_code
     column :city
@@ -85,7 +73,6 @@ ActiveAdmin.register Place do
       row "Auteur" do |place|
         link_to "#{place.user.fullname} / #{place.user.profile.company}", "#{admin_user_path(place.user)}"
       end
-      row :ephemeral
       row :address
       row :zip_code
       row :city
@@ -137,7 +124,6 @@ ActiveAdmin.register Place do
       f.input :address
       f.input :zip_code
       f.input :city
-      f.input :ephemeral, as: :boolean
     end
     f.inputs "Coordonnées" do
       f.input :phone_number
@@ -149,6 +135,6 @@ ActiveAdmin.register Place do
   end
 
 
-  permit_params :name, :address, :zip_code, :city, :description, :phone_number, :email, :ephemeral, :siret_number, :website, :instagram, :user, :user_id, :db_status, :verified, :latitude, :longitude, :slug, :photo
+  permit_params :name, :address, :zip_code, :city, :phone_number, :user, :user_id, :db_status, :latitude, :longitude
 
 end

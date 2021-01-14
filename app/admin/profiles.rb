@@ -144,9 +144,7 @@ ActiveAdmin.register Profile do
           column "Créé le" do |workshop|
             workshop.created_at.strftime("%d/%m/%Y")
           end
-          column "Éphémère ?" do |workshop|
-            workshop.place.ephemeral
-          end
+          column :ephemeral
           column "Nb sessions en ligne" do |workshop|
             workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
           end
@@ -184,7 +182,7 @@ ActiveAdmin.register Profile do
             animator.workshop.created_at.strftime("%d/%m/%Y")
           end
           column "Éphémère ?" do |animator|
-            animator.workshop.place.ephemeral
+            animator.workshop.ephemeral
           end
           column "Nb sessions en ligne" do |animator|
             animator.workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
