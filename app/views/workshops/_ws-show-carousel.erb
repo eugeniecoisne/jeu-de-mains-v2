@@ -22,7 +22,7 @@
         <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 800, :crop => :fill, :alt => "jeu-de-mains", :title => "jeu-de-mains") %>
       </div>
     <% end %>
-    <% if @workshop.place.ephemeral %>
+    <% if @workshop.ephemeral == true %>
       <div class="ws-show-ephemeral-status">
         <span>
           <i class="far fa-star pr-1"></i>

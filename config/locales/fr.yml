@@ -79,7 +79,6 @@ fr:
         website: Site internet
         db_status: Statut db
         user: Utilisateur
-        ephemeral: Éphémère
         email: E-mail du lieu
         verified: Vérifié
         created_at: Créé le
@@ -94,6 +93,7 @@ fr:
         capacity: Capacité
         price: Prix
         program: Programme
+        ephemeral: Éphémère
         final_product: Repartez avec
         rating: Note publique /5
         recommendable: Recommandation /3

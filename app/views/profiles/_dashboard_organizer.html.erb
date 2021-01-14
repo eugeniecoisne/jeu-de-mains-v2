@@ -231,7 +231,7 @@
 
                       <% if workshop.place.user == current_user || current_user.admin %>
 
-                        <% if workshop.animators.where(db_status: true).nil? %>
+                        <% if workshop.animators.where(db_status: true).count == 0 %>
 
                           <div>
                             <a href="#addAnimatorModal<%= index +1 %>" class="button mr-2" data-toggle="modal" data-whatever="@mdo" id="add-animator-button">
@@ -255,6 +255,7 @@
                                             Vous vous apprêtez à attribuer un animateur à votre atelier. L'animateur doit avoir été mis au courant au préalable de votre collaboration. Jeu de Mains n'est pas responsable des collaborations entre organisateurs et animateurs d'ateliers.
                                           </label>
                                           <select class="form-control select required" name="animator[user_id]" id="animator_user_id">
+                                              <option value=""></option>
                                             <% @users.sort_by { |user| user.profile.company }.each do |user| %>
                                               <option value="<%= user.id %>"><%= user.profile.company %></option>
                                             <% end %>
@@ -292,6 +293,8 @@
                                         <div class="form-group select required animator_user">
                                           <label class="select required" for="animator_user_id">Animateur</label>
                                           <select class="form-control select required" name="animator[user_id]" id="animator_user_id">
+                                            <option value="<%= workshop.animators.where(db_status: true).last.user.id %>" selected><%= workshop.animators.where(db_status: true).last.user.profile.company %></option>
+                                            <option value="">----------------</option>
                                             <% @users.sort_by { |user| user.profile.company }.each do |user| %>
                                               <option value="<%= user.id %>"><%= user.profile.company %></option>
                                             <% end %>

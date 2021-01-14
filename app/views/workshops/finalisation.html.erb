@@ -86,6 +86,8 @@
                     <% if @workshop.animators.where(db_status: true).present? %>
                       <option value="<%= @workshop.animators.where(db_status: true).last.user.id %>" selected><%= @workshop.animators.where(db_status: true).last.user.profile.company %></option>
                       <option value="">----------------</option>
+                    <% else %>
+                      <option value=""></option>
                     <% end %>
                     <% @users.sort_by { |user| user.profile.company }.each do |user| %>
                       <option value="<%= user.id %>"><%= user.profile.company %></option>

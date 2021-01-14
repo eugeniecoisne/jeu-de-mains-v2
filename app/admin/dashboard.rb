@@ -43,11 +43,11 @@ ActiveAdmin.register_page "Dashboard" do
           columns do
             column do
               para "7 jrs"
-              h2 "#{User.all.select { |u| u.confirmed_at > (Date.today - 7.day) && u.db_status == true && u.profile.role.nil? }.count}"
+              h2 "#{User.all.select { |u| u.confirmed? && u.db_status == true && u.profile.role.nil? }.select { |u| u.confirmed_at > (Date.today - 7.day) }.count}"
             end
             column do
               para "30 jrs"
-              h2 "#{User.all.select { |u| u.confirmed_at > (Date.today - 30.day) && u.db_status == true && u.profile.role.nil? }.count}"
+              h2 "#{User.all.select { |u| u.confirmed? && u.db_status == true && u.profile.role.nil? }.select { |u| u.confirmed_at > (Date.today - 30.day) }.count}"
             end
             column do
               para "Début"
@@ -59,11 +59,11 @@ ActiveAdmin.register_page "Dashboard" do
           columns do
             column do
               para "7 jrs"
-              h2 "#{User.all.select { |u| u.db_status == false && u.updated_at > (Date.today - 7.day) && u.profile.role.nil? }.count}"
+              h2 "#{User.all.select { |u| u.db_status == false && u.profile.role.nil? }.select { |u| u.updated_at > (Date.today - 7.day) }.count}"
             end
             column do
               para "30 jrs"
-              h2 "#{User.all.select { |u| u.db_status == false && u.updated_at > (Date.today - 30.day) && u.profile.role.nil? }.count}"
+              h2 "#{User.all.select { |u| u.db_status == false && u.profile.role.nil? }.select { |u| u.updated_at > (Date.today - 30.day) }.count}"
             end
             column do
               para "Début"
@@ -83,13 +83,13 @@ ActiveAdmin.register_page "Dashboard" do
           h2 "#{Profile.all.where(db_status: true).select { |p| p.role.present? }.count}"
         end
         panel "BOUTIQUES / ATELIERS" do
-          h2 "#{Profile.all.where(db_status: true).select { |p| p.role == "boutique / atelier" }.count}"
+          h2 "#{Profile.all.where(db_status: true).select { |p| p.role == "Boutique / atelier" }.count}"
         end
         panel "ANIMATEURS D'ATELIERS" do
-          h2 "#{Profile.all.where(db_status: true).select { |p| p.role == "animation d'ateliers" }.count}"
+          h2 "#{Profile.all.where(db_status: true).select { |p| p.role == "Animation d'ateliers" }.count}"
         end
-        panel "EVENEMENTIEL" do
-          h2 "#{Profile.all.where(db_status: true).select { |p| p.role == "événementiel" }.count}"
+        panel "ORGANISATION D'EVENEMENTS" do
+          h2 "#{Profile.all.where(db_status: true).select { |p| p.role == "Organisation d'événements" }.count}"
         end
 
       end

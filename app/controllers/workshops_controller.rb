@@ -78,7 +78,7 @@ class WorkshopsController < ApplicationController
 
       if params[:search][:ephemeral].present?
         if params[:search][:ephemeral] == 'false'
-          @workshops = @workshops.select { |workshop| workshop.place.ephemeral == false }.paginate(page: params[:page], per_page: 20)
+          @workshops = @workshops.where(ephemeral: false).paginate(page: params[:page], per_page: 20)
         end
       end
 
@@ -272,6 +272,6 @@ class WorkshopsController < ApplicationController
   end
 
   def workshop_params
-    params.require(:workshop).permit(:title, :program, :final_product, :thematic, :level, :duration, :price, :status, :db_status, :capacity, :verified, :recommendable, :slug, photos: [])
+    params.require(:workshop).permit(:title, :program, :final_product, :thematic, :level, :duration, :price, :status, :db_status, :capacity, :verified, :recommendable, :ephemeral, :slug, photos: [])
   end
 end

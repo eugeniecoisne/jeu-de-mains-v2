@@ -49,10 +49,11 @@ lesherbeshautes = Profile.last
 lesherbeshautes.update!(
   address: '85 Boulevard Voltaire', zip_code: '75011', city: 'Paris',
   phone_number: '0952090027',
-  role: 'organisateur',
+  role: 'Boutique / atelier',
   company: 'Les Herbes Hautes', siret_number: '82397552900020',
   website: 'https://www.lesherbeshautes.fr/',
-  instagram: 'https://www.instagram.com/atelier_lesherbeshautes/'
+  instagram: 'https://www.instagram.com/atelier_lesherbeshautes/',
+  description: "Les Herbes Hautes est un atelier de création florale, né par amour de la nature. Nous fleurissons avec passion votre mariage et vos événements, en donnant vie à des compositions végétales et fleuries."
   )
 file = URI.open('https://www.lesherbeshautes.fr/app/uploads/2020/01/MK4_2725-scaled.jpg')
 lesherbeshautes.photo.attach(io: file, filename: 'lesherbeshautes.jpg', content_type: 'image/jpg')
@@ -64,10 +65,12 @@ happyfolk = Profile.last
 happyfolk.update!(
   address: '64 Boulevard Voltaire', zip_code: '75011', city: 'Paris',
   phone_number: '0184790117',
-  role: 'organisateur',
+  role: 'Boutique / atelier',
   company: 'Happy Folk', siret_number: '83058659000010',
   website: 'https://www.happyfolk.fr/',
-  instagram: 'https://www.instagram.com/happyfolk.fr/'
+  instagram: 'https://www.instagram.com/happyfolk.fr/',
+  description: "Happy Folk est un projet global d’expériences autour de l’art de vivre, de consommer, de travailler Slow basé sur 4 piliers :
+  La sélections de créateurs, d’artisans ou de start-up slow de talents, les pratiques de bien-être et médecines douces, les ateliers créatifs Do It Yourself, les conférences et rencontres avec des experts reconnus."
 )
 
 file = URI.open("https://res.cloudinary.com/jeudemains/image/upload/v1592745477/mj5b0czoomnt65e810uunwlgw93o.jpg")
@@ -80,11 +83,14 @@ epicerie = Profile.last
 epicerie.update!(
   address: '74 Rue de la Verrerie', zip_code: '75004', city: 'Paris',
   phone_number: '0173756518',
-  role: 'organisateur',
+  role: 'Boutique / atelier',
   company: 'La Petite Epicerie', siret_number: '82486642000022',
   website: 'https://la-petite-epicerie.fr/fr/',
-  instagram: 'https://www.instagram.com/lapetiteepicerie/'
-  )
+  instagram: 'https://www.instagram.com/lapetiteepicerie/',
+  description: "♥ la Petite épicerie ♥ est une boutique de fournitures de loisirs créatifs.
+  Vous y retrouverez tout un tas de cane en pâte Fimo à découper, de chaines, supports bagues ou boucles d'oreille, de vaisselles ou des gourmandises en miniature, de la papeterie, des kits DIY, et bien d'autres produits encore !
+  Venez partager un moment convivial et créatif avec d'autres passionnés à l'occasion d'un atelier créatif !"
+)
 file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745480/v0tsq8qnkyon5u0e5hrtuomvu9hv.png')
 epicerie.photo.attach(io: file, filename: 'la-petite-epicerie.png', content_type: 'image/png')
 
@@ -95,10 +101,11 @@ stella = Profile.last
 stella.update!(
   address: '4 rue Jean Brunet', zip_code: '92270', city: 'Bois-Colombes',
   phone_number: '0661439481',
-  role: 'organisateur',
+  role: 'Boutique / atelier',
   company: 'Le Pop Up de Stella', siret_number: '82341743100017',
   website: 'https://www.stella-popup-store.com/',
-  instagram: 'https://www.instagram.com/le_pop_up_de_stella/'
+  instagram: 'https://www.instagram.com/le_pop_up_de_stella/',
+  description: "Le Pop Up de Stella distille une sélection pointue de petits cadeaux originaux de qualité, fonctionnels et intemporels, pour toute la famille, essentiellement faits à la main par des créateurs d'ici ou d'ailleurs. Nous proposons des ateliers DIY (*Do It Yourself) pour réveiller votre créativité !"
   )
 file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745482/eicboqfmbvrc82q14ep11r4vncmm.jpg')
 stella.photo.attach(io: file, filename: 'le-pop-up-de-stella.jpg', content_type: 'image/jpg')
@@ -114,7 +121,7 @@ julieweaves = Profile.last
 julieweaves.update!(
   address: '6 rue Jean Moulin', zip_code: '92400', city: 'Courbevoie',
   phone_number: '0123456788',
-  role: 'animateur',
+  role: "Animation d'ateliers",
   company: 'Julie Weaves', siret_number: '81462020900019',
   website: 'https://www.julie-robert.fr/',
   instagram: 'https://www.instagram.com/julie_weaves/',
@@ -130,7 +137,7 @@ amelie = Profile.last
 amelie.update!(
   address: '', zip_code: '75020', city: 'Paris',
   phone_number: '0123456788',
-  role: 'animateur',
+  role: "Animation d'ateliers",
   company: "Amelie's Workshop", siret_number: '567943843949839',
   website: 'http://ameliesworkshop.fr/',
   instagram: 'https://www.instagram.com/ameliesworkshop/',
@@ -149,7 +156,7 @@ homefactory = Profile.last
 homefactory.update!(
   address: '', zip_code: '92700', city: 'Colombes',
   phone_number: '01234500044',
-  role: 'animateur',
+  role: "Animation d'ateliers",
   company: "My Home Factory", siret_number: '567943843922222',
   website: 'https://my-homefactory.com/',
   instagram: 'https://www.instagram.com/my_homefactory/',
@@ -162,120 +169,63 @@ homefactory.photo.attach(io: file, filename: 'my-home-factory.jpg', content_type
 
 
 puts "--------------------------------"
-puts "CREATION DE 6 LIEUX"
+puts "CREATION DE 6 ADRESSES"
 
 # LES HERBES HAUTES : LIEU
 puts "Lieu : Les Herbes Hautes"
 place1 = Place.new(
   name: 'Les Herbes Hautes',
   address: '85 Boulevard Voltaire', zip_code: '75011', city: 'Paris',
-  description: "Les Herbes Hautes est un atelier de création florale, né par amour de la nature. Nous fleurissons avec passion votre mariage et vos événements, en donnant vie à des compositions végétales et fleuries.",
-  phone_number: '0952090027',
-  email: 'hello@herbes.com',
-  ephemeral: false,
-  siret_number: '82397552900020',
-  website: 'https://www.lesherbeshautes.fr/',
-  instagram: 'https://www.instagram.com/atelier_lesherbeshautes/'
+  phone_number: '0952090027'
   )
 place1.user = lesherbeshautes_user
 place1.save!
-file = URI.open('https://www.lesherbeshautes.fr/app/uploads/2020/01/MK4_2725-scaled.jpg')
-place1.photo.attach(io: file, filename: 'lesherbeshautes.jpg', content_type: 'image/jpg')
 
 # HAPPY FOLK : LIEU
 puts "Lieu : Happy Folk"
 place2 = Place.new(
   name: 'Happy Folk',
   address: '64 Boulevard Voltaire', zip_code: '75011', city: 'PARIS',
-  description: "Happy Folk est un projet global d’expériences autour de l’art de vivre, de consommer, de travailler Slow basé sur 4 piliers :
-La sélections de créateurs, d’artisans ou de start-up slow de talents, les pratiques de bien-être et médecines douces, les ateliers créatifs Do It Yourself, les conférences et rencontres avec des experts reconnus.",
-  phone_number: '0184790117',
-  email: 'hello@happy.com',
-  ephemeral: false,
-  siret_number: '83058659000010',
-  website: 'https://www.happyfolk.fr/',
-  instagram: 'https://www.instagram.com/happyfolk.fr/'
+  phone_number: '0184790117'
   )
 place2.user = happyfolk_user
 place2.save!
-file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745477/mj5b0czoomnt65e810uunwlgw93o.jpg')
-place2.photo.attach(io: file, filename: 'happyfolk.jpg', content_type: 'image/jpg')
 
 # LA PETITE EPICERIE : 3 LIEUX
 puts "Lieux (x3) : La Petite Epicerie"
 place3 = Place.new(
   name: 'La Petite Epicerie, Paris 4e',
   address: '74 Rue de la Verrerie', zip_code: '75004', city: 'PARIS',
-  description: "♥ la Petite épicerie ♥ est une boutique de fournitures de loisirs créatifs.
-Vous y retrouverez tout un tas de cane en pâte Fimo à découper, de chaines, supports bagues ou boucles d'oreille, de vaisselles ou des gourmandises en miniature, de la papeterie, des kits DIY, et bien d'autres produits encore !
-Venez partager un moment convivial et créatif avec d'autres passionnés à l'occasion d'un atelier créatif !",
-  phone_number: '0173756518',
-  email: 'hello@epicerie.com',
-  ephemeral: false,
-  siret_number: '53500141600036',
-  website: 'https://la-petite-epicerie.fr/fr/',
-  instagram: 'https://www.instagram.com/lapetiteepicerieparis4/'
+  phone_number: '0173756518'
   )
 place3.user = epicerie_user
 place3.save!
-file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745480/v0tsq8qnkyon5u0e5hrtuomvu9hv.png')
-place3.photo.attach(io: file, filename: 'la-petite-epicerie.png', content_type: 'image/png')
 
 place4 = Place.new(
   name: "La Petite Epicerie, Chaussée d'Antin",
   address: "47 Rue de la Chaussée d'Antin", zip_code: '75009', city: 'PARIS',
-  description: "♥ la Petite épicerie ♥ est une boutique de fournitures de loisirs créatifs.
-Vous y retrouverez tout un tas de cane en pâte Fimo à découper, de chaines, supports bagues ou boucles d'oreille, de vaisselles ou des gourmandises en miniature, de la papeterie, des kits DIY, et bien d'autres produits encore !
-Venez partager un moment convivial et créatif avec d'autres passionnés à l'occasion d'un atelier créatif !",
-  phone_number: '0171379844',
-  email: 'hello@epicerie.com',
-  ephemeral: false,
-  siret_number: '53500141600051',
-  website: 'https://la-petite-epicerie.fr/fr/',
-  instagram: 'https://www.instagram.com/lapetiteepicerieparis9/'
+  phone_number: '0171379844'
   )
 place4.user = epicerie_user
 place4.save!
-file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745480/v0tsq8qnkyon5u0e5hrtuomvu9hv.png')
-place4.photo.attach(io: file, filename: 'la-petite-epicerie.png', content_type: 'image/png')
 
 place5 = Place.new(
   name: "La Petite Epicerie, Vincennes",
   address: "71 Rue de Fontenay", zip_code: '94300', city: 'Vincennes',
-  description: "♥ la Petite épicerie ♥ est une boutique de fournitures de loisirs créatifs.
-Vous y retrouverez tout un tas de cane en pâte Fimo à découper, de chaines, supports bagues ou boucles d'oreille, de vaisselles ou des gourmandises en miniature, de la papeterie, des kits DIY, et bien d'autres produits encore !
-Venez partager un moment convivial et créatif avec d'autres passionnés à l'occasion d'un atelier créatif !",
-  phone_number: '0187361688',
-  email: 'hello@epicerie.com',
-  ephemeral: false,
-  siret_number: '82486642000022',
-  website: 'https://la-petite-epicerie.fr/fr/',
-  instagram: 'https://www.instagram.com/lapetiteepicerie/'
+  phone_number: '0187361688'
   )
 place5.user = epicerie_user
 place5.save!
-file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1592745480/v0tsq8qnkyon5u0e5hrtuomvu9hv.png')
-place5.photo.attach(io: file, filename: 'la-petite-epicerie.png', content_type: 'image/png')
 
 # L'APPARTEMENT DU SLOW' : LIEU
 puts "Lieu : L'appartement du slow"
 place6 = Place.new(
   name: "L'appartement du slow",
   address: "2 rue Turgot", zip_code: '75009', city: 'Paris',
-  description: "Venez profiter d'une parenthèse {Ré}créative dans un lieu d'exception au cœur de Paris !
-*** ENTRÉE LIBRE ***
-Découvrez sur place, un Marché de Créateurs éthiques avec notamment So.Skaia & Friends (Mode, Accessoires, Bijoux, Lifestyle, Kids, Vide-dressing chic, Parfums, Food, Illustrations ...)",
   phone_number: '0661439481',
-  email: 'hello@stella.com',
-  ephemeral: true,
-  siret_number: '82341743100017',
-  website: 'https://www.stella-popup-store.com/',
-  instagram: 'https://www.instagram.com/le_pop_up_de_stella/'
   )
 place6.user = stella_user
 place6.save!
-file = URI.open('https://res.cloudinary.com/jeudemains/image/upload/v1591712009/appartementduslow.jpg')
-place6.photo.attach(io: file, filename: 'appartement-slow.jpg', content_type: 'image/jpg')
 
 
 puts "--------------------------------"
@@ -295,6 +245,7 @@ Nous vous guiderons pour réaliser une création esthétique et raffinée. Repar
   price: 69.00,
   status: 'en ligne',
   capacity: 6,
+  ephemeral: false,
   verified: true
   )
 workshop1.place = place1
@@ -314,6 +265,7 @@ Que vous ayez la main verte ou pas, suivez les conseils de nos passionnées du m
   price: 79.00,
   status: 'en ligne',
   capacity: 8,
+  ephemeral: false,
   verified: true
   )
 workshop2.place = place1
@@ -333,6 +285,7 @@ Nous vous guiderons pour réaliser une création esthétique et raffinée. Repar
   price: 59.00,
   status: 'en ligne',
   capacity: 8,
+  ephemeral: false,
   verified: true
   )
 workshop3.place = place1
@@ -352,6 +305,7 @@ Matériel inclus',
   price: 79.00,
   status: 'en ligne',
   capacity: 9,
+  ephemeral: false,
   verified: true
   )
 workshop4.place = place2
@@ -375,6 +329,7 @@ Matériel inclus',
   price: 79.00,
   status: 'en ligne',
   capacity: 5,
+  ephemeral: true,
   verified: true
   )
 workshop5.place = place6
@@ -397,6 +352,7 @@ En 2e temps, elle vous initiera à l'aquarelle, pour apprendre à dessiner et pe
   price: 35.00,
   status: 'en ligne',
   capacity: 10,
+  ephemeral: false,
   verified: true
   )
 workshop6.place = place3
@@ -419,6 +375,7 @@ En 2e temps, elle vous initiera à l'aquarelle, pour apprendre à dessiner et pe
   price: 35.00,
   status: 'en ligne',
   capacity: 8,
+  ephemeral: true,
   verified: true
   )
 workshop7.place = place4
@@ -441,6 +398,7 @@ En 2e temps, elle vous initiera à l'aquarelle, pour apprendre à dessiner et pe
   price: 35.00,
   status: 'en ligne',
   capacity: 6,
+  ephemeral: false,
   verified: true
   )
 workshop8.place = place5
@@ -463,6 +421,7 @@ En 2e temps, elle vous initiera à l'aquarelle, pour apprendre à dessiner et pe
   price: 35.00,
   status: 'en ligne',
   capacity: 6,
+  ephemeral: false,
   verified: true
   )
 workshop9.place = place2
@@ -488,6 +447,7 @@ Tous les ingrédients et le matériel sont fournis. Cet atelier est réalisé da
   price: 49.00,
   status: 'en ligne',
   capacity: 7,
+  ephemeral: true,
   verified: true
   )
 workshop10.place = place6
@@ -513,6 +473,7 @@ Tous les ingrédients et le matériel sont fournis. Cet atelier est réalisé da
   price: 49.00,
   status: 'en ligne',
   capacity: 10,
+  ephemeral: false,
   verified: true
   )
 workshop11.place = place3
@@ -539,6 +500,7 @@ Tous les ingrédients et le matériel sont fournis. Cet atelier est réalisé da
   price: 49.00,
   status: 'en ligne',
   capacity: 7,
+  ephemeral: true,
   verified: true
   )
 workshop12.place = place6
