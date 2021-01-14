@@ -212,8 +212,8 @@
                                         <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
                                       </button>
 
-                                      <%= f.input :date, label: "Date de l'atelier" %>
-                                      <%= f.input :start_at, label: "Heure de début", collection: Session::STARTS_AT %>
+                                      <%= f.input :date, required: true, label: "Date de l'atelier" %>
+                                      <%= f.input :start_at, required: true, label: "Heure de début", collection: Session::STARTS_AT %>
                                       <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier" %>
 
                                       <div class="d-flex justify-content-center">
@@ -231,7 +231,7 @@
 
                       <% if workshop.place.user == current_user || current_user.admin %>
 
-                        <% if workshop.animators.where(db_status: true).present? %>
+                        <% if workshop.animators.where(db_status: true).nil? %>
 
                           <div>
                             <a href="#addAnimatorModal<%= index +1 %>" class="button mr-2" data-toggle="modal" data-whatever="@mdo" id="add-animator-button">
@@ -482,7 +482,7 @@
                     </div>
                     <div class="mobile-dashboard-my-agenda-date-container">
                       <% Session.where("date = ?", date.strftime).where(db_status: true).sort_by { |session| session.start_at }.each do |session| %>
-                        <% if session.workshop.place.user == @profile.user || session.workshop.animators.where(db_status: true).last.user == @profile.user %>
+                        <% if session.workshop.place.user == current_user || (session.workshop.animators.where(db_status: true).last.user == current_user if session.workshop.animators.where(db_status: true).present?) %>
                           <div class="mobile-dashboard-my-agenda-workshop">
                             <%= link_to workshop_path(session.workshop) do  %>
                               <% session_start_time = Time.new(Date.today.strftime('%Y').to_i, Date.today.strftime('%m').to_i, Date.today.strftime('%d').to_i, session.start_at[0..1], session.start_at[-2..-1], 0, "+01:00") %>

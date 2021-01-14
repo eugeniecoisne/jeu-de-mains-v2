@@ -35,8 +35,8 @@
             <% else %>
               <div class="session_form_container">
                 <%= simple_form_for([@workshop, @session]) do |f| %>
-                  <%= f.input :date, label: "Première date d'atelier" %>
-                  <%= f.input :start_at, label: "Heure de début", collection: Session::STARTS_AT %>
+                  <%= f.input :date, required: true, label: "Première date d'atelier" %>
+                  <%= f.input :start_at, required: true, label: "Heure de début", collection: Session::STARTS_AT %>
                   <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier (sinon laisser vide)" %>
 
                   <%= f.submit 'Ajouter', class: "button" %>

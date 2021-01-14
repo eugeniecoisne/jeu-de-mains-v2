@@ -37,8 +37,8 @@
                           <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
                         </button>
 
-                        <%= f.input :date, label: "Date de l'atelier" %>
-                        <%= f.input :start_at, label: "Heure de début", collection: Session::STARTS_AT %>
+                        <%= f.input :date, required: true, label: "Date de l'atelier" %>
+                        <%= f.input :start_at, required: true, label: "Heure de début", collection: Session::STARTS_AT %>
                         <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier" %>
 
                         <div class="d-flex justify-content-center">
