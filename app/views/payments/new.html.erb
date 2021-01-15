@@ -1,52 +1,76 @@
 <% if @booking.status == "pending" %>
 
-  <div class="container">
-    <div class="row py-4">
-      <div class="col">
-        <% if @booking.giftcard_amount_spent.nil? %>
-          <h1><%= @booking.user.first_name %>, vous êtes sur le point de réserver</h1>
-          <p><%= @booking.quantity %> place(s) au tarif de <%= @booking.session.workshop.price %>€</p>
-          <p>Pour l'atelier <%= @booking.session.workshop.title %></p>
-          <p>Qui aura lieu le <%= @booking.session.date.strftime("%d/%m/%y") %> à <%= @booking.session.start_at %></p>
-          <p>Chez <%= @booking.session.workshop.place.name %></p>
-          <p>Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
+  <div class="booking-options-container">
+    <div class="booking-options-title">
+      <h1>Vous êtes sur le point de réserver</h1>
+    </div>
 
+    <div class="booking-options-workshop">
+      <div class="booking-options-ws-photo">
+        <% if @booking.session.workshop.photos.attached? %>
+          <%= cl_image_tag @booking.session.workshop.photos[0].key, loading: "lazy", alt: "jeu-de-mains-#{@booking.session.workshop.title}", title: "jeu-de-mains-#{@booking.session.workshop.title}" , width: 200, height: 200, crop: :fill %>
         <% else %>
-
-          <h1><%= @booking.user.first_name %>, vous êtes sur le point de réserver</h1>
-          <p><%= @booking.quantity %> place(s) au tarif de <%= @booking.session.workshop.price %>€</p>
-          <p>Soit un total de <%= @booking.amount %>€</p>
-          <p>Vous utilisez <%= @booking.giftcard_amount_spent %> € en carte cadeau</p>
-          <p>Il vous reste <%= @booking.amount - @booking.giftcard_amount_spent %>€ à régler</p>
-          <p>Pour l'atelier <%= @booking.session.workshop.title %></p>
-          <p>Qui aura lieu le <%= @booking.session.date.strftime("%d/%m/%y") %> à <%= @booking.session.start_at %></p>
-          <p>Chez <%= @booking.session.workshop.place.name %></p>
-          <p>Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
-
+          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 200, :height => 200, :crop => :fill, :alt => "jeu-de-mains-#{@booking.session.workshop.title}", :title => "jeu-de-mains-#{@booking.session.workshop.title}") %>
         <% end %>
+      </div>
 
-        <% if @booking.giftcard_amount_spent.present? && @booking.giftcard_amount_spent == @booking.amount %>
-          <%= simple_form_for(@booking) do |f| %>
-            <%= f.hidden_field :confirm_giftcard, value: true %>
-            <%= f.submit 'Confirmer ma réservation', class: "btn btn-primary"%>
-          <% end %>
-        <% else %>
-          <button id="pay" class="btn btn-primary">Procéder au paiement</button>
-        <% end %>
-
-
-        <script src="https://js.stripe.com/v3/"></script>
-        <script>
-          const paymentButton = document.getElementById('pay');
-          paymentButton.addEventListener('click', () => {
-            const stripe = Stripe('<%= ENV['STRIPE_CONNECT_PUBLIC_KEY'] %>');
-            stripe.redirectToCheckout({
-              sessionId: '<%= @booking.checkout_session_id %>'
-            });
-          });
-        </script>
+      <div class="booking-options-ws-info">
+        <h2 class="booking-options-ws-title">L'atelier <%= @booking.session.workshop.title %></h2>
+        <p>Qui aura lieu le <%= l(@booking.session.date, format: '%A %d %b %Y').capitalize %> à <%= @booking.session.start_at %></p>
+        <p>Organisé par <%= @booking.session.workshop.place.user.profile.company %></p>
+        <p>Au <%= @booking.session.workshop.place.full_address %></p>
       </div>
     </div>
-  </div>
 
+    <% if @booking.giftcard_amount_spent.present? %>
+      <div class="booking-options-giftcard-options">
+        <p>Vous avez choisi d'utiliser une carte cadeau qui contenait : <%= Giftcard.find(@booking.giftcard_id.to_i).amount %> €</p>
+        <p>Après votre réservation, le montant restant sur cette carte sera de : <%= Giftcard.find(@booking.giftcard_id.to_i).amount > @booking.giftcard_amount_spent ? (Giftcard.find(@booking.giftcard_id.to_i).amount - @booking.giftcard_amount_spent) : 0.0 %> €</p>
+      </div>
+    <% end %>
+
+    <table class="table booking-options-quantities-and-amount">
+      <tbody>
+        <tr id="booking-options-table-first-row">
+          <td>Prix unitaire <%= @booking.session.workshop.price %> € x <%= @booking.quantity %> place(s)</td>
+          <td style="text-align: right"><%= @booking.session.workshop.price * @booking.quantity %> €</td>
+        </tr>
+        <% if @booking.giftcard_amount_spent.present? %>
+          <tr>
+            <td>Carte cadeau</td>
+            <td style="text-align: right">- <%= @booking.giftcard_amount_spent %> €</td>
+          </tr>
+        <% end %>
+        <tr>
+          <td><strong>TOTAL</strong></td>
+        <% if @booking.giftcard_amount_spent.present? %>
+          <td style="text-align: right"><strong><%= (@booking.session.workshop.price * @booking.quantity) - @booking.giftcard_amount_spent %> €</strong></td>
+        <% else %>
+          <td style="text-align: right"><strong><%= @booking.amount %> €</strong></td>
+        <% end %>
+        </tr>
+      </tbody>
+    </table>
+
+    <span id="cgv-agreement-checked"><i class="fas fa-check-square mr-2"></i>J'ai lu et j'accepte les <strong><%= link_to "conditions générales de vente", cgv_path, target: "_blank" %></strong></span>
+
+    <% if @booking.giftcard_amount_spent? && @booking.giftcard_amount_spent == @booking.amount %>
+      <%= simple_form_for(@booking) do |f| %>
+        <%= f.hidden_field :confirm_giftcard, value: true %>
+        <%= f.submit 'Confirmer ma réservation', class: "button", id: "confirm-booking-with-giftcard-only"%>
+      <% end %>
+    <% else %>
+      <button id="pay" class="button">Procéder au paiement</button>
+    <% end %>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      const paymentButton = document.getElementById('pay');
+      paymentButton.addEventListener('click', () => {
+        const stripe = Stripe('<%= ENV['STRIPE_CONNECT_PUBLIC_KEY'] %>');
+        stripe.redirectToCheckout({
+          sessionId: '<%= @booking.checkout_session_id %>'
+        });
+      });
+    </script>
+  </div>
 <% end %>

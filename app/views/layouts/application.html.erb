@@ -34,22 +34,23 @@
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
   </head>
   <body>
-    <!-- NAVBAR -->
-    <% if controller.controller_name == 'pages' && controller.action_name == 'home' %>
-      <%= render 'shared/navbar-homepage' %>
-    <% elsif controller.controller_name == 'workshops' && controller.action_name == 'index' %>
-      <%= render 'shared/navbar-ws-index' %>
-    <% else %>
-      <%= render 'shared/navbar-allpages' %>
-    <% end %>
+    <div style="min-height: 82vh;">
+      <!-- NAVBAR -->
+      <% if controller.controller_name == 'pages' && controller.action_name == 'home' %>
+        <%= render 'shared/navbar-homepage' %>
+      <% elsif controller.controller_name == 'workshops' && controller.action_name == 'index' %>
+        <%= render 'shared/navbar-ws-index' %>
+      <% else %>
+        <%= render 'shared/navbar-allpages' %>
+      <% end %>
 
-    <!-- MENU -->
-    <%= render 'shared/menu' %>
+      <!-- MENU -->
+      <%= render 'shared/menu' %>
 
-    <!-- FLASHES -->
-    <%= render 'shared/flashes' %>
-    <%= yield %>
-
+      <!-- FLASHES -->
+      <%= render 'shared/flashes' %>
+      <%= yield %>
+    </div>
     <!-- FOOTER -->
     <% if controller.controller_name == 'pages' %>
       <%= render 'shared/footer' %>

@@ -60,7 +60,11 @@ class BookingsController < ApplicationController
           @booking.update(giftcard_amount_spent: giftcard.amount)
         end
       end
-      redirect_back fallback_location: root_path
+      if params[:booking][:cgv_agreement].present?
+        redirect_to new_booking_payment_path(@booking)
+      else
+        redirect_back fallback_location: root_path
+      end
     end
   end
 
