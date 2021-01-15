@@ -61,22 +61,19 @@
         </div>
         <div id="collapse-2" class="collapse collapse-2" data-parent="#accordionNewWsTwo">
           <div class="card-body">
-            Jeu de Mains est un melting pot de partenaires boutiques, ateliers d'artisans, organisateurs d'événements et animateurs freelance. La plateforme n'est pas responsable des collaborations entre les partenaires mais tient à les mettre en avant et à créer des synergies entre les partenaires de la communauté. <br><br>
-            Par qui cet atelier est-il animé ?<br><br>
-            <p><strong>J'organise et anime cet atelier :</strong></p>
+            <strong>Par qui cet atelier est-il animé ? Renseignez l'une des trois options &#128521;</strong><br>
+            Pour l’atelier que vous souhaitez proposer, vous pouvez désigner votre animateur, il peut être interne à votre structure (vous-même ou un membre de votre équipe) ou bien encore externe. <br>
+            Jeu de mains est un melting pot de partenaires, boutiques, ateliers d’artisans, organisateurs d’événements et animateurs freelance… La plateforme n’est pas responsable des collaborations entre les partenaires, même si elle les favorise en mettant des outils à disposition (filtres de recherche des profils, messagerie, liens vers sites web et comptes Instagram…).<br><br>
+            <br>
+            <p><strong>Option 1 - L’animateur est interne à la structure (moi-même ou un membre de mon équipe)</strong></p>
             <%= link_to "Valider et continuer", confirmation_workshop_path(@workshop), class: "button" %>
-            <br><br>
+            <br><br><br>
+
 
             <p class="add-animator-options"><strong>- OU -</strong></p>
 
-            <p><strong>je ne sais pas encore qui sera l'animateur :</strong></p>
-            <%= link_to "Valider et continuer", confirmation_workshop_path(@workshop), class: "button" %>
-            <br><br>
-
-            <p class="add-animator-options"><strong>- OU -</strong></p>
-
-            <p><strong>J'organise cet atelier et il sera animé par un.e autre auto-entrepreneur / entreprise : </strong><br>
-            Si l'animateur est bien au courant de cette collaboration, sélectionnez-le dans le menu déroulant ci-dessous ou invitez-le à rejoindre la communauté jeudemains.com !</p>
+            <p><strong>Option 2 - Vous vous êtes entendus avec un animateur externe à votre structure et souhaitez le désigner sur la page de l’atelier</strong><br>
+            S’il est déjà membre de Jeu de mains, c’est très simple, il vous suffit de le sélectionner dans le menu déroulant ci-dessous. Autrement vous pouvez l’inviter facilement à rejoindre la communauté Jeu de mains avec l’envoi d’un e-mail automatique en renseignant son adresse.</p>
 
             <div class='ws-finalisation-add-animator-forms'>
               <%= simple_form_for([@workshop, @animator]) do |f| %>
@@ -97,7 +94,6 @@
                 <%= f.hidden_field :creation, value: true %>
                 <%= f.submit "Ajouter et continuer", class: "button" %>
               <% end %>
-
               <p id="add-animator-or">ou</p>
 
               <%= simple_form_for :invitation, url: invitation_workshop_path, method: :get do |f| %>
@@ -106,6 +102,12 @@
                 <%= f.submit "Inviter et continuer", class: "button" %>
               <% end %>
             </div>
+            <br><br>
+            <p class="add-animator-options"><strong>- OU -</strong></p>
+
+            <p><strong>Option 3 - Je souhaite publier mon atelier sans désigner d’animateur pour le moment et le faire par la suite si je le souhaite</strong></p>
+            <%= link_to "Valider et continuer", confirmation_workshop_path(@workshop), class: "button" %>
+            <br><br>
 
             <div class="next-previous">
               <a class="next-previous-button btnPrevious" id="previous-2" >Retour</a>
