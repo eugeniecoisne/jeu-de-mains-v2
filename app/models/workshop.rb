@@ -51,7 +51,7 @@ class Workshop < ApplicationRecord
   end
 
   def completed?
-    program? && final_product? && title? && capacity? && duration? && thematic? && level? && price? && ephemeral? && price > 0 && photos.attached?
+    program? && final_product? && title? && capacity? && duration? && thematic? && level? && price? && price > 0 && photos.attached?
   end
 
   private

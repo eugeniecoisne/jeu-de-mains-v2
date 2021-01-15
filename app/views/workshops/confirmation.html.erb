@@ -2,13 +2,12 @@
 
   <% if @workshop.completed? && @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present? %>
 
-    <h1>Votre atelier est prêt,</h1>
-    <h2>il ne vous reste plus qu'à le mettre en ligne !</h2>
-    <p>Votre atelier est sauvegardé, vous pouvez le mettre en ligne plus tard si vous le souhaitez en vous rendant sur votre <strong><%= link_to "tableau de bord", tableau_de_bord_profile_path(current_user.profile) %></strong>
-    ou bien <strong>demander sa mise en ligne en bas de cette page</strong>.</p><br>
+    <h1>Félicitation, votre nouvel atelier est prêt à être mis en ligne !</h1>
+    <p>Vous pouvez demander sa mise en ligne dès à présent en cliquant sur le bouton en bas de la page ou le faire ultérieurement depuis votre <strong><%= link_to "tableau de bord", tableau_de_bord_profile_path(current_user.profile) %></strong> où votre projet d’atelier reste sauvegardé en attendant.</p>
+    <br>
     <%= cl_image_tag @workshop.photos[0].key, loading: "lazy", width: 150, height: 150, crop: :fill, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}" %>
     <div class="confirmation-ws-infos">
-      <h3><%= @workshop.title %></h3>
+      <h2><%= @workshop.title %></h2>
       <p>Au <%= @workshop.place.address %> <%= @workshop.place.zip_code %> <%= @workshop.place.city %></p>
       <% session = @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.last %>
       <p>Première session le <%= l(session.date, format: '%A %d %b %Y').capitalize %> à <%= session.start_at %></p>
@@ -24,9 +23,8 @@
 
   <% else %>
 
-    <h1>Votre atelier est incomplet,</h1>
-    <h2>il est sauvegardé sur votre tableau de bord !</h2>
-    <p>Votre atelier ne peut être mis en ligne en raison d'<strong>informations manquantes</strong> listées ci-dessous.</p><br>
+    <h1>Vous souhaitez proposer un nouvel atelier, nous vous en remercions !</h1>
+    <p>Pour demander sa mise en ligne, des <strong>compléments d'informations</strong> sont nécessaires.</p><br>
     <% if @workshop.photos.attached? %>
       <%= cl_image_tag @workshop.photos[0].key, loading: "lazy", width: 150, height: 150, crop: :fill, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}" %>
     <% else %>
@@ -34,7 +32,7 @@
     <% end %>
     <div class="confirmation-ws-infos">
       <% if @workshop.title.present? %>
-        <h3><%= @workshop.title %></h3>
+        <h2><%= @workshop.title %></h2>
       <% end %>
       <% if @workshop.place.present? && @workshop.place.db_status == true %>
         <p>Au <%= @workshop.place.address %> <%= @workshop.place.zip_code %> <%= @workshop.place.city %></p>
@@ -54,7 +52,7 @@
     <% if @workshop.completed? %>
       <p>Votre atelier est prêt mais vous n'avez pas encore ajouté de première date de session</p>
     <% else %>
-      <p>Votre atelier est incomplet, voici les informations non renseignées :</p><br>
+      <p>Le descriptif de votre atelier est incomplet, voici les informations manquantes :</p><br>
       <ul>
         <% if @workshop.title.present? == false %><li><p>Intitulé de l'atelier</p></li><% end %>
         <% if @workshop.title.present? == false %><li><p>Intitulé de l'atelier</p></li><% end %>
@@ -67,7 +65,7 @@
         <% if @workshop.final_product.present? == false %><li><p>Repartez avec</p></li><% end %>
       </ul>
     <% end %>
-    <p>Rendez-vous sur votre tableau de bord pour finaliser votre atelier :</p><br>
+    <p>Pour finaliser votre atelier et demander sa mise en ligne, c’est très simple, il ne vous reste plus qu’à vous rendre sur votre tableau de bord où votre projet d’atelier reste sauvegardé en attendant :</p><br>
 
     <%= link_to "Mon tableau de bord", tableau_de_bord_profile_path(current_user.profile), class: "button" %>
 

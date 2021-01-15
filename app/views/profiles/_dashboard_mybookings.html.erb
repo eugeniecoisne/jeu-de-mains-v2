@@ -62,7 +62,7 @@
           <% my_older_bookings = [] %>
           <% my_cancellations = [] %>
           <% @profile.user.bookings.each do |booking| %>
-            <% if booking.db_status == false && booking.status == "refunded" %>
+            <% if booking.db_status == true && booking.status == "refunded" %>
               <% my_cancellations << booking %>
             <% elsif booking.session.date >= Date.today && booking.db_status == true && booking.status == "paid" %>
               <% my_coming_bookings << booking %>

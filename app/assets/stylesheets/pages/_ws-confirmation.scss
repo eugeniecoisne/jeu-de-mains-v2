@@ -17,25 +17,16 @@
   }
 
   h1 {
-    font-size: 40px;
+    font-size: 30px;
     color: $blue;
     font-weight: 700;
     font-family: "Amiri", "Times New Roman", serif;
     margin-top: 30px;
     line-height: 1;
-    margin-bottom: 6px;
+    margin-bottom: 30px;
     max-width: 500px;
   }
   h2 {
-    font-size: 26px;
-    color: $dark-blue;
-    font-weight: 700;
-    margin-bottom: 30px;
-    font-family: "Amiri", "Times New Roman", serif;
-    line-height: 1;
-    max-width: 500px;
-  }
-  h3 {
     font-size: 18px;
     color: $dark-blue;
     font-weight: 600;
@@ -88,12 +79,9 @@
 @media (min-width: 100px) and (max-width: 575px) {
   .confirmation-ws-container {
     h1 {
-      font-size: 26px;
+      font-size: 24px;
     }
     h2 {
-      font-size: 22px;
-    }
-    h3 {
       font-size: 16px;
     }
     p {
