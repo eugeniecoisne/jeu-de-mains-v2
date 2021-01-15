@@ -73,6 +73,20 @@ class BookingsController < ApplicationController
     authorize @booking
   end
 
+  def payment_success
+    @booking = Booking.find(params[:booking_id])
+    if @booking.status == "paid"
+      authorize @booking
+    end
+  end
+
+  def payment_error
+    @booking = Booking.find(params[:booking_id])
+    if @booking.status.nil? && @booking.checkout_session_id.present?
+      authorize @booking
+    end
+  end
+
   def destroy
     @booking = Booking.find(params[:id])
     authorize @booking

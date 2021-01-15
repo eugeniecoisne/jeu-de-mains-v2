@@ -1,0 +1,190 @@
+.payment-success-error-container {
+  margin: 4rem 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    font-weight: 600;
+    color: $dark-blue;
+    font-size: 34px;
+    font-family: "Amiri", serif;
+    margin-bottom: 30px;
+    width: 555px;
+  }
+  h2 {
+    font-size: 16px;
+    color: $blue;
+    font-weight: 600;
+    margin-bottom: 4px;
+    width: 555px;
+    a {
+      text-decoration: none;
+      color: $dark-blue;
+    }
+    a:hover {
+      color: $blue;
+    }
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: $dark-gray;
+    margin-bottom: 0;
+    width: 555px;
+  }
+  p {
+    font-size: 15px;
+    color: $dark-gray;
+    margin-bottom: unset;
+    font-weight: 400;
+    a {
+      font-weight: 500;
+      text-decoration: none;
+      color: $dark-gray;
+    }
+    a:hover {
+      color: $blue;
+    }
+  }
+}
+
+.payment-success-error-workshop {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  width: 555px;
+}
+
+.payment-success-error-ws-photo {
+  img {
+    object-fit: cover;
+    border-radius: 4px;
+    width: 110px;
+    height: 110px;
+  }
+}
+
+.payment-success-error-ws-info {
+  margin-left: 20px;
+}
+
+.payment-success-error-quantities-and-amount {
+  margin-top: 10px;
+  font-size: 15px;
+  width: 555px;
+  td {
+    padding-right: unset;
+    padding-left: unset;
+  }
+  #payment-success-error-table-first-row {
+    td {
+      border-top: unset;
+    }
+  }
+}
+
+.payment-success-error-cta {
+  width: 555px;
+  a {
+    background-color: $dark-blue;
+    font-family: "Montserrat", Helvetica, sans-serif;
+    font-size: 14px;
+    padding: 5px 14px;
+    outline: none;
+    text-decoration: none;
+    color: white;
+  }
+  a:hover {
+    background-color: $blue;
+  }
+}
+
+.success-add-to-calendar {
+  width: 555px;
+  margin-right: unset;
+  margin-bottom: 10px;
+  #success-add-to-calendar-btn {
+    background-color: unset;
+    border: 1px solid $blue;
+    font-family: "Montserrat", Helvetica, sans-serif;
+    font-size: 14px;
+    padding: 3px 14px;
+    outline: none;
+    text-decoration: none;
+    color: $blue;
+    font-weight: 600;
+  }
+  #success-add-to-calendar-btn:hover {
+    color: $dark-blue;
+    border-color: $dark-blue;
+  }
+}
+
+
+// RESPONSIVE PAYMENT SUCCESS / ERROR //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 767px) {
+  .payment-success-error-container {
+    align-items: start;
+    margin: 2rem 1.5rem 6rem 1.5rem;
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+    h2 {
+      font-size: 15px;
+      width: 100%
+    }
+    h3 {
+      width: 100%;
+    }
+  }
+
+  .payment-success-error-workshop {
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    p {
+      font-size: 14px;
+    }
+  }
+  .payment-success-error-ws-photo {
+    margin-bottom: 20px;
+    img {
+      width: 200px;
+      height: 200px;
+    }
+  }
+  .payment-success-error-ws-info {
+    margin-left: unset;
+  }
+  .payment-success-error-quantities-and-amount {
+    width: 100%;
+  }
+  .payment-success-error-cta {
+    width: 100%;
+  }
+  .success-add-to-calendar {
+    width: 100%;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
