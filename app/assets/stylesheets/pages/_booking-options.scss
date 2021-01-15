@@ -1,0 +1,277 @@
+.booking-options-container {
+  margin: 4rem 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    font-weight: 600;
+    color: $dark-blue;
+    font-size: 34px;
+    font-family: "Amiri", serif;
+    margin-bottom: 30px;
+    width: 555px;
+  }
+  h2 {
+    font-size: 16px;
+    color: $dark-gray;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: $dark-blue;
+    margin-bottom: 14px;
+    width: 555px;
+  }
+  .edit_cgv_booking {
+    font-size: 15px;
+    strong {
+      font-weight: 600;
+    }
+  }
+  button {
+    border: unset;
+    margin-top: 20px;
+    background-color: $dark-blue;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    outline: none;
+  }
+}
+
+.booking-options-workshop {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  width: 555px;
+
+  p {
+    font-size: 15px;
+    color: $dark-gray;
+    margin-bottom: unset;
+  }
+}
+
+.booking-options-ws-photo {
+  img {
+    object-fit: cover;
+    border-radius: 4px;
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.booking-options-ws-info {
+  margin-left: 20px;
+}
+
+.booking-options-giftcard-options {
+  background-color: $light-gray2;
+  padding: 15px;
+  width: 555px;
+  .form-control {
+    max-width: 270px;
+    font-size: 14px;
+    color: $dark-gray;
+    border-color: $dark-blue;
+    border-left: unset;
+    border-right: unset;
+    border-top:unset;
+  }
+  .button {
+    border: unset;
+    font-size: 13.5px;
+    padding: 2px 13px;
+    color: $dark-blue;
+    border: 1px solid $dark-blue;
+    background-color: white;
+  }
+  .button:hover {
+    background-color: $dark-blue;
+    color: white;
+  }
+  .booking-options-giftcard-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: unset;
+  }
+  p {
+    margin-bottom: unset;
+    font-size: 14px;
+  }
+}
+
+.booking-options-giftcard-options.inactive {
+  display: none;
+}
+
+.booking-options-giftcard-options-btn {
+  width: 555px;
+  span {
+    cursor: pointer;
+    padding: 4px 13px;
+    font-size: 13px;
+    border: 1px solid $dark-blue;
+    color: $dark-blue;
+    font-weight: 500;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    text-decoration: none;
+    background-color: unset;
+    outline: none;
+    border-radius: unset;
+  }
+}
+
+.booking-options-giftcard-options-btn.inactive {
+  display: none;
+}
+
+.booking-options-quantities-and-amount {
+  margin-top: 20px;
+  font-size: 15px;
+  width: 555px;
+  td {
+    padding-right: unset;
+    padding-left: unset;
+  }
+  #booking-options-table-first-row {
+    td {
+      border-top: unset;
+    }
+  }
+}
+
+#cgv-agreement-checked {
+  font-size: 15px;
+  .fas {
+    color: #136ff9;
+  }
+}
+
+#booking-options-confirm-booking-button {
+  padding: 4px 10px;
+  text-decoration: none;
+  outline: none;
+  background-color: $dark-blue;
+  max-width: 350px;
+  margin-top: 20px;
+}
+#booking-options-confirm-booking-button:hover {
+  text-decoration: none;
+  outline: none;
+  background-color: $blue;
+  color: white;
+}
+
+#confirm-booking-with-giftcard-only {
+  border: unset;
+  margin-top: 20px;
+  background-color: $dark-blue;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  outline: none;
+}
+#confirm-booking-with-giftcard-only:hover {
+  background-color: $blue;
+}
+
+
+
+// RESPONSIVE BOOKING OPTIONS //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 767px) {
+  .booking-options-container {
+    align-items: start;
+    margin: 2rem 1.5rem 6rem 1.5rem;
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+    h2 {
+      font-size: 15px;
+    }
+    h3 {
+      width: 100%;
+    }
+    .edit_cgv_booking {
+      font-size: 14px;
+    }
+    button {
+      font-size: 15px;
+      background-color: $blue;
+    }
+    button:hover {
+      background-color: $dark-blue;
+    }
+    .go-to-payment-btn {
+      font-size: 15px;
+      background-color: $blue;
+    }
+    .go-to-payment-btn:hover {
+      background-color: $dark-blue;
+    }
+  }
+
+  .booking-options-workshop {
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    p {
+      font-size: 14px;
+    }
+  }
+  .booking-options-ws-photo {
+    margin-bottom: 20px;
+    img {
+      width: 200px;
+      height: 200px;
+    }
+  }
+  .booking-options-ws-info {
+    margin-left: unset;
+  }
+  .booking-options-giftcard-options {
+    background-color: $blue;
+    width: 100%;
+    p {
+      color: white;
+    }
+  }
+  #booking-options-confirm-booking-button {
+    font-size: 14px;
+  }
+  .booking-options-quantities-and-amount {
+    width: 100%;
+  }
+  #cgv-agreement-checked {
+    font-size: 14px;
+  }
+  #confirm-booking-with-giftcard-only {
+    font-size: 15px;
+    background-color: $blue;
+  }
+  #confirm-booking-with-giftcard-only:hover {
+    background-color: $dark-blue;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}

@@ -120,7 +120,12 @@ class PagesController < ApplicationController
           @giftcard.update(user_id: current_user.id)
           @giftcard.update(receiver: current_user.id)
           @giftcard.save
-          redirect_to giftcard_confirmation_enregistrement_path(@giftcard)
+          if params[:giftcard][:booking].present?
+            redirect_back fallback_location: root_path
+            flash[:notice] = "Votre carte cadeau a bien été enregistrée !"
+          else
+            redirect_to giftcard_confirmation_enregistrement_path(@giftcard)
+          end
         else
           flash[:alert] = "Votre code est déjà utilisé ou erroné"
           redirect_back fallback_location: root_path

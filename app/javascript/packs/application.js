@@ -18,6 +18,7 @@ import { toggleBtnKpis } from '../plugins/toggle_btn_kpis';
 import { prevNextNewWs } from '../plugins/prev_next_new_ws';
 import { showInfomessageBox } from '../plugins/show_infomessage_box';
 import { showIndexFilters } from '../plugins/show_index_filters';
+import { showGiftcardOptions } from '../plugins/show_giftcard_options';
 import { initChatroomCable } from '../channels/chatroom_channel';
 
 
@@ -38,5 +39,6 @@ document.addEventListener('turbolinks:load', () => {
   prevNextNewWs();
   showInfomessageBox();
   showIndexFilters();
+  showGiftcardOptions();
   initChatroomCable();
 });
