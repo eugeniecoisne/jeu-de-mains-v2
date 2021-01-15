@@ -85,6 +85,8 @@ Rails.application.routes.draw do
     resources :payments, only: :new
     resources :reviews, :path => :avis, :as => :reviews, only: %i(new create)
     get 'options'
+    get 'payment_success'
+    get 'payment_error'
   end
 
   resources :animators, :path => :animateurs, :as => :animators, only: %i(edit update)

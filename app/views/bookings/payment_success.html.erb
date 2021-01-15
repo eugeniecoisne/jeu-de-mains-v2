@@ -1,0 +1,100 @@
+<% if @booking.status == "paid" %>
+
+  <div class="payment-success-error-container">
+    <div class="payment-success-error-title">
+      <h1>Bonne nouvelle, nous vous confirmons votre réservation !</h1>
+    </div>
+
+
+    <div class="payment-success-error-workshop">
+      <div class="payment-success-error-ws-photo">
+        <% if @booking.session.workshop.photos.attached? %>
+          <%= cl_image_tag @booking.session.workshop.photos[0].key, loading: "lazy", alt: "jeu-de-mains-#{@booking.session.workshop.title}", title: "jeu-de-mains-#{@booking.session.workshop.title}" , width: 200, height: 200, crop: :fill %>
+        <% else %>
+          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 200, :height => 200, :crop => :fill, :alt => "jeu-de-mains-#{@booking.session.workshop.title}", :title => "jeu-de-mains-#{@booking.session.workshop.title}") %>
+        <% end %>
+      </div>
+
+      <div class="payment-success-error-ws-info">
+        <p class="mb-1">Réservation n°<%= @booking.id %></p>
+        <h2 class="payment-success-error-ws-title">
+          <%= link_to workshop_path(@booking.session.workshop) do %>
+            <%= @booking.session.workshop.title %>
+          <% end %>
+        </h2>
+
+        <% session_start_time = Time.new(Date.today.strftime('%Y').to_i, Date.today.strftime('%m').to_i, Date.today.strftime('%d').to_i, @booking.session.start_at[0..1], @booking.session.start_at[-2..-1], 0, "+01:00") %>
+        <% session_end_time = session_start_time + @booking.session.workshop.duration.minutes %>
+        <h2>Session du <%= l(@booking.session.date, format: '%A %d %b %Y').capitalize %> de <%= session_start_time.strftime("%Hh%M") %> à <%= session_end_time.strftime("%Hh%M") %></h2>
+        <p class="mt-1">
+          <%= link_to profile_public_path(@booking.session.workshop.place.user.profile) do %>
+            Organisé par <%= @booking.session.workshop.place.user.profile.company %>
+          <% end %>
+        </p>
+        <p>
+          <%= link_to "https://www.google.fr/maps/search/#{@booking.session.workshop.place.address}, #{@booking.session.workshop.place.zip_code} #{@booking.session.workshop.place.city.upcase}", target: "_blank" do %>
+            Au <%= @booking.session.workshop.place.full_address %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+
+    <h3>Détails de votre paiement</h3>
+
+    <table class="table payment-success-error-quantities-and-amount">
+      <tbody>
+        <tr id="payment-success-error-table-first-row">
+          <td>Prix unitaire <%= @booking.session.workshop.price %> € x <%= @booking.quantity %> place(s)</td>
+          <td style="text-align: right"><%= @booking.session.workshop.price * @booking.quantity %> €</td>
+        </tr>
+        <% if @booking.giftcard_amount_spent.present? %>
+          <tr>
+            <td>Carte cadeau</td>
+            <td style="text-align: right">- <%= @booking.giftcard_amount_spent %> €</td>
+          </tr>
+        <% end %>
+        <tr>
+          <td><strong>TOTAL PAYÉ</strong></td>
+        <% if @booking.giftcard_amount_spent.present? %>
+          <td style="text-align: right"><strong><%= (@booking.session.workshop.price * @booking.quantity) - @booking.giftcard_amount_spent %> €</strong></td>
+        <% else %>
+          <td style="text-align: right"><strong><%= @booking.amount %> €</strong></td>
+        <% end %>
+        </tr>
+      </tbody>
+    </table>
+
+    <div title="Add to Calendar" data-styling="none" class="addeventatc success-add-to-calendar">
+      <button id="success-add-to-calendar-btn">Ajouter à mon agenda</button>
+      <span class="start">
+        <%= @booking.session.date.strftime('%m/%d/%Y') %>
+        <%= @booking.session.start_at[0..1] %>:<%= @booking.session.start_at[3..4] %>
+      </span>
+      <span class="end">
+        <% start_in_minutes = (@booking.session.start_at[0..1].to_i * 60) + @booking.session.start_at[3..4].to_i %>
+        <% end_in_minutes = start_in_minutes + @booking.session.workshop.duration %>
+        <%= @booking.session.date.strftime('%m/%d/%Y') %>
+        <%= end_in_minutes.fdiv(60).round.to_i %>:<%= end_in_minutes%60 > 0 ? end_in_minutes%60 : "00" %>
+      </span>
+      <span class="timezone">Europe/Paris</span>
+      <span class="title">Atelier "<%= @booking.session.workshop.title %>"</span>
+      <span class="organizer">jeudemains.com</span>
+      <span class="description">
+        Atelier "<%= @booking.session.workshop.title %>"<br>
+        Organisé par <%= @booking.session.workshop.place.user.profile.company %><br>
+        Réservé sur https://www.jeudemains.com/<br><br>
+        ----- <br><br>
+        Au programme : <br>
+        <%= @booking.session.workshop.program %>
+        </span>
+      <span class="location"><%= @booking.session.workshop.place.full_address %></span>
+    </div>
+
+    <div class="payment-success-error-cta">
+      <%= link_to "Voir & gérer mes réservations", tableau_de_bord_profile_url(current_user.profile) %>
+    </div>
+
+  </div>
+  <script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
+<% end %>
+

@@ -9,7 +9,15 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def options?
-    record.user == user || user.admin?
+    update?
+  end
+
+  def payment_success?
+    update?
+  end
+
+  def payment_error?
+    update?
   end
 
   def destroy?
