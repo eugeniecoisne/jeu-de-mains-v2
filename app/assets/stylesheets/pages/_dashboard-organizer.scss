@@ -11,7 +11,7 @@
 // TABS
 
 #dashboard-organizer-nav-and-tab {
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 4.5fr;
   .tab-pane {
     display: none;
   }
@@ -269,6 +269,9 @@
     letter-spacing: 0.2px;
   }
 }
+#mobile-dashboard-my-passed-agenda-date-title {
+  background-color: $green;
+}
 .mobile-dashboard-my-agenda-date-container {
   margin-bottom: 2em;
 }
@@ -289,6 +292,10 @@
   }
 }
 
+#mobile-dashboard-my-passed-agenda-workshop {
+  border-color: $green;
+}
+
 .mobile-dashboard-my-agenda-workshop-infos {
   padding-left: 1em;
   h4 {
@@ -302,6 +309,10 @@
 .mobile-my-agenda-ws-sessions {
   color: $dark-yellow;
   font-weight: 600;
+}
+
+#mobile-my-passed-agenda-ws-sessions {
+  color: $dark-green;
 }
 
 .mobile-dashboard-my-agenda-workshop-participants {
@@ -689,7 +700,7 @@
   // nav and tabs
 
   #dashboard-organizer-nav-and-tab {
-    grid-template-columns: 1.1fr 3fr;
+    grid-template-columns: 1.3fr 3fr;
   }
 
   // my kpis
@@ -706,7 +717,7 @@
     grid-template-columns: 1fr 1fr 1fr;
   }
   #dashboard-organizer-nav-and-tab {
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 1fr 3fr;
   }
 }
 

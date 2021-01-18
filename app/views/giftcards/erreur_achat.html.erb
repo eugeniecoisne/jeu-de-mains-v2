@@ -1,0 +1,11 @@
+<div class="giftcard-confirmation-container">
+  <div class="giftcard-confirmation-titles">
+    <h1>Oups</h1>
+    <h2>Le paiement de votre carte cadeau d'une valeur de <%= @giftcard.amount.to_i %> euros a échoué.</h2>
+  </div>
+
+  <div class="giftcard-confirmation-btn mt-5">
+    <%= link_to "Retenter mon achat", offrir_une_carte_cadeau_path %>
+  </div>
+</div>
+

@@ -82,9 +82,7 @@ class BookingsController < ApplicationController
 
   def payment_error
     @booking = Booking.find(params[:booking_id])
-    if @booking.status.nil? && @booking.checkout_session_id.present?
-      authorize @booking
-    end
+    authorize @booking
   end
 
   def destroy

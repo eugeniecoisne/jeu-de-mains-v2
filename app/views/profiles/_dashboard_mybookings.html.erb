@@ -104,10 +104,10 @@
                               <%= booking.session.workshop.title %>
                             <% end %>
                           </p>
-                          <%= link_to profile_public_path(booking.session.workshop.place.user.profile) do %>
+                          <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                             Organisé par <%= booking.session.workshop.place.user.profile.company %>
                           <% end %>
-                          <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", id: "localize-link" do %>
+                          <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-link" do %>
                             Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
                           <% end %>
                           <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
@@ -190,10 +190,10 @@
                       <div class="my-booking-ws-info">
                         <p id="my-booking-order-nb">Réservation n°<%= booking.id %></p>
                         <p id="my-booking-ws-title"><%= booking.session.workshop.title %></p>
-                        <%= link_to profile_public_path(booking.session.workshop.place.user.profile) do %>
+                        <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                           Organisé par <%= booking.session.workshop.place.user.profile.company %>
                         <% end %>
-                        <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", id: "localize-link" do %>
+                        <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-link" do %>
                           Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
                         <% end %>
                         <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
@@ -254,14 +254,14 @@
                         <div class="my-booking-ws-info">
                           <p id="my-booking-order-nb">Réservation n°<%= booking.id %></p>
                           <p id="my-booking-ws-title"><%= booking.session.workshop.title %></p>
-                          <%= link_to profile_public_path(booking.session.workshop.place.user.profile) do %>
+                          <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                             Organisé par <%= booking.session.workshop.place.user.profile.company %>
                           <% end %>
-                          <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", id: "localize-link" do %>
+                          <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-link" do %>
                             Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
                           <% end %>
                           <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
-                          <p id="my-booking-cancel">Annulée le <%= booking.updated_at.strftime('%d/%m/%Y') %> à <%= booking.updated_at.strftime('%H:%M') %></p>
+                          <p id="my-booking-cancel">Annulée le <%= booking.cancelled_at.strftime('%d/%m/%Y') %></p>
                         </div>
                       <% end %>
                     </div>
