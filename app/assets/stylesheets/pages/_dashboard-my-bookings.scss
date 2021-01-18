@@ -60,10 +60,15 @@
   margin-left: 1em;
   display: flex;
   flex-direction: column;
-  #localize-link {
+  .localize-link {
     font-size: 15px;
     color: $dark-gray;
     font-weight: 500;
+  }
+  .my-bookings-organized-by {
+    font-size: 15px;
+    color: $blue;
+    font-weight: 600;
   }
   .call-btn {
     display: none;
@@ -149,7 +154,10 @@
 
   .my-booking-ws-info {
     margin-left: 0.8em;
-    #localize-link {
+    .localize-link {
+      font-size: 14px;
+    }
+    .my-bookings-organized-by {
       font-size: 14px;
     }
     .call-btn {

@@ -25,8 +25,11 @@
           <a class="nav-link active" id="v-pills-my-workshops-tab" data-toggle="pill" href="#v-pills-my-workshops" role="tab" aria-controls="v-pills-my-workshops" aria-selected="true">
             Mes ateliers
           </a>
-          <a class="nav-link" id="v-pills-my-agenda-tab" data-toggle="pill" href="#v-pills-my-agenda" role="tab" aria-controls="v-pills-my-agenda" aria-selected="false">
-            Mon planning
+          <a class="nav-link" id="v-pills-my-agenda-to-come-tab" data-toggle="pill" href="#v-pills-my-agenda-to-come" role="tab" aria-controls="v-pills-my-agenda-to-come" aria-selected="false">
+            Mon planning à venir
+          </a>
+          <a class="nav-link" id="v-pills-my-agenda-passed-tab" data-toggle="pill" href="#v-pills-my-agenda-passed" role="tab" aria-controls="v-pills-my-agenda-passed" aria-selected="false">
+            Mon planning passé
           </a>
           <a class="nav-link" id="v-pills-my-kpis-tab" data-toggle="pill" href="#v-pills-my-kpis" role="tab" aria-controls="v-pills-my-kpis" aria-selected="false">
             Mes chiffres clés
@@ -44,8 +47,11 @@
           <a class="nav-link active" id="v-pills-my-workshops-tab" data-toggle="pill" href="#v-pills-my-workshops" role="tab" aria-controls="v-pills-my-workshops" aria-selected="true">
             <span>Mes ateliers</span>
           </a>
-          <a class="nav-link" id="v-pills-my-agenda-tab" data-toggle="pill" href="#v-pills-my-agenda" role="tab" aria-controls="v-pills-my-agenda" aria-selected="false">
-            <span>Mon planning</span>
+          <a class="nav-link" id="v-pills-my-agenda-to-come-tab" data-toggle="pill" href="#v-pills-my-agenda-to-come" role="tab" aria-controls="v-pills-my-agenda-to-come" aria-selected="false">
+            <span>Mon planning à venir</span>
+          </a>
+          <a class="nav-link" id="v-pills-my-agenda-passed-tab" data-toggle="pill" href="#v-pills-my-agenda-passed" role="tab" aria-controls="v-pills-my-agenda-passed" aria-selected="false">
+            <span>Mon planning passé</span>
           </a>
           <a class="nav-link" id="v-pills-my-kpis-tab" data-toggle="pill" href="#v-pills-my-kpis" role="tab" aria-controls="v-pills-my-kpis" aria-selected="false">
             <span>Mes chiffres clés</span>
@@ -85,7 +91,7 @@
                   <% my_dates << session.date %>
                 <% end %>
                 <% workshop.sessions.each do |session| %>
-                  <% session.bookings.where(db_status: false, status: "refunded").each do |booking| %>
+                  <% session.bookings.where(db_status: true, status: "refunded").each do |booking| %>
                     <% canceled_bookings << booking %>
                   <% end %>
                 <% end %>
@@ -471,9 +477,9 @@
             <% end %>
           </div>
 
-          <!-- MY AGENDA -->
+          <!-- MY AGENDA TO COME -->
 
-          <div class="tab-pane fade" id="v-pills-my-agenda" role="tabpanel" aria-labelledby="v-pills-my-agenda-tab">
+          <div class="tab-pane fade" id="v-pills-my-agenda-to-come" role="tabpanel" aria-labelledby="v-pills-my-agenda-to-come-tab">
             <div class="mobile-dashboard-my-agenda">
               <% date_to_come = 0 %>
               <% my_dates.to_set.sort.each do |date| %>
@@ -542,7 +548,11 @@
                               </h4>
                               <h4 class="mobile-my-agenda-ws-sessions">
                                 <i class="fas fa-ticket-alt mr-1"></i>
-                                <%= session.available %> places restantes / <%= session.capacity %>
+                                <% if session.available > 1 %>
+                                  <%= session.available %> places restantes / <%= session.capacity %>
+                                <% else %>
+                                  <%= session.available %> place restante / <%= session.capacity %>
+                                <% end %>
                               </h4>
                             </div>
                             <div class="mobile-dashboard-my-agenda-workshop-participants">
@@ -565,6 +575,103 @@
               <% end %>
               <% if date_to_come == 0 %>
                 Votre planning est vide, vous n'avez aucune session à venir.
+              <% end %>
+            </div>
+          </div>
+
+
+          <!-- MY AGENDA PASSED -->
+
+          <div class="tab-pane fade" id="v-pills-my-agenda-passed" role="tabpanel" aria-labelledby="v-pills-my-agenda-passed-tab">
+            <div class="mobile-dashboard-my-agenda">
+              <% date_passed = 0 %>
+              <% my_dates.to_set.sort.reverse.each do |date| %>
+                <% if date < Date.today %>
+                  <% date_passed += 1 %>
+                  <div class="mobile-dashboard-my-agenda-date">
+                    <div class="mobile-dashboard-my-agenda-date-title" id="mobile-dashboard-my-passed-agenda-date-title">
+                      <h2><%= l(date, format: '%A %d %B %Y').capitalize %></h2>
+                    </div>
+                    <div class="mobile-dashboard-my-agenda-date-container">
+                      <% Session.where("date = ?", date.strftime).where(db_status: true).sort_by { |session| session.start_at }.each do |session| %>
+                        <% if session.workshop.place.user == current_user || (session.workshop.animators.where(db_status: true).last.user == current_user if session.workshop.animators.where(db_status: true).present?) %>
+                          <div class="mobile-dashboard-my-agenda-workshop" id="mobile-dashboard-my-passed-agenda-workshop">
+                            <%= link_to workshop_path(session.workshop) do  %>
+                              <% session_start_time = Time.new(Date.today.strftime('%Y').to_i, Date.today.strftime('%m').to_i, Date.today.strftime('%d').to_i, session.start_at[0..1], session.start_at[-2..-1], 0, "+01:00") %>
+                              <% session_end_time = session_start_time + session.workshop.duration.minutes %>
+                              <% if session.workshop.title.size > 33 %>
+                                <h3><%= session_start_time.strftime("%Hh%M") %> à <%= session_end_time.strftime("%Hh%M") %> - <%= session.workshop.title[0..30] %>...</h3>
+                              <% else %>
+                                <h3><%= session_start_time.strftime("%Hh%M") %> à <%= session_end_time.strftime("%Hh%M") %> - <%= session.workshop.title %></h3>
+                              <% end %>
+                            <% end %>
+
+                            <div class="mobile-dashboard-my-agenda-workshop-infos">
+
+                              <% if session.workshop.place.user == current_user %>
+                                <h4 class="mobile-my-agenda-ws-animator">
+                                  <i class="fas fa-user-shield mr-1"></i>
+                                  <strong>Vous étiez organisateur</strong>
+                                </h4>
+                              <% else %>
+                                <h4 class="mobile-my-agenda-ws-animator">
+                                  <i class="fas fa-graduation-cap mr-1"></i>
+                                  <strong>Vous étiez animateur</strong>
+                                </h4>
+                              <% end %>
+
+                              <h4 class="mobile-my-agenda-ws-place-name">
+                                <%= link_to "https://www.google.fr/maps/search/#{session.workshop.place.address}, #{session.workshop.place.zip_code} #{session.workshop.place.city.upcase}", target: "_blank" do %>
+                                  <i class="fas fa-map-marker-alt mr-2"></i>
+                                  Chez <%= session.workshop.place.name %> au <%= "#{session.workshop.place.address}, #{session.workshop.place.zip_code} #{session.workshop.place.city.capitalize}" %>
+                                <% end %>
+                              </h4>
+
+                              <% if session.workshop.place.user == current_user %>
+                                <% if session.workshop.animators.where(db_status: true).last %>
+                                  <h4 class="mobile-my-agenda-ws-animator">
+                                    <i class="fas fa-graduation-cap mr-1"></i>
+                                    Animé par <%= session.workshop.animators.where(db_status: true).last.user.profile.company %>
+                                  </h4>
+                                <% end %>
+                              <% else %>
+                                <h4 class="mobile-my-agenda-ws-animator">
+                                  <i class="fas fa-user-shield mr-1"></i>
+                                  Organisé par <%= session.workshop.place.user.profile.company %>
+                                </h4>
+                              <% end %>
+
+                              <h4 class="mobile-my-agenda-ws-duration">
+                                <i class="far fa-clock mr-2"></i>
+                                <% if session.workshop.duration%60 == 0 %>
+                                  <%= session.workshop.duration/60 %> heures
+                                <% else %>
+                                  <%= session.workshop.duration/60 %> heures <%= session.workshop.duration%60 %>
+                                <% end %>
+                              </h4>
+                              <h4 class="mobile-my-agenda-ws-sessions" id="mobile-my-passed-agenda-ws-sessions">
+                                <i class="fas fa-ticket-alt mr-1"></i>
+                                <% if session.sold > 1 %>
+                                  <%= session.sold %> places vendues / <%= session.capacity %>
+                                <% else %>
+                                  <%= session.sold %> place vendue / <%= session.capacity %>
+                                <% end %>
+                              </h4>
+                            </div>
+                            <div class="mobile-dashboard-my-agenda-workshop-participants">
+                              <% if session.available != session.capacity %>
+                                <%= link_to "Voir les participants", session_participants_path(session), class: "button" %>
+                              <% end %>
+                            </div>
+                          </div>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+              <% if date_passed == 0 %>
+                Votre planning passé est vide, vous n'avez aucune session passée.
               <% end %>
             </div>
           </div>
@@ -629,11 +736,11 @@
                 <% end %>
               </div>
               <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-sessions">
-                <h2><%= my_sessions.count %></h2>
+                <h2><%= my_sessions.select { |s| s.date >= Date.today }.count %></h2>
                 <% if my_sessions.count > 1 %>
-                  <h3>créneaux<br>proposés</h3>
+                  <h3>créneaux à venir</h3>
                 <% else %>
-                  <h3>créneau<br>proposé</h3>
+                  <h3>créneau à venir</h3>
                 <% end %>
               </div>
 

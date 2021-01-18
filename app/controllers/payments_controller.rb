@@ -40,8 +40,8 @@ class PaymentsController < ApplicationController
             images: [@booking.session.workshop.photos[0].service_url]
           }],
           mode: 'payment',
-          success_url: booking_payment_success_url(current_user.profile),
-          cancel_url: booking_payment_error_url(current_user.profile)
+          success_url: booking_payment_success_url(@booking),
+          cancel_url: booking_payment_error_url(@booking)
         )
         @booking.update(checkout_session_id: session.id)
 

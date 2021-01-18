@@ -1,1 +1,17 @@
-<h1>Echec paiement !</h1>
+<div class="payment-success-error-container">
+  <div class="payment-success-error-title">
+    <h1>Oups, le paiement de votre réservation n'a pas été pris en compte</h1>
+  </div>
+
+  <% if @booking.status == "pending" %>
+    <div class="payment-success-error-cta">
+      <%= link_to "Retenter ma réservation", booking_options_url(@booking) %>
+    </div>
+  <% else %>
+    <div class="payment-success-error-cta">
+      <%= link_to "Retenter ma réservation", workshop_url(@booking.session.workshop) %>
+    </div>
+
+  <% end %>
+</div>
+

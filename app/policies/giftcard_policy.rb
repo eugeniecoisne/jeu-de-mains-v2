@@ -20,6 +20,10 @@ class GiftcardPolicy < ApplicationPolicy
     record.user == user || user.admin?
   end
 
+  def erreur_achat?
+    record.user == user || user.admin?
+  end
+
   class Scope < Scope
     def resolve
       scope.all

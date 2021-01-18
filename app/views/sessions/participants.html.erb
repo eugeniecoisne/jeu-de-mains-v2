@@ -34,22 +34,27 @@
           <% end %>
         </div>
 
-        <%= link_to "Contacter les participants", "#", class: "active mb-4", id: "contactParticipantsBtn" %>
+        <% if @session.date >= Date.today %>
 
-        <div class="infomessage-box inactive">
-          <h5 class="infomessage-box-title">Contacter les participants</h5>
-          <div class="infomessage-box-notice">
-            <p>Écrivez ici un e-mail aux participants. Inutile de rappeler les informations de l'atelier et de la session qui seront ajoutées automatiquement à l'e-mail. <br>
-            Exemples : donner des informations d'accès en plus de l'adresse déjà fournie, conseiller d'arriver en avance pour un atelier très rythmé, inciter à apporter des intentions créatives... <br>
-            <em>Pour votre information, les participants reçoivent un jour avant l'atelier un rappel par e-mail</em></p>
+          <%= link_to "Contacter les participants", "#", class: "active mb-4", id: "contactParticipantsBtn" %>
+
+          <div class="infomessage-box inactive">
+            <h5 class="infomessage-box-title">Contacter les participants</h5>
+            <div class="infomessage-box-notice">
+              <p>Écrivez ici un e-mail aux participants. Inutile de rappeler les informations de l'atelier et de la session qui seront ajoutées automatiquement à l'e-mail. <br>
+              Exemples : donner des informations d'accès en plus de l'adresse déjà fournie, conseiller d'arriver en avance pour un atelier très rythmé, inciter à apporter des intentions créatives... <br>
+              <em>Pour votre information, les participants reçoivent un jour avant l'atelier un rappel par e-mail</em></p>
+            </div>
+            <div class="infomessage-box-form">
+              <%= simple_form_for [ @session, @infomessage ] do |f| %>
+                <%= f.input :content, required: true, placeholder: 'Votre message', :input_html => {:rows => 8}, label: false, hint: "Vous serez en copie cachée de cet e-mail" %>
+                <%= f.submit "Envoyer l'e-mail", class: "button" %>
+              <% end %>
+            </div>
           </div>
-          <div class="infomessage-box-form">
-            <%= simple_form_for [ @session, @infomessage ] do |f| %>
-              <%= f.input :content, required: true, placeholder: 'Votre message', :input_html => {:rows => 8}, label: false, hint: "Vous serez en copie cachée de cet e-mail" %>
-              <%= f.submit "Envoyer l'e-mail", class: "button" %>
-            <% end %>
-          </div>
-        </div>
+
+        <% end %>
+
 
         <% if @session.bookings.where(db_status: false, status: "refunded").present? %>
           <div class="mt-4">

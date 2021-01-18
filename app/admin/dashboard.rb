@@ -107,6 +107,10 @@ ActiveAdmin.register_page "Dashboard" do
         panel "ATELIERS EN LIGNE" do
           h2 "#{ws_to_come.count}"
         end
+
+        panel "ATELIERS EPHEMERES EN LIGNE" do
+          h2 "#{ws_to_come.select {|w| w.ephemeral == true }.count}"
+        end
         panel "TOP 5 ATELIERS EN LIGNE" do
           ul do
             ws_by_rating.reverse.first(5).map do |w|

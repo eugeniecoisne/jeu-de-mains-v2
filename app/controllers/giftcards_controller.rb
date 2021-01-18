@@ -86,6 +86,13 @@ class GiftcardsController < ApplicationController
 
   def confirmation_achat
     @giftcard = Giftcard.find(params[:giftcard_id])
+    if @giftcard.status == "paid"
+      authorize @giftcard
+    end
+  end
+
+  def erreur_achat
+    @giftcard = Giftcard.find(params[:giftcard_id])
     authorize @giftcard
   end
 

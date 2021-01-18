@@ -100,6 +100,7 @@ Rails.application.routes.draw do
   resources :giftcards, :path => :carte_cadeau, :as => :giftcards, only: %i() do
     resources :giftcard_payments, only: :new
     get 'confirmation_achat'
+    get 'erreur_achat'
     get 'confirmation_enregistrement'
   end
 end
