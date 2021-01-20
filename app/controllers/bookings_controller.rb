@@ -14,7 +14,7 @@ class BookingsController < ApplicationController
       user: current_user
       )
     authorize @booking
-    CheckBookingStatusJob.set(wait: 15.minutes).perform_later(@booking)
+    CheckBookingStatusJob.set(wait: 20.minutes).perform_later(@booking)
     redirect_to booking_coordonnees_path(@booking)
   end
 
