@@ -15,7 +15,7 @@ class BookingsController < ApplicationController
       )
     authorize @booking
     CheckBookingStatusJob.set(wait: 15.minutes).perform_later(@booking)
-    redirect_to booking_options_path(@booking)
+    redirect_to booking_coordonnees_path(@booking)
   end
 
   def update
@@ -61,8 +61,24 @@ class BookingsController < ApplicationController
         end
       end
       if params[:booking][:cgv_agreement].present?
-        redirect_to new_booking_payment_path(@booking)
+        if (@booking.session.workshop.visio_with_kit? && @booking.contact_visio_completed?) || ((@booking.session.workshop.kit == false ) && @booking.contact_completed?)
+          redirect_to new_booking_payment_path(@booking)
+        end
       else
+        redirect_back fallback_location: root_path
+      end
+    end
+  end
+
+  def coordonnees
+    @booking = Booking.find(params[:booking_id])
+    authorize @booking
+    if params[:booking]
+      @booking.update(booking_params)
+      if (@booking.session.workshop.visio_with_kit? && @booking.contact_visio_completed?) || ((@booking.session.workshop.kit == false) && @booking.contact_completed?)
+        redirect_to booking_options_path(@booking)
+      else
+        flash[:alert] = "Vos coordonnées sont incomplètes."
         redirect_back fallback_location: root_path
       end
     end
@@ -70,6 +86,7 @@ class BookingsController < ApplicationController
 
   def options
     @booking = Booking.find(params[:booking_id])
+    @booking.update(cgv_agreement: false)
     authorize @booking
   end
 
@@ -171,7 +188,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard)
+    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard, :phone_number, :address, :address_complement, :zip_code, :city)
   end
 
 end

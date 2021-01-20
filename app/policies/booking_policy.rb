@@ -8,6 +8,10 @@ class BookingPolicy < ApplicationPolicy
     record.user == user || user.admin?
   end
 
+  def coordonnees?
+    update?
+  end
+
   def options?
     update?
   end

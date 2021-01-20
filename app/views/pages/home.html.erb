@@ -119,14 +119,20 @@
                     <div class="ws-card-price" id="home-ws-card-price">
                       <%= workshop.price %> €
                     </div>
-                    <div class="ws-card-city" id="home-ws-card-city">
-                      <i class="fas fa-map-marker-alt"></i>
-                      <% if workshop.place.city.size >= 11 %>
-                        <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
-                      <% else %>
-                        <span id="city-name"><%= workshop.place.city.capitalize %></span>
-                      <% end %>
-                    </div>
+                    <% if workshop.place.name.include?("Atelier en visio") %>
+                      <div class="ws-card-visio">
+                        <span>en visio</span>
+                      </div>
+                    <% else %>
+                      <div class="ws-card-city" id="home-ws-card-city">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <% if workshop.place.city.size >= 11 %>
+                          <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
+                        <% else %>
+                          <span id="city-name"><%= workshop.place.city.capitalize %></span>
+                        <% end %>
+                      </div>
+                    <% end %>
                   </div>
                 </div>
               <% end %>
@@ -254,14 +260,20 @@
                       <div class="ws-card-price" id="home-ws-card-price">
                         <%= session.workshop.price %> €
                       </div>
-                      <div class="ws-card-city" id="home-ws-card-city">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <% if session.workshop.place.city.size >= 11 %>
-                          <span id="city-name"><%= session.workshop.place.city[0..11].capitalize %>...</span>
-                        <% else %>
-                          <span id="city-name"><%= session.workshop.place.city.capitalize %></span>
-                        <% end %>
-                      </div>
+                      <% if session.workshop.place.name.include?("Atelier en visio") %>
+                        <div class="ws-card-visio">
+                          <span>en visio</span>
+                        </div>
+                      <% else %>
+                        <div class="ws-card-city" id="home-ws-card-city">
+                          <i class="fas fa-map-marker-alt"></i>
+                          <% if session.workshop.place.city.size >= 11 %>
+                            <span id="city-name"><%= session.workshop.place.city[0..11].capitalize %>...</span>
+                          <% else %>
+                            <span id="city-name"><%= session.workshop.place.city.capitalize %></span>
+                          <% end %>
+                        </div>
+                      <% end %>
                     </div>
                   </div>
                 <% end %>

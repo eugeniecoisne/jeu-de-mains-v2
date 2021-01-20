@@ -105,7 +105,7 @@ class WorkshopsController < ApplicationController
     @prices = policy_scope(Workshop).where(status: 'en ligne', db_status: true).map { |ws| ws.price }
     @max_price = @prices.present? ? @prices.max : 120
 
-    @places_geo = Place.where(id: @workshops.pluck(:place_id))
+    @places_geo = Place.where(id: @workshops.pluck(:place_id)).select { |p| p.name.include?("Atelier en visio") == false}
 
     @markers = @places_geo.map do |place|
       {
@@ -144,6 +144,10 @@ class WorkshopsController < ApplicationController
 
   def update
     @workshop.update(workshop_params)
+    if params[:workshop][:place_id].present?
+      @workshop.place = Place.find(params[:workshop][:place_id])
+      @workshop.place.name == "Atelier en visio" ? @workshop.update(visio: true) : @workshop.update(visio: false)
+    end
     if @workshop.save
       flash[:notice] = "Votre atelier a bien été modifié !"
       redirect_to tableau_de_bord_profile_path(current_user.profile)
@@ -182,6 +186,9 @@ class WorkshopsController < ApplicationController
     authorize @workshop
     @workshop.place = Place.find(params[:workshop][:place_id])
     @workshop.status = 'hors ligne'
+    if @workshop.place.name == "Atelier en visio"
+      @workshop.visio = true
+    end
     if @workshop.photos.attached? == false
       all_initial_ws = Workshop.all.select { |workshop| workshop.title == @workshop.title }
       if all_initial_ws.select { |workshop| workshop.place.user == @workshop.place.user }.present?
@@ -272,6 +279,6 @@ class WorkshopsController < ApplicationController
   end
 
   def workshop_params
-    params.require(:workshop).permit(:title, :program, :final_product, :thematic, :level, :duration, :price, :status, :db_status, :capacity, :verified, :recommendable, :ephemeral, :slug, photos: [])
+    params.require(:workshop).permit(:title, :program, :final_product, :thematic, :level, :duration, :price, :status, :db_status, :capacity, :verified, :recommendable, :ephemeral, :kit, :kit_description, :visio, :slug, photos: [])
   end
 end

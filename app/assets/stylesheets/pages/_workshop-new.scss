@@ -91,6 +91,7 @@
 // FORM DESIGN
 
 .new-ws-container {
+
   .simple_form {
     select {
       background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
@@ -101,14 +102,21 @@
     label {
       font-weight: 600;
       color: $dark-blue;
-
+      font-size: 15px;
+      opacity: 0.8;
+    }
+    legend {
+      font-weight: 600;
+      color: $dark-blue;
       font-size: 15px;
       opacity: 0.8;
     }
     .form-control {
       border-color: $dark-blue;
-      height: 36px;
       font-size: 14.5px;
+    }
+    #workshop_place_id {
+      height: 36px;
     }
     input[type=file]::-webkit-file-upload-button {
       color: $light-blue;

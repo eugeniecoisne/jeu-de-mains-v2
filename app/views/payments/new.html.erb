@@ -22,6 +22,17 @@
       </div>
     </div>
 
+   <div class="booking-options-contact">
+      <h2 class="booking-options-contact-title">Vos coordonnées</h2>
+      <p><strong>Numéro de téléphone :</strong> <%= @booking.phone_number %></p>
+      <% if @booking.session.workshop.visio_with_kit? %>
+        <p><strong>Adresse :</strong> <%= @booking.address %></p>
+        <p><strong>Complément d'adresse :</strong> <%= @booking.address_complement %></p>
+        <p><strong>Code Postal :</strong> <%= @booking.zip_code %></p>
+        <p><strong>Ville :</strong> <%= @booking.city %></p>
+      <% end %>
+    </div>
+
     <% if @booking.giftcard_amount_spent.present? %>
       <div class="booking-options-giftcard-options">
         <p>Vous avez choisi d'utiliser une carte cadeau qui contenait : <%= Giftcard.find(@booking.giftcard_id.to_i).amount %> €</p>

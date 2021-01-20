@@ -22,6 +22,17 @@
       </div>
     </div>
 
+    <div class="booking-options-contact">
+      <h2 class="booking-options-contact-title">Vos coordonnées</h2>
+      <p><strong>Numéro de téléphone :</strong> <%= @booking.phone_number %></p>
+      <% if @booking.session.workshop.visio_with_kit? %>
+        <p><strong>Adresse :</strong> <%= @booking.address %></p>
+        <p><strong>Complément d'adresse :</strong> <%= @booking.address_complement %></p>
+        <p><strong>Code Postal :</strong> <%= @booking.zip_code %></p>
+        <p><strong>Ville :</strong> <%= @booking.city %></p>
+      <% end %>
+    </div>
+
     <% if @booking.giftcard_amount_spent.nil? &&  current_user.giftcards.select { |giftcard| giftcard.buyer != current_user.id && giftcard.amount.to_i > 0 && giftcard.deadline_date >= Date.today }.present? == false %>
       <div id="showGiftcardOptions" class="booking-options-giftcard-options-btn"><span>Utiliser une carte cadeau</span></div>
     <% end %>
@@ -38,7 +49,7 @@
 
       <% if current_user.giftcards.select { |giftcard| giftcard.buyer != current_user.id && giftcard.amount.to_i > 0 && giftcard.deadline_date >= Date.today }.present? && @booking.giftcard_amount_spent.nil? %>
 
-        <form class="simple_form edit_booking" id="edit_booking_<%=@booking.id%>" novalidate="novalidate" action="/reservations/<%=@booking.id%>" accept-charset="UTF-8" method="post">
+        <form class="simple_form edit_booking edit_giftcard_booking" id="edit_booking_<%=@booking.id%>" novalidate="novalidate" action="/reservations/<%=@booking.id%>" accept-charset="UTF-8" method="post">
           <input type="hidden" name="_method" value="patch">
           <fieldset class="form-group radio_buttons optional booking_status form-group-valid">
               <% current_user.giftcards.where(status: "paid").select { |giftcard| giftcard.buyer != current_user.id && giftcard.amount.to_i > 0 && giftcard.deadline_date >= Date.today }.reverse.each do |giftcard| %>
@@ -96,8 +107,8 @@
       </tbody>
     </table>
 
-    <%= form_for(@booking, :html => {:class => 'edit_cgv_booking'}) do |f| %>
-      <%= f.check_box :cgv_agreement %>
+    <%= form_for(@booking, :html => {:class => 'edit_contact_cgv_booking'}) do |f| %>
+        <%= f.check_box :cgv_agreement %>
       <span class="ml-1">J'ai lu et j'accepte les <strong><%= link_to "conditions générales de vente", cgv_path, target: "_blank" %></strong></span>
     <%end%>
 
@@ -111,35 +122,3 @@
   </div>
 
 <% end %>
-
-<script>
-  const input = document.querySelector('input[type=checkbox]');
-  const cgv_update_form = document.querySelector(".edit_cgv_booking");
-
-  if (input) {
-    input.addEventListener("change", (event) => {
-      event.preventDefault();
-      cgv_update_form.submit();
-    });
-  }
-
-  const giftcardForm = document.querySelector('.simple_form');
-  const giftcard_update_form = document.querySelector(".edit_booking");
-
-  if (giftcardForm) {
-    giftcardForm.addEventListener("change", (event) => {
-      event.preventDefault();
-      giftcard_update_form.submit();
-    });
-  }
-
-  const button = document.querySelector('.go-to-payment-btn')
-
-  if (button) {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      alert("Vous devez donner votre accord sur les conditions générales de vente de Jeu de Mains pour continuer");
-    });
-  }
-
-</script>

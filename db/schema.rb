@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_14_130743) do
+ActiveRecord::Schema.define(version: 2021_01_20_203531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,11 @@ ActiveRecord::Schema.define(version: 2021_01_14_130743) do
     t.float "giftcard_amount_spent"
     t.string "stripe_giftcard_transfer"
     t.date "cancelled_at"
+    t.string "address"
+    t.string "zip_code"
+    t.string "city"
+    t.string "phone_number"
+    t.string "address_complement"
     t.index ["session_id"], name: "index_bookings_on_session_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -260,6 +265,9 @@ ActiveRecord::Schema.define(version: 2021_01_14_130743) do
     t.integer "recommendable", default: 1
     t.string "slug"
     t.boolean "ephemeral", default: false
+    t.boolean "kit", default: false
+    t.text "kit_description"
+    t.boolean "visio", default: false
     t.index ["place_id"], name: "index_workshops_on_place_id"
     t.index ["slug"], name: "index_workshops_on_slug", unique: true
   end

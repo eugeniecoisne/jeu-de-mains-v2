@@ -2,7 +2,7 @@ ActiveAdmin.register Workshop do
   menu parent: "Fiches"
   config.per_page = 50
   remove_filter :slug, :photos_attachments, :photos_blobs
-  permit_params :title, :ephemeral, :thematic, :level, :duration, :capacity, :price, :program, :final_product, :recommendable, :verified, :status, :db_status, :slug, :place, :place_id, photos:[]
+  permit_params :title, :ephemeral, :thematic, :level, :duration, :capacity, :price, :program, :final_product, :recommendable, :verified, :status, :db_status, :slug, :place, :place_id, :kit, :kit_description, :visio, photos:[]
 
   action_item "Ajouter un animateur" do
     link_to("Ajouter un animateur", new_admin_animator_path, class: :button)

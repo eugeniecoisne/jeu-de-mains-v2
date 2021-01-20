@@ -24,12 +24,17 @@
     color: $dark-blue;
     margin-bottom: 14px;
     width: 555px;
+    line-height: 1.4;
   }
   .edit_cgv_booking {
     font-size: 15px;
     strong {
       font-weight: 600;
     }
+  }
+  .go-to-payment-btn {
+    background-color: $gray;
+    cursor: none;
   }
   button {
     border: unset;
@@ -38,6 +43,22 @@
     padding-top: 4px;
     padding-bottom: 4px;
     outline: none;
+  }
+}
+
+.booking-options-contact {
+  h2 {
+    color: white;
+    font-size: 14px;
+  }
+  background-color: $light-blue;
+  color: white;
+  padding: 15px;
+  width: 555px;
+  margin-bottom: 20px;
+  p {
+    font-size: 14px;
+    margin-bottom: unset;
   }
 }
 
@@ -178,6 +199,21 @@
   background-color: $blue;
 }
 
+.booking-coordonnees-container {
+  .button {
+    border: unset;
+    font-size: 15px;
+    padding: 4px 12px;
+    background-color: $dark-blue;
+    color: white;
+  }
+  .button:hover {
+    background-color: $blue;
+  }
+  .form-control {
+    font-size: 15px;
+  }
+}
 
 
 // RESPONSIVE BOOKING OPTIONS //
@@ -211,11 +247,11 @@
     }
     .go-to-payment-btn {
       font-size: 15px;
-      background-color: $blue;
     }
-    .go-to-payment-btn:hover {
-      background-color: $dark-blue;
-    }
+  }
+
+  .booking-options-contact {
+    width: 100%;
   }
 
   .booking-options-workshop {
@@ -237,11 +273,7 @@
     margin-left: unset;
   }
   .booking-options-giftcard-options {
-    background-color: $blue;
     width: 100%;
-    p {
-      color: white;
-    }
   }
   #booking-options-confirm-booking-button {
     font-size: 14px;

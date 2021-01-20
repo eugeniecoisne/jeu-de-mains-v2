@@ -44,6 +44,10 @@ class Workshop < ApplicationRecord
     end
   end
 
+  def visio_with_kit?
+    visio? && kit?
+  end
+
   def moments
     moments = []
     sessions.where(db_status: true).each { |s| moments << s.moment }

@@ -22,7 +22,7 @@
 
         <%= f.input :title, label: "Intitulé de l'atelier" %>
         <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS, class: "updatable" %>
-        <%= f.input :ephemeral, as: :boolean, label: "Cet atelier est éphémère (organisé à l'occasion d'un événement par exemple)", class: "updatable" %>
+        <%= f.input :ephemeral, as: :radio_buttons, label: "Cet atelier est éphémère (organisé à l'occasion d'un événement par exemple)", class: "updatable" %>
         <%= f.input :program, label: "Programme", :input_html => {:rows => 8}, class: "updatable" %>
         <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3}, class: "updatable" %>
         <%= f.input :photos, as: :file, input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" }, label: "Photos de l'atelier" %>
@@ -41,17 +41,18 @@
           </select>
         </div>
 
-        <div class="form-group select is-valid optional workshop_animator form-group-valid">
-          <label class="select optional" for="workshop_animator">Animé par</label>
-          <select class="form-control is-valid select optional disabled" disabled="disabled" name="workshop[animator]" id="workshop_animator">
-            <% if @workshop.animators.where(db_status: true).last.present? %>
+        <% if @workshop.animators.where(db_status: true).last.present? %>
+          <div class="form-group select is-valid optional workshop_animator form-group-valid">
+            <label class="select optional" for="workshop_animator">Animé par</label>
+            <select class="form-control is-valid select optional disabled" disabled="disabled" name="workshop[animator]" id="workshop_animator">
               <option value="<%= @workshop.animators.where(db_status: true).last.user.id %>" selected><%= @workshop.animators.where(db_status: true).last.user.profile.company %></option>
-            <% else %>
-              <option value="" selected><%= @workshop.place.name %></option>
-            <% end %>
-          </select>
-        </div>
-
+            </select>
+          </div>
+        <% end %>
+        <% if @workshop.place.name == "Atelier en visio" %>
+          <%= f.input :kit, disabled: true, as: :radio_buttons, label: "Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
+          <%= f.input :kit_description, disabled: true, :input_html => {:rows => 4}, label: "Description du kit" %>
+        <% end %>
         <%= f.input :thematic, disabled: true, label: "Type d'atelier" %>
         <%= f.input :duration, disabled: true, label: "Durée de l'atelier en minutes" %>
         <%= f.input :price, disabled: true, label: "Prix par personne" %>
@@ -81,12 +82,15 @@
         <%= f.input :title, label: "Intitulé de l'atelier" %>
         <%= f.input :thematic, label: "Type d'atelier", collection: Workshop::THEMATICS %>
         <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS %>
-        <%= f.input :ephemeral, label: "Cet atelier est éphémère (organisé à l'occasion d'un événement par exemple)" %>
+        <%= f.input :ephemeral, as: :radio_buttons, label: "Cet atelier est éphémère (organisé à l'occasion d'un événement par exemple)" %>
         <%= f.input :duration, label: "Durée de l'atelier en minutes" %>
         <%= f.input :price, label: "Prix par personne" %>
         <%= f.input :capacity, label: "Nombre de places proposées" %>
         <%= f.input :program, label: "Programme", :input_html => {:rows => 8} %>
         <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3} %>
+        <%= f.input :kit, as: :radio_buttons, label: "Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
+        <%= f.input :kit_description, :input_html => {:rows => 4}, label: "Description du kit" %>
+
         <%= f.input :photos, as: :file, label: "Photos de l'atelier", input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" } %>
         <p id="bytesSize"></p>
 

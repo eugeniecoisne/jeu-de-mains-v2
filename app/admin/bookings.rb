@@ -1,7 +1,7 @@
 ActiveAdmin.register Booking do
   menu parent: "Achats"
   config.per_page = 50
-  permit_params :quantity, :status, :amount, :user_id, :user, :session_id, :session, :db_status, :workshop
+  permit_params :quantity, :status, :amount, :user_id, :user, :session_id, :session, :db_status, :workshop, :address, :address_complement, :zip_code, :city, :phone_number
   BOOKING_SESSIONS = Session.all.where(db_status: true).sort_by { |s| s.date }.map { |s| ["#{s.id} - #{s.date.strftime("%d/%m/%y")} à #{s.start_at} - #{s.workshop.title} chez #{s.workshop.place.name} - #{s.available} places restantes", s.id] }.to_h
   BOOKING_USERS = User.all.select { |u| u.profile.company.present? == false }.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
@@ -56,6 +56,11 @@ ActiveAdmin.register Booking do
     column "Note donnée /5" do |booking|
       booking.reviews.last.rating if booking.reviews.present?
     end
+    column :address
+    column :address_complement
+    column :zip_code
+    column :city
+    column :phone_number
   end
 
   csv do
@@ -114,6 +119,11 @@ ActiveAdmin.register Booking do
     column "Note donnée /5" do |booking|
       booking.reviews.last.rating if booking.reviews.present?
     end
+    column :address
+    column :address_complement
+    column :zip_code
+    column :city
+    column :phone_number
   end
 
   show do |booking|
@@ -166,6 +176,11 @@ ActiveAdmin.register Booking do
       row "Note donnée /5" do |booking|
         booking.reviews.last.rating if booking.reviews.present?
       end
+      row :address
+      row :address_complement
+      row :zip_code
+      row :city
+      row :phone_number
     end
   end
 
@@ -176,6 +191,13 @@ ActiveAdmin.register Booking do
     end
     f.inputs "Quantité" do
       f.input :quantity
+    end
+    f.inputs "Coordonnées" do
+      f.input :address
+      f.input :address_complement
+      f.input :zip_code
+      f.input :city
+      f.input :phone_number
     end
     f.inputs "Statut" do
       f.input :status
