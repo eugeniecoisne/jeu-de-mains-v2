@@ -22,6 +22,13 @@ class ProfilesController < ApplicationController
 
   def update
     @profile.update(profile_params)
+    if @profile.role.present?
+      if (@profile.user.places.present? && @profile.user.places.where(name: "Atelier en visio").count == 0) || @profile.user.places.nil?
+        @place = Place.new(name: "Atelier en visio", address: "Visio", zip_code: "Visio", city: "Visio")
+        @place.user = @profile.user
+        @place.save
+      end
+    end
     if @profile.save
       redirect_to profile_path(@profile)
     else

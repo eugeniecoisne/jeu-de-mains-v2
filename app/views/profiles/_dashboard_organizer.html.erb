@@ -169,7 +169,11 @@
                   <div class="ws-dashboard-organizer-text-and-buttons">
                     <div class="ws-dashboard-organizer-text">
                       <%= link_to workshop_path(workshop) do %>
-                        <h2><%= workshop.title %></h2>
+                        <% if workshop.place.name.include?("Atelier en visio") %>
+                          <h2><span class="ws-dashboard-organizer-visio">VISIO</span> <%= workshop.title %></h2>
+                        <% else %>
+                          <h2><%= workshop.title %></h2>
+                        <% end %>
                       <% end %>
                       <span class="ws-dashboard-organizer-text-your-role">
                         <% if workshop.place.user == current_user %>
@@ -518,9 +522,14 @@
                               <% end %>
 
                               <h4 class="mobile-my-agenda-ws-place-name">
-                                <%= link_to "https://www.google.fr/maps/search/#{session.workshop.place.address}, #{session.workshop.place.zip_code} #{session.workshop.place.city.upcase}", target: "_blank" do %>
-                                  <i class="fas fa-map-marker-alt mr-2"></i>
-                                  Chez <%= session.workshop.place.name %> au <%= "#{session.workshop.place.address}, #{session.workshop.place.zip_code} #{session.workshop.place.city.capitalize}" %>
+                                <% if session.workshop.place.name.include?("Atelier en visio") %>
+                                  <i class="fas fa-video mr-2"></i>
+                                  En visioconférence
+                                <% else %>
+                                  <%= link_to "https://www.google.fr/maps/search/#{session.workshop.place.address}, #{session.workshop.place.zip_code} #{session.workshop.place.city.upcase}", target: "_blank" do %>
+                                    <i class="fas fa-map-marker-alt mr-2"></i>
+                                    Chez <%= session.workshop.place.name %> au <%= "#{session.workshop.place.address}, #{session.workshop.place.zip_code} #{session.workshop.place.city.capitalize}" %>
+                                  <% end %>
                                 <% end %>
                               </h4>
 
@@ -621,9 +630,14 @@
                               <% end %>
 
                               <h4 class="mobile-my-agenda-ws-place-name">
-                                <%= link_to "https://www.google.fr/maps/search/#{session.workshop.place.address}, #{session.workshop.place.zip_code} #{session.workshop.place.city.upcase}", target: "_blank" do %>
-                                  <i class="fas fa-map-marker-alt mr-2"></i>
-                                  Chez <%= session.workshop.place.name %> au <%= "#{session.workshop.place.address}, #{session.workshop.place.zip_code} #{session.workshop.place.city.capitalize}" %>
+                                <% if session.workshop.place.name.include?("Atelier en visio") %>
+                                  <i class="fas fa-video mr-2"></i>
+                                  En visioconférence
+                                <% else %>
+                                  <%= link_to "https://www.google.fr/maps/search/#{session.workshop.place.address}, #{session.workshop.place.zip_code} #{session.workshop.place.city.upcase}", target: "_blank" do %>
+                                    <i class="fas fa-map-marker-alt mr-2"></i>
+                                    Chez <%= session.workshop.place.name %> au <%= "#{session.workshop.place.address}, #{session.workshop.place.zip_code} #{session.workshop.place.city.capitalize}" %>
+                                  <% end %>
                                 <% end %>
                               </h4>
 

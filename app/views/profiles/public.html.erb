@@ -170,18 +170,24 @@
                           <% end %>
                         </div>
                       </div>
-                      <div class="ws-card-price-and-city" id="index-ws-card-price-and-city">
-                        <div class="ws-card-price" id="index-ws-card-price">
+                      <div class="ws-card-price-and-city">
+                        <div class="ws-card-price">
                           <%= workshop.price %> €
                         </div>
-                        <div class="ws-card-city" id="index-ws-card-city">
-                          <i class="fas fa-map-marker-alt"></i>
-                          <% if workshop.place.city.size >= 11 %>
-                            <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
-                          <% else %>
-                            <span id="city-name"><%= workshop.place.city.capitalize %></span>
-                          <% end %>
-                        </div>
+                        <% if workshop.place.name.include?("Atelier en visio") %>
+                          <div class="ws-card-visio">
+                            <span>en visio</span>
+                          </div>
+                        <% else %>
+                          <div class="ws-card-city">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <% if workshop.place.city.size >= 11 %>
+                              <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
+                            <% else %>
+                              <span id="city-name"><%= workshop.place.city.capitalize %></span>
+                            <% end %>
+                          </div>
+                        <% end %>
                       </div>
                     </div>
                   <% end %>
@@ -191,6 +197,14 @@
           </div>
         <% else %>
           <p><%= @profile.company %> n'a pas d'atelier en ligne.</p>
+        <% end %>
+        <% if workshops_count > 4 %>
+          <div class="show-more-workshops active">
+            <a id="showMoreWsButton" class="blue-btn active">Voir plus d'ateliers</a>
+          </div>
+          <div class="show-less-workshops">
+            <a id="showLessWsButton" class="blue-btn">Voir moins d'ateliers</a>
+          </div>
         <% end %>
 
       </div>

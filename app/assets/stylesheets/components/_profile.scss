@@ -131,7 +131,7 @@
   grid-gap: 1em;
   max-height: 670px;
   overflow: hidden;
-  padding-bottom: 1em;
+  padding: 5px 5px 1em 5px;
 }
 
 .public-profile-our-ws-cards.long {
@@ -351,7 +351,7 @@
 }
 
 // Medium devices (tablets, 768px and up)
-@media (min-width: 768px) and (max-width: 991px)  {
+@media (min-width: 768px) and (max-width: 1050px)  {
   .public-profile-header {
     padding-bottom: 4em;
     margin-bottom: 2em;
@@ -404,7 +404,7 @@
 }
 
 // Large devices (desktops, 992px and up)
-@media (min-width: 992px) and (max-width: 1199px)  {
+@media (min-width: 1051px) and (max-width: 1199px)  {
   .public-profile-main-figures {
     padding-top: 5.5em;
     padding-bottom: 1.5em;

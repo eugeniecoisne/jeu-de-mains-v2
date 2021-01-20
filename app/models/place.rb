@@ -144,7 +144,7 @@ class Place < ApplicationRecord
   def self.cities_and_districts
     districts_to_show = []
     big_cities_to_show = []
-    Place.all.where(db_status: true).select { |place| place.workshops.where(db_status: true, status: "en ligne").present? }.each do |place|
+    Place.all.where(db_status: true).select { |place| place.workshops.where(db_status: true, status: "en ligne").present? && (place.name.include?("Atelier en visio") == false)}.each do |place|
       if place.zip_code.first(2) == "97"
         districts_to_show << DISTRICTS[place.zip_code.first(3)]
       else
