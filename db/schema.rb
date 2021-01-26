@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_20_203531) do
+ActiveRecord::Schema.define(version: 2021_01_26_161700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 2021_01_20_203531) do
     t.string "city"
     t.string "phone_number"
     t.string "address_complement"
+    t.string "kit_expedition_status"
+    t.string "kit_expedition_link"
     t.index ["session_id"], name: "index_bookings_on_session_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end

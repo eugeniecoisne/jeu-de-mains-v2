@@ -171,6 +171,12 @@
     padding-left: 1.3em;
     padding-top: 1em;
   }
+  .ws-show-place-visio {
+    background-color: white;
+    color: $blue;
+    padding: 1px 2px;
+    font-weight: 600;
+  }
 }
 
 .ws-show-informations-animator {
@@ -229,7 +235,7 @@
   display: flex;
   flex-wrap: wrap;
   i {
-    color: $orange;
+    color: $green;
     font-size: 1.5em;
     padding-right: 0.25em;
   }
@@ -237,13 +243,13 @@
     display: flex;
     align-items: center;
     padding: 0.15em 0.7em;
-    background-color: $orange;
-    border: 1px solid $orange;
+    background-color: $green;
+    border: 1px solid $green;
     color: white;
     font-weight: 600;
     border-radius: 0.4em;
     font-family: 'Montserrat', 'sans-serif';
-    font-size: 13px;
+    font-size: 12px;
     margin-right: 0.4em;
     margin-bottom: 0.5em;
     text-transform: uppercase;
@@ -255,7 +261,7 @@
     color: $white;
   }
   #informations-tag-unclickable:hover {
-    background-color: $orange;
+    background-color: $green;
     color: $white;
   }
   .informations-tag-submit {
@@ -271,7 +277,7 @@
   }
   .informations-tag-submit:hover {
     outline: none;
-    color: $orange;
+    color: $green;
   }
   .informations-tag-submit:focus {
     outline: none;

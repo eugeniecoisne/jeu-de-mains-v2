@@ -68,6 +68,14 @@
           </div>
 
           <div>
+            <% if params[:search][:visio].present? %>
+              <%= f.input :visio, required: false, as: :radio_buttons, checked: params[:search][:visio], label: "Afficher les ateliers en visio", namespace: "unique_prefix_to_be_prepended_to_id" %>
+            <% else %>
+              <%= f.input :visio, required: false, as: :radio_buttons, label: "Afficher les ateliers en visio", checked: true, namespace: "unique_prefix_to_be_prepended_to_id" %>
+            <% end %>
+          </div>
+
+          <div>
             <% if params[:search][:ephemeral].present? %>
               <%= f.input :ephemeral, required: false, as: :radio_buttons, checked: params[:search][:ephemeral], label: "Afficher les ateliers éphémères", namespace: "unique_prefix_to_be_prepended_to_id" %>
             <% else %>
@@ -108,6 +116,9 @@
             <%= f.input :ends_at, as: :string, required: false, input_html: { class: "datepicker", id: "search_ends_at_16" }, placeholder: "À tout moment", label: "Jusqu'au" %>
           </div>
           <div>
+            <%= f.input :visio, required: false, as: :radio_buttons, label: "Afficher les ateliers en visio", checked: true, namespace: "unique_prefix_to_be_prepended_to_id" %>
+          </div>
+          <div>
             <%= f.input :ephemeral, required: false, as: :radio_buttons, label: "Afficher les ateliers éphémères", checked: true, namespace: "unique_prefix_to_be_prepended_to_id" %>
           </div>
         <% end %>
@@ -123,6 +134,7 @@
           <%= f.hidden_field :place, id: "search_place_17" %>
           <%= f.hidden_field :level, id: "search_level_17" %>
           <%= f.hidden_field :ephemeral, value: true, id: "search_ephemeral_17" %>
+          <%= f.hidden_field :visio, value: true, id: "search_visio_17" %>
           <%= f.hidden_field :min_price, value: 0, id: "search_min_price_17" %>
           <%= f.hidden_field :max_price, value: @max_price, id: "search_max_price_17" %>
           <%= f.hidden_field :selection, id: "search_selection_17" %>

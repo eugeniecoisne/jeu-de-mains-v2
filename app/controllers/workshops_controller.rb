@@ -78,7 +78,13 @@ class WorkshopsController < ApplicationController
 
       if params[:search][:ephemeral].present?
         if params[:search][:ephemeral] == 'false'
-          @workshops = @workshops.where(ephemeral: false).paginate(page: params[:page], per_page: 20)
+          @workshops = @workshops.select { |w| w.ephemeral == false }.paginate(page: params[:page], per_page: 20)
+        end
+      end
+
+      if params[:search][:visio].present?
+        if params[:search][:visio] == 'false'
+          @workshops = @workshops.select { |w| w.visio == false }.paginate(page: params[:page], per_page: 20)
         end
       end
 

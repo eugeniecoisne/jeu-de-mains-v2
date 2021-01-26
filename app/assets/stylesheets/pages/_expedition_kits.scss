@@ -1,0 +1,148 @@
+.expedition-kits-container {
+  margin : 3rem 8rem;
+  .back-button {
+    margin-bottom: 3rem;
+  }
+  .modal {
+    .form-group {
+      padding-top: 1rem;
+    }
+    label {
+      font-weight: 600;
+      color: $blue;
+      font-size: 15px;
+    }
+    input {
+      font-size: 14px;
+    }
+  }
+}
+
+.expedition-kits-title {
+  margin-bottom: 25px;
+  h1 {
+    font-size: 40px;
+    color: $dark-blue;
+    font-weight: 700;
+    font-family: "Amiri", serif;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: 15px;
+    color: $blue;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+}
+
+.expedition-kits-quantities {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: $blue;
+  max-width: 210px;
+  padding: 5px 10px;
+  h3 {
+    font-size: 14px;
+    color: white;
+    margin-bottom: unset;
+  }
+}
+
+.expedition-kits-export-xls {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: unset;
+  border: 1px solid $blue;
+  color: $blue;
+  text-decoration: none;
+  outline: none;
+  max-width: 210px;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.expedition-kits-export-xls:hover {
+  text-decoration: none;
+  border-color: $dark-blue;
+  color: $dark-blue;
+}
+
+.expedition-kits-bookings {
+  margin-top: 30px;
+  padding-bottom: 30px;
+  font-size: 15px;
+  th {
+    color: $dark-blue;
+  }
+
+}
+
+.expedition-kits-one-booking {
+  padding: 20px;
+}
+
+.expedition-kits-button {
+  background-color: $light-blue;
+  color: white;
+  text-decoration: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 3px 11px;
+  border-radius: 16px;
+}
+
+.expedition-kits-button:hover {
+  background-color: $blue;
+  color: white;
+  text-decoration: none;
+  outline: none;
+}
+
+// RESPONSIVE EXPEDITION KITS //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .expedition-kits-container {
+    margin : 1rem;
+    .back-button {
+      margin-bottom: 2.5rem;
+    }
+  }
+  .expedition-kits-title {
+    h1 {
+      font-size: 27px;
+    }
+    h2 {
+      font-size: 16px;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+  .expedition-kits-container {
+    margin : 2rem;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+  .expedition-kits-container {
+    margin : 2rem 4rem;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+  .expedition-kits-container {
+    margin : 2rem 6rem;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}

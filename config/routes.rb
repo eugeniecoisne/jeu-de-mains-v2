@@ -70,6 +70,7 @@ Rails.application.routes.draw do
   resources :sessions, only: %i() do
     get 'search-places'
     get 'participants'
+    get 'expedition_kits'
     get 'annulation_et_remboursement'
   end
 
