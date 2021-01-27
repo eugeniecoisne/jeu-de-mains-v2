@@ -23,27 +23,6 @@
   min-height: 400px;
 }
 
-.dashboard-contact-us {
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0.2rem 0.4rem 0px;
-  position: fixed;
-  color: white;
-  background-color: $light-blue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 15px;
-  padding: 10px;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  bottom: 1rem;
-  right: 1rem;
-  z-index: 3;
-  a {
-    color: white;
-  }
-}
-
 // NAV PILLS
 
 .dashboard-nav-and-tab {

@@ -32,6 +32,7 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload', preload: true %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true, preload: true %>
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
+
   </head>
   <body>
     <div style="min-height: 82vh;">
@@ -62,5 +63,23 @@
 
     <%= javascript_pack_tag 'application' %>
     <noscript>Votre navigateur ne supporte pas JavaScript...</noscript>
+
+    <% unless (controller.controller_name == 'workshops' && controller.action_name == 'index') || (controller.controller_name == 'profiles' && controller.action_name == 'messagerie') || (controller.controller_name == 'profiles' && controller.action_name == 'index') %>
+      <script type="text/javascript">
+        (function() {
+          window.sib = { equeue: [], client_key: "0fq0vp17o9c40pdismwye5oq" };
+          /* OPTIONAL: email to identify request*/
+          // window.sib.email_id = 'example@domain.com';
+          /* OPTIONAL: to hide the chat on your script uncomment this line (0 = chat hidden; 1 = display chat) */
+          // window.sib.display_chat = 0;
+          // window.sib.display_logo = 0;
+          /* OPTIONAL: to overwrite the default welcome message uncomment this line*/
+          // window.sib.custom_welcome_message = 'Hello, how can we help you?';
+          /* OPTIONAL: to overwrite the default offline message uncomment this line*/
+          window.sib.custom_offline_message = "Afin de vous répondre, nous vous remercions de nous indiquer votre adresse e-mail :) (utilisée uniquement dans le cadre de cet échange). À très vite, l'équipe Jeu de Mains ;)";
+          window.sendinblue = {}; for (var j = ['track', 'identify', 'trackLink', 'page'], i = 0; i < j.length; i++) { (function(k) { window.sendinblue[k] = function(){ var arg = Array.prototype.slice.call(arguments); (window.sib[k] || function() { var t = {}; t[k] = arg; window.sib.equeue.push(t);})(arg[0], arg[1], arg[2]);};})(j[i]);}var n = document.createElement("script"),i = document.getElementsByTagName("script")[0]; n.type = "text/javascript", n.id = "sendinblue-js", n.async = !0, n.src = "https://sibautomation.com/sa.js?key=" + window.sib.client_key, i.parentNode.insertBefore(n, i), window.sendinblue.page();
+        })();
+      </script>
+    <% end %>
   </body>
 </html>
