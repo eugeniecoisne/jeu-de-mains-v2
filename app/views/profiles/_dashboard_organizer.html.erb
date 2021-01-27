@@ -31,6 +31,9 @@
           <a class="nav-link" id="v-pills-my-agenda-passed-tab" data-toggle="pill" href="#v-pills-my-agenda-passed" role="tab" aria-controls="v-pills-my-agenda-passed" aria-selected="false">
             Mon planning passé
           </a>
+          <a class="nav-link" id="v-pills-kits-sending-tab" data-toggle="pill" href="#v-pills-kits-sending" role="tab" aria-controls="v-pills-kits-sending" aria-selected="false">
+            Mes envois de kits
+          </a>
           <a class="nav-link" id="v-pills-my-kpis-tab" data-toggle="pill" href="#v-pills-my-kpis" role="tab" aria-controls="v-pills-my-kpis" aria-selected="false">
             Mes chiffres clés
           </a>
@@ -52,6 +55,9 @@
           </a>
           <a class="nav-link" id="v-pills-my-agenda-passed-tab" data-toggle="pill" href="#v-pills-my-agenda-passed" role="tab" aria-controls="v-pills-my-agenda-passed" aria-selected="false">
             <span>Mon planning passé</span>
+          </a>
+          <a class="nav-link" id="v-pills-kits-sending-tab" data-toggle="pill" href="#v-pills-kits-sending" role="tab" aria-controls="v-pills-kits-sending" aria-selected="false">
+            <span>Mes envois de kits</span>
           </a>
           <a class="nav-link" id="v-pills-my-kpis-tab" data-toggle="pill" href="#v-pills-my-kpis" role="tab" aria-controls="v-pills-my-kpis" aria-selected="false">
             <span>Mes chiffres clés</span>
@@ -689,6 +695,36 @@
               <% end %>
             </div>
           </div>
+
+
+
+
+          <!-- KITS SENDING -->
+
+          <div class="tab-pane fade" id="v-pills-kits-sending" role="tabpanel" aria-labelledby="v-pills-kits-sending-tab">
+
+            <div class="dashobard-my-kits-sending">
+              <% my_sessions.select { |s| s.date >= Date.today && s.workshop.kit == true}.sort_by { |s| s.date }.each do |session| %>
+                <h2>Visio dans <%= ((session.date.to_time - Time.now.to_time) / 1.days).round %> jours</h2>
+                <% if session.workshop.photos.attached? %>
+                  <%= cl_image_tag session.workshop.photos[0].key, loading: "lazy", alt: "jeu-de-mains-#{session.workshop.title}", title: "jeu-de-mains-#{session.workshop.title}", width: 95, height: 95, crop: :fill %>
+                <% else %>
+                  <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 95, :height => 95, :crop => :fill, :alt => "jeu-de-mains-#{session.workshop.title}", :title => "jeu-de-mains-#{session.workshop.title}") %>
+                <% end %>
+                <%= link_to workshop_path(session.workshop) do  %>
+                  <h4>Kit pour l'atelier <%= session.workshop.title %></h4>
+                <% end %>
+                <h4>
+                  Le <%= l(session.date, format: '%A %d %B %Y').capitalize %> à <%= session.start_at %>
+                </h4>
+                <h4><%= session.sold > 1 ? "#{session.sold} participants inscrits" : "#{session.sold} participant inscrit"%></h4>
+                <h4>Clôture des réservations le <%= l((session.date - 7.days), format: '%A %d %B %Y') %></h4>
+                <%= link_to "Gérer l'expédition", session_expedition_kits_path(session), class: "button" %>
+              <% end %>
+            </div>
+          </div>
+
+
 
           <!-- MY KPIs -->
 

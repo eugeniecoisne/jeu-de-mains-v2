@@ -22,13 +22,19 @@
         <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 800, :crop => :fill, :alt => "jeu-de-mains", :title => "jeu-de-mains") %>
       </div>
     <% end %>
-    <% if @workshop.ephemeral == true %>
+    <% if @workshop.ephemeral == true || @workshop.visio == true %>
       <div class="ws-show-ephemeral-status">
-        <span>
-          <i class="far fa-star pr-1"></i>
-          Cet atelier est éphémère
-          <i class="far fa-star pl-1"></i>
-        </span>
+          <span>
+            <% if @workshop.ephemeral == true && @workshop.visio == false %>
+              <i class="far fa-star pr-1"></i>
+                Cet atelier est éphémère
+              <i class="far fa-star pl-1"></i>
+            <% else %>
+              <i class="fas fa-video pr-1"></i>
+                Atelier animé à distance en visioconférence
+              <i class="fas fa-video pl-1"></i>
+            <% end %>
+          </span>
       </div>
     <% end %>
   </div>

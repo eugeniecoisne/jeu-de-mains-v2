@@ -493,21 +493,6 @@
 
 // RESPONSIVE ORGANIZER DASHBOARD //
 
-@media (min-width: 100px) and (max-width: 320px) {
-   #dashboard-organizer-nav-and-tab {
-    .nav-link {
-      width: 176px;
-    }
-  }
-}
-
-@media (min-width: 321px) and (max-width: 745px) {
-   #dashboard-organizer-nav-and-tab {
-    .nav-link {
-      width: 60%;
-    }
-  }
-}
 // Smallest device
 @media (min-width: 100px) and (max-width: 745px) {
 

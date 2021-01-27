@@ -1,7 +1,7 @@
 ActiveAdmin.register Booking do
   menu parent: "Achats"
   config.per_page = 50
-  permit_params :quantity, :status, :amount, :user_id, :user, :session_id, :session, :db_status, :workshop, :address, :address_complement, :zip_code, :city, :phone_number
+  permit_params :quantity, :status, :amount, :user_id, :user, :session_id, :session, :db_status, :workshop, :address, :address_complement, :zip_code, :city, :phone_number, :kit_expedition_status, :kit_expedition_link
   BOOKING_SESSIONS = Session.all.where(db_status: true).sort_by { |s| s.date }.map { |s| ["#{s.id} - #{s.date.strftime("%d/%m/%y")} à #{s.start_at} - #{s.workshop.title} chez #{s.workshop.place.name} - #{s.available} places restantes", s.id] }.to_h
   BOOKING_USERS = User.all.select { |u| u.profile.company.present? == false }.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
@@ -61,6 +61,8 @@ ActiveAdmin.register Booking do
     column :zip_code
     column :city
     column :phone_number
+    column :kit_expedition_status
+    column :kit_expedition_link
   end
 
   csv do
@@ -124,6 +126,8 @@ ActiveAdmin.register Booking do
     column :zip_code
     column :city
     column :phone_number
+    column :kit_expedition_status
+    column :kit_expedition_link
   end
 
   show do |booking|
@@ -181,6 +185,8 @@ ActiveAdmin.register Booking do
       row :zip_code
       row :city
       row :phone_number
+      row :kit_expedition_status
+      row :kit_expedition_link
     end
   end
 
@@ -198,6 +204,10 @@ ActiveAdmin.register Booking do
       f.input :zip_code
       f.input :city
       f.input :phone_number
+    end
+    f.inputs "Kit" do
+      f.input :kit_expedition_status, collection: ["Bientôt en préparation", "En préparation", "Expédiée", "Livrée"]
+      f.input :kit_expedition_link
     end
     f.inputs "Statut" do
       f.input :status

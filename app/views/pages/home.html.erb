@@ -260,7 +260,7 @@
                       <div class="ws-card-price" id="home-ws-card-price">
                         <%= session.workshop.price %> €
                       </div>
-                      <% if session.workshop.place.name.include?("Atelier en visio") %>
+                      <% if session.workshop.visio == true %>
                         <div class="ws-card-visio">
                           <span>en visio</span>
                         </div>

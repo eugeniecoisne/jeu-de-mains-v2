@@ -107,9 +107,15 @@
                           <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                             Organisé par <%= booking.session.workshop.place.user.profile.company %>
                           <% end %>
-                          <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-link" do %>
-                            Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
+                          <% if booking.session.workshop.visio == true %>
+                            <span class="localize-link"><%= booking.session.workshop.kit == true ? "En visioconférence avec kit" : "En visioconférence sans kit" %></span>
+                          <% else %>
+                            <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-link" do %>
+                              Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
+                            <% end %>
                           <% end %>
+                          <!-- statut envoi du kit -->
+                          <!-- lien de suivi -->
                           <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
                           <div class="d-flex justify-content-left align-items-center">
 
@@ -193,9 +199,13 @@
                         <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                           Organisé par <%= booking.session.workshop.place.user.profile.company %>
                         <% end %>
-                        <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-link" do %>
-                          Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
-                        <% end %>
+                        <% if booking.session.workshop.visio == true %>
+                            <span class="localize-link"><%= booking.session.workshop.kit == true ? "En visioconférence avec kit" : "En visioconférence sans kit" %></span>
+                          <% else %>
+                            <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-link" do %>
+                              Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
+                            <% end %>
+                          <% end %>
                         <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
                         <div class="d-flex align-items-center">
                           <% if booking.session.workshop.db_status == true && booking.session.workshop.status == "en ligne" %>
@@ -257,8 +267,12 @@
                           <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                             Organisé par <%= booking.session.workshop.place.user.profile.company %>
                           <% end %>
-                          <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-link" do %>
-                            Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
+                          <% if booking.session.workshop.visio == true %>
+                            <span class="localize-link"><%= booking.session.workshop.kit == true ? "En visioconférence avec kit" : "En visioconférence sans kit" %></span>
+                          <% else %>
+                            <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-link" do %>
+                              Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
+                            <% end %>
                           <% end %>
                           <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
                           <p id="my-booking-cancel">Annulée le <%= booking.cancelled_at.strftime('%d/%m/%Y') %></p>

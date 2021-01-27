@@ -1,3 +1,6 @@
+require 'csv'
+require 'rails/all'
+
 class SessionsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(search_places)
   skip_after_action :verify_authorized, only: [:update]
@@ -75,6 +78,19 @@ class SessionsController < ApplicationController
       authorize @session
     end
     @infomessage = Infomessage.new
+  end
+
+  def expedition_kits
+    if Session.find(params[:session_id]).db_status == true
+      @session = Session.find(params[:session_id])
+      authorize @session
+      @bookings = @session.bookings.where(db_status: true, status: "paid")
+      respond_to do |format|
+        format.html
+        format.csv { send_data @bookings.to_csv }
+        format.xls
+      end
+    end
   end
 
   private

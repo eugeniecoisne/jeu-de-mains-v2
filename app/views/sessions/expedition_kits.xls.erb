@@ -1,0 +1,34 @@
+<table border="1">
+  <tr>
+    <th>Date de session</th>
+    <th>Heure de session</th>
+    <th>Atelier</th>
+    <th>Numéro de reservation</th>
+    <th>Nom</th>
+    <th>Prenom</th>
+    <th>Adresse</th>
+    <th>Complement adresse</th>
+    <th>Code postal</th>
+    <th>Ville</th>
+    <th>Telephone</th>
+    <th>Date de réservation</th>
+    <th>Quantites de kits</th>
+  </tr>
+  <% @bookings.each do |booking| %>
+  <tr>
+    <td><%= booking.session.date %></td>
+    <td><%= booking.session.start_at %></td>
+    <td><%= booking.session.workshop.title %></td>
+    <td><%= booking.id %></td>
+    <td><%= booking.user.last_name.present? ? booking.user.last_name : "-" %></td>
+    <td><%= booking.user.first_name.present? ? booking.user.first_name : "-" %></td>
+    <td><%= booking.address.present? ? booking.address : "-" %></td>
+    <td><%= booking.address_complement.present? ? booking.address_complement : "-" %></td>
+    <td><%= booking.zip_code.present? ? booking.zip_code : "-" %></td>
+    <td><%= booking.city.present? ? booking.city : "-" %></td>
+    <td><%= booking.phone_number.present? ? booking.phone_number : "-" %></td>
+    <td><%= booking.created_at %></td>
+    <td><%= booking.quantity %></td>
+  </tr>
+  <% end %>
+</table>

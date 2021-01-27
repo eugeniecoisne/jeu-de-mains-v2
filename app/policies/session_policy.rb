@@ -24,6 +24,10 @@ class SessionPolicy < ApplicationPolicy
     record.workshop.place.user == user || record.workshop.animators.last.user || user.admin?
   end
 
+  def expedition_kits?
+    participants?
+  end
+
   class Scope < Scope
     def resolve
       scope.all

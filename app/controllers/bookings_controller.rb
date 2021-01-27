@@ -92,9 +92,7 @@ class BookingsController < ApplicationController
 
   def payment_success
     @booking = Booking.find(params[:booking_id])
-    if @booking.status == "paid"
-      authorize @booking
-    end
+    authorize @booking
   end
 
   def payment_error
@@ -188,7 +186,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard, :phone_number, :address, :address_complement, :zip_code, :city)
+    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard, :phone_number, :address, :address_complement, :zip_code, :city, :kit_expedition_status, :kit_expedition_link)
   end
 
 end

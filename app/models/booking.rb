@@ -12,4 +12,5 @@ class Booking < ApplicationRecord
   def contact_completed?
     phone_number?
   end
+
 end
