@@ -16,7 +16,12 @@
   </div>
 
   <%= link_to session_expedition_kits_path(format: :xls), class: "expedition-kits-export-xls" do %>
-    Télécharger fichier .xls
+    Exporter .xls
+    <i class="fas fa-upload ml-1"></i>
+  <% end %>
+
+  <%= link_to session_expedition_kits_path(format: :csv), class: "expedition-kits-export-xls ml-1" do %>
+    .csv
     <i class="fas fa-upload ml-1"></i>
   <% end %>
 
@@ -74,7 +79,7 @@
 
             <td>
               <% if booking.kit_expedition_link.present? %>
-                <a href="<%= booking.kit_expedition_link %>" ,="" target="_blank" rel="noopener">Suivre</a>
+                <a href="<%= booking.kit_expedition_link %>" ,="" target="_blank" rel="noopener"><%= booking.kit_expedition_link %></a>
               <% else %>
 
                 <a href="#changeKitExpeditionLinkModal<%= index +1 %>" class="expedition-kits-button" data-toggle="modal" data-whatever="@mdo">

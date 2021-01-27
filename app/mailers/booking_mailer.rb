@@ -108,4 +108,16 @@ class BookingMailer < ApplicationMailer
     end
 
   end
+
+  def kit_expedition_notification
+    @booking = params[:booking]
+
+    if @booking.db_status == true && @booking.status == "paid" && @booking.kit_expedition_status == "Expédiée"
+      mail(
+        to:       @booking.user.email,
+        subject:  "Votre kit créatif a été expédié par #{@booking.session.workshop.place.user.profile.company} !",
+        track_opens: 'true',
+        message_stream: 'outbound')
+    end
+  end
 end

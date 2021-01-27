@@ -50,7 +50,6 @@ class BookingsController < ApplicationController
       redirect_to tableau_de_bord_profile_path(current_user.profile)
 
     else
-
       @booking.update(booking_params)
       if @booking.giftcard_id.present? && @booking.giftcard_amount_spent.nil?
         giftcard = Giftcard.all.find(@booking.giftcard_id.to_i)
@@ -59,6 +58,10 @@ class BookingsController < ApplicationController
         else
           @booking.update(giftcard_amount_spent: giftcard.amount)
         end
+      end
+      if params[:booking][:kit_expedition_status].present? && params[:booking][:kit_expedition_status] == "Expédiée"
+        mail_expedition = BookingMailer.with(booking: @booking).kit_expedition_notification
+        mail_expedition.deliver_later(wait: 3.hours)
       end
       if params[:booking][:cgv_agreement].present?
         if (@booking.session.workshop.visio_with_kit? && @booking.contact_visio_completed?) || ((@booking.session.workshop.kit == false ) && @booking.contact_completed?)
