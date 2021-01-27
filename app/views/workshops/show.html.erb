@@ -59,7 +59,7 @@
           <span>Retour</span>
         <% end %>
       </div>
-      <% if current_user.admin && @workshop.status == "vérification" %>
+      <% if current_user && current_user.admin && @workshop.status == "vérification" %>
         <div class="ws-verification-box">
           <p>Vérification de l'atelier par Jeu de Mains</p>
           <div>
@@ -72,11 +72,11 @@
             <%= f.submit "Confirmer", class: "verification-btn" %>
           <% end %>
         </div>
-      <% elsif current_user.admin && @workshop.status == "en ligne" %>
+      <% elsif current_user && current_user.admin && @workshop.status == "en ligne" %>
         <div class="ws-verification-box">
           <span>Atelier validé par Jeu de Mains.</span>
         </div>
-      <% elsif current_user.admin && @workshop.status == "hors ligne" %>
+      <% elsif current_user && current_user.admin && @workshop.status == "hors ligne" %>
         <div class="ws-verification-box">
           <span>Cet atelier n'est pas en ligne et n'est pas vérifié.</span>
         </div>

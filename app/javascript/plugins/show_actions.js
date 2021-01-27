@@ -10,12 +10,11 @@ const showActions = () => {
       actionbtn.addEventListener("click", (event) => {
         event.preventDefault();
 
-        const index = actionbtn.id.slice(-1);
+        const index = actionbtn.id.match(/\d+/).join();
         console.log(index);
 
         const actionsDiv = document.querySelector("#ws-dashboard-organizer-buttons-" + index);
         const actionButton = document.querySelector(".show-actions-button-" + index);
-
 
         actionbtn.classList.remove("active")
         actionsDiv.classList.add("active")
