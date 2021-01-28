@@ -44,7 +44,7 @@
             <span id="ws-booking-price"><%= @workshop.price %> €</span>
             <span>/pers</span>
           </div>
-          <% if current_user.profile.role.present? %>
+          <% if current_user.present? && current_user.profile.role.present? %>
             <%= f.hidden_field :status, value: "interdit"  %>
           <% end %>
           <%= f.submit 'Je réserve', class: "white-btn" %>

@@ -52,6 +52,11 @@
       <%= render 'shared/flashes' %>
       <%= yield %>
     </div>
+    <!-- NL FOOTER -->
+    <% if controller.controller_name == 'pages' || (controller.controller_name == 'profiles' && controller.action_name == 'public') || (controller.controller_name == 'profiles' && controller.action_name == 'index') %>
+      <%= render 'shared/footer-newsletter' %>
+    <% end %>
+
     <!-- FOOTER -->
     <% if controller.controller_name == 'pages' %>
       <%= render 'shared/footer' %>
