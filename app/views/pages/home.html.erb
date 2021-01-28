@@ -154,7 +154,7 @@
           <h3>Ateliers couture de maillot de bain, customisation de lunettes de soleil, broderie de pochette de plage… Découvrez notre sélection <em>Ça sent bon l’été</em></h3>
         </div>
         <div>
-          <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+          <%= simple_form_for :search, url: workshops_path, html: {class: "selected-ws-1"}, method: :get do |f| %>
             <%= f.hidden_field :selection, value: 'maillot' %>
             <%= f.submit 'Voir la sélection', class: "home-selection-btn" %>
           <% end %>
@@ -170,7 +170,7 @@
           <h3>Le masque est devenu un indispensable dans nos vies alors que diriez-vous de coudre votre propre masque ? Découvrez notre sélection d’ateliers couture de masques en tissu</h3>
         </div>
         <div>
-          <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
+          <%= simple_form_for :search, url: workshops_path, html: {class: "selected-ws-2"}, method: :get do |f| %>
             <%= f.hidden_field :selection, value: 'masque' %>
             <%= f.submit 'Voir la sélection', class: "home-selection-btn" %>
           <% end %>
@@ -179,32 +179,35 @@
     </div>
 
     <!-- THEMATICS SELECTION -->
-
-    <div class="home-selection-card" id="home-thematic-first">
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_700/v1603214470/jeu-de-mains-vegetal.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-vegetal", :title => "jeu-de-mains-ateliers-vegetal") %>
-      <div class="home-selection-text">
-        <div>
-          <h2>La belle nature</h2>
-          <h3>Ateliers herbier, couronne de fleurs, cloche florale, bouquet, terrarium … Découvrez nos ateliers d’art végétal</h3>
-        </div>
-        <div class="mb-2">
-          <%= link_to 'Voir la sélection', vegetal_path, class: "home-selection-btn pb-2" %>
-        </div>
-      </div>
-    </div>
-
-    <div class="home-selection-card" id="home-thematic-second">
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_700/v1603214469/jeu-de-mains-cosmetique-entretien.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-cosmetique-entretien", :title => "jeu-de-mains-ateliers-cosmetique-entretien") %>
-      <div class="home-selection-text">
-        <div>
-          <h2>Je prends soin de moi</h2>
-          <h3>Vous avez envie de respecter votre peau, vos vêtements, votre maison, avec des produits 100% naturels ? Pourquoi pas les formuler vous-mêmes ! Découvrez nos ateliers cosmétiques et entretien maison</h3>
-        </div>
-        <div class="mb-2">
-          <%= link_to 'Voir la sélection', cosmetique_et_entretien_path, class: "home-selection-btn pb-2" %>
+    <%= link_to vegetal_path do %>
+      <div class="home-selection-card" id="home-thematic-first">
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_700/v1603214470/jeu-de-mains-vegetal.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-vegetal", :title => "jeu-de-mains-ateliers-vegetal") %>
+        <div class="home-selection-text">
+          <div>
+            <h2>La belle nature</h2>
+            <h3>Ateliers herbier, couronne de fleurs, cloche florale, bouquet, terrarium … Découvrez nos ateliers d’art végétal</h3>
+          </div>
+          <div class="mb-2">
+            <span class="home-selection-btn pb-2">Voir la sélection</span>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
+
+    <%= link_to cosmetique_et_entretien_path do %>
+      <div class="home-selection-card" id="home-thematic-second">
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_700/v1603214469/jeu-de-mains-cosmetique-entretien.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-cosmetique-entretien", :title => "jeu-de-mains-ateliers-cosmetique-entretien") %>
+        <div class="home-selection-text">
+          <div>
+            <h2>Je prends soin de moi</h2>
+            <h3>Vous avez envie de respecter votre peau, vos vêtements, votre maison, avec des produits 100% naturels ? Pourquoi pas les formuler vous-mêmes ! Découvrez nos ateliers cosmétiques et entretien maison</h3>
+          </div>
+          <div class="mb-2">
+            <span class="home-selection-btn pb-2">Voir la sélection</span>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 
   <!-- WORKSHOP CARDS LAST MINUTE -->

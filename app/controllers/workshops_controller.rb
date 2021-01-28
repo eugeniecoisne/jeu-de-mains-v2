@@ -138,7 +138,7 @@ class WorkshopsController < ApplicationController
       end
     end
     dates = (Date.today..Date.today + 1.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 && workshop.place.district == @workshop.place.district && workshop.thematic == @workshop.thematic }.sort_by { |workshop| workshop.recommendable }.first(6)
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 && workshop.place.district == @workshop.place.district && workshop.thematic == @workshop.thematic && workshop.id != @workshop.id }.sort_by { |workshop| workshop.recommendable }.first(6)
   end
 
   def edit

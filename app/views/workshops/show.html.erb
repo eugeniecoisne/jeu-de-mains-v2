@@ -29,7 +29,9 @@
             <select class="form-control select required" name="session" id="session_id">
               <option value="" disabled selected>Sélectionnez une date</option>
               <% @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.sort_by { |session| session.date }.each do |session| %>
-                <option value="<%= session.id %>"><%= session.date.strftime('%d/%m/%Y') %> - Début : <%= session.start_at %></option>
+                <option value="<%= session.id %>">
+                  <%= session.available == 0 ? "#{l(session.date, format: '%A %d/%m/%y').capitalize} à #{session.start_at} - Complet" : "#{l(session.date, format: '%A %d/%m/%y').capitalize} à #{session.start_at}" %>
+                </option>
               <% end %>
             </select>
           </div>
@@ -42,6 +44,9 @@
             <span id="ws-booking-price"><%= @workshop.price %> €</span>
             <span>/pers</span>
           </div>
+          <% if current_user.profile.role.present? %>
+            <%= f.hidden_field :status, value: "interdit"  %>
+          <% end %>
           <%= f.submit 'Je réserve', class: "white-btn" %>
         <% end %>
         <p id="ws-show-giftcard">Vous avez reçu une carte cadeau ?<br>Rendez-vous à l'étape suivante pour l'utiliser!</p>

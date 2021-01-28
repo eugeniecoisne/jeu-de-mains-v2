@@ -4,18 +4,25 @@ class BookingsController < ApplicationController
 
   def create
     session = Session.find(params[:session])
-    workshop = session.workshop
-    quantity = params[:quantity].to_i
-    @booking = Booking.create!(
-      status: 'pending',
-      quantity: quantity,
-      amount: quantity * workshop.price,
-      session: session,
-      user: current_user
-      )
-    authorize @booking
-    CheckBookingStatusJob.set(wait: 20.minutes).perform_later(@booking)
-    redirect_to booking_coordonnees_path(@booking)
+    @workshop = session.workshop
+    if params[:booking].present? && params[:booking][:status].present? && params[:booking][:status] == "interdit"
+      @booking = Booking.new
+      authorize @booking
+      flash[:alert] = "Vous ne pouvez pas réserver d'atelier avec votre compte partenaire. Déconnectez-vous et créez un compte particulier ;)"
+      redirect_to workshop_path(@workshop)
+    else
+      quantity = params[:quantity].to_i
+      @booking = Booking.create!(
+        status: 'pending',
+        quantity: quantity,
+        amount: quantity * @workshop.price,
+        session: session,
+        user: current_user
+        )
+      authorize @booking
+      CheckBookingStatusJob.set(wait: 20.minutes).perform_later(@booking)
+      redirect_to booking_coordonnees_path(@booking)
+    end
   end
 
   def update

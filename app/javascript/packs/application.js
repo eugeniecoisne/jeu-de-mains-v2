@@ -20,6 +20,7 @@ import { showInfomessageBox } from '../plugins/show_infomessage_box';
 import { showIndexFilters } from '../plugins/show_index_filters';
 import { showGiftcardOptions } from '../plugins/show_giftcard_options';
 import { submitBookingOptions } from '../plugins/submit_booking_options';
+import { submitTrendSelection } from '../plugins/submit_trend_selection';
 import { initChatroomCable } from '../channels/chatroom_channel';
 
 
@@ -42,5 +43,6 @@ document.addEventListener('turbolinks:load', () => {
   showIndexFilters();
   showGiftcardOptions();
   submitBookingOptions();
+  submitTrendSelection();
   initChatroomCable();
 });
