@@ -686,7 +686,7 @@
       <% elsif @workshops.count == 1 %>
         <h3 class="index-ws-results">> Nous avons trouvé <span><%= @workshops.count %> atelier créatif</span> correspondant à votre recherche</h3>
       <% else %>
-        <h3 class="index-ws-results mt-4">> Nous n'avons trouvé aucun atelier créatif correspondant à votre recherche.</h3>
+        <h3 class="index-ws-results mt-4"><strong>> Nous n'avons trouvé aucun atelier créatif correspondant à votre recherche.</strong></h3>
         <h3 class="index-ws-results mt-3"><strong>Voici nos suggestions :</strong></h3>
       <% end %>
 
@@ -774,10 +774,12 @@
         <%= will_paginate @workshops.paginate(page: params[:page], per_page: 20), inner_window: 1, outer_window: 0 %>
       <% end %>
     </div>
-    <div id="map" class="ws-map"
-           style="width: 100%; height: 80vh; top: 0;"
-           data-markers="<%= @markers.to_json %>"
-           data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
-    </div>
+    <% unless @workshops.empty? %>
+      <div id="map" class="ws-map"
+             style="width: 100%; height: 80vh; top: 0;"
+             data-markers="<%= @markers.to_json %>"
+             data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+      </div>
+    <% end %>
   </div>
 </div>

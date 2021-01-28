@@ -64,6 +64,13 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1.5em;
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+  a:hover {
+    text-decoration: none;
+  }
 }
 
 .home-selection-card {

@@ -272,7 +272,7 @@
                             <% end %>
                           <% end %>
                           <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
-                          <p id="my-booking-cancel">Annulée le <%= booking.cancelled_at.strftime('%d/%m/%Y') %></p>
+                          <p id="my-booking-cancel"><%= "Annulée le #{booking.cancelled_at.strftime('%d/%m/%Y')}" if booking.cancelled_at.present? %></p>
                         </div>
                       <% end %>
                     </div>
