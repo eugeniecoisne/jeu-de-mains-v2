@@ -114,13 +114,15 @@
                           <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
                           <div class="d-flex justify-content-left align-items-center">
 
-                            <% if booking.session.date > Date.today + 2 %>
+                            <% if (booking.session.date > (Date.today + 2) && booking.session.workshop.kit == false) || (booking.session.date > (Date.today + 7) && booking.session.workshop.kit == true) %>
                               <%= link_to booking_path(booking),
                                 method: :delete,
                                 data: { confirm: "Êtes-vous sûr de vouloir annuler votre réservation ?" },
                                 class: "button mr-3" do %>
                                 Annuler
-                                <% end %>
+                              <% end %>
+                            <% else %>
+                              <%= link_to "Plus d'infos", workshop_path(booking.session.workshop), class: "button mr-3" %>
                             <% end %>
 
                             <a href="tel:+33<%= booking.session.workshop.place.phone_number[1..-1] %>" class="call-btn">

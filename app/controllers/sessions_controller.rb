@@ -87,7 +87,7 @@ class SessionsController < ApplicationController
       @bookings = @session.bookings.where(db_status: true, status: "paid")
       respond_to do |format|
         format.html
-        format.csv { send_data @bookings.to_csv }
+        format.csv
         format.xls
       end
     end

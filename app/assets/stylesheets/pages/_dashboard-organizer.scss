@@ -341,61 +341,79 @@
   }
 }
 
-// MY PLACES
+// MY KITS SENDING
 
-.dashboard-my-places-place {
+.dashboard-my-kits-sending-workshop {
   display: flex;
-  height: 90px;
   margin-bottom: 2em;
 }
 
-.dashboard-my-places-place-image {
+.dashboard-my-kits-sending-image {
   img {
-    width: 85px;
-    height: 100%;
+    width: 130px;
+    height: 180px;
     object-fit: cover;
   }
 }
 
-.dashboard-my-places-place-infos {
+.dashboard-my-kits-sending-infos {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-left: 1em;
+  .dashboard-my-kits-sending-coming {
+    font-size: 13.5px;
+    font-family: "Montserrat", Helvetica, sans-serif;
+    font-weight: 600;
+    color: $light-blue;
+    margin-bottom: 2px;
+  }
+  .dashboard-my-kits-sending-participants {
+    font-size: 13.5px;
+    font-family: "Montserrat", Helvetica, sans-serif;
+    font-weight: 600;
+    color: $blue;
+    margin-bottom: 10px;
+  }
   h2 {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     margin-bottom: 4px;
+    color: $dark-gray;
+    margin-bottom: 4px;
+    a {
+      text-decoration: none;
+      color: $dark-gray;
+    }
+    a:hover {
+      color: $blue;
+    }
   }
   h3 {
+    color: $dark-gray;
+    opacity: 0.9;
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 2px;
+    font-family: "Raleway", Helvetica, sans-serif;
   }
 }
 
-.dashboard-my-places-place-buttons {
-  .button {
-    font-size: 13px;
-    border-radius: 25px;
-    padding: 3px 12px;
-    border: 1px solid $blue;
-  }
-  .button:hover {
-    text-decoration: none;
-    background-color: unset;
-    color: $blue;
-  }
-  #public-profile-button {
-    background-color: $light-blue;
-    border-color: $light-blue;
-  }
-  #public-profile-button:hover {
-    text-decoration: none;
-    background-color: unset;
-    color: $blue;
-    border-color: $blue;
-  }
+.dashboard-my-kits-sending-button {
+  font-size: 13.5px;
+  padding: 3px 12px;
+  text-decoration: none;
+  outline: none;
+  background-color: $blue;
+  border: 1px solid $blue;
+  color: white;
+  font-weight: 600;
+}
+
+.dashboard-my-kits-sending-button:hover {
+  text-decoration: none;
+  background-color: unset;
+  color: $blue;
 }
 
 // MY KPIS
@@ -654,9 +672,15 @@
     font-size: 90%;
   }
 
-  // my places
+  // my kits sending
 
-  .dashboard-my-places-place-infos {
+  .dashboard-my-kits-sending-image {
+    img {
+      width: 70px;
+      height: 195px;
+    }
+  }
+  .dashboard-my-kits-sending-infos {
     h2 {
       font-size: 14px;
     }

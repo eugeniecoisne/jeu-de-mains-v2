@@ -1,0 +1,7 @@
+<h2>Bonne nouvelle !</h2>
+<h2>Votre kit créatif pour l'atelier <%= @booking.session.workshop.title %> a bien été expédié !</h2>
+<h3>Organisé par <%= @booking.session.workshop.place.user.profile.company %></h3>
+
+<% if @booking.kit_expedition_link.present? %>
+  <h4><a href="<%= @booking.kit_expedition_link %>" target="_blank">Suivez votre colis :</a></h4>
+<% end %>

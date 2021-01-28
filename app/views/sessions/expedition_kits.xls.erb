@@ -3,7 +3,7 @@
     <th>Date de session</th>
     <th>Heure de session</th>
     <th>Atelier</th>
-    <th>Numéro de reservation</th>
+    <th>Numero de reservation</th>
     <th>Nom</th>
     <th>Prenom</th>
     <th>Adresse</th>
@@ -13,22 +13,26 @@
     <th>Telephone</th>
     <th>Date de réservation</th>
     <th>Quantites de kits</th>
+    <th>Statut</th>
+    <th>Lien de suivi</th>
   </tr>
   <% @bookings.each do |booking| %>
   <tr>
-    <td><%= booking.session.date %></td>
+    <td><%= booking.session.date.strftime("%d/%m/%y") %></td>
     <td><%= booking.session.start_at %></td>
-    <td><%= booking.session.workshop.title %></td>
+    <td><%= booking.session.workshop.title.parameterize(separator:' ').capitalize %></td>
     <td><%= booking.id %></td>
-    <td><%= booking.user.last_name.present? ? booking.user.last_name : "-" %></td>
-    <td><%= booking.user.first_name.present? ? booking.user.first_name : "-" %></td>
-    <td><%= booking.address.present? ? booking.address : "-" %></td>
-    <td><%= booking.address_complement.present? ? booking.address_complement : "-" %></td>
+    <td><%= booking.user.last_name.present? ? booking.user.last_name.parameterize(separator:' ').capitalize : "-" %></td>
+    <td><%= booking.user.first_name.present? ? booking.user.first_name.parameterize(separator:' ').capitalize : "-" %></td>
+    <td><%= booking.address.present? ? booking.address.parameterize(separator:' ').capitalize : "-" %></td>
+    <td><%= booking.address_complement.present? ? booking.address_complement.parameterize(separator:' ').capitalize : "-" %></td>
     <td><%= booking.zip_code.present? ? booking.zip_code : "-" %></td>
-    <td><%= booking.city.present? ? booking.city : "-" %></td>
+    <td><%= booking.city.present? ? booking.city.parameterize(separator:' ').capitalize : "-" %></td>
     <td><%= booking.phone_number.present? ? booking.phone_number : "-" %></td>
-    <td><%= booking.created_at %></td>
+    <td><%= booking.created_at.strftime("%d/%m/%y") %></td>
     <td><%= booking.quantity %></td>
+    <td><%= booking.kit_expedition_status.present? ? booking.kit_expedition_status.parameterize(separator:' ').capitalize : "-" %></td>
+    <td><%= booking.kit_expedition_link.present? ? booking.kit_expedition_link : "-" %></td>
   </tr>
   <% end %>
 </table>
