@@ -1,0 +1,19 @@
+<% if params[:partner][:company].present? %>
+  <div class="back-button" id="welcome-partner-back-button">
+    <%= link_to :back do %>
+      <i class="fas fa-chevron-left"></i>
+      <span>Retour</span>
+    <% end %>
+  </div>
+
+  <div class="become-partner-form-container">
+
+    <div class="become-partner-form">
+      <div class="become-partner-form-title">
+        <h1>Formulaire envoyé !</h1>
+        <h2>Nous vous remercions pour votre demande d'inscription partenaire ! Nous traiterons dans les meilleurs délais votre demande et reprenons rapidement contact avec vous pour finaliser votre inscription et vous présenter l'interface <em>Partenaire</em> de Jeu de Mains.</h2>
+      </div>
+    </div>
+
+  </div>
+<% end %>

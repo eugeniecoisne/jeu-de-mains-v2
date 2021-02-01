@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'offrir-une-carte-cadeau', to: 'pages#offer_giftcard'
   get 'enregistrer-une-carte-cadeau', to: 'pages#register_giftcard'
   get 'devenir-partenaire', to: 'pages#become_partner'
+  get 'bienvenue-partenaire', to: 'pages#welcome_partner'
   get 'a-propos', to: 'pages#about'
   get 'contact', to: 'pages#contact'
   get 'mentions-legales', to: 'pages#legal_notice'

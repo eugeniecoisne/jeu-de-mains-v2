@@ -1,4 +1,181 @@
 <% content_for :meta_title, "Jeu de Mains | Devenir Partenaire" %>
 
 
-<h2>Devenir partenaire</h2>
+<div class="back-button" id="become-partner-back-button">
+  <%= link_to :back do %>
+    <i class="fas fa-chevron-left"></i>
+    <span>Retour</span>
+  <% end %>
+</div>
+
+<div class="become-partner-form-container">
+
+  <div class="become-partner-form">
+    <div class="become-partner-form-title">
+      <h1>Devenez partenaire</h1>
+      <h2>Augmentez votre visibilité, gérez vos ateliers en toute sérénité, gagnez du temps pour vous concentrer sur votre activité principale et rencontrez les partenaires de la communauté Jeu de Mains ! <br><br>
+      Vous êtes prêt ? Remplissez les champs du formulaire ci-dessous, nous traiterons ensuite ces informations afin de vous créer votre profil partenaire et reviendrons vers vous pour finaliser votre inscription sur notre plateforme !</h2>
+    </div>
+      <div class="become-partner-form-form">
+        <%= simple_form_for :partner, url: bienvenue_partenaire_path, method: :get do |f| %>
+
+
+          <div class="become-partner-form-form-part">
+            <% if params[:partner].present? %>
+              <h3>Votre entreprise</h3>
+              <label>Nom et SIRET</label>
+              <div class="become-partner-form-two-fields">
+                <% if params[:partner][:company].present?  %>
+                  <%= f.input :company, required: true, label: false, placeholder: "Nom société*", input_html: { value: params[:partner][:company], id: "partner_company_1" } %>
+                <% else %>
+                  <%= f.input :company, required: true, label: false, placeholder: "Nom société*", input_html: { id: "partner_company_2" } %>
+                <% end %>
+                <% if params[:partner][:siret_number].present? %>
+                  <%= f.input :siret_number, required: true, label: false, placeholder: "SIRET*", input_html: { value: params[:partner][:siret_number], id: "partner_siret_number_1" } %>
+                <% else %>
+                  <%= f.input :siret_number, required: true, label: false, placeholder: "SIRET*", input_html: { id: "partner_siret_number_2" } %>
+                <% end %>
+              </div>
+
+              <label>Coordonnées</label>
+
+              <div class="become-partner-form-two-fields">
+                <% if params[:partner][:email].present?  %>
+                  <%= f.input :email, required: true, label: false, placeholder: "E-mail*", input_html: { value: params[:partner][:email], id: "partner_email_1" } %>
+                <% else %>
+                  <%= f.input :email, required: true, label: false, placeholder: "E-mail*", input_html: { id: "partner_email_2" } %>
+                <% end %>
+                <% if params[:partner][:phone_number].present?  %>
+                  <%= f.input :phone_number, required: true, label: false, placeholder: "N° de téléphone*", input_html: { value: params[:partner][:phone_number], id: "partner_phone_number_1" } %>
+                <% else %>
+                  <%= f.input :phone_number, required: true, label: false, placeholder: "N° de téléphone*", input_html: { id: "partner_phone_number_2" } %>
+                <% end %>
+              </div>
+
+              <% if params[:partner][:address].present?  %>
+                <%= f.input :address, required: true, label: false, placeholder: "Adresse (n° et rue)*", input_html: { value: params[:partner][:address], id: "partner_address_1" } %>
+              <% else %>
+                <%= f.input :address, required: true, label: false, placeholder: "Adresse (n° et rue)*", input_html: { id: "partner_address_2" } %>
+              <% end %>
+
+              <div class="become-partner-form-two-fields">
+                <% if params[:partner][:zip_code].present?  %>
+                  <%= f.input :zip_code, required: true, label: false, placeholder: "Code postal*", input_html: { value: params[:partner][:zip_code], id: "partner_zip_code_1" } %>
+                <% else %>
+                  <%= f.input :zip_code, required: true, label: false, placeholder: "Code postal*", input_html: { id: "partner_zip_code_2" } %>
+                <% end %>
+                <% if params[:partner][:city].present?  %>
+                  <%= f.input :city, required: true, label: false, placeholder: "Ville*", input_html: { value: params[:partner][:city], id: "partner_city_1" } %>
+                <% else %>
+                  <%= f.input :city, required: true, label: false, placeholder: "Ville*", input_html: { id: "partner_city_2" } %>
+                <% end %>
+              </div>
+
+              <label>Sites web<em>(optionnel)</em></label>
+                <% if params[:partner][:website].present?  %>
+                  <%= f.input :website, required: false, label: false, placeholder: "Lien vers votre site web", input_html: { value: params[:partner][:website], id: "partner_website_1" } %>
+                <% else %>
+                  <%= f.input :website, required: false, label: false, placeholder: "Lien vers votre site web", input_html: { id: "partner_website_2" } %>
+                <% end %>
+                <% if params[:partner][:instagram].present?  %>
+                  <%= f.input :instagram, required: false, label: false, placeholder: "Lien vers votre instagram", input_html: { value: params[:partner][:instagram], id: "partner_instagram_1" } %>
+                <% else %>
+                  <%= f.input :instagram, required: false, label: false, placeholder: "Lien vers votre instagram", input_html: { id: "partner_instagram_2" } %>
+                <% end %>
+
+              <label>Activité principale</label>
+              <% if params[:partner][:role].present?  %>
+                <%= f.input :role, required: true, collection: Profile::ROLES, label: false, selected: params[:partner][:role], hint: "Quelle activité vous définit le mieux ? Vous pourrez toujours le modifier plus tard.", input_html: { id: "partner_role_1" } %>
+              <% else %>
+                <%= f.input :role, required: true, collection: Profile::ROLES, label: false, prompt: "Sélectionnez une activité principale*", hint: "Quelle activité vous définit le mieux ? Vous pourrez toujours le modifier plus tard.", input_html: { id: "partner_role_2" } %>
+              <% end %>
+
+            <% else %>
+
+              <h3>Votre entreprise</h3>
+              <label>Nom et SIRET</label>
+              <div class="become-partner-form-two-fields">
+                <%= f.input :company, required: true, label: false, placeholder: "Nom société*", input_html: { id: "partner_company_3" } %>
+                <%= f.input :siret_number, required: true, label: false, placeholder: "SIRET*", input_html: { id: "partner_siret_number_3" } %>
+              </div>
+
+              <label>Coordonnées</label>
+
+              <div class="become-partner-form-two-fields">
+                <%= f.input :email, required: true, label: false, placeholder: "E-mail*", input_html: { id: "partner_email_3" } %>
+                <%= f.input :phone_number, required: true, label: false, placeholder: "N° de téléphone*", input_html: { id: "partner_phone_number_3" } %>
+              </div>
+
+              <%= f.input :address, required: true, label: false, placeholder: "Adresse (n° et rue)*", input_html: { id: "partner_address_3" } %>
+
+              <div class="become-partner-form-two-fields">
+                <%= f.input :zip_code, required: true, label: false, placeholder: "Code postal*", input_html: { id: "partner_zip_code_3" } %>
+                <%= f.input :city, required: true, label: false, placeholder: "Ville*", input_html: { id: "partner_city_3" } %>
+              </div>
+
+              <label>Sites web<em>(optionnel)</em></label>
+              <%= f.input :website, required: false, label: false, placeholder: "Lien vers votre site web", input_html: { id: "partner_website_3" } %>
+              <%= f.input :instagram, required: false, label: false, placeholder: "Lien vers votre instagram", input_html: { id: "partner_instagram_3" } %>
+
+              <label>Activité principale</label>
+              <%= f.input :role, required: true, collection: Profile::ROLES, label: false, prompt: "Sélectionnez une activité principale*", hint: "Quelle activité vous définit le mieux ? Vous pourrez toujours le modifier plus tard.", input_html: { id: "partner_role_3" } %>
+
+            <% end %>
+
+          </div>
+
+          <div class="become-partner-form-form-part">
+            <% if params[:partner].present? %>
+              <h3>Vos informations</h3>
+              <label>Nom, Prénom et Fonction</label>
+              <div class="become-partner-form-two-fields">
+               <% if params[:partner][:last_name].present?  %>
+                  <%= f.input :last_name, required: true, label: false, placeholder: "Votre nom*", input_html: { value: params[:partner][:last_name], id: "partner_last_name_1" } %>
+                <% else %>
+                  <%= f.input :last_name, required: true, label: false, placeholder: "Votre nom*", input_html: { id: "partner_last_name_2" } %>
+                <% end %>
+                <% if params[:partner][:first_name].present?  %>
+                  <%= f.input :first_name, required: true, label: false, placeholder: "Votre prénom*", input_html: { value: params[:partner][:first_name], id: "partner_first_name_1" } %>
+                <% else %>
+                  <%= f.input :first_name, required: true, label: false, placeholder: "Votre prénom*", input_html: { id: "partner_first_name_2" } %>
+                <% end %>
+              </div>
+
+              <% if params[:partner][:position].present?  %>
+                <%= f.input :position, required: true, label: false, placeholder: "Votre fonction dans l'entreprise*", input_html: { value: params[:partner][:position], id: "partner_position_1" } %>
+              <% else %>
+                <%= f.input :position, required: true, label: false, placeholder: "Votre fonction dans l'entreprise*", input_html: { id: "partner_position_2" } %>
+              <% end %>
+
+              <p>En validant ce formulaire je donne mon accord à Jeu de Mains pour stocker et utiliser les données renseignées dans l'optique de la création de mon profil <em>Partenaire</em>. Pour plus d'informations sur le traitement de mes données : <%= link_to "politique de confidentialité", politique_de_confidentialite_path, target: '_blank' %>.</p>
+
+              <div class="d-flex justify-content-center mt-5">
+                <%= f.submit "J'envoie mon formulaire", class: "become-partner-form-button"%>
+              </div>
+
+            <% else %>
+              <h3>Vos informations</h3>
+              <label>Nom, Prénom et Fonction</label>
+              <div class="become-partner-form-two-fields">
+                <%= f.input :last_name, required: true, label: false, placeholder: "Votre nom*", input_html: { id: "partner_last_name_3" } %>
+                <%= f.input :first_name, required: true, label: false, placeholder: "Votre prénom*", input_html: { id: "partner_first_name_3" } %>
+              </div>
+              <%= f.input :position, required: true, label: false, placeholder: "Votre fonction dans l'entreprise*", input_html: { id: "partner_position_3" } %>
+
+              <p>En validant ce formulaire je donne mon accord à Jeu de Mains pour stocker et utiliser les données renseignées dans l'optique de la création de mon profil <em>Partenaire</em>. Pour plus d'informations sur le traitement de mes données : <%= link_to "politique de confidentialité", politique_de_confidentialite_path, target: '_blank' %>.</p>
+
+              <div class="d-flex justify-content-center mt-5">
+                <%= f.submit "J'envoie mon formulaire", class: "become-partner-form-button"%>
+              </div>
+
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
