@@ -111,8 +111,28 @@ class PagesController < ApplicationController
 
   def welcome_partner
     if params[:partner].present? && params[:partner][:company].present? && params[:partner][:siret_number].present? && params[:partner][:email].present? && params[:partner][:phone_number].present? && params[:partner][:address].present? && params[:partner][:zip_code].present? && params[:partner][:city].present? && params[:partner][:last_name].present? && params[:partner][:first_name].present? && params[:partner][:position].present?
-      # envoyer email à contact@jeudemains.com
-      #
+
+      @partner = {
+        company: params[:partner][:company],
+        siret_number: params[:partner][:siret_number],
+        email: params[:partner][:email],
+        phone_number: params[:partner][:phone_number],
+        address: params[:partner][:address],
+        zip_code: params[:partner][:zip_code],
+        city: params[:partner][:city],
+        role: params[:partner][:role],
+        first_name: params[:partner][:first_name],
+        last_name: params[:partner][:last_name],
+        position: params[:partner][:position],
+        website: params[:partner][:website],
+        instagram: params[:partner][:instagram],
+        message: params[:partner][:message],
+      }
+      internal_email = PartnerMailer.with(partner: @partner).internal_send_subscription_form
+      internal_email.deliver_later
+      external_email = PartnerMailer.with(partner: @partner).external_send_subscription_form
+      external_email.deliver_later
+
     else
       flash[:alert] = "Oups, le formulaire est incomplet"
       render 'become_partner'

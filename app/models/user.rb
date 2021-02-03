@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :animators, dependent: :destroy
   has_many :messages
   has_many :giftcards
+  after_create :send_or_not_confirmation
   after_create :create_profile
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, :trackable
@@ -19,7 +20,7 @@ class User < ApplicationRecord
   end
 
   def destroy
-    update_attributes(db_status: false)
+    self.update(db_status: false)
   end
 
   def active_for_authentication?
@@ -45,6 +46,14 @@ class User < ApplicationRecord
 
   def send_welcome_email
     UserMailer.with(user: self).welcome.deliver_later
+  end
+
+  def send_or_not_confirmation
+    if created_by_admin == true
+      self.skip_confirmation!
+      self.confirm
+      self.update(confirmed_at: Time.now)
+    end
   end
 
   def create_profile

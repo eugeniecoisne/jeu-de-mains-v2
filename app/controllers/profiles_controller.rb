@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(public)
-  before_action :set_profile, only: %i(edit update messagerie)
+  before_action :set_profile, only: %i(edit update messagerie send_welcome_partner_email)
   before_action :set_profile_and_verify, only: %i(show tableau_de_bord)
 
   def index
@@ -71,6 +71,13 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def send_welcome_partner_email
+    mail = PartnerMailer.with(profile: @profile).send_welcome_partner_email
+    mail.deliver_later
+    flash[:notice] = "L'e-mail a bien été envoyé !"
+    redirect_back fallback_location: root_path
+  end
+
   private
 
   def set_profile
@@ -79,6 +86,7 @@ class ProfilesController < ApplicationController
       authorize @profile
     end
   end
+
 
   def set_profile_and_verify
     if Profile.friendly.find(params[:id]).db_status == true

@@ -1,4 +1,4 @@
-<% if @profile.role %>
+<% if @profile.role || @profile.user.admin == true %>
   <%= render 'dashboard_organizer' %>
 <% else %>
   <%= render 'dashboard_mybookings' %>

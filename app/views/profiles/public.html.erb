@@ -47,7 +47,7 @@
               <%= "#{@profile.address}, #{@profile.zip_code} #{@profile.city.capitalize}" %>
             <% end %>
           </div>
-        <% elsif @profile.city %>
+        <% elsif @profile.city.present? %>
           <div class="public-profile-address">
             <i class="fas fa-map-marker-alt"></i>
             <%= @profile.city.capitalize %>
@@ -61,7 +61,7 @@
             </a>
           </div>
         <% end %>
-        <% if @profile.website %>
+        <% if @profile.website.present? %>
           <div class="public-profile-website">
             <%= link_to @profile.website, target: "_blank" do %>
               <i class="fas fa-globe"></i>
@@ -69,7 +69,7 @@
             <% end %>
           </div>
         <% end %>
-        <% if @profile.instagram %>
+        <% if @profile.instagram.present? %>
           <div class="public-profile-instagram">
             <%= link_to @profile.instagram, target: "_blank" do %>
               <i class="fab fa-instagram"></i>

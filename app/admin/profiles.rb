@@ -3,7 +3,6 @@ ActiveAdmin.register Profile do
   config.per_page = 50
   PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
-
   controller do
     def find_resource
       begin
@@ -101,6 +100,9 @@ ActiveAdmin.register Profile do
       row :created_at
       row :updated_at
       row :slug
+      row "Envoyer e-mail de bienvenue partenaire" do
+        link_to "Envoyer e-mail de bienvenue partenaire", "#{send_welcome_partner_email_profile_path(profile)}", target: "_blank"
+      end
     end
 
     if profile.user.places.present?
@@ -245,7 +247,7 @@ ActiveAdmin.register Profile do
     f.inputs "Utilisateur, nom d'entreprise et rôle" do
       f.input :user, collection: PROFILE_USERS
       f.input :company
-      f.input :role, collection: ["animateur", "organisateur"]
+      f.input :role, collection: Profile::ROLES
     end
     f.inputs "Adresse" do
       f.input :address

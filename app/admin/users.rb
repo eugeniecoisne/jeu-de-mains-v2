@@ -1,7 +1,7 @@
 ActiveAdmin.register User do
   config.per_page = 50
   remove_filter :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :confirmation_token, :confirmation_sent_at, :uid
-  permit_params :id, :first_name, :last_name, :email, :password, :password_confirmation
+  permit_params :id, :first_name, :last_name, :email, :password, :password_confirmation, :created_by_admin
 
   index do
     selectable_column
@@ -137,6 +137,9 @@ ActiveAdmin.register User do
     f.inputs "Mot de Passe" do
       f.input :password
       f.input :password_confirmation
+    end
+    f.inputs "Créé par l'admin" do
+      f.input :created_by_admin, value: true
     end
     f.actions
   end
