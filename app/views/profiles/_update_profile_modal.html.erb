@@ -10,11 +10,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
             </button>
-            <% if profile.phone_number %>
-              <%= f.input :phone_number, id: 'profile_phone_number', label: false, placeholder: profile.phone_number %>
-            <% else %>
-              <%= f.input :phone_number, id: 'profile_phone_number', label: false, placeholder: "Numéro de portable" %>
-            <% end %>
+            <%= f.input :phone_number, id: 'profile_phone_number', label: false, required: true, placeholder: "Numéro de portable" %>
             <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>
         <% end %>

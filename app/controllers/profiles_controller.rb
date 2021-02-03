@@ -1,11 +1,11 @@
 class ProfilesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(public)
-  before_action :set_profile, only: %i(edit update messagerie send_welcome_partner_email)
+  before_action :set_profile, only: %i(edit update messagerie send_finalisation_partner_email)
   before_action :set_profile_and_verify, only: %i(show tableau_de_bord)
 
   def index
     @chatroom = Chatroom.new
-    @profiles = policy_scope(Profile).where(db_status: true).select { |profile| profile.role.present? }
+    @profiles = policy_scope(Profile).where(db_status: true, ready: true).select { |profile| profile.role.present? }
     if params[:search].present?
       @profiles = @profiles.select { |profile| profile.company.include?(params[:search][:company])} if params[:search][:company].present? && params[:search][:company].include?("Tous les partenaires") == false
       @profiles = @profiles.select { |profile| profile.role.include?(params[:search][:role])} if params[:search][:role].present? && params[:search][:role].include?("Tous profils") == false
@@ -30,6 +30,7 @@ class ProfilesController < ApplicationController
       end
     end
     if @profile.save
+      flash[:notice] = "Vos modifications ont bien été prises en compte."
       redirect_to profile_path(@profile)
     else
       redirect_to profile_path(@profile)
@@ -45,7 +46,7 @@ class ProfilesController < ApplicationController
   end
 
   def tableau_de_bord
-    @users = User.all.where(db_status: true).select { |user| user.profile.role.present? && user != current_user }
+    @users = User.all.where(db_status: true).select { |user| user.profile.role.present? && user.profile.ready == true && user != current_user }
     @animator = Animator.new
     @session = Session.new
     @workshop = Workshop.new
@@ -71,8 +72,8 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def send_welcome_partner_email
-    mail = PartnerMailer.with(profile: @profile).send_welcome_partner_email
+  def send_finalisation_partner_email
+    mail = PartnerMailer.with(profile: @profile).send_finalisation_email
     mail.deliver_later
     flash[:notice] = "L'e-mail a bien été envoyé !"
     redirect_back fallback_location: root_path
@@ -98,6 +99,6 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:address, :zip_code, :city, :phone_number, :company, :siret_number, :website, :instagram, :role, :description, :photo)
+    params.require(:profile).permit(:address, :zip_code, :city, :phone_number, :company, :siret_number, :website, :instagram, :role, :description, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :photo)
   end
 end

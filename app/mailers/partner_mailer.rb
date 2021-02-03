@@ -1,4 +1,5 @@
 class PartnerMailer < ApplicationMailer
+  layout 'mailer_blank'
 
   def internal_send_subscription_form
 
@@ -23,12 +24,12 @@ class PartnerMailer < ApplicationMailer
       message_stream: 'outbound')
   end
 
-  def send_welcome_partner_email
+  def send_finalisation_email
 
     @profile = params[:profile]
 
     mail(from: 'contact@jeudemains.com',
-      to: @profile.user.email,
+      to: "#{@profile.user.email}, contact@jeudemains.com",
       subject: "Votre profil partenaire est créé, dernières étapes avant la mise en ligne !",
       track_opens: 'true',
       message_stream: 'outbound')

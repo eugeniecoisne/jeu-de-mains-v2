@@ -46,7 +46,7 @@ Rails.application.routes.draw do
       get 'tableau_de_bord'
       get 'mes_cartes_cadeaux'
       get 'messagerie'
-      get 'send_welcome_partner_email'
+      get 'send_finalisation_partner_email'
     end
   end
 
