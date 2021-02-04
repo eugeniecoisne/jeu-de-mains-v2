@@ -7,14 +7,14 @@ class SessionMailer < ApplicationMailer
   #
   def cancel_and_giveback
     @session = params[:session]
-    @place = @session.workshop.place.email
+    @organizer = @session.workshop.place.user.email
     @participants = @session.bookings.where(db_status: true, status: "paid").map { |booking| booking.user.email}.uniq.join(",")
 
     if @session.workshop.animators.where(db_status: true).present?
       @animator = @session.workshop.animators.where(db_status: true).last.user.email
 
       mail(
-        bcc:       "#{@participants}, #{@place}, #{@animator}",
+        bcc:       "#{@participants}, #{@organizer}, #{@animator}",
         subject:  "Votre atelier a malheureusement été annulé",
         track_opens: 'true',
         message_stream: 'outbound')
@@ -22,11 +22,10 @@ class SessionMailer < ApplicationMailer
     else
 
       mail(
-        bcc:       "#{@participants}, #{@place}",
+        bcc:       "#{@participants}, #{@organizer}",
         subject:  "Votre atelier a malheureusement été annulé",
         track_opens: 'true',
         message_stream: 'outbound')
-
 
     end
   end

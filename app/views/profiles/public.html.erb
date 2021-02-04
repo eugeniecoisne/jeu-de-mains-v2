@@ -1,5 +1,5 @@
 <% if @profile %>
-  <% if (@profile.db_status == true && @profile.ready == true) || (current_user == @profile.user) || current_user.admin == true  %>
+  <% if (@profile.db_status == true && @profile.ready == true) || (current_user == @profile.user if current_user.present?) || (current_user.admin == true if current_user.present?)  %>
 
     <% content_for :meta_title, "Jeu de Mains | #{@profile.company[0..45]}" %>
     <% content_for :meta_description, @profile.description[0..160] %>
@@ -20,7 +20,7 @@
         <% end %>
       </div>
 
-      <% if (current_user == @profile.user) || current_user.admin == true  %>
+      <% if current_user.present? && ((current_user == @profile.user) || current_user.admin == true)  %>
         <div class="public-profile-admin-update">
           <%= link_to "Modifier ma fiche", profile_path(@profile) %>
         </div>

@@ -214,20 +214,21 @@
           <% end %>
         </div>
 
-        <!-- WORKSHOP SHOW KIT -->
 
         <% if @workshop.visio == true && @workshop.kit == true %>
 
-        <% end %>
+          <!-- WORKSHOP SHOW KIT -->
 
-        <div class="ws-show-informations-kit">
-          <h2>Contenu du kit expédié</h2>
-          <% if @workshop.kit_description.present? %>
-            <p><%= @workshop.kit_description %></p>
-          <% else %>
-            <p>Vous recevrez un kit en amont de l'atelier avec le matériel nécessaire. Le contenu de ce kit n'a pas été renseigné par l'organisateur.</p>
-          <% end %>
-        </div>
+          <div class="ws-show-informations-kit">
+            <h2>Contenu du kit expédié</h2>
+            <% if @workshop.kit_description.present? %>
+              <p><%= @workshop.kit_description %></p>
+            <% else %>
+              <p>Vous recevrez un kit en amont de l'atelier avec le matériel nécessaire. Le contenu de ce kit n'a pas été renseigné par l'organisateur.</p>
+            <% end %>
+          </div>
+
+        <% end %>
 
         <!-- WORKSHOP SHOW PLACE -->
 
