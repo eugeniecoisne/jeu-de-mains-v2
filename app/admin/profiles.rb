@@ -1,6 +1,7 @@
 ActiveAdmin.register Profile do
   menu parent: "Fiches"
   config.per_page = 50
+  permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :photo
   PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
   controller do
@@ -297,11 +298,10 @@ ActiveAdmin.register Profile do
     end
     f.inputs "Statut" do
       f.input :db_status, as: :boolean
-      f.input :ready
+      f.input :ready, as: :boolean
     end
     f.actions
   end
 
-  permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :photo
 
 end
