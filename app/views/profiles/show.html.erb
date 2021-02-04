@@ -1,4 +1,4 @@
-<% if @profile.user == current_user %>
+<% if @profile.user == current_user || current_user.admin == true %>
   <!-- PROFILE SHOW - MY ACCOUNT -->
 
   <% content_for :meta_title, "Jeu de Mains | Mon Compte" %>

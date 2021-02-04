@@ -92,7 +92,7 @@ class ProfilesController < ApplicationController
   def set_profile_and_verify
     if Profile.friendly.find(params[:id]).db_status == true
       @profile = Profile.friendly.find(params[:id])
-      if @profile.user == current_user
+      if @profile.user == current_user || current_user.admin == true
         authorize @profile
       end
     end
