@@ -1,0 +1,134 @@
+.cc_css_reboot.cc_dialog.light.simple {
+  font-size: 20px;
+  max-height: 340px;
+  bottom: 1rem;
+  left: 1rem;
+  padding: 1.5rem;
+  background-color: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.cc_dialog.simple {
+  max-width: 35%,
+}
+.cc_dialog {
+  .cc_dialog_headline {
+    display: none;
+  }
+  .cc_dialog_text {
+    font-size: 13px;
+  }
+  button {
+    font-size: 12.5px;
+  }
+  button.cc_b_cp {
+    margin-left: unset !important;
+  }
+}
+
+.light.cc_dialog {
+  .cc_dialog_headline {
+    color: $dark-blue;
+  }
+  button.cc_b_ok {
+    background-color: $dark-blue;
+    color: white;
+    border-radius: 30px;
+    margin-right: 6px;
+  }
+  button.cc_b_cp {
+    margin-top: 5px;
+    border-radius: 30px;
+  }
+}
+
+.light.cookie-consent-preferences-overlay {
+  .cookie-consent-preferences-dialog {
+    .cc_cp_container {
+      .cc_cp_head {
+        display: none;
+      }
+
+      .cc_cp_content {
+        .cc_cp_m_menu {
+          li:nth-of-type(3) {
+            display: none;
+          }
+          li:nth-of-type(5) {
+            display: none;
+          }
+        }
+        .cc_cp_m_content {
+          div:nth-of-type(2) {
+            p:nth-of-type(3):after {
+              content: " Parmi les cookies nécessaires : la boîte de discussion en bas à droite de notre site par iSendinBlue et le présent consentement aux cookies par FreePrivacyPolicy.com."
+            }
+          }
+          div:nth-of-type(4) {
+            p:nth-of-type(4):after {
+              content: " Nous utilisons la solution de suivi Google Analytics."
+            }
+          }
+          h1 {
+            color: $dark-blue;
+            font-family: "Raleway", helvetica, sans-serif;
+            font-size: 17px;
+            font-weight: bolder;
+          }
+          p {
+            font-size: 14px;
+          }
+          a {
+            color: $green;
+            font-weight: bolder;
+            text-decoration: none;
+          }
+        }
+      }
+      .cc_cp_footer {
+        .cc_cp_f_powered_by {
+          display: none !important;
+        }
+        .cc_cp_f_save {
+          width: 100%;
+          background-color: white;
+          padding: 1rem;
+          border-top: unset;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          button {
+            background-color: $dark-blue;
+            color: white;
+            border: 1px solid $dark-blue;
+            border-radius: 30px;
+            margin-right: 0px;
+            font-weight: 600;
+          }
+          button:hover {
+            background-color: unset;
+            color: $dark-blue;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// RESPONSIVE COOKIES //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 767px) {
+  .cc_css_reboot.cc_dialog.light.simple {
+    font-size: 20px;
+    max-height: unset;
+    max-width: 90%;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 1.5rem;
+    background-color: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  }
+
+}
