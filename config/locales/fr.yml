@@ -57,12 +57,18 @@ fr:
 
     attributes:
       profile:
+        ready: Prêt à être mis en ligne
+        accountant_address: Adresse postale comptable
+        accountant_zip_code: Code postal comptable
+        accountant_city: Ville comptable
+        accountant_phone_number: N° de téléphone comptable
         address: Adresse postale
         zip_code: Code postal
         city: Ville
         phone_number: N° de téléphone
         siret_number: SIRET
         website: Site internet
+        accountant_company: Nom de l'entreprise comptable
         company: Nom de l'entreprise
         db_status: Statut db
         role: Rôle

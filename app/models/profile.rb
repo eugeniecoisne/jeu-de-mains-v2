@@ -13,7 +13,7 @@ class Profile < ApplicationRecord
   def self.cities_and_districts
     districts_to_show = []
     big_cities_to_show = []
-    Profile.all.where(db_status: true).select { |profile| profile.role.present? }.each do |profile|
+    Profile.all.where(db_status: true, ready: true).select { |profile| profile.role.present? }.each do |profile|
       if profile.zip_code.first(2) == "97"
         districts_to_show << Place::DISTRICTS[profile.zip_code.first(3)]
       else
@@ -51,11 +51,11 @@ class Profile < ApplicationRecord
   end
 
   def self.cities
-    Profile.all.where(db_status: true).select { |profile| profile.role.present? }.map { |profile| profile.city.capitalize }.uniq
+    Profile.all.where(db_status: true, ready: true).select { |profile| profile.role.present? }.map { |profile| profile.city.capitalize }.uniq
   end
 
   def self.companies
-    Profile.all.where(db_status: true).select { |profile| profile.role.present? }.map { |profile| profile.company }
+    Profile.all.where(db_status: true, ready: true).select { |profile| profile.role.present? }.map { |profile| profile.company }
   end
 
   def thematics
@@ -70,7 +70,7 @@ class Profile < ApplicationRecord
 
   def self.thematics
     self_thematics = []
-    Profile.all.where(db_status: true).each do |p|
+    Profile.all.where(db_status: true, ready: true).each do |p|
       self_thematics.concat(p.thematics)
     end
     self_thematics.uniq
@@ -78,7 +78,7 @@ class Profile < ApplicationRecord
 
   def self.roles
     self_roles = []
-    Profile.all.where(db_status: true).each do |p|
+    Profile.all.where(db_status: true, ready: true).each do |p|
       self_roles << p.role if p.role
     end
     self_roles.uniq

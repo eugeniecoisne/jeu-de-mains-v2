@@ -3,7 +3,6 @@ ActiveAdmin.register Profile do
   config.per_page = 50
   PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
-
   controller do
     def find_resource
       begin
@@ -19,6 +18,7 @@ ActiveAdmin.register Profile do
     actions
     column :id
     column :db_status
+    column :ready
     column :user do |profile|
       link_to "#{profile.user.fullname}", "#{admin_user_path(profile.user)}"
     end
@@ -28,9 +28,10 @@ ActiveAdmin.register Profile do
     column :description do |profile|
       profile.description.present? ? true : false
     end
-    column :city
-    column :zip_code
     column :address
+    column :zip_code
+    column :city
+    column :phone_number
     column :website
     column :instagram
     column :photo do |profile|
@@ -43,6 +44,11 @@ ActiveAdmin.register Profile do
         link_to "Lien profil", "#{profile_public_path(profile)}", target: "_blank"
       end
     end
+    column :accountant_company
+    column :accountant_address
+    column :accountant_zip_code
+    column :accountant_city
+    column :accountant_phone_number
   end
 
   # CSV
@@ -50,6 +56,7 @@ ActiveAdmin.register Profile do
   csv do
     column :id
     column :db_status
+    column :ready
     column "Prénom" do |profile|
       profile.user.first_name
     end
@@ -60,9 +67,10 @@ ActiveAdmin.register Profile do
     column :company
     column :siret_number
     column :description
-    column :city
-    column :zip_code
     column :address
+    column :zip_code
+    column :city
+    column :phone_number
     column :website
     column :instagram
     column :photo do |profile|
@@ -70,6 +78,11 @@ ActiveAdmin.register Profile do
         cl_image_path profile.photo.key
       end
     end
+    column :accountant_company
+    column :accountant_address
+    column :accountant_zip_code
+    column :accountant_city
+    column :accountant_phone_number
   end
 
   show :title => :company do
@@ -94,13 +107,22 @@ ActiveAdmin.register Profile do
       row :city
       row :phone_number
       row :siret_number
+      row :accountant_company
+      row :accountant_address
+      row :accountant_zip_code
+      row :accountant_city
+      row :accountant_phone_number
       row :website
       row :instagram
       row :description
       row :db_status
+      row :ready
       row :created_at
       row :updated_at
       row :slug
+      row "Envoyer e-mail demande de derniers docs partenaire" do
+        link_to "Envoyer e-mail demande de derniers docs partenaire", "#{send_finalisation_partner_email_profile_path(profile)}", target: "_blank"
+      end
     end
 
     if profile.user.places.present?
@@ -213,9 +235,13 @@ ActiveAdmin.register Profile do
     end
 
     if User.find(profile.id).places.select { |p| p.workshops.present? }.map { |p| p.workshops }.count > 0
-      User.find(profile.id).places.select { |p| p.workshops.present? }.map { |p| p.workshops }.each do |workshop|
-        if workshop.sessions.map { |s| s.bookings.each {|b| b.reviews}}.count > 0
-          workshop.sessions.map { |s| s.bookings.each {|b| b.reviews.each { |r| PROFILE_REVIEWS << r }}}
+      User.find(profile.id).places.select { |p| p.workshops.present? }.each do |place|
+        if place.workshops.present?
+          place.workshops.each do |workshop|
+            if workshop.sessions.present? && workshop.sessions.map { |s| s.bookings.each {|b| b.reviews}}.count > 0
+              workshop.sessions.map { |s| s.bookings.each {|b| b.reviews.each { |r| PROFILE_REVIEWS << r }}}
+            end
+          end
         end
       end
     end
@@ -245,16 +271,23 @@ ActiveAdmin.register Profile do
     f.inputs "Utilisateur, nom d'entreprise et rôle" do
       f.input :user, collection: PROFILE_USERS
       f.input :company
-      f.input :role, collection: ["animateur", "organisateur"]
+      f.input :accountant_company
+      f.input :siret_number
+      f.input :role, collection: Profile::ROLES
     end
-    f.inputs "Adresse" do
+    f.inputs "Adresse & coordonnées comptables" do
+      f.input :accountant_address
+      f.input :accountant_zip_code
+      f.input :accountant_city
+      f.input :accountant_phone_number
+    end
+    f.inputs "Adresse & coordonnées publiques" do
       f.input :address
       f.input :zip_code
       f.input :city
-    end
-    f.inputs "Coordonnées" do
       f.input :phone_number
-      f.input :siret_number
+    end
+    f.inputs "Sites web" do
       f.input :website
       f.input :instagram
     end
@@ -264,10 +297,11 @@ ActiveAdmin.register Profile do
     end
     f.inputs "Statut" do
       f.input :db_status, as: :boolean
+      f.input :ready
     end
     f.actions
   end
 
-  permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :photo
+  permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :photo
 
 end

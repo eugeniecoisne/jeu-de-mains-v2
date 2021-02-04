@@ -1,3 +1,23 @@
+.profile-container {
+  .public-profile-admin-update {
+    position: absolute;
+    right: 2rem;
+    top: 6rem;
+    a {
+      padding: 6px 10px;
+      border-radius: 30px;
+      background-color: $red;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      outline: none;
+    }
+    a:hover {
+      background-color: $dark-red;
+    }
+  }
+}
+
 .public-profile-header {
   display: flex;
   flex-direction: row;
@@ -190,10 +210,15 @@
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
   .profile-container {
-    .back-button {
-        margin-top: 0.8em;
-      }
+    .public-profile-admin-update {
+      right: 1rem;
+      top: 5.5rem;
+      font-size: 12px;
     }
+    .back-button {
+      margin-top: 0.8em;
+    }
+  }
   .public-profile-header {
     flex-direction: column;
     align-items: center;
@@ -290,6 +315,11 @@
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
+  .profile-container {
+    .public-profile-admin-update {
+      right: 1rem;
+    }
+  }
 
   .public-profile-header {
     flex-direction: column;
@@ -352,6 +382,11 @@
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 1050px)  {
+  .profile-container {
+    .public-profile-admin-update {
+      right: 1rem;
+    }
+  }
   .public-profile-header {
     padding-bottom: 4em;
     margin-bottom: 2em;

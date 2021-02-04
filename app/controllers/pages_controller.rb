@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i(home offer_giftcard become_partner about contact legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijou papier_et_lettering ceramique_et_modelage meuble_et_decoration dessin_et_peinture travail_du_cuir)
+  skip_before_action :authenticate_user!, only: %i(home offer_giftcard become_partner welcome_partner about contact legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijou papier_et_lettering ceramique_et_modelage meuble_et_decoration dessin_et_peinture travail_du_cuir)
 
   def home
     dates = (Date.today..Date.today + 1.year).to_a
@@ -107,6 +107,36 @@ class PagesController < ApplicationController
   end
 
   def become_partner
+  end
+
+  def welcome_partner
+    if params[:partner].present? && params[:partner][:company].present? && params[:partner][:siret_number].present? && params[:partner][:email].present? && params[:partner][:phone_number].present? && params[:partner][:address].present? && params[:partner][:zip_code].present? && params[:partner][:city].present? && params[:partner][:last_name].present? && params[:partner][:first_name].present? && params[:partner][:position].present?
+
+      @partner = {
+        company: params[:partner][:company],
+        siret_number: params[:partner][:siret_number],
+        email: params[:partner][:email],
+        phone_number: params[:partner][:phone_number],
+        address: params[:partner][:address],
+        zip_code: params[:partner][:zip_code],
+        city: params[:partner][:city],
+        role: params[:partner][:role],
+        first_name: params[:partner][:first_name],
+        last_name: params[:partner][:last_name],
+        position: params[:partner][:position],
+        website: params[:partner][:website],
+        instagram: params[:partner][:instagram],
+        message: params[:partner][:message],
+      }
+      internal_email = PartnerMailer.with(partner: @partner).internal_send_subscription_form
+      internal_email.deliver_later
+      external_email = PartnerMailer.with(partner: @partner).external_send_subscription_form
+      external_email.deliver_later
+
+    else
+      flash[:alert] = "Oups, le formulaire est incomplet"
+      render 'become_partner'
+    end
   end
 
   def offer_giftcard

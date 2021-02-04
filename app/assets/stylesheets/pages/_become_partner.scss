@@ -1,0 +1,244 @@
+.become-partner-form-container {
+  background-image: url('https://res.cloudinary.com/jeudemains/image/upload/v1612206178/jeu-de-mains-partner-form.jpg');
+  background-size: cover;
+  background-position: top;
+  margin-top: -2.5em;
+  padding: 3rem;
+  display: flex;
+  min-height: 82vh;
+}
+
+#become-partner-back-button {
+  position: absolute;
+  left: 2rem;
+  a {
+    color: white;
+    text-shadow: 0px 2px 4px #00000080;
+  }
+}
+
+#welcome-partner-back-button {
+  position: absolute;
+  left: 2rem;
+  a {
+    color: white;
+    text-shadow: 0px 2px 4px #00000080;
+  }
+}
+
+.become-partner-form-title {
+  margin-bottom: 18px;
+  text-align: center;
+  background-color: white;
+  padding: 1.5rem;
+  h1 {
+    font-size: 40px;
+    color: $dark-blue;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: "Amiri", serif;
+    margin-top: 1rem;
+    line-height: 1;
+  }
+  h2 {
+    font-size: 15px;
+    color: $dark-blue;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+}
+
+.become-partner-form-form {
+  padding-bottom: 4em;
+  h3 {
+    font-size: 25px;
+    color: $dark-blue;
+    font-weight: 700;
+    line-height: 1.4;
+    font-family: "Amiri", serif;
+    margin-top: 10px;
+  }
+  p {
+    font-size: 12px;
+    color: $dark-gray;
+    margin-top: 30px;
+  }
+
+  .become-partner-form-two-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+  }
+  .become-partner-form-button {
+    width: auto;
+    outline: none;
+    background-color: $blue;
+    color: white;
+    font-weight: 600;
+    border: unset;
+    border-radius: 4px;
+    padding: 6px 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  .become-partner-form-button:hover {
+    background-color: $dark-blue;
+  }
+  .form-control {
+    background-color: white;
+    border-radius: 5px;
+    padding: 0.5rem;
+    font-size: 15px;
+    width: 100%;
+  }
+  label {
+    font-weight: 700;
+    color: $blue;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-top: 20px;
+    em {
+      font-weight: 500;
+      margin-left: 5px;
+    }
+  }
+}
+
+.become-partner-form-form-part {
+  background-color: white;
+  padding: 1.5rem;
+}
+
+
+
+
+// RESPONSIVE THEMATICS BANNER
+@media (min-width: 100px) and (max-width: 575px) {
+  .become-partner-form-container {
+    margin-top: -0.2rem;
+    padding: 1rem;
+  }
+  #become-partner-back-button {
+    margin-top: 1rem;
+    left: 1rem;
+  }
+  .become-partner-form {
+    margin: 2.5rem 0 1rem 0;
+  }
+
+  .become-partner-form-title {
+    h1 {
+      font-size: 32px;
+      margin-top: 4px;
+    }
+    h2 {
+      font-size: 14px;
+    }
+  }
+  .become-partner-form-form {
+    label {
+      margin-top: 5px;
+    }
+    .form-control {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (min-width: 576px) and (max-width: 599px) {
+  .become-partner-form-container {
+    margin-top: -0.2rem;
+    padding: 1rem;
+  }
+  #become-partner-back-button {
+    margin-top: 1.3rem;
+    left: 3rem;
+  }
+  .become-partner-form {
+    margin: 3rem 2rem 3rem 2rem;
+  }
+  .become-partner-form-title {
+    h1 {
+      margin-top: 2rem;
+      margin-bottom: 0.6rem;
+      font-size: 33px;
+    }
+    h2 {
+      font-size: 15px;
+    }
+  }
+  .become-partner-form-form {
+    label {
+      margin-top: 5px;
+    }
+  }
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .become-partner-form-container {
+    margin-top: -0.2rem;
+    padding: 1rem;
+  }
+  #become-partner-back-button {
+    margin-top: 1.3rem;
+    left: 3rem;
+  }
+  .become-partner-form {
+    margin: 3rem 2rem 3rem 2rem;
+  }
+  .become-partner-form-title {
+    h1 {
+      margin-top: 2rem;
+      font-size: 33px;
+    }
+  }
+  .become-partner-form-form {
+    label {
+      margin-top: 5px;
+    }
+  }
+}
+
+
+@media (min-width: 768px) and (max-width: 991px)  {
+  .become-partner-form {
+    margin: 4rem 5rem 3rem 5rem;
+  }
+  .become-partner-form-title {
+    h1 {
+      font-size: 35px;
+    }
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1099px) {
+  .become-partner-form {
+    margin: 3rem 9rem;
+  }
+  .become-partner-form-title {
+    h1 {
+      font-size: 35px;
+    }
+  }
+}
+
+@media (min-width: 1100px) and (max-width: 1249px) {
+  .become-partner-form {
+    margin: 3rem 12rem;
+  }
+}
+
+
+@media (min-width: 1250px) {
+  .become-partner-form {
+    margin: 5rem 15rem 3rem 15rem;
+  }
+}
+
+
+

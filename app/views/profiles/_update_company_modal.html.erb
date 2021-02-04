@@ -10,21 +10,11 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
             </button>
+            <p style='max-width:350px;'>Si votre entreprise a déménagé, pensez à modifier aussi l'adresse de vos données société dans l'onglet suivant "Données Société".</p>
             <div>
-              <% if profile.address && profile.zip_code && profile.city %>
-                <%= f.input :address, id: 'profile_address', label: false, placeholder: profile.address, :input_html => { class: "mb-2"} %>
-                <%= f.input :zip_code, id: 'profile_zip_code', label: false, placeholder: profile.zip_code, :input_html => { class: "mb-2"} %>
-                <%= f.input :city, id: 'profile_city', label: false, placeholder: profile.city %>
-              <% elsif profile.city %>
-                <%= f.input :address, id: 'profile_address', label: false, placeholder: "Adresse", :input_html => { class: "mb-2"} %>
-                <%= f.input :zip_code, id: 'profile_zip_code', label: false, placeholder: "Code postal", :input_html => { class: "mb-2"} %>
-                <%= f.input :city, id: 'profile_city', label: false, placeholder: profile.city %>
-              <% else %>
-                <%= f.input :address, id: 'profile_address', label: false, placeholder: "Adresse", :input_html => { class: "mb-2"} %>
-                <%= f.input :zip_code, id: 'profile_zip_code', label: false, placeholder: "Code postal", :input_html => { class: "mb-2"} %>
-                <%= f.input :city, id: 'profile_city', label: false, placeholder: "Ville" %>
-              <% end %>
-
+              <%= f.input :address, id: 'profile_address', label: false, placeholder: "Adresse", :input_html => { class: "mb-2"} %>
+              <%= f.input :zip_code, id: 'profile_zip_code', label: false, placeholder: "Code postal", :input_html => { class: "mb-2"} %>
+              <%= f.input :city, id: 'profile_city', label: false, placeholder: "Ville" %>
             </div>
             <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>
@@ -33,6 +23,32 @@
     </div>
   </div>
 </div>
+
+<!-- COMPANY CITY MODAL -->
+
+<div class="modal fade profile-update-modal" id="companyCityModal" tabindex="-1" role="dialog" aria-labelledby="companyCityModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="form-group">
+        <%= simple_form_for(profile) do |f| %>
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
+            </button>
+            <p style='max-width:350px;'>Si votre entreprise a déménagé, pensez à modifier aussi l'adresse de vos données société dans l'onglet suivant "Données Société".</p>
+            <div>
+              <%= f.input :zip_code, id: 'profile_zip_code_2', label: false, placeholder: "Code postal", required: true, :input_html => { class: "mb-2"} %>
+              <%= f.input :city, id: 'profile_city_2', label: false, placeholder: "Ville", required: true %>
+            </div>
+            <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- COMPANY PHONE NUMBER MODAL -->
 
@@ -46,11 +62,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
             </button>
-            <% if profile.phone_number %>
-              <%= f.input :phone_number, id: 'profile_phone_number', label: false, placeholder: profile.phone_number %>
-            <% else %>
-              <%= f.input :phone_number, id: 'profile_phone_number', label: false, placeholder: "Numéro de téléphone" %>
-            <% end %>
+            <%= f.input :phone_number, id: 'profile_phone_number', label: false, placeholder: "Numéro de téléphone", required: true %>
             <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>
         <% end %>
@@ -71,11 +83,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
             </button>
-            <% if profile.website %>
-              <%= f.input :website, id: 'profile_website', label: false, placeholder: profile.website %>
-            <% else %>
-              <%= f.input :website, id: 'profile_website', label: false, placeholder: "Site internet" %>
-            <% end %>
+            <%= f.input :website, id: 'profile_website', label: false, placeholder: "Site internet", required: true %>
             <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>
         <% end %>
@@ -96,11 +104,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
             </button>
-            <% if profile.instagram %>
-              <%= f.input :instagram, id: 'profile_instagram', label: false, placeholder: profile.instagram %>
-            <% else %>
-              <%= f.input :instagram, id: 'profile_instagram', label: false, placeholder: "URL instagram" %>
-            <% end %>
+            <%= f.input :instagram, id: 'profile_instagram', label: false, placeholder: "URL instagram", required: true %>
             <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>
         <% end %>
@@ -121,11 +125,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
             </button>
-            <% if profile.description %>
-              <%= f.input :description, id: 'profile_description', label: false, placeholder: profile.description, :input_html => {:rows => 10}  %>
-            <% else %>
-              <%= f.input :description, id: 'profile_description', label: false, placeholder: "Description en quelques lignes", :input_html => {:rows => 10}  %>
-            <% end %>
+            <%= f.input :description, id: 'profile_description', label: false, placeholder: "Description en quelques lignes", :input_html => {:rows => 10}, required: true  %>
             <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>
         <% end %>
@@ -146,7 +146,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
             </button>
-            <%= f.input :photo, as: :file, id: 'profile_profile_picture', label: false, input_html: { accept: "image/*", id: "picture", onchange: "Filevalidation()" } %>
+            <%= f.input :photo, as: :file, id: 'profile_profile_picture', label: false, required: true, input_html: { accept: "image/*", id: "picture", onchange: "Filevalidation()" } %>
             <p id="bytesSize"></p>
             <%= f.submit class: 'button', value: "Valider", data: { disable_with: false } %>
           </div>

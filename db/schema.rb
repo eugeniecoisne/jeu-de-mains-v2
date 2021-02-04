@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_26_161700) do
+ActiveRecord::Schema.define(version: 2021_02_03_133020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,6 +191,12 @@ ActiveRecord::Schema.define(version: 2021_01_26_161700) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "db_status", default: true
     t.string "slug"
+    t.boolean "ready", default: false
+    t.string "accountant_company"
+    t.string "accountant_address"
+    t.string "accountant_zip_code"
+    t.string "accountant_city"
+    t.string "accountant_phone_number"
     t.index ["slug"], name: "index_profiles_on_slug", unique: true
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
@@ -245,6 +251,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_161700) do
     t.string "stripe_uid"
     t.string "stripe_id"
     t.string "stripe_order_id"
+    t.boolean "created_by_admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

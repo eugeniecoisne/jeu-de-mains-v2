@@ -1,0 +1,32 @@
+<p>Nous avons bien reçu votre demande d'inscription partenaire !</p>
+<p>Nous allons traiter votre inscription dans les meilleurs délais.</p>
+<br>
+-------
+<br>
+<p>Récapitulatif des informations que nous avons reçues :</p>
+<br>
+<p><strong>Société :</strong> <%= @partner[:company] %></p>
+<p><strong>SIRET :</strong> <%= @partner[:siret_number] %></p>
+<p><strong>Nom :</strong> <%= @partner[:last_name] %></p>
+<p><strong>Prénom :</strong> <%= @partner[:first_name] %></p>
+<p><strong>Poste :</strong> <%= @partner[:position] %></p>
+<p><strong>Email :</strong> <%= @partner[:email] %></p>
+<p><strong>N° de téléphone :</strong> <%= @partner[:phone_number] %></p>
+<br>
+-------
+<br>
+<p><strong>Adresse :</strong> <%= @partner[:address] %></p>
+<p><strong>Code Postal :</strong> <%= @partner[:zip_code] %></p>
+<p><strong>Ville :</strong> <%= @partner[:city] %></p>
+<br>
+-------
+<br>
+<p><strong>Rôle :</strong> <%= @partner[:role] %></p>
+<p><strong>Site web :</strong> <%= @partner[:website].present? ? @partner[:website] : "Non renseigné" %></p>
+<p><strong>Adresse :</strong> <%= @partner[:instagram].present? ? @partner[:instagram] : "Non renseigné" %></p>
+<br>
+-------
+<br>
+<% if @partner[:message].present? %>
+  <p><strong>Message / questions :</strong> <%= @partner[:message] %></p>
+<% end %>

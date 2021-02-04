@@ -28,6 +28,10 @@ class ProfilePolicy < ApplicationPolicy
     update?
   end
 
+  def send_finalisation_partner_email?
+    user.admin?
+  end
+
   def public?
     true
   end
