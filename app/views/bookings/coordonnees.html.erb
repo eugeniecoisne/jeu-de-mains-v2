@@ -33,11 +33,11 @@
         <% if @booking.session.workshop.visio_with_kit? %>
             <%= f.hidden_field :contact, value: "true" %>
             <%= f.input :address, required: true, label: false, placeholder: "N° et rue/avenue*"%>
-            <%= f.input :address_complement, label: false, placeholder: "Complément d'adresse (bâtiment / étage / digicode) - optionnel"%>
+            <%= f.input :address_complement, required: false, label: false, placeholder: "Complément d'adresse (bâtiment / étage / digicode) - optionnel"%>
             <%= f.input :zip_code, required: true, label: false, placeholder: "Code postal*"%>
             <%= f.input :city, required: true, label: false, placeholder: "Ville*"%>
         <% end %>
-          <%= f.input :phone_number, label: false, placeholder: "Numéro de téléphone*" %>
+          <%= f.input :phone_number, required: true, label: false, placeholder: "Numéro de mobile*" %>
         <%= f.submit "Je confirme mes coordonnées", class: "button" %>
       <% end %>
     </div>

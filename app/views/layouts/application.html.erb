@@ -26,23 +26,37 @@
     <meta name="twitter:creator" content="<%= DEFAULT_META["twitter_account"] %>">
     <meta name="twitter:image:src" content="<%= meta_image %>" />
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X50T4VTK25"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-X50T4VTK25');
+    <!-- Cookie Consent by https://www.FreePrivacyPolicy.com -->
+    <script type="text/javascript" src="//www.freeprivacypolicy.com/public/cookie-consent/3.1.0/cookie-consent.js"></script>
+    <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+    cookieconsent.run({"notice_banner_type":"simple","consent_type":"express","palette":"light","language":"fr","website_name":"Jeu de Mains","cookies_policy_url":"https://www.jeudemains.com/politique-de-confidentialite"});
+    });
     </script>
-    <!-- end Google Analytics -->
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-MNPSQ3P');</script>
-    <!-- End Google Tag Manager -->
+
+    <!-- Google Analytics -->
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script type="text/plain" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=G-X50T4VTK25"></script>
+        <script type="text/plain" cookie-consent="tracking">
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-X50T4VTK25');
+        </script>
+        <!-- end Google Analytics -->
+        <!-- Google Tag Manager -->
+        <script type="text/plain" cookie-consent="tracking">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MNPSQ3P');</script>
+        <!-- End Google Tag Manager -->
+    <!-- end of Google Analytics-->
+
+    <noscript>Cookie Consent by <a href="https://www.FreePrivacyPolicy.com/free-cookie-consent/" rel="nofollow noopener">FreePrivacyPolicy.com</a></noscript>
+    <!-- End Cookie Consent -->
+
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
 
@@ -91,7 +105,7 @@
     <noscript>Votre navigateur ne supporte pas JavaScript...</noscript>
 
     <% unless (controller.controller_name == 'workshops' && controller.action_name == 'index') || (controller.controller_name == 'profiles' && controller.action_name == 'messagerie') || (controller.controller_name == 'profiles' && controller.action_name == 'index') %>
-      <script type="text/javascript">
+      <script type="text/plain" cookie-consent="strictly-necessary">
         (function() {
           window.sib = { equeue: [], client_key: "0fq0vp17o9c40pdismwye5oq" };
           /* OPTIONAL: email to identify request*/
