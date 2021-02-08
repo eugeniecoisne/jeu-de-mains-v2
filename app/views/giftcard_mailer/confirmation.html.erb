@@ -1,0 +1,327 @@
+<!-- LOGO -->
+
+<div style="background-color:#fff;">
+  <div class="block-grid" style="margin: 0 auto; margin-top: 40px; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+      <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+        <div style="width:100% !important;">
+          <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+            <div align="center" class="img-container center fixedwidth" style="padding-right: 0px;padding-left: 0px;">
+              <div style="font-size:1px;line-height:22px">
+              </div>
+              <img align="center" alt="Jeu de Mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/jeudemains/image/upload/v1602490393/logo-bleu-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 160px; display: block;" title="Jeu de Mains" width="160"/>
+              <div style="font-size:1px;line-height:25px"> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TITLE -->
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 30px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- TITLE -->
+
+              <div style="color:#527776;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.2;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
+                <div style="line-height: 1.2; font-size: 12px; color: #527776; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14px;">
+                  <p style="font-size: 23px; font-weight:600; line-height: 1.2; text-align: center; word-break: break-word; mso-line-height-alt: 29px; margin: 0;">
+                    <span style="font-size: 23px; font-weight:600;">
+                      <span style="color: #2b303a;">
+                        Merci pour votre achat !
+                      </span>
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- INTRO -->
+
+              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
+                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                  <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
+                    <span style="color: #1C1C1C; font-size: 15px;">Bonne nouvelle, nous vous confirmons votre achat d'une carte cadeau d'une valeur de <%= @giftcard.initial_amount.round %> euros !<br>
+                      <strong>Retrouvez en pièce-jointe de ce mail la carte cadeau digitale</strong> ou dans votre espace <strong><%= link_to "mes cartes cadeaux", mes_cartes_cadeaux_profile_url(@giftcard.user.profile), target: "_blank" %></strong> sur le site jeudemains.com.<br>
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px;" valign="top">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINE & WHITE SPACE -->
+
+  <div style="background-color:#ffffff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #ffffff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#ffffff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+
+              <!-- WHITE SPACE -->
+
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 25px; padding-bottom: 0px; padding-left: 25px;" valign="top">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMAGE -->
+
+  <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
+      <div class="col num12" style="min-width: 320px; max-width: 600px; display: table-cell; vertical-align: top; width: 600px; position: relative;">
+        <div style="width:100% !important;">
+          <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:20px; padding-right: 10px; padding-left: 10px;">
+            <div align="center" class="img-container center autowidth" style="padding-right: 0px;padding-left: 0px;">
+              <img align="center" loading="lazy" alt="jeu-de-mains-carte-cadeau" title="jeu-de-mains-carte-cadeau" border="0" class="center autowidth" src="https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_600/v1606127708/jeu-de-mains-carte-cadeau.jpg" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 580px; max-height: 300px; object-fit: contain; display: block;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MESSAGE INFORMATION -->
+
+  <div style="background-color:#ffffff;">
+    <div class="block-grid mixed-two-up" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff; padding-top: 10px;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <p class="mobile-align-center" style="padding-bottom: 5px;font-size: 14px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 400; mso-line-height-alt: 21px; margin: 0;"><strong>Pour :</strong> <%= @giftcard.receiver_name %></p>
+        <p class="mobile-align-center" style="padding-bottom: 5px;font-size: 14px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 400; mso-line-height-alt: 21px; margin: 0;"><strong>Offert par :</strong> <%= @giftcard.buyer_name %></p>
+        <p class="mobile-align-center" style="padding-bottom: 5px;font-size: 14px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 400; mso-line-height-alt: 21px; margin: 0;"><strong>Valeur :</strong> <%= @giftcard.initial_amount.round %> euros</p>
+        <p class="mobile-align-center" style="padding-bottom: 20px;font-size: 14px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 400; mso-line-height-alt: 21px; margin: 0;"><strong>Expire le :</strong> <%= @giftcard.deadline_date.strftime("%d/%m/%Y")%></p>
+        <% if @giftcard.message.present? %>
+          <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 400; mso-line-height-alt: 21px; margin: 0;"><strong>Message :</strong><br> <%= @giftcard.message %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHITE SPACE -->
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 25px; padding-right: 25px; padding-bottom: 25px; padding-left: 25px;" valign="top">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- LINE -->
+
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid #52828D; width: 100%;" valign="top" width="100%">
+                        <tbody>
+                          <tr style="vertical-align: top;" valign="top">
+                            <td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top">
+                              <span></span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOOKING DETAILS TITLE -->
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+              <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.5;padding-top:35px;padding-right:0px;padding-bottom:15px;padding-left:0px;">
+                <div style="line-height: 1.5; font-size: 12px; color: #1C1C1C; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 18px;">
+                  <p style="font-size: 14px; line-height: 1.5; word-break: break-word; text-align: left; mso-line-height-alt: 21px; margin: 0;">
+                    <span style="color: #1C1C1C; font-size: 14px;">
+                      <strong>
+                        <span style="">
+                          DÉTAILS COMMANDE N°<%= @giftcard.id %>
+                        </span>
+                      </strong>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background-color:#fff;">
+    <div class="block-grid two-up no-stack" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+
+        <!-- BOOKING DETAILS LEFT COLUMN -->
+
+        <div class="col num6" style="min-width: 320px; max-width: 320px; display: table-cell; vertical-align: top; width: 320px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 30px;">
+              <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
+                <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
+                  <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Carte cadeau Jeu de Mains x 1</span></p>
+                </div>
+              </div>
+              <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:15px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
+                <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
+                  <p style="font-size: 19px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 19px;"><strong><span style="color: #1C1C1C;">TOTAL PAYÉ</span></strong></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOOKING DETAILS RIGHT COLUMN -->
+
+        <div class="col num6" style="min-width: 320px; max-width: 320px; display: table-cell; vertical-align: top; width: 320px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+              <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
+                <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
+                  <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @giftcard.initial_amount %> €</span></p>
+                </div>
+              </div>
+              <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:15px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
+                <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
+                  <p style="font-size: 19px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 19px;"><strong><span style="color: #1C1C1C;"><%= @giftcard.initial_amount %> €</span></strong></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- WHITE SPACE AND LINE -->
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 35px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid #F0F0F0; width: 100%;" valign="top" width="100%">
+                        <tbody>
+                          <tr style="vertical-align: top;" valign="top">
+                            <td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top">
+                              <span></span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- CONDITIONS -->
+
+              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:35px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
+                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                  <p style="font-size: 13px; line-height: 1.5; word-break: break-word; text-align: center; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 20px; mso-ansi-font-size: 14px; margin: 0;">
+                    <span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">
+                    Lorem ipsum mention légale informations d'annulation
+                  </span>
+                </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+
+              <!-- CALL TO ACTION - MANAGE MY BOOKING -->
+
+              <div align="center" class="button-container" style="padding-top:25px;padding-right:10px;padding-bottom:30px;padding-left:10px;">
+                <%= link_to mes_cartes_cadeaux_profile_url(@giftcard.user.profile), style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #fff; background-color: #52828D; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
+                  <span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
+                    <span style="font-size: 14px; line-height: 2; word-break: break-word; color: #fff; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 32px;">
+                      <strong>VOIR MES CARTES CADEAUX</strong>
+                    </span>
+                  </span>
+                <% end %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
