@@ -162,6 +162,14 @@
                     <%= giftcard.code %>
                   </div>
                 </div>
+                <div class="giftcard-confirmation-simulation-row">
+                  <p>Bon PDF</p>
+                  <div class="giftcard-simulation-information">
+                    <%= link_to "Cliquer ici pour télécharger", giftcard_confirmation_achat_path(giftcard, format: :pdf), target: "_blank" %>
+                  </div>
+                </div>
+
+
               </div>
 
               <% if giftcard.receiver.present? %>

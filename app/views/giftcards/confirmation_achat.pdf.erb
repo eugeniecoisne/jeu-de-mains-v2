@@ -1,0 +1,167 @@
+
+<!DOCTYPE HTML>
+
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <title>carte-jeu-de-mains-<%= @giftcard.code %></title>
+    <style type="text/css">
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Raleway:wght@500;600;700&display=swap');
+
+      body {
+        background-color: white;
+        font-family: "Raleway", Helvetica, sans-serif;
+        margin: 0;
+      }
+
+      h1, h2, h3, h4 {
+        font-family: "Montserrat", Helvetica, sans-serif;
+      }
+
+      h1 {
+        font-size: 28px;
+        color: #235B6A;
+        margin-bottom: 30px;
+      }
+
+      h2 {
+        font-size: 20px;
+        color: #235B6A;
+        text-align: justify;
+      }
+
+
+      table {
+        font-size: 18px;
+      }
+
+      tr {
+        height: 40px;
+      }
+
+      th {
+        text-align: left;
+        color: #235B6A;
+        min-width: 200px;
+      }
+
+      td {
+        text-align: left;
+        color: black;
+        font-weight: 500;
+        font-size: 17px;
+      }
+
+      p {
+        font-weight: 500;
+        font-size: 16px;
+        color: black;
+      }
+
+      p strong {
+        font-weight: bolder;
+      }
+
+      .main-container {
+        margin: 50px 100px 80px 100px;
+      }
+
+      .gift-card-img img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+      .gift-card-cta-link {
+        text-decoration: none;
+        background-color: #A5CAD0;
+        font-family: "Montserrat", Helvetica, sans-serif;
+        color: white;
+        font-weight: 600;
+        font-size: 18px;
+        padding: 8px 22px;
+        border-radius: 30px;
+        margin-bottom: 40px;
+      }
+
+      .gift-card-code {
+        background-color: #F4F4F4;
+        color: black;
+        font-weight: 500;
+        font-size: 18px;
+        padding: 4px 10px;
+        border-radius: 4px;
+        border: 1px solid #DADADA;
+      }
+
+      .cgv {
+        margin-top: 100px;
+        font-size: 16px;
+        font-weight: 500;
+        max-width: 400px;
+        text-align: justify;
+      }
+
+      .cgv a {
+        font-weight: 600;
+        color: #52828D;
+        text-decoration: none;
+      }
+
+
+    </style>
+  </head>
+
+  <body>
+    <div class="gift-card-img">
+      <img src="https://res.cloudinary.com/jeudemains/image/upload/v1612798005/jeu-de-mains-carte-cadeau-header.png">
+    </div>
+
+    <div class="main-container">
+
+      <h1>Vous venez de recevoir une carte cadeau !<h1>
+
+
+      <table class="table">
+        <tbody>
+          <tr>
+            <th scope="row">Pour :</th>
+            <td><%= @giftcard.receiver_name %></td>
+          </tr>
+          <tr>
+            <th scope="row">Offert par :</th>
+            <td><%= @giftcard.buyer_name %></td>
+          </tr>
+          <tr>
+            <th scope="row">Carte cadeau :</th>
+            <td>d'une valeur de <%= @giftcard.initial_amount.round %> euros</td>
+          </tr>
+          <tr>
+            <th scope="row">Expire le :</th>
+            <td><%= @giftcard.deadline_date.strftime("%d/%m/%Y") %></td>
+          </tr>
+          <tr>
+            <th scope="row">Message :</th>
+            <td><%= @giftcard.message %></td>
+          </tr>
+          <tr>
+            <th scope="row">Code d'enregistrement :</th>
+            <td><span class="gift-card-code"><%= @giftcard.code %></span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div align="center" style="margin-top: 60px;">
+        <h2>Pour profiter de votre carte cadeau et découvrir tous nos ateliers créatifs</h2>
+        <a href="https://www.jeudemains.com" class="gift-card-cta-link" target="_blank">Rendez-vous sur jeudemains.com</a>
+      </div>
+
+      <div class="cgv">
+        <p>
+          Votre carte cadeau Jeu de Mains est valable 1 an à compter de la date d'achat sur tout le site jeudemains.com et utilisable en plusieurs fois.
+          Pour plus d'informations, rendez-vous sur <a href="https://www.jeudemains.com/cgv">nos conditions générales de vente</a>.
+        </p>
+      </div>
+    </div>
+  </body>
+
+</html>
