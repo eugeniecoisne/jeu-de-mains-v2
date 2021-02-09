@@ -56,7 +56,7 @@
             <h4><%= link_to "Découvrir les ateliers", workshops_path, class: "discover-ws-link" %></h4>
 
 
-            <% @profile.user.giftcards.select { |giftcard| giftcard.buyer != current_user.id }.each do |giftcard| %>
+            <% @profile.user.giftcards.select { |giftcard| giftcard.buyer != current_user.id && giftcard.status == "paid" && giftcard.db_status == true}.each do |giftcard| %>
               <div class="giftcard-confirmation-simulation" loading="lazy">
                 <div class="giftcard-confirmation-simulation-row">
                   <p>Offert par</p>
@@ -130,7 +130,7 @@
             <h3>Retrouvez ici les cartes cadeaux offertes à vos proches !</h3>
 
 
-            <% @giftcards.select { |giftcard| giftcard.buyer == current_user.id }.each do |giftcard| %>
+            <% @giftcards.select { |giftcard| giftcard.buyer == current_user.id && giftcard.status == "paid" && giftcard.db_status == true }.each do |giftcard| %>
               <div class="giftcard-confirmation-simulation" loading="lazy">
                 <div class="giftcard-confirmation-simulation-row">
                   <p>Offert par</p>

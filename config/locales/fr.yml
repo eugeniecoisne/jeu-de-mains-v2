@@ -118,6 +118,8 @@ fr:
         created_at: Créé le
         updated_at: Modifié le
         confirmed_at: Confirmé le
+        newsletter_agreement: Inscription newsletter
+        created_by_admin: Créé par l'admin
       session:
         date: Date de session
         start_at: Commence à
@@ -139,6 +141,7 @@ fr:
         session_id: ID Session
         created_at: Créé le
         updated_at: Modifié le
+        cgv_agreement: Accord CGV
       review:
         content: Contenu de l'avis
         rating: Note
@@ -169,6 +172,7 @@ fr:
         user: Utilisateur
         created_at: Créé le
         updated_at: Modifié le
+        cgv_agreement: Accord CGV
       chatroom:
         room_name: Nom de la discussion
         user1: Chateur 1

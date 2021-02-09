@@ -11,33 +11,43 @@
 
       <div class="form-inputs">
         <%= f.input :last_name,
-                    hint: t(".leave_blank_if_you_don_t_want_to_change_it"),
                     required: false,
                     label: "Nom",
                     input_html: { autocomplete: "last_name" } %>
         <%= f.input :first_name,
-                    hint: t(".leave_blank_if_you_don_t_want_to_change_it"),
                     required: false,
                     label: "Prénom",
                     input_html: { autocomplete: "first_name" } %>
 
         <%= f.input :email, required: true, label: "E-mail", autofocus: true %>
 
+        <% if current_user.profile.role.present? == false %>
+          <%= f.input :newsletter_agreement,
+                      as: :radio_buttons,
+                      required: false,
+                      autofocus: true,
+                      label: "Je souhaite recevoir les actualités de Jeu de Mains par e-mail"%>
+        <% end %>
+
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <p><%= t(".currently_waiting_confirmation_for_email", email: resource.unconfirmed_email) %></p>
         <% end %>
         <%= f.input :current_password,
+                    label: "Confirmer les changements avec mon mot de passe actuel",
                     hint: t(".we_need_your_current_password_to_confirm_your_changes"),
                     required: true,
                     input_html: { autocomplete: "current-password" } %>
-        <%= f.input :password,
-                    hint: t(".leave_blank_if_you_don_t_want_to_change_it"),
-                    required: false,
-                    input_html: { autocomplete: "new-password" } %>
-        <%= f.input :password_confirmation,
-                    required: false,
-                    input_html: { autocomplete: "new-password" } %>
 
+        <%= f.input :password,
+                    label: "Nouveau mot de passe",
+                    required: false,
+                    input_html: { autocomplete: "new-password"},
+                    hint: "Optionnel, si vous souhaitez le changer"%>
+        <%= f.input :password_confirmation,
+                    label: "Confirmation nouveau mot de passe",
+                    required: false,
+                    input_html: { autocomplete: "new-password"},
+                    hint: "Optionnel, si vous souhaitez le changer" %>
       </div>
 
       <div class="form-actions">
@@ -53,6 +63,6 @@
   </div>
 
   <div class="sign-picture">
-    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593629305/jeu-de-mains-illustration.svg", :width => 1000, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-illustration", :title => "jeu-de-mains-illustration") %>
+    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1612889842/jeu-de-mains-do-it-yourself.svg", :width => 1000, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-illustration", :title => "jeu-de-mains-illustration") %>
   </div>
 </div>
