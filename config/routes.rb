@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'giftcards/update'
   get 'giftcards/show'
   get 'infomessages/create'
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', confirmations: 'users/confirmations' }
   root to: 'pages#home'
   get 'offrir-une-carte-cadeau', to: 'pages#offer_giftcard'
   get 'enregistrer-une-carte-cadeau', to: 'pages#register_giftcard'
@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     match "/deconnexion", to: "devise/sessions#destroy", via: :delete
     match "/inscription", to: "devise/registrations#new", via: :get
   end
+
+
 
   require "sidekiq/web"
   authenticate :user, ->(user) { user.admin? } do

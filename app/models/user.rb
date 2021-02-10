@@ -62,4 +62,5 @@ class User < ApplicationRecord
     @profile.user = @user
     @profile.save
   end
+
 end

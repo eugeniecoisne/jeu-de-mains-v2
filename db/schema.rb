@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_03_133020) do
+ActiveRecord::Schema.define(version: 2021_02_09_160348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 2021_02_03_133020) do
     t.float "initial_amount"
     t.text "stripe_transfers", default: ""
     t.date "deadline_date"
+    t.boolean "cgv_agreement", default: false
     t.index ["user_id"], name: "index_giftcards_on_user_id"
   end
 
@@ -252,6 +253,7 @@ ActiveRecord::Schema.define(version: 2021_02_03_133020) do
     t.string "stripe_id"
     t.string "stripe_order_id"
     t.boolean "created_by_admin", default: false
+    t.boolean "newsletter_agreement", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

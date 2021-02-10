@@ -55,6 +55,11 @@
           <%= f.input :password_confirmation,
                       required: true,
                       input_html: { autocomplete: "new-password" } %>
+          <%= f.input :newsletter_agreement,
+                      as: :radio_buttons,
+                      required: false,
+                      autofocus: true,
+                      label: "Je souhaite recevoir les actualités de Jeu de Mains par e-mail"%>
         </div>
 
         <div class="form-actions">
@@ -72,7 +77,7 @@
   </div>
 
   <div class="sign-picture">
-    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593629305/jeu-de-mains-illustration.svg", :width => 1000, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-illustration", :title => "jeu-de-mains-illustration") %>
+    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1612889842/jeu-de-mains-do-it-yourself.svg", :width => 1000, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-illustration", :title => "jeu-de-mains-illustration") %>
   </div>
 
 </div>

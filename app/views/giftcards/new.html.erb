@@ -14,6 +14,15 @@
                 <%= f.input :buyer_name, required: true, label: "De la part de", placeholder: "Votre prénom ou surnom" %>
                 <%= f.input :receiver_name, required: true, label: "Pour", placeholder: "Le prénom ou surnom du bénéficiaire" %>
                 <%= f.input :message, as: :text, required: false, input_html: { row: 4 }, label: "Votre message", placeholder: "Personnalisez la carte (optionnel)" %>
+
+                <fieldset class="form-group boolean required giftcard_cgv_agreement">
+                  <div class="form-check">
+                    <input name="giftcard[cgv_agreement]" type="hidden" value="0">
+                    <input class="form-check-input boolean required" required="required" aria-required="true" type="checkbox" value="1" name="giftcard[cgv_agreement]" id="giftcard_cgv_agreement">
+                    <label class="form-check-label boolean required" for="giftcard_cgv_agreement" style='text-transform: inherit;'>J'ai lu et j'accepte les <strong><%= link_to "conditions générales de vente", cgv_path, target: "_blank" %></strong><abbr title="obligatoire">*</abbr></label>
+                  </div>
+                </fieldset>
+
                 <%= f.hidden_field :amount, required: true, value: @giftcard.amount %>
                 <%= f.hidden_field :initial_amount, required: true, value: @giftcard.amount %>
                 <%= f.hidden_field :buyer, required: true, value: current_user.id %>

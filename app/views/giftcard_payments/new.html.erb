@@ -1,21 +1,49 @@
-<div class="container">
-  <div class="row py-4">
-    <div class="col">
-      <h1><%= @giftcard.user.first_name %>, vous êtes sur le point de commander</h1>
-      <p>une carte cadeau d'une valeur de <%= @giftcard.amount.to_i %> euros pour un proche.</p>
+<% if @giftcard.status == "pending" %>
 
-      <button id="pay" class="btn btn-primary">Procéder au paiement</button>
-
-      <script src="https://js.stripe.com/v3/"></script>
-      <script>
-        const paymentButton = document.getElementById('pay');
-        paymentButton.addEventListener('click', () => {
-          const stripe = Stripe('<%= ENV['STRIPE_CONNECT_PUBLIC_KEY'] %>');
-          stripe.redirectToCheckout({
-            sessionId: '<%= @giftcard.checkout_session_id %>'
-          });
-        });
-      </script>
+  <div class="booking-options-container">
+    <div class="booking-options-title">
+      <h1>Vous êtes sur le point de réserver</h1>
     </div>
+
+    <div class="booking-options-workshop">
+      <div class="booking-options-ws-photo">
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_800/v1606127708/jeu-de-mains-carte-cadeau.jpg", :loading => "lazy", :alt => "jeu-de-mains-carte-cadeau", :title => "jeu-de-mains-carte-cadeau") %>
+      </div>
+
+      <div class="booking-options-ws-info">
+        <h2 class="booking-options-ws-title">Une carte cadeau d'une valeur de <%= @giftcard.initial_amount.round %> euros</h2>
+        <p><strong>Pour :</strong> <%= @giftcard.receiver_name %></p>
+        <p><strong>Offert par :</strong> <%= @giftcard.buyer_name %></p>
+        <% if @giftcard.message.present? %>
+          <p><strong>Message :</strong> <%= @giftcard.message %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <table class="table booking-options-quantities-and-amount">
+      <tbody>
+        <tr id="booking-options-table-first-row">
+          <td>Carte cadeau x 1</td>
+          <td style="text-align: right"><%= @giftcard.initial_amount %> €</td>
+        </tr>
+        <tr>
+          <td><strong>TOTAL</strong></td>
+          <td style="text-align: right"><strong><%= @giftcard.initial_amount %> €</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button id="pay" class="button mb-5">Procéder au paiement</button>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      const paymentButton = document.getElementById('pay');
+      paymentButton.addEventListener('click', () => {
+        const stripe = Stripe('<%= ENV['STRIPE_CONNECT_PUBLIC_KEY'] %>');
+        stripe.redirectToCheckout({
+          sessionId: '<%= @giftcard.checkout_session_id %>'
+        });
+      });
+    </script>
   </div>
-</div>
+<% end %>

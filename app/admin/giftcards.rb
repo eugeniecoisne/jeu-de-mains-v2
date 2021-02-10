@@ -1,7 +1,7 @@
 ActiveAdmin.register Giftcard do
   menu parent: "Achats"
   config.per_page = 50
-  permit_params :amount, :code, :buyer, :receiver, :status, :db_status, :user_id, :receiver_name, :buyer_name, :message
+  permit_params :amount, :code, :buyer, :receiver, :status, :db_status, :user_id, :receiver_name, :buyer_name, :message, :cgv_agreement
   GIFTCARD_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
   index do
@@ -12,6 +12,7 @@ ActiveAdmin.register Giftcard do
     column :db_status
     column :amount
     column :created_at
+    column :cgv_agreement
     column "Valable jusqu'au" do |giftcard|
       (giftcard.deadline_date).strftime("%d/%m/%Y")
     end
@@ -43,6 +44,7 @@ ActiveAdmin.register Giftcard do
     column :db_status
     column :amount
     column :created_at
+    column :cgv_agreement
     column "Valable jusqu'au" do |giftcard|
       (giftcard.deadline_date).strftime("%d/%m/%Y")
     end
@@ -75,6 +77,7 @@ ActiveAdmin.register Giftcard do
       row :db_status
       row :amount
       row :created_at
+      row :cgv_agreement
       row "Valable jusqu'au" do |giftcard|
         (giftcard.deadline_date).strftime("%d/%m/%Y")
       end
@@ -115,8 +118,9 @@ ActiveAdmin.register Giftcard do
       f.input :message
     end
     f.inputs "Statuts" do
-      f.input :db_status
+      f.input :db_status, as: :boolean
       f.input :status
+      f.input :cgv_agreement, as: :boolean
     end
     f.actions
   end

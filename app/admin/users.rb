@@ -1,13 +1,14 @@
 ActiveAdmin.register User do
   config.per_page = 50
   remove_filter :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :confirmation_token, :confirmation_sent_at, :uid
-  permit_params :id, :first_name, :last_name, :email, :password, :password_confirmation, :created_by_admin
+  permit_params :id, :first_name, :last_name, :email, :password, :password_confirmation, :created_by_admin, :newsletter_agreement
 
   index do
     selectable_column
     actions
     column :id
     column :db_status
+    column :newsletter_agreement
     column "Rôle" do |user|
       user.profile.role
     end
@@ -32,6 +33,7 @@ ActiveAdmin.register User do
   csv do
     column :id
     column :db_status
+    column :newsletter_agreement
     column :profile do |user|
       user.profile.company
     end
@@ -59,6 +61,7 @@ ActiveAdmin.register User do
       row :last_name
       row :first_name
       row :email
+      row :newsletter_agreement
       row :db_status
       row :created_at
       row :confirmation_sent_at
@@ -129,10 +132,11 @@ ActiveAdmin.register User do
   end
 
   form do |f|
-    f.inputs "Nom, prénom, e-mail" do
+    f.inputs "Nom, prénom, e-mail, newsletter" do
       f.input :last_name
       f.input :first_name
       f.input :email
+      f.input :newsletter_agreement
     end
     f.inputs "Mot de Passe" do
       f.input :password

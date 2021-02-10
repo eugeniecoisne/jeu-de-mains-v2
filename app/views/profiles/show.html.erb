@@ -82,20 +82,6 @@
                 </div>
                 <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button"  %>
               </li>
-              <% if @profile.role.nil? %>
-                <li class="list-group-item my-informations-item">
-                  <div class="my-informations-text">
-                    <span><strong>Numéro de portable</strong></span>
-                    <% if @profile.phone_number %>
-                      <span><%= @profile.phone_number %></span>
-                    <% else %>
-                      <span>Non renseigné</span>
-                    <% end %>
-                  </div>
-                  <a href="#phoneNumberModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
-                  <%= render 'update_profile_modal', profile: @profile %>
-                </li>
-              <% end %>
               <li class="list-group-item my-informations-item">
                 <div class="my-informations-text">
                   <span><strong>Adresse e-mail</strong></span>
@@ -103,13 +89,26 @@
                 </div>
                 <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button"  %>
               </li>
-              <li class="list-group-item my-informations-item" id="last-my-informations-item">
+              <% if @profile.role.present? %>
+                <li class="list-group-item my-informations-item" id="last-my-informations-item">
+              <% else %>
+                <li class="list-group-item my-informations-item">
+              <% end %>
                 <div class="my-informations-text">
                   <span><strong>Mot de passe</strong></span>
                   <span>***********</span>
                 </div>
                 <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button"  %>
               </li>
+              <% if @profile.role.present? == false %>
+                <li class="list-group-item my-informations-item" id="last-my-informations-item">
+                  <div class="my-informations-text">
+                    <span><strong>Inscription à la newsletter</strong></span>
+                    <%= @profile.user.newsletter_agreement == true ? "oui" : "non" %>
+                  </div>
+                  <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button"  %>
+                </li>
+              <% end %>
             </ul>
           </div>
 

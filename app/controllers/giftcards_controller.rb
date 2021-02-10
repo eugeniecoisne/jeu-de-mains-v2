@@ -61,7 +61,7 @@ class GiftcardsController < ApplicationController
       }],
       mode: 'payment',
       success_url: giftcard_confirmation_achat_url(@giftcard),
-      cancel_url: new_giftcard_giftcard_payment_url(@giftcard)
+      cancel_url: giftcard_erreur_achat_url(@giftcard)
     )
 
     @giftcard.update(checkout_session_id: session.id, deadline_date: (@giftcard.created_at + 1.year))
@@ -86,9 +86,7 @@ class GiftcardsController < ApplicationController
 
   def confirmation_achat
     @giftcard = Giftcard.find(params[:giftcard_id])
-    if @giftcard.status == "paid"
-      authorize @giftcard
-    end
+    authorize @giftcard
     respond_to do |format|
       format.html
       format.pdf do
@@ -111,7 +109,7 @@ class GiftcardsController < ApplicationController
   private
 
   def giftcard_params
-    params.require(:giftcard).permit(:amount, :code, :initial_amount, :buyer, :buyer_name, :receiver, :receiver_name, :message, :status, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :deadline_date, :transfers)
+    params.require(:giftcard).permit(:amount, :code, :initial_amount, :buyer, :buyer_name, :receiver, :receiver_name, :message, :status, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :deadline_date, :transfers, :cgv_agreement)
   end
 
 end

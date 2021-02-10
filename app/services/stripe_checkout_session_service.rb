@@ -47,7 +47,8 @@ class StripeCheckoutSessionService
       giftcard = Giftcard.find_by(checkout_session_id: event.data.object.id)
       giftcard.update(status: 'paid', payment_intent_id: event.data.object.payment_intent)
 
-      # envoi de mails avec la carte cadeau etc
+      mail_giftcard_btoc = GiftcardMailer.with(giftcard: giftcard).confirmation
+      mail_giftcard_btoc.deliver_later
 
     end
   end
