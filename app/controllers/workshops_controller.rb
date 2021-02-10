@@ -188,14 +188,13 @@ class WorkshopsController < ApplicationController
   end
 
   def create
-    @workshop = Workshop.new(workshop_params)
-    authorize @workshop
-    @workshop.place = Place.find(params[:workshop][:place_id])
-    @workshop.status = 'hors ligne'
-    if @workshop.place.name == "Atelier en visio"
-      @workshop.visio = true
-    end
-    if @workshop.photos.attached? == false
+
+    # duplicate
+
+    if params[:commit].present? && params[:commit] == "Dupliquer"
+      @workshop = Workshop.new(workshop_params)
+      authorize @workshop
+      @workshop.place = Place.find(params[:workshop][:place_id])
       all_initial_ws = Workshop.all.select { |workshop| workshop.title == @workshop.title }
       if all_initial_ws.select { |workshop| workshop.place.user == @workshop.place.user }.present?
         initial_ws = all_initial_ws.select { |workshop| workshop.place.user == @workshop.place.user }.first
@@ -207,15 +206,38 @@ class WorkshopsController < ApplicationController
           @workshop.photos.attach([io: initial_ws_files[i], filename: initial_ws.photos[i].filename, content_type: initial_ws.photos[i].content_type])
         end
       end
-    end
-    if @workshop.save
-      mail = WorkshopMailer.with(workshop: @workshop).create_confirmation
-      mail.deliver_later
-      flash[:notice] = "Votre atelier a bien été créé !"
-      redirect_to finalisation_workshop_path(@workshop)
+      @workshop.status = 'hors ligne'
+      if @workshop.save
+        mail = WorkshopMailer.with(workshop: @workshop).create_confirmation
+        mail.deliver_later
+        flash[:notice] = "Votre atelier a bien été créé !"
+        redirect_to tableau_de_bord_profile_path(current_user.profile)
+      else
+        @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
+        render 'new'
+      end
+
+      # create
+
     else
-      @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
-      render 'new'
+
+      @workshop = Workshop.new(workshop_params)
+      authorize @workshop
+      @workshop.place = Place.find(params[:workshop][:place_id])
+      @workshop.status = 'hors ligne'
+      if @workshop.place.name == "Atelier en visio"
+        @workshop.visio = true
+      end
+      if @workshop.save
+        mail_bis = WorkshopMailer.with(workshop: @workshop).create_confirmation
+        mail_bis.deliver_later
+        flash[:notice] = "Votre atelier a bien été créé !"
+        redirect_to finalisation_workshop_path(@workshop)
+      else
+        @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
+        render 'new'
+      end
+
     end
   end
 

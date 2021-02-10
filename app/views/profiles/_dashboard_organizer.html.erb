@@ -193,7 +193,11 @@
                       <% elsif workshop.place.user != current_user %>
                         <h3>Organisé par <%= workshop.place.user.profile.company %></h3>
                       <% end %>
-                      <h3>Chez <%= workshop.place.name[0..28] %> à <%= workshop.place.city.capitalize %></h3>
+                      <% if workshop.visio == true %>
+                        <h3>En visioconférence</h3>
+                      <% else %>
+                        <h3>Chez <%= workshop.place.name[0..28] %> à <%= workshop.place.city.capitalize %></h3>
+                      <% end %>
                     </div>
                     <div class="show-actions-button show-actions-button-<%= index +1 %> active" id="showActionsButtons-<%= index +1 %>">
                       <%= link_to "#", class: "button" do %>
@@ -368,7 +372,11 @@
                           <%= f.hidden_field :duration, value: workshop.duration %>
                           <%= f.hidden_field :price, value: workshop.price %>
                           <%= f.hidden_field :capacity, value: workshop.capacity %>
+                          <%= f.hidden_field :kit, value: workshop.kit %>
+                          <%= f.hidden_field :kit_description, value: workshop.kit_description %>
+                          <%= f.hidden_field :ephemeral, value: workshop.ephemeral %>
                           <%= f.hidden_field :place_id, value: workshop.place_id %>
+                          <%= f.hidden_field :visio, value: workshop.visio %>
                           <%= f.submit 'Dupliquer', class: "button mr-2", id: "turn-online-offline-button" %>
                         <% end %>
                       <% end %>
@@ -523,7 +531,7 @@
                               <% end %>
 
                               <h4 class="mobile-my-agenda-ws-place-name">
-                                <% if session.workshop.place.name.include?("Atelier en visio") %>
+                                <% if session.workshop.visio == true %>
                                   <i class="fas fa-video mr-2"></i>
                                   En visioconférence
                                 <% else %>
@@ -559,6 +567,7 @@
                               <h4 class="mobile-my-agenda-ws-sessions">
                                 <i class="fas fa-ticket-alt mr-1"></i>
                                 <% if session.available > 1 %>
+                                  <p><%= session.id %></p>
                                   <%= session.available %> places restantes / <%= session.capacity %>
                                 <% else %>
                                   <%= session.available %> place restante / <%= session.capacity %>
@@ -631,7 +640,7 @@
                               <% end %>
 
                               <h4 class="mobile-my-agenda-ws-place-name">
-                                <% if session.workshop.place.name.include?("Atelier en visio") %>
+                                <% if session.workshop.visio == true %>
                                   <i class="fas fa-video mr-2"></i>
                                   En visioconférence
                                 <% else %>
