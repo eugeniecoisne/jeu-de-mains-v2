@@ -12,16 +12,24 @@ class SessionPolicy < ApplicationPolicy
     true
   end
 
+  def index?
+    record.workshop.place.user == user || user.admin? || (record.workshop.animators.last.user if record.workshop.animators.present?)
+  end
+
   def destroy?
-    record.workshop.place.user == user || record.workshop.animators.last.user || user.admin?
+    index?
   end
 
   def annulation_et_remboursement?
-    record.workshop.place.user == user || record.workshop.animators.last.user || user.admin?
+    index?
   end
 
   def participants?
-    record.workshop.place.user == user || record.workshop.animators.last.user || user.admin?
+    index?
+  end
+
+  def send_visio_information?
+    index?
   end
 
   def expedition_kits?

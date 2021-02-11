@@ -1,92 +1,61 @@
-<div class="expedition-kits-container">
-  <div class="back-button">
-    <%= link_to tableau_de_bord_profile_path(current_user.profile) do %>
-      <i class="fas fa-chevron-left"></i>
-      <span>Retour</span>
+<% if @session.workshop.db_status == true %>
+
+  <div class="expedition-kits-container">
+    <div class="back-button">
+      <%= link_to tableau_de_bord_profile_path(current_user.profile) do %>
+        <i class="fas fa-chevron-left"></i>
+        <span>Retour</span>
+      <% end %>
+    </div>
+    <div class="expedition-kits-title">
+      <h1>Expédition de vos kits</h1>
+      <h2>Pour le visio "<%= @session.workshop.title %>"</h2>
+      <h2>Du <%= l(@session.date, format: '%A %d %B %Y') %></h2>
+    </div>
+
+    <div class="expedition-kits-quantities">
+      <h3>Nombre de participants : <%= @session.sold %></h3>
+    </div>
+
+    <%= link_to session_expedition_kits_path(format: :xls), class: "expedition-kits-export-xls" do %>
+      Exporter .xls
+      <i class="fas fa-upload ml-1"></i>
     <% end %>
-  </div>
-  <div class="expedition-kits-title">
-    <h1>Expédition de vos kits</h1>
-    <h2>Pour le visio "<%= @session.workshop.title %>"</h2>
-    <h2>Du <%= l(@session.date, format: '%A %d %B %Y') %></h2>
-  </div>
 
-  <div class="expedition-kits-quantities">
-    <h3>Nombre de participants : <%= @session.sold %></h3>
-  </div>
+    <%= link_to session_expedition_kits_path(format: :csv), class: "expedition-kits-export-xls ml-1" do %>
+      .csv
+      <i class="fas fa-upload ml-1"></i>
+    <% end %>
 
-  <%= link_to session_expedition_kits_path(format: :xls), class: "expedition-kits-export-xls" do %>
-    Exporter .xls
-    <i class="fas fa-upload ml-1"></i>
-  <% end %>
+    <div class="expedition-kits-bookings table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Adresse</th>
+            <th scope="col">Téléphone</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Lien suivi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @bookings.each_with_index do |booking, index| %>
+            <tr class="expedition-kits-one-booking">
+              <td><%= booking.user.last_name %></td>
+              <td><%= booking.user.first_name %></td>
+              <td><%= booking.address %><br><%= "#{booking.address_complement}<br>" if booking.address_complement.present? %><%= booking.zip_code %> <%= booking.city %></td>
+              <td><%= booking.phone_number %></td>
+              <td><%= booking.quantity > 1 ? "#{booking.quantity} kits" : "#{booking.quantity} kit"  %></td>
+              <td>
+                <p class="mb-2"><%= booking.kit_expedition_status %></p>
 
-  <%= link_to session_expedition_kits_path(format: :csv), class: "expedition-kits-export-xls ml-1" do %>
-    .csv
-    <i class="fas fa-upload ml-1"></i>
-  <% end %>
-
-  <div class="expedition-kits-bookings table-responsive">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Nom</th>
-          <th scope="col">Prénom</th>
-          <th scope="col">Adresse</th>
-          <th scope="col">Téléphone</th>
-          <th scope="col">Quantité</th>
-          <th scope="col">Statut</th>
-          <th scope="col">Lien suivi</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @bookings.each_with_index do |booking, index| %>
-          <tr class="expedition-kits-one-booking">
-            <td><%= booking.user.last_name %></td>
-            <td><%= booking.user.first_name %></td>
-            <td><%= booking.address %><br><%= "#{booking.address_complement}<br>" if booking.address_complement.present? %><%= booking.zip_code %> <%= booking.city %></td>
-            <td><%= booking.phone_number %></td>
-            <td><%= booking.quantity > 1 ? "#{booking.quantity} kits" : "#{booking.quantity} kit"  %></td>
-            <td>
-              <p class="mb-2"><%= booking.kit_expedition_status %></p>
-
-              <a href="#changeKitExpeditionStatusModal<%= index +1 %>" class="expedition-kits-button" data-toggle="modal" data-whatever="@mdo">
-                <span>Actualiser</span>
-              </a>
-
-              <div class="modal fade change-kit-expedition-status-modal" id="changeKitExpeditionStatusModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="changeKitExpeditionStatusModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-
-                    <div class="form-group">
-                      <%= simple_form_for(booking) do |f| %>
-                        <div class="modal-body">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
-                          </button>
-                          <div>
-                            <%= f.input :kit_expedition_status, label: "Où en est l'expédition du kit de #{booking.user.first_name} #{booking.user.last_name} ?", collection: ["Bientôt en préparation", "En préparation", "Expédiée", "Livrée"] %>
-                          </div>
-                          <div class="d-flex justify-content-center">
-                            <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
-                          </div>
-                        </div>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </td>
-
-            <td>
-              <% if booking.kit_expedition_link.present? %>
-                <a href="<%= booking.kit_expedition_link %>" ,="" target="_blank" rel="noopener"><%= booking.kit_expedition_link %></a>
-              <% else %>
-
-                <a href="#changeKitExpeditionLinkModal<%= index +1 %>" class="expedition-kits-button" data-toggle="modal" data-whatever="@mdo">
-                  <span>Ajouter</span>
+                <a href="#changeKitExpeditionStatusModal<%= index +1 %>" class="expedition-kits-button" data-toggle="modal" data-whatever="@mdo">
+                  <span>Actualiser</span>
                 </a>
 
-                <div class="modal fade change-kit-expedition-link-modal" id="changeKitExpeditionLinkModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="changeKitExpeditionLinkModalLabel" aria-hidden="true">
+                <div class="modal fade change-kit-expedition-status-modal" id="changeKitExpeditionStatusModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="changeKitExpeditionStatusModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
 
@@ -97,7 +66,7 @@
                               <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
                             </button>
                             <div>
-                              <%= f.input :kit_expedition_link, placeholder: "Exemple: https://www.laposte.fr/outils/suivre-vos...", label: "Copiez collez un lien complet de suivi commençant par http:// ou https:// pour que #{booking.user.first_name} #{booking.user.last_name} puisse suivre l'expédition de son kit" %>
+                              <%= f.input :kit_expedition_status, label: "Où en est l'expédition du kit de #{booking.user.first_name} #{booking.user.last_name} ?", collection: ["Bientôt en préparation", "En préparation", "Expédiée", "Livrée"] %>
                             </div>
                             <div class="d-flex justify-content-center">
                               <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
@@ -108,11 +77,45 @@
                     </div>
                   </div>
                 </div>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+              </td>
+
+              <td>
+                <% if booking.kit_expedition_link.present? %>
+                  <a href="<%= booking.kit_expedition_link %>" ,="" target="_blank" rel="noopener"><%= booking.kit_expedition_link %></a>
+                <% else %>
+
+                  <a href="#changeKitExpeditionLinkModal<%= index +1 %>" class="expedition-kits-button" data-toggle="modal" data-whatever="@mdo">
+                    <span>Ajouter</span>
+                  </a>
+
+                  <div class="modal fade change-kit-expedition-link-modal" id="changeKitExpeditionLinkModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="changeKitExpeditionLinkModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+
+                        <div class="form-group">
+                          <%= simple_form_for(booking) do |f| %>
+                            <div class="modal-body">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
+                              </button>
+                              <div>
+                                <%= f.input :kit_expedition_link, placeholder: "Exemple: https://www.laposte.fr/outils/suivre-vos...", label: "Copiez collez un lien complet de suivi commençant par http:// ou https:// pour que #{booking.user.first_name} #{booking.user.last_name} puisse suivre l'expédition de son kit" %>
+                              </div>
+                              <div class="d-flex justify-content-center">
+                                <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
+                              </div>
+                            </div>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
+<% end %>

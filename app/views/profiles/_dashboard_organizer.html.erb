@@ -89,7 +89,7 @@
                 <% end %>
                 <% workshop.sessions.where(db_status: true).each do |session| %>
                   <% my_sessions << session %>
-                  <% my_dates << session.date %>
+                  <% my_dates << session.date if session.workshop.verified == true %>
                 <% end %>
                 <% workshop.sessions.each do |session| %>
                   <% session.bookings.where(db_status: true, status: "refunded").each do |booking| %>
@@ -113,7 +113,7 @@
                 <% end %>
               <% animator.workshop.sessions.where(db_status: true).each do |session| %>
                 <% my_sessions << session %>
-                <% my_dates << session.date %>
+                <% my_dates << session.date if session.workshop.verified == true %>
               <% end %>
               <% animator.workshop.sessions.each do |session| %>
                 <% session.bookings.where(db_status: false, status: "refunded").each do |booking| %>
@@ -503,7 +503,7 @@
                       <h2><%= l(date, format: '%A %d %B %Y').capitalize %></h2>
                     </div>
                     <div class="mobile-dashboard-my-agenda-date-container">
-                      <% Session.where("date = ?", date.strftime).where(db_status: true).sort_by { |session| session.start_at }.each do |session| %>
+                      <% Session.where("date = ?", date.strftime).where(db_status: true).select {|s| s.workshop.verified == true && s.workshop.status == "en ligne" }.sort_by { |session| session.start_at }.each do |session| %>
                         <% if session.workshop.place.user == current_user || (session.workshop.animators.where(db_status: true).last.user == current_user if session.workshop.animators.where(db_status: true).present?) %>
                           <div class="mobile-dashboard-my-agenda-workshop">
                             <%= link_to workshop_path(session.workshop) do  %>
@@ -581,7 +581,10 @@
                                 data: { confirm: "Êtes-vous sûr?" },
                                 class: "button" %>
                               <% elsif session.available != session.capacity %>
-                                <%= link_to "Voir et contacter les participants", session_participants_path(session), class: "button" %>
+                                <%= link_to "Voir et contacter les participants", session_participants_path(session), class: "button mr-1" %>
+                                <% if session.workshop.visio == true %>
+                                  <%= link_to "Envoyer les infos visio", session_informations_visioconference_path(session), class: "button" %>
+                                <% end %>
                               <% end %>
                             </div>
                           </div>
