@@ -1,3 +1,49 @@
 <% content_for :meta_title, "Jeu de Mains | Nous contacter" %>
 
-<h2>Nous contacter</h2>
+<div class="contact-us-container">
+  <div class="contact-us-form">
+    <div class="contact-us-title">
+      <h1>Nous contacter</h1>
+      <h2>Vous avez une question, souhaitez entrer en contact avec nous ? Remplissez le formulaire ci-dessous, nous serons ravis de discuter avec vous !</h2>
+    </div>
+    <div class="contact-us-form-form">
+      <%= simple_form_for :contact_us, url: message_envoye_path, method: :get do |f| %>
+        <div class="contact-us-two-fields">
+          <% if params[:contact_us].present? && params[:contact_us][:last_name].present? %>
+            <%= f.input :last_name, required: false, label: false, placeholder: "Nom", input_html: { value: params[:contact_us][:last_name], id: "contact_us_last_name_1" } %>
+          <% else %>
+            <%= f.input :last_name, required: false, label: false, placeholder: "Nom", input_html: { id: "contact_us_last_name_2" } %>
+          <% end %>
+          <% if params[:contact_us].present? && params[:contact_us][:first_name].present? %>
+            <%= f.input :first_name, required: false, label: false, placeholder: "Prénom", input_html: { value: params[:contact_us][:first_name], id: "contact_us_first_name_1" } %>
+          <% else %>
+            <%= f.input :first_name, required: false, label: false, placeholder: "Prénom", input_html: { id: "contact_us_first_name_2" } %>
+          <% end %>
+        </div>
+
+        <% if params[:contact_us].present? && params[:contact_us][:email].present? %>
+          <%= f.input :email, required: true, label: false, placeholder: "E-mail*", input_html: { value: params[:contact_us][:email], id: "contact_us_email_1" } %>
+        <% else %>
+          <%= f.input :email, required: true, label: false, placeholder: "E-mail*", input_html: { id: "contact_us_email_2" } %>
+        <% end %>
+
+        <% if params[:contact_us].present? && params[:contact_us][:message].present? %>
+          <%= f.input :message, as: :text, required: true, label: false, placeholder: "J'écris mon message*", input_html: { value: params[:contact_us][:message], id: "contact_us_message_1", rows: 10 } %>
+        <% else %>
+          <%= f.input :message, as: :text, required: true, label: false, placeholder: "J'écris mon message*", input_html: { id: "contact_us_message_2", rows: 10 } %>
+        <% end %>
+
+        <p class="contact-us-data-privacy">En validant ce formulaire je donne mon accord à Jeu de Mains pour conserver les données renseignées le temps de répondre à mon message. Pour plus d'informations sur le traitement de mes données : <%= link_to "politique de confidentialité", politique_de_confidentialite_path, target: '_blank' %>.</p>
+
+        <div class="d-flex mt-2">
+          <%= f.submit "Envoyer", class: "btn"%>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+  <div class="contact-us-picture">
+    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1612889842/jeu-de-mains-do-it-yourself.svg", :width => 1000, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-illustration", :title => "jeu-de-mains-illustration") %>
+  </div>
+</div>
+

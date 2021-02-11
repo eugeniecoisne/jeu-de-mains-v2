@@ -1,0 +1,18 @@
+<% content_for :meta_title, "Jeu de Mains | Message envoyé" %>
+
+<div class="contact-us-container">
+  <div class="contact-us-form">
+    <div class="contact-us-title">
+      <h1>Message envoyé</h1>
+      <h2>Merci, votre message a bien été envoyé. Nous faisons notre possible pour y répondre dans les meilleurs délais, à bientôt !</h2>
+    </div>
+      <%= link_to root_path, class: "contact-us-link-to-root" do %>
+        <span>Retour à la page d'accueil</span>
+        <i class="fas fa-chevron-right"></i>
+      <% end %>
+  </div>
+  <div class="contact-us-picture">
+    <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1612889842/jeu-de-mains-do-it-yourself.svg", :width => 1000, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-illustration", :title => "jeu-de-mains-illustration") %>
+  </div>
+</div>
+

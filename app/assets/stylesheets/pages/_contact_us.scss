@@ -1,0 +1,174 @@
+// CONTACT US CSS
+
+.contact-us-container {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+}
+
+.contact-us-form {
+  margin: 3.5rem 4rem 6rem 4rem;
+}
+
+.contact-us-title {
+  h1 {
+    font-family: "Amiri", serif;
+    font-size: 50px;
+    color: $dark-blue;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: 16px;
+    color: $dark-blue;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 2rem;
+  }
+}
+
+.contact-us-form-form {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+  }
+  input {
+    filter: none;
+    font-size: 15px;
+  }
+  textarea {
+    font-size: 15px;
+  }
+  .btn {
+    padding: 0.3em 1.2em;
+    color: white;
+    background-color: $dark-blue;
+    border: 1px solid $dark-blue;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 0;
+    opacity: 100%;
+    outline: none;
+    margin-top: 10px;
+  }
+  .btn:hover {
+    background-color: unset;
+    color: $dark-blue;
+  }
+  .btn:focus {
+    background-color: unset;
+    color: $dark-blue;
+  }
+  .contact-us-data-privacy {
+    font-size: 12px;
+    text-align: justify;
+  }
+}
+
+.contact-us-picture {
+  min-height: 82vh;
+  height: 100%;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: left;
+  }
+}
+
+.contact-us-link-to-root {
+  background-color: unset;
+  border: 1px solid $dark-blue;
+  color: $dark-blue;
+  font-weight: 500;
+  border-radius: 30px;
+  padding: 2px 15px;
+  text-decoration: none;
+  outline: none;
+  min-width: 260px;
+  max-width: 300px;
+  display: flex;
+  justify-content: space-between;
+  .fas {
+    line-height: unset;
+  }
+}
+.contact-us-link-to-root:hover {
+  color: white;
+  background-color: $dark-blue;
+  text-decoration: none;
+}
+
+
+// RESPONSIVE CONTACT US CSS //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .contact-us-container {
+    grid-template-columns: 1fr;
+    margin-bottom: 4em;
+  }
+  .contact-us-form {
+    margin: 3rem 1.5rem 4rem 1.5rem;
+  }
+  .contact-us-picture {
+    display: none;
+  }
+  .contact-us-title {
+    h1 {
+      font-size: 32px;
+      color: $dark-blue;
+    }
+    h2 {
+      font-size: 14px;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+  .contact-us-container {
+    grid-template-columns: 1fr 0.4fr;
+  }
+  .contact-us-form {
+    margin: 3rem 2rem 4rem 2rem;
+  }
+  .contact-us-title {
+    h1 {
+      font-size: 36px;
+      color: $dark-blue;
+    }
+    h2 {
+      font-size: 15px;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+  .contact-us-container {
+    grid-template-columns: 1.5fr 1fr;
+  }
+  .contact-us-title {
+    h1 {
+      font-size: 40px;
+      color: $dark-blue;
+    }
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+  .contact-us-form {
+    margin: 3rem 6rem 6rem 6rem;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .contact-us-form {
+    margin: 4rem 8rem 6rem 8rem;
+  }
+}

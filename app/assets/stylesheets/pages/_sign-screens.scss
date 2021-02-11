@@ -51,6 +51,7 @@
     font-weight: 600;
     border-radius: 4px;
     opacity: 100%;
+    outline: none;
   }
   .btn:hover {
     opacity: 80%
@@ -141,6 +142,7 @@
 }
 
 .sign-picture {
+  min-height: 82vh;
   height: 100%;
   img {
     height: 100%;
