@@ -56,7 +56,8 @@
                 <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
                   <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
                     <span style="color: #1C1C1C; font-size: 15px;">Bonne nouvelle, nous vous confirmons votre réservation pour l'atelier
-                      <strong><%= link_to @booking.session.workshop.title, workshop_url(@booking.session.workshop), target: "_blank" %></strong> !<br>
+                      <strong><%= link_to @booking.session.workshop.title, workshop_url(@booking.session.workshop), target: "_blank" %></strong> <%= "en visio" if @booking.session.workshop.visio == true %> !<br>
+                      <%= "Vous recevrez votre kit par voie postale en amont de l'atelier, un e-mail vous sera envoyé pour vous prévenir une fois le kit expédié par l'organisateur." if @booking.session.workshop.kit == true %><br><br>
                       Voici le détail de votre réservation :
                     </span>
                   </p>
@@ -163,7 +164,11 @@
               <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.5;padding-top:5px;padding-right:0px;padding-bottom:5px;padding-left:0px;">
                 <div style="line-height: 1.5; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
                   <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Organisé par <%= @booking.session.workshop.place.user.profile.company %></p>
-                  <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
+                  <% if @booking.session.workshop.visio == true %>
+                    <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;"><strong>En visioconférence<%= " avec kit" if @booking.session.workshop.kit == true %></strong></p>
+                  <% else %>
+                    <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
+                  <% end %>
                   <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Contact : <%= @booking.session.workshop.place.phone_number %></p>
                   <% if @booking.session.workshop.animators.where(db_status: true).present? %>
                     <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Animé par <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %></p>
@@ -186,11 +191,13 @@
                                 <img alt="Appeler" height="21" src="https://res.cloudinary.com/jeudemains/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-telephone.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Appeler" width="auto"/>
                               </a>
                             </td>
-                            <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 25px; padding-left: 0px;" valign="top">
-                              <a href="https://www.google.fr/maps/search/<%= @booking.session.workshop.place.address %>, <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city.upcase %>" target="_blank">
-                                <img alt="Localiser" height="20" src="https://res.cloudinary.com/jeudemains/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-itineraire.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Localiser" width="auto"/>
-                              </a>
-                            </td>
+                            <% if @booking.session.workshop.visio == false %>
+                              <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 25px; padding-left: 0px;" valign="top">
+                                <a href="https://www.google.fr/maps/search/<%= @booking.session.workshop.place.address %>, <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city.upcase %>" target="_blank">
+                                  <img alt="Localiser" height="20" src="https://res.cloudinary.com/jeudemains/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-itineraire.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Localiser" width="auto"/>
+                                </a>
+                              </td>
+                            <% end %>
                             <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 4px; padding-left: 0px;" valign="top">
                               <%= link_to tableau_de_bord_profile_url(@booking.user.profile), target: "_blank" do  %>
                                 <img alt="Ajouter à l'agenda" height="21" src="https://res.cloudinary.com/jeudemains/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-calendrier.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Ajouter à l'agenda" width="auto"/>
@@ -209,6 +216,54 @@
       </div>
     </div>
   </div>
+
+  <!-- COORDONNEES -->
+
+  <% if @booking.session.workshop.visio_with_kit? %>
+
+    <div style="background-color:#ffffff;">
+      <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #ffffff;">
+        <div style="border-collapse: collapse;display: table;width: 100%;background-color:#ffffff;">
+          <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+            <div style="width:100% !important;">
+              <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:35px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+
+                <div style="color:#1C1C1C;background-color:#A5CAD0;border-radius:2px;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:25px;padding-right:40px;padding-bottom:25px;padding-left:40px;">
+                  <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                    <p style="font-size: 15px; font-weight:500; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
+                      <span style="color: #fff; font-size: 14px;">
+                        <strong>Coordonnées postales transmises pour le kit :</strong><br>
+                        Nom : <%= @booking.user.last_name %><br>
+                        Prénom : <%= @booking.user.first_name %><br>
+                        Adresse : <%= @booking.address %><br>
+                        <% if @booking.address_complement.present? %>
+                          Complément d'adresse : <%= @booking.address_complement %><br>
+                        <% end %>
+                        Code postal : <%= @booking.zip_code %><br>
+                        Ville : <%= @booking.city %>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                <!-- WHITE SPACE -->
+
+                <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                  <tbody>
+                    <tr style="vertical-align: top;" valign="top">
+                      <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 15px; padding-right: 25px; padding-bottom: 10px; padding-left: 25px;" valign="top">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
 
   <!-- WHITE SPACE -->
 

@@ -56,6 +56,7 @@
                 <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
                   <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
                     <span style="color: #1C1C1C; font-size: 15px;">
+                      <%= "Vous avez reçu ou allez recevoir en parallèle un e-mail de la part de l'organisateur avec les informations de connexion à l'atelier en visioconférence."if @booking.session.workshop.visio == true %><br><br>
                       Rappel de votre réservation :
                     </span>
                   </p>
@@ -162,8 +163,11 @@
               <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.5;padding-top:5px;padding-right:0px;padding-bottom:5px;padding-left:0px;">
                 <div style="line-height: 1.5; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
                   <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Organisé par <%= @booking.session.workshop.place.user.profile.company %></p>
-                  <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
-                  <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Contact : <%= @booking.session.workshop.place.phone_number %></p>
+                  <% if @booking.session.workshop.visio == true %>
+                    <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;"><strong>En visioconférence<%= " avec kit" if @booking.session.workshop.kit == true %></strong></p>
+                  <% else %>
+                    <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
+                  <% end %>                  <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Contact : <%= @booking.session.workshop.place.phone_number %></p>
                   <% if @booking.session.workshop.animators.where(db_status: true).present? %>
                     <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Animé par <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %></p>
                   <% end %>
@@ -185,11 +189,13 @@
                                 <img alt="Appeler" height="21" src="https://res.cloudinary.com/jeudemains/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-telephone.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Appeler" width="auto"/>
                               </a>
                             </td>
-                            <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 25px; padding-left: 0px;" valign="top">
-                              <a href="https://www.google.fr/maps/search/<%= @booking.session.workshop.place.address %>, <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city.upcase %>" target="_blank">
-                                <img alt="Localiser" height="20" src="https://res.cloudinary.com/jeudemains/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-itineraire.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Localiser" width="auto"/>
-                              </a>
-                            </td>
+                            <% if @booking.session.workshop.visio == false %>
+                              <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 25px; padding-left: 0px;" valign="top">
+                                <a href="https://www.google.fr/maps/search/<%= @booking.session.workshop.place.address %>, <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city.upcase %>" target="_blank">
+                                  <img alt="Localiser" height="20" src="https://res.cloudinary.com/jeudemains/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-itineraire.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Localiser" width="auto"/>
+                                </a>
+                              </td>
+                            <% end %>
                             <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 4px; padding-left: 0px;" valign="top">
                               <%= link_to tableau_de_bord_profile_url(@booking.user.profile), target: "_blank" do  %>
                                 <img alt="Ajouter à l'agenda" height="21" src="https://res.cloudinary.com/jeudemains/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-calendrier.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Ajouter à l'agenda" width="auto"/>
@@ -284,33 +290,35 @@
     </div>
   </div>
 
-  <div style="background-color:#fff;">
-    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
-      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
-        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
-          <div style="width:100% !important;">
-            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+  <% if @booking.session.workshop.visio == false %>
 
-              <!-- CALL TO ACTION - SEE WORKSHOP PAGE -->
+    <div style="background-color:#fff;">
+      <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+        <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+          <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+            <div style="width:100% !important;">
+              <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
 
-              <div align="center" class="button-container" style="padding-top:25px;padding-right:10px;padding-bottom:5px;padding-left:10px;">
-                <%= link_to "https://www.google.fr/maps/search/#{@booking.session.workshop.place.address}, #{@booking.session.workshop.place.zip_code} #{@booking.session.workshop.place.city.upcase}", style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #fff; background-color: #52828D; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
-                  <span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
-                    <span style="font-size: 14px; line-height: 2; word-break: break-word; color: #fff; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 32px;">
-                      <strong>ITINÉRAIRE POUR M'Y RENDRE</strong>
+                <!-- CALL TO ACTION - GO THERE -->
+
+                <div align="center" class="button-container" style="padding-top:25px;padding-right:10px;padding-bottom:5px;padding-left:10px;">
+                  <%= link_to "https://www.google.fr/maps/search/#{@booking.session.workshop.place.address}, #{@booking.session.workshop.place.zip_code} #{@booking.session.workshop.place.city.upcase}", style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #fff; background-color: #52828D; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
+                    <span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
+                      <span style="font-size: 14px; line-height: 2; word-break: break-word; color: #fff; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 32px;">
+                        <strong>ITINÉRAIRE POUR M'Y RENDRE</strong>
+                      </span>
                     </span>
-                  </span>
-                <% end %>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  <% end %>
 
-<div style="background-color:#fff;">
+  <div style="background-color:#fff;">
     <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
       <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
         <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">

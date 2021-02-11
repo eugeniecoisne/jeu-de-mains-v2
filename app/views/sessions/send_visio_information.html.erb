@@ -1,0 +1,47 @@
+<!-- SESSION SEND VISIO INFO -->
+
+<% if @session.db_status == true %>
+
+  <% content_for :meta_title, "Jeu de Mains | Informations visioconférence" %>
+
+  <div class="sign-container" id="send-visio-info-container">
+
+    <div class="sign-form">
+
+      <div class="back-button">
+        <%= link_to tableau_de_bord_profile_path(current_user.profile) do %>
+          <i class="fas fa-chevron-left"></i>
+          <span>Retour</span>
+        <% end %>
+      </div>
+
+      <h2 class="sign-title">Envoyer les informations de connexion à la visioconférence pour l'atelier<br><span><%= @session.workshop.title %></span></h2>
+      <h3><i class="fas fa-calendar"></i> <%= l(@session.date, format: '%A %d %b %Y') %> à <%= @session.start_at %></h3>
+      <% if @session.bookings.where(db_status: true).map { |booking| booking.quantity }.sum > 1 %>
+        <h3><i class="fas fa-user"></i> <%= @session.bookings.where(db_status: true, status: "paid").map { |booking| booking.quantity }.sum %> participants sur <%= @session.capacity %></h3>
+      <% else %>
+        <h3><i class="fas fa-user"></i> <%= @session.bookings.where(db_status: true, status: "paid").map { |booking| booking.quantity }.sum %> participant sur <%= @session.capacity %></h3>
+      <% end %>
+
+      <div class="infomessage-visio-box">
+        <h5 class="infomessage-visio-box-title">Envoyer les informations de connexion pour la visioconférence aux participants</h5>
+        <div class="infomessage-visio-box-notice">
+          <p>Écrivez ici un e-mail aux participants avec les informations utiles pour l'atelier en visioconférence. Veillez à expliquer le plus clairement possible les étapes de connexion puisque votre logiciel de visioconférence n'est pas toujours connu des participants et il serait dommage qu'ils n'arrivent pas à se connecter.<br><br>
+            Inutile de rappeler les informations de l'atelier et de la session qui seront ajoutées automatiquement à l'e-mail.</p>
+        </div>
+        <div class="infomessage-visio-box-form">
+          <%= simple_form_for [ @session, @infomessage ] do |f| %>
+            <%= f.input :content, required: true, placeholder: 'Votre message', :input_html => {:rows => 8}, label: false, hint: "Vous serez en copie cachée de cet e-mail" %>
+            <%= f.submit "Envoyer l'e-mail", class: "button" %>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sign-picture">
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1612889842/jeu-de-mains-do-it-yourself.svg", :width => 1000, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-illustration", :title => "jeu-de-mains-illustration") %>
+    </div>
+
+  </div>
+<% end %>

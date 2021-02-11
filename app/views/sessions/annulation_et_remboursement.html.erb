@@ -1,6 +1,6 @@
 <!-- SESSIONS INDEX -->
 
-<% if @session.workshop.place.user == current_user && @session.workshop.db_status == true || current_user.profile.admin == true %>
+<% if @session.workshop.db_status == true %>
 
   <% content_for :meta_title, "Jeu de Mains | Annulation et Remboursement" %>
 

@@ -75,6 +75,7 @@ Rails.application.routes.draw do
   resources :sessions, only: %i() do
     get 'search-places'
     get 'participants'
+    get 'informations_visioconference', to: 'sessions#send_visio_information'
     get 'expedition_kits'
     get 'annulation_et_remboursement'
   end

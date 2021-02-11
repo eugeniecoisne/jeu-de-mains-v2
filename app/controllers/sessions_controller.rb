@@ -80,6 +80,14 @@ class SessionsController < ApplicationController
     @infomessage = Infomessage.new
   end
 
+  def send_visio_information
+    if Session.find(params[:session_id]).db_status == true
+      @session = Session.find(params[:session_id])
+      authorize @session
+    end
+    @infomessage = Infomessage.new
+  end
+
   def expedition_kits
     if Session.find(params[:session_id]).db_status == true
       @session = Session.find(params[:session_id])
