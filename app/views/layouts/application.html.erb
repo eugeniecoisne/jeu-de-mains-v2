@@ -29,9 +29,9 @@
     <!-- Cookie Consent by https://www.FreePrivacyPolicy.com -->
     <script type="text/javascript" src="//www.freeprivacypolicy.com/public/cookie-consent/3.1.0/cookie-consent.js"></script>
     <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-    cookieconsent.run({"notice_banner_type":"simple","consent_type":"express","palette":"light","language":"fr","website_name":"Jeu de Mains","cookies_policy_url":"https://www.jeudemains.com/politique-de-confidentialite"});
-    });
+      document.addEventListener('DOMContentLoaded', function () {
+      cookieconsent.run({"notice_banner_type":"simple","consent_type":"express","palette":"light","language":"fr","website_name":"Jeu de Mains","cookies_policy_url":"https://www.jeudemains.com/politique-de-confidentialite"});
+      });
     </script>
 
     <!-- Google Analytics -->
@@ -101,9 +101,6 @@
       <%= render 'shared/footer' %>
     <% end %>
 
-    <%= javascript_pack_tag 'application' %>
-    <noscript>Votre navigateur ne supporte pas JavaScript...</noscript>
-
     <% unless (controller.controller_name == 'workshops' && controller.action_name == 'index') || (controller.controller_name == 'profiles' && controller.action_name == 'messagerie') || (controller.controller_name == 'profiles' && controller.action_name == 'index') %>
       <script type="text/plain" cookie-consent="strictly-necessary">
         (function() {
@@ -121,5 +118,6 @@
         })();
       </script>
     <% end %>
+    <noscript>Votre navigateur ne supporte pas JavaScript...</noscript>
   </body>
 </html>

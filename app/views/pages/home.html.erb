@@ -155,7 +155,7 @@
         </div>
         <div>
           <%= simple_form_for :search, url: workshops_path, html: {class: "selected-ws-1"}, method: :get do |f| %>
-            <%= f.hidden_field :selection, value: 'maillot' %>
+            <%= f.hidden_field :selection, value: 'maillot', id: "search_selection_1" %>
             <%= f.submit 'Voir la sélection', class: "home-selection-btn" %>
           <% end %>
         </div>
@@ -171,7 +171,7 @@
         </div>
         <div>
           <%= simple_form_for :search, url: workshops_path, html: {class: "selected-ws-2"}, method: :get do |f| %>
-            <%= f.hidden_field :selection, value: 'masque' %>
+            <%= f.hidden_field :selection, value: 'masque', id: "search_selection_2" %>
             <%= f.submit 'Voir la sélection', class: "home-selection-btn" %>
           <% end %>
         </div>

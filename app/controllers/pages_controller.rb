@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i(home offer_giftcard become_partner welcome_partner about contact legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijou papier_et_lettering ceramique_et_modelage meuble_et_decoration dessin_et_peinture travail_du_cuir)
+  skip_before_action :authenticate_user!, only: %i(home offer_giftcard become_partner welcome_partner about contact contact_us_sent legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijou papier_et_lettering ceramique_et_modelage meuble_et_decoration dessin_et_peinture travail_du_cuir)
 
   def home
     dates = (Date.today..Date.today + 1.year).to_a
@@ -139,6 +139,29 @@ class PagesController < ApplicationController
     end
   end
 
+  def contact
+  end
+
+  def contact_us_sent
+    if params[:contact_us].present? && params[:contact_us][:email].present? && params[:contact_us][:email].match(/^\S+@\S+\.\S+$/) != nil && params[:contact_us][:message].present? &&
+
+      @contact = {
+        email: params[:contact_us][:email],
+        first_name: params[:contact_us][:first_name],
+        last_name: params[:contact_us][:last_name],
+        message: params[:contact_us][:message]
+      }
+      internal_email_contact_us = ContactMailer.with(contact: @contact).internal_send_contact_message
+      internal_email_contact_us.deliver_later
+      external_email_contact_us = ContactMailer.with(contact: @contact).external_send_contact_message
+      external_email_contact_us.deliver_later
+    else
+      flash[:alert] = "Oups, le formulaire est incomplet ou votre e-mail est incorrect"
+      render 'contact'
+    end
+
+  end
+
   def offer_giftcard
   end
 
@@ -165,9 +188,6 @@ class PagesController < ApplicationController
   end
 
   def about
-  end
-
-  def contact
   end
 
   def legal_notice

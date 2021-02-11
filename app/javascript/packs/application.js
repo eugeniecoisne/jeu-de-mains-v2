@@ -29,6 +29,9 @@ document.addEventListener('turbolinks:load', () => {
     "locale": French,
     altInput: true,
   });
+  setTimeout(function() {
+    $('.alert').fadeOut();
+  }, 5000);
   initMenu();
   initPlaces();
   initMapbox();

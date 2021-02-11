@@ -1,0 +1,10 @@
+<p>Message reçu ce jour par le formulaire de contact :</p>
+
+<p><strong>Nom :</strong> <%= @contact[:last_name] if @contact[:last_name].present? %></p>
+
+<p><strong>Prénom :</strong> <%= @contact[:first_name] if @contact[:first_name].present? %></p>
+
+<p><strong>E-mail :</strong> <%= @email %></p>
+
+<p><strong>Message :</strong> <%= @contact[:message] %></p>
+
