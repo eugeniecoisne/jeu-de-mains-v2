@@ -18,4 +18,23 @@ class UserMailer < ApplicationMailer
     end
   end
 
+  def export_new_weekly_subscribers
+    @users = params[:users]
+
+    @csv = CSV.generate(headers: true) do |csv|
+      csv << %w{email newsletter_agreement}
+      @users.each do |u|
+        csv << [u.email, u.newsletter_agreement]
+      end
+    end
+
+    attachments["#{Date.today.strftime("%Y%m%d")}_jdm_nouveaux_abonnes.csv"] = { mime_type: 'text/csv', content: @csv }
+
+    mail(
+      to:       "contact@jeudemains.com",
+      subject:  "Export nouveaux abonnés de la semaine",
+      track_opens: 'true',
+      message_stream: 'outbound')
+  end
+
 end
