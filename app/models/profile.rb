@@ -132,6 +132,25 @@ class Profile < ApplicationRecord
     return reviews
   end
 
+  def true_and_false_reviews
+    true_and_false_reviews = []
+    if user.animators.count > 0
+      user.animators.each do |animator|
+        if animator.workshop.reviews.count > 0
+          animator.workshop.reviews.each { |r| true_and_false_reviews << r }
+        end
+      end
+    end
+    if user.places.select { |place| place.workshops.present? }.each { |place| place.workshops }.count > 0
+      user.places.select { |place| place.workshops.present? }.each { |place| place.workshops.each { |workshop|
+        if workshop.reviews.count > 0
+          workshop.reviews.each { |r| true_and_false_reviews << r }
+        end
+      }}
+    end
+    return true_and_false_reviews
+  end
+
   private
 
   def attachment_size

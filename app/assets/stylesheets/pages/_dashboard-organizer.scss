@@ -416,6 +416,89 @@
   color: $blue;
 }
 
+// MY REVIEWS
+
+.dashboard-my-reviews {
+  margin: 1rem 2rem 1rem 1rem;
+  .dashboard-one-review {
+    display: grid;
+    grid-template-columns: 2fr 1fr 4fr 2fr 0.5fr;
+    grid-gap: 7px;
+    div {
+      display: flex;
+      align-items: center;
+    }
+  }
+  #dashboard-reviews-description {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .dashboard-reviews-legends {
+    display: flex;
+    font-size: 13px;
+    font-weight: 500;
+    color: $dark-gray;
+    margin-bottom: 20px;
+  }
+  .dashboard-reviews-legend-is-online {
+    background-color: $light-blue;
+    padding: 2px 8px;
+    margin-right: 6px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+  }
+  .dashboard-reviews-legend-is-offline {
+    background-color: $red;
+    padding: 2px 8px;
+    margin-right: 6px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+  }
+  .accordion {
+    font-size: 14px;
+  }
+  .card-header {
+    color: white;
+    font-weight: 600;
+    border: 1px solid white;
+  }
+  .review-is-online {
+    background-color: $light-blue;
+  }
+  .review-is-offline {
+    background-color: $red;
+  }
+  .card {
+    border: none;
+  }
+  #review-is-online {
+
+  }
+  .button {
+    background-color: unset;
+    border: white 1px solid;
+    font-weight: 600;
+    border-radius: 30px;
+    padding: 1px 10px;
+    font-size: 12px;
+    color: white;
+  }
+  .button:hover {
+    background-color: white;
+    color: $light-blue;
+  }
+  .fa-exclamation-circle {
+    color: white;
+    font-size: 16px;
+  }
+  .fa-star {
+    font-size: 10px;
+    margin-left: 2px;
+  }
+}
+
 // MY KPIS
 
 .dashboard-my-kpis {
@@ -685,6 +768,18 @@
       font-size: 14px;
     }
     h3 {
+      font-size: 13px;
+    }
+  }
+
+  // my reviews
+
+  .dashboard-my-reviews {
+    margin: 0.5rem;
+    .dashboard-one-review {
+      grid-template-columns: 2fr 0.5fr 2fr 2fr 0.5fr;
+    }
+    .accordion {
       font-size: 13px;
     }
   }

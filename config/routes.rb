@@ -97,6 +97,10 @@ Rails.application.routes.draw do
     get 'payment_error'
   end
 
+  resources :reviews, :path => :avis, :as => :reviews, only: %i() do
+    get 'report_review'
+  end
+
   resources :animators, :path => :animateurs, :as => :animators, only: %i(edit update)
 
   resources :chatrooms, :path => :conversations, :as => :chatrooms, only: %i(show create update) do
