@@ -1,0 +1,17 @@
+Un avis a été signalé par <%= @review.booking.session.workshop.place.user.profile.company %>. <br>
+<br>
+Vérifier l'avis :
+<strong><%= link_to "Visualiser l'avis dans le portail admin", admin_review_url(@review), target: "_blank" %></strong><br>
+<br>
+
+Publié le : <%= @review.created_at.strftime("%d/%m/%Y") %> <br>
+Par : <%= @review.user.fullname %> <br>
+Consommateur_ID : <%= @review.user.id %> <br>
+Consommateur_email : <%= @review.user.email %> <br>
+Note : <%= @review.rating %> / 5 <br>
+Message : <%= @review.content %> <br>
+<br>
+Réservation_ID : <%= @review.booking.id %> <br>
+Atelier : <%= @review.booking.session.workshop.title %> <br>
+Session : <%= @review.booking.session.date.strftime("%d/%m/%Y") %> à <%= @review.booking.session.start_at %> <br>
+Type : <%= @review.booking.session.workshop.visio == true ? "en visioconférence" : "en présentiel" %> <br>

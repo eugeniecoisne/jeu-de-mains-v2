@@ -25,4 +25,14 @@ class ReviewMailer < ApplicationMailer
     end
   end
 
+  def report_review
+    @review = params[:review]
+
+    mail(
+    to:       "contact@jeudemains.com",
+    subject:  "Avis signalé par #{@review.booking.session.workshop.place.user.profile.company}, à vérifier",
+    track_opens: 'true',
+    message_stream: 'outbound')
+  end
+
 end

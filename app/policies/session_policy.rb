@@ -13,7 +13,7 @@ class SessionPolicy < ApplicationPolicy
   end
 
   def index?
-    record.workshop.place.user == user || user.admin? || (record.workshop.animators.last.user if record.workshop.animators.present?)
+    record.workshop.place.user == user || user.admin? || (record.workshop.animators.last.user == user if record.workshop.animators.present?)
   end
 
   def destroy?

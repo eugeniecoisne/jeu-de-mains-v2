@@ -29,6 +29,9 @@
           <a class="nav-link" id="v-pills-kits-sending-tab" data-toggle="pill" href="#v-pills-kits-sending" role="tab" aria-controls="v-pills-kits-sending" aria-selected="false">
             Mes envois de kits
           </a>
+          <a class="nav-link" id="v-pills-my-reviews-tab" data-toggle="pill" href="#v-pills-my-reviews" role="tab" aria-controls="v-pills-my-reviews" aria-selected="false">
+            Mes avis
+          </a>
           <a class="nav-link" id="v-pills-my-kpis-tab" data-toggle="pill" href="#v-pills-my-kpis" role="tab" aria-controls="v-pills-my-kpis" aria-selected="false">
             Mes chiffres clés
           </a>
@@ -53,6 +56,9 @@
           </a>
           <a class="nav-link" id="v-pills-kits-sending-tab" data-toggle="pill" href="#v-pills-kits-sending" role="tab" aria-controls="v-pills-kits-sending" aria-selected="false">
             <span>Mes envois de kits</span>
+          </a>
+          <a class="nav-link" id="v-pills-my-reviews-tab" data-toggle="pill" href="#v-pills-my-reviews" role="tab" aria-controls="v-pills-my-reviews" aria-selected="false">
+            <span>Mes avis</span>
           </a>
           <a class="nav-link" id="v-pills-my-kpis-tab" data-toggle="pill" href="#v-pills-my-kpis" role="tab" aria-controls="v-pills-my-kpis" aria-selected="false">
             <span>Mes chiffres clés</span>
@@ -759,6 +765,71 @@
             </div>
           </div>
 
+          <!-- MY REVIEWS -->
+
+          <div class="tab-pane fade" id="v-pills-my-reviews" role="tabpanel" aria-labelledby="v-pills-my-reviews-tab">
+            <div class="dashboard-my-reviews">
+              <% if @profile.true_and_false_reviews.count > 0 %>
+                <p id="dashboard-reviews-description">
+                  Cliquez sur la ligne concernée pour voir le message, l'atelier et le lieu.<br>
+                  Vous pouvez signaler un avis qui vous semble inapproprié si la note est inférieure ou égale à 2/5.<br>
+                  Vous souhaitez signaler un autre avis ? <%= link_to "Écrivez à l'équipe Jeu de Mains." , nous_contacter_path %>
+                </p>
+
+                <div class="dashboard-reviews-legends">
+                  <div class="d-flex mr-2">
+                    <div class="dashboard-reviews-legend-is-online"></div>
+                    Avis publiés (<%= @profile.reviews.count %>)
+                  </div>
+                  <div class='d-flex'>
+                    <div class="dashboard-reviews-legend-is-offline"></div>
+                    Avis supprimés (<%= @profile.true_and_false_reviews.count - @profile.reviews.count %>)
+                  </div>
+                </div>
+
+                <div class="accordion" id="accordionDashboardReviews">
+                  <% @profile.true_and_false_reviews.sort_by { |review| review.created_at }.reverse.each_with_index do |review, index| %>
+                    <div class="card">
+                      <% if review.db_status == true %>
+                        <div class="card-header review-is-online" id="heading<%= index %>">
+                      <% else %>
+                        <div class="card-header review-is-offline" id="heading<%= index %>">
+                      <% end %>
+                        <div class="dashboard-one-review collapsed" type="button" data-toggle="collapse" data-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
+                          <div><%= review.created_at.strftime("%d/%m/%y") %></div>
+                          <div class="d-flex justify-content-center align-items-center"><%= review.rating %><i class="fas fa-star"></i></div>
+                          <div><%= review.user.first_name %><%= review.id %></div>
+                          <% if review.rating <= 2 && review.db_status == true %>
+                            <div class="d-flex justify-content-end align-items-center">
+                              <%= simple_form_for :report, url: review_report_review_path(review), method: :get do |f| %>
+                                <%= f.hidden_field :review_id, value: review.id %>
+                                <%= f.submit "Signaler", data: { confirm: "Êtes-vous sûr de vouloir signaler cet avis ? Il sera dépublié instantanément et nos équipes procéderont ensuite à une vérification de cet avis." }, class: "button" %>
+                              <% end %>
+                            </div>
+                            <div class="d-flex justify-content-end align-items-center">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                          <% end %>
+                        </div>
+                      </div>
+                      <div id="collapse<%= index %>" class="collapse" aria-labelledby="heading<%= index %>" data-parent="#accordionDashboardReviews">
+                        <div class="card-body">
+                          <strong>Atelier</strong><br>
+                          <%= review.booking.session.workshop.title %><br>
+                          <strong>Lieu</strong><br>
+                          <%= review.booking.session.workshop.place.name %><br>
+                          <strong>Message</strong><br>
+                          <%= review.content %>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                Vous n'avez pas encore reçu d'avis.
+              <% end %>
+            </div>
+          </div>
 
 
           <!-- MY KPIs -->
@@ -841,12 +912,10 @@
                 <% if current_user.profile.reviews.count > 0 %>
                   <h2><%= current_user.profile.reviews.count %></h2>
                   <% if current_user.profile.reviews.count > 1 %>
-                    <h3>avis reçus</h3>
+                    <h3>avis reçus publiés</h3>
                   <% else %>
-                    <h3>avis reçu</h3>
+                    <h3>avis reçu publié</h3>
                   <% end %>
-                  <a href="#dashboardreviewsModal" class="my-kpis-button mt-1" data-toggle="modal" data-whatever="@mdo">Consulter</a>
-                  <%= render 'dashboard_modal', profile: @profile %>
                 <% else %>
                   <h3>Vous n'avez pas<br>encore d'avis</h3>
                 <% end %>
