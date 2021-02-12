@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_09_160348) do
+ActiveRecord::Schema.define(version: 2021_02_12_184057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2021_02_09_160348) do
     t.string "address_complement"
     t.string "kit_expedition_status"
     t.string "kit_expedition_link"
+    t.float "refund_rate"
     t.index ["session_id"], name: "index_bookings_on_session_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end

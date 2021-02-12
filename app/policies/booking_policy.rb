@@ -24,6 +24,10 @@ class BookingPolicy < ApplicationPolicy
     record.user == user || user.admin?
   end
 
+  def cancel?
+    record.user == user || record.session.workshop.place.user == user || user.admin?
+  end
+
   def destroy?
     record.user == user || record.session.workshop.place.user == user || user.admin?
   end

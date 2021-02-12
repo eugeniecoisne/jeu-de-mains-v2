@@ -95,6 +95,7 @@ Rails.application.routes.draw do
     get 'coordonnees'
     get 'payment_success'
     get 'payment_error'
+    get 'cancel'
   end
 
   resources :reviews, :path => :avis, :as => :reviews, only: %i() do

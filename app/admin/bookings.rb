@@ -1,7 +1,7 @@
 ActiveAdmin.register Booking do
   menu parent: "Achats"
   config.per_page = 50
-  permit_params :quantity, :status, :amount, :user_id, :user, :session_id, :session, :db_status, :workshop, :address, :address_complement, :zip_code, :city, :phone_number, :kit_expedition_status, :kit_expedition_link
+  permit_params :quantity, :status, :amount, :user_id, :user, :session_id, :session, :db_status, :workshop, :address, :address_complement, :zip_code, :city, :phone_number, :kit_expedition_status, :kit_expedition_link, :refund_rate
   BOOKING_SESSIONS = Session.all.where(db_status: true).sort_by { |s| s.date }.map { |s| ["#{s.id} - #{s.date.strftime("%d/%m/%y")} à #{s.start_at} - #{s.workshop.title} chez #{s.workshop.place.name} - #{s.available} places restantes", s.id] }.to_h
   BOOKING_USERS = User.all.select { |u| u.profile.company.present? == false }.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
@@ -25,6 +25,7 @@ ActiveAdmin.register Booking do
     column :created_at
     column :updated_at
     column :cancelled_at
+    column :refund_rate
     column "Lieu" do |booking|
       link_to booking.session.workshop.place.name, "#{admin_place_path(booking.session.workshop.place)}"
     end
@@ -90,6 +91,7 @@ ActiveAdmin.register Booking do
     column :created_at
     column :updated_at
     column :cancelled_at
+    column :refund_rate
     column "Lieu" do |booking|
       booking.session.workshop.place.name
     end
@@ -149,6 +151,7 @@ ActiveAdmin.register Booking do
       row :created_at
       row :updated_at
       row :cancelled_at
+      row :refund_rate
       row "Lieu" do |booking|
         link_to booking.session.workshop.place.name, "#{admin_place_path(booking.session.workshop.place)}"
       end

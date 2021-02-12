@@ -44,7 +44,7 @@ class SessionsController < ApplicationController
   def destroy
     @session = Session.find(params[:id])
     authorize @session
-    if @session.bookings.where(db_status: true, status: "paid").empty?
+    if @session.sold == 0
       @session.update(db_status: false)
       @session.save
       redirect_back fallback_location: root_path
@@ -55,13 +55,12 @@ class SessionsController < ApplicationController
       mail = SessionMailer.with(session: @session).cancel_and_giveback
       mail.deliver_now
       @session.bookings.where(db_status: true, status: "paid").each do |b|
-        b.destroy
+        b.cancel
         mail = BookingMailer.with(booking: b).cancel_booking_btoc
         mail.deliver_now
       end
       redirect_back fallback_location: root_path
       flash[:notice] = "Votre session a bien été annulée et les participants ont été prévenus par e-mail."
-          # rembourser participants base 100%
     end
   end
 

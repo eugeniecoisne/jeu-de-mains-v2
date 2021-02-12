@@ -74,7 +74,7 @@
             <% if my_coming_bookings.count > 0 %>
 
               <div class="my-bookings-cards">
-                <% my_coming_bookings.sort_by { |booking| booking.session.date }.each do |booking| %>
+                <% my_coming_bookings.sort_by { |booking| booking.session.date }.each_with_index do |booking, index| %>
 
                   <div class="my-booking-date-photo-and-info">
                     <div class="my-booking-date">
@@ -111,19 +111,58 @@
                           <% end %>
                           <!-- statut envoi du kit -->
                           <!-- lien de suivi -->
-                          <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
+                          <p id="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€</p>
                           <div class="d-flex justify-content-left align-items-center">
 
-                            <% if (booking.session.date > (Date.today + 2) && booking.session.workshop.kit == false) || (booking.session.date > (Date.today + 7) && booking.session.workshop.kit == true) %>
-                              <%= link_to booking_path(booking),
-                                method: :delete,
-                                data: { confirm: "Êtes-vous sûr de vouloir annuler votre réservation ?" },
-                                class: "button mr-3" do %>
-                                Annuler
-                              <% end %>
-                            <% else %>
-                              <%= link_to "Plus d'infos", workshop_path(booking.session.workshop), class: "button mr-3" %>
-                            <% end %>
+                            <a href="#cancelBookingModal<%= index +1 %>" class="button mr-3" data-toggle="modal" data-whatever="@mdo">
+                              Annuler
+                            </a>
+
+                            <div class="modal fade cancel-booking-modal" id="cancelBookingModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="cancelBookingModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="form-group">
+                                    <%= simple_form_for :cancel, url: booking_cancel_path(booking), method: :get do |f| %>
+                                      <div class="modal-body">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
+                                        </button>
+                                        <p class='mt-3 mb-4'><strong>Vous êtes sur le point d'annuler votre réservation.</strong> <br><br>
+                                          <% if booking.session.workshop.visio_with_kit? %>
+                                            Avant d'annuler définitivement, nous vous remercions de prendre connaissance des conditions d'annulation spécifiques aux ateliers visio avec expédition de kits, à savoir que votre kit est expédié par l'organisateur à peu près 7 jours avant l'atelier : <br>
+                                            <br>
+                                            <strong>Vous annulez jusqu'à 7 jours avant l'atelier :</strong><br>
+                                            100% de votre réservation est remboursée et le kit ne vous est pas envoyé par voie postale. <br><br>
+                                            <strong>Vous annulez moins de 7 jours et jusqu'à 4 heures avant l'atelier :</strong><br>
+                                            50% de votre réservation est remboursée et le kit vous est envoyé par voie postale.<br><br>
+                                            <strong>Vous annulez moins de 4 heures avant l'atelier :</strong><br>
+                                            votre réservation ne vous sera pas remboursée mais le kit vous est envoyé par voie postale.
+                                          <% else %>
+                                            Avant d'annuler définitivement, nous vous remercions de prendre connaissance des conditions d'annulation : <br>
+                                            <br>
+                                            <strong>Vous annulez jusqu'à 48 heures avant l'atelier :</strong><br>
+                                            100% de votre réservation est remboursée. <br><br>
+                                            <strong>Vous annulez moins de 48 heures et jusqu'à 4 heures avant l'atelier :</strong><br>
+                                            50% de votre réservation est remboursée. <br><br>
+                                            <strong>Vous annulez moins de 4 heures avant l'atelier :</strong><br>
+                                            votre réservation ne vous sera pas remboursée.
+                                          <% end %>
+                                          <br><br>
+                                          Plus d'informations dans nos <%= link_to "conditions générales de vente", cgv_path, target: "_blank" %>.
+                                        </p>
+
+                                          <%= f.hidden_field :booking_id, value: booking.id %>
+
+                                        <div class="d-flex justify-content-center mt-4">
+                                          <%= f.submit "Annuler", class: "new-edit-ws-submit" %>
+                                        </div>
+                                      </div>
+                                    <% end %>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
 
                             <a href="tel:+33<%= booking.session.workshop.place.phone_number[1..-1] %>" class="call-btn">
                               <i class="fas fa-phone-alt"></i>
@@ -203,7 +242,7 @@
                               Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
                             <% end %>
                           <% end %>
-                        <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
+                          <p id="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€</p>
                         <div class="d-flex align-items-center">
                           <% if booking.session.workshop.db_status == true && booking.session.workshop.status == "en ligne" %>
                             <%= link_to "Revoir", workshop_path(booking.session.workshop), class: "button" %>
@@ -264,15 +303,9 @@
                           <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                             Organisé par <%= booking.session.workshop.place.user.profile.company %>
                           <% end %>
-                          <% if booking.session.workshop.visio == true %>
-                            <span class="localize-link"><%= booking.session.workshop.kit == true ? "En visioconférence avec kit" : "En visioconférence sans kit" %></span>
-                          <% else %>
-                            <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-link" do %>
-                              Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
-                            <% end %>
-                          <% end %>
-                          <p id="my-booking-amount"><%= booking.quantity %> place(s), <%= booking.amount %>€</p>
+                          <p id="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€</p>
                           <p id="my-booking-cancel"><%= "Annulée le #{booking.cancelled_at.strftime('%d/%m/%Y')}" if booking.cancelled_at.present? %></p>
+                          <p>Montant remboursé : <%= booking.amount * booking.refund_rate %>€</p>
                         </div>
                       <% end %>
                     </div>

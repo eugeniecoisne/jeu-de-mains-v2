@@ -798,7 +798,7 @@
                         <div class="dashboard-one-review collapsed" type="button" data-toggle="collapse" data-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
                           <div><%= review.created_at.strftime("%d/%m/%y") %></div>
                           <div class="d-flex justify-content-center align-items-center"><%= review.rating %><i class="fas fa-star"></i></div>
-                          <div><%= review.user.first_name %><%= review.id %></div>
+                          <div><%= review.user.first_name %></div>
                           <% if review.rating <= 2 && review.db_status == true %>
                             <div class="d-flex justify-content-end align-items-center">
                               <%= simple_form_for :report, url: review_report_review_path(review), method: :get do |f| %>
