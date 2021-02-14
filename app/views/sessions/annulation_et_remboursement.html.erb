@@ -19,7 +19,7 @@
 
         <div>
           <p>
-            ⚠️ Vous vous apprétez à annuler une session où vous avez<strong> <%= @session.bookings.where(db_status: true).map { |booking| booking.quantity }.sum %> participant.s déjà inscrit.s. </strong><br>
+            ⚠️ Vous vous apprétez à annuler une session où vous avez<strong> <%= @session.sold %> participant.s déjà inscrit.s. </strong><br>
             Souhaitez-vous annuler cette session et procéder au remboursement du.des participant.s ? <br>
           </p>
           <p>Merci d'indiquer la raison de l'annulation qui sera mentionnée dans le mail envoyé aux participants <em>(vous serez en copie)</em> :</p>

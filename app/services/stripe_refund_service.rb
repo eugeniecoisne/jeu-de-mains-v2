@@ -13,7 +13,7 @@ class StripeRefundService
         # JDM reprend à l'organisateur le montant de la carte cadeau utilisé sans la commission.
 
         Stripe::Transfer.create_reversal(@booking.stripe_giftcard_transfer,
-          {amount: ((@booking.giftcard_amount_spent * 0.8) * 100).to_i},
+          {amount: ((@booking.giftcard_amount_spent * @booking.refund_rate * 0.8) * 100).to_i},
         )
 
         # ETAPE 3
@@ -23,11 +23,11 @@ class StripeRefundService
 
           # carte cadeau périmée, ajout de un mois de validité + montant.
         if giftcard.deadline_date < Date.today
-          giftcard.amount += @booking.giftcard_amount_spent
-          giftcard.deadline_date += 1.month
+          giftcard.amount += (@booking.giftcard_amount_spent * @booking.refund_rate)
+          giftcard.deadline_date = Date.today + 1.month
           giftcard.save
         else
-          giftcard.amount += @booking.giftcard_amount_spent
+          giftcard.amount += (@booking.giftcard_amount_spent * @booking.refund_rate)
           giftcard.save
         end
       end

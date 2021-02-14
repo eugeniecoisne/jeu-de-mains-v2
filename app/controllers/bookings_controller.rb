@@ -110,9 +110,25 @@ class BookingsController < ApplicationController
     authorize @booking
   end
 
-  def destroy
-    @booking = Booking.find(params[:id])
+  def cancel
+    @booking = Booking.find(params[:cancel][:booking_id])
     authorize @booking
+    booking_start_time = Time.new(@booking.session.date.strftime('%Y').to_i, @booking.session.date.strftime('%m').to_i, @booking.session.date.strftime('%d').to_i, @booking.session.start_at[0..1], @booking.session.start_at[-2..-1], 0, "+01:00")
+    cancel_time = Time.now
+
+    if @booking.session.reason.present? && @booking.session.db_status == false
+      @booking.refund_rate = 1.0
+    else
+      if (0..3.99).include?((booking_start_time - cancel_time) / 1.hours)
+        @booking.refund_rate = 0.0
+      elsif (4..47.99).include?((booking_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == false
+        @booking.refund_rate = 0.5
+      elsif (4..167.99).include?((booking_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == true
+        @booking.refund_rate = 0.5
+      else
+        @booking.refund_rate = 1.0
+      end
+    end
 
     key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
     Stripe.api_key = key
@@ -130,7 +146,7 @@ class BookingsController < ApplicationController
       # JDM reprend à l'organisateur le montant de la carte cadeau utilisé sans la commission.
 
         Stripe::Transfer.create_reversal(@booking.stripe_giftcard_transfer,
-          {amount: ((@booking.giftcard_amount_spent * 0.8) * 100).to_i},
+          {amount: ((@booking.giftcard_amount_spent * @booking.refund_rate * 0.8) * 100).to_i},
         )
 
       # ETAPE 2
@@ -140,11 +156,11 @@ class BookingsController < ApplicationController
 
           # carte cadeau périmée, ajout de un mois de validité + montant.
         if giftcard.deadline_date < Date.today
-          giftcard.amount += @booking.giftcard_amount_spent
-          giftcard.deadline_date += 1.month
+          giftcard.amount += (@booking.giftcard_amount_spent * @booking.refund_rate)
+          giftcard.deadline_date = Date.today + 1.month
           giftcard.save
         else
-          giftcard.amount += @booking.giftcard_amount_spent
+          giftcard.amount += (@booking.giftcard_amount_spent * @booking.refund_rate)
           giftcard.save
         end
 
@@ -162,7 +178,7 @@ class BookingsController < ApplicationController
 
         bank_refund = Stripe::Refund.create({
           payment_intent: @booking.payment_intent_id,
-          amount: ((@booking.amount - @booking.giftcard_amount_spent) * 100).to_i,
+          amount: ((@booking.amount - @booking.giftcard_amount_spent) * @booking.refund_rate * 100).to_i,
           refund_application_fee: true,
           reverse_transfer: true,
         })
@@ -180,7 +196,7 @@ class BookingsController < ApplicationController
 
       refund = Stripe::Refund.create({
         payment_intent: @booking.payment_intent_id,
-        amount: (@booking.amount * 100).to_i,
+        amount: (@booking.amount * @booking.refund_rate * 100).to_i,
         refund_application_fee: true,
         reverse_transfer: true,
       })
@@ -190,13 +206,22 @@ class BookingsController < ApplicationController
 
     end
 
+    flash[:alert] = "Votre réservation a bien été annulée, vous avez reçu un e-mail."
+    redirect_back fallback_location: root_path
+  end
+
+  def destroy
+    @booking = Booking.find(params[:id])
+    authorize @booking
+    @booking.update(db_status: false)
+    @booking.save
     redirect_back fallback_location: root_path
   end
 
   private
 
   def booking_params
-    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard, :phone_number, :address, :address_complement, :zip_code, :city, :kit_expedition_status, :kit_expedition_link)
+    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard, :phone_number, :address, :address_complement, :zip_code, :city, :kit_expedition_status, :kit_expedition_link, :refund_rate)
   end
 
 end
