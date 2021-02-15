@@ -75,6 +75,7 @@ fr:
         user: Utilisateur
         created_at: Créé le
         updated_at: Modifié le
+        fee: Commission JDM
       place:
         name: Nom du lieu
         address: Adresse postale
@@ -142,6 +143,7 @@ fr:
         created_at: Créé le
         updated_at: Modifié le
         cgv_agreement: Accord CGV
+        fee: Commission JDM
       review:
         content: Contenu de l'avis
         rating: Note

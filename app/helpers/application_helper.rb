@@ -5,7 +5,7 @@ module ApplicationHelper
 
   def stripe_connect_button
     link_to stripe_url, class: "btn-stripe-connect" do
-      content_tag :span, "Connecter à Stripe"
+      content_tag :span, "Me connecter à Stripe"
     end
   end
 end

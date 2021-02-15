@@ -1,7 +1,7 @@
 ActiveAdmin.register Profile do
   menu parent: "Fiches"
   config.per_page = 50
-  permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :photo
+  permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :fee, :photo
   PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
   controller do
@@ -20,6 +20,7 @@ ActiveAdmin.register Profile do
     column :id
     column :db_status
     column :ready
+    column :fee
     column :user do |profile|
       link_to "#{profile.user.fullname}", "#{admin_user_path(profile.user)}"
     end
@@ -58,6 +59,7 @@ ActiveAdmin.register Profile do
     column :id
     column :db_status
     column :ready
+    column :fee
     column "Prénom" do |profile|
       profile.user.first_name
     end
@@ -100,6 +102,7 @@ ActiveAdmin.register Profile do
         end
       end
       row :role
+      row :fee
       row :user do |profile|
         link_to profile.user.fullname, "#{admin_user_path(profile.user)}"
       end
@@ -295,6 +298,9 @@ ActiveAdmin.register Profile do
     f.inputs "Fiche" do
       f.input :description
       f.input :photo, as: :file, input_html: { accept: "image/*"}
+    end
+    f.inputs "Commission" do
+      f.input :fee
     end
     f.inputs "Statut" do
       f.input :db_status, as: :boolean

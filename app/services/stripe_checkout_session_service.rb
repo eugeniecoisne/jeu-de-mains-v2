@@ -18,7 +18,7 @@ class StripeCheckoutSessionService
         charge = Stripe::PaymentIntent.retrieve(giftcard.payment_intent_id).charges.first
 
         transfer = Stripe::Transfer.create({
-          amount: ((booking.giftcard_amount_spent - (booking.giftcard_amount_spent * 0.2)) * 100).to_i,
+          amount: ((booking.giftcard_amount_spent - (booking.giftcard_amount_spent * booking.fee)) * 100).to_i,
           currency: 'eur',
           transfer_group: "GIFTCARD_#{giftcard.id}",
           source_transaction: charge.id,

@@ -13,7 +13,7 @@ class StripeRefundService
         # JDM reprend à l'organisateur le montant de la carte cadeau utilisé sans la commission.
 
         Stripe::Transfer.create_reversal(@booking.stripe_giftcard_transfer,
-          {amount: ((@booking.giftcard_amount_spent * @booking.refund_rate * 0.8) * 100).to_i},
+          {amount: ((@booking.giftcard_amount_spent * @booking.refund_rate * (1.0 - @booking.fee)) * 100).to_i},
         )
 
         # ETAPE 3

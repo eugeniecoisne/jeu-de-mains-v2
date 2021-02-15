@@ -1,5 +1,15 @@
 // CSS ORGANIZER DASHBOARD
 
+// STRIPE
+
+.stripe-introduction {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+#stripe-container {
+  margin: 2rem 16rem;
+}
 
 // CONTAINERS
 
@@ -597,6 +607,11 @@
 // Smallest device
 @media (min-width: 100px) and (max-width: 745px) {
 
+  // Stripe
+
+  #stripe-container {
+    margin: 2rem 2rem;
+  }
   // container
 
   .dashboard-organizer-container {
@@ -804,6 +819,12 @@
 // Small & Medium devices (tablets, 746px and up)
 @media (min-width: 746px) and (max-width: 991px)  {
 
+  // Stripe
+
+  #stripe-container {
+    margin: 2rem 8rem;
+  }
+
   // container
 
   .dashboard-organizer-container {
@@ -825,6 +846,12 @@
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199px)  {
+  // stripe
+
+  #stripe-container {
+    margin: 2rem 10rem;
+  }
+
   // my kpis
   .dashboard-my-kpis {
     grid-template-columns: 1fr 1fr 1fr;

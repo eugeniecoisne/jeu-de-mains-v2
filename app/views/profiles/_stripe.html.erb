@@ -1,0 +1,19 @@
+<div class="dashboard-title-container">
+  <h1>
+    Hello <span><%= @profile.company %></span>,<br>toute dernière étape avant d'accéder à votre gestionnaire d'ateliers !
+  </h1>
+</div>
+<div class="dashboard-organizer-container" id="stripe-container">
+  <div class="d-flex justify-content-center" style="text-align: center; margin-bottom: 1rem;">
+    <p class="stripe-introduction">
+      Vous devez encore connecter votre compte Stripe existant à la plateforme Stripe Connect de Jeu de Mains ou créer votre nouveau compte Stripe gratuit et le connecter à la plateforme Stripe Connect de Jeu de Mains.
+    <br><br>
+      Ce compte Stripe vous permettra de recevoir vos paiements de réservation sur votre compte bancaire, à noter que la commission Stripe est déjà incluse dans la commission Jeu de Mains.
+    <br><br>
+      Une fois votre compte Stripe associé, les portes de la plateforme Jeu de Mains vous sont intégralement ouvertes avec la création et gestion de vos ateliers !
+    </p>
+  </div>
+  <div class="d-flex justify-content-center">
+    <%= stripe_connect_button %>
+  </div>
+</div>

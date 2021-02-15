@@ -14,7 +14,7 @@
     </div>
 
     <div class="payment-success-error-ws-info">
-      <p class="mb-1">Réservation n°<%= @booking.id %></p>
+      <p class="mb-1">Réservation n°<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %></p>
       <h2 class="payment-success-error-ws-title">
         <%= link_to workshop_path(@booking.session.workshop) do %>
           <%= @booking.session.workshop.title %>

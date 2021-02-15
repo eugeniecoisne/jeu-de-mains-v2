@@ -37,17 +37,17 @@
     color: $dark-gray;
     font-weight: 500;
   }
-  #my-booking-ws-title {
+  .my-booking-ws-title {
     font-weight: 700;
   }
-  #my-booking-order-nb {
+  .my-booking-order-nb {
     opacity: 60%;
     margin-bottom: 0.3em;
   }
-  #my-booking-amount {
+  .my-booking-amount {
     margin: 0.3em 0 1em 0;
   }
-  #my-booking-cancel {
+  .my-booking-cancel {
     margin: -0.7em 0 1em 0;
     opacity: 60%;
   }
@@ -137,14 +137,14 @@
       color: $dark-gray;
       font-weight: 500;
     }
-    #my-booking-ws-title {
+    .my-booking-ws-title {
       font-weight: 700;
     }
-    #my-booking-order-nb {
+    .my-booking-order-nb {
       opacity: 60%;
       margin-bottom: 0.3em;
     }
-    #my-booking-amount {
+    .my-booking-amount {
       margin: 0.3em 0 1em 0;
     }
   }

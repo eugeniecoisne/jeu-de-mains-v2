@@ -239,7 +239,7 @@
                     <span style="color: #1C1C1C; font-size: 14px;">
                       <strong>
                         <span style="">
-                          DÉTAILS ANNULATION DE RÉSERVATION N°<%= @booking.id %>
+                          DÉTAILS ANNULATION DE RÉSERVATION N°<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %>
                         </span>
                       </strong>
                     </span>
@@ -268,7 +268,6 @@
                   <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Réservé le</span></p>
                   <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Annulé le</span></p>
                   <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Nombre de places</span></p>
-                  <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">Montant remboursé</span></p>
 
                 </div>
               </div>
@@ -286,9 +285,8 @@
                 <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 22px;">
                   <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.user.first_name %> <%= @booking.user.last_name[0] %>.</span></p>
                   <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.created_at.strftime('%d/%m/%Y') %></span></p>
-                  <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.updated_at.strftime('%d/%m/%Y') %></span></p>
+                  <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.cancelled_at.strftime('%d/%m/%Y') %></span></p>
                   <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %></span></p>
-                  <p style="font-size: 13px; line-height: 1.8; word-break: break-word; text-align: right; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; mso-ansi-font-size: 14px; margin: 0;"><span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;"><%= @booking.amount %> €</span></p>
                 </div>
               </div>
 
