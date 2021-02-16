@@ -15,7 +15,7 @@
           <%= f.input :place, required: false, label: "Lieu", prompt: "Toutes les villes", collection: Place.cities_and_districts  %>
           <%= f.input :starts_at, as: :string, required: false, input_html: {class: "datepicker datepicker_start_date"}, placeholder: "À tout moment", label: "À partir du" %>
           <%= f.input :ends_at, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: "À tout moment", label: "Jusqu'au" %>
-          <%= f.hidden_field :order, value: "Recommandation" %>
+          <%= f.hidden_field :order, value: "Aléatoire" %>
           <button type="submit" class="search-button" aria-label="Search Workshops">
             <i class="fas fa-search"></i>
           </button>
@@ -76,7 +76,7 @@
                       <div class="ws-card-tag ws-card-rating" id="home-ws-card-rating">
                         <i class="fas fa-star"></i><span><%= workshop.rating %></span>
                       </div>
-                    <% else %>
+                    <% elsif workshop.created_at > Date.today - 1.month %>
                       <div class="ws-card-tag ws-card-rating" id="home-ws-card-rating">
                         <span>nouveau</span>
                       </div>

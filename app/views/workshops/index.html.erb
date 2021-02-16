@@ -26,7 +26,7 @@
 
         <!-- Order -->
 
-        <% if params[:search][:order].present? && params[:search][:order] != "Recommandation" %>
+        <% if params[:search][:order].present? && params[:search][:order] != "Aléatoire" %>
           <div class="form-container-order">
             <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
               <%= f.hidden_field :keyword, value: params[:search][:keyword], id: "search_keyword_1" %>
@@ -38,7 +38,7 @@
               <%= f.hidden_field :starts_at, value: Date.strptime(params[:search][:starts_at], '%Y-%m-%d'), id: "search_starts_at_1" if params[:search][:starts_at].present? %>
               <%= f.hidden_field :ends_at, value: Date.strptime(params[:search][:ends_at], '%Y-%m-%d'), id: "search_ends_at_1" if params[:search][:ends_at].present? %>
               <%= f.hidden_field :min_price, value: params[:search][:min_price].to_f, id: "search_min_price_1" %>
-              <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_1" %>
+              <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_1" %>
               <% if params[:search][:max_price].present? %>
                 <%= f.hidden_field :max_price, value: params[:search][:max_price].to_f, id: "search_max_price_1" %>
               <% else %>
@@ -84,7 +84,7 @@
               <% if params[:search][:order].present?  %>
                 <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_2" %>
               <% else %>
-                <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_2" %>
+                <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_2" %>
               <% end %>
               <% if params[:search][:visio].present? %>
                 <%= f.hidden_field :visio, value: params[:search][:visio], id: "search_visio_2" %>
@@ -126,7 +126,7 @@
               <% if params[:search][:order].present?  %>
                 <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_3" %>
               <% else %>
-                <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_3" %>
+                <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_3" %>
               <% end %>
               <% if params[:search][:visio].present? %>
                 <%= f.hidden_field :visio, value: params[:search][:visio], id: "search_visio_3" %>
@@ -167,7 +167,7 @@
               <% if params[:search][:order].present?  %>
                 <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_4" %>
               <% else %>
-                <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_4" %>
+                <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_4" %>
               <% end %>
               <% if params[:search][:visio].present? %>
                 <%= f.hidden_field :visio, value: params[:search][:visio], id: "search_visio_4" %>
@@ -211,7 +211,7 @@
                 <% if params[:search][:order].present?  %>
                   <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_5" %>
                 <% else %>
-                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_5" %>
+                  <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_5" %>
                 <% end %>
                 <% if params[:search][:visio].present? %>
                   <%= f.hidden_field :visio, value: params[:search][:visio], id: "search_visio_5" %>
@@ -249,7 +249,7 @@
                 <% if params[:search][:order].present?  %>
                   <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_6" %>
                 <% else %>
-                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_6" %>
+                  <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_6" %>
                 <% end %>
                 <% if params[:search][:visio].present? %>
                   <%= f.hidden_field :visio, value: params[:search][:visio], id: "search_visio_6" %>
@@ -286,7 +286,7 @@
                 <% if params[:search][:order].present?  %>
                   <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_7" %>
                 <% else %>
-                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_7" %>
+                  <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_7" %>
                 <% end %>
                 <% if params[:search][:visio].present? %>
                   <%= f.hidden_field :visio, value: params[:search][:visio], id: "search_visio_7" %>
@@ -326,7 +326,7 @@
                 <% if params[:search][:order].present?  %>
                   <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_8" %>
                 <% else %>
-                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_8" %>
+                  <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_8" %>
                 <% end %>
                 <% if params[:search][:visio].present? %>
                   <%= f.hidden_field :visio, value: params[:search][:visio], id: "search_visio_8" %>
@@ -365,7 +365,7 @@
                 <% if params[:search][:order].present?  %>
                   <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_9" %>
                 <% else %>
-                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_9" %>
+                  <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_9" %>
                 <% end %>
                 <% if params[:search][:visio].present? %>
                   <%= f.hidden_field :visio, value: params[:search][:visio], id: "search_visio_9" %>
@@ -401,7 +401,7 @@
                 <% if params[:search][:order].present?  %>
                   <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_10" %>
                 <% else %>
-                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_10" %>
+                  <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_10" %>
                 <% end %>
                 <% if params[:search][:visio].present? %>
                   <%= f.hidden_field :visio, value: params[:search][:visio], id: "search_visio_10" %>
@@ -444,7 +444,7 @@
                 <% if params[:search][:order].present?  %>
                   <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_11" %>
                 <% else %>
-                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_11" %>
+                  <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_11" %>
                 <% end %>
                 <% if params[:search][:visio].present? %>
                   <%= f.hidden_field :visio, value: params[:search][:visio], id: "search_visio_11" %>
@@ -486,7 +486,7 @@
               <% if params[:search][:order].present?  %>
                 <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_12" %>
               <% else %>
-                <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_12" %>
+                <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_12" %>
               <% end %>
               <% if params[:search][:visio].present? %>
                 <%= f.hidden_field :visio, value: params[:search][:visio], id: "search_visio_12" %>
@@ -528,7 +528,7 @@
               <% if params[:search][:order].present?  %>
                 <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_13" %>
               <% else %>
-                <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_13" %>
+                <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_13" %>
               <% end %>
               <% if params[:search][:visio].present? %>
                 <%= f.hidden_field :visio, value: params[:search][:visio], id: "search_visio_13" %>
@@ -577,7 +577,7 @@
                 <% if params[:search][:order].present?  %>
                   <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_14" %>
                 <% else %>
-                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_14" %>
+                  <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_14" %>
                 <% end %>
                 <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
                   Ateliers permanents <i class="fas fa-times ml-2"></i>
@@ -616,7 +616,7 @@
                 <% if params[:search][:order].present?  %>
                   <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_15" %>
                 <% else %>
-                  <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_15" %>
+                  <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_15" %>
                 <% end %>
                 <%= button_tag(type: "submit", class: "ws-index-search-tag") do %>
                   Ateliers en présentiel <i class="fas fa-times ml-2"></i>
@@ -659,7 +659,7 @@
           <% if params[:search][:order].present?  %>
             <%= f.hidden_field :order, value: params[:search][:order], id: "search_order_20" %>
           <% else %>
-            <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_20" %>
+            <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_20" %>
           <% end %>
           <% if params[:search][:visio].present? %>
             <%= f.hidden_field :visio, value: params[:search][:visio], id: "search_visio_20" %>
@@ -687,7 +687,7 @@
         <h3 class="index-ws-results">> Nous avons trouvé <span><%= @workshops.count %> atelier créatif</span> correspondant à votre recherche</h3>
       <% else %>
         <h3 class="index-ws-results mt-4"><strong>> Nous n'avons trouvé aucun atelier créatif correspondant à votre recherche.</strong></h3>
-        <h3 class="index-ws-results mt-3"><strong>Voici nos suggestions :</strong></h3>
+        <h3 class="index-ws-results mt-3" id="index-ws-no-result-suggestions"><strong>Voici nos suggestions :</strong></h3>
       <% end %>
 
       <% if @workshops.count > 0 %>
@@ -706,7 +706,7 @@
                     <div class="ws-card-tag ws-card-rating" id="index-ws-card-rating">
                       <i class="fas fa-star"></i><span><%= workshop.rating %></span>
                     </div>
-                  <% else %>
+                  <% elsif workshop.created_at > Date.today - 1.month %>
                     <div class="ws-card-tag ws-card-rating" id="index-ws-card-rating">
                       <span>nouveau</span>
                     </div>

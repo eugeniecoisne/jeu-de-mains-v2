@@ -306,7 +306,7 @@
                           <div class="ws-card-tag ws-card-rating" id="show-ws-card-rating">
                             <i class="fas fa-star"></i><span><%= workshop.rating %></span>
                           </div>
-                        <% else %>
+                        <% elsif workshop.created_at > Date.today - 1.month %>
                           <div class="ws-card-tag ws-card-rating" id="show-ws-card-rating">
                             <span>nouveau</span>
                           </div>

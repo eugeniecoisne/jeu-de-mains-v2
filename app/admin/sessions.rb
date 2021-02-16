@@ -50,7 +50,7 @@ ActiveAdmin.register Session do
     column "Prix" do |session|
       session.workshop.price
     end
-    column "Note JDM" do |session|
+    column "Note JDM non utilisée" do |session|
       session.workshop.recommendable
     end
     column :reason
@@ -104,7 +104,7 @@ ActiveAdmin.register Session do
     column "Prix" do |session|
       session.workshop.price
     end
-    column "Note JDM" do |session|
+    column "Note JDM non utilisée" do |session|
       session.workshop.recommendable
     end
     column :reason
