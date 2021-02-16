@@ -12,7 +12,7 @@ class Workshop < ApplicationRecord
   validates :title, presence: true, allow_blank: false
   validates :thematic, inclusion: { in: ['Autour du fil', 'Végétal', 'Papier & Lettering', 'Céramique & Modelage', 'Bijou', 'Cosmétique & Entretien', 'Dessin & Peinture', 'Meuble & Décoration', 'Travail du cuir'] }
   validates :level, inclusion: { in: ['Débutant', 'Intermédiaire', 'Avancé'] }
-  validates :recommendable, inclusion: { in: [1, 2, 3] }
+  validates :recommendable, inclusion: { in: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
   validate :attachments_size
 
   THEMATICS = ['Autour du fil', 'Végétal', 'Papier & Lettering', 'Céramique & Modelage', 'Bijou', 'Cosmétique & Entretien', 'Dessin & Peinture', 'Meuble & Décoration', 'Travail du cuir']

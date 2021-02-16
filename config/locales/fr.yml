@@ -102,7 +102,7 @@ fr:
         ephemeral: Éphémère
         final_product: Repartez avec
         rating: Note publique /5
-        recommendable: Recommandation /3
+        recommendable: Recommandation /10 (non utilisée)
         verified: Vérifié
         status: Statut
         db_status: Statut db

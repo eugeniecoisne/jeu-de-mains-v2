@@ -168,6 +168,11 @@
       font-weight: 600;
     }
   }
+  #index-ws-no-result-suggestions {
+    padding-top: 25px;
+    border-top: 2px solid $light-blue;
+    max-width: 200px;
+  }
 }
 
 .index-ws-cards {

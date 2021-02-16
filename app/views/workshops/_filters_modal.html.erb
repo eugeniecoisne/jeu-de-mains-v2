@@ -14,9 +14,9 @@
         <% if params[:search].present? %>
           <div>
             <% if params[:search][:order].present? %>
-              <%= f.input :order, as: :radio_buttons, collection: ['Recommandation', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par', namespace: "unique_prefix_to_be_prepended_to_id", checked: params[:search][:order] %>
+              <%= f.input :order, as: :radio_buttons, collection: ['Aléatoire', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par', namespace: "unique_prefix_to_be_prepended_to_id", checked: params[:search][:order] %>
             <% else %>
-              <%= f.input :order, as: :radio_buttons, collection: ['Recommandation', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par', namespace: "unique_prefix_to_be_prepended_to_id", checked: 'Recommandation' %>
+              <%= f.input :order, as: :radio_buttons, collection: ['Aléatoire', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par', namespace: "unique_prefix_to_be_prepended_to_id", checked: 'Aléatoire' %>
             <% end %>
           </div>
           <div class="indew-ws-two-inputs-row">
@@ -85,7 +85,7 @@
 
         <% else %>
           <div>
-            <%= f.input :order, as: :radio_buttons, collection: ['Recommandation', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par', checked: 'Recommandation', namespace: "unique_prefix_to_be_prepended_to_id" %>
+            <%= f.input :order, as: :radio_buttons, collection: ['Aléatoire', 'Prix croissants', 'Prix décroissants', 'Les mieux notés'], required: false, label: 'Trier par', checked: 'Aléatoire', namespace: "unique_prefix_to_be_prepended_to_id" %>
           </div>
           <div class="indew-ws-two-inputs-row">
             <%= f.input :min_price, as: :float, required: false, label: 'Prix min. €', input_html: { value: 0, id: "search_min_price_16" } %>
@@ -127,7 +127,7 @@
 
       <div class="filters-reinitialize">
         <%= simple_form_for :search, url: workshops_path, method: :get do |f| %>
-          <%= f.hidden_field :order, value: 'Recommandation', id: "search_order_17" %>
+          <%= f.hidden_field :order, value: 'Aléatoire', id: "search_order_17" %>
           <%= f.hidden_field :starts_at, id: "search_starts_at_17" %>
           <%= f.hidden_field :ends_at, id: "search_ends_at_17" %>
           <%= f.hidden_field :min_capacity, id: "search_min_capacity_17" %>
