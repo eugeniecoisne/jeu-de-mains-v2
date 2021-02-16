@@ -26,7 +26,7 @@ class PaymentsController < ApplicationController
           payment_method_types: ['card'],
           customer: customer,
           payment_intent_data: {
-            application_fee_amount: (0.20 * amount).to_i,
+            application_fee_amount: (@booking.fee * amount).to_i,
             transfer_data: {
               destination: @booking.session.workshop.place.user.stripe_uid,
             },

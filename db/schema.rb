@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_12_184057) do
+ActiveRecord::Schema.define(version: 2021_02_15_165610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,7 +85,8 @@ ActiveRecord::Schema.define(version: 2021_02_12_184057) do
     t.string "address_complement"
     t.string "kit_expedition_status"
     t.string "kit_expedition_link"
-    t.float "refund_rate"
+    t.float "refund_rate", default: 1.0
+    t.float "fee", default: 0.2
     t.index ["session_id"], name: "index_bookings_on_session_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -199,6 +200,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_184057) do
     t.string "accountant_zip_code"
     t.string "accountant_city"
     t.string "accountant_phone_number"
+    t.float "fee", default: 0.2
     t.index ["slug"], name: "index_profiles_on_slug", unique: true
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end

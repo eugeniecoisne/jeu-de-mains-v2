@@ -1,11 +1,11 @@
 class ProfilePolicy < ApplicationPolicy
 
   def index?
-    user
+    user.profile.role.present? || user.admin?
   end
 
   def show?
-    record.user == user || user.admin?
+    update?
   end
 
   def update?

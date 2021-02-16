@@ -1,5 +1,7 @@
-<% if @profile.role || @profile.user.admin == true %>
+<% if (@profile.role && @profile.user.can_receive_payments?) || current_user.admin == true %>
   <%= render 'dashboard_organizer' %>
+<% elsif @profile.role && (@profile.user.can_receive_payments? == false) %>
+  <%= render 'stripe' %>
 <% else %>
   <%= render 'dashboard_mybookings' %>
 <% end %>

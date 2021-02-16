@@ -91,8 +91,8 @@
                           <% end %>
                         </div>
                         <div class="my-booking-ws-info">
-                          <p id="my-booking-order-nb">Réservation n°<%= booking.id %></p>
-                          <p id="my-booking-ws-title">
+                          <p class="my-booking-order-nb">Réservation n°<%= booking.created_at.strftime("%Y%m") %><%= booking.id %></p>
+                          <p class="my-booking-ws-title">
                             <% if booking.session.workshop.title.size > 33 %>
                               <%= booking.session.workshop.title[0..31] %>...
                             <% else %>
@@ -111,7 +111,7 @@
                           <% end %>
                           <!-- statut envoi du kit -->
                           <!-- lien de suivi -->
-                          <p id="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€</p>
+                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€</p>
                           <div class="d-flex justify-content-left align-items-center">
 
                             <a href="#cancelBookingModal<%= index +1 %>" class="button mr-3" data-toggle="modal" data-whatever="@mdo">
@@ -230,8 +230,8 @@
                         <% end %>
                       </div>
                       <div class="my-booking-ws-info">
-                        <p id="my-booking-order-nb">Réservation n°<%= booking.id %></p>
-                        <p id="my-booking-ws-title"><%= booking.session.workshop.title %></p>
+                        <p class="my-booking-order-nb">Réservation n°<%= booking.created_at.strftime("%Y%m") %><%= booking.id %></p>
+                        <p class="my-booking-ws-title"><%= booking.session.workshop.title %></p>
                         <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                           Organisé par <%= booking.session.workshop.place.user.profile.company %>
                         <% end %>
@@ -242,7 +242,7 @@
                               Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
                             <% end %>
                           <% end %>
-                          <p id="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€</p>
+                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€</p>
                         <div class="d-flex align-items-center">
                           <% if booking.session.workshop.db_status == true && booking.session.workshop.status == "en ligne" %>
                             <%= link_to "Revoir", workshop_path(booking.session.workshop), class: "button" %>
@@ -298,13 +298,13 @@
 
                       <%= link_to workshop_path(booking.session.workshop) do %>
                         <div class="my-booking-ws-info">
-                          <p id="my-booking-order-nb">Réservation n°<%= booking.id %></p>
-                          <p id="my-booking-ws-title"><%= booking.session.workshop.title %></p>
+                          <p class="my-booking-order-nb">Réservation n°<%= booking.created_at.strftime("%Y%m") %><%= booking.id %></p>
+                          <p class="my-booking-ws-title"><%= booking.session.workshop.title %></p>
                           <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                             Organisé par <%= booking.session.workshop.place.user.profile.company %>
                           <% end %>
-                          <p id="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€</p>
-                          <p id="my-booking-cancel"><%= "Annulée le #{booking.cancelled_at.strftime('%d/%m/%Y')}" if booking.cancelled_at.present? %></p>
+                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€</p>
+                          <p class="my-booking-cancel"><%= "Annulée le #{booking.cancelled_at.strftime('%d/%m/%Y')}" if booking.cancelled_at.present? %></p>
                           <p>Montant remboursé : <%= booking.amount * booking.refund_rate %>€</p>
                         </div>
                       <% end %>

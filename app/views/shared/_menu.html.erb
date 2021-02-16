@@ -23,7 +23,7 @@
             <% end %>
           </div>
         </li>
-        <% if current_user.profile.role %>
+        <% if (current_user.profile.role.present? && current_user.can_receive_payments?) || current_user.admin == true %>
           <li class="list-group-item">
             <div class="list-item-menu">
               <%= link_to new_workshop_path, class: "menu-blue-link" do %>
@@ -42,14 +42,16 @@
             </div>
           </li>
         <% end %>
-        <li class="list-group-item">
-          <div class="list-item-menu">
-            <%= link_to profiles_path, class: "menu-blue-link" do %>
-              <i class="fas fa-graduation-cap menu-icon menu-blue-icon mr-1"></i>
-              Découvrir les partenaires
-            <% end %>
-          </div>
-        </li>
+        <% if current_user.profile.role.present? || current_user.admin == true %>
+          <li class="list-group-item">
+            <div class="list-item-menu">
+              <%= link_to profiles_path, class: "menu-blue-link" do %>
+                <i class="fas fa-graduation-cap menu-icon menu-blue-icon mr-1"></i>
+                Découvrir les partenaires
+              <% end %>
+            </div>
+          </li>
+        <% end %>
         <li class="list-group-item">
           <div class="list-item-menu">
             <%= link_to tableau_de_bord_profile_path(current_user.profile), class: "menu-blue-link" do %>

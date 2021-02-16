@@ -1,4 +1,4 @@
-<% if @profile.user == current_user %>
+<% if ((@profile.user == current_user && @profile.user.can_receive_payments?)) || current_user.admin == true %>
 
   <!-- DASHBOARD - ORGANIZER -->
 
@@ -183,20 +183,20 @@
                         <% end %>
                       <% end %>
                       <span class="ws-dashboard-organizer-text-your-role">
-                        <% if workshop.place.user == current_user %>
+                        <% if workshop.place.user == @profile.user %>
                           <i class="fas fa-user-shield mr-1"></i> Organisé par vous
                         <% else %>
                           <i class="fas fa-palette mr-1"></i>Animé par vous
                         <% end %>
                       </span>
 
-                      <% if workshop.place.user == current_user && workshop.animators.where(db_status: true).present? %>
+                      <% if workshop.place.user == @profile.user && workshop.animators.where(db_status: true).present? %>
                         <h3>Animé par
                           <%= link_to profile_public_path(workshop.animators.where(db_status: true).last.user.profile) do %>
                             <%= workshop.animators.where(db_status: true).last.user.profile.company %>
                           <% end %>
                         </h3>
-                      <% elsif workshop.place.user != current_user %>
+                      <% elsif workshop.place.user != @profile.user %>
                         <h3>Organisé par <%= workshop.place.user.profile.company %></h3>
                       <% end %>
                       <% if workshop.visio == true %>
@@ -215,7 +215,7 @@
 
                     <div class="ws-dashboard-organizer-buttons" id="ws-dashboard-organizer-buttons-<%= index +1 %>">
 
-                      <% if workshop.place.user == current_user || current_user.admin %>
+                      <% if workshop.place.user == @profile.user %>
                         <div>
                           <a href="#addSessionModal<%= index +1 %>" class="button mr-2" data-toggle="modal" data-whatever="@mdo" id="add-date-button">
                             <i class="fas fa-plus mr-1"></i>
@@ -250,7 +250,7 @@
                         </div>
                       <% end %>
 
-                      <% if workshop.place.user == current_user || current_user.admin %>
+                      <% if workshop.place.user == @profile.user %>
 
                         <% if workshop.animators.where(db_status: true).count == 0 %>
 
@@ -358,16 +358,16 @@
                         <% end %>
                       <% end %>
 
-                      <% if workshop.place.user == current_user || current_user.admin %>
+                      <% if workshop.place.user == @profile.user %>
                         <%= link_to "Modifier la fiche", edit_workshop_path(workshop), class: "button mr-2" %>
                       <% end %>
-                      <% if workshop.place.user == current_user || current_user.admin %>
+                      <% if workshop.place.user == @profile.user %>
                         <%= link_to "Gérer les sessions", workshop_sessions_path(workshop), class: "button mr-2" %>
                       <% else %>
                         <%= link_to "Voir les sessions", workshop_sessions_path(workshop), class: "button mr-2" %>
                       <% end %>
 
-                      <% if workshop.place.user == current_user || current_user.admin %>
+                      <% if workshop.place.user == @profile.user %>
 
                         <%= simple_form_for(@workshop) do |f| %>
                           <%= f.hidden_field :title, value: workshop.title %>
@@ -388,7 +388,7 @@
                       <% end %>
 
 
-                      <% if workshop.place.user == current_user || current_user.admin %>
+                      <% if workshop.place.user == @profile.user %>
 
                         <% if workshop.status == "en ligne" && my_ws_bookings_today.empty? %>
                           <%= form_for workshop, method: :patch do |f| %>
@@ -462,7 +462,7 @@
                         <% end %>
                       <% end %>
 
-                      <% if workshop.place.user == current_user || current_user.admin %>
+                      <% if workshop.place.user == @profile.user %>
 
                         <% if workshop.status == "hors ligne" && my_ws_bookings_7_days.empty? %>
                           <%= link_to workshop_path(workshop),
@@ -475,7 +475,7 @@
                         <% end %>
                       <% end %>
 
-                      <% if workshop.place.user != current_user %>
+                      <% if workshop.place.user != @profile.user %>
                         <%= simple_form_for(@chatroom) do |f| %>
                           <%= f.hidden_field :room_name, value: workshop.title %>
                           <%= f.hidden_field :user1, value: current_user.id %>
@@ -510,7 +510,7 @@
                     </div>
                     <div class="mobile-dashboard-my-agenda-date-container">
                       <% Session.where("date = ?", date.strftime).where(db_status: true).select {|s| s.workshop.verified == true && s.workshop.status == "en ligne" }.sort_by { |session| session.start_at }.each do |session| %>
-                        <% if session.workshop.place.user == current_user || (session.workshop.animators.where(db_status: true).last.user == current_user if session.workshop.animators.where(db_status: true).present?) %>
+                        <% if session.workshop.place.user == @profile.user || (session.workshop.animators.where(db_status: true).last.user == @profile.user if session.workshop.animators.where(db_status: true).present?) %>
                           <div class="mobile-dashboard-my-agenda-workshop">
                             <%= link_to workshop_path(session.workshop) do  %>
                               <% session_start_time = Time.new(Date.today.strftime('%Y').to_i, Date.today.strftime('%m').to_i, Date.today.strftime('%d').to_i, session.start_at[0..1], session.start_at[-2..-1], 0, "+01:00") %>
@@ -524,7 +524,7 @@
 
                             <div class="mobile-dashboard-my-agenda-workshop-infos">
 
-                              <% if session.workshop.place.user == current_user %>
+                              <% if session.workshop.place.user == @profile.user %>
                                 <h4 class="mobile-my-agenda-ws-animator">
                                   <i class="fas fa-user-shield mr-1"></i>
                                   <strong>Vous êtes organisateur</strong>
@@ -548,7 +548,7 @@
                                 <% end %>
                               </h4>
 
-                              <% if session.workshop.place.user == current_user %>
+                              <% if session.workshop.place.user == @profile.user %>
                                 <% if session.workshop.animators.where(db_status: true).last %>
                                   <h4 class="mobile-my-agenda-ws-animator">
                                     <i class="fas fa-graduation-cap mr-1"></i>
@@ -580,7 +580,7 @@
                               </h4>
                             </div>
                             <div class="mobile-dashboard-my-agenda-workshop-participants">
-                              <% if session.available == session.capacity && session.workshop.place.user == current_user %>
+                              <% if (session.available == session.capacity) && (session.workshop.place.user == @profile.user) %>
                                 <%= link_to "Déprogrammer la session",
                                 session_path(session),
                                 method: :delete,
@@ -621,7 +621,7 @@
                     </div>
                     <div class="mobile-dashboard-my-agenda-date-container">
                       <% Session.where("date = ?", date.strftime).where(db_status: true).sort_by { |session| session.start_at }.each do |session| %>
-                        <% if session.workshop.place.user == current_user || (session.workshop.animators.where(db_status: true).last.user == current_user if session.workshop.animators.where(db_status: true).present?) %>
+                        <% if session.workshop.place.user == @profile.user || (session.workshop.animators.where(db_status: true).last.user == @profile.user if session.workshop.animators.where(db_status: true).present?) %>
                           <div class="mobile-dashboard-my-agenda-workshop" id="mobile-dashboard-my-passed-agenda-workshop">
                             <%= link_to workshop_path(session.workshop) do  %>
                               <% session_start_time = Time.new(Date.today.strftime('%Y').to_i, Date.today.strftime('%m').to_i, Date.today.strftime('%d').to_i, session.start_at[0..1], session.start_at[-2..-1], 0, "+01:00") %>
@@ -635,7 +635,7 @@
 
                             <div class="mobile-dashboard-my-agenda-workshop-infos">
 
-                              <% if session.workshop.place.user == current_user %>
+                              <% if session.workshop.place.user == @profile.user %>
                                 <h4 class="mobile-my-agenda-ws-animator">
                                   <i class="fas fa-user-shield mr-1"></i>
                                   <strong>Vous étiez organisateur</strong>
@@ -659,7 +659,7 @@
                                 <% end %>
                               </h4>
 
-                              <% if session.workshop.place.user == current_user %>
+                              <% if session.workshop.place.user == @profile.user %>
                                 <% if session.workshop.animators.where(db_status: true).last %>
                                   <h4 class="mobile-my-agenda-ws-animator">
                                     <i class="fas fa-graduation-cap mr-1"></i>
@@ -901,17 +901,17 @@
               </div>
 
               <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-rating">
-                <% if current_user.profile.reviews.count > 0 %>
-                  <h2><%= current_user.profile.rating.round(2) %></h2>
+                <% if @profile.reviews.count > 0 %>
+                  <h2><%= @profile.rating.round(2) %></h2>
                   <h3>note globale<br> sur 5</h3>
                 <% else %>
                   <h3>Vous n'avez pas<br>encore de note</h3>
                 <% end %>
               </div>
               <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-reviews">
-                <% if current_user.profile.reviews.count > 0 %>
-                  <h2><%= current_user.profile.reviews.count %></h2>
-                  <% if current_user.profile.reviews.count > 1 %>
+                <% if @profile.reviews.count > 0 %>
+                  <h2><%= @profile.reviews.count %></h2>
+                  <% if @profile.reviews.count > 1 %>
                     <h3>avis reçus publiés</h3>
                   <% else %>
                     <h3>avis reçu publié</h3>
@@ -929,7 +929,7 @@
           <div class="tab-pane fade" id="v-pills-my-transactions" role="tabpanel" aria-labelledby="v-pills-my-transactions-tab">
             mes transactions (à coder plus tard, une fois stripe inclus)
              <div>
-              <% unless current_user.can_receive_payments? %>
+              <% unless @profile.user.can_receive_payments? %>
                 <p>
                   Vous ne pouvez pas créer d'atelier tant que vous n'avez pas associé votre compte à la plateforme de paiement Stripe Connect de Jeu de Mains !
                 </p>

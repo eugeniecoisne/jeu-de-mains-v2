@@ -17,7 +17,8 @@ class BookingsController < ApplicationController
         quantity: quantity,
         amount: quantity * @workshop.price,
         session: session,
-        user: current_user
+        user: current_user,
+        fee: @workshop.place.user.profile.fee
         )
       authorize @booking
       CheckBookingStatusJob.set(wait: 20.minutes).perform_later(@booking)
@@ -41,7 +42,7 @@ class BookingsController < ApplicationController
       charge = Stripe::PaymentIntent.retrieve(@giftcard.payment_intent_id).charges.first
 
       transfer = Stripe::Transfer.create({
-        amount: ((@booking.giftcard_amount_spent - (@booking.giftcard_amount_spent * 0.2)) * 100).to_i,
+        amount: ((@booking.giftcard_amount_spent - (@booking.giftcard_amount_spent * @booking.fee)) * 100).to_i,
         currency: 'eur',
         transfer_group: "GIFTCARD_#{@giftcard.id}",
         source_transaction: charge.id,
@@ -146,7 +147,7 @@ class BookingsController < ApplicationController
       # JDM reprend à l'organisateur le montant de la carte cadeau utilisé sans la commission.
 
         Stripe::Transfer.create_reversal(@booking.stripe_giftcard_transfer,
-          {amount: ((@booking.giftcard_amount_spent * @booking.refund_rate * 0.8) * 100).to_i},
+          {amount: ((@booking.giftcard_amount_spent * @booking.refund_rate * (1.0 - @booking.fee)) * 100).to_i},
         )
 
       # ETAPE 2
@@ -221,7 +222,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard, :phone_number, :address, :address_complement, :zip_code, :city, :kit_expedition_status, :kit_expedition_link, :refund_rate)
+    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard, :phone_number, :address, :address_complement, :zip_code, :city, :kit_expedition_status, :kit_expedition_link, :refund_rate, :fee)
   end
 
 end

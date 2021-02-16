@@ -9,7 +9,7 @@ class WorkshopPolicy < ApplicationPolicy
   end
 
   def create?
-    user.profile.role.present? || user.admin?
+    user.profile.role.present? && user.can_receive_payments? || user.admin?
   end
 
   def new?
