@@ -47,6 +47,8 @@ Rails.application.routes.draw do
     resources :reviews, :path => :avis, :as => :reviews, only: %i(index)
     member do
       get 'tableau_de_bord'
+      get 'comptabilite_reservations'
+      get 'comptabilite_cartes_cadeaux'
       get 'mes_cartes_cadeaux'
       get 'messagerie'
       get 'send_finalisation_partner_email'

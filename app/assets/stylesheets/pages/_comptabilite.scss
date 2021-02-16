@@ -1,0 +1,39 @@
+.container-comptabilite {
+  margin: 30px;
+  h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: $dark-blue;
+    margin-bottom: 30px;
+  }
+  table {
+    font-size: 13px;
+    margin-top: 30px;
+  }
+
+  .comptabilite-export-xls {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background-color: unset;
+    border: 1px solid $blue;
+    color: $blue;
+    text-decoration: none;
+    outline: none;
+    max-width: 210px;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .comptabilite-export-xls:hover {
+    text-decoration: none;
+    border-color: $dark-blue;
+    color: $dark-blue;
+  }
+  th {
+    padding: 4px;
+  }
+  td {
+    padding: unset;
+  }
+}

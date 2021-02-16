@@ -14,6 +14,22 @@
               <% end %>
             </div>
           </li>
+          <li class="list-group-item">
+            <div class="list-item-menu">
+              <%= link_to comptabilite_reservations_profile_path(current_user.profile), class: "menu-blue-link" do %>
+                <i class="fas fa-tachometer-alt menu-icon menu-blue-icon mr-2"></i>
+                Comptabilité réservations
+              <% end %>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="list-item-menu">
+              <%= link_to comptabilite_cartes_cadeaux_profile_path(current_user.profile), class: "menu-blue-link" do %>
+                <i class="fas fa-tachometer-alt menu-icon menu-blue-icon mr-2"></i>
+                Comptabilité cartes KDO
+              <% end %>
+            </div>
+          </li>
         <% end %>
         <li class="list-group-item">
           <div class="list-item-menu">

@@ -1,0 +1,88 @@
+<% if current_user.admin == true %>
+  <div class="container-comptabilite">
+    <h1>Comptabilité réservations</h1>
+
+    <%= link_to comptabilite_reservations_profile_path(format: :xls), class: "comptabilite-export-xls" do %>
+      Exporter .xls
+      <i class="fas fa-upload ml-1"></i>
+    <% end %>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Client Partenaire</th>
+            <th scope="col">Numéro</th>
+            <th scope="col">Numéro élément Stripe</th>
+            <th scope="col">Libellé</th>
+            <th scope="col">Débit</th>
+            <th scope="col">Crédit</th>
+            <th scope="col">Monnaie</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @fees.uniq.sort_by {|f| Time.at(f[:created])}.reverse.each do |c| %>
+            <% b = Booking.find(c[:booking_id]) %>
+            <tr>
+              <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
+              <td><%= b.session.workshop.place.user.profile.accountant_company %></td>
+              <td>706000</td>
+              <td><%= c[:id] %></td>
+              <% if c[:type] == "reçu" %>
+                <td>Commission réservation n°<%= b.id if b.present? %> HT</td>
+                <td></td>
+                <td><%= (c[:amount] * 0.01 * 0.8).round(2) %></td>
+              <% else %>
+                <td>Remboursement commission réservation n°<%= b.id if b.present? %> HT</td>
+                <td><%= (c[:amount] * 0.01 * 0.8).round(2) %></td>
+                <td></td>
+              <% end %>
+              <td><%= c[:currency] %></td>
+            </tr>
+            <tr>
+              <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
+              <td><%= b.session.workshop.place.user.profile.accountant_company %></td>
+              <td>445720</td>
+              <td><%= c[:id] %></td>
+              <% if c[:type] == "reçu" %>
+                <td>Commission réservation n°<%= b.id if b.present? %> TVA 20%</td>
+                <td></td>
+                <td><%= (c[:amount] * 0.01 * 0.2).round(2) %></td>
+              <% else %>
+                <td>Remboursement commission réservation n°<%= b.id if b.present? %> HT</td>
+                <td><%= (c[:amount] * 0.01 * 0.2).round(2) %></td>
+                <td></td>
+              <% end %>
+              <td><%= c[:currency] %></td>
+            </tr>
+            <tr>
+              <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
+              <td><%= b.session.workshop.place.user.profile.accountant_company %></td>
+              <td>CXXXX</td>
+              <td><%= c[:id] %></td>
+              <% if c[:type] == "reçu" %>
+                <td>Commission réservation n°<%= b.id if b.present? %> HT</td>
+                <td><%= (c[:amount] * 0.01).round(2) %></td>
+                <td></td>
+              <% else %>
+                <td>Remboursement commission réservation n°<%= b.id if b.present? %> HT</td>
+                <td></td>
+                <td><%= (c[:amount] * 0.01).round(2) %></td>
+              <% end %>
+              <td><%= c[:currency] %></td>
+            </tr>
+            <tr>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+  </div>
+<% end %>

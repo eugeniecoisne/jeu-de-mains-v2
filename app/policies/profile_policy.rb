@@ -32,6 +32,14 @@ class ProfilePolicy < ApplicationPolicy
     user.admin?
   end
 
+  def comptabilite_reservations?
+    user.admin?
+  end
+
+  def comptabilite_cartes_cadeaux?
+    user.admin?
+  end
+
   def public?
     true
   end

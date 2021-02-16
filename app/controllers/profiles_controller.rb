@@ -79,13 +79,119 @@ class ProfilesController < ApplicationController
     redirect_back fallback_location: root_path
   end
 
+  def comptabilite_reservations
+    if Profile.friendly.find(params[:id]).user.admin == true && current_user.admin == true
+      @profile = Profile.friendly.find(params[:id])
+      authorize @profile
+      key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
+      Stripe.api_key = key
+      @fees = []
+      Booking.all.each do |b|
+        payment = Stripe::PaymentIntent.retrieve(b.payment_intent_id)
+        if payment[:status] == "succeeded"
+          fee = Stripe::ApplicationFee.retrieve(payment[:charges][:data][0][:application_fee])
+          @fee = {
+            id: fee[:id],
+            amount: fee[:amount],
+            payment_intent: b.payment_intent_id,
+            booking_id: b.id,
+            created: fee[:created],
+            currency: fee[:currency],
+            type: 'reçu'
+          }
+          if fee[:refunded] == true
+            fee_refund = Stripe::ApplicationFee.retrieve_refund(payment[:charges][:data][0][:application_fee], fee[:refunds][:data][0][:id])
+            @fee_refund = {
+              id: fee[:id],
+              amount: fee_refund[:amount],
+              payment_intent: b.payment_intent_id,
+              booking_id: b.id,
+              created: fee_refund[:created],
+              currency: fee_refund[:currency],
+              type: 'remboursé'
+            }
+          end
+        end
+        @fees << @fee if @fee
+        @fees << @fee_refund if @fee_refund
+      end
+      @fees
+    end
+    respond_to do |format|
+      format.html
+      format.xls
+    end
+  end
+
+  def comptabilite_cartes_cadeaux
+    if Profile.friendly.find(params[:id]).user.admin == true && current_user.admin == true
+      @profile = Profile.friendly.find(params[:id])
+      authorize @profile
+      key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
+      Stripe.api_key = key
+      @charges = []
+      Giftcard.all.select { |g| g.payment_intent_id.present? }.each do |g|
+        payment = Stripe::PaymentIntent.retrieve(g.payment_intent_id)
+        charge = Stripe::Charge.retrieve(payment[:charges][:data][0][:id])
+        if charge[:status] == "succeeded" && charge[:destination].nil?
+          @charge = {
+            id: charge[:id],
+            charge_id: charge[:id],
+            payment_intent: g.payment_intent_id,
+            amount: charge[:amount],
+            giftcard_id: g.id,
+            created: charge[:created],
+            currency: charge[:currency],
+            type: "reçu"
+          }
+          @charges << @charge
+        end
+        if g.stripe_transfers.size > 0
+          g.stripe_transfers.split(",").each do |t|
+            transfer = Stripe::Transfer.retrieve(t)
+            @transfer = {
+              id: t,
+              charge_id: charge[:id],
+              payment_intent: g.payment_intent_id,
+              amount: transfer[:amount],
+              destination: transfer[:destination],
+              giftcard_id: g.id,
+              created: transfer[:created],
+              currency: transfer[:currency],
+              type: "viré au partenaire"
+            }
+            @charges << @transfer
+            if transfer[:amount_reversed].to_f > 0
+              transfer_reversal = Stripe::Transfer.retrieve_reversal(t, transfer[:reversals][:data][0][:id])
+              @transfer_reversal = {
+                id: transfer_reversal[:id],
+                charge_id: charge[:id],
+                payment_intent: g.payment_intent_id,
+                amount: transfer_reversal[:amount],
+                destination: transfer[:destination],
+                giftcard_id: g.id,
+                created: transfer_reversal[:created],
+                currency: transfer_reversal[:currency],
+                type: "reçu du partenaire"
+              }
+              @charges << @transfer_reversal
+            end
+          end
+        end
+      end
+      @charges
+    end
+    respond_to do |format|
+      format.html
+      format.xls
+    end
+  end
+
   private
 
   def set_profile
-    if Profile.friendly.find(params[:id]).db_status == true
-      @profile = Profile.friendly.find(params[:id])
-      authorize @profile
-    end
+    @profile = Profile.friendly.find(params[:id])
+    authorize @profile
   end
 
 
