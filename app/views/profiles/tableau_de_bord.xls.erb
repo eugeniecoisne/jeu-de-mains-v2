@@ -1,0 +1,34 @@
+<table border="1">
+  <tr>
+    <th>Date</th>
+    <th>Libellé</th>
+    <th>Réservation n°</th>
+    <th>Atelier</th>
+    <th>Session</th>
+    <th>Montant</th>
+    <th>Commission JDM</th>
+    <th>Votre recette</th>
+    <th>Plus d'infos</th>
+  </tr>
+
+  <% @transaction_bookings.each do |b| %>
+    <tr>
+      <td><%= b[:date].strftime('%d/%m/%y') %></td>
+      <td><%= b[:label] %></td>
+      <td><%= b[:booking_number] %></td>
+      <td><%= b[:workshop].title %></td>
+      <td><%= b[:session].date.strftime("%d/%m/%y") %> à <%= b[:session].start_at %></td>
+      <% if b[:status] == "success" %>
+        <td><%= b[:amount].to_s.gsub(".",",") %></td>
+        <td>- <%= (b[:amount] * b[:fee_rate]).round(2).to_s.gsub(".",",") %></td>
+        <td><%= (b[:amount] * (1 - b[:fee_rate])).round(2).to_s.gsub(".",",") %></td>
+      <% else %>
+        <% cancel_fee = b[:amount] * (1.0 - b[:refund_rate]) %>
+        <td>- <%=((b[:amount] * b[:refund_rate]).round(2)).to_s.gsub(".",",") %></td>
+        <td><%= ((b[:amount] - cancel_fee) * b[:fee_rate]).round(2).to_s.gsub(".",",") %></td>
+        <td>- <%= ((b[:amount] - cancel_fee) * (1 - b[:fee_rate])).round(2).to_s.gsub(".",",") %></td>
+      <% end %>
+      <td>https://www.jeudemains.com/<%= booking_path(b[:booking]) %></td>
+    </tr>
+  <% end %>
+</table>
