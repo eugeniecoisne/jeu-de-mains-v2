@@ -1,0 +1,63 @@
+<table border="1">
+  <tr>
+    <th>Date</th>
+    <th>Client Partenaire</th>
+    <th>Numéro</th>
+    <th>Numéro élément Stripe</th>
+    <th>Libellé</th>
+    <th>Débit</th>
+    <th>Crédit</th>
+    <th>Monnaie</th>
+  </tr>
+  <% @fees.uniq.sort_by {|f| Time.at(f[:created])}.reverse.each do |c| %>
+    <% b = Booking.find(c[:booking_id]) %>
+    <tr>
+      <td><%= Time.at(c[:created]) %></td>
+      <td><%= b.session.workshop.place.user.profile.accountant_company %></td>
+      <td>706000</td>
+      <td><%= c[:id] %></td>
+      <% if c[:type] == "reçu" %>
+        <td>Commission réservation n°<%= b.id if b.present? %> HT</td>
+        <td></td>
+        <td><%= (c[:amount] * 0.01 * 0.8).to_f %></td>
+      <% else %>
+        <td>Remboursement commission réservation n°<%= b.id if b.present? %> HT</td>
+        <td><%= (c[:amount] * 0.01 * 0.8).to_f %></td>
+        <td></td>
+      <% end %>
+      <td><%= c[:currency] %></td>
+    </tr>
+    <tr>
+      <td><%= Time.at(c[:created]) %></td>
+      <td><%= b.session.workshop.place.user.profile.accountant_company %></td>
+      <td>445720</td>
+      <td><%= c[:id] %></td>
+      <% if c[:type] == "reçu" %>
+        <td>Commission réservation n°<%= b.id if b.present? %> TVA 20%</td>
+        <td></td>
+        <td><%= (c[:amount] * 0.01 * 0.2).to_f %></td>
+      <% else %>
+        <td>Remboursement commission réservation n°<%= b.id if b.present? %> TVA 20%</td>
+        <td><%= (c[:amount] * 0.01 * 0.2).to_f %></td>
+        <td></td>
+      <% end %>
+      <td><%= c[:currency] %></td>
+    </tr>
+    <tr>
+      <td><%= Time.at(c[:created]) %></td>
+      <td><%= b.session.workshop.place.user.profile.accountant_company %></td>
+      <td>CXXXX</td>
+      <td><%= c[:id] %></td>
+      <% if c[:type] == "reçu" %>
+        <td>Commission réservation n°<%= b.id if b.present? %> TTC</td>
+        <td><%= (c[:amount] * 0.01).to_f %></td>
+        <td></td>
+      <% else %>
+        <td>Remboursement commission réservation n°<%= b.id if b.present? %> TTC</td>
+        <td></td>
+        <td><%= (c[:amount] * 0.01).to_f %></td>
+      <% end %>
+      <td><%= c[:currency] %></td>
+    </tr>
+  <% end %>
+</table

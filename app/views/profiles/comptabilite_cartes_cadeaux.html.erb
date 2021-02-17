@@ -1,0 +1,113 @@
+<% if current_user.admin == true %>
+  <div class="container-comptabilite">
+    <h1>Comptabilité cartes cadeaux</h1>
+
+    <%= link_to comptabilite_cartes_cadeaux_profile_path(format: :xls), class: "comptabilite-export-xls" do %>
+      Exporter .xls
+      <i class="fas fa-upload ml-1"></i>
+    <% end %>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Client</th>
+            <th scope="col">Numéro</th>
+            <th scope="col">Numéro élément Stripe</th>
+            <th scope="col">Libellé</th>
+            <th scope="col">Débit</th>
+            <th scope="col">Crédit</th>
+            <th scope="col">Monnaie</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @charges.uniq.sort_by {|c| Time.at(c[:created])}.reverse.each do |c| %>
+            <% g = Giftcard.find(c[:giftcard_id]) %>
+            <tr>
+              <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
+              <% if c[:type] == "reçu" %>
+                <td><%= User.find(g.buyer).fullname %> - BtoC</td>
+              <% else %>
+                <td><%= User.find_by(stripe_uid: c[:destination]).profile.accountant_company %>  - BtoB</td>
+              <% end %>
+              <td>706000</td>
+              <td><%= c[:id] %></td>
+              <% if c[:type] == "reçu" %>
+                <td>Achat client carte cadeau n°<%= g.id if g.present? %> HT</td>
+                <td></td>
+                <td><%= (c[:amount] * 0.01 * 0.8).round(2) %></td>
+              <% elsif c[:type] == "viré au partenaire" %>
+                <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> HT</td>
+                <td><%= (c[:amount] * 0.01 * 0.8).round(2) %></td>
+                <td></td>
+              <% else %>
+                <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> HT</td>
+                <td></td>
+                <td><%= (c[:amount] * 0.01 * 0.8).round(2) %></td>
+              <% end %>
+              <td><%= c[:currency] %></td>
+            </tr>
+            <tr>
+              <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
+              <% if c[:type] == "reçu" %>
+                <td><%= User.find(g.buyer).fullname %> - BtoC</td>
+              <% else %>
+                <td><%= User.find_by(stripe_uid: c[:destination]).profile.accountant_company %>  - BtoB</td>
+              <% end %>
+              <td>445720</td>
+              <td><%= c[:id] %></td>
+              <% if c[:type] == "reçu" %>
+                <td>Achat client carte cadeau n°<%= g.id if g.present? %> TVA 20%</td>
+                <td></td>
+                <td><%= (c[:amount] * 0.01 * 0.2).round(2) %></td>
+              <% elsif c[:type] == "viré au partenaire" %>
+                <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> TVA 20%</td>
+                <td><%= (c[:amount] * 0.01 * 0.2).round(2) %></td>
+                <td></td>
+              <% else %>
+                <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> TVA 20%</td>
+                <td></td>
+                <td><%= (c[:amount] * 0.01 * 0.2).round(2) %></td>
+              <% end %>
+              <td><%= c[:currency] %></td>
+            </tr>
+            <tr>
+              <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
+              <% if c[:type] == "reçu" %>
+                <td><%= User.find(g.buyer).fullname %> - BtoC</td>
+              <% else %>
+                <td><%= User.find_by(stripe_uid: c[:destination]).profile.accountant_company %>  - BtoB</td>
+              <% end %>
+              <td>CXXXX</td>
+              <td><%= c[:id] %></td>
+              <% if c[:type] == "reçu" %>
+                <td>Achat client carte cadeau n°<%= g.id if g.present? %> TTC</td>
+                <td><%= (c[:amount] * 0.01).round(2) %></td>
+                <td></td>
+              <% elsif c[:type] == "viré au partenaire" %>
+                <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> TTC</td>
+                <td></td>
+                <td><%= (c[:amount] * 0.01).round(2) %></td>
+              <% else %>
+                <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> TTC</td>
+                <td><%= (c[:amount] * 0.01).round(2) %></td>
+                <td></td>
+              <% end %>
+              <td><%= c[:currency] %></td>
+            </tr>
+            <tr>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+              <td style='padding:10px;'></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+  </div>
+<% end %>
