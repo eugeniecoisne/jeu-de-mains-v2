@@ -16,6 +16,24 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  after_action :store_location
+
+  def store_location
+    # store last url - this is needed for post-login redirect to whatever the user last visited.
+    if (request.fullpath != "/connexion" &&
+        request.fullpath != "/inscription" &&
+        request.fullpath != "/users/confirmation?" &&
+        request.fullpath != "/users/passwords" &&
+        request.fullpath != "/deconnexion" &&
+        !request.xhr?) # don't store ajax calls
+      session["user_return_to"] = request.fullpath
+    end
+  end
+
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || root_path
+  end
+
   protected
 
   def configure_permitted_parameters

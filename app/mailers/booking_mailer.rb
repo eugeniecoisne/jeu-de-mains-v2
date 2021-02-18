@@ -34,6 +34,9 @@ class BookingMailer < ApplicationMailer
   #
   def new_booking_btoc
     @booking = params[:booking]
+    attachments["cgv-jdm-#{Date.today.strftime("%d-%m-%y")}.pdf"] = WickedPdf.new.pdf_from_string(
+    render_to_string(template: 'pages/cgv.pdf.erb')
+    )
 
     mail(
       to:       @booking.user.email,

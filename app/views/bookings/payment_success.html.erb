@@ -43,20 +43,20 @@
     <tbody>
       <tr id="payment-success-error-table-first-row">
         <td>Prix unitaire <%= @booking.session.workshop.price %> € x <%= @booking.quantity %> place(s)</td>
-        <td style="text-align: right"><%= @booking.session.workshop.price * @booking.quantity %> €</td>
+        <td style="text-align: right"><%= @booking.session.workshop.price * @booking.quantity %> € TTC</td>
       </tr>
       <% if @booking.giftcard_amount_spent.present? %>
         <tr>
           <td>Carte cadeau</td>
-          <td style="text-align: right">- <%= @booking.giftcard_amount_spent %> €</td>
+          <td style="text-align: right">- <%= @booking.giftcard_amount_spent %> € TTC</td>
         </tr>
       <% end %>
       <tr>
         <td><strong>TOTAL PAYÉ</strong></td>
       <% if @booking.giftcard_amount_spent.present? %>
-        <td style="text-align: right"><strong><%= (@booking.session.workshop.price * @booking.quantity) - @booking.giftcard_amount_spent %> €</strong></td>
+        <td style="text-align: right"><strong><%= (@booking.session.workshop.price * @booking.quantity) - @booking.giftcard_amount_spent %> € TTC</strong></td>
       <% else %>
-        <td style="text-align: right"><strong><%= @booking.amount %> €</strong></td>
+        <td style="text-align: right"><strong><%= @booking.amount %> € TTC</strong></td>
       <% end %>
       </tr>
     </tbody>

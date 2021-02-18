@@ -1,0 +1,70 @@
+  <div class="sign-form">
+
+    <h2 class="sign-title">Inscription</h2>
+
+    <div class="omniauth-container">
+      <div class="omniauth-box omniauth-box-facebook">
+        <%= link_to user_facebook_omniauth_authorize_path do %>
+          <i class="fab fa-facebook-f mr-4"></i>
+          M'inscrire avec Facebook
+        <% end %>
+      </div>
+      <div class="omniauth-box omniauth-box-google">
+        <%= link_to user_google_oauth2_omniauth_authorize_path do %>
+          <i class="fab fa-google mr-4"></i>
+          M'inscrire avec Google
+        <% end %>
+      </div>
+    </div>
+
+    <div class="authentication-or-container">
+      <div class="authentication-or-left"></div>
+      <span class="authentication-or">ou</span>
+      <div class="authentication-or-right"></div>
+    </div>
+
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs" id="form-inputs-sign-up">
+          <%= f.input :last_name,
+                      required: true,
+                      autofocus: true,
+                      label: "Nom",
+                      input_html: { autocomplete: "last_name" }%>
+          <%= f.input :first_name,
+                      required: true,
+                      autofocus: true,
+                      label: "Prénom",
+                      input_html: { autocomplete: "first_name" }%>
+          <%= f.input :email,
+                      required: true,
+                      autofocus: true,
+                      input_html: { autocomplete: "email" }%>
+          <%= f.input :password,
+                      required: true,
+                      hint: (t('devise.shared.minimum_password_length', count: @minimum_password_length) if @minimum_password_length),
+                      input_html: { autocomplete: "new-password" } %>
+          <%= f.input :password_confirmation,
+                      required: true,
+                      input_html: { autocomplete: "new-password" } %>
+          <%= f.input :newsletter_agreement,
+                      as: :radio_buttons,
+                      required: false,
+                      autofocus: true,
+                      label: "Je souhaite recevoir les actualités de Jeu de Mains par e-mail"%>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, "M'inscrire", id: "btn-blue" %>
+        </div>
+
+        <div class="sign-empty-div">
+        </div>
+      <% end %>
+
+    <div class='sign-links'>
+      <%= render "devise/shared/links" %>
+    </div>
+
+  </div>

@@ -1,0 +1,19 @@
+<!-- SIGN IN MODAL -->
+
+<div class="modal fade sign-in-modal" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="signInModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" >
+    <div class="modal-content">
+
+      <div class="form-group">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
+          </button>
+
+          <%= render template: "devise/registrations/_new_form" %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

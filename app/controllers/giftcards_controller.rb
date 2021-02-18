@@ -90,7 +90,7 @@ class GiftcardsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "carte-jeu-de-mains-#{@giftcard.code}",
+        render pdf: "carte-cadeau-jdm-#{@giftcard.code}",
               margin:  { top:0,bottom:0,left:0,right:0}
       end
     end

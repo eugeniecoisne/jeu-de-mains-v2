@@ -1,0 +1,8 @@
+Vous avez prévenu moins de 48 heures avant votre atelier l'annulation de celui-ci.
+Merci de vérifier que les participants ont bien été notifié par le mail d'annulation en doublant d'un appel ou SMS à chacun d'eux.
+
+<ul>
+  <% @session.bookings.where(status: "paid", db_status: true).each do |b| %>
+    <li><%= b.user.first_name %> <%= b.user.last_name[0] %>. : <%= b.phone_number %></li>
+  <% end %>
+</ul>

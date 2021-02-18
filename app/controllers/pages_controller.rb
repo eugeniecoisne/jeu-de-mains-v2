@@ -169,7 +169,7 @@ class PagesController < ApplicationController
     if params[:giftcard].present?
       if params[:giftcard][:code].present?
         @giftcard = Giftcard.find_by(code: params[:giftcard][:code])
-        if @giftcard.receiver.present? == false
+        if @giftcard.receiver.present? == false && @giftcard.status == "paid"
           @giftcard.update(user_id: current_user.id)
           @giftcard.update(receiver: current_user.id)
           @giftcard.save
@@ -197,6 +197,12 @@ class PagesController < ApplicationController
   end
 
   def cgv
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "cgv-jdm-#{Date.today.strftime("%d-%m-%y")}"
+      end
+    end
   end
 
 end
