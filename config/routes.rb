@@ -88,7 +88,7 @@ Rails.application.routes.draw do
 
   resources :sessions, only: %i(destroy)
 
-  resources :bookings, :path => :reservations, :as => :bookings, only: %i(create update destroy)
+  resources :bookings, :path => :reservations, :as => :bookings, only: %i(create show update destroy)
 
   resources :bookings, :path => :reservations, :as => :bookings, only: %i() do
     resources :payments, only: :new

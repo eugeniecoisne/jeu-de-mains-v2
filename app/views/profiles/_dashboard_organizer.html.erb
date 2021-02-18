@@ -927,17 +927,7 @@
           <!-- MY TRANSACTIONS -->
 
           <div class="tab-pane fade" id="v-pills-my-transactions" role="tabpanel" aria-labelledby="v-pills-my-transactions-tab">
-            mes transactions (à coder plus tard, une fois stripe inclus)
-             <div>
-              <% unless @profile.user.can_receive_payments? %>
-                <p>
-                  Vous ne pouvez pas créer d'atelier tant que vous n'avez pas associé votre compte à la plateforme de paiement Stripe Connect de Jeu de Mains !
-                </p>
-                <%= stripe_connect_button %>
-              <% else %>
-                <p>Vous avez déjà connecté votre compte à la plateforme de paiement Stripe Connect</p>
-              <% end %>
-            </div>
+            <%= render 'dashboard_transactions' %>
           </div>
         </div>
       </div>

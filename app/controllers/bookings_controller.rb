@@ -101,6 +101,11 @@ class BookingsController < ApplicationController
     authorize @booking
   end
 
+  def show
+    @booking = Booking.find(params[:id])
+    authorize @booking
+  end
+
   def payment_success
     @booking = Booking.find(params[:booking_id])
     authorize @booking

@@ -51,6 +51,42 @@ class ProfilesController < ApplicationController
     @session = Session.new
     @workshop = Workshop.new
     @chatroom = Chatroom.new
+    @transaction_bookings = []
+    Booking.all.where(db_status: true).select { |b| b.status == "paid" || b.status == "refunded"}.select { |b| b.session.workshop.place.user.profile == @profile }.each do |b|
+      if b.status == "refunded"
+        @b_refund = {
+          booking: b,
+          date: b.cancelled_at,
+          label: "Paiement remboursé à #{(b.refund_rate * 100).round}%",
+          workshop: b.session.workshop,
+          session: b.session,
+          booking_number: "#{b.created_at.strftime("%Y%m")}#{b.id}",
+          amount: b.amount,
+          fee_rate: b.fee,
+          refund_rate: b.refund_rate,
+          status: "refunded"
+        }
+        @transaction_bookings << @b_refund
+      end
+      @b_success = {
+        booking: b,
+        date: b.created_at,
+        label: "Paiement réussi",
+        workshop: b.session.workshop,
+        session: b.session,
+        booking_number: "#{b.created_at.strftime("%Y%m")}#{b.id}",
+        amount: b.amount,
+        fee_rate: b.fee,
+        status: "success"
+      }
+      @transaction_bookings << @b_success
+    end
+    @transaction_bookings.sort_by {|b| b[:date]}
+
+    respond_to do |format|
+      format.html
+      format.xls
+    end
   end
 
   def messagerie

@@ -8,6 +8,10 @@ class BookingPolicy < ApplicationPolicy
     record.user == user || record.session.workshop.place.user == user || user.admin?
   end
 
+  def show?
+    record.session.workshop.place.user == user || user.admin?
+  end
+
   def coordonnees?
     record.user == user || user.admin?
   end
