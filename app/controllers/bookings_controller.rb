@@ -54,8 +54,7 @@ class BookingsController < ApplicationController
 
       @booking.update(stripe_giftcard_transfer: transfer.id)
 
-
-      redirect_to tableau_de_bord_profile_path(current_user.profile)
+      redirect_to booking_payment_success_url(@booking)
 
     else
       @booking.update(booking_params)
@@ -117,7 +116,11 @@ class BookingsController < ApplicationController
   end
 
   def cancel
-    @booking = Booking.find(params[:cancel][:booking_id])
+    if params[:booking_id].present?
+      @booking = Booking.find(params[:booking_id])
+    elsif params[:cancel][:booking_id].present?
+      @booking = Booking.find(params[:cancel][:booking_id])
+    end
     authorize @booking
     booking_start_time = Time.new(@booking.session.date.strftime('%Y').to_i, @booking.session.date.strftime('%m').to_i, @booking.session.date.strftime('%d').to_i, @booking.session.start_at[0..1], @booking.session.start_at[-2..-1], 0, "+01:00")
     cancel_time = Time.now
