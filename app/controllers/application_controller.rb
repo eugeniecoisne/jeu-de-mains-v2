@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
         request.fullpath != "/inscription" &&
         request.fullpath != "/users/confirmation?" &&
         request.fullpath != "/users/passwords" &&
+        request.fullpath.include?("search-places") == false &&
         request.fullpath != "/deconnexion" &&
         !request.xhr?) # don't store ajax calls
       session["user_return_to"] = request.fullpath

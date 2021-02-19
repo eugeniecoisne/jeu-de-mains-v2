@@ -55,7 +55,7 @@ class SessionsController < ApplicationController
       mail = SessionMailer.with(session: @session).cancel_and_giveback
       mail.deliver_now
       @session.bookings.where(db_status: true, status: "paid").each do |b|
-        b.cancel
+        redirect_to booking_cancel_url(b) and return
         mail = BookingMailer.with(booking: b).cancel_booking_btoc
         mail.deliver_now
       end
