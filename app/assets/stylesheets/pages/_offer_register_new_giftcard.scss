@@ -46,6 +46,11 @@
   }
 }
 
+.offer-register-new-giftcard-search-inputs-and-submit {
+  display: flex;
+  flex-direction: column;
+}
+
 .offer-register-new-giftcard-search {
   background-color: white;
   border-radius: 5px;
@@ -56,6 +61,7 @@
   }
   .search-button {
     width: 100%;
+    text-align: center;
     outline: none;
     background-color: $dark-blue;
     color: white;
@@ -67,6 +73,7 @@
     letter-spacing: 1px;
     font-family: "Montserrat", sans-serif;
     font-size: 15px;
+    text-decoration: unset;
   }
   .form-control {
     background-color: white;

@@ -111,7 +111,7 @@
                           <% end %>
                           <!-- statut envoi du kit -->
                           <!-- lien de suivi -->
-                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€</p>
+                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€ TTC</p>
                           <div class="d-flex justify-content-left align-items-center">
 
                             <a href="#cancelBookingModal<%= index +1 %>" class="button mr-3" data-toggle="modal" data-whatever="@mdo">
@@ -242,7 +242,7 @@
                               Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
                             <% end %>
                           <% end %>
-                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€</p>
+                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€ TTC</p>
                         <div class="d-flex align-items-center">
                           <% if booking.session.workshop.db_status == true && booking.session.workshop.status == "en ligne" %>
                             <%= link_to "Revoir", workshop_path(booking.session.workshop), class: "button" %>
@@ -303,9 +303,9 @@
                           <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                             Organisé par <%= booking.session.workshop.place.user.profile.company %>
                           <% end %>
-                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€</p>
+                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€ TTC</p>
                           <p class="my-booking-cancel"><%= "Annulée le #{booking.cancelled_at.strftime('%d/%m/%Y')}" if booking.cancelled_at.present? %></p>
-                          <p>Montant remboursé : <%= booking.amount * booking.refund_rate %>€</p>
+                          <p>Montant remboursé : <%= booking.amount * booking.refund_rate %>€ TTC</p>
                         </div>
                       <% end %>
                     </div>

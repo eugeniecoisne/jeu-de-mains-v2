@@ -54,7 +54,9 @@
   .white-btn {
     font-size: 22px;
     border-width: 0.13em;
-    margin-top: 1.5em;
+  }
+  .booking-sign-in {
+    padding-bottom: 3px;
   }
   #ws-booking-price {
     color: white;
@@ -67,6 +69,7 @@
   }
   .ws-price {
     margin-top: 2em;
+    margin-bottom: 1rem;
   }
   #bookingExit {
     display: none;

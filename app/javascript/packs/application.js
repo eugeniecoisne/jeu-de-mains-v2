@@ -31,7 +31,7 @@ document.addEventListener('turbolinks:load', () => {
   });
   setTimeout(function() {
     $('.alert').fadeOut();
-  }, 5000);
+  }, 10000);
   initMenu();
   initPlaces();
   initMapbox();

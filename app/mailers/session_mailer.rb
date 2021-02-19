@@ -14,7 +14,7 @@ class SessionMailer < ApplicationMailer
       @animator = @session.workshop.animators.where(db_status: true).last.user.email
 
       mail(
-        bcc:       "#{@participants}, #{@organizer}, #{@animator}",
+        bcc:       "#{@participants}, #{@organizer}, #{@animator}, contact@jeudemains.com",
         subject:  "Votre atelier a malheureusement été annulé",
         track_opens: 'true',
         message_stream: 'outbound')
@@ -22,11 +22,24 @@ class SessionMailer < ApplicationMailer
     else
 
       mail(
-        bcc:       "#{@participants}, #{@organizer}",
+        bcc:       "#{@participants}, #{@organizer}, contact@jeudemains.com",
         subject:  "Votre atelier a malheureusement été annulé",
         track_opens: 'true',
         message_stream: 'outbound')
 
     end
+
+  end
+
+  def send_phone_numbers
+    @session = params[:session]
+    @organizer = @session.workshop.place.user.email
+
+    mail(
+      to:       @organizer,
+      bcc:      'contact@jeudemains.com',
+      subject:  "Vous avez annulé votre atelier, merci de contacter les participants",
+      track_opens: 'true',
+      message_stream: 'outbound')
   end
 end

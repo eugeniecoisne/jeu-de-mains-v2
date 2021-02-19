@@ -16,6 +16,8 @@
         Je réserve
       </div>
 
+      <%= render 'pages/sign_in_up_modal' %>
+
       <!-- BOOKING-->
 
       <div class="container-ws-show-booking" id="bookingBox">
@@ -47,7 +49,11 @@
           <% if current_user.present? && current_user.profile.role.present? %>
             <%= f.hidden_field :status, value: "interdit"  %>
           <% end %>
-          <%= f.submit 'Je réserve', class: "white-btn" %>
+          <% if user_signed_in? %>
+            <%= f.submit 'Je réserve', class: "white-btn" %>
+          <% else %>
+            <a href="#signInUpModal" class="white-btn booking-sign-in" data-toggle="modal" data-whatever="@mdo">Je réserve</a>
+          <% end %>
         <% end %>
         <p id="ws-show-giftcard">Vous avez reçu une carte cadeau ?<br>Rendez-vous à l'étape suivante pour l'utiliser!</p>
       </div>

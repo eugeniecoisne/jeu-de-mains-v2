@@ -1,6 +1,8 @@
 <div class="offer-register-new-giftcard">
   <div class="offer-register-new-giftcard-banner">
 
+    <%= render 'sign_in_up_modal' %>
+
     <div>
       <div class="offer-register-new-giftcard-banner-search-and-title">
         <div class="offer-register-new-giftcard-banner-title">
@@ -12,7 +14,11 @@
             <%= simple_form_for :giftcard, url: enregistrer_une_carte_cadeau_path, method: :get do |f| %>
               <div class="offer-register-new-giftcard-search-inputs-and-submit">
                 <%= f.input :code, required: true, label: false, placeholder: "J'entre le code de ma carte cadeau" %>
-                <%= f.submit "Ajouter ma carte cadeau", class: "search-button", id:"add-my-giftcard-btn" %>
+                <% if user_signed_in? %>
+                  <%= f.submit "Ajouter ma carte cadeau", class: "search-button", id:"add-my-giftcard-btn" %>
+                <% else %>
+                  <a href="#signInUpModal" class="search-button" id="add-my-giftcard-btn" data-toggle="modal" data-whatever="@mdo">Ajouter ma carte cadeau</a>
+                <% end %>
               </div>
             <% end %>
           </div>

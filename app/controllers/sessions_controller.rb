@@ -59,6 +59,12 @@ class SessionsController < ApplicationController
         mail = BookingMailer.with(booking: b).cancel_booking_btoc
         mail.deliver_now
       end
+      session_start_time = Time.new(@session.date.strftime('%Y').to_i, @session.date.strftime('%m').to_i, @session.date.strftime('%d').to_i, @session.start_at[0..1], @session.start_at[-2..-1], 0, "+01:00")
+      cancel_time = Time.now
+      if (4..47.99).include?(( session_start_time - cancel_time) / 1.hours)
+        mail_phone_numbers = SessionMailer.with(session: @session).send_phone_numbers
+        mail_phone_numbers.deliver_later
+      end
       redirect_back fallback_location: root_path
       flash[:notice] = "Votre session a bien été annulée et les participants ont été prévenus par e-mail."
     end

@@ -37,23 +37,31 @@
           <%= f.input :last_name,
                       required: true,
                       autofocus: true,
-                      label: "Nom",
+                      placeholder: "Nom*",
+                      label: false,
                       input_html: { autocomplete: "last_name" }%>
           <%= f.input :first_name,
                       required: true,
                       autofocus: true,
-                      label: "Prénom",
+                      placeholder: "Prénom*",
+                      label: false,
                       input_html: { autocomplete: "first_name" }%>
           <%= f.input :email,
                       required: true,
                       autofocus: true,
+                      placeholder: "E-mail*",
+                      label: false,
                       input_html: { autocomplete: "email" }%>
           <%= f.input :password,
                       required: true,
+                      placeholder: "Mot de passe*",
+                      label: false,
                       hint: (t('devise.shared.minimum_password_length', count: @minimum_password_length) if @minimum_password_length),
                       input_html: { autocomplete: "new-password" } %>
           <%= f.input :password_confirmation,
                       required: true,
+                      placeholder: "Confirmation du mot de passe*",
+                      label: false,
                       input_html: { autocomplete: "new-password" } %>
           <%= f.input :newsletter_agreement,
                       as: :radio_buttons,
@@ -63,7 +71,7 @@
         </div>
 
         <div class="form-actions">
-          <%= f.button :submit, t(".sign_up"), id: "btn-blue" %>
+          <%= f.button :submit, "M'inscrire" %>
         </div>
 
         <div class="sign-empty-div">
