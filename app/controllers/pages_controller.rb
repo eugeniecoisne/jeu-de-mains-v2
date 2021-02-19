@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i(home offer_giftcard become_partner welcome_partner about contact contact_us_sent legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijou papier_et_lettering ceramique_et_modelage meuble_et_decoration dessin_et_peinture travail_du_cuir)
+  skip_before_action :authenticate_user!, only: %i(home offer_giftcard register_giftcard become_partner welcome_partner about contact contact_us_sent legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijou papier_et_lettering ceramique_et_modelage meuble_et_decoration dessin_et_peinture travail_du_cuir)
 
   def home
     dates = (Date.today..Date.today + 1.year).to_a
@@ -169,7 +169,7 @@ class PagesController < ApplicationController
     if params[:giftcard].present?
       if params[:giftcard][:code].present?
         @giftcard = Giftcard.find_by(code: params[:giftcard][:code])
-        if @giftcard.receiver.present? == false && @giftcard.status == "paid"
+        if @giftcard && @giftcard.receiver.present? == false && @giftcard.status == "paid"
           @giftcard.update(user_id: current_user.id)
           @giftcard.update(receiver: current_user.id)
           @giftcard.save

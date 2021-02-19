@@ -1,0 +1,20 @@
+<div class="omniauth-container">
+  <div class="omniauth-box omniauth-box-facebook">
+    <%= link_to user_facebook_omniauth_authorize_path do %>
+      <i class="fab fa-facebook-f mr-4"></i>
+      Continuer avec Facebook
+    <% end %>
+  </div>
+  <div class="omniauth-box omniauth-box-google">
+    <%= link_to user_google_oauth2_omniauth_authorize_path do %>
+      <i class="fab fa-google mr-4"></i>
+      Continuer avec Google
+    <% end %>
+  </div>
+</div>
+
+<div class="authentication-or-container">
+  <div class="authentication-or-left"></div>
+  <span class="authentication-or">ou</span>
+  <div class="authentication-or-right"></div>
+</div>

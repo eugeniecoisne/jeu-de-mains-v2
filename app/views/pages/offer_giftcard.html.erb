@@ -1,4 +1,7 @@
 <div class="offer-register-new-giftcard">
+
+  <%= render 'sign_in_up_modal' %>
+
   <div class="offer-register-new-giftcard-banner">
 
     <div>
@@ -12,7 +15,11 @@
             <%= simple_form_for :giftcard, url: new_giftcard_path, method: :get do |f| %>
               <div class="offer-register-new-giftcard-search-inputs-and-submit">
                 <%= f.input :amount, required: true, label: false, prompt: "Sélectionnez un montant", collection: [" 20 €", " 30 €", " 40 €", " 50 €", " 60 €", " 70 €", " 80 €", " 90 €", "100 €", "110 €", "120 €", "130 €", "140 €", "150 €"] %>
-                <%= f.submit "J'offre", class: "search-button" %>
+                <% if user_signed_in? %>
+                  <%= f.submit "J'offre", class: "search-button" %>
+                <% else %>
+                  <a href="#signInUpModal" class="search-button" data-toggle="modal" data-whatever="@mdo">J'offre</a>
+                <% end %>
               </div>
             <% end %>
           </div>

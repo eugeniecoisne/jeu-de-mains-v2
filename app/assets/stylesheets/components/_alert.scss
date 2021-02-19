@@ -1,41 +1,65 @@
 .alert {
   position: fixed;
-  bottom: 16px;
-  right: 95px;
+  padding: 0.75rem 0.9rem;
+  top:87px;
+  right: 0px;
   z-index: 1000;
-  color: white;
   font-weight: 500;
   font-size: 15px;
-  border-radius: 5px;
+  color: $dark-gray;
   border: none;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0.2rem 0.4rem 0px;
+  border-radius: unset;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0.3rem 0.5rem 0px;
+  background-color: white;
+  max-width: 400px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.alert-dismissible {
+  padding-right: 3rem;
 }
 
 .alert-info {
-  background-color: $green;
+  i {
+  font-size: 17px;
+  color: #1bd6a7;
+  }
 }
 
 .alert-warning {
-  background-color: $orange;
+  i {
+  font-size: 17px;
+  color: $flashy-red;
+  }
 }
 
 .alert-danger {
-  background-color: $orange;
+  i {
+  font-size: 17px;
+  color: $flashy-red;
+  }
 }
 
 .alert-success {
-  background-color: $green;
+  i {
+  font-size: 17px;
+  color: #1bd6a7;
+  }
 }
 
 .close {
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 400;
-  line-height: 0.8;
+  line-height: 0.65;
   outline: none;
+  opacity: 1;
+  color: $dark-gray !important;
 }
 
 .close:hover {
-  color: white;
+  outline: none;
+  color: black;
 }
 
 .close:focus {
@@ -48,10 +72,9 @@
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
   .alert {
-    position: fixed;
-    bottom: 16px;
-    right: 90px;
-    left: 5px;
+    top: 66px;
+    font-size: 14px;
+    max-width: 315px;
   }
 }
 

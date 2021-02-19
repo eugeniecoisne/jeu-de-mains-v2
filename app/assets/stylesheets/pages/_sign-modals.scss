@@ -1,0 +1,159 @@
+// RESPONSIVE SIGN MODALS //
+
+.sign-in-up-modal {
+  button.close {
+    position: absolute;
+    padding: 5px;
+    top: 0;
+    right: 0;
+  }
+  .modal-body {
+    padding: 2rem;
+  }
+}
+
+.sign-in-up-modal-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .sign-in-up-modal-options-sign-in-sign-up {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .authentication-or-container {
+    margin: 30px 0;
+  }
+  #auth-or-sign-in-sign-up {
+    margin: 20px 0;
+  }
+  .sign-form {
+    margin: unset;
+    h2 {
+      font-size: 18px;
+    }
+    label {
+      font-size: 14px;
+    }
+    legend {
+      font-size: 14px;
+    }
+    .btn {
+      font-size: 15px;
+    }
+    .sign-links {
+      margin-top: 0.8rem;
+    }
+    #forgot-password-link {
+      line-height: 1.2;
+      span {
+        font-size: 13px;
+      }
+      a {
+        font-size: 13px;
+      }
+    }
+  }
+  #sign-in-modal-form {
+    border-right: 1px solid $gray;
+    padding-right: 2rem;
+  }
+  #sign-up-modal-form {
+    padding-left: 2rem;
+  }
+}
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+
+  .sign-in-up-modal {
+    top: 0;
+    .modal-dialog {
+      width: 100%;
+      max-width: unset;
+      margin: unset;
+    }
+    .modal-content {
+      padding-bottom: 70px;
+      border: unset;
+      border-radius: unset;
+    }
+  }
+  .sign-in-up-modal-options {
+    .sign-in-up-modal-options-sign-in-sign-up {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    #sign-in-modal-form {
+      border-right: unset;
+      padding: unset;
+    }
+    #sign-up-modal-form {
+      padding:unset;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+
+  .sign-in-up-modal {
+    top: 0;
+    .modal-dialog {
+      width: 100%;
+      max-width: unset;
+      margin: unset;
+    }
+    .modal-content {
+      padding-bottom: 70px;
+      border: unset;
+      border-radius: unset;
+    }
+  }
+  .sign-in-up-modal-options {
+    #auth-or-sign-in-sign-up {
+      display: none;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+  .sign-in-up-modal {
+    .modal-dialog {
+      max-width: 700px;
+    }
+  }
+  .sign-in-up-modal-options {
+    #auth-or-sign-in-sign-up {
+      display: none;
+    }
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+  .sign-in-up-modal {
+    .modal-dialog {
+      max-width: 900px;
+    }
+  }
+  .sign-in-up-modal-options {
+    #auth-or-sign-in-sign-up {
+      display: none;
+    }
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .sign-in-up-modal {
+    .modal-dialog {
+      max-width: 800px;
+    }
+  }
+  .sign-in-up-modal-options {
+    #auth-or-sign-in-sign-up {
+      display: none;
+    }
+  }
+}

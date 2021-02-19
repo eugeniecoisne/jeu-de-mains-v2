@@ -1,0 +1,28 @@
+<!-- SIGN IN UP MODAL -->
+
+<div class="modal fade sign-in-up-modal" id="signInUpModal" tabindex="-1" role="dialog" aria-labelledby="signInUpModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" >
+    <div class="modal-content">
+
+      <div class="form-group">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
+          </button>
+          <div class="sign-in-up-modal-options">
+            <%= render template: "devise/registrations/_omniauth_access" %>
+            <div class="sign-in-up-modal-options-sign-in-sign-up">
+              <%= render template: "devise/sessions/_new_form" %>
+              <div class="authentication-or-container" id="auth-or-sign-in-sign-up">
+                <div class="authentication-or-left"></div>
+                <span class="authentication-or">ou</span>
+                <div class="authentication-or-right"></div>
+              </div>
+              <%= render template: "devise/registrations/_new_form" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
