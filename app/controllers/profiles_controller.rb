@@ -122,7 +122,7 @@ class ProfilesController < ApplicationController
       key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
       Stripe.api_key = key
       @fees = []
-      Booking.all.each do |b|
+      Booking.all.select { |b| b.payment_intent_id.present? }.each do |b|
         payment = Stripe::PaymentIntent.retrieve(b.payment_intent_id)
         if payment[:status] == "succeeded"
           fee = Stripe::ApplicationFee.retrieve(payment[:charges][:data][0][:application_fee])
