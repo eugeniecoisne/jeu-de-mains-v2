@@ -35,7 +35,7 @@
           <% end %>
         </div>
 
-        <% if @session.date >= Date.today %>
+        <% if @session.date >= Date.today && (@session.workshop.place.user == current_user || current_user.admin == true)  %>
 
           <%= link_to "Contacter les participants", "#", class: "active mb-4", id: "contactParticipantsBtn" %>
 

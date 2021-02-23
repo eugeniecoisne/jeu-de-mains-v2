@@ -1,4 +1,4 @@
-<% if ((@profile.user == current_user && @profile.user.can_receive_payments?)) || current_user.admin == true %>
+<% if (@profile.user == current_user && @profile.user.can_receive_payments?) || current_user.admin == true %>
 
   <!-- DASHBOARD - ORGANIZER -->
 
@@ -86,7 +86,7 @@
             <% if place.workshops.where(db_status: true) %>
               <% place.workshops.where(db_status: true).each do |workshop| %>
                 <% my_workshops << workshop %>
-                <% if workshop.status == "en ligne" %>
+                <% if workshop.status == "en ligne" && workshop.verified == true %>
                   <% my_workshops_online << workshop %>
                 <% elsif workshop.status == "vérification" %>
                   <% my_workshops_in_validation << workshop %>
@@ -110,7 +110,7 @@
           <% @profile.user.animators.where(db_status: true).each do |animator| %>
             <% if animator.workshop.db_status == true && animator.workshop.animators.where(db_status: true).last.user == @profile.user %>
               <% my_workshops << animator.workshop %>
-                <% if animator.workshop.status == "en ligne" %>
+                <% if animator.workshop.status == "en ligne" && animator.workshop.verified == true %>
                   <% my_workshops_online << animator.workshop %>
                 <% elsif animator.workshop.status == "vérification" %>
                   <% my_workshops_in_validation << animator.workshop %>
@@ -850,10 +850,18 @@
           <% my_cancels_kpi_7_days = 0 %>
           <% my_cancels_kpi_30_days = 0 %>
           <% canceled_bookings.each do |booking| %>
-            <% if booking.updated_at >= Date.today - 7 %>
-              <% my_cancels_kpi_7_days += booking.quantity %>
-            <% elsif booking.updated_at >= Date.today - 30 %>
-              <% my_cancels_kpi_30_days += booking.quantity %>
+            <% if booking.cancelled_at.present? %>
+              <% if booking.cancelled_at >= Date.today - 7 %>
+                <% my_cancels_kpi_7_days += booking.quantity %>
+              <% elsif booking.cancelled_at >= Date.today - 30 %>
+                <% my_cancels_kpi_30_days += booking.quantity %>
+              <% end %>
+            <% else %>
+              <% if booking.updated_at >= Date.today - 7 %>
+                <% my_cancels_kpi_7_days += booking.quantity %>
+              <% elsif booking.updated_at >= Date.today - 30 %>
+                <% my_cancels_kpi_30_days += booking.quantity %>
+              <% end %>
             <% end %>
           <% end %>
 
@@ -884,16 +892,16 @@
                 </label>
               </div>
               <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-workshops">
-                <h2><%= my_workshops_online.count %></h2>
-                <% if my_workshops_online.count > 1 %>
+                <h2><%= my_workshops.select { |w| w.status == "en ligne" && w.verified == true }.count %></h2>
+                <% if my_workshops.select { |w| w.status == "en ligne" && w.verified == true }.count > 1 %>
                   <h3>ateliers<br>en ligne</h3>
                 <% else %>
                   <h3>atelier<br>en ligne</h3>
                 <% end %>
               </div>
               <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-sessions">
-                <h2><%= my_sessions.select { |s| s.date >= Date.today }.count %></h2>
-                <% if my_sessions.count > 1 %>
+                <h2><%= my_sessions.select { |s| s.date >= Date.today && s.workshop.verified == true }.count %></h2>
+                <% if my_sessions.select { |s| s.date >= Date.today && s.workshop.verified == true }.count > 1 %>
                   <h3>créneaux à venir</h3>
                 <% else %>
                   <h3>créneau à venir</h3>
