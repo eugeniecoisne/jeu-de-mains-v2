@@ -1,5 +1,7 @@
 <% content_for :meta_title, "Jeu de Mains | #{thematic[:title][0..45]}" %>
-<% content_for :meta_description, thematic[:introduction][0..160] %>
+<% content_for :meta_description, thematic[:meta_description] %>
+<% content_for :meta_keywords, thematic[:meta_keywords] %>
+
 
 
 <div class="thematic-show">

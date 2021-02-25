@@ -142,24 +142,22 @@
 }
 
 
-// FAVORITE WS AND LAST MINUTE WS CARDS
-
-.home-ws-cards-container {
-  .home-ws-cards-title {
-    color: $blue;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 600;
-    margin-top: 2.5em;
-  }
-  .home-ws-cards-subtitle {
-    font-family: "Raleway", "sans-serif";
-    font-weight: 400;
-    text-align: center;
-    font-size: 16px;
-    margin-bottom: 2em;
-  }
+.home-category-title {
+  color: $blue;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 2.5em;
 }
+.home-category-subtitle {
+  font-family: "Raleway", "sans-serif";
+  font-weight: 400;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 2em;
+}
+
+// FAVORITE WS AND LAST MINUTE WS CARDS
 
 .home-ws-cards {
   display: grid;
@@ -227,6 +225,40 @@
   }
 }
 
+// THEMATICS
+
+.home-thematics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  a {
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  .home-one-thematic {
+    height: 190px;
+    width: 190px;
+    background-size: cover;
+    border-radius: 4px;
+    display: flex;
+    align-items: flex-end;
+    margin: 1rem;
+    padding: 10px 10px 30px 10px;
+    h4 {
+      color: white;
+      font-size: 18px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+      margin-bottom:unset;
+      line-height: 1.2;
+    }
+  }
+  .home-one-thematic:hover {
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0.2rem 0.6rem 0px;
+  }
+}
+
 
 
 // RESPONSIVE HOMEPAGE//
@@ -287,17 +319,15 @@
     margin-left: -0.3em;
     margin-right: -0.3em;
   }
-  .home-ws-cards-container {
-    .home-ws-cards-title {
-      margin-top: 2.5em;
-      font-size: 22px;
-      padding: 0 10px;
-    }
-    .home-ws-cards-subtitle {
-      font-size: 15px;
-      margin-bottom: 1.5em;
-      line-height: 1.3em;
-    }
+  .home-category-title {
+    margin-top: 2.5em;
+    font-size: 22px;
+    padding: 0 10px;
+  }
+  .home-category-subtitle {
+    font-size: 15px;
+    margin-bottom: 1.5em;
+    line-height: 1.3em;
   }
   #home-ws-cards-best-ratings-title {
     margin-top: 1.7rem;
@@ -319,6 +349,19 @@
     }
     h3 {
       margin-bottom: 2rem;
+    }
+  }
+  .home-thematics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    .home-one-thematic {
+      height: 150px;
+      width: auto;
+      margin: unset;
+      h4 {
+        font-size: 18px;
+      }
     }
   }
 }
@@ -373,6 +416,16 @@
       height: 200px;
     }
   }
+  .home-thematics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem;
+    .home-one-thematic {
+      margin: unset;
+      height: 200px;
+      width: auto;
+    }
+  }
 }
 
 // Medium devices (tablets, 768px and up)
@@ -407,6 +460,12 @@
       width: 360px;
     }
   }
+  .home-thematics-grid {
+    .home-one-thematic {
+      height: 200px;
+      width: 207px;
+    }
+  }
 }
 
 // Large devices (desktops, 992px and up)
@@ -435,6 +494,12 @@
   .home-offer-giftcard {
     img {
       width: 500px;
+    }
+  }
+  .home-thematics-grid {
+    .home-one-thematic {
+      height: 200px;
+      width: 250px;
     }
   }
 }
