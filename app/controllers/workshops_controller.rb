@@ -22,7 +22,7 @@ class WorkshopsController < ApplicationController
       end
 
       @workshops = @workshops.select { |workshop| workshop.moments.include?(params[:search][:moment]) if workshop.moments != nil }.paginate(page: params[:page], per_page: 20) if params[:search][:moment].present?
-      @workshops = @workshops.select { |workshop| workshop.thematic == params[:search][:keyword] }.paginate(page: params[:page], per_page: 20) if params[:search][:keyword].present?
+      @workshops = @workshops.select { |workshop| workshop.thematic.include?(params[:search][:keyword]) }.paginate(page: params[:page], per_page: 20) if params[:search][:keyword].present?
       @workshops = @workshops.select { |workshop| workshop.title.downcase.include?(params[:search][:selection]) }.paginate(page: params[:page], per_page: 20) if params[:search][:selection].present?
       @workshops = @workshops.select { |workshop| workshop.capacity >= params[:search][:min_capacity].to_i }.paginate(page: params[:page], per_page: 20) if params[:search][:min_capacity].present?
       @workshops = @workshops.select { |workshop| workshop.level == params[:search][:level] }.paginate(page: params[:page], per_page: 20) if params[:search][:level].present?
@@ -138,7 +138,7 @@ class WorkshopsController < ApplicationController
       end
     end
     dates = (Date.today..Date.today + 1.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 && workshop.place.district == @workshop.place.district && workshop.thematic == @workshop.thematic && workshop.id != @workshop.id }.shuffle.first(6)
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 && workshop.place.district == @workshop.place.district && workshop.id != @workshop.id }.select { |w| w.thematic.each { |t| @workshop.thematic.include?(t) == true}}.shuffle.first(6)
   end
 
   def edit
@@ -153,6 +153,9 @@ class WorkshopsController < ApplicationController
     if params[:workshop][:place_id].present?
       @workshop.place = Place.find(params[:workshop][:place_id])
       @workshop.place.name == "Atelier en visio" ? @workshop.update(visio: true) : @workshop.update(visio: false)
+    end
+    if params[:workshop][:thematic].present?
+      @workshop.thematic = params[:workshop][:thematic].reject(&:empty?)
     end
     if @workshop.save
       flash[:notice] = "Votre atelier a bien été modifié !"
@@ -194,6 +197,7 @@ class WorkshopsController < ApplicationController
     if params[:commit].present? && params[:commit] == "Dupliquer"
       @workshop = Workshop.new(workshop_params)
       authorize @workshop
+      @workshop.thematic = params[:workshop][:thematic].reject(&:empty?)
       @workshop.place = Place.find(params[:workshop][:place_id])
       all_initial_ws = Workshop.all.select { |workshop| workshop.title == @workshop.title }
       if all_initial_ws.select { |workshop| workshop.place.user == @workshop.place.user }.present?
@@ -223,6 +227,7 @@ class WorkshopsController < ApplicationController
 
       @workshop = Workshop.new(workshop_params)
       authorize @workshop
+      @workshop.thematic = params[:workshop][:thematic].reject(&:empty?)
       @workshop.place = Place.find(params[:workshop][:place_id])
       @workshop.status = 'hors ligne'
       if @workshop.place.name == "Atelier en visio"
@@ -307,6 +312,6 @@ class WorkshopsController < ApplicationController
   end
 
   def workshop_params
-    params.require(:workshop).permit(:title, :program, :final_product, :thematic, :level, :duration, :price, :status, :db_status, :capacity, :verified, :recommendable, :ephemeral, :kit, :kit_description, :visio, :slug, photos: [])
+    params.require(:workshop).permit(:place_id, :thematic, :title, :program, :final_product, :level, :duration, :price, :status, :db_status, :capacity, :verified, :recommendable, :ephemeral, :kit, :kit_description, :visio, :slug, photos: [])
   end
 end
