@@ -63,8 +63,8 @@
     <div class="home-ws-cards-container" id="home-ws-cards-best-ratings-container">
 
       <div>
-        <h2 class="home-ws-cards-title" id="home-ws-cards-best-ratings-title">Les ateliers favoris</h2>
-        <h3 class="home-ws-cards-subtitle">Découvrez ici nos ateliers les mieux notés par la communauté Jeu de Mains</h3>
+        <h2 class="home-category-title" id="home-ws-cards-best-ratings-title">Les ateliers favoris</h2>
+        <h3 class="home-category-subtitle">Découvrez ici nos ateliers les mieux notés par la communauté Jeu de Mains</h3>
 
         <div class="home-ws-cards home-ws-cards-best-ratings" id="home-ws-cards-best-ratings">
           <% @best_workshops.first(6).each do |workshop| %>
@@ -147,7 +147,7 @@
 
   <div class="home-selection-cards">
     <div class="home-selection-card" id="home-selection-first">
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_700/v1593179636/jeu-de-mains-selection-estivale.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-selection-estivale", :title => "jeu-de-mains-selection-estivale") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_400/v1593179636/jeu-de-mains-selection-estivale.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-selection-estivale", :title => "jeu-de-mains-selection-estivale") %>
       <div class="home-selection-text">
         <div>
           <h2>Ça sent bon l’été</h2>
@@ -163,7 +163,7 @@
     </div>
 
     <div class="home-selection-card" id="home-selection-second">
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_700/v1593179634/jeu-de-mains-selection-masque.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-selection-masque", :title => "jeu-de-mains-selection-masque") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_400/v1593179634/jeu-de-mains-selection-masque.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-selection-masque", :title => "jeu-de-mains-selection-masque") %>
       <div class="home-selection-text">
         <div>
           <h2>Bal masqué</h2>
@@ -181,7 +181,7 @@
     <!-- THEMATICS SELECTION -->
     <%= link_to vegetal_path do %>
       <div class="home-selection-card" id="home-thematic-first">
-        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_700/v1603214470/jeu-de-mains-vegetal.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-vegetal", :title => "jeu-de-mains-ateliers-vegetal") %>
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_400/v1603214470/jeu-de-mains-vegetal.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-vegetal", :title => "jeu-de-mains-ateliers-vegetal") %>
         <div class="home-selection-text">
           <div>
             <h2>La belle nature</h2>
@@ -196,7 +196,7 @@
 
     <%= link_to cosmetique_et_entretien_path do %>
       <div class="home-selection-card" id="home-thematic-second">
-        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_700/v1603214469/jeu-de-mains-cosmetique-entretien.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-cosmetique-entretien", :title => "jeu-de-mains-ateliers-cosmetique-entretien") %>
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_400/v1603214469/jeu-de-mains-cosmetique-entretien.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-cosmetique-entretien", :title => "jeu-de-mains-ateliers-cosmetique-entretien") %>
         <div class="home-selection-text">
           <div>
             <h2>Je prends soin de moi</h2>
@@ -215,8 +215,8 @@
   <div class="home-ws-cards-container">
     <% if @last_minute.size > 0 %>
       <div>
-        <h2 class="home-ws-cards-title">C’est maintenant ou jamais !</h2>
-        <h3 class="home-ws-cards-subtitle">Réservez les dernières places disponibles des prochaines dates</h3>
+        <h2 class="home-category-title">C’est maintenant ou jamais !</h2>
+        <h3 class="home-category-subtitle">Réservez les dernières places disponibles des prochaines dates</h3>
 
         <div class="home-ws-cards home-ws-cards-last-minute">
           <% @last_minute.first(6).each do |session| %>
@@ -286,6 +286,9 @@
       </div>
     <% end %>
   </div>
+
+  <!-- HOME GIFTCARD -->
+
   <div class="home-offer-giftcard-container">
     <div class="home-offer-giftcard">
       <div class="home-selection-text pl-2">
@@ -305,5 +308,62 @@
       <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_800/v1606127708/jeu-de-mains-carte-cadeau.jpg", :loading => "lazy", :width => 600, :crop => :fill, :alt => "jeu-de-mains-carte-cadeau", :title => "jeu-de-mains-carte-cadeau") %>
     </div>
   </div>
+
+  <!-- HOME THEMATICS -->
+
+  <div class="home-thematics-container">
+    <h2 class="home-category-title">Nos thématiques d'ateliers</h2>
+    <h3 class="home-category-subtitle">Retrouvez des ateliers répartis en 9 thématiques sur Jeu de Mains</h3>
+    <div class="home-thematics-grid">
+      <%= link_to autour_du_fil_path do %>
+        <div class="home-one-thematic" style="background-image: linear-gradient(rgba(0,0,0,0.05),rgba(0,0,0,0.1)), url(<%= cl_image_path "https://res.cloudinary.com/jeudemains/image/upload/w_300/v1603214470/jeu-de-mains-autour-du-fil.jpg" %>)">
+          <h4>Autour du fil</h4>
+        </div>
+      <% end %>
+      <%= link_to cosmetique_et_entretien_path do %>
+        <div class="home-one-thematic" style="background-image: linear-gradient(rgba(0,0,0,0.05),rgba(0,0,0,0.1)), url(<%= cl_image_path "https://res.cloudinary.com/jeudemains/image/upload/w_300/v1603214469/jeu-de-mains-cosmetique-entretien.jpg" %>)">
+          <h4>Cosmétique & Entretien</h4>
+        </div>
+      <% end %>
+      <%= link_to vegetal_path do %>
+        <div class="home-one-thematic" style="background-image: linear-gradient(rgba(0,0,0,0.05),rgba(0,0,0,0.1)), url(<%= cl_image_path "https://res.cloudinary.com/jeudemains/image/upload/w_300/v1603214470/jeu-de-mains-vegetal.jpg" %>)">
+          <h4>Végétal</h4>
+        </div>
+      <% end %>
+      <%= link_to peinture_et_dessin_path do %>
+        <div class="home-one-thematic" style="background-image: linear-gradient(rgba(0,0,0,0.05),rgba(0,0,0,0.1)), url(<%= cl_image_path "https://res.cloudinary.com/jeudemains/image/upload/w_300/v1603214470/jeu-de-mains-dessin-peinture.jpg" %>)">
+          <h4>Peinture & Dessin</h4>
+        </div>
+      <% end %>
+      <%= link_to ceramique_et_modelage_path do %>
+        <div class="home-one-thematic" style="background-image: linear-gradient(rgba(0,0,0,0.05),rgba(0,0,0,0.1)), url(<%= cl_image_path "https://res.cloudinary.com/jeudemains/image/upload/w_300/v1603214470/jeu-de-mains-ceramique-modelage.jpg" %>)">
+          <h4>Céramique & Modelage</h4>
+        </div>
+      <% end %>
+      <%= link_to papier_et_calligraphie_path do %>
+        <div class="home-one-thematic" style="background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.2)), url(<%= cl_image_path "https://res.cloudinary.com/jeudemains/image/upload/w_300/v1603214470/jeu-de-mains-papier-lettering.jpg" %>)">
+          <h4>Papier & Calligraphie</h4>
+        </div>
+      <% end %>
+      <%= link_to bijoux_path do %>
+        <div class="home-one-thematic" style="background-image: linear-gradient(rgba(0,0,0,0.05),rgba(0,0,0,0.1)), url(<%= cl_image_path "https://res.cloudinary.com/jeudemains/image/upload/w_300/v1603214470/jeu-de-mains-bijou.jpg" %>)">
+          <h4>Bijoux</h4>
+        </div>
+      <% end %>
+      <%= link_to travail_du_cuir_path do %>
+        <div class="home-one-thematic" style="background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.2)), url(<%= cl_image_path "https://res.cloudinary.com/jeudemains/image/upload/w_300/v1603379193/jeu-de-mains-travail-du-cuir.jpg" %>)">
+          <h4>Travail du cuir</h4>
+        </div>
+      <% end %>
+      <%= link_to meuble_et_decoration_path do %>
+        <div class="home-one-thematic" style="background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.2)), url(<%= cl_image_path "https://res.cloudinary.com/jeudemains/image/upload/w_300/v1603214470/jeu-de-mains-meuble-decoration.jpg" %>)">
+          <h4>Meuble & Décoration</h4>
+        <% end %></div
+        >
+
+
+    </div>
+  </div>
+
 </div>
 

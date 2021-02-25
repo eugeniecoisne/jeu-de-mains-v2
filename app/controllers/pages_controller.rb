@@ -18,7 +18,10 @@ class PagesController < ApplicationController
   def autour_du_fil
     @thematic = {
       title: "Autour du fil",
-      introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
+      introduction: "Envie d’apprendre à coudre vos propres vêtements, tricoter des chaussons pour bébé, décorer votre salon avec des coussins en punch needle, recycler des vêtements usagers en pièce unique et tendance ?
+      Apprenez la couture, le tricot, le crochet, le macramé, la broderie, le punch needle, le string art et fabriquez vos propres créations grâce aux ateliers créatifs Jeu de Mains !",
+      meta_description: "Apprenez couture, tricot, crochet, macramé, broderie, punch needle, string art et fabriquez vos propres créations grâce aux ateliers créatifs Jeu de Mains",
+      meta_keywords: "atelier couture, atelier tricot, atelier broderie, cours de couture, atelier diy, atelier créatif, punch needle, crochet, customisation, reprisage, upcycling, atelier do it yourself, Jeu de Mains",
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-autour-du-fil.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
@@ -29,17 +32,35 @@ class PagesController < ApplicationController
   def vegetal
     @thematic = {
       title: "Végétal",
-      introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
+      introduction:
+      "Envie d’apprendre à confectionner votre couronne de fleurs, à décorer votre intérieur avec vos créations florales : herbier, bouquet de fleurs séchées, couronne de fleurs murale, cloche fleurie, bougie fleurie ou terrarium ?
+      Apprenez les techniques d’art et création florale et fabriquez vos propres créations végétales grâce aux ateliers créatifs Jeu de Mains !",
+      meta_description: "Apprenez l’art floral: couronne de fleurs, bouquet, fleurs séchées, cloche fleurie, bougie fleurie, herbier, terrarium grâce aux ateliers créatifs Jeu de Mains",
+      meta_keywords: "atelier couronne de fleurs, atelier herbier, atelier diy, art floral, faire un bouquet, fleurs séchées, herbier, cloche fleurie, bougie fleurie, activité evjf, mariage, atelier do it yourself, Jeu de Mains",
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-vegetal.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Végétal").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
-  def papier_et_lettering
+  def peinture_et_dessin
     @thematic = {
-      title: "Papier & Lettering",
-      introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
+      title: "Peinture & Dessin",
+      introduction: "Envie de vous emparer d’un pinceau ou crayon et de vous initier à la peinture ou au dessin ? Fleurs en aquarelle, peinture sur soie, peinture sur céramique, œuvre abstraite à l’acrylique, esquisse crayonnée… apprenez différentes techniques de peinture et dessin grâce aux ateliers créatifs Jeu de Mains !",
+      meta_description: "Initiez-vous à la peinture et au dessin ou perfectionnez-vous grâce aux ateliers aquarelle, peinture sur soie, peinture sur céramique, dessin Jeu de Mains",
+      meta_keywords: "atelier peinture, cours de peinture, aquarelle, peinture sur soie, peinture sur céramique, cours de dessin, atelier dessin, atelier do it yourself, Jeu de Mains",
+      image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-dessin-peinture.jpg"
+    }
+    dates = (Date.today..Date.today + 2.year).to_a
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Dessin & Peinture").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+  end
+
+  def papier_et_calligraphie
+    @thematic = {
+      title: "Papier & Calligraphie",
+      introduction: "Envie de créer votre bullet journal, confectionner votre moodboard ou visionboard, vous initier aux techniques calligraphiques du lettering, devenir imbattable en origami ? Découvrez les techniques d’art du papier, le scrapbooking et le lettering grâce aux ateliers créatifs Jeu de Mains !",
+      meta_description: "Bullet journal, moodboard, papeterie fait-main, initiez-vous au scrapbooking et au lettering avec les ateliers créatifs Jeu de Mains",
+      meta_keywords: "scrapbooking, lettering, calligraphie, atelier lettering, atelier bullet journal, atelier scrapbooking, art du papier, fabriquer papeterie, atelier do it yourself, Jeu de Mains",
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-papier-lettering.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
@@ -49,17 +70,21 @@ class PagesController < ApplicationController
   def ceramique_et_modelage
     @thematic = {
       title: "Céramique & Modelage",
-      introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
+      introduction: "Envie de modeler une pièce d’art de la table en céramique, un porte-savon en ciment, un vase en poterie, une sculpture en argile ? Découvrez tout l’art du pétrissage, du tournage et du modelage et créez une pièce unique grâce aux ateliers de modelage Jeu de Mains !",
+      meta_description: "Céramique, poterie : initiez-vous aux techniques de pétrissage, tournage et modelage de l’argile ou du béton avec les ateliers créatifs Jeu de Mains",
+      meta_keywords: "céramique, cours de céramique, poterie, cours de poterie, atelier céramique, atelier poterie, atelier béton, modelage, sculpture, argile, béton, atelier do it yourself, Jeu de Mains",
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-ceramique-modelage.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Céramique & Modelage").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
-  def bijou
+  def bijoux
     @thematic = {
-      title: "Bijou",
-      introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
+      title: "Bijoux",
+      introduction: "Envie de vous parer de bijoux réalisés de vos mains ? Perles, pierres naturelles, chaînes et apprêts en plaqué or, doré à l’or fin, acier, laiton ou argent, plexiglas, pâte polymère : amusez-vous à créer des bijoux uniques qui vous ressemblent grâce aux ateliers de confection de bijoux Jeu de Mains !",
+      meta_description: "Perles, pierres naturelles, apprêts en plaqué or, laiton ou argent: amusez-vous à créer des bijoux uniques avec les ateliers confection de bijoux Jeu de Mains",
+      meta_keywords: "atelier création de bijoux, initiation création bijou, confectionner mes bijoux, bijoux fait-main, perles heishi, bijoux plaqué or, bijoux argent, bijoux laiton, bijoux diy, atelier do it yourself, Jeu de Mains",
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-bijou.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
@@ -69,41 +94,37 @@ class PagesController < ApplicationController
   def cosmetique_et_entretien
     @thematic = {
       title: "Cosmétique & Entretien",
-      introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
+      introduction: "Envie d’apprendre à formuler vos propres cosmétiques naturelles et fabriquer vos produits d’entretien ménager ? Fabriquez un shampoing solide, un déodorant adapté pour votre peau, des produits zéro déchet, une crème visage naturelle, votre lessive, un spray nettoyant multi-usages plus sain grâce aux ateliers cosmétique et entretien Jeu de Mains !",
+      meta_description: "Fabriquez des cosmétiques naturelles (shampoing, déodorant…) adaptées à votre peau et vos produits d’entretien ménager grâce aux ateliers Jeu de Mains",
+      meta_keywords: "cosmétique naturelle, cosmétique maison, shampoing solide diy, lessive diy, déodorant diy, atelier cosmétique, atelier zéro déchet, diy nettoyant, spray nettoyant maison, atelier diy, atelier do it yourself, Jeu de Mains",
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214469/jeu-de-mains-cosmetique-entretien.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Cosmétique & Entretien").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
-  def dessin_et_peinture
+  def travail_du_cuir
     @thematic = {
-      title: "Dessin & Peinture",
-      introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
-      image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-dessin-peinture.jpg"
+      title: "Travail du cuir",
+      introduction: "Envie de découvrir les secrets de la maroquinerie ou de la cordonnerie ? Sac, porte-cartes, ceinture, gants, espadrilles, baskets, chaussures : apprenez les techniques de découpe, couture, assemblage et fabriquez une pièce unique que vous porterez avec fierté grâce aux ateliers de travail du cuir Jeu de Mains !",
+      meta_description: "Sac, porte-cartes, espadrilles, baskets: fabriquez une pièce unique que vous porterez avec fierté avec les ateliers maroquinerie et cordonnerie Jeu de Mains",
+      meta_keywords: "sac à main cuir diy, atelier diy sac cuir, confectionner sac, atelier travail du cuir, fabriquer mes baskets, atelier diy maroquinerie, fabriquer mon sac, atelier do it yourself, Jeu de Mains",
+      image: "https://res.cloudinary.com/jeudemains/image/upload/v1603379193/jeu-de-mains-travail-du-cuir.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Dessin & Peinture").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Travail du cuir").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
   def meuble_et_decoration
     @thematic = {
       title: "Meuble & Décoration",
-      introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
+      introduction: "Envie d’apporter une touche de décoration fait-main à votre intérieur ? Restauration de meuble, confection d’une suspension lumineuse unique, fabrication d’un meuble en bois sur-mesure, réalisation de petites décorations à thème Saint-Valentin, Pâques, Noël…  : découvrez et mettez en œuvre les étapes de conception grâce aux ateliers meuble et décoration Jeu de Mains !",
+      meta_description: "Décorez votre intérieur avec du fait-main: restauration de meuble, fabrication de meuble en bois, petites déco à thèmes grâce aux ateliers créatifs Jeu de Mains",
+      meta_keywords: "restauration de meuble, fabriquer mon meuble, fabrication objet en bois, décoration diy, suspension diy, décorations à thèmes diy, ateliers créatifs, ateliers diy, Jeu de Mains",
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-meuble-decoration.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Meuble & Décoration").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
-  end
-
-  def travail_du_cuir
-    @thematic = {
-      title: "Travail du cuir",
-      introduction: "Duis tortor sem, ultrices in fermentum vel, congue vitae urna. Etiam dignissim leo et mauris dignissim, id tincidunt eros consectetur. Phasellus tellus ligula, faucibus ac pulvinar in, feugiat scelerisque dolor. Maecenas pharetra arcu eu orci malesuada aliquet.",
-      image: "https://res.cloudinary.com/jeudemains/image/upload/v1603379193/jeu-de-mains-travail-du-cuir.jpg"
-    }
-    dates = (Date.today..Date.today + 2.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Travail du cuir").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
   def become_partner
