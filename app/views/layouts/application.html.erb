@@ -60,7 +60,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload', preload: true %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', preload: true %>
-    <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
+
     <% if (controller.controller_name == 'profiles' && controller.action_name == 'tableau_de_bord') %>
       <script src="https://res.cloudinary.com/jeudemains/raw/upload/v1613578429/sorttable.js"></script>
     <% end %>
