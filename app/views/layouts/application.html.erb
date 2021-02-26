@@ -62,14 +62,6 @@
       <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload', preload: true %>
     <!-- end of stylesheet link tag -->
 
-    <!-- javascript pack tag -->
-    <% if controller.controller_name == 'pages' && ["become_partner", "welcome_partner"].include?(controller.action_name) == false %>
-      <%= javascript_pack_tag 'home', 'data-turbolinks-track': 'reload', preload: true %>
-    <% else %>
-      <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', preload: true %>
-    <% end %>
-    <!-- end of javascript pack tag -->
-
     <% if (controller.controller_name == 'profiles' && controller.action_name == 'tableau_de_bord') %>
       <script src="https://res.cloudinary.com/jeudemains/raw/upload/v1613578429/sorttable.js"></script>
     <% end %>
@@ -110,6 +102,8 @@
       <%= render 'shared/footer' %>
     <% end %>
 
+
+
     <% unless (controller.controller_name == 'workshops' && controller.action_name == 'index') || (controller.controller_name == 'profiles' && controller.action_name == 'messagerie') || (controller.controller_name == 'profiles' && controller.action_name == 'index') %>
       <script type="text/plain" cookie-consent="strictly-necessary">
         (function() {
@@ -127,6 +121,7 @@
         })();
       </script>
     <% end %>
+      <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', preload: true %>
 
     <noscript>Votre navigateur ne supporte pas JavaScript...</noscript>
     <noscript>Cookie Consent by <a href="https://www.FreePrivacyPolicy.com/free-cookie-consent/" rel="nofollow noopener">FreePrivacyPolicy.com</a></noscript>
