@@ -58,13 +58,17 @@
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload', preload: true %>
+    <!-- stylesheet link tag -->
+      <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload', preload: true %>
+    <!-- end of stylesheet link tag -->
 
-    <% if (controller.controller_name == 'pages' && controller.action_name == 'home') %>
+    <!-- javascript pack tag -->
+    <% if controller.controller_name == 'pages' && ["become_partner", "welcome_partner"].include?(controller.action_name) == false %>
       <%= javascript_pack_tag 'home', 'data-turbolinks-track': 'reload', preload: true %>
     <% else %>
       <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', preload: true %>
     <% end %>
+    <!-- end of javascript pack tag -->
 
     <% if (controller.controller_name == 'profiles' && controller.action_name == 'tableau_de_bord') %>
       <script src="https://res.cloudinary.com/jeudemains/raw/upload/v1613578429/sorttable.js"></script>

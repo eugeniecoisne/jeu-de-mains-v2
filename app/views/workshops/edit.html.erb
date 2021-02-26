@@ -15,7 +15,7 @@
   </div>
 
   <div class="edit-ws-container">
-    <% if @workshop.status == 'en ligne' %>
+    <% if @workshop.status == 'en ligne' && current_user.admin == false %>
 
       <h3>Votre atelier est déjà en ligne. Vous pouvez modifier les premiers champs ci-dessous uniquement. Si vous souhaitez modifier d'autres champs et que vous n'avez pas encore de réservation pour cet atelier, il est possible de passer votre atelier en statut "hors ligne" dans votre tableau de bord.</h3>
       <%= simple_form_for(@workshop) do |f| %>
