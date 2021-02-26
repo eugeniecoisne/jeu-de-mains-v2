@@ -77,8 +77,7 @@
             N'hésitez pas à justifier le niveau requis dans la partie "Programme" (étape suivante) &#128521; <br>
             <strong>Important :</strong> le prix fixé se doit d'être identique à celui affiché sur vos autres supports (boutique, site, autres plateformes).
             <br><br>
-
-            <%= f.input :thematic, required: true, label: "Type d'atelier", collection: Workshop::THEMATICS %>
+            <%= f.input :thematic, as: :check_boxes, multiple: true, label: "Type d'atelier", collection: Workshop::THEMATICS %>
             <%= f.input :level, required: true, label: "Niveau requis pour participer", collection: Workshop::LEVELS %>
             <%= f.input :capacity, required: false, label: "Nombre de places proposées" %>
             <%= f.input :duration, required: false, label: "Durée de l'atelier en minutes" %>

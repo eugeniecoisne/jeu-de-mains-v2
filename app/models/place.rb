@@ -168,7 +168,7 @@ class Place < ApplicationRecord
   end
 
   def thematics
-    workshops.map { |workshop| workshop.thematic }.uniq
+    workshops.map { |workshop| workshop.thematic }.flatten(1).uniq
   end
 
   def district

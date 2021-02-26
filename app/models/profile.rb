@@ -59,10 +59,12 @@ class Profile < ApplicationRecord
   end
 
   def thematics
-    thematics = user.animators.map { |animator| animator.workshop.thematic if animator.workshop.db_status == true }
+    thematics = user.animators.map { |animator| animator.workshop.thematic if animator.workshop.db_status == true }.flatten(1)
     user.places.each do |place|
       place.workshops.where(db_status: true).each do |workshop|
-        thematics << workshop.thematic
+        workshop.thematic.each do |t|
+          thematics << t
+        end
       end
     end
     thematics.uniq

@@ -166,28 +166,29 @@
               </div>
             <% end %>
             <% if @workshop.thematic.present? %>
-              <div class='informations-tag'>
-                <% case @workshop.thematic %>
-                <% when "Végétal" %>
-                  <%= link_to @workshop.thematic, vegetal_path, class: "informations-tag-submit" %>
-                <% when "Autour du fil" %>
-                  <%= link_to @workshop.thematic, autour_du_fil_path, class: "informations-tag-submit" %>
-                <% when "Papier & Calligraphie" %>
-                  <%= link_to @workshop.thematic, papier_et_calligraphie_path, class: "informations-tag-submit" %>
-                <% when "Céramique & Modelage" %>
-                  <%= link_to @workshop.thematic, ceramique_et_modelage_path, class: "informations-tag-submit" %>
-                <% when "Bijoux" %>
-                  <%= link_to @workshop.thematic, bijoux_path, class: "informations-tag-submit" %>
-                <% when "Cosmétique & Entretien" %>
-                  <%= link_to @workshop.thematic, cosmetique_et_entretien_path, class: "informations-tag-submit" %>
-                <% when "Peinture & Dessin" %>
-                  <%= link_to @workshop.thematic, peinture_et_dessin_path, class: "informations-tag-submit" %>
-                <% when "Meuble & Décoration" %>
-                  <%= link_to @workshop.thematic, meuble_et_decoration_path, class: "informations-tag-submit" %>
-                <% when "Travail du cuir" %>
-                  <%= link_to @workshop.thematic, travail_du_cuir_path, class: "informations-tag-submit" %>
-                <% end %>
-              </div>
+              <% @workshop.thematic.each do |t| %>
+                <div class='informations-tag'>
+                  <% if t == "Végétal" %>
+                    <%= link_to t, vegetal_path, class: "informations-tag-submit" %>
+                  <% elsif t == "Autour du fil" %>
+                    <%= link_to t, autour_du_fil_path, class: "informations-tag-submit" %>
+                  <% elsif t == "Papier & Calligraphie" %>
+                    <%= link_to t, papier_et_calligraphie_path, class: "informations-tag-submit" %>
+                  <% elsif t == "Céramique & Modelage" %>
+                    <%= link_to t, ceramique_et_modelage_path, class: "informations-tag-submit" %>
+                  <% elsif t == "Bijoux" %>
+                    <%= link_to t, bijoux_path, class: "informations-tag-submit" %>
+                  <% elsif t == "Cosmétique & Entretien" %>
+                    <%= link_to t, cosmetique_et_entretien_path, class: "informations-tag-submit" %>
+                  <% elsif t == "Peinture & Dessin" %>
+                    <%= link_to t, peinture_et_dessin_path, class: "informations-tag-submit" %>
+                  <% elsif t == "Meuble & Décoration" %>
+                    <%= link_to t, meuble_et_decoration_path, class: "informations-tag-submit" %>
+                  <% elsif t == "Travail du cuir" %>
+                    <%= link_to t, travail_du_cuir_path, class: "informations-tag-submit" %>
+                  <% end %>
+                </div>
+              <% end %>
             <% end %>
             <% if @workshop.capacity.present? %>
               <div class='informations-tag'>

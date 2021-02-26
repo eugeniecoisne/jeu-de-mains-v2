@@ -17,6 +17,7 @@ ActiveAdmin.register Workshop do
         scoped_collection.find(params[:id])
       end
     end
+end
   end
 
   index do
@@ -314,7 +315,7 @@ ActiveAdmin.register Workshop do
     f.inputs :except => [:thematic, :level, :slug, :status]
 
     f.inputs "Filtres" do
-      f.input :thematic, collection: Workshop::THEMATICS
+      f.input :thematic, collection: Workshop::THEMATICS, input_html: { multiple: true}
       f.input :level, collection: Workshop::LEVELS
     end
     f.inputs "Statut (Mettre 'hors ligne' par défaut)" do

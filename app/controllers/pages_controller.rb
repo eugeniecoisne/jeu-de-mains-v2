@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i(home offer_giftcard register_giftcard become_partner welcome_partner about contact contact_us_sent legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijou papier_et_lettering ceramique_et_modelage meuble_et_decoration dessin_et_peinture travail_du_cuir)
+  skip_before_action :authenticate_user!, only: %i(home offer_giftcard register_giftcard become_partner welcome_partner about contact contact_us_sent legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijoux papier_et_calligraphie ceramique_et_modelage meuble_et_decoration peinture_et_dessin travail_du_cuir)
 
   def home
     dates = (Date.today..Date.today + 1.year).to_a
@@ -25,7 +25,7 @@ class PagesController < ApplicationController
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-autour-du-fil.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Autour du fil").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.thematic.include?("Autour du fil") && workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
 
   end
 
@@ -40,7 +40,7 @@ class PagesController < ApplicationController
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-vegetal.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Végétal").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.thematic.include?("Végétal") && workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
   def peinture_et_dessin
@@ -52,7 +52,7 @@ class PagesController < ApplicationController
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-dessin-peinture.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Dessin & Peinture").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.thematic.include?("Peinture & Dessin") && workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
   def papier_et_calligraphie
@@ -64,7 +64,7 @@ class PagesController < ApplicationController
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-papier-lettering.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Papier & Lettering").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.thematic.include?("Papier & Calligraphie") && workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
   def ceramique_et_modelage
@@ -76,7 +76,7 @@ class PagesController < ApplicationController
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-ceramique-modelage.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Céramique & Modelage").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.thematic.include?("Céramique & Modelage") && workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
   def bijoux
@@ -88,7 +88,7 @@ class PagesController < ApplicationController
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-bijou.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Bijou").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.thematic.include?("Bijoux") && workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
   def cosmetique_et_entretien
@@ -100,7 +100,7 @@ class PagesController < ApplicationController
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214469/jeu-de-mains-cosmetique-entretien.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Cosmétique & Entretien").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.thematic.include?("Cosmétique & Entretien") && workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
   def travail_du_cuir
@@ -112,7 +112,7 @@ class PagesController < ApplicationController
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603379193/jeu-de-mains-travail-du-cuir.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Travail du cuir").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.thematic.include?("Travail du cuir") && workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
   def meuble_et_decoration
@@ -124,7 +124,7 @@ class PagesController < ApplicationController
       image: "https://res.cloudinary.com/jeudemains/image/upload/v1603214470/jeu-de-mains-meuble-decoration.jpg"
     }
     dates = (Date.today..Date.today + 2.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true, thematic: "Meuble & Décoration").select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.thematic.include?("Meuble & Décoration") && workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }
   end
 
   def become_partner

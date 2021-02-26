@@ -10,12 +10,14 @@ class Workshop < ApplicationRecord
   has_many :reviews, through: :sessions
 
   validates :title, presence: true, allow_blank: false
-  validates :thematic, inclusion: { in: ['Autour du fil', 'Végétal', 'Papeterie & Calligraphie', 'Céramique & Modelage', 'Bijoux', 'Cosmétique & Entretien', 'Peinture & Dessin', 'Meuble & Décoration', 'Travail du cuir'] }
   validates :level, inclusion: { in: ['Débutant', 'Intermédiaire', 'Avancé'] }
   validates :recommendable, inclusion: { in: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
   validate :attachments_size
 
-  THEMATICS = ['Autour du fil', 'Végétal', 'Papeterie & Calligraphie', 'Céramique & Modelage', 'Bijoux', 'Cosmétique & Entretien', 'Peinture & Dessin', 'Meuble & Décoration', 'Travail du cuir']
+  serialize :thematic, Array
+  # validates :thematic, inclusion: { in: ['Autour du fil', 'Végétal', 'Papier & Calligraphie', 'Céramique & Modelage', 'Bijoux', 'Cosmétique & Entretien', 'Peinture & Dessin', 'Meuble & Décoration', 'Travail du cuir'] }
+
+  THEMATICS = ['Autour du fil', 'Végétal', 'Papier & Calligraphie', 'Céramique & Modelage', 'Bijoux', 'Cosmétique & Entretien', 'Peinture & Dessin', 'Meuble & Décoration', 'Travail du cuir']
   LEVELS = ['Débutant', 'Intermédiaire', 'Avancé']
 
   include PgSearch::Model
