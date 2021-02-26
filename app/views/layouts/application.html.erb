@@ -123,10 +123,14 @@
     <% end %>
 
     <!-- stylesheet after footer link tag -->
-      <%= stylesheet_link_tag 'application_footer', media: 'all', 'data-turbolinks-track': 'reload', preload: true %>
+      <%= stylesheet_link_tag 'application_footer', media: 'all', 'data-turbolinks-track': 'reload', rel: 'preload' %>
     <!-- end of stylesheet after footer link tag -->
 
+    <% if controller.controller_name == 'pages' && ["become_partner", "welcome_partner"].include?(controller.action_name) == false %>
+      <%= javascript_pack_tag 'home', 'data-turbolinks-track': 'reload', preload: true %>
+    <% else %>
       <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', preload: true %>
+    <% end %>
 
     <noscript>Votre navigateur ne supporte pas JavaScript...</noscript>
     <noscript>Cookie Consent by <a href="https://www.FreePrivacyPolicy.com/free-cookie-consent/" rel="nofollow noopener">FreePrivacyPolicy.com</a></noscript>
