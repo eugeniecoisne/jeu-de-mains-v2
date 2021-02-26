@@ -59,7 +59,12 @@
     <%= action_cable_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload', preload: true %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', preload: true %>
+
+    <% if (controller.controller_name == 'pages' && controller.action_name == 'home') %>
+      <%= javascript_pack_tag 'home', 'data-turbolinks-track': 'reload', preload: true %>
+    <% else %>
+      <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', preload: true %>
+    <% end %>
 
     <% if (controller.controller_name == 'profiles' && controller.action_name == 'tableau_de_bord') %>
       <script src="https://res.cloudinary.com/jeudemains/raw/upload/v1613578429/sorttable.js"></script>
