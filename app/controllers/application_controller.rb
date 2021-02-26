@@ -38,8 +38,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :created_by_admin, :newsletter_agreement])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :created_by_admin, :newsletter_agreement])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :created_by_admin, :newsletter_agreement, :cgu_agreement])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :created_by_admin, :newsletter_agreement, :cgu_agreement])
   end
 
   private

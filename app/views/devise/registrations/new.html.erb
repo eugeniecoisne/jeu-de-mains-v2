@@ -68,6 +68,14 @@
                       required: false,
                       autofocus: true,
                       label: "Je souhaite recevoir les actualités de Jeu de Mains par e-mail"%>
+          <div class="d-flex">
+            <%= f.input :cgu_agreement,
+                      as: :boolean,
+                      label:false,
+                      required: true,
+                      autofocus: true%>
+                      <span class="sign-form-cgu">J'ai lu et j'accepte les <strong><%= link_to "conditions générales d'utilisation du site", cgv_path, target: "_blank"%></strong></span>
+          </div>
         </div>
 
         <div class="form-actions">

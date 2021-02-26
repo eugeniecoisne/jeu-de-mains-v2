@@ -120,6 +120,7 @@ fr:
         updated_at: Modifié le
         confirmed_at: Confirmé le
         newsletter_agreement: Inscription newsletter
+        cgu_agreement: Accord CGU/V
         created_by_admin: Créé par l'admin
       session:
         date: Date de session
