@@ -13,7 +13,6 @@ module JeuDeMainsV2
       generate.helper false
       generate.test_framework  :test_unit, fixture: false
     end
-    config.middleware.insert_before(Rack::Sendfile, Rack::Deflater)
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0

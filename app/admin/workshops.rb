@@ -17,7 +17,6 @@ ActiveAdmin.register Workshop do
         scoped_collection.find(params[:id])
       end
     end
-end
   end
 
   index do
