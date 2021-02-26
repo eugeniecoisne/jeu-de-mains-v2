@@ -14,6 +14,16 @@
   }
 }
 
+.sign-form-cgu {
+  font-size: 16px;
+  strong {
+    font-weight: 600;
+    a:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 .sign-form {
   margin: 6em;
   input:-webkit-autofill,

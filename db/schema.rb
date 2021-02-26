@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_165610) do
+ActiveRecord::Schema.define(version: 2021_02_26_175621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -257,6 +257,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_165610) do
     t.string "stripe_order_id"
     t.boolean "created_by_admin", default: false
     t.boolean "newsletter_agreement", default: false
+    t.boolean "cgu_agreement", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

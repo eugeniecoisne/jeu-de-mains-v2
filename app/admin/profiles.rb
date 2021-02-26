@@ -2,7 +2,7 @@ ActiveAdmin.register Profile do
   menu parent: "Fiches"
   config.per_page = 50
   permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :fee, :photo
-  PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
+  PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name} #{u.id}", u.id] }.to_h
 
   controller do
     def find_resource
@@ -101,6 +101,7 @@ ActiveAdmin.register Profile do
           link_to "Lien profil", "#{profile_public_path(profile)}", target: "_blank"
         end
       end
+      row :id
       row :role
       row :fee
       row :user do |profile|
