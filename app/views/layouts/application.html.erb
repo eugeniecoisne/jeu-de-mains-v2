@@ -121,6 +121,11 @@
         })();
       </script>
     <% end %>
+
+    <!-- stylesheet after footer link tag -->
+      <%= stylesheet_link_tag 'application_footer', media: 'all', 'data-turbolinks-track': 'reload', preload: true %>
+    <!-- end of stylesheet after footer link tag -->
+
       <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', preload: true %>
 
     <noscript>Votre navigateur ne supporte pas JavaScript...</noscript>
