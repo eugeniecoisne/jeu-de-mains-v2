@@ -174,6 +174,12 @@
     padding-left: 1.3em;
     padding-top: 1em;
   }
+  .ws-show-telephone {
+    margin-top: 8px;
+    a {
+      font-weight: 500;
+    }
+  }
   .ws-show-place-visio {
     background-color: white;
     color: $blue;
@@ -312,6 +318,29 @@
   }
 }
 
+// CANCEL POLICY
+
+.ws-show-cancel-options {
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1.5rem;
+  .ws-show-cancel-option {
+    background-color: $light-gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 4px;
+    p {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: $dark-blue;
+    }
+  }
+}
+
 // REVIEWS
 
 .ws-show-informations-program-reviews {
@@ -380,6 +409,12 @@
     a {
       color: $light-gray;
     }
+  }
+
+  // verification box
+
+  .ws-verification-box {
+    display: none;
   }
 
   // booking
@@ -462,6 +497,20 @@
     }
   }
 
+  // cancel policy
+
+  .ws-show-cancel-options {
+    margin: 20px 0;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+    .ws-show-cancel-option {
+      padding: 10px;
+      img {
+        width: 60px;
+      }
+    }
+  }
+
   // reviews
   .ws-show-informations-program-reviews {
     margin-right: 1.3em;
@@ -507,9 +556,59 @@
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
+  // containers
+  .container-ws-show {
+    width: 100%;
+  }
+  .container-ws-show-booking {
+    display: none;
+    z-index: 3;
+  }
+
+// booking
+  .booking-mobile-button {
+    display: block;
+    cursor: pointer;
+  }
+  .booking-mobile-button.inactive {
+    display: none;
+  }
+  #bookingExit.active {
+    display: block;
+    width: 3.5em;
+    position: absolute;
+    right: 1.2em;
+    top: 1.5em;
+    cursor: pointer;
+
+  }
+  .container-ws-show-booking.active {
+    display: block;
+    right: unset;
+    width: 100vw;
+    height: 100vh;
+    top: unset;
+    border-radius: unset;
+    padding-top: 7em;
+    font-size: 85%;
+    text-align: center;
+    .ws-price {
+      justify-content: center;
+    }
+    h3 {
+      margin-bottom: 1.2em;
+    }
+    #ws-show-giftcard {
+      margin-top: 2rem;
+      color: white;
+      font-weight: 400;
+      font-size: 13px;
+      text-align: center;
+    }
+  }
   .container-ws-show-infos {
-    margin-right: 1.5em;
-    margin-left: 1.5em;
+    margin-right: 3.5em;
+    margin-left: 3.5em;
   }
   .ws-show-link-to-organizers {
     grid-template-columns: 1fr;
@@ -520,8 +619,8 @@
   .ws-show-informations-place {
     font-size: 15px;
     img {
-      height: 70px;
-      width: 85px;
+      height: 107px;
+      width: 127px;
     }
     #ws-show-place {
       padding-top: unset;
@@ -531,37 +630,11 @@
   .ws-show-informations-animator {
     font-size: 15px;
     img {
-      height: 110px;
-      width: 75px;
+      height: 151px;
+      width: 107px;
     }
   }
 
-  .container-ws-show-booking {
-    padding: 1.5em;
-    width: 33%;
-    height: 25em;
-    right: 1.5em;
-    .white-btn {
-      margin-top: 1em;
-      font-size: 19px;
-    }
-    .ws-price {
-      margin-top: 1.5em;
-    }
-    h3 {
-      font-size: 18px;
-    }
-    #ws-show-giftcard {
-      position: absolute;
-      color: $green;
-      font-weight: 500;
-      font-size: 13px;
-      bottom: -80px;
-      left: 10px;
-      right: 10px;
-      text-align: center;
-    }
-  }
   .ws-show-ephemeral-status-mobile {
     display: none;
   }
@@ -569,7 +642,7 @@
     display: none;
   }
   .show-ws-cards {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
