@@ -101,7 +101,7 @@ Rails.application.routes.draw do
     get 'cancel'
   end
 
-  resources :reviews, :path => :avis, :as => :reviews, only: %i() do
+  resources :reviews, :path => :avis, :as => :reviews, only: %i(destroy) do
     get 'report_review'
   end
 

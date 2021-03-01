@@ -1,6 +1,12 @@
 .edit-ws-container {
   margin: 4em 8em;
 
+  .new-edit-ws-submit {
+    background-color: $blue;
+  }
+  .new-edit-ws-submit:hover {
+    background-color: $dark-blue;
+  }
   h3 {
     font-weight: 500;
     font-size: 15px;
@@ -8,11 +14,42 @@
   }
 
   .simple_form {
+    .form-group {
+      margin-top: 20px;
+    }
     .form-control {
       font-size: 15px;
     }
-    input[type="checkbox"] {
-      margin-top: 21px;
+    .ws-edit-new-address {
+      display: flex;
+      justify-content: center;
+      align-items:center;
+      background-color: $blue;
+      color: white;
+      padding: 0 10px;
+      text-decoration: none;
+      height: 36.5px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .ws-edit-new-address:hover {
+      background-color: $dark-blue;
+    }
+    .ws-edit-choices-or {
+      margin: 4px 10px 0 10px;
+    }
+    #workshop_place_id {
+      max-width: 350px;
+    }
+    .workshop_ephemeral {
+      input[type="checkbox"] {
+        margin-top: 21px;
+      }
+    }
+    .form-check-label {
+      font-weight: 400;
+      font-size: 15px;
+      color: $dark-gray;
     }
     select.disabled {
       -webkit-appearance: none;

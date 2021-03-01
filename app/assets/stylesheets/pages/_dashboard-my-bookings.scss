@@ -89,14 +89,23 @@
     border-color: $light-blue;
   }
   .my-booking-review-card-stars {
-    margin-left: 0.6em;
-    color: $blue;
-    font-family: "Montserrat", "sans-serif";
-    span {
-      font-weight: 600;
+    margin: 1rem 0;
+    background-color: $light-gray;
+    border-radius: 4px;
+    padding: 10px;
+    .my-bookings-review-date {
+      font-weight: 500;
+      font-size: 12.5px;
+      color: $dark-blue;
+      margin-bottom: 10px;
+    }
+    p {
+      font-weight: 400;
       font-size: 14px;
+      color: $dark-gray;
     }
     .fa-star {
+      color: $dark-blue;
       font-size: 13px;
       letter-spacing: -3px;
     }

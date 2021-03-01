@@ -28,6 +28,7 @@ ActiveAdmin.register Workshop do
     column :db_status
     column :title
     column :thematic
+    column :visio
     column :ephemeral
     column :place do |workshop|
       link_to workshop.place.name, "#{admin_place_path(workshop.place)}"
@@ -128,6 +129,7 @@ ActiveAdmin.register Workshop do
     column :db_status
     column :title
     column :thematic
+    column :visio
     column :ephemeral
     column :place do |workshop|
       workshop.place.name
@@ -235,6 +237,7 @@ ActiveAdmin.register Workshop do
       row :program
       row :final_product
       row :thematic
+      row :visio
       row :level
       row :duration
       row :capacity

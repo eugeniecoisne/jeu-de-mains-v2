@@ -38,6 +38,15 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def destroy
+    @review = Review.find(params[:id])
+    authorize @review
+    @review.update(db_status: false)
+    @review.save
+    flash[:notice] = "Votre avis a bien été supprimé."
+    redirect_back fallback_location: root_path
+  end
+
   def report_review
     if params[:report].present?
       @review = Review.find(params[:report][:review_id])

@@ -247,20 +247,25 @@
                           <% if booking.session.workshop.db_status == true && booking.session.workshop.status == "en ligne" %>
                             <%= link_to "Revoir", workshop_path(booking.session.workshop), class: "button" %>
                           <% end %>
-                          <% if booking.reviews.present? %>
-                              <div class="my-booking-review-card-stars">
-                                <span>Mon avis :</span>
-                                <% booking.reviews.first.rating.times do %>
-                                  <i class="fas fa-star"></i>
-                                <% end %>
-                                <% (5 - booking.reviews.first.rating).times do %>
-                                  <i class="far fa-star"></i>
-                                <% end %>
-                              </div>
+                          <% if booking.reviews.where(db_status: true).present? %>
+                            <%= link_to "Supprimer mon avis", review_path(booking.reviews.last), method: :delete, data: { confirm: "Êtes-vous sûr?" }, class: "button ml-1" %>
                           <% else %>
                             <%= link_to 'Donner mon avis', new_booking_review_path(booking), class: "button ml-1" %>
                           <% end %>
                         </div>
+
+                        <% if booking.reviews.where(db_status: true).present? %>
+                          <div class="my-booking-review-card-stars">
+                            <% booking.reviews.where(db_status: true).last.rating.times do %>
+                              <i class="fas fa-star"></i>
+                            <% end %>
+                            <% (5 - booking.reviews.where(db_status: true).last.rating).times do %>
+                              <i class="far fa-star"></i>
+                            <% end %>
+                            <p class="my-bookings-review-date">Avis posté le <%= booking.reviews.where(db_status: true).last.created_at.strftime("%d/%m/%y") %></p>
+                            <p><%= booking.reviews.where(db_status: true).last.content %></p>
+                          </div>
+                        <% end %>
                       </div>
                     </div>
                   </div>
