@@ -36,7 +36,7 @@ fr:
       send_paranoid_instructions: Si votre e-mail existe sur notre base de données, vous recevrez sous quelques minutes un message avec des instructions pour confirmer votre compte.
     failure:
       already_authenticated: Vous êtes déjà connecté(e).
-      inactive: Votre compte n’est pas encore activé.
+      inactive: Votre compte n’est pas encore activé ou a été supprimé.
       invalid: "%{authentication_keys} ou mot de passe incorrect."
       last_attempt: Il vous reste une chance avant que votre compte soit bloqué.
       locked: Votre compte est verrouillé.

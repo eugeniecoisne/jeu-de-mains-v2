@@ -98,15 +98,21 @@
                   <span><strong>Mot de passe</strong></span>
                   <span>***********</span>
                 </div>
-                <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button"  %>
+                <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button" %>
               </li>
               <% if @profile.role.present? == false %>
-                <li class="list-group-item my-informations-item" id="last-my-informations-item">
+                <li class="list-group-item my-informations-item">
                   <div class="my-informations-text">
                     <span><strong>Inscription à la newsletter</strong></span>
                     <%= @profile.user.newsletter_agreement == true ? "oui" : "non" %>
                   </div>
-                  <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button"  %>
+                  <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button" %>
+                </li>
+                <li class="list-group-item my-informations-item" id="last-my-informations-item">
+                  <div class="my-informations-text">
+                    <span><strong>Supprimer mon compte</strong></span>
+                  </div>
+                  <%= render template: "devise/registrations/_sign_out_link" %>
                 </li>
               <% end %>
             </ul>
