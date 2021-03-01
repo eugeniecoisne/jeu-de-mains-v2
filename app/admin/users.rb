@@ -1,7 +1,7 @@
 ActiveAdmin.register User do
   config.per_page = 50
   remove_filter :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :confirmation_token, :confirmation_sent_at, :uid
-  permit_params :id, :first_name, :last_name, :email, :password, :password_confirmation, :created_by_admin, :newsletter_agreement, :cgu_agreement
+  permit_params :id, :first_name, :last_name, :email, :password, :password_confirmation, :created_by_admin, :newsletter_agreement, :cgu_agreement, :db_status
 
   index do
     selectable_column
@@ -147,6 +147,9 @@ ActiveAdmin.register User do
     end
     f.inputs "CGU" do
       f.input :cgu_agreement
+    end
+    f.inputs "Statut" do
+      f.input :db_status
     end
     f.inputs "Créé par l'admin" do
       f.input :created_by_admin, value: true
