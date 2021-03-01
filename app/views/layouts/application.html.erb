@@ -123,7 +123,7 @@
     <% end %>
 
     <!-- stylesheet after footer link tag -->
-      <%= stylesheet_link_tag 'application_footer', media: 'all', 'data-turbolinks-track': 'reload', rel: 'preload', as: 'style' %>
+      <%= stylesheet_link_tag 'application_footer', media: 'all', 'data-turbolinks-track': 'reload', preload: true %>
     <!-- end of stylesheet after footer link tag -->
 
     <% if controller.controller_name == 'pages' && ["become_partner", "welcome_partner"].include?(controller.action_name) == false %>
