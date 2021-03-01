@@ -21,8 +21,10 @@
       <%= simple_form_for(@workshop) do |f| %>
 
         <%= f.input :title, label: "Intitulé de l'atelier" %>
+        <%= f.input :thematic, as: :check_boxes, multiple: true, label: "Type d'atelier", collection: Workshop::THEMATICS %>
         <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS, class: "updatable" %>
         <%= f.input :ephemeral, as: :radio_buttons, label: "Cet atelier est éphémère (organisé à l'occasion d'un événement par exemple)", class: "updatable" %>
+        <%= f.input :capacity, label: "Nombre de places proposées (vous pourrez toujours personnaliser le nombre de places pour chaque session)" %>
         <%= f.input :program, label: "Programme", :input_html => {:rows => 8}, class: "updatable" %>
         <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3}, class: "updatable" %>
         <%= f.input :photos, as: :file, input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" }, label: "Photos de l'atelier" %>
@@ -53,10 +55,8 @@
           <%= f.input :kit, disabled: true, as: :radio_buttons, label: "Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
           <%= f.input :kit_description, disabled: true, :input_html => {:rows => 4}, label: "Description du kit" %>
         <% end %>
-        <%= f.input :thematic, as: :check_boxes, multiple: true, disabled: true, label: "Type d'atelier", collection: Workshop::THEMATICS %>
         <%= f.input :duration, disabled: true, label: "Durée de l'atelier en minutes" %>
         <%= f.input :price, disabled: true, label: "Prix par personne TTC" %>
-        <%= f.input :capacity, disabled: true, label: "Nombre de places proposées" %>
 
         <div class="d-flex justify-content-center mt-5">
           <%= f.submit 'Mettre à jour', class: "new-edit-ws-submit" %>
@@ -69,15 +69,24 @@
       <%= simple_form_for(@workshop) do |f| %>
 
         <div class="form-group select is-valid required workshop_place_id form-group-valid">
-          <label class="select optional" for="workshop_place">Lieu</label>
-          <select class="form-control is-valid select required" name="workshop[place_id]" id="workshop_place_id">
-            <option value="<%= @workshop.place.id %>" selected><%= @workshop.place.name %></option>
-            <option value="">----------------</option>
-          <% @places.sort_by { |place| place.name }.each do |place| %>
-            <option value="<%= place.id %>"><%= place.name %></option>
-          <% end %>
-          </select>
+          <label class="select optional" for="workshop_place">Sélectionnez ou créez l'adresse postale du lieu où se déroulera l'atelier<br>Sélectionnez "atelier en visio" si l'atelier est en ligne, à distance</label>
+
+          <div class="d-flex">
+            <select class="form-control is-valid select required" name="workshop[place_id]" id="workshop_place_id">
+              <option value="<%= @workshop.place.id %>" selected><%= @workshop.place.name %></option>
+              <option value="">----------------</option>
+            <% @places.sort_by { |place| place.name }.each do |place| %>
+              <option value="<%= place.id %>"><%= place.name %></option>
+            <% end %>
+            </select>
+            <p class="ws-edit-choices-or">ou</p>
+            <%= link_to "Nouvelle adresse", new_place_path, class: "ws-edit-new-address" %>
+
+          </div>
+
         </div>
+
+
 
         <%= f.input :title, label: "Intitulé de l'atelier" %>
         <%= f.input :thematic, as: :check_boxes, multiple: true, label: "Type d'atelier", collection: Workshop::THEMATICS %>
@@ -88,11 +97,20 @@
         <%= f.input :capacity, label: "Nombre de places proposées" %>
         <%= f.input :program, label: "Programme", :input_html => {:rows => 8} %>
         <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3} %>
-        <%= f.input :kit, as: :radio_buttons, label: "Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
+        <%= f.input :kit, as: :radio_buttons, label: "Votre atelier est en visio ? Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
         <%= f.input :kit_description, :input_html => {:rows => 4}, label: "Description du kit" %>
 
         <%= f.input :photos, as: :file, label: "Photos de l'atelier", input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" } %>
         <p id="bytesSize"></p>
+
+        <% if @workshop.photos.present? %>
+          <p>Voici les photos actuelles de l'atelier, si vous souhaitez en ajouter/remplacer, chargez l'ensemble des photos souhaitées, vos photos actuelles ne seront pas sauvegardées.</p>
+          <div class="edit-ws-photos d-flex mb-4">
+            <% @workshop.photos.each do |photo| %>
+                <%= cl_image_tag photo.key, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}", loading: "lazy", width: 80, crop: :fill, class: "mr-1"  %>
+            <% end %>
+          </div>
+        <% end %>
 
         <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
 

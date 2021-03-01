@@ -12,6 +12,10 @@ class ReviewPolicy < ApplicationPolicy
     new?
   end
 
+  def destroy?
+    record.user == user || user.admin?
+  end
+
   def report_review?
     record.booking.session.workshop.place.user == user || user.admin? || (record.booking.session.workshop.animators.last.user == user if record.workshop.animators.present?)
   end

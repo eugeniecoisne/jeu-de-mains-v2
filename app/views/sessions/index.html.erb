@@ -61,11 +61,13 @@
               </div>
               <% if @workshop.place.user == current_user && @workshop.db_status == true || current_user.admin? %>
                 <div class="sessions-index-buttons">
-                  <%= form_for [@workshop, session], method: :patch do |f| %>
-                    <%= f.hidden_field :capacity, value: session.capacity - 1 %>
-                    <button type="submit" name="commit" class="action-button">
-                      <i class="fas fa-minus"></i>
-                    </button>
+                  <% unless session.available == 0 %>
+                    <%= form_for [@workshop, session], method: :patch do |f| %>
+                      <%= f.hidden_field :capacity, value: session.capacity - 1 %>
+                      <button type="submit" name="commit" class="action-button">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    <% end %>
                   <% end %>
                   <p><strong><%= session.capacity %> places</strong><br> proposées</p>
                   <%= form_for [@workshop, session], method: :patch do |f| %>
