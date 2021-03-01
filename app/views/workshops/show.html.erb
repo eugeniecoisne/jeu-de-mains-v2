@@ -121,8 +121,13 @@
             <% else %>
               <span>au <%= @workshop.place.address %><br><%= @workshop.place.zip_code %> <%= @workshop.place.city.capitalize %></span>
             <% end %>
+            <p class="ws-show-telephone">
+              <a href="tel:+33<%= @workshop.place.phone_number[1..-1] %>">
+                Tél. : <%= @workshop.place.phone_number %>
+              </a>
+            </p>
           </div>
-        </div>
+          </div>
         <div class="ws-show-informations-animator">
           <% if @animator.present? && @animator.db_status == true %>
             <span>Animé par<br><%= link_to @animator.user.profile.company, profile_public_path(@animator.user.profile) %></span>
@@ -254,6 +259,40 @@
             <%= link_to "Voir le profil", profile_public_path(@animator.user.profile) %>
           </div>
         <% end %>
+
+        <!-- WORKSHOP SHOW CGV -->
+
+        <div class="ws-show-cancel-policy">
+          <h2>Politique d'annulation</h2>
+
+          <p>
+            <% if @workshop.kit == true %>
+            <strong>Spéciale ateliers en visio avec kit :</strong>
+            <% end %>
+            Votre réservation pour cet atelier est prise en compte dès que votre paiement par carte bancaire et/ou carte cadeau Jeu de Mains est accepté. Vous avez ensuite la possibilité d'annuler votre réservation sous les conditions suivantes spécifiques à ce type d'atelier, à savoir qu'une annulation provenant de l'organisateur implique automatiquement le remboursement intégral du montant de votre réservation :</p>
+          <div class="ws-show-cancel-options">
+            <div class="ws-show-cancel-option">
+              <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614613961/remboursement-100.svg", :width => 80, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-remboursement-integral", :title => "jeu-de-mains-remboursement-integral") %>
+              <% if @workshop.kit == true %>
+                <p>Vous annulez plus de 7 jours avant l'atelier, vous êtes intégralement remboursé du montant de la réservation sur le moyen de paiement utilisé.</p>
+              <% else %>
+                <p>Vous annulez plus de 48 heures avant l'atelier, vous êtes intégralement remboursé du montant de la réservation sur le moyen de paiement utilisé.</p>
+              <% end %>
+            </div>
+            <div class="ws-show-cancel-option">
+              <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614614195/remboursement-50.svg", :width => 80, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-remboursement-partiel", :title => "jeu-de-mains-remboursement-partiel") %>
+              <% if @workshop.kit == true %>
+                <p>Vous annulez moins de 7 jours et plus de 4 heures avant l'atelier, vous êtes remboursé à hauteur de 50% du montant de la réservation sur le moyen de paiement utilisé.</p>
+              <% else %>
+                <p>Vous annulez moins de 48 heures et plus de 4 heures avant l'atelier, vous êtes remboursé à hauteur de 50% du montant de la réservation sur le moyen de paiement utilisé.</p>
+              <% end %>
+            </div>
+            <div class="ws-show-cancel-option" id="last-ws-show-cancel-option">
+              <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614614241/remboursement-0.svg", :width => 80, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-aucun-remboursement", :title => "jeu-de-mains-aucun-remboursement") %>
+              <p>Vous annulez 4 heures ou moins avant l'atelier, vous ne serez pas remboursé et aucun report ne vous sera proposé.</p>
+            </div>
+          </div>
+        </div>
 
         <!-- WORKSHOP SHOW INFORMATIONS REVIEWS-->
 

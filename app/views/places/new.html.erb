@@ -16,7 +16,7 @@
   <%= simple_form_for(@place) do |f| %>
 
     <%= f.input :name, required: true, label: "Nom de l'adresse (non communiqué au public)" %>
-    <%= f.input :phone_number, required: true, label: "N° de téléphone partagé aux participants en cas de besoin au sujet de cet atelier" %>
+    <%= f.input :phone_number, required: true, label: "N° de téléphone partagé aux participants en cas de besoin au sujet de cet atelier", placeholder: "N° au format 0606060606 tout attaché sans point ou virgule" %>
     <%= f.input :address, required: true, label: "Adresse postale (n° et rue)" %>
     <%= f.input :zip_code, required: true, label: "Code postal" %>
     <%= f.input :city, required: true, label: "Ville" %>
