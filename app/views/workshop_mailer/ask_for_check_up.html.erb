@@ -1,3 +1,15 @@
-<h1>Demande de vérification de l'atelier <%= @workshop.id %> - <%= @workshop.title %></h1>
-<h2>Créé par <%= @workshop.place.user.profile.id %> - <%= @workshop.place.user.profile.company %></h2>
-<%= link_to "Vérifier l'atelier", workshop_url(@workshop) %>
+<style type="text/css">
+  .mailer-footer {
+    display: none;
+  }
+</style>
+
+<p><strong style='font-size:20px;'>Demande de vérification d'atelier :</strong></p>
+<p>Atelier : <strong style="text-decoration: underline;"><%= link_to "#{@workshop.title} - ID #{@workshop.id}", workshop_url(@workshop), target: "_blank" %></strong></p>
+<p>Créé par : <strong style="text-decoration: underline;"><%= link_to "#{@workshop.place.user.profile.company} - ID #{@workshop.place.user.profile.id}", profile_public_url(@workshop.place.user.profile), target: "_blank" %></strong></p>
+<p>Créé le : <%= @workshop.created_at.strftime("%d/%m/%y") %></p>
+<p>Mis à jour le : <%= @workshop.updated_at.strftime("%d/%m/%y") %></p>
+<p>Type : <%= @workshop.visio == true ? "visioconférence" : "présentiel" %></p>
+<br>
+<p><strong style="color: #fff; background-color:#52828D; padding:4px 10px;"><%= link_to "Vérifier l'atelier", workshop_url(@workshop), target: "_blank" %></strong></p>
+
