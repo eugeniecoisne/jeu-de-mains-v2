@@ -1,5 +1,24 @@
-<h1>Félicitations vous avez fini la création de votre atelier !</h1>
-<h2>Votre atelier est en cours de vérification, un e-mail vous sera envoyé lorsque l'atelier sera en ligne.</h2>
+<div class="confirmation-ws-container">
 
-<%= link_to "Voir et gérer mes ateliers", tableau_de_bord_profile_path(current_user) %>
-<%= link_to "Créer un nouvel atelier", new_workshop_path %>
+  <h1>Votre atelier est en cours de vérification !</h1>
+  <p>Un e-mail vous sera envoyé lorsque l'atelier sera en ligne.</p>
+  <br>
+  <%= cl_image_tag @workshop.photos[0].key, loading: "lazy", width: 150, height: 150, crop: :fill, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}" %>
+  <div class="confirmation-ws-infos">
+    <h2><%= @workshop.title %></h2>
+    <% if @workshop.visio == true %>
+      <p>En visioconférence</p>
+    <% else %>
+      <p>Au <%= @workshop.place.address %> <%= @workshop.place.zip_code %> <%= @workshop.place.city %></p>
+    <% end %>
+    <% session = @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.last %>
+    <p>Première session le <%= l(session.date, format: '%A %d %b %Y').capitalize %> à <%= session.start_at %></p>
+    <% if @workshop.animators.where(db_status: true).present? %>
+      <p>Animé par <%= @workshop.animators.where(db_status: true).last.user.profile.company %></p>
+    <% end %>
+  </div>
+  <br>
+  <%= link_to "Voir et gérer mes ateliers", tableau_de_bord_profile_path(current_user.profile), class: "button", target: "_blank" %>
+  <%= link_to "Créer un nouvel atelier", new_workshop_path, class: "blue-btn", target: "_blank" %>
+  <br>
+</div>

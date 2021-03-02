@@ -1,5 +1,4 @@
 class PartnerMailer < ApplicationMailer
-  layout 'mailer_blank'
 
   def internal_send_subscription_form
 

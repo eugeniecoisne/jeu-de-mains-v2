@@ -8,7 +8,11 @@
     <%= cl_image_tag @workshop.photos[0].key, loading: "lazy", width: 150, height: 150, crop: :fill, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}" %>
     <div class="confirmation-ws-infos">
       <h2><%= @workshop.title %></h2>
-      <p>Au <%= @workshop.place.address %> <%= @workshop.place.zip_code %> <%= @workshop.place.city %></p>
+      <% if @workshop.visio == true %>
+        <p>En visioconférence</p>
+      <% else %>
+        <p>Au <%= @workshop.place.address %> <%= @workshop.place.zip_code %> <%= @workshop.place.city %></p>
+      <% end %>
       <% session = @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.last %>
       <p>Première session le <%= l(session.date, format: '%A %d %b %Y').capitalize %> à <%= session.start_at %></p>
       <% if @workshop.animators.where(db_status: true).present? %>
@@ -35,7 +39,11 @@
         <h2><%= @workshop.title %></h2>
       <% end %>
       <% if @workshop.place.present? && @workshop.place.db_status == true %>
-        <p>Au <%= @workshop.place.address %> <%= @workshop.place.zip_code %> <%= @workshop.place.city %></p>
+        <% if @workshop.visio == true %>
+          <p>En visioconférence</p>
+        <% else %>
+          <p>Au <%= @workshop.place.address %> <%= @workshop.place.zip_code %> <%= @workshop.place.city %></p>
+        <% end %>
       <% end %>
       <% if @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present? %>
         <% session = @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.last %>
