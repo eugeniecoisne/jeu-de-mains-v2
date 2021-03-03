@@ -123,9 +123,13 @@
           <% end %>
         </p>
         <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">
-          <a href="https://www.google.fr/maps/search/<%= @animator.workshop.place.address %>, <%= @animator.workshop.place.zip_code %> <%= @animator.workshop.place.city.upcase %>" target="_blank">
-            au <%= @animator.workshop.place.address %> <%= @animator.workshop.place.zip_code %> <%= @animator.workshop.place.city %>
-          </a>
+          <% if @animator.workshop.visio == true %>
+            en visioconférence
+          <% else %>
+            <a href="https://www.google.fr/maps/search/<%= @animator.workshop.place.address %>, <%= @animator.workshop.place.zip_code %> <%= @animator.workshop.place.city.upcase %>" target="_blank">
+              au <%= @animator.workshop.place.address %> <%= @animator.workshop.place.zip_code %> <%= @animator.workshop.place.city %>
+            </a>
+          <% end %>
         </p>
       </div>
     </div>

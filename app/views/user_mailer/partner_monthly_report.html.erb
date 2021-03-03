@@ -1,0 +1,265 @@
+
+<div style="background-color:#fff;">
+
+  <!-- LOGO -->
+
+  <div class="block-grid" style="margin: 0 auto; margin-top: 40px; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+      <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+        <div style="width:100% !important;">
+          <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+            <div align="center" class="img-container center fixedwidth" style="padding-right: 0px;padding-left: 0px;">
+              <div style="font-size:1px;line-height:22px">
+              </div>
+              <img align="center" alt="Jeu de Mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/jeudemains/image/upload/v1602490393/logo-bleu-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 160px; display: block;" title="Jeu de Mains" width="160"/>
+              <div style="font-size:1px;line-height:25px"> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TITLE AND INTRO -->
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 30px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- TITLE -->
+
+              <div style="color:#527776;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.2;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
+                <div style="line-height: 1.2; font-size: 12px; color: #527776; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14px;">
+                  <p style="font-size: 23px; font-weight:600; line-height: 1.2; text-align: center; word-break: break-word; mso-line-height-alt: 29px; margin: 0;">
+                    <span style="font-size: 23px; font-weight:600;">
+                      <span style="color: #2b303a;">
+                        Votre bilan du mois de <%= l(@start_last_month, format: '%B') %>
+                      </span>
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- INTRO -->
+
+              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
+                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                  <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
+                    <span style="color: #1C1C1C; font-size: 15px;">
+                      Bonjour <%= @user.profile.company %>, voici votre bilan mensuel du mois de <%= l(@start_last_month, format: '%B') %>.
+                      Rendez-vous sur votre <strong style="color:#52828D"><%= link_to "tableau de bord", tableau_de_bord_profile_url(@user.profile), target: "_blank" %></strong>
+                      dans les rubriques mes chiffres clés et mes transactions pour plus d'informations !</p>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIGURES -->
+
+  <div style="background-color:#ffffff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 300px; max-width: 550px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #ffffff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#ffffff;">
+        <div class="col num12" style="display: table-cell; vertical-align: top;">
+          <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:10px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+
+            <!-- ORGANIZED AND ANIMATED BY PROFILE -->
+
+            <div style="color:#1C1C1C;background-color:#eef7f7; border-radius:2px;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:25px;padding-right:40px;padding-bottom:25px;padding-left:40px;">
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:15px;padding-bottom:20px;">
+                <p style="font-size: 15px; text-transform:uppercase;color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; letter-spacing:1.6px;margin: 0;">
+                  Vos ateliers organisés et / ou animés
+                </p>
+              </div>
+
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:20px;">
+                <p style="font-size: 35px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
+                  <%= @success_organized_and_animated_bookings.present? ? @success_organized_and_animated_bookings.count : 0 %>
+                </p>
+                <p style="font-size: 15px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
+                  <strong>nouvelles réservations</strong><br> pour des ateliers organisés et / ou animés par vous
+                </p>
+              </div>
+
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:20px;">
+                <p style="font-size: 35px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
+                  <%= @refund_organized_and_animated_bookings.present? ? @refund_organized_and_animated_bookings.count : 0 %>
+                </p>
+                <p style="font-size: 15px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
+                  <strong>nouvelles annulations</strong><br> pour des ateliers organisés et / ou animés par vous
+                </p>
+              </div>
+
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:20px;">
+                <p style="font-size: 35px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
+                  <%= @reviews.count %>
+                </p>
+                <p style="font-size: 15px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
+                  <strong>nouveaux avis reçus</strong><br>
+                  <%= "avec une moyenne de ces avis de #{(@reviews.sum { |r| r.rating } / @reviews.count).round(2)} / 5" if @reviews.count > 0 %>
+                </p>
+              </div>
+            </div>
+
+            <!-- ORGANIZED BY PROFILE -->
+
+            <div style="color:#1C1C1C;background-color:#f2f2f2; border-radius:2px;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:25px;padding-right:40px;padding-bottom:25px;padding-left:40px;margin-top:20px;">
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:15px;padding-bottom:20px;">
+                <p style="font-size: 15px; text-transform:uppercase;color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; letter-spacing:1.6px;margin: 0;">
+                  Vos ateliers organisés
+                </p>
+              </div>
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:20px;">
+                <p style="font-size: 35px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
+                  <%= @success_organized_bookings.present? ? @success_organized_bookings.count : 0 %>
+                </p>
+                <p style="font-size: 15px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
+                  <strong>nouvelles réservations</strong><br> pour des ateliers que vous organisez
+                </p>
+              </div>
+
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:20px;">
+                <p style="font-size: 35px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
+                  <%= @refund_organized_bookings.present? ? @refund_organized_bookings.count : 0 %>
+                </p>
+                <p style="font-size: 15px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
+                  <strong>nouvelles annulations</strong><br> pour des ateliers que vous organisez
+                </p>
+              </div>
+
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:20px;">
+                <p style="font-size: 30px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
+                  <% if @success_organized_bookings.present? && @refund_organized_bookings.present? %>
+                    <%= ((@success_organized_bookings.sum { |b| b.amount * (1 - b.fee)}) - (@refund_organized_bookings.sum { |b| b.amount * b.refund_rate * (1 - b.fee)})).round(2) %> <span style="font-size:20px;">€*</span>
+                  <% elsif @success_organized_bookings.present? %>
+                    <%= @success_organized_bookings.sum { |b| b.amount * (1 - b.fee)}.round(2) %> <span style="font-size:20px;">€*</span>
+                  <% elsif @refund_organized_bookings.present? %>
+                    <%= 0 - @refund_organized_bookings.sum { |b| b.amount * b.refund_rate * (1 - b.fee)}.round(2) %> <span style="font-size:20px;">€*</span>
+                  <% else %>
+                    0 <span style="font-size:20px;">€*</span>
+                  <% end %>
+                </p>
+                <p style="font-size: 15px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
+                  <strong>TTC</strong> perçus ce mois-ci pour les ateliers que vous organisez après soustraction des remboursements
+                </p>
+              </div>
+
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:5px;">
+                <p style="font-size: 20px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">---</p>
+              </div>
+
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:20px;padding-bottom:20px;">
+                <p style="font-size: 18px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
+                  <% if @success_organized_bookings.present? %>
+                    <%= @success_organized_bookings.sum { |b| (b.amount * (1 - b.fee)).round(2)} %> <span style="font-size:14px;">€*</span>
+                  <% else %>
+                    0 <span style="font-size:14px;">€*</span>
+                  <% end %>
+                </p>
+                <p style="font-size: 14px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
+                  <strong>TTC</strong> perçus ce mois-ci pour les réservations des ateliers que vous organisez
+                </p>
+              </div>
+
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:20px;">
+                <p style="font-size: 18px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
+                  <% if @refund_organized_bookings.present? %>
+                    - <%= @refund_organized_bookings.sum { |b| b.amount * (b.refund_rate * (1 - b.fee)).round(2)} %> <span style="font-size:14px;">€*</span>
+                  <% else %>
+                    0 <span style="font-size:14px;">€*</span>
+                  <% end %>
+                </p>
+                <p style="font-size: 14px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
+                  <strong>TTC</strong> remboursés ce mois-ci pour les annulations de réservations d'ateliers que vous organisez
+                </p>
+              </div>
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:20px;">
+                <p style="font-size: 18px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
+                  <% if @refund_organized_bookings.present? %>
+                    <%= @refund_organized_bookings.select { |b| b.refund_rate == 1}.count %>
+                  <% else %>
+                    0
+                  <% end %>
+                </p>
+                <p style="font-size: 14px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
+                  <strong>annulation.s</strong> remboursée.s sur une base de 100%
+                </p>
+              </div>
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:20px;">
+                <p style="font-size: 18px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
+                  <% if @refund_organized_bookings.present? %>
+                    <%= @refund_organized_bookings.select { |b| b.refund_rate == 0.5}.count %>
+                  <% else %>
+                    0
+                  <% end %>
+                </p>
+                <p style="font-size: 14px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
+                  <strong>annulation.s</strong> remboursée.s sur une base de 50%
+                </p>
+              </div>
+              <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:20px;">
+                <p style="font-size: 18px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
+                  <% if @refund_organized_bookings.present? %>
+                    <%= @refund_organized_bookings.select { |b| b.refund_rate == 0}.count %>
+                  <% else %>
+                    0
+                  <% end %>
+                </p>
+                <p style="font-size: 14px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
+                  <strong>annulation.s</strong> non remboursée.s (taux 0%)
+                </p>
+                <br><br>
+                <p style='font-size:12px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;'>
+                  <em>*Commission Jeu de Mains déjà déduite</em>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ASK FOR QUESTIONS -->
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:30px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;">
+              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
+                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                  <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
+                    <span style="color: #1C1C1C; font-size: 15px;">
+                      <strong>Vous avez une question à nous poser ?</strong><br>
+                      Vous pouvez nous écrire directement en réponse à cet e-mail !<br>
+                      À bientôt, l'équipe Jeu de Mains.
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

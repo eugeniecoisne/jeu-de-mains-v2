@@ -37,7 +37,7 @@ class StripeRefundService
     elsif Giftcard.find_by(charge_id: event.data.object.id)
 
       @giftcard = Giftcard.find_by(charge_id: event.data.object.id)
-      @giftcard.update(status: 'refunded')
+      @giftcard.update(status: 'refunded', refunded_at: Time.now)
 
     end
   end

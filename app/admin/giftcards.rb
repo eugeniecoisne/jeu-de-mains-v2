@@ -1,7 +1,7 @@
 ActiveAdmin.register Giftcard do
   menu parent: "Achats"
   config.per_page = 50
-  permit_params :amount, :code, :buyer, :receiver, :status, :db_status, :user_id, :receiver_name, :buyer_name, :message, :cgv_agreement
+  permit_params :amount, :initial_amount, :code, :buyer, :receiver, :status, :db_status, :user_id, :receiver_name, :buyer_name, :message, :cgv_agreement, :refunded_at
   GIFTCARD_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
   index do
@@ -10,8 +10,10 @@ ActiveAdmin.register Giftcard do
     column :id
     column :status
     column :db_status
+    column :initial_amount
     column :amount
     column :created_at
+    column :refunded_at
     column :cgv_agreement
     column "Valable jusqu'au" do |giftcard|
       (giftcard.deadline_date).strftime("%d/%m/%Y")
@@ -42,6 +44,7 @@ ActiveAdmin.register Giftcard do
     column :id
     column :status
     column :db_status
+    column :initial_amount
     column :amount
     column :created_at
     column :cgv_agreement
@@ -72,9 +75,17 @@ ActiveAdmin.register Giftcard do
 
   show do |giftcard|
     attributes_table do
+      row "Rembourser la carte cadeau" do |giftcard|
+        if giftcard.refunded_at.present?
+          "Déjà remboursée"
+        else
+          link_to "Rembourser", giftcard_path(giftcard), method: :delete, data: { confirm: "Êtes-vous sûr de rembourser cette carte cadeau ?" }
+        end
+      end
       row :id
       row :status
       row :db_status
+      row :initial_amount
       row :amount
       row :created_at
       row :cgv_agreement

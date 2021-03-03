@@ -33,26 +33,26 @@
       <% end %>
     </div>
 
-    <% if @booking.giftcard_amount_spent.nil? &&  current_user.giftcards.select { |giftcard| giftcard.buyer != current_user.id && giftcard.amount.to_i > 0 && giftcard.deadline_date >= Date.today }.present? == false %>
+    <% if @my_giftcards.size == 0 %>
       <div id="showGiftcardOptions" class="booking-options-giftcard-options-btn"><span>Utiliser une carte cadeau</span></div>
     <% end %>
 
-    <% if current_user.giftcards.select { |giftcard| giftcard.buyer != current_user.id && giftcard.amount.to_i > 0 && giftcard.deadline_date >= Date.today }.present? && @booking.giftcard_amount_spent.nil? %>
+    <% if @my_giftcards.size > 0 && @booking.giftcard_amount_spent.nil? %>
         <h3>Je souhaite utiliser une de mes cartes cadeaux enregistrées :</h3>
     <% end %>
 
-    <% if (current_user.giftcards.select { |giftcard| giftcard.buyer != current_user.id && giftcard.amount.to_i > 0 && giftcard.deadline_date >= Date.today }.present? && @booking.giftcard_amount_spent.nil?) || @booking.giftcard_amount_spent.present? %>
+    <% if (@my_giftcards.size > 0 && @booking.giftcard_amount_spent.nil?) || @booking.giftcard_amount_spent.present? %>
       <div class="booking-options-giftcard-options">
     <% else %>
       <div class="booking-options-giftcard-options inactive">
     <% end %>
 
-      <% if current_user.giftcards.select { |giftcard| giftcard.buyer != current_user.id && giftcard.amount.to_i > 0 && giftcard.deadline_date >= Date.today }.present? && @booking.giftcard_amount_spent.nil? %>
+      <% if @my_giftcards.size > 0 && @booking.giftcard_amount_spent.nil? %>
 
         <form class="simple_form edit_booking edit_giftcard_booking" id="edit_booking_<%=@booking.id%>" novalidate="novalidate" action="/reservations/<%=@booking.id%>" accept-charset="UTF-8" method="post">
           <input type="hidden" name="_method" value="patch">
           <fieldset class="form-group radio_buttons optional booking_status form-group-valid">
-              <% current_user.giftcards.where(status: "paid").select { |giftcard| giftcard.buyer != current_user.id && giftcard.amount.to_i > 0 && giftcard.deadline_date >= Date.today }.reverse.each do |giftcard| %>
+              <% @my_giftcards.reverse.each do |giftcard| %>
 
                 <div class="form-check mt-3">
                   <input class="form-check-input is-valid radio_buttons optional" type="radio" value="<%=giftcard.id%>" name="booking[giftcard_id]" id="booking_giftcard_id_<%=giftcard.id%>">

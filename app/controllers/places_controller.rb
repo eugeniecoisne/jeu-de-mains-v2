@@ -4,6 +4,7 @@ class PlacesController < ApplicationController
   def new
     @place = Place.new
     authorize @place
+    session[:prev_url] = request.referer
   end
 
   def create
@@ -11,8 +12,10 @@ class PlacesController < ApplicationController
     authorize @place
     @place.user = current_user
     if @place.save
-      redirect_to new_workshop_path
+      flash[:notice] = "Une nouvelle adresse a été ajoutée à vos adresses."
+      redirect_to session[:prev_url]
     else
+      flash[:alert] = "Le formulaire semble incomplet."
       render 'new'
     end
   end

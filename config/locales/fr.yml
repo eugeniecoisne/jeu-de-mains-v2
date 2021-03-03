@@ -163,7 +163,8 @@ fr:
         created_at: Créé le
         updated_at: Modifié le
       giftcard:
-        amount: Montant
+        amount: Montant restant
+        initial_amount: Montant initial
         code: Code Carte
         buyer: Acheteur
         buyer_name: Surnom acheteur
@@ -176,6 +177,7 @@ fr:
         created_at: Créé le
         updated_at: Modifié le
         cgv_agreement: Accord CGV
+        refunded_at: Remboursée le
       chatroom:
         room_name: Nom de la discussion
         user1: Chateur 1
