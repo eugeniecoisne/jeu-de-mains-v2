@@ -41,7 +41,8 @@ class ProfilesController < ApplicationController
     if Profile.friendly.find(params[:id]).db_status == true && Profile.friendly.find(params[:id]).role.present? == false
       @profile = Profile.friendly.find(params[:id])
       authorize @profile
-      @giftcards = policy_scope(Giftcard).all
+      @my_received_giftcards = @profile.user.giftcards.select { |giftcard| giftcard.buyer != current_user.id && giftcard.status == "paid" && giftcard.db_status == true}
+      @my_offered_giftcards = policy_scope(Giftcard).all.select { |giftcard| giftcard.buyer == current_user.id && giftcard.status == "paid" && giftcard.db_status == true }
     end
   end
 
@@ -181,6 +182,20 @@ class ProfilesController < ApplicationController
             type: "reçu"
           }
           @charges << @charge
+        end
+        if charge[:status] == "succeeded" && charge[:destination].nil? && charge[:refunded] == true
+          refund = Stripe::Refund.retrieve(charge[:refunds][:data][0][:id])
+          @refund = {
+            id: refund[:id],
+            charge_id: charge[:id],
+            payment_intent: g.payment_intent_id,
+            amount: refund[:amount],
+            giftcard_id: g.id,
+            created: refund[:created],
+            currency: refund[:currency],
+            type: "remboursée"
+          }
+          @charges << @refund
         end
         if g.stripe_transfers.size > 0
           g.stripe_transfers.split(",").each do |t|

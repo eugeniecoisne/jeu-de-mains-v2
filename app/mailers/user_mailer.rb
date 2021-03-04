@@ -37,4 +37,25 @@ class UserMailer < ApplicationMailer
       message_stream: 'outbound')
   end
 
+  def partner_monthly_report
+    @user = params[:user]
+    @workshops = Workshop.all.select { |w| w.place.user == @user || (w.animators.where(db_status: true).last.user == @user if w.animators.where(db_status: true).present?) }
+
+    @start_last_month = (DateTime.now.to_date - 1.month).beginning_of_month
+    @end_last_month = (DateTime.now.to_date - 1.month).end_of_month
+    @success_organized_and_animated_bookings = Booking.all.where(db_status: true).select { |b| b.status == "paid" && b.created_at >= @start_last_month && b.created_at <= @end_last_month}.select { |b| b.session.workshop.place.user == @user || (b.session.workshop.animators.where(db_status: true).last.user == @user if b.session.workshop.animators.where(db_status: true).present?) }
+    @refund_organized_and_animated_bookings = Booking.all.where(db_status: true).select { |b| b.status == "refunded" && b.cancelled_at >= @start_last_month && b.cancelled_at <= @end_last_month}.select { |b| b.session.workshop.place.user == @user || (b.session.workshop.animators.where(db_status: true).last.user == @user if b.session.workshop.animators.where(db_status: true).present?) }
+
+    @success_organized_bookings = Booking.all.where(db_status: true).select { |b| b.status == "paid" && b.created_at >= @start_last_month && b.created_at <= @end_last_month}.select { |b| b.session.workshop.place.user == @user }
+    @refund_organized_bookings = Booking.all.where(db_status: true).select { |b| b.status == "refunded" && b.cancelled_at >= @start_last_month && b.cancelled_at <= @end_last_month}.select { |b| b.session.workshop.place.user == @user }
+
+    @reviews = @user.profile.reviews.select { |r| r.created_at >= @start_last_month && r.created_at <= @end_last_month}
+
+    mail(from: 'contact@jeudemains.com',
+      to: @user.email,
+      subject: 'Votre bilan mensuel sur Jeu de Mains',
+      track_opens: 'true',
+      message_stream: 'outbound')
+  end
+
 end

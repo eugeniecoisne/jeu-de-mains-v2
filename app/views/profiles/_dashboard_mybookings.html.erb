@@ -112,9 +112,11 @@
                           <!-- statut envoi du kit -->
                           <!-- lien de suivi -->
                           <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€ TTC</p>
-                          <div class="d-flex justify-content-left align-items-center">
+                          <div class="d-flex justify-content-left align-items-center flex-wrap">
 
-                            <a href="#cancelBookingModal<%= index +1 %>" class="button mr-3" data-toggle="modal" data-whatever="@mdo">
+                            <%= link_to "Ma facture", booking_payment_success_path(booking, format: :pdf), class: "button mr-2 mt-2", target: "_blank" %>
+
+                            <a href="#cancelBookingModal<%= index +1 %>" class="button mr-2 mt-2" data-toggle="modal" data-whatever="@mdo">
                               Annuler
                             </a>
 
@@ -164,13 +166,13 @@
                             </div>
 
 
-                            <a href="tel:+33<%= booking.session.workshop.place.phone_number[1..-1] %>" class="call-btn">
+                            <a href="tel:+33<%= booking.session.workshop.place.phone_number[1..-1] %>" class="call-btn mt-2">
                               <i class="fas fa-phone-alt"></i>
                             </a>
-                            <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-btn" do %>
+                            <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-btn mt-2" do %>
                               <i class="fas fa-map-marker-alt"></i>
                             <% end %>
-                            <div title="Add to Calendar" data-styling="none" class="addeventatc">
+                            <div title="Add to Calendar" data-styling="none" class="addeventatc mt-2">
                               <i class="far fa-calendar-plus"></i>
                               <span class="start">
                                 <%= booking.session.date.strftime('%m/%d/%Y') %>
@@ -243,14 +245,16 @@
                             <% end %>
                           <% end %>
                           <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€ TTC</p>
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-left align-items-center flex-wrap">
                           <% if booking.session.workshop.db_status == true && booking.session.workshop.status == "en ligne" %>
-                            <%= link_to "Revoir", workshop_path(booking.session.workshop), class: "button" %>
+                            <%= link_to "Revoir", workshop_path(booking.session.workshop), class: "button mr-2 mt-2" %>
                           <% end %>
+                          <%= link_to "Ma facture", booking_payment_success_path(booking, format: :pdf), class: "button mr-2 mt-2", target: "_blank" %>
+
                           <% if booking.reviews.where(db_status: true).present? %>
-                            <%= link_to "Supprimer mon avis", review_path(booking.reviews.last), method: :delete, data: { confirm: "Êtes-vous sûr?" }, class: "button ml-1" %>
+                            <%= link_to "Supprimer mon avis", review_path(booking.reviews.last), method: :delete, data: { confirm: "Êtes-vous sûr?" }, class: "button mr-2 mt-2" %>
                           <% else %>
-                            <%= link_to 'Donner mon avis', new_booking_review_path(booking), class: "button ml-1" %>
+                            <%= link_to 'Donner mon avis', new_booking_review_path(booking), class: "button mr-2 mt-2" %>
                           <% end %>
                         </div>
 

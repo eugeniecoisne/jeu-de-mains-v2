@@ -98,6 +98,7 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:booking_id])
     @booking.update(cgv_agreement: false)
     authorize @booking
+    @my_giftcards = current_user.giftcards.select { |giftcard| giftcard.buyer != current_user.id && giftcard.amount.to_i > 0 && giftcard.deadline_date >= Date.today && giftcard.status == "paid" && giftcard.db_status == true }
   end
 
   def show
@@ -108,8 +109,15 @@ class BookingsController < ApplicationController
   def payment_success
     @booking = Booking.find(params[:booking_id])
     authorize @booking
+    @partner = @booking.session.workshop.place.user.profile
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "facture-jdm-#{@booking.created_at.strftime("%Y%m")}#{@booking.id}",
+              margin:  { top:0,bottom:0,left:0,right:0}
+      end
+    end
   end
-
   def payment_error
     @booking = Booking.find(params[:booking_id])
     authorize @booking
@@ -215,7 +223,7 @@ class BookingsController < ApplicationController
 
     end
 
-    flash[:alert] = "Votre réservation a bien été annulée, vous avez reçu un e-mail."
+    flash[:notice] = "Votre réservation a bien été annulée, vous avez reçu un e-mail."
     redirect_back fallback_location: root_path
   end
 

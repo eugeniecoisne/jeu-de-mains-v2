@@ -106,6 +106,26 @@ class GiftcardsController < ApplicationController
     authorize @giftcard
   end
 
+  # refund a giftcard
+  def destroy
+    @giftcard = Giftcard.find(params[:id])
+    authorize @giftcard
+
+    # vérifier que la giftcard amount est tjs = au initial amount donc inutilisée
+    key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
+    Stripe.api_key = key
+
+    refund = Stripe::Refund.create({
+      payment_intent: @giftcard.payment_intent_id,
+    })
+    @giftcard.update(refund_id: refund.id, charge_id: refund.charge, refunded_at: Time.now, status: 'refunded')
+    @giftcard.save
+
+    flash[:notice] = "La carte cadeau #{@giftcard.id} a bien été remboursée."
+    redirect_back fallback_location: root_path
+    # prévenir par e-mail manuellement ensuite si le remboursement a bien été effectué sur stripe
+  end
+
   private
 
   def giftcard_params

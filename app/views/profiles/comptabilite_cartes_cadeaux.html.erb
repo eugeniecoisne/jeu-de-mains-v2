@@ -25,7 +25,7 @@
             <% g = Giftcard.find(c[:giftcard_id]) %>
             <tr>
               <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
-              <% if c[:type] == "reçu" %>
+              <% if c[:type] == "reçu" || c[:type] == "remboursée" %>
                 <td><%= User.find(g.buyer).fullname %> - BtoC</td>
               <% else %>
                 <td><%= User.find_by(stripe_uid: c[:destination]).profile.accountant_company %>  - BtoB</td>
@@ -35,21 +35,25 @@
               <% if c[:type] == "reçu" %>
                 <td>Achat client carte cadeau n°<%= g.id if g.present? %> HT</td>
                 <td></td>
-                <td><%= (c[:amount] * 0.01 * 0.8).round(2) %></td>
+                <td><%= ((c[:amount] * 0.01) / 1.2).round(2) %></td>
+              <% elsif c[:type] == "remboursée" %>
+                <td>Remboursement client carte cadeau n°<%= g.id if g.present? %> HT</td>
+                <td><%= ((c[:amount] * 0.01) / 1.2).round(2) %></td>
+                <td></td>
               <% elsif c[:type] == "viré au partenaire" %>
                 <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> HT</td>
-                <td><%= (c[:amount] * 0.01 * 0.8).round(2) %></td>
+                <td><%= ((c[:amount] * 0.01) / 1.2).round(2) %></td>
                 <td></td>
               <% else %>
                 <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> HT</td>
                 <td></td>
-                <td><%= (c[:amount] * 0.01 * 0.8).round(2) %></td>
+                <td><%= ((c[:amount] * 0.01) / 1.2).round(2) %></td>
               <% end %>
               <td><%= c[:currency] %></td>
             </tr>
             <tr>
               <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
-              <% if c[:type] == "reçu" %>
+              <% if c[:type] == "reçu" || c[:type] == "remboursée" %>
                 <td><%= User.find(g.buyer).fullname %> - BtoC</td>
               <% else %>
                 <td><%= User.find_by(stripe_uid: c[:destination]).profile.accountant_company %>  - BtoB</td>
@@ -59,21 +63,25 @@
               <% if c[:type] == "reçu" %>
                 <td>Achat client carte cadeau n°<%= g.id if g.present? %> TVA 20%</td>
                 <td></td>
-                <td><%= (c[:amount] * 0.01 * 0.2).round(2) %></td>
+                <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).round(2) %></td>
+              <% elsif c[:type] == "remboursée" %>
+                <td>Remboursement client carte cadeau n°<%= g.id if g.present? %> TVA 20%</td>
+                <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).round(2) %></td>
+                <td></td>
               <% elsif c[:type] == "viré au partenaire" %>
                 <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> TVA 20%</td>
-                <td><%= (c[:amount] * 0.01 * 0.2).round(2) %></td>
+                <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).round(2) %></td>
                 <td></td>
               <% else %>
                 <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> TVA 20%</td>
                 <td></td>
-                <td><%= (c[:amount] * 0.01 * 0.2).round(2) %></td>
+                <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).round(2) %></td>
               <% end %>
               <td><%= c[:currency] %></td>
             </tr>
             <tr>
               <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
-              <% if c[:type] == "reçu" %>
+              <% if c[:type] == "reçu" || c[:type] == "remboursée" %>
                 <td><%= User.find(g.buyer).fullname %> - BtoC</td>
               <% else %>
                 <td><%= User.find_by(stripe_uid: c[:destination]).profile.accountant_company %>  - BtoB</td>
@@ -84,6 +92,10 @@
                 <td>Achat client carte cadeau n°<%= g.id if g.present? %> TTC</td>
                 <td><%= (c[:amount] * 0.01).round(2) %></td>
                 <td></td>
+              <% elsif c[:type] == "remboursée" %>
+                <td>Remboursement client carte cadeau n°<%= g.id if g.present? %> TTC</td>
+                <td></td>
+                <td><%= (c[:amount] * 0.01).round(2) %></td>
               <% elsif c[:type] == "viré au partenaire" %>
                 <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> TTC</td>
                 <td></td>

@@ -111,7 +111,7 @@ Rails.application.routes.draw do
     resources :messages, only: :create
   end
 
-  resources :giftcards, :path => :carte_cadeau, :as => :giftcards, only: %i(new create update)
+  resources :giftcards, :path => :carte_cadeau, :as => :giftcards, only: %i(new create update destroy)
 
   resources :giftcards, :path => :carte_cadeau, :as => :giftcards, only: %i() do
     resources :giftcard_payments, only: :new
