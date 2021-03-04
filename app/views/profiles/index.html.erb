@@ -1,12 +1,13 @@
 <!-- PROFILES INDEX -->
 
 <% content_for :meta_title, "Jeu de Mains | Partenaires" %>
-<% content_for :meta_description, "Description JDM Partenaires" %>
+<% content_for :meta_description, "Échangez et collaborez entre partenaires Jeu de Mains : rencontrez un animateur, une boutique, un artisan, un organisateur d'événements…" %>
 
 <% if user_signed_in? %>
 
   <div class="place-animator-index-title">
-    <h1>Retrouvez ici tous les <strong>partenaires</strong> inscrits sur jeudemains.com</h1>
+    <h1>Échangez et collaborez entre <strong>partenaires</strong> :<br> rencontrez un animateur, un gérant de boutique, un artisan, un organisateur d'événements…</h1>
+
 
     <div class="place-animator-index-filter">
       <%= link_to "Filtres", "#", class: "submit-btn", id: "showIndexFilters" %>

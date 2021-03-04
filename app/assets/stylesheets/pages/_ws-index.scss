@@ -189,14 +189,31 @@
 // RESPONSIVE WORKSHOP INDEX //
 
 // Smallest device
-@media (min-width: 100px) and (max-width: 575px) {
-  #adaptMapButton {
+
+@media (min-width: 100px) and (max-width: 359px) {
+  .index-ws-cards {
+    grid-template-columns: 1fr;
+    grid-row-gap: 1rem;
+  }
+  #index-ws-card-organizer-mobile {
     display: none;
   }
+}
+
+@media (min-width: 360px) and (max-width: 575px) {
   .index-ws-cards {
     grid-template-columns: 1fr 1fr;
     grid-row-gap: 1.2em;
     grid-column-gap: 1em;
+  }
+  #index-ws-card-organizer-desktop {
+    display: none;
+  }
+}
+
+@media (min-width: 100px) and (max-width: 575px) {
+  #adaptMapButton {
+    display: none;
   }
   .index-ws-search-filters-container {
     padding: 1rem 6rem 0.7rem 1rem;
@@ -241,9 +258,6 @@
   }
   .ws-map.active {
     visibility: visible;
-  }
-  #index-ws-card-organizer-desktop {
-    display: none;
   }
 }
 

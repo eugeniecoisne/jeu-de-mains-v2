@@ -90,6 +90,7 @@
 
 .ws-card-organizer {
   margin-bottom: 2px;
+  line-height: 1.1;
   span {
     font-family: "Montserrat", "Helvetica", "sans-serif";
     color: $light-blue;
@@ -144,10 +145,19 @@
 // RESPONSIVE WORKSHOP CARDS //
 
 // Smallest device
-@media (min-width: 100px) and (max-width: 575px) {
+@media (min-width: 100px) and (max-width: 359px) {
+  .ws-card {
+    height: 18em;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 575px) {
   .ws-card {
     height: 16em;
   }
+}
+
+@media (min-width: 100px) and (max-width: 575px) {
   .ws-card-tags {
     top: 0.4em;
   }
