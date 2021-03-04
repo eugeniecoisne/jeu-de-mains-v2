@@ -208,6 +208,25 @@
 // RESPONSIVE PROFILE //
 
 // Smallest device
+@media (min-width: 100px) and (max-width: 359px) {
+
+  .public-profile-our-ws-cards {
+    grid-template-columns: 1fr;
+    grid-gap: 1em;
+    margin-top: 1em;
+    margin-bottom: 0.4em;
+    max-height: 910px;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 575px) {
+  .public-profile-our-ws-cards {
+    margin-top: 1em;
+    margin-bottom: 0.4em;
+    max-height: 540px;
+  }
+}
+
 @media (min-width: 100px) and (max-width: 575px) {
   .profile-container {
     .public-profile-admin-update {
@@ -304,11 +323,6 @@
     display: grid;
     grid-template-columns: 1fr;
     margin-top: 0.5em;
-  }
-  .public-profile-our-ws-cards {
-    margin-top: 1em;
-    margin-bottom: 0.4em;
-    max-height: 540px;
   }
 
 }

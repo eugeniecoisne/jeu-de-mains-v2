@@ -114,12 +114,26 @@
 // RESPONSIVE DESIGN MENU //
 
 // Smallest device
-@media (min-width: 100px) and (max-width: 575px) {
+
+@media (min-width: 100px) and (max-width: 359px) {
   #sideMenu {
-    width: 100vw;
+    li {
+      padding: 0.4em 0.8em 0.4em 0.8em;
+    }
+  }
+}
+
+@media (min-width: 360px) and (max-width: 575px) {
+  #sideMenu {
     li {
       padding: 0.4em 2em 0.4em 2em;
     }
+  }
+}
+
+@media (min-width: 100px) and (max-width: 575px) {
+  #sideMenu {
+    width: 100vw;
   }
   #sideMenu #menuClose {
     right: 1em;

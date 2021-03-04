@@ -72,15 +72,27 @@
 // RESPONSIVE CAROUSEL //
 
 // Smallest device
+
+@media (min-width: 100px) and (max-width: 359px) {
+  .ws-index-carousel-item {
+    img {
+      height: 10rem;
+    }
+  }
+}
+
+@media (min-width: 360px) and (max-width: 575px) {
+  .ws-index-carousel-item {
+    img {
+      height: 8rem;
+    }
+  }
+}
+
 @media (min-width: 100px) and (max-width: 575px) {
   .ws-show-carousel-item {
     img {
       height: 18em;
-    }
-  }
-  .ws-index-carousel-item {
-    img {
-      height: 8em;
     }
   }
   .ws-show-ephemeral-status {

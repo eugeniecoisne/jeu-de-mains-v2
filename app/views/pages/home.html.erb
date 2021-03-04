@@ -2,7 +2,7 @@
   <div class="homebanner-title">
     <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593180301/jeu-de-mains-logo-bleu-fonce.svg", :loading => "lazy", :width => 350, :crop => :fill, :alt => "jeu-de-mains-logo", :title => "jeu-de-mains-logo") %>
     <div class="homebanner-title-text">
-      <h1>Offrez-vous un moment de détente créatif</h1>
+      <h1>Retrouvez votre âme créative et récréative</h1>
       <h2>Grâce à la nouvelle plateforme de réservation d'ateliers créatifs jeudemains.com</h2>
     </div>
   </div>
@@ -31,30 +31,28 @@
 
   <h2 class="home-steps-title">Réservez et profitez de votre atelier créatif en toute simplicité</h2>
 
-  <div class="home-steps-presentation-desktop">
+  <div class="home-steps-presentation-container">
+
     <div class="home-step-presentation">
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1594146645/jeu-de-mains-24h-24-7j-7.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "jeu-de-mains-24h-24-7j-7", :title => "jeu-de-mains-24h-24-7j-7") %>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614878212/jeu-de-mains-reservation-paiement-en-ligne.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "jeu-de-mains-24h-24-7j-7", :title => "jeu-de-mains-24h-24-7j-7") %>
       <h3>Réservation et paiement<br> 100% en ligne</h3>
-      <p>Réservez et payez en toute sécurité en ligne l'atelier de votre choix, 24h/24, 7j/7</p>
+      <p>Réservez et payez en toute sécurité l'atelier de votre choix, 24h/24, 7j/7</p>
     </div>
     <div class="home-step-presentation">
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1594146572/jeu-de-mains-ateliers-lieux.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "jeu-de-mains-ateliers-lieux", :title => "jeu-de-mains-ateliers-lieux") %>
-      <h3>Ateliers éphémères<br> et permanents</h3>
-      <p>Retrouvez un large choix d'ateliers créatifs en concept store, lors d'événements, chez l'artisan...</p>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614878216/jeu-de-mains-annulation-gratuite.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "jeu-de-mains-annuaire", :title => "jeu-de-mains-annuaire") %>
+      <h3>Annulation gratuite <br>jusqu'à 48h avant</h3>
+      <p>et jusqu'à 7 jours avant pour le cas d'un atelier visio avec envoi de kit</p>
     </div>
     <div class="home-step-presentation">
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1594368949/jeu-de-mains-annuaire.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "jeu-de-mains-annuaire", :title => "jeu-de-mains-annuaire") %>
-      <h3>Accès illimité à l'annuaire des partenaires</h3>
-      <p>Profitez d'un accès à la communauté des partenaires et leurs pages dédiées</p>
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614880801/jeu-de-mains-reservation-presentiel-ou-distantiel.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "jeu-de-mains-ateliers-lieux", :title => "jeu-de-mains-ateliers-lieux") %>
+      <h3>En présentiel <br>ou distantiel</h3>
+      <p>Les ateliers en visioconférence sont distingués par une étiquette "visio"</p>
     </div>
-  </div>
-
-  <div class="home-steps-presentation-tablet">
-    <%= render "home-step-carousel-tablet" %>
-  </div>
-
-  <div class="home-steps-presentation-mobile">
-    <%= render "home-step-carousel-mobile" %>
+    <div class="home-step-presentation">
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614880535/jeu-de-mains-service-client.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "jeu-de-mains-ateliers-lieux", :title => "jeu-de-mains-ateliers-lieux") %>
+      <h3>Un service client <br>à votre écoute</h3>
+      <p>Nous vous répondons à vos questions du lundi au vendredi de 9h30 à 18h30</p>
+    </div>
   </div>
 
   <!-- WORKSHOP CARDS FAVORITE -->
@@ -64,7 +62,7 @@
 
       <div>
         <h2 class="home-category-title" id="home-ws-cards-best-ratings-title">Les ateliers favoris</h2>
-        <h3 class="home-category-subtitle">Découvrez ici nos ateliers les mieux notés par la communauté Jeu de Mains</h3>
+        <h3 class="home-category-subtitle">Découvrez les ateliers préférés de la communauté Jeu de Mains</h3>
 
         <div class="home-ws-cards home-ws-cards-best-ratings" id="home-ws-cards-best-ratings">
           <% @best_workshops.first(6).each do |workshop| %>
@@ -312,8 +310,8 @@
   <!-- HOME THEMATICS -->
 
   <div class="home-thematics-container">
-    <h2 class="home-category-title">Nos thématiques d'ateliers</h2>
-    <h3 class="home-category-subtitle">Retrouvez des ateliers répartis en 9 thématiques sur Jeu de Mains</h3>
+    <h2 class="home-category-title">Les thématiques d'ateliers</h2>
+    <h3 class="home-category-subtitle">Retrouvez 9 catégories de savoir-faire créatifs sur Jeu de Mains</h3>
     <div class="home-thematics-grid">
       <%= link_to autour_du_fil_path do %>
         <div class="home-one-thematic" style="background-image: linear-gradient(rgba(0,0,0,0.05),rgba(0,0,0,0.1)), url(<%= cl_image_path "https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_300/v1614359376/jeu-de-mains-autour-du-fil.jpg" %>)">
