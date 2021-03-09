@@ -2,12 +2,21 @@
   <div class="container-comptabilite">
     <h1>Comptabilité cartes cadeaux</h1>
 
-    <%= link_to comptabilite_cartes_cadeaux_profile_path(format: :xls), class: "comptabilite-export-xls" do %>
-      Exporter .xls
-      <i class="fas fa-upload ml-1"></i>
-    <% end %>
+    <div class="comptabilite-exports">
+      <% t = Time.new(2021, 1, 1, 0, 0, 1) %>
+      <% number_of_month = ((Time.now - Time.new(2021, 1, 1, 0, 0, 1)) / 1.month).round %>
+      <% months = (0..number_of_month).to_a %>
+      <% months.reverse.each do |m| %>
+        <% time = t + (m.to_i).month %>
+        <%= link_to comptabilite_cartes_cadeaux_profile_path(format: :xls, month: time.strftime("%m") , year: time.strftime("%Y"), end: time.end_of_month.strftime("%d")), class: "comptabilite-export-xls" do %>
+          <%=l(time, format: '%B').capitalize %> <%= time.strftime("%Y") %>
+          <i class="fas fa-upload ml-1"></i>
+        <% end %>
+      <% end %>
+    </div>
 
-      <table class="table">
+    <div class="comptabilite-table">
+      <table class="table" id="myGiftcardsTable" >
         <thead>
           <tr>
             <th scope="col">Date</th>
@@ -21,10 +30,10 @@
           </tr>
         </thead>
         <tbody>
-          <% @charges.uniq.sort_by {|c| Time.at(c[:created])}.reverse.each do |c| %>
+          <% @charges.uniq.sort_by {|c| Time.at(c[:created])}.reverse.first(300).each do |c| %>
             <% g = Giftcard.find(c[:giftcard_id]) %>
             <tr>
-              <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
+              <td><%= Time.at(c[:created]).strftime("%Y%m%d") %></td>
               <% if c[:type] == "reçu" || c[:type] == "remboursée" %>
                 <td><%= User.find(g.buyer).fullname %> - BtoC</td>
               <% else %>
@@ -52,7 +61,7 @@
               <td><%= c[:currency] %></td>
             </tr>
             <tr>
-              <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
+              <td><%= Time.at(c[:created]).strftime("%Y%m%d") %></td>
               <% if c[:type] == "reçu" || c[:type] == "remboursée" %>
                 <td><%= User.find(g.buyer).fullname %> - BtoC</td>
               <% else %>
@@ -79,8 +88,8 @@
               <% end %>
               <td><%= c[:currency] %></td>
             </tr>
-            <tr>
-              <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
+            <tr style="border-bottom:2px solid #dee2e6;">
+              <td><%= Time.at(c[:created]).strftime("%Y%m%d") %></td>
               <% if c[:type] == "reçu" || c[:type] == "remboursée" %>
                 <td><%= User.find(g.buyer).fullname %> - BtoC</td>
               <% else %>
@@ -107,19 +116,39 @@
               <% end %>
               <td><%= c[:currency] %></td>
             </tr>
-            <tr>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-            </tr>
           <% end %>
         </tbody>
       </table>
+    </div>
   </div>
 <% end %>
+
+<script>
+$(document).ready(function(){
+  $('#myGiftcardsTable').DataTable({
+    "order": [[ 0, "desc" ]],
+    "lengthMenu": [[ 25, 50, 100 ],[ '25', '50', '100']
+    ],
+    "language": {
+      "sProcessing": "Traitement en cours ...",
+      "sLengthMenu": "Afficher _MENU_ lignes",
+      "sZeroRecords": "Aucun résultat trouvé",
+      "sEmptyTable": "Aucune donnée disponible",
+      "sInfo": "Lignes _START_ à _END_ sur _TOTAL_",
+      "sInfoEmpty": "Aucune ligne affichée",
+      "sInfoFiltered": "(Filtrer un maximum de_MAX_)",
+      "sInfoPostFix": "",
+      "sSearch": "Rechercher :",
+      "sUrl": "",
+      "sInfoThousands": ",",
+      "sLoadingRecords": "Chargement...",
+      "oPaginate": {
+        "sFirst": "Premier", "sLast": "Dernier", "sNext": "Suivant", "sPrevious": "Précédent"
+      },
+      "oAria": {
+        "sSortAscending": ": Trier par ordre croissant", "sSortDescending": ": Trier par ordre décroissant"
+      },
+    }
+  });
+});
+</script>

@@ -2,12 +2,21 @@
   <div class="container-comptabilite">
     <h1>Comptabilité réservations</h1>
 
-    <%= link_to comptabilite_reservations_profile_path(format: :xls), class: "comptabilite-export-xls" do %>
-      Exporter .xls
-      <i class="fas fa-upload ml-1"></i>
-    <% end %>
+    <div class="comptabilite-exports">
+      <% t = Time.new(2021, 1, 1, 0, 0, 1) %>
+      <% number_of_month = ((Time.now - Time.new(2021, 1, 1, 0, 0, 1)) / 1.month).round %>
+      <% months = (0..number_of_month).to_a %>
+      <% months.reverse.each do |m| %>
+        <% time = t + (m.to_i).month %>
+        <%= link_to comptabilite_reservations_profile_path(format: :xls, month: time.strftime("%m") , year: time.strftime("%Y"), end: time.end_of_month.strftime("%d")), class: "comptabilite-export-xls" do %>
+          <%=l(time, format: '%B').capitalize %> <%= time.strftime("%Y") %>
+          <i class="fas fa-upload ml-1"></i>
+        <% end %>
+      <% end %>
+    </div>
 
-      <table class="table">
+    <div class="comptabilite-table">
+      <table class="table" id="myBookingsTable">
         <thead>
           <tr>
             <th scope="col">Date</th>
@@ -21,10 +30,10 @@
           </tr>
         </thead>
         <tbody>
-          <% @fees.uniq.sort_by {|f| Time.at(f[:created])}.reverse.each do |c| %>
+          <% @fees.uniq.sort_by {|f| Time.at(f[:created])}.reverse.first(300).each do |c| %>
             <% b = Booking.find(c[:booking_id]) %>
             <tr>
-              <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
+              <td><%= Time.at(c[:created]).strftime("%Y%m%d") %></td>
               <td><%= b.session.workshop.place.user.profile.accountant_company %></td>
               <td>706000</td>
               <td><%= c[:id] %></td>
@@ -40,7 +49,7 @@
               <td><%= c[:currency] %></td>
             </tr>
             <tr>
-              <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
+              <td><%= Time.at(c[:created]).strftime("%Y%m%d") %></td>
               <td><%= b.session.workshop.place.user.profile.accountant_company %></td>
               <td>445720</td>
               <td><%= c[:id] %></td>
@@ -55,8 +64,8 @@
               <% end %>
               <td><%= c[:currency] %></td>
             </tr>
-            <tr>
-              <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
+            <tr style="border-bottom:2px solid #dee2e6;">
+              <td><%= Time.at(c[:created]).strftime("%Y%m%d") %></td>
               <td><%= b.session.workshop.place.user.profile.accountant_company %></td>
               <td>CXXXX</td>
               <td><%= c[:id] %></td>
@@ -71,18 +80,41 @@
               <% end %>
               <td><%= c[:currency] %></td>
             </tr>
-            <tr>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-              <td style='padding:10px;'></td>
-            </tr>
           <% end %>
         </tbody>
       </table>
+    </div>
   </div>
 <% end %>
+
+
+<script>
+$(document).ready(function(){
+  $('#myBookingsTable').DataTable({
+    "order": [[ 0, "desc" ]],
+    "lengthMenu": [[ 25, 50, 100 ],[ '25', '50', '100']
+    ],
+    "language": {
+      "sProcessing": "Traitement en cours ...",
+      "sLengthMenu": "Afficher _MENU_ lignes",
+      "sZeroRecords": "Aucun résultat trouvé",
+      "sEmptyTable": "Aucune donnée disponible",
+      "sInfo": "Lignes _START_ à _END_ sur _TOTAL_",
+      "sInfoEmpty": "Aucune ligne affichée",
+      "sInfoFiltered": "(Filtrer un maximum de_MAX_)",
+      "sInfoPostFix": "",
+      "sSearch": "Rechercher :",
+      "sUrl": "",
+      "sInfoThousands": ",",
+      "sLoadingRecords": "Chargement...",
+      "oPaginate": {
+        "sFirst": "Premier", "sLast": "Dernier", "sNext": "Suivant", "sPrevious": "Précédent"
+      },
+      "oAria": {
+        "sSortAscending": ": Trier par ordre croissant", "sSortDescending": ": Trier par ordre décroissant"
+      },
+    }
+  });
+});
+</script>
+

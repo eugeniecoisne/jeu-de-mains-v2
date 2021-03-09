@@ -20,6 +20,10 @@ class ProfilePolicy < ApplicationPolicy
     update?
   end
 
+  def transactions?
+    update?
+  end
+
   def messagerie?
     update?
   end
