@@ -1,23 +1,19 @@
-.container-comptabilite {
-  margin: 30px;
-  h1 {
-    font-size: 20px;
-    font-weight: 600;
-    color: $dark-blue;
-    margin-bottom: 30px;
-  }
-  table {
-    font-size: 13px;
-    margin-top: 30px;
-  }
+.transactions-container {
+  margin: 2rem 3rem 4rem 3rem;
 
-  .comptabilite-exports {
+  h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: $blue;
+    margin-bottom: 15px;
+  }
+  .transactions-exports {
     margin-bottom: 45px;
     display: flex;
     flex-wrap: wrap;
   }
 
-  .comptabilite-export-xls {
+  .transactions-export-xls {
     margin-top: 4px;
     margin-bottom: 4px;
     margin-right: 10px;
@@ -32,19 +28,13 @@
     font-weight: 500;
   }
 
-  .comptabilite-export-xls:hover {
+  .transactions-export-xls:hover {
     text-decoration: none;
     border-color: $dark-blue;
     color: $dark-blue;
   }
 
-  th {
-    padding: 4px;
-  }
-  td {
-    padding: unset;
-  }
-  .comptabilite-table {
+  .transactions-table {
     margin-bottom: 35px;
     input {
       border: 1px solid #bab7b7;
@@ -77,7 +67,6 @@
         border-radius: 50%;
         padding: 4px 8px;
         outline: none;
-        font-size: 14px;
       }
       .paginate_button:hover {
         background-color: $light-blue;
@@ -114,19 +103,33 @@
       }
     }
   }
-}
+  .button {
+    padding: 6px 14px;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .button:hover{
+    text-decoration: none;
+    color: white;
+    background-color: $dark-blue;
 
+  }
+}
 
 // RESPONSIVE TRANSACTIONS //
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
-
+  .transactions-container {
+    margin: 1.5rem 1rem 3rem 1rem;
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
-
+  .transactions-container {
+    margin: 2rem 1.5rem 3rem 1.5rem;
+  }
 }
 
 // Medium devices (tablets, 768px and up)
@@ -143,4 +146,3 @@
 @media (min-width: 1200px) {
 
 }
-

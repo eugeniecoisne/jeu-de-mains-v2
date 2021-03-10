@@ -81,6 +81,16 @@
             <% end %>
           </div>
         </li>
+        <% if current_user.profile.role.present? %>
+          <li class="list-group-item">
+            <div class="list-item-menu">
+              <%= link_to transactions_profile_path(current_user.profile), class: "menu-blue-link" do %>
+                <i class="far fa-credit-card menu-icon menu-blue-icon mr-1"></i>
+                Mes transactions
+              <% end %>
+            </div>
+          </li>
+        <% end %>
         <% if current_user.profile.role.nil? %>
           <li class="list-group-item">
             <div class="list-item-menu">
