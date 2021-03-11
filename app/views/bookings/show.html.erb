@@ -1,111 +1,118 @@
-<div style="max-width:500px;">
+<div class="show-booking-container">
 
-  <h1>Réservation n°<%= @booking.id %></h1>
+  <h1>Réservation n°<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %></h1>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th colspan=2><h2>Réservation</h2></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">Réservé le</th>
-        <td style='text-align:right;'><%= @booking.created_at.strftime('%d/%m/%Y') %></td>
-      </tr>
-      <tr>
-        <th scope="row">Réservé par</th>
-        <td style='text-align:right;'><%= @booking.user.first_name %> <%= @booking.user.last_name[0] %>.</td>
-      </tr>
-      <tr>
-        <th scope="row">Numéro de réservation</th>
-        <td style='text-align:right;'><%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %></td>
-      </tr>
-      <tr>
-        <th scope="row">Atelier</th>
-        <td style='text-align:right;'><%= link_to @booking.session.workshop.title, workshop_path(@booking.session.workshop), target: "_blank" %></td>
-      </tr>
-      <tr>
-        <th scope="row">Session</th>
-        <td style='text-align:right;'><%= link_to "#{@booking.session.date.strftime("%d/%m/%Y")} à #{@booking.session.start_at}", session_participants_path(@booking.session), target: "_blank" %></td>
-      </tr>
-      <tr>
-        <th scope="row">Nb place(s)</th>
-        <td style='text-align:right;'><%= @booking.quantity %></td>
-      </tr>
-      <tr>
-        <th scope="row">Prix unitaire</th>
-        <td style='text-align:right;'><%= @booking.session.workshop.price %> €</td>
-      </tr>
-      <tr>
-        <th scope="row">Montant réservation</th>
-        <td style='text-align:right;'><%= @booking.amount %> €</td>
-      </tr>
-      <tr>
-        <th scope="row">Paiement Stripe</th>
-        <td style='text-align:right;'><%= @booking.giftcard_amount_spent.present? ? ((@booking.session.workshop.price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount %> €</td>
-      </tr>
-      <tr>
-        <th scope="row">Paiement en carte cadeau</th>
-        <td style='text-align:right;'><%= @booking.giftcard_amount_spent.present? ? @booking.giftcard_amount_spent : 0.0 %> €</td>
-      </tr>
-      <tr>
-        <th scope="row">Montant commission JDM (<%= (@booking.fee * 100).round %>%)</th>
-        <td style='text-align:right;'>- <%= (@booking.amount * @booking.fee).round(2) %> €</td>
-      </tr>
-      <tr>
-        <th scope="row">Montant perçu</th>
-        <td style='text-align:right;'><%= (@booking.amount * (1 - @booking.fee)).round(2) %> €</td>
-      </tr>
-    </tbody>
-  </table>
-  <br>
+  <%= link_to "Télécharger facture client", booking_payment_success_path(@booking, format: :pdf), class: "button", target: "_blank" %>
 
-  <% if @booking.status == "refunded" %>
+  <div class="show-booking-tables">
+    <div class="show-booking-success">
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan=2><h2>Réservation</h2></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Réservé le</th>
+            <td style='text-align:right;'><%= @booking.created_at.strftime('%d/%m/%Y') %></td>
+          </tr>
+          <tr>
+            <th scope="row">Réservé par</th>
+            <td style='text-align:right;'><%= @booking.user.first_name %> <%= @booking.user.last_name[0] %>.</td>
+          </tr>
+          <tr>
+            <th scope="row">Numéro de réservation</th>
+            <td style='text-align:right;'><%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %></td>
+          </tr>
+          <tr>
+            <th scope="row">Atelier</th>
+            <td style='text-align:right;'><%= link_to @booking.session.workshop.title, workshop_path(@booking.session.workshop), target: "_blank" %></td>
+          </tr>
+          <tr>
+            <th scope="row">Session</th>
+            <td style='text-align:right;'><%= link_to "#{@booking.session.date.strftime("%d/%m/%Y")} à #{@booking.session.start_at}", session_participants_path(@booking.session), target: "_blank" %></td>
+          </tr>
+          <tr>
+            <th scope="row">Nb place(s)</th>
+            <td style='text-align:right;'><%= @booking.quantity %></td>
+          </tr>
+          <tr>
+            <th scope="row">Prix unitaire</th>
+            <td style='text-align:right;'><%= @booking.session.workshop.price %> € ttc</td>
+          </tr>
+          <tr>
+            <th scope="row">Montant réservation</th>
+            <td style='text-align:right;'><%= @booking.amount %> € ttc</td>
+          </tr>
+          <tr>
+            <th scope="row">Paiement Stripe</th>
+            <td style='text-align:right;'><%= @booking.giftcard_amount_spent.present? ? ((@booking.session.workshop.price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount %> € ttc</td>
+          </tr>
+          <tr>
+            <th scope="row">Paiement en carte cadeau</th>
+            <td style='text-align:right;'><%= @booking.giftcard_amount_spent.present? ? @booking.giftcard_amount_spent : 0.0 %> € ttc</td>
+          </tr>
+          <tr>
+            <th scope="row">Montant commission JDM (<%= (@booking.fee * 100).round %>%)</th>
+            <td style='text-align:right;'>- <%= (@booking.amount * @booking.fee).round(2) %> € ttc</td>
+          </tr>
+          <tr>
+            <th scope="row">Montant perçu</th>
+            <td style='text-align:right;'><%= (@booking.amount * (1 - @booking.fee)).round(2) %> € ttc</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th colspan=2><h2>Annulation</h2></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% cancel_fee = @booking.amount * (1.0 - @booking.refund_rate) %>
-        <% jdm_fee = (@booking.amount - cancel_fee) * @booking.fee %>
-        <% partner_refund_total = @booking.amount - jdm_fee - cancel_fee %>
+    <% if @booking.status == "refunded" %>
 
-        <tr>
-          <th scope="row">Annulé le</th>
-          <td style='text-align:right;'><%= @booking.cancelled_at.strftime('%d/%m/%Y') if @booking.cancelled_at.present? %></td>
-        </tr>
-        <tr>
-          <th scope="row">Annulé par</th>
-          <td style='text-align:right;'>
-            <%= @booking.session.reason.present? ? "vous" : "le participant" %>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">Pourcentage remboursement au client</th>
-          <td style='text-align:right;'><%= (@booking.refund_rate * 100).round %>%</td>
-        </tr>
-        <tr>
-          <th scope="row">Remboursement Stripe</th>
-          <td style='text-align:right;'>- <%= @booking.giftcard_amount_spent.present? ? ((@booking.session.workshop.price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount %> €</td>
-        </tr>
-        <tr>
-          <th scope="row">Remboursement sur carte cadeau</th>
-          <td style='text-align:right;'>- <%= @booking.giftcard_amount_spent.present? ? @booking.giftcard_amount_spent : 0.0 %> €</td>
-        </tr>
-        <tr>
-          <th scope="row">Commission JDM remboursée (<%= (@booking.fee * 100).round %>%)</th>
-          <td style='text-align:right;'><%= ((@booking.amount - cancel_fee) * @booking.fee).round(2) %> €</td>
-        </tr>
-        <tr>
-          <th scope="row">Montant remboursé</th>
-          <td style='text-align:right;'>- <%= ((@booking.amount - cancel_fee) * (1 - @booking.fee)).round(2) %> €</td>
-        </tr>
-      </tbody>
-    </table>
-  <% end %>
+      <div class="show-booking-refund">
+        <table class="table">
+          <thead>
+            <tr>
+              <th colspan=2><h2>Annulation</h2></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cancel_fee = @booking.amount * (1.0 - @booking.refund_rate) %>
+            <% jdm_fee = (@booking.amount - cancel_fee) * @booking.fee %>
+            <% partner_refund_total = @booking.amount - jdm_fee - cancel_fee %>
+
+            <tr>
+              <th scope="row">Annulé le</th>
+              <td style='text-align:right;'><%= @booking.cancelled_at.strftime('%d/%m/%Y') if @booking.cancelled_at.present? %></td>
+            </tr>
+            <tr>
+              <th scope="row">Annulé par</th>
+              <td style='text-align:right;'>
+                <%= @booking.session.reason.present? ? "vous" : "le participant" %>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Pourcentage remboursement au client</th>
+              <td style='text-align:right;'><%= (@booking.refund_rate * 100).round %>%</td>
+            </tr>
+            <tr>
+              <th scope="row">Remboursement Stripe</th>
+              <td style='text-align:right;'>- <%= @booking.giftcard_amount_spent.present? ? ((@booking.session.workshop.price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount %> € ttc</td>
+            </tr>
+            <tr>
+              <th scope="row">Remboursement sur carte cadeau</th>
+              <td style='text-align:right;'>- <%= @booking.giftcard_amount_spent.present? ? @booking.giftcard_amount_spent : 0.0 %> € ttc</td>
+            </tr>
+            <tr>
+              <th scope="row">Commission JDM remboursée (<%= (@booking.fee * 100).round %>%)</th>
+              <td style='text-align:right;'><%= ((@booking.amount - cancel_fee) * @booking.fee).round(2) %> € ttc</td>
+            </tr>
+            <tr>
+              <th scope="row">Montant remboursé</th>
+              <td style='text-align:right;'>- <%= ((@booking.amount - cancel_fee) * (1 - @booking.fee)).round(2) %> € ttc</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
 
 </div>

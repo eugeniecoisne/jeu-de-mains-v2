@@ -21,7 +21,7 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def payment_success?
-    record.user == user || user.admin?
+    record.user == user || record.session.workshop.place.user == user || user.admin?
   end
 
   def payment_error?
