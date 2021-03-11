@@ -1,0 +1,92 @@
+.show-booking-container {
+  margin: 3rem 4rem;
+  h1 {
+    color: $blue;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  h2 {
+    color: $dark-blue;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: unset;
+  }
+  .show-booking-tables {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 4rem;
+  }
+  .table {
+    thead {
+      th {
+        border-top: unset;
+
+      }
+    }
+    th {
+      padding-right: unset;
+      padding-left: unset;
+      font-size: 15px;
+    }
+    td {
+      padding-right: unset;
+      padding-left: unset;
+      font-size: 15px;
+    }
+  }
+  .button {
+    padding: 6px 14px;
+    font-size: 14px;
+    text-decoration: none;
+    outline: none;
+  }
+  .button:hover {
+    background-color: $dark-blue;
+    color: white;
+    text-decoration: none;
+    outline: none;
+  }
+}
+
+// RESPONSIVE SHOW BOOKING //
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .show-booking-container {
+    margin: 2rem 1.5rem;
+    .show-booking-tables {
+      grid-template-columns: 1fr;
+      grid-gap: 2rem;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+  .show-booking-container {
+    margin: 3rem 2.5rem;
+    .show-booking-tables {
+      grid-template-columns: 1fr;
+      grid-gap: 2rem;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+  .show-booking-container {
+    margin: 2rem 1.5rem;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
