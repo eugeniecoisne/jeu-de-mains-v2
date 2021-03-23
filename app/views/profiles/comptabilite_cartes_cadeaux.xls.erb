@@ -24,19 +24,19 @@
         <% if c[:type] == "reçu" %>
           <td>Achat client carte cadeau n°<%= g.id if g.present? %> HT</td>
           <td></td>
-          <td><%= ((c[:amount] * 0.01) / 1.2).to_f %></td>
+          <td><%= ((c[:amount] * 0.01) / 1.2).to_s.gsub(".",",") %></td>
         <% elsif c[:type] == "remboursée" %>
           <td>Remboursement client carte cadeau n°<%= g.id if g.present? %> HT</td>
-          <td><%= ((c[:amount] * 0.01) / 1.2).to_f %></td>
+          <td><%= ((c[:amount] * 0.01) / 1.2).to_s.gsub(".",",") %></td>
           <td></td>
         <% elsif c[:type] == "viré au partenaire" %>
           <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> HT</td>
-          <td><%= ((c[:amount] * 0.01) / 1.2).to_f %></td>
+          <td><%= ((c[:amount] * 0.01) / 1.2).to_s.gsub(".",",") %></td>
           <td></td>
         <% else %>
           <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> HT</td>
           <td></td>
-          <td><%= ((c[:amount] * 0.01) / 1.2).to_f %></td>
+          <td><%= ((c[:amount] * 0.01) / 1.2).to_s.gsub(".",",") %></td>
         <% end %>
         <td><%= c[:currency] %></td>
       </tr>
@@ -52,19 +52,19 @@
         <% if c[:type] == "reçu" %>
           <td>Achat client carte cadeau n°<%= g.id if g.present? %> TVA 20%</td>
           <td></td>
-          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_f %></td>
+          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_s.gsub(".",",") %></td>
         <% elsif c[:type] == "remboursée" %>
           <td>Remboursement client carte cadeau n°<%= g.id if g.present? %> TVA 20%</td>
-          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_f %></td>
+          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_s.gsub(".",",") %></td>
           <td></td>
         <% elsif c[:type] == "viré au partenaire" %>
           <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> TVA 20%</td>
-          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_f %></td>
+          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_s.gsub(".",",") %></td>
           <td></td>
         <% else %>
           <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> TVA 20%</td>
           <td></td>
-          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_f %></td>
+          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_s.gsub(".",",") %></td>
         <% end %>
         <td><%= c[:currency] %></td>
       </tr>
@@ -79,19 +79,19 @@
         <td><%= c[:id] %></td>
         <% if c[:type] == "reçu" %>
           <td>Achat client carte cadeau n°<%= g.id if g.present? %> TTC</td>
-          <td><%= (c[:amount] * 0.01).to_f %></td>
+          <td><%= (c[:amount] * 0.01).to_s.gsub(".",",") %></td>
           <td></td>
         <% elsif c[:type] == "remboursée" %>
           <td>Remboursement client carte cadeau n°<%= g.id if g.present? %> TTC</td>
           <td></td>
-          <td><%= (c[:amount] * 0.01).to_f %></td>
+          <td><%= (c[:amount] * 0.01).to_s.gsub(".",",") %></td>
         <% elsif c[:type] == "viré au partenaire" %>
           <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> TTC</td>
           <td></td>
-          <td><%= (c[:amount] * 0.01).to_f %></td>
+          <td><%= (c[:amount] * 0.01).to_s.gsub(".",",") %></td>
         <% else %>
           <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> TTC</td>
-          <td><%= (c[:amount] * 0.01).to_f %></td>
+          <td><%= (c[:amount] * 0.01).to_s.gsub(".",",") %></td>
           <td></td>
         <% end %>
         <td><%= c[:currency] %></td>

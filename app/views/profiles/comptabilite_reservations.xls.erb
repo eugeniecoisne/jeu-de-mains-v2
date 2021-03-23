@@ -20,10 +20,10 @@
         <% if c[:type] == "reçu" %>
           <td>Commission réservation n°<%= b.id if b.present? %> HT</td>
           <td></td>
-          <td><%= ((c[:amount] * 0.01) / 1.2).to_f %></td>
+          <td><%= ((c[:amount] * 0.01) / 1.2).to_s.gsub(".",",") %></td>
         <% else %>
           <td>Remboursement commission réservation n°<%= b.id if b.present? %> HT</td>
-          <td><%= ((c[:amount] * 0.01) / 1.2).to_f %></td>
+          <td><%= ((c[:amount] * 0.01) / 1.2).to_s.gsub(".",",") %></td>
           <td></td>
         <% end %>
         <td><%= c[:currency] %></td>
@@ -36,10 +36,10 @@
         <% if c[:type] == "reçu" %>
           <td>Commission réservation n°<%= b.id if b.present? %> TVA 20%</td>
           <td></td>
-          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_f %></td>
+          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_s.gsub(".",",") %></td>
         <% else %>
           <td>Remboursement commission réservation n°<%= b.id if b.present? %> TVA 20%</td>
-          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_f %></td>
+          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_s.gsub(".",",") %></td>
           <td></td>
         <% end %>
         <td><%= c[:currency] %></td>
@@ -51,12 +51,12 @@
         <td><%= c[:id] %></td>
         <% if c[:type] == "reçu" %>
           <td>Commission réservation n°<%= b.id if b.present? %> TTC</td>
-          <td><%= (c[:amount] * 0.01).to_f %></td>
+          <td><%= (c[:amount] * 0.01).to_s.gsub(".",",") %></td>
           <td></td>
         <% else %>
           <td>Remboursement commission réservation n°<%= b.id if b.present? %> TTC</td>
           <td></td>
-          <td><%= (c[:amount] * 0.01).to_f %></td>
+          <td><%= (c[:amount] * 0.01).to_s.gsub(".",",") %></td>
         <% end %>
         <td><%= c[:currency] %></td>
       </tr>

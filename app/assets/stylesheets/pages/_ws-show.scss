@@ -95,6 +95,21 @@
   }
 }
 
+// OFFLINE WORKSHOP
+
+.ws-show-status-offline {
+  position: absolute;
+  right: 30px;
+  background: $red;
+  color: white;
+  font-weight: 600;
+  padding: 6px 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+}
+
 // ADMIN VERIFICATION
 
 .ws-verification-box {

@@ -287,12 +287,14 @@
             <% if my_cancellations.count > 0 %>
 
               <div class="my-bookings-cards">
-                <% my_cancellations.sort_by { |booking| booking.session.date }.reverse.each do |booking| %>
+                <% my_cancellations.sort_by { |booking| booking.cancelled_at }.reverse.each do |booking| %>
 
                   <div class="my-booking-date-photo-and-info">
-                    <div class="my-booking-date" id="my-cancel-date">
-                      <%= l(booking.session.date, format: '%A %d %b %Y').capitalize %> - <%=booking.session.start_at%>
-                    </div>
+                    <% if booking.cancelled_at.present? %>
+                      <div class="my-booking-date">
+                        Annulée le <%= l(booking.cancelled_at, format: '%d %b %Y').capitalize %>
+                      </div>
+                    <% end %>
 
                     <div class="my-bookings-ws-card">
                       <%= link_to workshop_path(booking.session.workshop) do %>
@@ -312,9 +314,17 @@
                           <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                             Organisé par <%= booking.session.workshop.place.user.profile.company %>
                           <% end %>
+                          <p>Session du <%= l(booking.session.date, format: '%d %b %Y').capitalize %> à <%=booking.session.start_at%></p>
                           <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€ TTC</p>
-                          <p class="my-booking-cancel"><%= "Annulée le #{booking.cancelled_at.strftime('%d/%m/%Y')}" if booking.cancelled_at.present? %></p>
-                          <p>Montant remboursé : <%= booking.amount * booking.refund_rate %>€ TTC</p>
+                          <p>Taux de remboursement : <%= (booking.refund_rate * 100).round %>%</p>
+                          <p class="mb-3">Montant remboursé : <%= booking.amount * booking.refund_rate %>€ TTC</p>
+
+                          <div class="d-flex justify-content-left align-items-center flex-wrap">
+                            <% if booking.session.workshop.db_status == true && booking.session.workshop.status == "en ligne" %>
+                              <%= link_to "Revoir", workshop_path(booking.session.workshop), class: "button mr-2 mt-2" %>
+                            <% end %>
+                            <%= link_to "Ma facture d'avoir", booking_refund_invoice_path(booking, format: :pdf), class: "button mr-2 mt-2", target: "_blank" %>
+                          </div>
                         </div>
                       <% end %>
                     </div>
