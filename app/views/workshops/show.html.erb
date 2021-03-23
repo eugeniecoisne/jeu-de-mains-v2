@@ -61,6 +61,18 @@
 
 
     <!-- LEFT SIDE -->
+<!--
+    <% if current_user && current_user == @workshop.place.user && @workshop.status != "en ligne" %>
+      <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              Cette fiche atelier n'est pas encore en ligne
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %> -->
 
     <div class="container-ws-show-infos" id="hideShowInformation">
 
@@ -422,3 +434,4 @@
     </div>
 
 <% end %>
+

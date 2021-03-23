@@ -99,6 +99,7 @@ Rails.application.routes.draw do
     get 'coordonnees'
     get 'payment_success'
     get 'payment_error'
+    get 'refund_invoice'
     get 'cancel'
   end
 

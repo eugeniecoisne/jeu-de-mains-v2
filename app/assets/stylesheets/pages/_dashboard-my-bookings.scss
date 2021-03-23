@@ -18,15 +18,10 @@
   max-width: 550px;
 }
 
-#my-cancel-date {
-  color: $orange;
-  border-color: $orange;
-}
-
 .my-bookings-ws-card {
   display: flex;
   margin-top: 0.8em;
-  margin-bottom: 1.5em;
+  margin-bottom: 2em;
   img {
     padding-top: 0.3em;
     object-fit: cover;
@@ -134,7 +129,7 @@
   .my-bookings-ws-card {
     display: flex;
     margin-top: 0.8em;
-    margin-bottom: 1.5em;
+    margin-bottom: 1.8em;
     img {
       width: 80px;
       height: 80px;

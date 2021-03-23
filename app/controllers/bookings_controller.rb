@@ -123,6 +123,18 @@ class BookingsController < ApplicationController
     authorize @booking
   end
 
+  def refund_invoice
+    @booking = Booking.find(params[:booking_id])
+    authorize @booking
+    @partner = @booking.session.workshop.place.user.profile
+    respond_to do |format|
+      format.pdf do
+        render pdf: "avoir-jdm-#{@booking.created_at.strftime("%Y%m")}#{@booking.id}",
+              margin:  { top:0,bottom:0,left:0,right:0}
+      end
+    end
+  end
+
   def cancel
     if params[:booking_id].present?
       @booking = Booking.find(params[:booking_id])

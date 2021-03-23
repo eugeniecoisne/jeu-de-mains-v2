@@ -1,0 +1,176 @@
+
+<!DOCTYPE HTML>
+
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <title>facture-jdm-<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %></title>
+    <style type="text/css">
+
+      body {
+        background-color: white;
+        font-family: Helvetica, sans-serif;
+        margin: 0;
+      }
+
+      table, .bordered {
+        padding: 10px;
+        border: 1px solid #1C1C1C;
+        border-collapse: collapse;
+      }
+
+      th {
+        text-align: left;
+        color: #235B6A;
+        font-size:16px;
+        padding: 10px;
+      }
+
+      td {
+        text-align: left;
+        color: black;
+        font-size: 16px;
+        font-weight: 400;
+        padding: 10px;
+
+      }
+
+      .short-column {
+        width: 150px;
+      }
+      .large-column {
+        width: 470px;
+      }
+
+      p {
+        font-size: 16px;
+        color: black;
+      }
+
+      p strong {
+        font-weight: bolder;
+      }
+
+    </style>
+    <script type="text/javascript" src="051a640c-7c48-11eb-8b25-0cc47a792c0a_id_051a640c-7c48-11eb-8b25-0cc47a792c0a_files/wz_jsgraphics.js"></script>
+  </head>
+
+  <body>
+    <div style="height:420px;">
+      <div style="position:absolute;left:45px;top:340px;width:800px;">
+        <p><strong>À l'attention de <%= @booking.user.fullname %></strong></p>
+      </div>
+      <div style="position:absolute;right:45px;top:90px;width:800px;text-align:right;">
+        <p style="margin-bottom:30px;"><em>Avoir émis par Jeu de Mains au nom de :</em></p>
+        <p><strong><%= @partner.accountant_company %></strong></p>
+        <p><%= @partner.accountant_address %></p>
+        <p><%= @partner.accountant_zip_code %> <%= @partner.accountant_city %></p>
+        <p>SIRET: <%= @partner.siret_number %></p>
+      </div>
+    </div>
+    <div style='margin-left:45px;margin-right:45px;'>
+      <p><strong>AVOIR N° : JDM-<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %>-AV</strong></p>
+      <p>Date de l'avoir : <%= @booking.cancelled_at.strftime("%d/%m/%Y") %></p>
+      <p>Concernant la facture : JDM-<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %></p>
+    </div>
+
+    <table align="center" class="table" style='margin-left:45px;margin-right:45px;margin-top:40px;'>
+
+      <thead>
+        <tr>
+          <th><strong>Date</strong></td>
+          <th><strong>Libellé</strong></td>
+          <th><strong>Quantité</strong></td>
+          <th><strong>Montant de la réservation TTC</strong></td>
+          <th><strong>Taux de remboursement</strong></th>
+          <th><strong>Total HT</strong></td>
+        </tr>
+
+      </thead>
+      <tbody>
+        <tr>
+          <td class="short-column bordered"><%= @booking.cancelled_at.strftime("%d/%m/%y") %></td>
+          <td class="large-column bordered">Remboursement réservation pour l'atelier créatif
+            <br><%= @booking.session.workshop.title %><br>
+            <br>Session du <%= l(@booking.session.date, format: '%A %d %b %Y').capitalize %> à <%=@booking.session.start_at%>
+          </td>
+          <td class="short-column bordered"><%= @booking.quantity %> place(s)</td>
+          <td class="short-column bordered"><%= (@booking.amount).round(2) %> €</td>
+          <td class="short-column bordered" style="text-align:right;"><%= @booking.refund_rate * 100 %>%</td>
+          <td class="short-column bordered" style="text-align:right;">- <%= ((@booking.amount * @booking.refund_rate) / 1.2).round(2) %> €</td>
+        </tr>
+        <tr style='border-left: 1px solid #fff;'>
+          <td class="short-column"></td>
+          <td class="large-column"></td>
+          <td class="short-column"></td>
+          <td class="short-column"></td>
+          <td class="short-column bordered" style="text-align:right;">Total HT</td>
+          <td class="short-column bordered" style="text-align:right;">- <%= ((@booking.amount * @booking.refund_rate) / 1.2).round(2) %> €</td>
+        </tr>
+        <tr style='border-left: 1px solid #fff;'>
+          <td class="short-column"></td>
+          <td class="large-column"></td>
+          <td class="short-column"></td>
+          <td class="short-column"></td>
+          <td class="short-column bordered" style="text-align:right;">TVA 20%</td>
+          <td class="short-column bordered" style="text-align:right;">- <%= ((@booking.amount * @booking.refund_rate) - (@booking.amount * @booking.refund_rate / 1.2)).round(2) %> €</td>
+        </tr>
+        <tr style='border-left: 1px solid #fff;'>
+          <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
+          <td class="large-column" style='border-bottom: 1px solid #fff;'></td>
+          <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
+          <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
+          <td class="short-column bordered" style="text-align:right;">Total TTC</td>
+          <td class="short-column bordered" style="text-align:right;">- <%= (@booking.amount * @booking.refund_rate).round(2) %> €</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <% if (@booking.amount * @booking.refund_rate) > 0 %>
+      <table align="center" class="table" style='margin-left:45px;margin-right:45px;margin-top:60px;'>
+        <thead>
+          <tr>
+            <th class="bordered"><strong>Remboursement sur</strong></td>
+            <th class="bordered"><strong>Montant TTC</strong></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @booking.giftcard_amount_spent.present? %>
+            <tr>
+              <td class="bordered large-column">Carte Cadeau utilisée</td>
+              <td class="bordered large-column"><%= (@booking.giftcard_amount_spent * @booking.refund_rate).round(2) %> €</td>
+            </tr>
+            <% if @booking.amount > @booking.giftcard_amount_spent %>
+              <tr>
+                <td class="bordered large-column">Carte bancaire utilisée</td>
+                <td class="bordered large-column"><%= ((@booking.amount - @booking.giftcard_amount_spent) * @booking.refund_rate).round(2) %> €</td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td class="bordered large-column">Carte bancaire utilisée</td>
+              <td class="bordered large-column"><%= (@booking.amount * @booking.refund_rate).round(2) %> €</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
+
+    <div style="position:absolute;left:45px;right:45px;top:1150px">
+      <p style="font-size:15px;">
+        Avoir établi au nom et pour le compte de <%= @partner.accountant_company %> par:
+      </p>
+    </div>
+    <div style="position:absolute;left:45px;right:45px;top:1200px">
+      <p style="font-size:15px;">Jeu de Mains</p>
+      <p style="font-size:15px;">9 ter, rue Baliat, 92400 Courbevoie</p>
+      <p style="font-size:15px;">SIRET: 88449865000016</p>
+      <p style="font-size:15px;">TVA Intracommunautaire: FR46884498650</p>
+    </div>
+  </body>
+
+</html>
+
+
+
