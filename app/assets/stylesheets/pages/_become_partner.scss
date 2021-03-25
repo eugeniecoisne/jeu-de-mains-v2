@@ -1,63 +1,170 @@
-.become-partner-form-container {
-  background-image: url('https://res.cloudinary.com/jeudemains/image/upload/v1612206178/jeu-de-mains-partner-form.jpg');
+.become-partner-container {
+  padding: 0 3rem;
+  min-height: 500px;
+}
+
+.become-partner-banner {
+  background-image: url('https://res.cloudinary.com/jeudemains/image/upload/v1616698934/jeu-de-mains-banniere-partenaires-desktop.png');
   background-size: cover;
-  background-position: top;
-  margin-top: -2.5em;
-  padding: 3rem;
+  background-position: 0% 70%;
+  height: 20em;
+  width: 100vw;
   display: flex;
-  min-height: 82vh;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5em;
 }
 
-#become-partner-back-button {
-  position: absolute;
-  left: 2rem;
-  a {
-    color: white;
-    text-shadow: 0px 2px 4px #00000080;
-  }
-}
-
-#welcome-partner-back-button {
-  position: absolute;
-  left: 2rem;
-  a {
-    color: white;
-    text-shadow: 0px 2px 4px #00000080;
-  }
-}
-
-.become-partner-form-title {
-  margin-bottom: 18px;
-  text-align: center;
-  background-color: white;
-  padding: 1.5rem;
+.become-partner-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 5em 0 5em;
   h1 {
-    font-size: 40px;
-    color: $dark-blue;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    font-family: "Amiri", serif;
-    margin-top: 1rem;
-    line-height: 1;
-  }
-  h2 {
-    font-size: 15px;
     color: $dark-blue;
     font-weight: 500;
-    line-height: 1.4;
+    font-size: 20px;
+    max-width: 380px;
   }
+  h2 {
+    color: $dark-blue;
+    font-size: 28px;
+    font-weight: 600;
+    max-width: 380px;
+  }
+}
+
+.become-partner-subtitle {
+  color: $blue;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 3em;
+}
+
+.become-partner-why {
+  margin: 2em 4em 2em 4em;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 4em;
+}
+
+.become-partner-why-argument {
+  padding: 1em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  img {
+    height: 8em;
+    width: 8em;
+    object-fit: contain;
+    margin-bottom: 1.5em;
+  }
+  h4 {
+    font-weight: 600;
+    font-size: 17px;
+    color: $dark-blue;
+  }
+  p {
+    font-size: 15px;
+  }
+}
+
+.become-partner-blue-part {
+  background-color: $light-blue;
+  margin: 0 3rem;
+  padding: 2.5em 4em 1.5em 4em;
+  h3 {
+    color: white;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  .become-partner-intro {
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+}
+
+.become-partner-advantages {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 1em;
+
+  div {
+    color: white;
+    font-weight: 500;
+    margin: 10px 10px 0 10px;
+    padding: 4px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    i {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+}
+
+.become-partner-how-to-subscribe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  padding-left: 23px;
+  li {
+    text-align: center;
+    font-weight: 500;
+  }
+}
+
+.become-partner-contact-us {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4rem;
+  a {
+    padding: 5px 16px;
+    background-color: $light-blue;
+    color: white;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 16px;
+    outline: none;
+    text-decoration: none;
+    margin-top: 10px;
+  }
+  a:hover {
+    outline: none;
+    text-decoration: none;
+    background-color: $blue;
+  }
+}
+
+.become-partner-thanks {
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  margin: 2rem 5rem 0 5rem;
+}
+
+.become-partner-form-container {
+  background-color: $very-light-blue;
+  background-size: cover;
+  background-position: top;
+  display: flex;
 }
 
 .become-partner-form-form {
-  padding-bottom: 4em;
-  h3 {
-    font-size: 25px;
-    color: $dark-blue;
-    font-weight: 700;
-    line-height: 1.4;
-    font-family: "Amiri", serif;
-    margin-top: 10px;
-  }
+  padding-bottom: 2em;
   p {
     font-size: 12px;
     color: $dark-gray;
@@ -110,8 +217,7 @@
 }
 
 .become-partner-form-form-part {
-  background-color: white;
-  padding: 1.5rem;
+  padding: 0.5rem 1rem;
 }
 
 
@@ -119,27 +225,64 @@
 
 // RESPONSIVE THEMATICS BANNER
 @media (min-width: 100px) and (max-width: 575px) {
-  .become-partner-form-container {
-    margin-top: -0.2rem;
-    padding: 1rem;
+  .become-partner-banner {
+    background-image: url("https://res.cloudinary.com/jeudemains/image/upload/c_fill/v1603213782/jeu-de-mains-banniere-desktop.png");
+    background-size: 200%;
+    background-position: 30% 80%;
+    padding: 0 1em;
+    height: 17rem;
   }
-  #become-partner-back-button {
-    margin-top: 1rem;
-    left: 1rem;
-  }
-  .become-partner-form {
-    margin: 2.5rem 0 1rem 0;
-  }
-
-  .become-partner-form-title {
+  .become-partner-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 0 0 0.5rem;
     h1 {
-      font-size: 32px;
-      margin-top: 4px;
+      font-size: 15px;
+      max-width: 230px;
     }
     h2 {
-      font-size: 14px;
+      font-size: 22px;
+      max-width: 230px;
     }
   }
+  .become-partner-subtitle {
+    font-size: 22px;
+    margin-top: 2em;
+  }
+  .become-partner-container {
+    padding: 0 1rem;
+  }
+  .become-partner-why {
+    margin: 2rem 0.5em;
+    grid-template-columns: 1fr;
+    grid-column-gap: 3em;
+    grid-row-gap: 1em;
+  }
+  .become-partner-why-argument {
+    padding: 0;
+  }
+  .become-partner-blue-part {
+    margin: 0 1rem;
+    padding: 2.5em 1em 1.5em 1em;
+  }
+  .become-partner-advantages {
+    grid-template-columns: 1fr;
+    p {
+      font-size: 15px;
+    }
+  }
+  .become-partner-how-to-subscribe {
+    margin-bottom: unset;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    font-size: 15px;
+  }
+
+  .become-partner-form {
+    margin: 1rem 0 1rem 0;
+  }
+
   .become-partner-form-form {
     label {
       margin-top: 5px;
@@ -148,95 +291,200 @@
       font-size: 14px;
     }
   }
+  .become-partner-form-form-part {
+    padding: 0rem 1rem;
+  }
+  .become-partner-thanks {
+    font-size: 15px;
+    margin: 2rem 1rem 0 1rem;
+  }
 }
 
 @media (min-width: 576px) and (max-width: 599px) {
-  .become-partner-form-container {
-    margin-top: -0.2rem;
-    padding: 1rem;
+  .become-partner-banner {
+    background-image: url("https://res.cloudinary.com/jeudemains/image/upload/c_fill/v1603213782/jeu-de-mains-banniere-desktop.png");
+    background-size: 120%;
+    background-position: 30% 80%;
+    padding: 0 1em;
   }
-  #become-partner-back-button {
-    margin-top: 1.3rem;
-    left: 3rem;
-  }
-  .become-partner-form {
-    margin: 3rem 2rem 3rem 2rem;
-  }
-  .become-partner-form-title {
+  .become-partner-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 2em 0 2em;
     h1 {
-      margin-top: 2rem;
-      margin-bottom: 0.6rem;
-      font-size: 33px;
+      font-size: 16px;
+      max-width: 250px;
     }
     h2 {
-      font-size: 15px;
+      font-size: 25px;
+      max-width: 250px;
     }
+  }
+  .become-partner-container {
+    padding: 0 1rem;
+  }
+  .become-partner-why {
+    margin: 2em;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 3em;
+    grid-row-gap: 1em;
+  }
+  .become-partner-blue-part {
+    margin: 0 1rem;
+    padding: 2.5em 1em 1.5em 1em;
+  }
+  .become-partner-advantages {
+    grid-template-columns: 1fr 1fr;
+  }
+  .become-partner-how-to-subscribe {
+    margin-bottom: unset;
+  }
+  .become-partner-form {
+    margin: 1rem 2rem 3rem 2rem;
   }
   .become-partner-form-form {
     label {
       margin-top: 5px;
     }
+  }
+  .become-partner-thanks {
+    font-size: 15px;
+    margin: 2rem 1rem 0 1rem;
   }
 }
 
 @media (min-width: 600px) and (max-width: 767px) {
-  .become-partner-form-container {
-    margin-top: -0.2rem;
-    padding: 1rem;
+  .become-partner-banner {
+    padding: 0 1em;
+    background-size:160%;
+    background-position: 70% 80%;
   }
-  #become-partner-back-button {
-    margin-top: 1.3rem;
-    left: 3rem;
+  .become-partner-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 2em 0 2em;
+    h1 {
+      font-size: 18px;
+      max-width: 320px;
+    }
+    h2 {
+      font-size: 24px;
+      max-width: 320px;
+    }
+  }
+  .become-partner-container {
+    padding: 0 1rem;
+  }
+  .become-partner-why {
+    margin: 2em;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 3em;
+    grid-row-gap: 1em;
+  }
+  .become-partner-advantages {
+    grid-template-columns: 1fr 1fr;
+  }
+  .become-partner-how-to-subscribe {
+    margin-bottom: unset;
   }
   .become-partner-form {
-    margin: 3rem 2rem 3rem 2rem;
-  }
-  .become-partner-form-title {
-    h1 {
-      margin-top: 2rem;
-      font-size: 33px;
-    }
+    margin: 1rem 2rem 3rem 2rem;
   }
   .become-partner-form-form {
     label {
       margin-top: 5px;
     }
+  }
+  .become-partner-thanks {
+    margin: 2rem 2rem 0 2rem;
   }
 }
 
 
 @media (min-width: 768px) and (max-width: 991px)  {
-  .become-partner-form {
-    margin: 4rem 5rem 3rem 5rem;
+  .become-partner-banner {
+    padding: 0 1em;
+    background-size:130%;
+    background-position: 70% 80%;
   }
-  .become-partner-form-title {
-    h1 {
-      font-size: 35px;
+  .become-partner-container {
+    padding: 0 1rem;
+  }
+  .become-partner-subtitle {
+    margin-top: 2.5em;
+  }
+  .become-partner-why {
+    margin: 2em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 3em;
+  }
+  .become-partner-blue-part {
+    margin: 0 1rem;
+    padding: 2.5em 1em 1.5em 1em;
+  }
+  .become-partner-advantages {
+    div {
+      margin: 8px 4px 0 4px;
+      padding: 4px 10px;
+      i {
+        font-size: 40px;
+        margin-bottom: 10px;
+      }
     }
+  }
+  .become-partner-how-to-subscribe {
+    margin-bottom: unset;
+  }
+  .become-partner-form {
+    margin: 0rem 9rem 2rem 9rem;
   }
 }
 
 @media (min-width: 992px) and (max-width: 1099px) {
-  .become-partner-form {
-    margin: 3rem 9rem;
+  .become-partner-subtitle {
+    margin-top: 2.5em;
   }
-  .become-partner-form-title {
-    h1 {
-      font-size: 35px;
+  .become-partner-why {
+    margin: 2em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 3em;
+  }
+  .become-partner-blue-part {
+    margin: 0 1rem;
+    padding: 2.5em 1em 1.5em 1em;
+  }
+  .become-partner-advantages {
+    div {
+      margin: 8px 4px 0 4px;
+      padding: 4px 10px;
+      i {
+        font-size: 40px;
+        margin-bottom: 10px;
+      }
     }
+  }
+  .become-partner-how-to-subscribe {
+    margin-bottom: unset;
+  }
+  .become-partner-form {
+    margin: 0rem 9rem 2rem 9rem;
   }
 }
 
 @media (min-width: 1100px) and (max-width: 1249px) {
   .become-partner-form {
-    margin: 3rem 12rem;
+    margin: 1rem 9rem 2rem 9rem;
   }
 }
 
 
 @media (min-width: 1250px) {
   .become-partner-form {
-    margin: 5rem 15rem 3rem 15rem;
+    margin: 2rem 15rem 3rem 15rem;
   }
 }
 

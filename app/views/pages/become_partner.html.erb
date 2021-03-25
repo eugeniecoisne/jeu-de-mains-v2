@@ -1,20 +1,94 @@
 <% content_for :meta_title, "Jeu de Mains | Devenir Partenaire" %>
+<% content_for :meta_description, "Vous organisez des ateliers DIY? Augmentez votre visibilité, gérez vos ateliers en toute sérénité et rencontrez les partenaires de la communauté!" %>
+
+<div class="become-partner-banner">
+  <div class="become-partner-title">
+    <h1>Vous organisez des ateliers créatifs en présentiel ou en visio ?</h1>
+    <h2>Ensemble, faisons briller le Do It Yourself !</h2>
+  </div>
+</div>
+
+<div class='become-partner-container'>
+
+  <h3 class="become-partner-subtitle">Jeu de Mains vous propose</h3>
+
+  <div class="become-partner-why">
+    <div class="become-partner-why-argument">
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1616613049/jeu-de-mains-gain-temps.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "jeu-de-mains-gain-de-temps", :title => "jeu-de-mains-gain-de-temps") %>
+      <h4>De gagner <br>un temps précieux</h4>
+      <p>avec une plateforme qui simplifie la gestion de vos ateliers et gère les flux de paiements sécurisés des réservations</p>
+    </div>
+    <div class="become-partner-why-argument">
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1616613625/jeu-de-mains-visibilite.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "jeu-de-mains-visibilite", :title => "jeu-de-mains-visibilite") %>
+      <h4>D'élargir <br>votre clientèle</h4>
+      <p>grâce à la mise en lumière de vos ateliers et une page vitrine rassemblant vos informations et ateliers</p>
+    </div>
+    <div class="become-partner-why-argument">
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1616613049/jeu-de-mains-annuaire-partenaires.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "jeu-de-mains-annuaire-partenaires", :title => "jeu-de-mains-annuaire-partenaires") %>
+      <h4>D'échanger avec <br>une communauté</h4>
+      <p>de passionnés de Do It Yourself grâce à l'annuaire et la messagerie des partenaires</p>
+    </div>
+    <div class="become-partner-why-argument">
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1616613049/jeu-de-mains-support.svg", :loading => "lazy", :width => 200, :crop => :fill, :alt => "jeu-de-mains-support-assistance", :title => "jeu-de-mains-support-assistance") %>
+      <h4>Un service <br>d'assistance</h4>
+      <p>et d'accompagnement pour assurer le succès de vos ateliers sur Jeu de Mains</p>
+    </div>
+  </div>
+
+  <div class="become-partner-blue-part">
+    <h3 class="become-partner-subtitle">Une offre sans contrainte</h3>
+    <div class="become-partner-intro">
+      <p>Jeu de mains est une plateforme française de réservation d’ateliers créatifs Do It Yourself. <br>
+      Notre mission est de vous décharger des contraintes en e-commerce, outil de gestion et communication transactionnelle afin de vous dédier pleinement à l'essentiel de votre activité !<br>
+    Opter pour Jeu de Mains c'est :</p>
+    </div>
+    <div class="become-partner-advantages">
+      <div>
+        <i class="far fa-clock"></i>
+        <p><strong>sans engagement</strong><br>de durée</p>
+      </div>
+      <div>
+        <i class="far fa-chart-bar"></i>
+        <p><strong>sans engagement</strong><br>d'objectif de ventes</p>
+      </div>
+      <div>
+        <i class="fas fa-coins"></i>
+        <p><strong>sans frais d'abonnement</strong><br>ou de mise en ligne</p>
+      </div>
+      <div>
+        <i class="fas fa-percentage"></i>
+        <p><strong>une commission de 20%</strong><br>déduite de la réservation</p>
+      </div>
+    </div>
+  </div>
+
+
+
+  <h3 class="become-partner-subtitle">Pour nous rejoindre, rien de plus simple !</h3>
+  <ol class="become-partner-how-to-subscribe">
+    <li>Remplissez le formulaire ci-dessous</li>
+    <li>Nous traitons votre demande sous 48 heures (jours ouvrés)</li>
+    <li>Nous procédons à un échange e-mail pour finaliser votre inscription</li>
+    <li>Votre profil <em>Partenaire</em> est créé, vous pouvez accéder à tous nos services !</li>
+  </ol>
+
+  <div class="become-partner-contact-us">
+    <h3 class="become-partner-subtitle">Une question ?</h3>
+    <%= link_to "On vous écoute", nous_contacter_path %>
+  </div>
+</div>
+
 
 <div class="become-partner-form-container">
 
   <div class="become-partner-form">
-    <div class="become-partner-form-title">
-      <h1>Devenez partenaire</h1>
-      <h2>Augmentez votre visibilité, gérez vos ateliers en toute sérénité, gagnez du temps pour vous concentrer sur votre activité principale et rencontrez les partenaires de la communauté Jeu de Mains ! <br><br>
-      Vous êtes prêt ? Remplissez les champs du formulaire ci-dessous, nous traiterons ensuite ces informations afin de vous créer votre profil partenaire et reviendrons vers vous pour finaliser votre inscription sur notre plateforme !</h2>
-    </div>
       <div class="become-partner-form-form">
         <%= simple_form_for :partner, url: bienvenue_partenaire_path, method: :get do |f| %>
 
 
           <div class="become-partner-form-form-part">
             <% if params[:partner].present? %>
-              <h3>Votre entreprise</h3>
+              <h3 class="become-partner-subtitle">Votre entreprise</h3>
               <label>Nom et SIRET</label>
               <div class="become-partner-form-two-fields">
                 <% if params[:partner][:company].present?  %>
@@ -84,7 +158,7 @@
 
             <% else %>
 
-              <h3>Votre entreprise</h3>
+              <h3 class="become-partner-subtitle">Votre entreprise</h3>
               <label>Nom et SIRET</label>
               <div class="become-partner-form-two-fields">
                 <%= f.input :company, required: true, label: false, placeholder: "Nom société*", input_html: { id: "partner_company_3" } %>
@@ -118,7 +192,7 @@
 
           <div class="become-partner-form-form-part">
             <% if params[:partner].present? %>
-              <h3>Vos informations</h3>
+              <h3 class="become-partner-subtitle">Vos informations</h3>
               <label>Nom, Prénom et Fonction</label>
               <div class="become-partner-form-two-fields">
                <% if params[:partner][:last_name].present?  %>
@@ -152,7 +226,7 @@
               </div>
 
             <% else %>
-              <h3>Vos informations</h3>
+              <h3 class="become-partner-subtitle">Vos informations</h3>
               <label>Nom, Prénom et Fonction</label>
               <div class="become-partner-form-two-fields">
                 <%= f.input :last_name, required: true, label: false, placeholder: "Votre nom*", input_html: { id: "partner_last_name_3" } %>
@@ -177,3 +251,4 @@
   </div>
 
 </div>
+
