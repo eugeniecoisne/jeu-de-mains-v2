@@ -8,6 +8,10 @@
       <% end %>
     <% end %>
 
+    <% if @workshop.status != "en ligne" && (@workshop.place.user == current_user || (@workshop.animators.where(db_status: true).last.user == current_user if @workshop.animators.where(db_status: true).present?)) %>
+        <div class="ws-show-offline-warning"><i class="fas fa-exclamation-circle mr-1"></i> Votre atelier n'est pas encore en ligne,<br>ceci est une prévisualisation.</div>
+    <% end %>
+
     <!-- WORKSHOP SHOW -->
 
     <div class="container-ws-show">
@@ -61,29 +65,23 @@
 
 
     <!-- LEFT SIDE -->
-<!--
-    <% if current_user && current_user == @workshop.place.user && @workshop.status != "en ligne" %>
-      <div id="myModal" class="modal fade">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-body">
-              Cette fiche atelier n'est pas encore en ligne
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %> -->
+
 
     <div class="container-ws-show-infos" id="hideShowInformation">
 
       <!-- BACK BUTTON -->
 
-      <div class="back-button" id="ws-show-back-button">
-        <%= link_to :back do %>
-          <i class="fas fa-chevron-left"></i>
-          <span>Retour</span>
-        <% end %>
-      </div>
+      <% if @workshop.status == "en ligne" %>
+
+        <div class="back-button" id="ws-show-back-button">
+          <%= link_to :back do %>
+            <i class="fas fa-chevron-left"></i>
+            <span>Retour</span>
+          <% end %>
+        </div>
+
+      <% end %>
+
       <% if current_user && current_user.admin && @workshop.status == "vérification" %>
         <div class="ws-verification-box">
           <p>Vérification de l'atelier par Jeu de Mains</p>
@@ -434,4 +432,5 @@
     </div>
 
 <% end %>
+
 

@@ -9,14 +9,15 @@
       </p>
     </div>
     <div class="footer-column footer-first-list">
-      <%= link_to "À propos", a_propos_path %>
-      <%= link_to "Devenir partenaire", devenir_partenaire_path %>
-      <%= link_to "Carte cadeau", offrir_une_carte_cadeau_path  %>
-      <%= link_to "Nous contacter", nous_contacter_path %>
-      <%= link_to "CGV", cgv_path %>
-      <%= link_to "Classement des annonces", classement_des_annonces_path %>
-      <%= link_to "Mentions légales", mentions_legales_path %>
-      <%= link_to "Confidentialité", politique_de_confidentialite_path %>
+      <%= link_to "À propos", a_propos_path, data: { turbolinks: false } %>
+      <%= link_to "Devenir partenaire", devenir_partenaire_path, data: { turbolinks: false } %>
+      <%= link_to "Offre entreprises", entreprises_path, data: { turbolinks: false } %>
+      <%= link_to "Carte cadeau", offrir_une_carte_cadeau_path, data: { turbolinks: false } %>
+      <%= link_to "Nous contacter", nous_contacter_path, data: { turbolinks: false } %>
+      <%= link_to "CGV", cgv_path, data: { turbolinks: false } %>
+      <%= link_to "Classement des annonces", classement_des_annonces_path, data: { turbolinks: false } %>
+      <%= link_to "Mentions légales", mentions_legales_path, data: { turbolinks: false } %>
+      <%= link_to "Confidentialité", politique_de_confidentialite_path, data: { turbolinks: false } %>
     </div>
     <div class="footer-column footer-second-list">
       <div class="footer-social-networks">

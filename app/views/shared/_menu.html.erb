@@ -35,7 +35,7 @@
           <div class="list-item-menu">
             <%= link_to workshops_path, data: { turbolinks: false }, class: "menu-blue-link" do %>
               <i class="far fa-eye menu-icon menu-blue-icon mr-1"></i>
-              Voir tous les ateliers
+              Tous les ateliers
             <% end %>
           </div>
         </li>
@@ -58,6 +58,14 @@
             </div>
           </li>
         <% end %>
+        <li class="list-group-item">
+          <div class="list-item-menu">
+            <%= link_to entreprises_path, class: "menu-blue-link" do %>
+              <i class="fas fa-building menu-icon menu-blue-icon mr-2"></i>
+              Entreprises
+            <% end %>
+          </div>
+        </li>
         <% if current_user.profile.role.present? || current_user.admin == true %>
           <li class="list-group-item">
             <div class="list-item-menu">
@@ -136,7 +144,7 @@
           <div class="list-item-menu">
             <%= link_to workshops_path, class: "menu-blue-link" do %>
               <i class="far fa-eye menu-icon menu-blue-icon mr-1"></i>
-              Voir tous les ateliers
+              Tous les ateliers
             <% end %>
           </div>
         </li>
@@ -145,6 +153,14 @@
             <%= link_to devenir_partenaire_path, class: "menu-blue-link" do %>
               <i class="fas fa-user-shield menu-icon menu-blue-icon mr-1"></i>
               Devenir partenaire
+            <% end %>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="list-item-menu">
+            <%= link_to entreprises_path, class: "menu-blue-link" do %>
+              <i class="fas fa-building menu-icon menu-blue-icon mr-2"></i>
+              Entreprises
             <% end %>
           </div>
         </li>
