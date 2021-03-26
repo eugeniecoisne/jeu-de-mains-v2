@@ -7,13 +7,15 @@
 
   <div class="navbar-buttons navbar-buttons-other">
     <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <%= link_to "Tous les ateliers", workshops_path, data: { turbolinks: false }, class: "nav-link nav-link-text", id: "all-workshops" %>
+      </li>
       <li class="nav-item active">
         <%= link_to "Devenir partenaire", devenir_partenaire_path, class: "nav-link nav-link-text", id: "become-partner" %>
       </li>
       <li class="nav-item">
-        <%= link_to "Tous les ateliers", workshops_path, data: { turbolinks: false }, class: "nav-link nav-link-text", id: "all-workshops" %>
+        <%= link_to "Entreprises", entreprises_path, data: { turbolinks: false }, class: "nav-link nav-link-text", id: "entreprises" %>
       </li>
-
       <li class="nav-item">
         <%= link_to "#", class: "nav-link", id: "menuButton" do %>
           <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593190527/jeu-de-mains-menu-blanc.svg", :loading => "lazy", :width => 50, :crop => :fill, :alt => "jeu-de-mains-menu", :title => "jeu-de-mains-menu") %>

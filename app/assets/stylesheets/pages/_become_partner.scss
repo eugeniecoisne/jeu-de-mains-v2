@@ -114,6 +114,14 @@
   }
 }
 
+.become-partner-mention {
+  font-size: 14px;
+  font-weight: 500;
+  color: $light-blue;
+  text-align: center;
+  margin: 1rem 5rem 0 5rem;
+}
+
 .become-partner-how-to-subscribe {
   display: flex;
   flex-direction: column;
@@ -272,6 +280,10 @@
       font-size: 15px;
     }
   }
+  .become-partner-mention {
+    font-size: 13px;
+    margin: 1rem 1.5rem 0 1.5rem;
+  }
   .become-partner-how-to-subscribe {
     margin-bottom: unset;
     margin-right: 0.5rem;
@@ -337,6 +349,10 @@
   .become-partner-advantages {
     grid-template-columns: 1fr 1fr;
   }
+  .become-partner-mention {
+    font-size: 13px;
+    margin: 1rem 1.5rem 0 1.5rem;
+  }
   .become-partner-how-to-subscribe {
     margin-bottom: unset;
   }
@@ -382,6 +398,9 @@
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 3em;
     grid-row-gap: 1em;
+  }
+  .become-partner-blue-part {
+    padding: 2.5em 2em 1.5em 2em;
   }
   .become-partner-advantages {
     grid-template-columns: 1fr 1fr;
