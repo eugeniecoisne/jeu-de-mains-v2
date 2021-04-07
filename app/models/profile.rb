@@ -28,11 +28,11 @@ class Profile < ApplicationRecord
     big_cities_to_show = big_cities_to_show.uniq.sort
 
     if big_cities_to_show.count > 0 && districts_to_show.count > 0
-      big_cities_to_show.concat(districts_to_show)
+      ["Grandes villes"].concat(big_cities_to_show).concat(["Départements"]).concat(districts_to_show)
     elsif districts_to_show.count > 0
-      districts_to_show
+      ["Départements"].concat(districts_to_show)
     else
-      big_cities_to_show
+      ["Grandes villes"].concat(big_cities_to_show)
     end
   end
 

@@ -33,11 +33,11 @@ class WorkshopsController < ApplicationController
         long_zone = (params[:search][:minlongitude].to_f..params[:search][:maxlongitude].to_f)
 
         @workshops = @workshops.select do |w|
-          long_zone.include?(w.place.longitude) && lat_zone.include?(w.place.latitude)
+          (long_zone.include?(w.place.longitude) && lat_zone.include?(w.place.latitude)) || w.visio == true
         end
         @workshops.paginate(page: params[:page], per_page: 20)
       elsif params[:search][:place].present?
-        @workshops = @workshops.select { |workshop| workshop.place.district == params[:search][:place] || workshop.place.big_city == params[:search][:place] }.paginate(page: params[:page], per_page: 20)
+        @workshops = @workshops.select { |workshop| workshop.place.district == params[:search][:place] || workshop.place.big_city == params[:search][:place] || workshop.visio == true }.paginate(page: params[:page], per_page: 20)
       end
 
       if params[:search][:min_price].present? && params[:search][:max_price].present?

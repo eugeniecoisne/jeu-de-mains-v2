@@ -61,10 +61,11 @@
       <div class="sign-empty-div">
       </div>
     <% end %>
-
-    <div class='sign-links'>
-      <p><%= t(".unhappy") %> <strong><%= link_to t(".cancel_my_account"), registration_path(resource_name), data: { confirm: t(".are_you_sure") }, method: :delete %></strong></p>
-    </div>
+    <% unless current_user && current_user.profile.role.present? %>
+      <div class='sign-links'>
+        <p><%= t(".unhappy") %> <strong><%= link_to t(".cancel_my_account"), registration_path(resource_name), data: { confirm: t(".are_you_sure") }, method: :delete %></strong></p>
+      </div>
+    <% end %>
   </div>
 
   <div class="sign-picture">
