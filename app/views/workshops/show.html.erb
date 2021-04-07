@@ -243,10 +243,11 @@
 
           <div class="ws-show-informations-kit">
             <h2>Contenu du kit expédié</h2>
+            <p>Vous recevrez votre kit à l'adresse postale que vous aurez indiquée au plus tard la veille de l'atelier avec le matériel nécessaire.
             <% if @workshop.kit_description.present? %>
-              <p><%= @workshop.kit_description %></p>
+              <%= @workshop.kit_description %></p>
             <% else %>
-              <p>Vous recevrez un kit en amont de l'atelier avec le matériel nécessaire. Le contenu de ce kit n'a pas été renseigné par l'organisateur.</p>
+              Le contenu de ce kit n'a pas été renseigné par l'organisateur.</p>
             <% end %>
           </div>
 

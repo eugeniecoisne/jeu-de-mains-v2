@@ -19,12 +19,12 @@
             <%= f.input :company, required: false, label: false, collection: ["Tous les partenaires"].concat(Profile.companies.sort), selected: params[:search][:company] %>
             <%= f.input :role, required: false, label: false, collection: ["Tous profils"].concat(Profile.roles), selected: params[:search][:role] %>
             <%= f.input :keyword, required: false, label: false, collection: ["Toutes thématiques"].concat(Profile.thematics.sort), selected: params[:search][:keyword] %>
-            <%= f.input :place, required: false, label: false, collection: ["Toutes les villes"].concat(Profile.cities_and_districts), selected: params[:search][:place] %>
+            <%= f.input :place, required: false, label: false, collection: ["Toutes les villes"].concat(Profile.cities_and_districts), disabled: ["Grandes villes", "Départements"], selected: params[:search][:place] %>
         <% else %>
             <%= f.input :company, required: false, label: false, prompt: "Tous les Partenaires", collection: Profile.companies.sort %>
             <%= f.input :role, required: false, label: false, prompt: "Tous profils", collection: Profile.roles.sort %>
             <%= f.input :keyword, required: false, label: false, prompt: "Toutes thématiques", collection: Profile.thematics.sort %>
-            <%= f.input :place, required: false, label: false, prompt: "Toutes les villes", collection: Profile.cities_and_districts %>
+            <%= f.input :place, required: false, label: false, prompt: "Toutes les villes", collection: Profile.cities_and_districts, disabled: ["Grandes villes", "Départements"] %>
         <% end %>
         <div class="place-animator-index-search-buttons">
           <%= f.submit 'Rechercher', class: "submit-btn", id: "submit-desktop" %>
