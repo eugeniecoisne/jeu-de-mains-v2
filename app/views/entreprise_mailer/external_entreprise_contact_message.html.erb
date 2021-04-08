@@ -1,0 +1,51 @@
+<style type="text/css">
+  .mailer-footer {
+    display: none;
+  }
+</style>
+
+<p>Bonjour,</p>
+
+<p>
+  Nous vous remercions pour votre demande de devis pour des ateliers en entreprise.<br>
+  Nous vous contacterons dans les meilleurs délais par e-mail ou téléphone pour étudier votre demande et vos attentes.<br>
+</p>
+
+<p>Veuillez trouver ci-dessous le récapitulatif de votre demande :</p>
+
+<% if @entreprise[:company].present? %>
+  <p><strong>Entreprise :</strong> <%= @entreprise[:company] %></p>
+<% end %>
+<% if @entreprise[:phone_number].present? %>
+  <p><strong>Téléphone :</strong> <%= @entreprise[:phone_number] %></p>
+<% end %>
+<% if @entreprise[:date].present? %>
+  <p><strong>Date de l'événement / team building :</strong> <%= @entreprise[:date] %></p>
+<% end %>
+<% if @entreprise[:participants].present? %>
+  <p><strong>Nombre de participants :</strong> <%= @entreprise[:participants] %></p>
+<% end %>
+<% if @entreprise[:type].present? %>
+  <p><strong>Présentiel ou à distance :</strong> <%= @entreprise[:type] %></p>
+<% end %>
+<% if @entreprise[:thematics].present? %>
+  <p><strong>Thématiques envisagées :</strong>
+    <% @entreprise[:thematics].each do |t| %>
+      <%= "#{t}, " %>
+    <% end %>
+  </p>
+<% end %>
+<% if @entreprise[:message].present? %>
+  <p><strong>Complément d'informations :</strong> <%= @entreprise[:message] %></p>
+<% end %>
+
+<p>
+  Belle journée,<br>
+  Le service relations entreprises de Jeu de Mains.<br>
+  <%= link_to "https://jeudemains.com", root_url, target: "_blank" %>
+</p>
+
+<img alt="jeu de mains" src="https://res.cloudinary.com/jeudemains/image/upload/v1602490393/logo-bleu-fonce-jeu-de-mains.png" style="height: auto; width: 100%; max-width: 120px;" title="jeu de mains" width="120"/>
+
+
+

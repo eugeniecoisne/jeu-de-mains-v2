@@ -1,5 +1,4 @@
 class ContactMailer < ApplicationMailer
-  layout 'mailer_blank'
 
   def internal_send_contact_message
 

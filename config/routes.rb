@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'devenir-partenaire', to: 'pages#become_partner'
   get 'bienvenue-partenaire', to: 'pages#welcome_partner'
   get 'entreprises', to: "pages#entreprises"
+  get 'entreprises-message-envoye', to: 'pages#entreprises_sent'
   get 'a-propos', to: 'pages#about'
   get 'classement-des-annonces', to: 'pages#ranking'
   get 'nous-contacter', to: 'pages#contact'
