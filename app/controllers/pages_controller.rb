@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i(home offer_giftcard register_giftcard become_partner welcome_partner entreprises about ranking contact contact_us_sent legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijoux papier_et_calligraphie ceramique_et_modelage meuble_et_decoration peinture_et_dessin travail_du_cuir)
+  skip_before_action :authenticate_user!, only: %i(home offer_giftcard register_giftcard become_partner welcome_partner entreprises entreprises_sent about ranking contact contact_us_sent legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijoux papier_et_calligraphie ceramique_et_modelage meuble_et_decoration peinture_et_dessin travail_du_cuir)
 
   def home
     dates = (Date.today..Date.today + 1.year).to_a
@@ -163,11 +163,35 @@ class PagesController < ApplicationController
   def entreprises
   end
 
+  def entreprises_sent
+    if params[:entreprise].present? && params[:entreprise][:email].present? && params[:entreprise][:email].match(/^\S+@\S+\.\S+$/) != nil
+
+      @entreprise_contact = {
+        email: params[:entreprise][:email],
+        participants: params[:entreprise][:participants],
+        date: params[:entreprise][:date],
+        type: params[:entreprise][:type],
+        thematics: params[:entreprise][:thematics],
+        company: params[:entreprise][:company],
+        phone_number: params[:entreprise][:phone_number],
+        message: params[:entreprise][:message]
+      }
+      internal_email_entreprise = EntrepriseMailer.with(entreprise: @entreprise_contact).internal_entreprise_contact_message
+      internal_email_entreprise.deliver_later
+      external_email_entreprise = EntrepriseMailer.with(entreprise: @entreprise_contact).external_entreprise_contact_message
+      external_email_entreprise.deliver_later
+    else
+      flash[:alert] = "Oups, le formulaire est incomplet ou votre e-mail est incorrect"
+      render 'entreprises'
+    end
+
+  end
+
   def contact
   end
 
   def contact_us_sent
-    if params[:contact_us].present? && params[:contact_us][:email].present? && params[:contact_us][:email].match(/^\S+@\S+\.\S+$/) != nil && params[:contact_us][:message].present? &&
+    if params[:contact_us].present? && params[:contact_us][:email].present? && params[:contact_us][:email].match(/^\S+@\S+\.\S+$/) != nil && params[:contact_us][:message].present?
 
       @contact = {
         email: params[:contact_us][:email],

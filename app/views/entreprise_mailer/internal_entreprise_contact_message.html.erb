@@ -1,0 +1,39 @@
+<style type="text/css">
+  .mailer-footer {
+    display: none;
+  }
+</style>
+
+<p><strong>Demande de devis offre entreprise</strong></p>
+<br>
+<% if @entreprise[:company].present? %>
+  <p><strong>Entreprise :</strong> <%= @entreprise[:company] %></p>
+<% end %>
+<% if @entreprise[:email].present? %>
+  <p><strong>Email :</strong> <%= @entreprise[:email] %></p>
+<% end %>
+<% if @entreprise[:phone_number].present? %>
+  <p><strong>Téléphone :</strong> <%= @entreprise[:phone_number] %></p>
+<% end %>
+<% if @entreprise[:date].present? %>
+  <p><strong>Date de l'événement / team building :</strong> <%= @entreprise[:date] %></p>
+<% end %>
+<% if @entreprise[:participants].present? %>
+  <p><strong>Nombre de participants :</strong> <%= @entreprise[:participants] %></p>
+<% end %>
+<% if @entreprise[:type].present? %>
+  <p><strong>Présentiel ou à distance :</strong> <%= @entreprise[:type] %></p>
+<% end %>
+<% if @entreprise[:thematics].present? %>
+  <p><strong>Thématiques envisagées :</strong>
+    <% @entreprise[:thematics].each do |t| %>
+      <%= "#{t}, " %>
+    <% end %>
+  </p>
+<% end %>
+<% if @entreprise[:message].present? %>
+  <p><strong>Complément d'informations :</strong> <%= @entreprise[:message] %></p>
+<% end %>
+
+
+

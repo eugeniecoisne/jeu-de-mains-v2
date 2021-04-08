@@ -1,3 +1,99 @@
 <% content_for :meta_title, "Jeu de Mains | Entreprises" %>
+<% content_for :meta_description, "Vous souhaitez gâter vos équipes et encourager leur cohésion avec un atelier créatif team building? Découvrez les ateliers créatifs Jeu de Mains pour les entreprises." %>
 
-<h2>Entreprises</h2>
+
+<div class="entreprises-banner">
+  <div class="entreprises-title">
+    <h1>Jeu de Mains pour les entreprises</h1>
+    <h2>Quand le Do it Yourself devient le Do it Together !</h2>
+  </div>
+</div>
+
+<div class='entreprises-container'>
+  <h3 class="entreprises-subtitle">
+    Le <strong>« faire ensemble »</strong> est un excellent moyen d’encourager la <strong>cohésion d’équipe</strong>, le partage et la convivialité pour faire grandir l’engagement de tous !
+    Vous souhaitez gâter vos équipes, organiser un <strong>atelier team building</strong>, refaire la décoration de vos locaux avec des créations faites par vos collaborateurs ? <br><br>
+    Jeu de Mains a forcément l’offre qu’il vous faut, remplissez les quelques champs ci-dessous et nous vous recontacterons très vite :
+  </h3>
+  <div class="entreprises-form">
+    <%= simple_form_for :entreprise, url: entreprises_message_envoye_path, method: :get do |f| %>
+
+      <div class="entreprises-form-two-fields">
+       <!-- Nombre de participants -->
+        <% if params[:entreprise].present? && params[:entreprise][:participants].present? %>
+          <%= f.input :participants, as: :integer, required: true, label: false, placeholder: "Nombre de participants*", input_html: { value: params[:entreprise][:participants], id: "entreprise_participants_1" } %>
+        <% else %>
+          <%= f.input :participants, as: :integer, required: true, label: false, placeholder: "Nombre de participants*", input_html: { id: "entreprise_participants_2" } %>
+        <% end %>
+
+       <!-- Date -->
+        <% if params[:entreprise].present? && params[:entreprise][:date].present? %>
+          <%= f.input :date, as: :string, required: false, input_html: {class: "datepicker datepicker_date", id:"entreprise_date_1"}, value: Date.strptime(params[:entreprise][:date], '%Y-%m-%d'), placeholder: "Quand ?", label: false %>
+        <% else %>
+          <%= f.input :date, as: :string, required: false, input_html: {class: "datepicker datepicker_date", id:"entreprise_date_2"}, placeholder: "Date envisagée (optionnel)", label: false %>
+        <% end %>
+      </div>
+
+      <div class="entreprises-form-two-fields">
+
+        <!-- Présentiel ou à distance -->
+        <% if params[:entreprise].present? && params[:entreprise][:type].present? %>
+          <%= f.input :type, required: true, collection: ["En présentiel", "En visioconférence"], label: false, selected: params[:entreprise][:type], input_html: { id: "entreprise_type_1" } %>
+        <% else %>
+          <%= f.input :type, required: true, collection: ["En présentiel", "En visioconférence"], label: false, prompt: "En présentiel ?*", input_html: { id: "entreprise_type_2" } %>
+        <% end %>
+
+       <!-- Nom de votre entreprise -->
+        <% if params[:entreprise].present? && params[:entreprise][:company].present? %>
+          <%= f.input :company, required: true, label: false, placeholder: "Entreprise*", input_html: { value: params[:entreprise][:company], id: "entreprise_company_1" } %>
+        <% else %>
+          <%= f.input :company, required: true, label: false, placeholder: "Entreprise*", input_html: { id: "entreprise_company_2" } %>
+        <% end %>
+      </div>
+
+      <div class="entreprises-form-two-fields mb-2">
+
+        <!-- Email de contact -->
+        <% if params[:entreprise].present? && params[:entreprise][:email].present? %>
+          <%= f.input :email, required: true, label: false, placeholder: "E-mail*", input_html: { value: params[:entreprise][:email], id: "entreprise_email_1" } %>
+        <% else %>
+          <%= f.input :email, required: true, label: false, placeholder: "E-mail*", input_html: { id: "entreprise_email_2" } %>
+        <% end %>
+
+        <!-- N° de téléphone -->
+        <% if params[:entreprise].present? && params[:entreprise][:phone_number].present? %>
+          <%= f.input :phone_number, required: true, label: false, placeholder: "Téléphone*", input_html: { value: params[:entreprise][:phone_number], id: "entreprise_phone_number_1" } %>
+        <% else %>
+          <%= f.input :phone_number, required: true, label: false, placeholder: "Téléphone*", input_html: { id: "entreprise_phone_number_2" } %>
+        <% end %>
+
+      </div>
+
+    <!-- Thématiques -->
+      <span class="entreprise-thematics-title">Thématique(s) envisagée(s)</span>
+
+      <% if params[:entreprise].present? && params[:entreprise][:thematics].present? %>
+        <%= f.input :thematics, as: :check_boxes, required: false, label: false, collection: Workshop::THEMATICS, input_html: { value: params[:entreprise][:date], id: "entreprise_date_1", multiple: true} %>
+      <% else %>
+        <%= f.input :thematics, as: :check_boxes, required: false, label: false, collection: Workshop::THEMATICS, input_html: { id: "entreprise_date_2", multiple: true} %>
+      <% end %>
+
+      <!-- Message -->
+      <% if params[:entreprise].present? && params[:entreprise][:message].present? %>
+        <%= f.input :message, as: :text, required: false, label: false, placeholder: "Plus d'infos sur votre demande (optionnel)", input_html: { value: params[:entreprise][:message], id: "entreprise_message_1", rows: 5 } %>
+      <% else %>
+        <%= f.input :message, as: :text, required: false, label: false, placeholder: "Plus d'infos sur votre demande (optionnel)", input_html: { id: "entreprise_message_2", rows: 5 } %>
+      <% end %>
+
+      <p class="entreprises-data-privacy">En validant ce formulaire vous donnez votre accord à Jeu de Mains pour conserver les données renseignées le temps de répondre à votre demande. Pour plus d'informations sur le traitement de vos données : <%= link_to "politique de confidentialité", politique_de_confidentialite_path, target: '_blank' %>.</p>
+
+      <div class="d-flex mt-2">
+        <%= f.submit "Envoyer", class: "btn"%>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+
+
+
