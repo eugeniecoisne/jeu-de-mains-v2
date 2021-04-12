@@ -4,6 +4,8 @@ class ProfilesController < ApplicationController
   before_action :set_profile_and_verify, only: %i(show tableau_de_bord transactions)
 
   def index
+    @profile = current_user.profile
+    authorize @profile
     @chatroom = Chatroom.new
     @profiles = policy_scope(Profile).where(db_status: true, ready: true).select { |profile| profile.role.present? }
     if params[:search].present?
@@ -250,7 +252,7 @@ class ProfilesController < ApplicationController
 
 
   def set_profile_and_verify
-    if Profile.friendly.find(params[:id]).db_status == true
+    if Profile.friendly.find(params[:id])
       @profile = Profile.friendly.find(params[:id])
       if @profile.user == current_user || current_user.admin == true
         authorize @profile

@@ -8,7 +8,7 @@
       <% end %>
     <% end %>
 
-    <% if @workshop.status != "en ligne" && (@workshop.place.user == current_user || (@workshop.animators.where(db_status: true).last.user == current_user if @workshop.animators.where(db_status: true).present?)) %>
+    <% if (@workshop.status != "en ligne" && (@workshop.place.user == current_user || (@workshop.animators.where(db_status: true).last.user == current_user if @workshop.animators.where(db_status: true).present?))) || (@workshop.status == "en ligne" && @workshop.place.user.profile.db_status == false) %>
         <div class="ws-show-offline-warning"><i class="fas fa-exclamation-circle mr-1"></i> Votre atelier n'est pas encore en ligne,<br>ceci est une prévisualisation.</div>
     <% end %>
 
@@ -71,7 +71,7 @@
 
       <!-- BACK BUTTON -->
 
-      <% if @workshop.status == "en ligne" %>
+      <% if @workshop.status == "en ligne" && @workshop.place.user.profile.db_status == true %>
 
         <div class="back-button" id="ws-show-back-button">
           <%= link_to :back do %>

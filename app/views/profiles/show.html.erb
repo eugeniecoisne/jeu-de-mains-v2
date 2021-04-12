@@ -31,7 +31,7 @@
               Mes informations
             <% end %>
           </a>
-          <% if @profile.company %>
+          <% if @profile.company && @profile.db_status == true %>
             <a class="nav-link" id="v-pills-my-company-tab" data-toggle="pill" href="#v-pills-company" role="tab" aria-controls="v-pills-company" aria-selected="false">
               <i class="fas fa-building"></i>
               Fiche partenaire
@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <% if @profile.company %>
+      <% if @profile.company && @profile.db_status == true  %>
 
         <div class="dashboard-nav-mobile">
           <div class="nav nav-pills" id="pills-tab" role="tablist">

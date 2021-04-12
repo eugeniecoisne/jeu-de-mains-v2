@@ -1,6 +1,6 @@
 .profile-chat-container {
   min-height: 520px;
-  margin: 0 8em;
+  margin: 0 8em 2em 8em;
 }
 
 .profile-chat-description {
@@ -86,7 +86,7 @@
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
   .profile-chat-container {
-    margin: 0;
+    margin: 0 0 2em 0;
   }
   .profile-chat-name-and-topic {
     margin-left: 0.6em;
@@ -122,7 +122,7 @@
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
   .profile-chat-container {
-    margin: 0 2em;
+    margin: 0 2em 2em 2em;
   }
   .profile-chat-name-and-topic {
     h4 {
@@ -149,21 +149,21 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
   .profile-chat-container {
-    margin: 0 4em;
+    margin: 0 4em 2em 4em;
   }
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199px)  {
   .profile-chat-container {
-    margin: 0 8em;
+    margin: 0 8em 2em 8em;
   }
 }
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
   .profile-chat-container {
-    margin: 0 12em;
+    margin: 0 12em 2em 12em;
   }
 }
 

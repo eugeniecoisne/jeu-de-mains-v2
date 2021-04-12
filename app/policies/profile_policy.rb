@@ -1,7 +1,7 @@
 class ProfilePolicy < ApplicationPolicy
 
   def index?
-    user.profile.role.present? || user.admin?
+    (user.profile.role.present? && user.profile.db_status == true) || user.admin?
   end
 
   def show?
