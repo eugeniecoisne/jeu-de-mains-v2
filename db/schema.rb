@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_03_102237) do
+ActiveRecord::Schema.define(version: 2021_04_12_165132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -202,6 +202,7 @@ ActiveRecord::Schema.define(version: 2021_03_03_102237) do
     t.string "accountant_city"
     t.string "accountant_phone_number"
     t.float "fee", default: 0.2
+    t.text "legal_mention"
     t.index ["slug"], name: "index_profiles_on_slug", unique: true
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end

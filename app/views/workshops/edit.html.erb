@@ -30,7 +30,7 @@
         <%= f.input :photos, as: :file, input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" }, label: "Photos de l'atelier" %>
         <p id="bytesSize"></p>
 
-        <p>Voici les photos actuelles de l'atelier, si vous souhaitez en ajouter/remplacer, chargez l'ensemble des photos souhaitées, vos photos actuelles ne seront pas sauvegardées.</p>
+        <p>Voici les photos actuelles de l'atelier, si vous souhaitez en ajouter/remplacer, chargez l'ensemble des photos souhaitées dans l'ordre désiré avec la première photo représentative de l'atelier, vos photos actuelles ne seront pas sauvegardées.</p>
           <div class="edit-ws-photos d-flex mb-4">
             <% @workshop.photos.each do |photo| %>
                 <%= cl_image_tag photo.key, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}", loading: "lazy", width: 80, crop: :fill, class: "mr-1"  %>
@@ -53,7 +53,7 @@
         <% end %>
         <% if @workshop.place.name == "Atelier en visio" %>
           <%= f.input :kit, disabled: true, as: :radio_buttons, label: "Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
-          <%= f.input :kit_description, disabled: true, :input_html => {:rows => 4}, label: "Description du kit" %>
+          <%= f.input :kit_description, disabled: true, :input_html => {:rows => 4}, label: "Description du contenu du kit, la date d'envoi du kit (exemple J-7) et par quel transporteur il sera livré. La livraison se veut déjà incluse dans le prix de l'atelier fixé par vos soins et se fera obligatoirement à domicile." %>
         <% end %>
         <%= f.input :duration, disabled: true, label: "Durée de l'atelier en minutes" %>
         <%= f.input :price, disabled: true, label: "Prix par personne TTC" %>
@@ -98,13 +98,13 @@
         <%= f.input :program, label: "Programme", :input_html => {:rows => 8} %>
         <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3} %>
         <%= f.input :kit, as: :radio_buttons, label: "Votre atelier est en visio ? Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
-        <%= f.input :kit_description, :input_html => {:rows => 4}, label: "Description du kit" %>
+        <%= f.input :kit_description, :input_html => {:rows => 4}, label: "Description du contenu du kit, la date d'envoi du kit (exemple J-7) et par quel transporteur il sera livré. La livraison se veut déjà incluse dans le prix de l'atelier fixé par vos soins et se fera obligatoirement à domicile." %>
 
         <%= f.input :photos, as: :file, label: "Photos de l'atelier", input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" } %>
         <p id="bytesSize"></p>
 
         <% if @workshop.photos.present? %>
-          <p>Voici les photos actuelles de l'atelier, si vous souhaitez en ajouter/remplacer, chargez l'ensemble des photos souhaitées, vos photos actuelles ne seront pas sauvegardées.</p>
+          <p>Voici les photos actuelles de l'atelier, si vous souhaitez en ajouter/remplacer, chargez l'ensemble des photos souhaitées dans l'ordre désiré avec la première photo représentative de l'atelier, vos photos actuelles ne seront pas sauvegardées.</p>
           <div class="edit-ws-photos d-flex mb-4">
             <% @workshop.photos.each do |photo| %>
                 <%= cl_image_tag photo.key, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}", loading: "lazy", width: 80, crop: :fill, class: "mr-1"  %>

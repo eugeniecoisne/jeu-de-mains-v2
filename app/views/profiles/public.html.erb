@@ -252,6 +252,12 @@
       </div>
     </div>
 
+    <% if @profile.legal_mention.present? %>
+      <div class="public-profile-legal-mention">
+        <p><%= @profile.legal_mention %></p>
+      </div>
+    <% end %>
+
   <% else %>
     <%= render file: "#{Rails.root}/public/404", status: :not_found %>
   <% end %>
