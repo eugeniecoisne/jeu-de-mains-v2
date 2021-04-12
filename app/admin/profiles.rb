@@ -1,7 +1,7 @@
 ActiveAdmin.register Profile do
   menu parent: "Fiches"
   config.per_page = 50
-  permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :fee, :photo
+  permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :fee, :legal_mention, :photo
   PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name} #{u.id}", u.id] }.to_h
 
   controller do
@@ -51,6 +51,7 @@ ActiveAdmin.register Profile do
     column :accountant_zip_code
     column :accountant_city
     column :accountant_phone_number
+    column :legal_mention
   end
 
   # CSV
@@ -86,6 +87,7 @@ ActiveAdmin.register Profile do
     column :accountant_zip_code
     column :accountant_city
     column :accountant_phone_number
+    column :legal_mention
   end
 
   show :title => :company do
@@ -125,6 +127,7 @@ ActiveAdmin.register Profile do
       row :created_at
       row :updated_at
       row :slug
+      row :legal_mention
       row "Envoyer e-mail demande de derniers docs partenaire" do
         link_to "Envoyer e-mail demande de derniers docs partenaire", "#{send_finalisation_partner_email_profile_path(profile)}", target: "_blank"
       end
@@ -306,6 +309,9 @@ ActiveAdmin.register Profile do
     f.inputs "Statut" do
       f.input :db_status, as: :boolean
       f.input :ready, as: :boolean
+    end
+    f.inputs "Mention légale page partenaire" do
+      f.input :legal_mention
     end
     f.actions
   end

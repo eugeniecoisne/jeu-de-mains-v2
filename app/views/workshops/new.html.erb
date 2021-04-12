@@ -129,7 +129,7 @@
             Indiquez si oui ou non vous prévoyez d'envoyer un kit par voie postale en amont de l'atelier ! Si la réponse est positive, décrivez le contenu de ce kit &#128521;
             <br><br>
             <%= f.input :kit, required: false, as: :radio_buttons,label: "Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
-            <%= f.input :kit_description, :input_html => {:rows => 4}, required: false, label: "Si oui, décrivez le contenu du kit", placeholder: "Décrivez ici le contenu du kit que vous enverrez par voie postale, il sera renseigné sur la fiche atelier à titre informatif..." %>
+            <%= f.input :kit_description, :input_html => {:rows => 4}, required: false, label: "Si oui, décrivez le contenu du kit, la date d'envoi du kit (exemple J-7) et par quel transporteur il sera livré. La livraison se veut déjà incluse dans le prix de l'atelier fixé par vos soins et se fera obligatoirement à domicile.", placeholder: "Décrivez ici le contenu du kit que vous enverrez par voie postale..." %>
 
             <div class="next-previous">
               <a class="next-previous-button btnPrevious" id="previous-4" >Retour</a>
@@ -149,8 +149,8 @@
         <div id="collapse-5" class="collapse collapse-5" data-parent="#accordionNewWs">
           <div class="card-body">
             <strong>Promis c'est la dernière étape !</strong><br>
-            Chargez ici vos photos de l'atelier. Convaincre les utilisateurs passe en grande partie par le visuel. <br>
-            Prenez des clichés jolis, épurés du lieu, de l'objet à créer, du matériel utilisé afin que les utilisateurs puissent se projeter &#128521; <br>
+            Chargez ici vos photos de l'atelier. La première photo sera la plus représentative de l'atelier, veillez à bien sélectionner les photos dans l'ordre d'apparition prévu.<br>
+            Convaincre les utilisateurs passe en grande partie par le visuel. Prenez des clichés jolis, épurés du lieu, de l'objet à créer, du matériel utilisé afin que les utilisateurs puissent se projeter &#128521; <br>
             <br><br>
 
             <%= f.input :photos, required: false, as: :file, label: "Minimum 1 photo - Poids max de l'ensemble : 15 Mo", input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" } %>

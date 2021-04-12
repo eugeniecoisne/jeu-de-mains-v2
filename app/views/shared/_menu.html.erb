@@ -142,7 +142,7 @@
       <% else %>
         <li class="list-group-item">
           <div class="list-item-menu">
-            <%= link_to workshops_path, class: "menu-blue-link" do %>
+            <%= link_to workshops_path, data: { turbolinks: false }, class: "menu-blue-link" do %>
               <i class="far fa-eye menu-icon menu-blue-icon mr-1"></i>
               Tous les ateliers
             <% end %>

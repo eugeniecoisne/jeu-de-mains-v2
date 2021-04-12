@@ -203,6 +203,16 @@
   display: none;
 }
 
+.public-profile-legal-mention {
+  margin: 2rem 16rem;
+  p {
+    font-size: 12.5px;
+    text-align: center;
+    font-weight: 500;
+    opacity: 0.6;
+  }
+}
+
 
 
 // RESPONSIVE PROFILE //
@@ -323,6 +333,14 @@
     display: grid;
     grid-template-columns: 1fr;
     margin-top: 0.5em;
+    margin-bottom: 2em;
+  }
+  .public-profile-legal-mention {
+    margin: 1rem 1rem 2rem 1rem;
+    p {
+      font-size: 12px;
+      text-align: left;
+    }
   }
 
 }
@@ -390,6 +408,10 @@
   .public-profile-about-ws-reviews {
     display: grid;
     grid-template-columns: 1fr;
+    margin-bottom: 3rem;
+  }
+  .public-profile-legal-mention {
+    margin: 2rem 2rem;
   }
 
 }
@@ -449,6 +471,9 @@
     grid-template-columns: 1fr 0.7fr;
     grid-column-gap: 0;
     grid-row-gap: 1em;
+  }
+  .public-profile-legal-mention {
+    margin: 2rem 8rem;
   }
 }
 

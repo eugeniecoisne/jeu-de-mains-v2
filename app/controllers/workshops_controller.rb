@@ -186,7 +186,7 @@ class WorkshopsController < ApplicationController
     @workshop = Workshop.new
     authorize @workshop
     @place = Place.new
-    @places = @workshop.place.user.places.where(db_status: true)
+    @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
     @animators = Profile.where(db_status: true).select { |profile| profile.role.present? }
   end
 
