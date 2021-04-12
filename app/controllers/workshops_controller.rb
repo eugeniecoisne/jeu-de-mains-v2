@@ -9,16 +9,16 @@ class WorkshopsController < ApplicationController
     if params[:search].present?
       if params[:search][:starts_at].present? && params[:search][:ends_at].present?
         dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.strptime(params[:search][:ends_at], '%Y-%m-%d')).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 }
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 && workshop.place.user.profile.db_status == true }
       elsif params[:search][:starts_at].present?
         dates = (Date.strptime(params[:search][:starts_at], '%Y-%m-%d')..Date.today + 1.year).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 }
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 && workshop.place.user.profile.db_status == true }
       elsif params[:search][:ends_at].present?
         dates = (Date.today..Date.strptime(params[:search][:ends_at], '%Y-%m-%d')).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 }
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 && workshop.place.user.profile.db_status == true }
       else
         dates = (Date.today..Date.today + 1.year).to_a
-        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 }
+        @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 && workshop.place.user.profile.db_status == true }
       end
 
       @workshops = @workshops.select { |workshop| workshop.moments.include?(params[:search][:moment]) if workshop.moments != nil }.paginate(page: params[:page], per_page: 20) if params[:search][:moment].present?
@@ -104,11 +104,11 @@ class WorkshopsController < ApplicationController
       end
     else
       dates = (Date.today..Date.today + 1.year).to_a
-      @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 }.shuffle.paginate(page: params[:page], per_page: 20)
+      @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 && workshop.place.user.profile.db_status == true }.shuffle.paginate(page: params[:page], per_page: 20)
     end
     # authorize @workshops
 
-    @prices = policy_scope(Workshop).where(status: 'en ligne', db_status: true).map { |ws| ws.price }
+    @prices = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |w| w.place.user.profile.db_status == true }.map { |ws| ws.price }
     @max_price = @prices.present? ? @prices.max : 120
 
     @places_geo = Place.where(id: @workshops.pluck(:place_id)).select { |p| p.name.include?("Atelier en visio") == false}
@@ -122,13 +122,13 @@ class WorkshopsController < ApplicationController
     end
 
     dates = (Date.today..Date.today + 1.year).to_a
-    @suggested_workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 }.shuffle.first(12)
+    @suggested_workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 && workshop.place.user.profile.db_status == true }.shuffle.first(12)
 
   end
 
   def show
     if @workshop
-      if (@workshop.db_status == true && @workshop.status == "en ligne") || @workshop.place.user == current_user || (@workshop.animators.where(db_status: true).last.user == current_user if @workshop.animators.where(db_status: true).present?) || current_user.admin?
+      if (@workshop.db_status == true && @workshop.status == "en ligne" && @workshop.place.user.profile.db_status == true) || @workshop.place.user == current_user || (@workshop.animators.where(db_status: true).last.user == current_user if @workshop.animators.where(db_status: true).present?) || current_user.admin == true
         @booking = Booking.new
         if @workshop.animators.where(db_status: true).present? && @workshop.animators.last.user.profile.db_status == true
           @animator = @workshop.animators.where(db_status: true).last
@@ -138,12 +138,12 @@ class WorkshopsController < ApplicationController
       end
     end
     dates = (Date.today..Date.today + 1.year).to_a
-    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 && workshop.place.district == @workshop.place.district && workshop.id != @workshop.id }.select { |w| w.thematic.each { |t| @workshop.thematic.include?(t) == true}}.shuffle.first(6)
+    @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.where(db_status: true).count > 0 && workshop.place.district == @workshop.place.district && workshop.id != @workshop.id && workshop.place.user.profile.db_status == true }.select { |w| w.thematic.each { |t| @workshop.thematic.include?(t) == true}}.shuffle.first(6)
   end
 
   def edit
     if @workshop
-      @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
+      @places = @workshop.place.user.places.where(db_status: true)
       @animators = Profile.where(db_status: true).select { |profile| profile.role.present? }
     end
   end
@@ -186,7 +186,7 @@ class WorkshopsController < ApplicationController
     @workshop = Workshop.new
     authorize @workshop
     @place = Place.new
-    @places = current_user.admin ? Place.all.where(db_status: true) : current_user.places.where(db_status: true)
+    @places = @workshop.place.user.places.where(db_status: true)
     @animators = Profile.where(db_status: true).select { |profile| profile.role.present? }
   end
 
@@ -261,7 +261,7 @@ class WorkshopsController < ApplicationController
   def send_verification_mail
     @workshop = Workshop.find(params[:id])
     authorize @workshop
-    if @workshop && @workshop.completed? && @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present?
+    if @workshop && @workshop.completed? && workshop.place.user.profile.db_status == true && @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present?
       @workshop.update(status: "vérification")
       mail = WorkshopMailer.with(workshop: @workshop).ask_for_check_up
       mail.deliver_later

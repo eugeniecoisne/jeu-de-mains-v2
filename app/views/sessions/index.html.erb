@@ -1,6 +1,6 @@
 <!-- SESSIONS INDEX -->
 
-<% if @workshop.db_status == true %>
+<% if (@workshop.place.user.profile.db_status == true && @workshop.db_status == true) || current_user.admin == true %>
 
   <% content_for :meta_title, "Jeu de Mains | Sessions | #{@workshop.title[0..34]}" %>
 

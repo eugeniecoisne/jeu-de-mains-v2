@@ -9,7 +9,7 @@ class WorkshopPolicy < ApplicationPolicy
   end
 
   def create?
-    user.profile.role.present? && user.can_receive_payments? || user.admin?
+    (user.profile.role.present? && user.can_receive_payments? && user.profile.db_status == true) || user.admin?
   end
 
   def new?
@@ -17,7 +17,7 @@ class WorkshopPolicy < ApplicationPolicy
   end
 
   def update?
-    record.place.user == user || user.admin? || record.animators.where(db_status: true).last.user == user
+    (record.place.user == user && user.profile.db_status == true) || user.admin? || (record.animators.where(db_status: true).last.user == user if (record.animators.present? && record.place.user.profile.db_status == true))
   end
 
   def edit?
