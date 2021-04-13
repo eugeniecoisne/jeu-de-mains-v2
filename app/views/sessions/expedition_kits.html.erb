@@ -66,7 +66,11 @@
                               <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
                             </button>
                             <div>
-                              <%= f.input :kit_expedition_status, label: "Où en est l'expédition du kit de #{booking.user.first_name} #{booking.user.last_name} ?", collection: ["Bientôt en préparation", "En préparation", "Expédiée", "Livrée"] %>
+                              <% if booking.kit_expedition_status.present? %>
+                                <%= f.input :kit_expedition_status, label: "Où en est l'expédition du kit de #{booking.user.first_name} #{booking.user.last_name} ?", collection: ["En préparation", "Expédiée"], selected: booking.kit_expedition_status %>
+                              <% else %>
+                                <%= f.input :kit_expedition_status, label: "Où en est l'expédition du kit de #{booking.user.first_name} #{booking.user.last_name} ?", collection: ["En préparation", "Expédiée"] %>
+                              <% end %>
                             </div>
                             <div class="d-flex justify-content-center">
                               <%= f.submit 'Valider', class: "new-edit-ws-submit" %>

@@ -43,7 +43,7 @@
           </tr>
           <tr>
             <th scope="row">Prix unitaire</th>
-            <td style='text-align:right;'><%= @booking.session.workshop.price %> € ttc</td>
+            <td style='text-align:right;'><%= @booking.workshop_unit_price %> € ttc</td>
           </tr>
           <tr>
             <th scope="row">Montant réservation</th>
@@ -51,7 +51,7 @@
           </tr>
           <tr>
             <th scope="row">Paiement Stripe</th>
-            <td style='text-align:right;'><%= @booking.giftcard_amount_spent.present? ? ((@booking.session.workshop.price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount %> € ttc</td>
+            <td style='text-align:right;'><%= @booking.giftcard_amount_spent.present? ? ((@booking.workshop_unit_price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount %> € ttc</td>
           </tr>
           <tr>
             <th scope="row">Paiement en carte cadeau</th>
@@ -99,7 +99,7 @@
             </tr>
             <tr>
               <th scope="row">Remboursement Stripe</th>
-              <td style='text-align:right;'>- <%= @booking.giftcard_amount_spent.present? ? ((@booking.session.workshop.price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount %> € ttc</td>
+              <td style='text-align:right;'>- <%= @booking.giftcard_amount_spent.present? ? ((@booking.workshop_unit_price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount %> € ttc</td>
             </tr>
             <tr>
               <th scope="row">Remboursement sur carte cadeau</th>

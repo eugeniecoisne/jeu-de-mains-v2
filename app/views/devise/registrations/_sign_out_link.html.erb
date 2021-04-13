@@ -1,1 +1,47 @@
-<%= link_to "Supprimer", registration_path(resource_name), data: { confirm: "Êtes-vous sûr ?" }, method: :delete, class: "my-informations-button" %>
+<!-- cas réservations à venir -->
+<% bookings_to_come = 0 %>
+
+<% if current_user.bookings.present? && current_user.bookings.where(status: "paid", db_status: true).present? %>
+  <% current_user.bookings.where(status: "paid", db_status: true).each do |b| %>
+    <% if b.session.date > Date.today %>
+      <% bookings_to_come += 1 %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<!-- cas carte cadeau non consommée -->
+<% giftcards_to_come = 0 %>
+
+<% if current_user.giftcards.present? && current_user.giftcards.where(db_status: true, status: "paid").present? %>
+  <% current_user.giftcards.select { |giftcard| giftcard.buyer != current_user.id && giftcard.status == "paid" && giftcard.db_status == true}.each do |g| %>
+    <% if g.amount > 0 %>
+      <% giftcards_to_come += 1 %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<!-- cas pas de réservation ni carte cadeau -->
+
+<% if bookings_to_come > 0 && giftcards_to_come > 0 %>
+    <%= link_to @delete, registration_path(resource_name),
+    data: { confirm: "Attention vous avez encore une ou plusieurs réservation(s) déjà payée(s) à venir et il semble qu'au moins une de vos cartes cadeaux contienne encore un solde disponible.. Si vous supprimez votre compte, vous recevrez uniquement les e-mails transactionnels obligatoires liés à la ou aux dernière(s) réservation(s) à venir et vous renoncez à l'utilisation du solde restant de votre carte cadeau." },
+    method: :delete,
+    class: "my-informations-button" %>
+<% elsif bookings_to_come > 0 %>
+    <%= link_to @delete, registration_path(resource_name),
+    data: { confirm: "Attention vous avez encore une ou plusieurs réservation(s) déjà payée(s) à venir. Si vous supprimez votre compte, vous recevrez uniquement les e-mails transactionnels obligatoires liés à la ou aux dernière(s) réservation(s) à venir." },
+    method: :delete,
+    class: "my-informations-button" %>
+<% elsif giftcards_to_come > 0 %>
+    <%= link_to @delete, registration_path(resource_name),
+    data: { confirm: "Attention il semble qu'au moins une de vos cartes cadeaux contienne encore un solde disponible. Si vous supprimez votre compte, vous n'y aurez plus accès et y renoncez." },
+    method: :delete,
+    class: "my-informations-button" %>
+<% else %>
+    <%= link_to @delete, registration_path(resource_name),
+    data: { confirm: "Êtes-vous sûr de vouloir supprimer votre compte ?" },
+    method: :delete,
+    class: "my-informations-button" %>
+<% end %>
+
+

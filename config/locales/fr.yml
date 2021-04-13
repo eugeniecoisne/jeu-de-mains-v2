@@ -144,6 +144,7 @@ fr:
         created_at: Créé le
         updated_at: Modifié le
         cgv_agreement: Accord CGV
+        workshop_unit_price: Prix unitaire de l'atelier
         fee: Commission JDM
       review:
         content: Contenu de l'avis

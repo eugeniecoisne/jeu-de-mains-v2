@@ -93,29 +93,29 @@
             <br>Session du <%= l(@booking.session.date, format: '%A %d %b %Y').capitalize %> à <%=@booking.session.start_at%>
           </td>
           <td class="short-column bordered"><%= @booking.quantity %> place(s)</td>
-          <td class="short-column bordered" style="text-align:right;"><%= (@booking.session.workshop.price / 1.2).round(2) %> €</td>
-          <td class="short-column bordered" style="text-align:right;"><%= ((@booking.session.workshop.price * @booking.quantity) / 1.2).round(2) %> €</td>
+          <td class="short-column bordered" style="text-align:right;"><%= (@booking.workshop_unit_price / 1.2).round(2) %> €</td>
+          <td class="short-column bordered" style="text-align:right;"><%= ((@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2) %> €</td>
         </tr>
         <tr style='border-left: 1px solid #fff;'>
           <td class="short-column"></td>
           <td class="large-column"></td>
           <td class="short-column"></td>
           <td class="short-column bordered" style="text-align:right;">Total HT</td>
-          <td class="short-column bordered" style="text-align:right;"><%= ((@booking.session.workshop.price * @booking.quantity) / 1.2).round(2) %> €</td>
+          <td class="short-column bordered" style="text-align:right;"><%= ((@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2) %> €</td>
         </tr>
         <tr style='border-left: 1px solid #fff;'>
           <td class="short-column"></td>
           <td class="large-column"></td>
           <td class="short-column"></td>
           <td class="short-column bordered" style="text-align:right;">TVA 20%</td>
-          <td class="short-column bordered" style="text-align:right;"><%= ((@booking.session.workshop.price * @booking.quantity) - (@booking.session.workshop.price * @booking.quantity) / 1.2).round(2) %> €</td>
+          <td class="short-column bordered" style="text-align:right;"><%= ((@booking.workshop_unit_price * @booking.quantity) - (@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2) %> €</td>
         </tr>
         <tr style='border-left: 1px solid #fff;'>
           <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
           <td class="large-column" style='border-bottom: 1px solid #fff;'></td>
           <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
           <td class="short-column bordered" style="text-align:right;">Total TTC</td>
-          <td class="short-column bordered" style="text-align:right;"><%= (@booking.session.workshop.price * @booking.quantity).round(2) %> €</td>
+          <td class="short-column bordered" style="text-align:right;"><%= (@booking.workshop_unit_price * @booking.quantity).round(2) %> €</td>
         </tr>
       </tbody>
     </table>

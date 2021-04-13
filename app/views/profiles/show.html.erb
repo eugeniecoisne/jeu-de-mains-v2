@@ -112,7 +112,8 @@
                   <div class="my-informations-text">
                     <span><strong>Supprimer mon compte</strong></span>
                   </div>
-                  <%= render template: "devise/registrations/_sign_out_link" %>
+                  <% @delete = "Supprimer" %>
+                  <%= render template: "devise/registrations/_sign_out_link", delete: @delete %>
                 </li>
               <% end %>
             </ul>
