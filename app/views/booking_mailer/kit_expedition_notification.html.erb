@@ -238,11 +238,13 @@
                                 </a>
                               </td>
                             <% end %>
-                            <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 4px; padding-left: 0px;" valign="top">
-                              <%= link_to tableau_de_bord_profile_url(@booking.user.profile), target: "_blank" do  %>
-                                <img alt="Ajouter à l'agenda" height="21" src="https://res.cloudinary.com/jeudemains/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-calendrier.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Ajouter à l'agenda" width="auto"/>
-                              <% end %>
-                            </td>
+                            <% if @booking.user.db_status == true %>
+                              <td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 4px; padding-left: 0px;" valign="top">
+                                <%= link_to tableau_de_bord_profile_url(@booking.user.profile), target: "_blank" do  %>
+                                  <img alt="Ajouter à l'agenda" height="21" src="https://res.cloudinary.com/jeudemains/image/upload/c_fit,h_21/v1602492305/jeu-de-mains-calendrier.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px !important; width: auto; border: 0; display: block;" title="Ajouter à l'agenda" width="auto"/>
+                                <% end %>
+                              </td>
+                            <% end %>
                           </tr>
                         </tbody>
                       </table>

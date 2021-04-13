@@ -30,8 +30,10 @@
         <% end %>
       </p>
       <p>
-        <%= link_to "https://www.google.fr/maps/search/#{@booking.session.workshop.place.address}, #{@booking.session.workshop.place.zip_code} #{@booking.session.workshop.place.city.upcase}", target: "_blank" do %>
-          Au <%= @booking.session.workshop.place.full_address %>
+        <% if @booking.session.workshop.visio == true %>
+          En visioconférence<%= " avec kit" if @booking.session.workshop.kit == true %>
+        <% else %>
+          <p>Au <%= @booking.session.workshop.place.full_address %></p>
         <% end %>
       </p>
     </div>
@@ -42,8 +44,8 @@
   <table class="table payment-success-error-quantities-and-amount">
     <tbody>
       <tr id="payment-success-error-table-first-row">
-        <td>Prix unitaire <%= @booking.session.workshop.price %> € x <%= @booking.quantity %> place(s)</td>
-        <td style="text-align: right"><%= @booking.session.workshop.price * @booking.quantity %> € TTC</td>
+        <td>Prix unitaire <%= @booking.workshop_unit_price %> € x <%= @booking.quantity %> place(s)</td>
+        <td style="text-align: right"><%= @booking.workshop_unit_price * @booking.quantity %> € TTC</td>
       </tr>
       <% if @booking.giftcard_amount_spent.present? %>
         <tr>
@@ -54,7 +56,7 @@
       <tr>
         <td><strong>TOTAL PAYÉ</strong></td>
       <% if @booking.giftcard_amount_spent.present? %>
-        <td style="text-align: right"><strong><%= (@booking.session.workshop.price * @booking.quantity) - @booking.giftcard_amount_spent %> € TTC</strong></td>
+        <td style="text-align: right"><strong><%= (@booking.workshop_unit_price * @booking.quantity) - @booking.giftcard_amount_spent %> € TTC</strong></td>
       <% else %>
         <td style="text-align: right"><strong><%= @booking.amount %> € TTC</strong></td>
       <% end %>

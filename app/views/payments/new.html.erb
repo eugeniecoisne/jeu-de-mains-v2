@@ -43,8 +43,8 @@
     <table class="table booking-options-quantities-and-amount">
       <tbody>
         <tr id="booking-options-table-first-row">
-          <td>Prix unitaire <%= @booking.session.workshop.price %> € x <%= @booking.quantity %> place(s)</td>
-          <td style="text-align: right"><%= @booking.session.workshop.price * @booking.quantity %> €</td>
+          <td>Prix unitaire <%= @booking.workshop_unit_price %> € x <%= @booking.quantity %> place(s)</td>
+          <td style="text-align: right"><%= @booking.workshop_unit_price * @booking.quantity %> €</td>
         </tr>
         <% if @booking.giftcard_amount_spent.present? %>
           <tr>
@@ -55,7 +55,7 @@
         <tr>
           <td><strong>TOTAL</strong></td>
         <% if @booking.giftcard_amount_spent.present? %>
-          <td style="text-align: right"><strong><%= (@booking.session.workshop.price * @booking.quantity) - @booking.giftcard_amount_spent %> €</strong></td>
+          <td style="text-align: right"><strong><%= (@booking.workshop_unit_price * @booking.quantity) - @booking.giftcard_amount_spent %> €</strong></td>
         <% else %>
           <td style="text-align: right"><strong><%= @booking.amount %> €</strong></td>
         <% end %>

@@ -18,7 +18,11 @@
         <h2 class="booking-options-ws-title">L'atelier <%= @booking.session.workshop.title %></h2>
         <p>Qui aura lieu le <%= l(@booking.session.date, format: '%A %d %b %Y').capitalize %> à <%= @booking.session.start_at %></p>
         <p>Organisé par <%= @booking.session.workshop.place.user.profile.company %></p>
-        <p>Au <%= @booking.session.workshop.place.full_address %></p>
+        <% if @booking.session.workshop.visio == true %>
+          En visioconférence<%= " avec kit" if @booking.session.workshop.kit == true %>
+        <% else %>
+          <p>Au <%= @booking.session.workshop.place.full_address %></p>
+        <% end %>
       </div>
     </div>
 
