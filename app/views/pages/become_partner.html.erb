@@ -221,7 +221,7 @@
               <% end %>
 
               <p>En validant ce formulaire je donne mon accord à Jeu de Mains pour stocker et utiliser les données renseignées dans l'optique de la création de mon profil <em>Partenaire</em>. Pour plus d'informations sur le traitement de mes données : <%= link_to "politique de confidentialité", politique_de_confidentialite_path, target: '_blank' %>.</p>
-
+              <%= recaptcha_tags ajax: true %>
               <div class="d-flex justify-content-center mt-5">
                 <%= f.submit "J'envoie mon formulaire", class: "become-partner-form-button"%>
               </div>
@@ -236,7 +236,7 @@
               <%= f.input :position, required: true, label: false, placeholder: "Votre fonction dans l'entreprise*", input_html: { id: "partner_position_3" } %>
               <%= f.input :message, as: :text, required: false, label: false, placeholder: "Vous avez une question, un commentaire à ajouter ? (Optionnel)", input_html: { id: "partner_message_3", rows: 3 } %>
               <p>En validant ce formulaire je donne mon accord à Jeu de Mains pour stocker et utiliser les données renseignées dans l'optique de la création de mon profil <em>Partenaire</em>. Pour plus d'informations sur le traitement de mes données : <%= link_to "politique de confidentialité", politique_de_confidentialite_path, target: '_blank' %>.</p>
-
+              <%= recaptcha_tags ajax: true %>
               <div class="d-flex justify-content-center mt-5">
                 <%= f.submit "J'envoie mon formulaire", class: "become-partner-form-button"%>
               </div>

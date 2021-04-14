@@ -1,3 +1,6 @@
+require 'json'
+require 'open-uri'
+
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(home offer_giftcard register_giftcard become_partner welcome_partner entreprises entreprises_sent about ranking contact contact_us_sent legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijoux papier_et_calligraphie ceramique_et_modelage meuble_et_decoration peinture_et_dessin travail_du_cuir)
 
@@ -131,7 +134,9 @@ class PagesController < ApplicationController
   end
 
   def welcome_partner
-    if params[:partner].present? && params[:partner][:company].present? && params[:partner][:siret_number].present? && params[:partner][:email].present? && params[:partner][:phone_number].present? && params[:partner][:address].present? && params[:partner][:zip_code].present? && params[:partner][:city].present? && params[:partner][:last_name].present? && params[:partner][:first_name].present? && params[:partner][:position].present?
+    captcha_partner_status = verify_google_recaptcha(ENV['RECAPTCHA_GOOGLE_PRIVATE_KEY'], params['g-recaptcha-response'])
+
+    if captcha_partner_status == true && params[:partner].present? && params[:partner][:company].present? && params[:partner][:siret_number].present? && params[:partner][:email].present? && params[:partner][:phone_number].present? && params[:partner][:address].present? && params[:partner][:zip_code].present? && params[:partner][:city].present? && params[:partner][:last_name].present? && params[:partner][:first_name].present? && params[:partner][:position].present?
 
       @partner = {
         company: params[:partner][:company],
@@ -164,7 +169,9 @@ class PagesController < ApplicationController
   end
 
   def entreprises_sent
-    if params[:entreprise].present? && params[:entreprise][:email].present? && params[:entreprise][:email].match(/^\S+@\S+\.\S+$/) != nil
+    captcha_entreprise_status = verify_google_recaptcha(ENV['RECAPTCHA_GOOGLE_PRIVATE_KEY'], params['g-recaptcha-response'])
+
+    if captcha_entreprise_status == true && params[:entreprise].present? && params[:entreprise][:email].present? && params[:entreprise][:email].match(/^\S+@\S+\.\S+$/) != nil
 
       @entreprise_contact = {
         email: params[:entreprise][:email],
@@ -176,6 +183,7 @@ class PagesController < ApplicationController
         phone_number: params[:entreprise][:phone_number],
         message: params[:entreprise][:message]
       }
+      flash[:notice] = "Formulaire envoyé !"
       internal_email_entreprise = EntrepriseMailer.with(entreprise: @entreprise_contact).internal_entreprise_contact_message
       internal_email_entreprise.deliver_later
       external_email_entreprise = EntrepriseMailer.with(entreprise: @entreprise_contact).external_entreprise_contact_message
@@ -191,25 +199,24 @@ class PagesController < ApplicationController
   end
 
   def contact_us_sent
-    if params[:contact_us].present? && params[:contact_us][:email].present? && params[:contact_us][:email].match(/^\S+@\S+\.\S+$/) != nil && params[:contact_us][:message].present?
+    captcha_contact_status = verify_google_recaptcha(ENV['RECAPTCHA_GOOGLE_PRIVATE_KEY'], params['g-recaptcha-response'])
 
+    if captcha_contact_status == true && params[:contact_us].present? && params[:contact_us][:email].present? && params[:contact_us][:email].match(/^\S+@\S+\.\S+$/) != nil && params[:contact_us][:message].present?
       @contact = {
         email: params[:contact_us][:email],
         first_name: params[:contact_us][:first_name],
         last_name: params[:contact_us][:last_name],
         message: params[:contact_us][:message]
       }
-      if verify_recaptcha(model: @contact)
-        internal_email_contact_us = ContactMailer.with(contact: @contact).internal_send_contact_message
-        internal_email_contact_us.deliver_later
-        external_email_contact_us = ContactMailer.with(contact: @contact).external_send_contact_message
-        external_email_contact_us.deliver_later
-      end
+      flash[:notice] = "Message envoyé !"
+      internal_email_contact_us = ContactMailer.with(contact: @contact).internal_send_contact_message
+      internal_email_contact_us.deliver_later
+      external_email_contact_us = ContactMailer.with(contact: @contact).external_send_contact_message
+      external_email_contact_us.deliver_later
     else
       flash[:alert] = "Oups, le formulaire est incomplet ou votre e-mail est incorrect"
       render 'contact'
     end
-
   end
 
   def offer_giftcard
@@ -256,6 +263,15 @@ class PagesController < ApplicationController
         render pdf: "cgv-jdm-#{Date.today.strftime("%d-%m-%y")}"
       end
     end
+  end
+
+  private
+
+  def verify_google_recaptcha(secret_key,response)
+    status = "https://www.google.com/recaptcha/api/siteverify?secret=#{secret_key}&response=#{response}"
+    serialized_status = open(status).read
+    hash = JSON.parse(serialized_status)
+    hash["success"] == true ? true : false
   end
 
 end
