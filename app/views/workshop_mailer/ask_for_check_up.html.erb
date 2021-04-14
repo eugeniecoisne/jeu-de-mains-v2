@@ -1,8 +1,4 @@
-<style type="text/css">
-  .mailer-footer {
-    display: none;
-  }
-</style>
+<% @footer = false %>
 
 <p><strong style='font-size:20px;'>Demande de vérification d'atelier :</strong></p>
 <p>Atelier : <strong style="text-decoration: underline;"><%= link_to "#{@workshop.title} - ID #{@workshop.id}", workshop_url(@workshop), target: "_blank" %></strong></p>
