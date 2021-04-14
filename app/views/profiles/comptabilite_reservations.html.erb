@@ -20,65 +20,53 @@
         <thead>
           <tr>
             <th scope="col">Date</th>
-            <th scope="col">Client Partenaire</th>
-            <th scope="col">Numéro</th>
-            <th scope="col">Numéro élément Stripe</th>
-            <th scope="col">Libellé</th>
-            <th scope="col">Débit</th>
-            <th scope="col">Crédit</th>
-            <th scope="col">Monnaie</th>
+            <th scope="col">Numero de reservation</th>
+            <th scope="col">Partenaire</th>
+            <th scope="col">Moyen de paiement</th>
+            <th scope="col">Moyen de paiement complémentaire</th>
+            <th scope="col">Reservation TTC</th>
+            <th scope="col">Remboursement TTC</th>
+            <th scope="col">Taux de commission</th>
+            <th scope="col">Commission JDM HT</th>
+            <th scope="col">TVA Commission JDM</th>
+            <th scope="col">Commission JDM TTC</th>
           </tr>
         </thead>
+
         <tbody>
-          <% @fees.uniq.sort_by {|f| Time.at(f[:created])}.reverse.first(300).each do |c| %>
-            <% b = Booking.find(c[:booking_id]) %>
+          <% @payments.uniq.sort_by {|p| p[:created]}.reverse.first(300).each do |p| %>
+            <% b = Booking.find(p[:id]) %>
             <tr>
-              <td><%= Time.at(c[:created]).strftime("%Y%m%d") %></td>
+              <td><%= Time.at(p[:created]).strftime("%Y%m%d") %></td>
+              <td><%= p[:id] %></td>
               <td><%= b.session.workshop.place.user.profile.accountant_company %></td>
-              <td>706000</td>
-              <td><%= c[:id] %></td>
-              <% if c[:type] == "reçu" %>
-                <td>Commission réservation n°<%= b.id if b.present? %> HT</td>
+
+              <% if b.giftcard_amount_spent.present? && (b.amount - b.giftcard_amount_spent == 0) %>
+                <td>carte cadeau</td>
                 <td></td>
-                <td><%= ((c[:amount] * 0.01) / 1.2).round(2) %></td>
+              <% elsif b.giftcard_amount_spent.present? && (b.amount - b.giftcard_amount_spent > 0) %>
+                <td>carte bancaire</td>
+                <td>carte cadeau</td>
               <% else %>
-                <td>Remboursement commission réservation n°<%= b.id if b.present? %> HT</td>
-                <td><%= ((c[:amount] * 0.01) / 1.2).round(2) %></td>
+                <td>carte bancaire</td>
                 <td></td>
               <% end %>
-              <td><%= c[:currency] %></td>
-            </tr>
-            <tr>
-              <td><%= Time.at(c[:created]).strftime("%Y%m%d") %></td>
-              <td><%= b.session.workshop.place.user.profile.accountant_company %></td>
-              <td>445720</td>
-              <td><%= c[:id] %></td>
-              <% if c[:type] == "reçu" %>
-                <td>Commission réservation n°<%= b.id if b.present? %> TVA 20%</td>
-                <td></td>
-                <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).round(2) %></td>
+
+              <% if p[:type] == "success" %>
+                <td><%= p[:amount_ttc].round(2) %></td>
+                <td>0</td>
+                <td><%= b.fee * 100 %>%</td>
+                <td><%= p[:fee_ht].round(2) %></td>
+                <td><%= p[:fee_tva].round(2) %></td>
+                <td><%= p[:fee_ttc].round(2) %></td>
               <% else %>
-                <td>Remboursement commission réservation n°<%= b.id if b.present? %> TVA 20%</td>
-                <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).round(2) %></td>
-                <td></td>
+                <td>0</td>
+                <td><%= p[:amount_ttc].round(2) %></td>
+                <td><%= b.fee * 100 %>%</td>
+                <td><%= p[:fee_ht].round(2) %></td>
+                <td><%= p[:fee_tva].round(2) %></td>
+                <td><%= p[:fee_ttc].round(2) %></td>
               <% end %>
-              <td><%= c[:currency] %></td>
-            </tr>
-            <tr style="border-bottom:2px solid #dee2e6;">
-              <td><%= Time.at(c[:created]).strftime("%Y%m%d") %></td>
-              <td><%= b.session.workshop.place.user.profile.accountant_company %></td>
-              <td>CXXXX</td>
-              <td><%= c[:id] %></td>
-              <% if c[:type] == "reçu" %>
-                <td>Commission réservation n°<%= b.id if b.present? %> TTC</td>
-                <td><%= (c[:amount] * 0.01).round(2) %></td>
-                <td></td>
-              <% else %>
-                <td>Remboursement commission réservation n°<%= b.id if b.present? %> TTC</td>
-                <td></td>
-                <td><%= (c[:amount] * 0.01).round(2) %></td>
-              <% end %>
-              <td><%= c[:currency] %></td>
             </tr>
           <% end %>
         </tbody>
