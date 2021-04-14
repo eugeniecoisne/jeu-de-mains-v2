@@ -127,37 +127,38 @@ class ProfilesController < ApplicationController
       authorize @profile
       key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
       Stripe.api_key = key
-      @fees = []
-      Booking.all.select { |b| b.payment_intent_id.present? }.each do |b|
-        payment = Stripe::PaymentIntent.retrieve(b.payment_intent_id)
-        if payment[:status] == "succeeded"
-          fee = Stripe::ApplicationFee.retrieve(payment[:charges][:data][0][:application_fee])
-          @fee = {
-            id: fee[:id],
-            amount: fee[:amount],
-            payment_intent: b.payment_intent_id,
-            booking_id: b.id,
-            created: fee[:created],
-            currency: fee[:currency],
-            type: 'reçu'
+      @payments = []
+      Booking.all.select { |b| b.status == "paid" || b.status == "refunded" }.each do |b|
+        # payment = Stripe::PaymentIntent.retrieve(b.payment_intent_id)
+        # if payment[:status] == "succeeded"
+          # fee = Stripe::ApplicationFee.retrieve(payment[:charges][:data][0][:application_fee])
+          @success = {
+            id: b.id,
+            amount_ttc: b.amount,
+            amount_ht: b.amount / 1.2,
+            fee_ht: (b.amount / 1.2) * b.fee,
+            fee_tva: (b.amount * b.fee) - ((b.amount / 1.2) * b.fee),
+            fee_ttc: b.amount * b.fee,
+            created: b.created_at.to_time,
+            type: 'success'
           }
-          if fee[:refunded] == true
-            fee_refund = Stripe::ApplicationFee.retrieve_refund(payment[:charges][:data][0][:application_fee], fee[:refunds][:data][0][:id])
-            @fee_refund = {
-              id: fee[:id],
-              amount: fee_refund[:amount],
-              payment_intent: b.payment_intent_id,
-              booking_id: b.id,
-              created: fee_refund[:created],
-              currency: fee_refund[:currency],
-              type: 'remboursé'
+          if b.status == "refunded"
+            @refund = {
+              id: b.id,
+              amount_ttc: b.amount * b.refund_rate * -1,
+              amount_ht: (b.amount / 1.2) * b.refund_rate * -1,
+              fee_ht: ((b.amount / 1.2) * b.refund_rate * -1) * b.fee,
+              fee_tva: ((b.amount * b.refund_rate * -1) * b.fee) - (((b.amount / 1.2) * b.refund_rate * -1) * b.fee),
+              fee_ttc: (b.amount * b.refund_rate * -1) * b.fee,
+              created: b.cancelled_at.to_time,
+              type: 'refund'
             }
-          end
+
         end
-        @fees << @fee if @fee
-        @fees << @fee_refund if @fee_refund
+        @payments << @success if @success
+        @payments << @refund if @refund
       end
-      @fees
+      @payments
     end
     respond_to do |format|
       format.html
