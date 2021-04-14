@@ -246,7 +246,7 @@
                           <% end %>
                           <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€ TTC</p>
                         <div class="d-flex justify-content-left align-items-center flex-wrap">
-                          <% if booking.session.workshop.db_status == true && booking.session.workshop.status == "en ligne" %>
+                          <% if booking.session.workshop.db_status == true && booking.session.workshop.status == "en ligne" && booking.session.workshop.place.user.profile.db_status == true %>
                             <%= link_to "Revoir", workshop_path(booking.session.workshop), class: "button mr-2 mt-2" %>
                           <% end %>
                           <%= link_to "Ma facture", booking_payment_success_path(booking, format: :pdf), class: "button mr-2 mt-2", target: "_blank" %>
