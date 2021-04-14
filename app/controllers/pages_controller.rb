@@ -169,9 +169,9 @@ class PagesController < ApplicationController
   end
 
   def entreprises_sent
-    captcha_entreprise_status = verify_google_recaptcha(ENV['RECAPTCHA_GOOGLE_PRIVATE_KEY'], params['g-recaptcha-response'])
+    # captcha_entreprise_status = verify_google_recaptcha(ENV['RECAPTCHA_GOOGLE_PRIVATE_KEY'], params['g-recaptcha-response'])
 
-    if captcha_entreprise_status == true && params[:entreprise].present? && params[:entreprise][:email].present? && params[:entreprise][:email].match(/^\S+@\S+\.\S+$/) != nil
+    if params[:entreprise].present? && params[:entreprise][:email].present? && params[:entreprise][:email].match(/^\S+@\S+\.\S+$/) != nil
 
       @entreprise_contact = {
         email: params[:entreprise][:email],
@@ -268,7 +268,7 @@ class PagesController < ApplicationController
   private
 
   def verify_google_recaptcha(secret_key,response)
-    status = "https://www.google.com/recaptcha/api/siteverify?secret=#{secret_key}&response=#{response}"
+    status = "http://www.google.com/recaptcha/api/siteverify?secret=#{secret_key}&response=#{response}"
     serialized_status = open(status).read
     hash = JSON.parse(serialized_status)
     hash["success"] == true ? true : false

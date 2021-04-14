@@ -86,7 +86,6 @@
       <% end %>
 
       <p class="entreprises-data-privacy">En validant ce formulaire vous donnez votre accord à Jeu de Mains pour conserver les données renseignées le temps de répondre à votre demande. Pour plus d'informations sur le traitement de vos données : <%= link_to "politique de confidentialité", politique_de_confidentialite_path, target: '_blank' %>.</p>
-      <%= recaptcha_tags ajax: true %>
       <div class="d-flex mt-2">
         <%= f.submit "Envoyer", class: "btn"%>
       </div>
