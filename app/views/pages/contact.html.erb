@@ -34,7 +34,7 @@
         <% end %>
 
         <p class="contact-us-data-privacy">En validant ce formulaire je donne mon accord à Jeu de Mains pour conserver les données renseignées le temps de répondre à mon message. Pour plus d'informations sur le traitement de mes données : <%= link_to "politique de confidentialité", politique_de_confidentialite_path, target: '_blank' %>.</p>
-
+        <%= recaptcha_tags %>
         <div class="d-flex mt-2">
           <%= f.submit "Envoyer", class: "btn"%>
         </div>

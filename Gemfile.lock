@@ -280,6 +280,8 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    recaptcha (5.7.0)
+      json
     redis (4.1.4)
     responders (3.0.0)
       actionpack (>= 5.0)
@@ -385,6 +387,7 @@ DEPENDENCIES
   pundit
   rails (= 6.0.3.1)
   rails-i18n (~> 6.0.0)
+  recaptcha
   redis
   sassc-rails
   sidekiq

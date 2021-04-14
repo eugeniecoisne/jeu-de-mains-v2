@@ -199,10 +199,12 @@ class PagesController < ApplicationController
         last_name: params[:contact_us][:last_name],
         message: params[:contact_us][:message]
       }
-      internal_email_contact_us = ContactMailer.with(contact: @contact).internal_send_contact_message
-      internal_email_contact_us.deliver_later
-      external_email_contact_us = ContactMailer.with(contact: @contact).external_send_contact_message
-      external_email_contact_us.deliver_later
+      if verify_recaptcha(model: @contact)
+        internal_email_contact_us = ContactMailer.with(contact: @contact).internal_send_contact_message
+        internal_email_contact_us.deliver_later
+        external_email_contact_us = ContactMailer.with(contact: @contact).external_send_contact_message
+        external_email_contact_us.deliver_later
+      end
     else
       flash[:alert] = "Oups, le formulaire est incomplet ou votre e-mail est incorrect"
       render 'contact'

@@ -30,6 +30,13 @@ class PaymentsController < ApplicationController
             transfer_data: {
               destination: @booking.session.workshop.place.user.stripe_uid,
             },
+            metadata: {
+              jdm_type: "booking",
+              jdm_id: @booking.id,
+              jdm_buyer_id: current_user.id,
+              jdm_partner_id: @booking.session.workshop.place.user.id,
+              jdm_partner_company: @booking.session.workshop.place.user.profile.accountant_company
+            },
           },
           line_items: [{
             amount: amount,

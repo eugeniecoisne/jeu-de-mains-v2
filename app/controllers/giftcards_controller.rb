@@ -54,6 +54,11 @@ class GiftcardsController < ApplicationController
       customer: customer,
       payment_intent_data: {
         transfer_group: "GIFTCARD_#{@giftcard.id}",
+        metadata: {
+          jdm_type: "giftcard",
+          jdm_id: @giftcard.id,
+          jdm_user_id: current_user.id
+        },
       },
       line_items: [{
         price: price,
