@@ -1,100 +1,33 @@
 <table border="1">
   <tr>
-    <th>Date</th>
-    <th>Client</th>
-    <th>Numéro</th>
-    <th>Numéro élément Stripe</th>
-    <th>Libellé</th>
-    <th>Débit</th>
-    <th>Crédit</th>
-    <th>Monnaie</th>
+    <th scope="col">Date</th>
+    <th scope="col">Client</th>
+    <th scope="col">Numero commande</th>
+    <th scope="col">Moyen de paiement</th>
+    <th scope="col">Paiement brut euros ttc</th>
+    <th scope="col">Remboursement euros ttc</th>
+    <th scope="col">Paiement net euros ttc</th>
+    <th scope="col">Montant restant sur carte</th>
   </tr>
-  <% if @charges.present? && @charges.uniq.select { |c| Time.at(c[:created]).to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && Time.at(c[:created]).to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
-    <% @charges.uniq.select { |c| Time.at(c[:created]).to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && Time.at(c[:created]).to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.sort_by {|c| Time.at(c[:created])}.reverse.each do |c| %>
-      <% g = Giftcard.find(c[:giftcard_id]) %>
+  <% if @giftcards.present? && @giftcards.uniq.select { |g| g[:created].to_datetime >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && g[:created].to_datetime <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
+    <% @giftcards.uniq.select { |g| g[:created].to_datetime >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && g[:created].to_datetime <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.sort_by {|g| g[:created]}.each do |g| %>
+      <% giftcard = Giftcard.find(g[:id]) %>
       <tr>
-        <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
-        <% if c[:type] == "reçu" || c[:type] == "remboursée" %>
-          <td><%= User.find(g.buyer).fullname %> - BtoC</td>
+        <td><%= Time.at(g[:created]).strftime("%d/%m/%Y") %></td>
+        <td><%= User.find(g[:buyer_id]).fullname %></td>
+        <td><%= g[:id] %></td>
+        <td>carte bancaire via stripe</td>
+        <% if g[:type] == "success" %>
+          <td><%= g[:amount].round(2).to_s.gsub(".",",") %></td>
+          <td>0</td>
+          <td><%= g[:amount].round(2).to_s.gsub(".",",") %></td>
+          <td><%= g[:amount_left].round(2).to_s.gsub(".",",") %></td>
         <% else %>
-          <td><%= User.find_by(stripe_uid: c[:destination]).profile.accountant_company %>  - BtoB</td>
+          <td>0</td>
+          <td><%= g[:amount].round(2).to_s.gsub(".",",") %></td>
+          <td><%= g[:amount].round(2).to_s.gsub(".",",") %></td>
+          <td><%= g[:amount_left].round(2).to_s.gsub(".",",") %></td>
         <% end %>
-        <td>706000</td>
-        <td><%= c[:id] %></td>
-        <% if c[:type] == "reçu" %>
-          <td>Achat client carte cadeau n°<%= g.id if g.present? %> HT</td>
-          <td></td>
-          <td><%= ((c[:amount] * 0.01) / 1.2).to_s.gsub(".",",") %></td>
-        <% elsif c[:type] == "remboursée" %>
-          <td>Remboursement client carte cadeau n°<%= g.id if g.present? %> HT</td>
-          <td><%= ((c[:amount] * 0.01) / 1.2).to_s.gsub(".",",") %></td>
-          <td></td>
-        <% elsif c[:type] == "viré au partenaire" %>
-          <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> HT</td>
-          <td><%= ((c[:amount] * 0.01) / 1.2).to_s.gsub(".",",") %></td>
-          <td></td>
-        <% else %>
-          <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> HT</td>
-          <td></td>
-          <td><%= ((c[:amount] * 0.01) / 1.2).to_s.gsub(".",",") %></td>
-        <% end %>
-        <td><%= c[:currency] %></td>
-      </tr>
-      <tr>
-        <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
-        <% if c[:type] == "reçu" || c[:type] == "remboursée" %>
-          <td><%= User.find(g.buyer).fullname %> - BtoC</td>
-        <% else %>
-          <td><%= User.find_by(stripe_uid: c[:destination]).profile.accountant_company %>  - BtoB</td>
-        <% end %>
-        <td>445720</td>
-        <td><%= c[:id] %></td>
-        <% if c[:type] == "reçu" %>
-          <td>Achat client carte cadeau n°<%= g.id if g.present? %> TVA 20%</td>
-          <td></td>
-          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_s.gsub(".",",") %></td>
-        <% elsif c[:type] == "remboursée" %>
-          <td>Remboursement client carte cadeau n°<%= g.id if g.present? %> TVA 20%</td>
-          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_s.gsub(".",",") %></td>
-          <td></td>
-        <% elsif c[:type] == "viré au partenaire" %>
-          <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> TVA 20%</td>
-          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_s.gsub(".",",") %></td>
-          <td></td>
-        <% else %>
-          <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> TVA 20%</td>
-          <td></td>
-          <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).to_s.gsub(".",",") %></td>
-        <% end %>
-        <td><%= c[:currency] %></td>
-      </tr>
-      <tr>
-        <td><%= Time.at(c[:created]).strftime("%d/%m/%Y") %></td>
-        <% if c[:type] == "reçu" || c[:type] == "remboursée" %>
-          <td><%= User.find(g.buyer).fullname %> - BtoC</td>
-        <% else %>
-          <td><%= User.find_by(stripe_uid: c[:destination]).profile.accountant_company %>  - BtoB</td>
-        <% end %>
-        <td>CXXXX</td>
-        <td><%= c[:id] %></td>
-        <% if c[:type] == "reçu" %>
-          <td>Achat client carte cadeau n°<%= g.id if g.present? %> TTC</td>
-          <td><%= (c[:amount] * 0.01).to_s.gsub(".",",") %></td>
-          <td></td>
-        <% elsif c[:type] == "remboursée" %>
-          <td>Remboursement client carte cadeau n°<%= g.id if g.present? %> TTC</td>
-          <td></td>
-          <td><%= (c[:amount] * 0.01).to_s.gsub(".",",") %></td>
-        <% elsif c[:type] == "viré au partenaire" %>
-          <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> TTC</td>
-          <td></td>
-          <td><%= (c[:amount] * 0.01).to_s.gsub(".",",") %></td>
-        <% else %>
-          <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> TTC</td>
-          <td><%= (c[:amount] * 0.01).to_s.gsub(".",",") %></td>
-          <td></td>
-        <% end %>
-        <td><%= c[:currency] %></td>
       </tr>
     <% end %>
   <% end %>

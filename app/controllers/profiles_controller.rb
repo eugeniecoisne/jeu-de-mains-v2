@@ -172,71 +172,30 @@ class ProfilesController < ApplicationController
       authorize @profile
       key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
       Stripe.api_key = key
-      @charges = []
-      Giftcard.all.select { |g| g.payment_intent_id.present? }.each do |g|
-        payment = Stripe::PaymentIntent.retrieve(g.payment_intent_id)
-        charge = Stripe::Charge.retrieve(payment[:charges][:data][0][:id])
-        if charge[:status] == "succeeded" && charge[:destination].nil?
-          @charge = {
-            id: charge[:id],
-            charge_id: charge[:id],
-            payment_intent: g.payment_intent_id,
-            amount: charge[:amount],
-            giftcard_id: g.id,
-            created: charge[:created],
-            currency: charge[:currency],
-            type: "reçu"
+      @giftcards = []
+      Giftcard.all.select { |g| g.status == "paid" || g.status == "refunded" }.each do |g|
+        @g_success = {
+          id: g.id,
+          buyer_id: g.buyer,
+          amount: g.initial_amount,
+          amount_left: g.amount,
+          created: g.created_at.to_time,
+          type: 'success'
+        }
+        if g.status == "refunded"
+          @g_refund = {
+            id: g.id,
+            buyer_id: g.buyer,
+            amount: g.initial_amount * -1,
+            amount_left: 0.0,
+            created: g.refunded_at.to_time,
+            type: 'refund'
           }
-          @charges << @charge
         end
-        if charge[:status] == "succeeded" && charge[:destination].nil? && charge[:refunded] == true
-          refund = Stripe::Refund.retrieve(charge[:refunds][:data][0][:id])
-          @refund = {
-            id: refund[:id],
-            charge_id: charge[:id],
-            payment_intent: g.payment_intent_id,
-            amount: refund[:amount],
-            giftcard_id: g.id,
-            created: refund[:created],
-            currency: refund[:currency],
-            type: "remboursée"
-          }
-          @charges << @refund
-        end
-        if g.stripe_transfers.size > 0
-          g.stripe_transfers.split(",").each do |t|
-            transfer = Stripe::Transfer.retrieve(t)
-            @transfer = {
-              id: t,
-              charge_id: charge[:id],
-              payment_intent: g.payment_intent_id,
-              amount: transfer[:amount],
-              destination: transfer[:destination],
-              giftcard_id: g.id,
-              created: transfer[:created],
-              currency: transfer[:currency],
-              type: "viré au partenaire"
-            }
-            @charges << @transfer
-            if transfer[:amount_reversed].to_f > 0
-              transfer_reversal = Stripe::Transfer.retrieve_reversal(t, transfer[:reversals][:data][0][:id])
-              @transfer_reversal = {
-                id: transfer_reversal[:id],
-                charge_id: charge[:id],
-                payment_intent: g.payment_intent_id,
-                amount: transfer_reversal[:amount],
-                destination: transfer[:destination],
-                giftcard_id: g.id,
-                created: transfer_reversal[:created],
-                currency: transfer_reversal[:currency],
-                type: "reçu du partenaire"
-              }
-              @charges << @transfer_reversal
-            end
-          end
-        end
+        @giftcards << @g_success if @g_success
+        @giftcards << @g_refund if @g_refund
       end
-      @charges
+      @giftcards
     end
     respond_to do |format|
       format.html
