@@ -21,100 +21,33 @@
           <tr>
             <th scope="col">Date</th>
             <th scope="col">Client</th>
-            <th scope="col">Numéro</th>
-            <th scope="col">Numéro élément Stripe</th>
-            <th scope="col">Libellé</th>
-            <th scope="col">Débit</th>
-            <th scope="col">Crédit</th>
-            <th scope="col">Monnaie</th>
+            <th scope="col">N° commande</th>
+            <th scope="col">Moyen de paiement</th>
+            <th scope="col">Paiement brut € TTC</th>
+            <th scope="col">Remboursement € TTC</th>
+            <th scope="col">Paiement net € TTC</th>
+            <th scope="col">Montant restant sur carte</th>
           </tr>
         </thead>
         <tbody>
-          <% @charges.uniq.sort_by {|c| Time.at(c[:created])}.reverse.first(300).each do |c| %>
-            <% g = Giftcard.find(c[:giftcard_id]) %>
+          <% @giftcards.uniq.sort_by {|g| g[:created]}.reverse.first(300).each do |g| %>
+            <% giftcard = Giftcard.find(g[:id]) %>
             <tr>
-              <td><%= Time.at(c[:created]).strftime("%Y%m%d") %></td>
-              <% if c[:type] == "reçu" || c[:type] == "remboursée" %>
-                <td><%= User.find(g.buyer).fullname %> - BtoC</td>
+              <td><%= Time.at(g[:created]).strftime("%Y%m%d") %></td>
+              <td><%= User.find(g[:buyer_id]).fullname %></td>
+              <td><%= g[:id] %></td>
+              <td>carte bancaire via stripe</td>
+              <% if g[:type] == "success" %>
+                <td><%= g[:amount] %></td>
+                <td>0.0</td>
+                <td><%= g[:amount] %></td>
+                <td><%= g[:amount_left] %></td>
               <% else %>
-                <td><%= User.find_by(stripe_uid: c[:destination]).profile.accountant_company %>  - BtoB</td>
+                <td>0.0</td>
+                <td><%= g[:amount] %></td>
+                <td><%= g[:amount] %></td>
+                <td><%= g[:amount_left] %></td>
               <% end %>
-              <td>706000</td>
-              <td><%= c[:id] %></td>
-              <% if c[:type] == "reçu" %>
-                <td>Achat client carte cadeau n°<%= g.id if g.present? %> HT</td>
-                <td></td>
-                <td><%= ((c[:amount] * 0.01) / 1.2).round(2) %></td>
-              <% elsif c[:type] == "remboursée" %>
-                <td>Remboursement client carte cadeau n°<%= g.id if g.present? %> HT</td>
-                <td><%= ((c[:amount] * 0.01) / 1.2).round(2) %></td>
-                <td></td>
-              <% elsif c[:type] == "viré au partenaire" %>
-                <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> HT</td>
-                <td><%= ((c[:amount] * 0.01) / 1.2).round(2) %></td>
-                <td></td>
-              <% else %>
-                <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> HT</td>
-                <td></td>
-                <td><%= ((c[:amount] * 0.01) / 1.2).round(2) %></td>
-              <% end %>
-              <td><%= c[:currency] %></td>
-            </tr>
-            <tr>
-              <td><%= Time.at(c[:created]).strftime("%Y%m%d") %></td>
-              <% if c[:type] == "reçu" || c[:type] == "remboursée" %>
-                <td><%= User.find(g.buyer).fullname %> - BtoC</td>
-              <% else %>
-                <td><%= User.find_by(stripe_uid: c[:destination]).profile.accountant_company %>  - BtoB</td>
-              <% end %>
-              <td>445720</td>
-              <td><%= c[:id] %></td>
-              <% if c[:type] == "reçu" %>
-                <td>Achat client carte cadeau n°<%= g.id if g.present? %> TVA 20%</td>
-                <td></td>
-                <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).round(2) %></td>
-              <% elsif c[:type] == "remboursée" %>
-                <td>Remboursement client carte cadeau n°<%= g.id if g.present? %> TVA 20%</td>
-                <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).round(2) %></td>
-                <td></td>
-              <% elsif c[:type] == "viré au partenaire" %>
-                <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> TVA 20%</td>
-                <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).round(2) %></td>
-                <td></td>
-              <% else %>
-                <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> TVA 20%</td>
-                <td></td>
-                <td><%= ((c[:amount] * 0.01) - ((c[:amount] * 0.01)/ 1.2)).round(2) %></td>
-              <% end %>
-              <td><%= c[:currency] %></td>
-            </tr>
-            <tr style="border-bottom:2px solid #dee2e6;">
-              <td><%= Time.at(c[:created]).strftime("%Y%m%d") %></td>
-              <% if c[:type] == "reçu" || c[:type] == "remboursée" %>
-                <td><%= User.find(g.buyer).fullname %> - BtoC</td>
-              <% else %>
-                <td><%= User.find_by(stripe_uid: c[:destination]).profile.accountant_company %>  - BtoB</td>
-              <% end %>
-              <td>CXXXX</td>
-              <td><%= c[:id] %></td>
-              <% if c[:type] == "reçu" %>
-                <td>Achat client carte cadeau n°<%= g.id if g.present? %> TTC</td>
-                <td><%= (c[:amount] * 0.01).round(2) %></td>
-                <td></td>
-              <% elsif c[:type] == "remboursée" %>
-                <td>Remboursement client carte cadeau n°<%= g.id if g.present? %> TTC</td>
-                <td></td>
-                <td><%= (c[:amount] * 0.01).round(2) %></td>
-              <% elsif c[:type] == "viré au partenaire" %>
-                <td>Paiement de l'atelier au partenaire avec CC n°<%= g.id if g.present? %> TTC</td>
-                <td></td>
-                <td><%= (c[:amount] * 0.01).round(2) %></td>
-              <% else %>
-                <td>Annulation client réservation avec CC n°<%= g.id if g.present? %> TTC</td>
-                <td><%= (c[:amount] * 0.01).round(2) %></td>
-                <td></td>
-              <% end %>
-              <td><%= c[:currency] %></td>
             </tr>
           <% end %>
         </tbody>
