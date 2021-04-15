@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   get 'giftcards/show'
   get 'infomessages/create'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', confirmations: 'users/confirmations', registrations: 'users/registrations' }
-  root to: 'pages#home'
+  root to: redirect("https://www.jeudemains.com/")
+  get 'future-homepage', to: 'pages#home'
   get 'offrir-une-carte-cadeau', to: 'pages#offer_giftcard'
   get 'enregistrer-une-carte-cadeau', to: 'pages#register_giftcard'
   get 'devenir-partenaire', to: 'pages#become_partner'

@@ -2,7 +2,7 @@ require "open-uri"
 require "will_paginate/array"
 
 class WorkshopsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i(index show)
+  # skip_before_action :authenticate_user!, only: %i(index show)
   before_action :set_workshop, only: %i(show edit update finalisation confirmation destroy)
 
   def index
