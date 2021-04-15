@@ -117,8 +117,8 @@ fr:
     shared:
       links:
         back: Retour
-        didn_t_receive_confirmation_instructions: Vous n'avez pas reçu le e-mail de confirmation ?
-        didn_t_receive_unlock_instructions: Vous n'avez pas reçu le e-mail de déblocage ?
+        didn_t_receive_confirmation_instructions: Vous n'avez pas reçu l'e-mail de confirmation ?
+        didn_t_receive_unlock_instructions: Vous n'avez pas reçu l'e-mail de déblocage ?
         forgot_your_password: Mot de passe oublié ?
         sign_in: Me connecter
         sign_in_with_provider: Connexion avec %{provider}
