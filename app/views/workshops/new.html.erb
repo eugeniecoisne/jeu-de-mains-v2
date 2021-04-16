@@ -80,7 +80,7 @@
             <%= f.input :thematic, as: :check_boxes, multiple: true, label: "Type d'atelier", collection: Workshop::THEMATICS %>
             <%= f.input :level, required: true, label: "Niveau requis pour participer", collection: Workshop::LEVELS %>
             <%= f.input :capacity, required: false, label: "Nombre de places proposées" %>
-            <%= f.input :duration, required: false, label: "Durée de l'atelier en minutes" %>
+            <%= f.input :duration, collection: Workshop::DURATIONS, required: false, label: "Durée de l'atelier" %>
             <%= f.input :price, required: false, label: "Prix par personne TTC" %>
             <%= f.input :ephemeral, required: false, label: "Cet atelier est éphémère (organisé à l'occasion d'un événement par exemple)" %>
 

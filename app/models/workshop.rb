@@ -19,6 +19,44 @@ class Workshop < ApplicationRecord
 
   THEMATICS = ['Autour du fil', 'Végétal', 'Papier & Calligraphie', 'Céramique & Modelage', 'Bijoux', 'Cosmétique & Entretien', 'Peinture & Dessin', 'Meuble & Décoration', 'Travail du cuir']
   LEVELS = ['Débutant', 'Intermédiaire', 'Avancé']
+  DURATIONS = {
+    "15 minutes" => 15,
+    "30 minutes" => 30,
+    "45 minutes" => 45,
+    "1 heure" => 60,
+    "1 heure 15" => 75,
+    "1 heure 30" => 90,
+    "1 heure 45" => 105,
+    "2 heures" => 120,
+    "2 heures 15" => 135,
+    "2 heures 30" => 150,
+    "2 heures 45" => 165,
+    "3 heures" => 180,
+    "3 heures 15" => 195,
+    "3 heures 30" => 210,
+    "3 heures 45" => 225,
+    "4 heures" => 240,
+    "4 heures 15" => 255,
+    "4 heures 30" => 270,
+    "4 heures 45" => 285,
+    "5 heures" => 300,
+    "5 heures 15" => 315,
+    "5 heures 30" => 330,
+    "5 heures 45" => 345,
+    "6 heures" => 360,
+    "6 heures 15" => 375,
+    "6 heures 30" => 390,
+    "6 heures 45" => 405,
+    "7 heures" => 420,
+    "7 heures 15" => 435,
+    "7 heures 30" => 450,
+    "7 heures 45" => 465,
+    "8 heures" => 480,
+    "2 jours consécutifs" => 2880,
+    "3 jours consécutifs" => 4320,
+    "4 jours consécutifs" => 5760,
+    "5 jours consécutifs" => 7200
+  }
 
   include PgSearch::Model
     pg_search_scope :global_search,
