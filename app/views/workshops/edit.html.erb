@@ -55,7 +55,7 @@
           <%= f.input :kit, disabled: true, as: :radio_buttons, label: "Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
           <%= f.input :kit_description, disabled: true, :input_html => {:rows => 4}, label: "Description du contenu du kit, la date d'envoi du kit (exemple J-7) et par quel transporteur il sera livré. La livraison se veut déjà incluse dans le prix de l'atelier fixé par vos soins et se fera obligatoirement à domicile." %>
         <% end %>
-        <%= f.input :duration, disabled: true, label: "Durée de l'atelier en minutes" %>
+        <%= f.input :duration, collection: Workshop::DURATIONS, disabled: true, label: "Durée de l'atelier" %>
         <%= f.input :price, disabled: true, label: "Prix par personne TTC" %>
 
         <div class="d-flex justify-content-center mt-5">
@@ -92,7 +92,7 @@
         <%= f.input :thematic, as: :check_boxes, multiple: true, label: "Type d'atelier", collection: Workshop::THEMATICS %>
         <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS %>
         <%= f.input :ephemeral, as: :radio_buttons, label: "Cet atelier est éphémère (organisé à l'occasion d'un événement par exemple)" %>
-        <%= f.input :duration, label: "Durée de l'atelier en minutes" %>
+        <%= f.input :duration, collection: Workshop::DURATIONS, required: false, label: "Durée de l'atelier" %>
         <%= f.input :price, label: "Prix par personne" %>
         <%= f.input :capacity, label: "Nombre de places proposées" %>
         <%= f.input :program, label: "Programme", :input_html => {:rows => 8} %>
