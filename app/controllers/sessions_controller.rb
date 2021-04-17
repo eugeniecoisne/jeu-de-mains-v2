@@ -36,7 +36,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  def annulation_et_remboursement
+  def annulation
     @session = Session.find(params[:session_id])
     authorize @session
   end
@@ -52,13 +52,13 @@ class SessionsController < ApplicationController
       @session.update(session_params)
       @session.update(db_status: false)
       @session.save
-      mail = SessionMailer.with(session: @session).cancel_and_giveback
-      mail.deliver_now
+      # mail btoc information annulation session et invitation à reporter ou demander remboursement
       @session.bookings.where(db_status: true, status: "paid").each do |b|
-        redirect_to booking_cancel_url(b) and return
-        mail = BookingMailer.with(booking: b).cancel_booking_btoc
-        mail.deliver_now
+        BookingMailer.with(booking: b).cancel_session_by_partner_btoc.deliver_now
       end
+      # mail btob confirmation annulation session
+      SessionMailer.with(session: @session).cancel_session_by_partner_btob.deliver_now
+
       session_start_time = Time.new(@session.date.strftime('%Y').to_i, @session.date.strftime('%m').to_i, @session.date.strftime('%d').to_i, @session.start_at[0..1], @session.start_at[-2..-1], 0, "+01:00")
       cancel_time = Time.now
       if (4..47.99).include?(( session_start_time - cancel_time) / 1.hours)

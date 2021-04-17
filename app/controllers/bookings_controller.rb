@@ -31,6 +31,8 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
     authorize @booking
 
+    # PAIEMENT UNIQUEMENT EN CARTE CADEAU
+
     if booking_params.include?(:confirm_giftcard)
       @giftcard = Giftcard.find(@booking.giftcard_id.to_i)
       new_amount = @giftcard.amount - @booking.giftcard_amount_spent
@@ -55,7 +57,39 @@ class BookingsController < ApplicationController
 
       @booking.update(stripe_giftcard_transfer: transfer.id)
 
+      mail_new_btob = BookingMailer.with(booking: @booking).new_booking_btob
+      mail_new_btob.deliver_later
+      if @booking.session.workshop.animators.where(db_status: true).present?
+        mail_new_btob_2 = BookingMailer.with(booking: @booking).new_booking_btob_animator
+        mail_new_btob_2.deliver_later
+      end
+      mail_new_btoc = BookingMailer.with(booking: @booking).new_booking_btoc
+      mail_new_btoc.deliver_later
+
       redirect_to booking_payment_success_url(@booking)
+
+    # REPORT À UNE AUTRE SESSION
+
+    elsif booking_params.include?(:confirm_report)
+        session_start_time = Time.new(@booking.session.date.strftime('%Y').to_i, @booking.session.date.strftime('%m').to_i, @booking.session.date.strftime('%d').to_i, @booking.session.start_at[0..1], @booking.session.start_at[-2..-1], 0, "+01:00")
+        cancel_time = Time.now
+      # Vérification que le booking peut bien être reporté (+ de 48h ou + de 7j ou annulation par le partenaire)
+      if (@booking.session.reason.present? && @booking.session.db_status == false) || (((session_start_time - cancel_time) / 1.hours) >= 168) || (@booking.session.workshop.kit == false && ((session_start_time - cancel_time) / 1.hours) >= 48)
+        @old_session_id = @booking.session.id
+        @booking.update(session_id: params[:session].to_i)
+        flash[:notice] = "Votre atelier a bien été reporté, vous allez recevoir un e-mail de confirmation du report."
+        redirect_to tableau_de_bord_profile_path(current_user.profile)
+
+        report_mail_btoc = BookingMailer.with(booking: @booking, old_session_id: @old_session_id).report_booking_btoc
+        report_mail_btoc.deliver_later
+        report_mail_btob = BookingMailer.with(booking: @booking, old_session_id: @old_session_id).report_booking_btob
+        report_mail_btob.deliver_later
+      else
+        flash[:alert] = "Votre report n'a pas pu être effectué. Veuillez réessayer ou contacter le service client de Jeu de Mains."
+        redirect_back fallback_location: root_path
+      end
+
+    # AUTRES MODIFICATIONS DE BOOKING
 
     else
       @booking.update(booking_params)
@@ -134,6 +168,11 @@ class BookingsController < ApplicationController
               margin:  { top:0,bottom:0,left:0,right:0}
       end
     end
+  end
+
+  def report_or_refund
+    @booking = Booking.find(params[:booking_id])
+    authorize @booking
   end
 
   def cancel
@@ -251,7 +290,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard, :phone_number, :address, :address_complement, :zip_code, :city, :kit_expedition_status, :kit_expedition_link, :refund_rate, :workshop_unit_price, :fee)
+    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard, :phone_number, :address, :address_complement, :zip_code, :city, :kit_expedition_status, :kit_expedition_link, :refund_rate, :workshop_unit_price, :confirm_report, :fee)
   end
 
 end

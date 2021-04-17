@@ -17,7 +17,7 @@
 
       <h2 class="sign-title">Participants de l'atelier<br><span><%= @session.workshop.title %></span></h2>
       <h3><i class="fas fa-calendar"></i> <%= l(@session.date, format: '%A %d %b %Y') %> à <%= @session.start_at %></h3>
-      <% if @session.bookings.where(db_status: true).map { |booking| booking.quantity }.sum > 1 %>
+      <% if @session.bookings.where(db_status: true, status: "paid").map { |booking| booking.quantity }.sum > 1 %>
         <h3><i class="fas fa-user"></i> <%= @session.bookings.where(db_status: true, status: "paid").map { |booking| booking.quantity }.sum %> participants sur <%= @session.capacity %></h3>
       <% else %>
         <h3><i class="fas fa-user"></i> <%= @session.bookings.where(db_status: true, status: "paid").map { |booking| booking.quantity }.sum %> participant sur <%= @session.capacity %></h3>
