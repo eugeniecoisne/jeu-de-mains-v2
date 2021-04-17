@@ -20,7 +20,7 @@ class SessionPolicy < ApplicationPolicy
     participants?
   end
 
-  def annulation_et_remboursement?
+  def annulation?
     participants?
   end
 

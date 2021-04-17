@@ -27,11 +27,7 @@ class BookingMailer < ApplicationMailer
       track_opens: 'true',
       message_stream: 'outbound')
   end
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.booking_mailer.new_booking_btoc.subject
-  #
+
   def new_booking_btoc
     @booking = params[:booking]
     attachments["cgv-jdm-#{Date.today.strftime("%d-%m-%y")}.pdf"] = WickedPdf.new.pdf_from_string(
@@ -45,11 +41,55 @@ class BookingMailer < ApplicationMailer
       message_stream: 'outbound')
   end
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.booking_mailer.cancel_booking_btob.subject
-  #
+  # quand un organisateur annule la session complète
+  def cancel_session_by_partner_btoc
+    @booking = params[:booking]
+
+    mail(
+      to:       @booking.user.email,
+      subject:  "Votre atelier a malheureusement été annulé - Report ou remboursement au choix",
+      track_opens: 'true',
+      message_stream: 'outbound')
+  end
+
+  def report_booking_btoc
+    @booking = params[:booking]
+    @old_session_id = params[:old_session_id]
+    attachments["cgv-jdm-#{Date.today.strftime("%d-%m-%y")}.pdf"] = WickedPdf.new.pdf_from_string(
+    render_to_string(template: 'pages/cgv.pdf.erb')
+    )
+
+    mail(
+      to:       @booking.user.email,
+      subject:  "Confirmation du report de votre réservation pour l'atelier #{@booking.session.workshop.title}",
+      track_opens: 'true',
+      message_stream: 'outbound')
+  end
+
+  def report_booking_btob
+    @booking = params[:booking]
+    @old_session_id = params[:old_session_id]
+    @organizer = @booking.session.workshop.place.user
+
+    if @booking.session.workshop.animators.where(db_status: true).present?
+      @animator = @booking.session.workshop.animators.where(db_status: true).last.user.email
+
+      mail(
+        bcc: "#{@organizer.email}, #{@animator}",
+        subject:  "#{@booking.user.first_name} a reporté sa réservation d'atelier au #{@booking.session.date.strftime("%d/%m/%y")}",
+        track_opens: 'true',
+        message_stream: 'outbound')
+    else
+
+      mail(
+        to:       @organizer.email,
+        subject:  "#{@booking.user.first_name} a reporté sa réservation d'atelier au #{@booking.session.date.strftime("%d/%m/%y")}",
+        track_opens: 'true',
+        message_stream: 'outbound')
+    end
+  end
+
+
   def cancel_booking_btob
     @booking = params[:booking]
     @organizer = @booking.session.workshop.place.user

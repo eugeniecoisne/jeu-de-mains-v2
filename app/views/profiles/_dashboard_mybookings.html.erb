@@ -115,56 +115,7 @@
                           <div class="d-flex justify-content-left align-items-center flex-wrap">
 
                             <%= link_to "Ma facture", booking_payment_success_path(booking, format: :pdf), class: "button mr-2 mt-2", target: "_blank" %>
-
-                            <a href="#cancelBookingModal<%= index +1 %>" class="button mr-2 mt-2" data-toggle="modal" data-whatever="@mdo">
-                              Annuler
-                            </a>
-
-                            <div class="modal fade cancel-booking-modal" id="cancelBookingModal<%= index +1 %>" tabindex="-1" role="dialog" aria-labelledby="cancelBookingModalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="form-group">
-                                    <%= simple_form_for :cancel, url: booking_cancel_path(booking), method: :get do |f| %>
-                                      <div class="modal-body">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
-                                        </button>
-                                        <p class='mt-3 mb-4'><strong>Vous êtes sur le point d'annuler votre réservation.</strong> <br><br>
-                                          <% if booking.session.workshop.visio_with_kit? %>
-                                            Avant d'annuler définitivement, nous vous remercions de prendre connaissance des conditions d'annulation spécifiques aux ateliers visio avec expédition de kits, à savoir que votre kit est expédié par l'organisateur à peu près 7 jours avant l'atelier : <br>
-                                            <br>
-                                            <strong>Vous annulez jusqu'à 7 jours avant l'atelier :</strong><br>
-                                            100% de votre réservation est remboursée et le kit ne vous est pas envoyé par voie postale. <br><br>
-                                            <strong>Vous annulez moins de 7 jours et jusqu'à 4 heures avant l'atelier :</strong><br>
-                                            50% de votre réservation est remboursée et le kit vous est envoyé par voie postale.<br><br>
-                                            <strong>Vous annulez moins de 4 heures avant l'atelier :</strong><br>
-                                            votre réservation ne vous sera pas remboursée mais le kit vous est envoyé par voie postale.
-                                          <% else %>
-                                            Avant d'annuler définitivement, nous vous remercions de prendre connaissance des conditions d'annulation : <br>
-                                            <br>
-                                            <strong>Vous annulez jusqu'à 48 heures avant l'atelier :</strong><br>
-                                            100% de votre réservation est remboursée. <br><br>
-                                            <strong>Vous annulez moins de 48 heures et jusqu'à 4 heures avant l'atelier :</strong><br>
-                                            50% de votre réservation est remboursée. <br><br>
-                                            <strong>Vous annulez moins de 4 heures avant l'atelier :</strong><br>
-                                            votre réservation ne vous sera pas remboursée.
-                                          <% end %>
-                                          <br><br>
-                                          Plus d'informations dans nos <%= link_to "conditions générales de vente", cgv_path, target: "_blank" %>.
-                                        </p>
-
-                                          <%= f.hidden_field :booking_id, value: booking.id %>
-
-                                        <div class="d-flex justify-content-center mt-4">
-                                          <%= f.submit "Annuler", class: "new-edit-ws-submit" %>
-                                        </div>
-                                      </div>
-                                    <% end %>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
+                            <%= link_to "Annuler", booking_report_or_refund_path(booking), class: "button mr-2 mt-2" %>
 
                             <a href="tel:+33<%= booking.session.workshop.place.phone_number[1..-1] %>" class="call-btn mt-2">
                               <i class="fas fa-phone-alt"></i>

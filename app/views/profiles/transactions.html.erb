@@ -8,7 +8,7 @@
   <h2>Télécharger mes transactions par mois</h2>
   <div class="transactions-exports">
     <% t = Time.new(2021, 1, 1, 0, 0, 1) %>
-    <% number_of_month = ((Time.now - Time.new(2021, 1, 1, 0, 0, 1)) / 1.month).round %>
+    <% number_of_month = ((Time.now - Time.new(2021, 1, 1, 0, 0, 1)) / 1.month).round - 1 %>
     <% months = (0..number_of_month).to_a %>
     <% months.reverse.each do |m| %>
       <% time = t + (m.to_i).month %>

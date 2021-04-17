@@ -1,0 +1,168 @@
+<h1>Annulation de votre atelier</h1>
+<h2><%= @booking.session.workshop.title %></h2>
+
+<h3>Montant de la réservation : <%= @booking.amount %> € TTC</h3>
+<% session_start_time = Time.new(@booking.session.date.strftime('%Y').to_i, @booking.session.date.strftime('%m').to_i, @booking.session.date.strftime('%d').to_i, @booking.session.start_at[0..1], @booking.session.start_at[-2..-1], 0, "+01:00") %>
+<% cancel_time = Time.now %>
+
+<p>Bonjour <%= current_user.first_name %>,<br>
+
+  <!-- ANNULATION PAR L'ORGANISATEUR -->
+  <% if @booking.session.reason.present? && @booking.session.db_status == false %>
+    Votre atelier du <%= l(@booking.session.date, format: '%A %d %B %Y').capitalize %> a malheureusement été annulé. <%= @booking.session.workshop.place.user.profile.company %> et Jeu de Mains vous présentent leurs excuses pour ce désagrément.<br>
+    Nous vous proposons deux options : choisir une nouvelle date disponible pour cet atelier ou demander le remboursement de votre réservation sur le moyen de paiement utilisé. <br>
+    Si aucune date n'est proposée dans le menu déroulant ci-dessous ou si aucune de ces dates ne vous convient, n'hésitez pas à appeler <%= @booking.session.workshop.place.user.profile.company %> au <%= @booking.session.workshop.place.user.profile.phone_number %> pour ouvrir une nouvelle date d'atelier. <br>
+    À bientôt sur jeudemains.com !
+  <!-- ANNULATION INPOSSIBLE -->
+  <% elsif ((session_start_time - cancel_time) / 1.hours) < 4 %>
+    Votre atelier a lieu dans moins de 4 heures ou a déjà eu lieu. <br>
+    Conformément à nos <%= link_to "conditions générales de vente", cgv_path, target: "_blank" %>, vous ne pouvez obtenir report ou remboursement de votre atelier. <br>
+    Nous vous remercions de votre compréhension. <br>
+    L'équipe Jeu de Mains.
+  <% else %>
+
+  <!-- ANNULATION PAR LE CLIENT / RAPPEL DES CGV -->
+
+    Vous vous apprêtez à reporter ou demander le remboursement de votre atelier du <%= l(@booking.session.date, format: '%A %d %B %Y').capitalize %>.<br>
+    <% if @booking.session.workshop.visio_with_kit? %>
+      Avant de procéder à l'une de ces actions, nous vous remercions de prendre connaissance des conditions d'annulation spécifiques aux ateliers visio avec expédition de kits, à savoir que votre kit est expédié par l'organisateur à peu près 7 jours avant l'atelier : <br>
+      <br>
+      <strong>Vous annulez jusqu'à 7 jours avant l'atelier :</strong><br>
+      100% de votre réservation est remboursée et le kit ne vous est pas envoyé par voie postale. <br><br>
+      <strong>Vous annulez moins de 7 jours et jusqu'à 4 heures avant l'atelier :</strong><br>
+      50% de votre réservation est remboursée et le kit vous est envoyé par voie postale.<br><br>
+      <strong>Vous annulez moins de 4 heures avant l'atelier :</strong><br>
+      votre réservation ne vous sera pas remboursée mais le kit vous est envoyé par voie postale.
+    <% else %>
+      Avant de procéder à l'une de ces actions, nous vous remercions de prendre connaissance des conditions d'annulation : <br>
+      <br>
+      <strong>Vous annulez jusqu'à 48 heures avant l'atelier :</strong><br>
+      100% de votre réservation est remboursée. <br><br>
+      <strong>Vous annulez moins de 48 heures et jusqu'à 4 heures avant l'atelier :</strong><br>
+      50% de votre réservation est remboursée. <br><br>
+      <strong>Vous annulez moins de 4 heures avant l'atelier :</strong><br>
+      votre réservation ne vous sera pas remboursée.
+    <% end %>
+    <br>
+    Plus d'informations dans nos <%= link_to "conditions générales de vente", cgv_path, target: "_blank" %>.
+  <% end %>
+</p>
+
+<!-- CAS REPORT & REMBOURSEMENT POSSIBLES (4 heures avant ou plus OU annulation par l'organisateur)-->
+
+<% if (((session_start_time - cancel_time) / 1.hours) >= 4) || (@booking.session.reason.present? && @booking.session.db_status == false) %>
+
+  <!-- CAS REPORT -->
+  <% @sessions = @booking.session.workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today && session.available >= @booking.quantity && (session.id != @booking.session.id) } %>
+
+  <a href="#reportBookingModal" class="button mr-2 mt-2" data-toggle="modal" data-whatever="@mdo">
+    Reporter
+  </a>
+
+
+  <div class="modal fade report-booking-modal" id="reportBookingModal" tabindex="-1" role="dialog" aria-labelledby="reportBookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="form-group">
+
+          <!-- Cas annulation par l'organisateur ou annulation + de 7 jours avant ou annulation + de 48h avant pour atelier présentiel ou visio sans kit -->
+
+          <% if (@sessions.size > 0 && @booking.session.reason.present? && @booking.session.db_status == false) || (@sessions.size > 0 && ((session_start_time - cancel_time) / 1.hours) >= 168) || (@sessions.size > 0 && @booking.session.workshop.kit == false && ((session_start_time - cancel_time) / 1.hours) >= 48) %>
+
+
+            <%= simple_form_for(@booking) do |f| %>
+              <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
+                </button>
+
+                <%= f.hidden_field :confirm_report, value: true %>
+
+                <div class="form-group select required">
+                  <select class="form-control select required" name="session" id="session_id">
+                    <option value="" disabled selected>Sélectionnez une date</option>
+                    <% @booking.session.workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today && session.available >= @booking.quantity && (session.id != @booking.session.id) }.sort_by { |session| session.date }.each do |session| %>
+                      <option value="<%= session.id %>">
+                        <%= l(session.date, format: '%A %d/%m/%y').capitalize %> à <%= session.start_at %>
+                      </option>
+                    <% end %>
+                  </select>
+                </div>
+
+                <div class="d-flex justify-content-center mt-4">
+                  <%= f.submit "Valider le report", class: "new-edit-ws-submit" %>
+                </div>
+              </div>
+            <% end %>
+          <% elsif @sessions.size == 0 %>
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
+              </button>
+              Nous n'avons malheureusement pas de nouvelle(s) date(s) à vous proposer pour cet atelier. Si vous souhaitez annuler votre réservation, veuillez demander votre remboursement  en cliquant sur "Remboursement".
+            </div>
+          <% else %>
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
+              </button>
+              Nous ne pouvons vous proposer une nouvelle date d'atelier puisque vous avez dépassé le délai pour être remboursé à hauteur de 100% et donc avoir accès à un éventuel report. Si vous souhaitez annuler votre réservation, veuillez demander votre remboursement  en cliquant sur "Remboursement".
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- CAS REMBOURSEMENT -->
+
+  <a href="#cancelBookingModal" class="button mr-2 mt-2" data-toggle="modal" data-whatever="@mdo">
+    Remboursement
+  </a>
+
+  <div class="modal fade cancel-booking-modal" id="cancelBookingModal" tabindex="-1" role="dialog" aria-labelledby="cancelBookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="form-group">
+          <%= simple_form_for :cancel, url: booking_cancel_path(@booking), method: :get do |f| %>
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
+              </button>
+              <p class='mt-3 mb-4'><strong>Vous souhaitez demander le remboursement de votre réservation.</strong> <br><br>
+
+              <!-- Remboursement car annulation par l'organisateur -->
+              <% if @booking.session.reason.present? && @booking.session.db_status == false %>
+                Votre atelier a été annulé par l'organisateur, vous recevrez donc un remboursement intégral sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation. <br><br>
+                Soit <strong><%= @booking.amount %> € TTC</strong>
+              <% else %>
+                <!-- Moins de 48h avant et plus de 4h avant, sans kit -->
+                <% if (4..47.99).include?((session_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == false %>
+                  Votre atelier a lieu dans moins de 48 heures et plus de 4 heures, vous recevrez donc un remboursement de 50% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation. <br><br>
+                  Soit <strong><%= @booking.amount * 0.5 %></strong> € TTC
+                <!-- Moins de 7j avant et plus de 4h avant, avec kit -->
+                <% elsif (4..167.99).include?((session_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == true %>
+                  Votre atelier en visioconférence avec kit a lieu dans moins de 7 jours et plus de 4 heures, vous recevrez donc un remboursement de 50% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation et recevrez tout de même votre kit par voie postale. <br><br>
+                  Soit <strong><%= @booking.amount * 0.5 %></strong> € TTC
+                <!-- Plus de 48h ou 7j avant -->
+                <% else %>
+                  Votre atelier a lieu dans plus de <%= @booking.session.workshop.kit == true ? "sept jours" : "48 heures" %>, vous recevrez donc un remboursement de 100% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation. <br><br>
+                  Soit <strong><%= @booking.amount %> € TTC</strong>
+                <% end %>
+              <% end %>
+              <%= f.hidden_field :booking_id, value: @booking.id %>
+
+              <div class="d-flex justify-content-center mt-4">
+                <%= f.submit "Valider le remboursement", class: "new-edit-ws-submit" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end %>

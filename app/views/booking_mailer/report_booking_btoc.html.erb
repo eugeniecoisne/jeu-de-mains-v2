@@ -1,0 +1,3 @@
+<h1>Nous vous confirmons le report de votre atelier <%= @booking.session.workshop.title %> au <%= @booking.session.date.strftime("%d/%m/%y") %></h1>
+<h2>Ancienne date : <%= Session.find(@old_session_id).date.strftime("%d/%m/%y") %> à <%= Session.find(@old_session_id).start_at %></h2>
+<h2>Nouvelle date : <%= @booking.session.date.strftime("%d/%m/%y") %> à <%= @booking.session.start_at %></h2>

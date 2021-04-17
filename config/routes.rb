@@ -84,7 +84,7 @@ Rails.application.routes.draw do
     get 'participants'
     get 'informations_visioconference', to: 'sessions#send_visio_information'
     get 'expedition_kits'
-    get 'annulation_et_remboursement'
+    get 'annulation'
   end
 
   resources :sessions, only: %i() do
@@ -104,6 +104,7 @@ Rails.application.routes.draw do
     get 'payment_error'
     get 'refund_invoice'
     get 'cancel'
+    get 'report_or_refund'
   end
 
   resources :reviews, :path => :avis, :as => :reviews, only: %i(destroy) do
