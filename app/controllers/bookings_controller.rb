@@ -74,7 +74,7 @@ class BookingsController < ApplicationController
         session_start_time = Time.new(@booking.session.date.strftime('%Y').to_i, @booking.session.date.strftime('%m').to_i, @booking.session.date.strftime('%d').to_i, @booking.session.start_at[0..1], @booking.session.start_at[-2..-1], 0, "+01:00")
         cancel_time = Time.now
       # Vérification que le booking peut bien être reporté (+ de 48h ou + de 7j ou annulation par le partenaire)
-      if (@booking.session.reason.present? && @booking.session.db_status == false) || (((session_start_time - cancel_time) / 1.hours) >= 168) || (@booking.session.workshop.kit == false && ((session_start_time - cancel_time) / 1.hours) >= 48)
+      if (@booking.session.reason.present? && @booking.session.db_status == false) || (((session_start_time - cancel_time) / 1.hours) >= 168) || (@booking.session.workshop.kit == false && ((session_start_time - cancel_time) / 1.hours) >= 48) || booking_params.include?(:admin_report)
         @old_session_id = @booking.session.id
         @booking.update(session_id: params[:session].to_i)
         flash[:notice] = "Votre atelier a bien été reporté, vous allez recevoir un e-mail de confirmation du report."
@@ -187,6 +187,8 @@ class BookingsController < ApplicationController
 
     if @booking.session.reason.present? && @booking.session.db_status == false
       @booking.refund_rate = 1.0
+    elsif params[:cancel][:refund_rate].present?
+      @booking.refund_rate = params[:cancel][:refund_rate].to_f
     else
       if (0..3.99).include?((booking_start_time - cancel_time) / 1.hours)
         @booking.refund_rate = 0.0
@@ -287,10 +289,15 @@ class BookingsController < ApplicationController
     redirect_back fallback_location: root_path
   end
 
+  def admin_report_or_refund
+    @booking = Booking.find(params[:booking_id])
+    authorize @booking
+  end
+
   private
 
   def booking_params
-    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard, :phone_number, :address, :address_complement, :zip_code, :city, :kit_expedition_status, :kit_expedition_link, :refund_rate, :workshop_unit_price, :confirm_report, :fee)
+    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard, :phone_number, :address, :address_complement, :zip_code, :city, :kit_expedition_status, :kit_expedition_link, :refund_rate, :workshop_unit_price, :confirm_report, :admin_report , :fee)
   end
 
 end

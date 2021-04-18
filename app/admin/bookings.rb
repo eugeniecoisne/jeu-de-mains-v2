@@ -66,6 +66,9 @@ ActiveAdmin.register Booking do
     column :phone_number
     column :kit_expedition_status
     column :kit_expedition_link
+    column "Remboursement ou report manuels" do |booking|
+      link_to "Remboursement ou report", "#{booking_admin_report_or_refund_path(booking)}"
+    end
   end
 
   csv do
@@ -196,6 +199,9 @@ ActiveAdmin.register Booking do
       row :phone_number
       row :kit_expedition_status
       row :kit_expedition_link
+      row "Remboursement ou report manuels" do |booking|
+        link_to "Remboursement ou report", "#{booking_admin_report_or_refund_path(booking)}"
+      end
     end
   end
 

@@ -105,6 +105,7 @@ Rails.application.routes.draw do
     get 'refund_invoice'
     get 'cancel'
     get 'report_or_refund'
+    get 'admin_report_or_refund'
   end
 
   resources :reviews, :path => :avis, :as => :reviews, only: %i(destroy) do

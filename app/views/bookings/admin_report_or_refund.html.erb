@@ -1,0 +1,59 @@
+<div class="container pt-4 pl-4 pr-4 pb-3">
+
+  <h1 class="mb-4" style="font-size:22px;">Remboursement - Réservation n°<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %></h1>
+
+  <div class="refund-container p-3 mb-5" style='background-color:#F2F2F2;'>
+    <h2 style="font-size:18px;">Remboursement manuel :</h2>
+
+    <p style="font-size:15px;">Une fois ce formulaire rempli avec le taux de remboursement, le remboursement vers le moyen de paiement utilisé à l'achat se fait automatiquement ainsi que les transferts entre le partenaire et Jeu de Mains. La commission JDM remboursée au partenaire est égale au montant de commission prise initialement. Les e-mails client et partenaire d'annulation de la réservation seront envoyés automatiquement.</p>
+
+    <%= simple_form_for :cancel, url: booking_cancel_path(@booking), method: :get do |f| %>
+      <%= f.hidden_field :booking_id, value: @booking.id %>
+      <%= f.input :refund_rate, label: "Taux de remboursement", collection: [0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]%>
+      <%= f.submit "Procéder au remboursement" %>
+    <% end %>
+  </div>
+
+  <div class="refund-container p-3 mb-5" style='background-color:#F2F2F2;'>
+    <h2 style="font-size:18px;">Repor manuel :</h2>
+
+    <p style="font-size:15px;">Une fois ce formulaire rempli avec la nouvelle date de session, des e-mails automatiques de report de session seront envoyés au client et au partenaire. Si aucune date n'apparaît c'est que l'atelier ne propose pas de session prochaine ou que les sessions prochaines sont complètes.</p>
+
+    <%= simple_form_for(@booking) do |f| %>
+      <%= f.hidden_field :confirm_report, value: true %>
+      <%= f.hidden_field :admin_report, value: true %>
+      <div class="form-group select required">
+        <select class="form-control select required" name="session" id="session_id">
+          <option value="" disabled selected>Sélectionnez une date</option>
+          <% @booking.session.workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today && session.available >= @booking.quantity && (session.id != @booking.session.id) }.sort_by { |session| session.date }.each do |session| %>
+            <option value="<%= session.id %>">
+              <%= l(session.date, format: '%A %d/%m/%y').capitalize %> à <%= session.start_at %>
+            </option>
+          <% end %>
+        </select>
+      </div>
+      <%= f.submit "Procéder au report" %>
+    <% end %>
+  </div>
+
+  <p><strong>Statut :</strong>
+    <% if @booking.status.present? && @booking.status == "paid" %>
+      payée
+    <% elsif @booking.status.present? && @booking.status == "refunded" %>
+      remboursée
+    <% end %>
+  </p>
+  <p><strong>Réservation :</strong> <%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %> <em>- id : <%= @booking.id %></em></p>
+  <p><strong>Lien vers la fiche réservation :</strong> <%= link_to "Voir la fiche", booking_path(@booking) %> </p>
+  <p><strong>Client :</strong> <%= @booking.user.fullname %> <em>- id : <%= @booking.user.id %></em></p>
+  <p><strong>Session :</strong> <%= @booking.session.date.strftime("%d/%m/%y") %> à <%= @booking.session.start_at %> <em>- id : <%= @booking.session.id %></em></p>
+  <p><strong>Atelier :</strong> <%= @booking.session.workshop.title %> <em>- id : <%= @booking.session.workshop.id %></em></p>
+  <p><strong>Organisateur :</strong> <%= @booking.session.workshop.place.user.profile.company %> <em>- id : <%= @booking.session.workshop.place.user.profile.id %></em></p>
+  <br>
+  <p><strong>Montant total =</strong> <%= @booking.amount %> € ttc</p>
+  <p><strong>Commission JDM =</strong> <%= @booking.amount * @booking.fee %> € ttc (soit <%= @booking.fee * 100 %>%)</p>
+  <p><strong>Transfert au partenaire =</strong> <%= @booking.amount - (@booking.amount * @booking.fee) %> € ttc</p>
+  <br>
+
+</div>
+

@@ -18,7 +18,7 @@
             <div class="list-item-menu">
               <%= link_to comptabilite_reservations_profile_path(current_user.profile), class: "menu-blue-link" do %>
                 <i class="fas fa-tachometer-alt menu-icon menu-blue-icon mr-2"></i>
-                Comptabilité réservations
+                Compta réservations
               <% end %>
             </div>
           </li>
@@ -26,7 +26,7 @@
             <div class="list-item-menu">
               <%= link_to comptabilite_cartes_cadeaux_profile_path(current_user.profile), class: "menu-blue-link" do %>
                 <i class="fas fa-tachometer-alt menu-icon menu-blue-icon mr-2"></i>
-                Comptabilité cartes KDO
+                Compta cartes cadeaux
               <% end %>
             </div>
           </li>
@@ -39,7 +39,7 @@
             <% end %>
           </div>
         </li>
-        <% if (current_user.profile.role.present? && current_user.can_receive_payments?) || current_user.admin == true %>
+        <% if (current_user.profile.role.present? && current_user.can_receive_payments?) %>
           <li class="list-group-item">
             <div class="list-item-menu">
               <%= link_to new_workshop_path, class: "menu-blue-link" do %>
@@ -76,19 +76,21 @@
             </div>
           </li>
         <% end %>
-        <li class="list-group-item">
-          <div class="list-item-menu">
-            <%= link_to tableau_de_bord_profile_path(current_user.profile), class: "menu-blue-link" do %>
-              <% if current_user.profile.role %>
-                <i class="fas fa-chart-bar menu-icon menu-blue-icon mr-1"></i>
-                Mon tableau de bord
-              <% else %>
-                <i class="far fa-calendar-check menu-icon menu-blue-icon mr-2"></i>
-                Mes réservations
+        <% unless current_user.admin == true %>
+          <li class="list-group-item">
+            <div class="list-item-menu">
+              <%= link_to tableau_de_bord_profile_path(current_user.profile), class: "menu-blue-link" do %>
+                <% if current_user.profile.role %>
+                  <i class="fas fa-chart-bar menu-icon menu-blue-icon mr-1"></i>
+                  Mon tableau de bord
+                <% else %>
+                  <i class="far fa-calendar-check menu-icon menu-blue-icon mr-2"></i>
+                  Mes réservations
+                <% end %>
               <% end %>
-            <% end %>
-          </div>
-        </li>
+            </div>
+          </li>
+        <% end %>
         <% if current_user.profile.role.present? %>
           <li class="list-group-item">
             <div class="list-item-menu">
@@ -99,7 +101,7 @@
             </div>
           </li>
         <% end %>
-        <% if current_user.profile.role.nil? %>
+        <% if current_user.profile.role.nil? && current_user.admin == false %>
           <li class="list-group-item">
             <div class="list-item-menu">
               <%= link_to mes_cartes_cadeaux_profile_path(current_user.profile), class: "menu-blue-link" do %>
