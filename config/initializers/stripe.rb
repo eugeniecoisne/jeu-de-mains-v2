@@ -8,9 +8,13 @@ Stripe.api_key = Rails.configuration.stripe[:secret_key]
 StripeEvent.signing_secret = Rails.configuration.stripe[:signing_secret]
 
 StripeEvent.configure do |events|
-  events.subscribe 'checkout.session.completed', StripeCheckoutSessionService.new
+  events.subscribe 'checkout.session.completed' do |event|
+    StripeCheckoutSessionService.new
+  end
 end
 
 StripeEvent.configure do |events|
-  events.subscribe 'charge.refunded', StripeRefundService.new
+  events.subscribe 'charge.refunded' do |event|
+    StripeRefundService.new
+  end
 end
