@@ -261,7 +261,7 @@ class WorkshopsController < ApplicationController
   def send_verification_mail
     @workshop = Workshop.find(params[:id])
     authorize @workshop
-    if @workshop && @workshop.completed? && workshop.place.user.profile.db_status == true && @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present?
+    if @workshop && @workshop.completed? && @workshop.place.user.profile.db_status == true && @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present?
       @workshop.update(status: "vérification")
       mail = WorkshopMailer.with(workshop: @workshop).ask_for_check_up
       mail.deliver_later

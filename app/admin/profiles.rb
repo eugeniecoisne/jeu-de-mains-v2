@@ -277,7 +277,7 @@ ActiveAdmin.register Profile do
 
   form do |f|
     f.inputs "Utilisateur, nom d'entreprise et rôle" do
-      f.input :user, collection: PROFILE_USERS
+      f.input :user, collection: PROFILE_USERS, value: :user
       f.input :company
       f.input :accountant_company
       f.input :siret_number
