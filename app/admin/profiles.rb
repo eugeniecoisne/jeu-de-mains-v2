@@ -176,11 +176,11 @@ ActiveAdmin.register Profile do
           end
           column :ephemeral
           column "Nb sessions en ligne" do |workshop|
-            workshop.sessions.where(db_status: true).select { |s| s.start_date > Date.today }.count
+            workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
           end
           column "Participants reçus" do |workshop|
             participants = 0
-            Session.all.select { |s| s.workshop == workshop && s.start_date < Date.today }.each { |s| participants += s.sold }
+            Session.all.select { |s| s.workshop == workshop && s.date < Date.today }.each { |s| participants += s.sold }
             participants
           end
           column "Statut" do |workshop|
@@ -215,11 +215,11 @@ ActiveAdmin.register Profile do
             animator.workshop.ephemeral
           end
           column "Nb sessions en ligne" do |animator|
-            animator.workshop.sessions.where(db_status: true).select { |s| s.start_date > Date.today }.count
+            animator.workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
           end
           column "Participants reçus" do |animator|
             participants = 0
-            Session.all.select { |s| s.workshop == animator.workshop && s.start_date < Date.today }.each { |s| participants += s.sold }
+            Session.all.select { |s| s.workshop == animator.workshop && s.date < Date.today }.each { |s| participants += s.sold }
             participants
           end
           column "Statut" do |animator|
