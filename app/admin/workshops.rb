@@ -271,14 +271,14 @@ ActiveAdmin.register Workshop do
 
     if workshop.sessions.present?
       panel "Sessions" do
-        table_for workshop.sessions.sort_by { |session| session.start_date } do
+        table_for workshop.sessions.sort_by { |session| session.date } do
           column "Session" do |session|
             link_to "Voir", "#{admin_session_path(session)}"
           end
           column "Date de début" do |session|
-            session.start_date.strftime("%d/%m/%Y")
+            session.date.strftime("%d/%m/%Y")
           end
-          column :start_time
+          column :start_at
           column "Date de fin" do |session|
             session.end_date.strftime("%d/%m/%Y")
           end
@@ -291,7 +291,7 @@ ActiveAdmin.register Workshop do
             session.available
           end
           column "À venir ?" do |session|
-            session.start_date > Date.today ? true : false
+            session.date > Date.today ? true : false
           end
           column :db_status
         end
