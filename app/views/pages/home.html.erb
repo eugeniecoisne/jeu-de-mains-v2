@@ -226,7 +226,7 @@
                         <span><%= session.available %> places restantes</span>
                       </div>
                       <div class="ws-card-tag ws-card-last-minute-date" id="home-ws-card-date">
-                        <span><%= session.date.strftime('%d/%m/%Y') %></span>
+                        <span><%= session.start_date.strftime('%d/%m/%Y') %></span>
                       </div>
                     </div>
                     <%= render "workshops/ws-index-carousel", workshop: session.workshop %>

@@ -15,5 +15,5 @@ Message : <%= @review.content %> <br>
 Réservation_ID : <%= @review.booking.id %> <br>
 N° de réservation : <%= @review.booking.created_at.strftime("%Y%m") %><%= @review.booking.id %>
 Atelier : <%= @review.booking.session.workshop.title %> <br>
-Session : <%= @review.booking.session.date.strftime("%d/%m/%Y") %> à <%= @review.booking.session.start_at %> <br>
+Session : <%= @review.booking.session.start_date.strftime("%d/%m/%Y") %> à <%= @review.booking.session.start_time %> <br>
 Type : <%= @review.booking.session.workshop.visio == true ? "en visioconférence" : "en présentiel" %> <br>

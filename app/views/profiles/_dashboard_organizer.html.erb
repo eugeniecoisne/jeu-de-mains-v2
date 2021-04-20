@@ -93,7 +93,7 @@
                 <% end %>
                 <% workshop.sessions.where(db_status: true).each do |session| %>
                   <% my_sessions << session %>
-                  <% my_dates << session.date if session.workshop.verified == true %>
+                  <% my_dates << session.start_date if session.workshop.verified == true %>
                 <% end %>
                 <% workshop.sessions.each do |session| %>
                   <% session.bookings.where(db_status: true, status: "refunded").each do |booking| %>
@@ -117,7 +117,7 @@
                 <% end %>
               <% animator.workshop.sessions.where(db_status: true).each do |session| %>
                 <% my_sessions << session %>
-                <% my_dates << session.date if session.workshop.verified == true %>
+                <% my_dates << session.start_date if session.workshop.verified == true %>
               <% end %>
               <% animator.workshop.sessions.each do |session| %>
                 <% session.bookings.where(db_status: false, status: "refunded").each do |booking| %>
@@ -146,10 +146,10 @@
               <% my_ws_bookings_today = [] %>
               <% all_my_ws_bookings = [] %>
               <% workshop.sessions.where(db_status: true).each do |session| %>
-                <% if session.date >= (Date.today - 7) && session.date < Date.today %>
+                <% if session.start_date >= (Date.today - 7) && session.start_date < Date.today %>
                   <% session.bookings.where(db_status: true, status: 'paid').each {|b| my_ws_bookings_7_days << b } %>
                 <% end %>
-                <% if session.date >= Date.today %>
+                <% if session.start_date >= Date.today %>
                   <% session.bookings.where(db_status: true, status: 'paid').each {|b| my_ws_bookings_today << b } %>
                 <% end %>
                 <% session.bookings.where(db_status: true, status: 'paid').each {|b| all_my_ws_bookings << b } %>
@@ -231,8 +231,10 @@
                                           <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
                                         </button>
 
-                                        <%= f.input :date, required: true, label: "Date de l'atelier" %>
-                                        <%= f.input :start_at, required: true, label: "Heure de début", collection: Session::STARTS_AT %>
+                                        <%= f.input :start_date, required: true, label: "Date de l'atelier" %>
+                                        <%= f.input :start_time, required: true, label: "Heure de début", collection: Session::STARTS_AT %>
+                                        <%= f.input :end_date, required: true, label: "Date de l'atelier" %>
+                                        <%= f.input :end_time, required: true, label: "Heure de début", collection: Session::STARTS_AT %>
                                         <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier" %>
 
                                         <div class="d-flex justify-content-center">
@@ -416,10 +418,10 @@
                                 </div>
                               </div>
 
-                          <% elsif workshop.status == 'hors ligne' && workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present? && workshop.completed? %>
+                          <% elsif workshop.status == 'hors ligne' && workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today }.present? && workshop.completed? %>
                             <a href="/ateliers/<%=workshop.id%>/send_verification_mail" class="button mr-2">Demander la mise en ligne</a>
 
-                          <% elsif workshop.completed? == false || workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present? == false %>
+                          <% elsif workshop.completed? == false || workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today }.present? == false %>
                             <a href="#disabledOnlineModal<%= index +1 %>" class="button mr-2" data-toggle="modal" data-whatever="@mdo" id="turn-online-offline-button-disabled">
                               Passer en ligne
                             </a>
@@ -508,11 +510,11 @@
                       <h2><%= l(date, format: '%A %d %B %Y').capitalize %></h2>
                     </div>
                     <div class="mobile-dashboard-my-agenda-date-container">
-                      <% Session.where("date = ?", date.strftime).where(db_status: true).select {|s| s.workshop.verified == true && s.workshop.status == "en ligne" }.sort_by { |session| session.start_at }.each do |session| %>
+                      <% Session.where("start_date = ?", date.strftime).where(db_status: true).select {|s| s.workshop.verified == true && s.workshop.status == "en ligne" }.sort_by { |session| session.start_time }.each do |session| %>
                         <% if session.workshop.place.user == @profile.user || (session.workshop.animators.where(db_status: true).last.user == @profile.user if session.workshop.animators.where(db_status: true).present?) %>
                           <div class="mobile-dashboard-my-agenda-workshop">
                             <%= link_to workshop_path(session.workshop) do  %>
-                              <% session_start_time = Time.new(Date.today.strftime('%Y').to_i, Date.today.strftime('%m').to_i, Date.today.strftime('%d').to_i, session.start_at[0..1], session.start_at[-2..-1], 0, "+01:00") %>
+                              <% session_start_time = Time.new(Date.today.strftime('%Y').to_i, Date.today.strftime('%m').to_i, Date.today.strftime('%d').to_i, session.start_time[0..1], session.start_time[-2..-1], 0, "+01:00") %>
                               <% session_end_time = session_start_time + session.workshop.duration.minutes %>
                               <% if session.workshop.title.size > 33 %>
                                 <h3><%= session_start_time.strftime("%Hh%M") %> à <%= session_end_time.strftime("%Hh%M") %> - <%= session.workshop.title[0..30] %>...</h3>
@@ -621,11 +623,11 @@
                       <h2><%= l(date, format: '%A %d %B %Y').capitalize %></h2>
                     </div>
                     <div class="mobile-dashboard-my-agenda-date-container">
-                      <% Session.where("date = ?", date.strftime).where(db_status: true).sort_by { |session| session.start_at }.each do |session| %>
+                      <% Session.where("date = ?", date.strftime).where(db_status: true).sort_by { |session| session.start_time }.each do |session| %>
                         <% if session.workshop.place.user == @profile.user || (session.workshop.animators.where(db_status: true).last.user == @profile.user if session.workshop.animators.where(db_status: true).present?) %>
                           <div class="mobile-dashboard-my-agenda-workshop" id="mobile-dashboard-my-passed-agenda-workshop">
                             <%= link_to workshop_path(session.workshop) do  %>
-                              <% session_start_time = Time.new(Date.today.strftime('%Y').to_i, Date.today.strftime('%m').to_i, Date.today.strftime('%d').to_i, session.start_at[0..1], session.start_at[-2..-1], 0, "+01:00") %>
+                              <% session_start_time = Time.new(Date.today.strftime('%Y').to_i, Date.today.strftime('%m').to_i, Date.today.strftime('%d').to_i, session.start_time[0..1], session.start_time[-2..-1], 0, "+01:00") %>
                               <% session_end_time = session_start_time + session.workshop.duration.minutes %>
                               <% if session.workshop.title.size > 33 %>
                                 <h3><%= session_start_time.strftime("%Hh%M") %> à <%= session_end_time.strftime("%Hh%M") %> - <%= session.workshop.title[0..30] %>...</h3>
@@ -720,8 +722,8 @@
             <div class="tab-pane fade" id="v-pills-kits-sending" role="tabpanel" aria-labelledby="v-pills-kits-sending-tab">
 
               <div class="dashboard-my-kits-sending">
-                <% if my_sessions.select { |s| s.date >= Date.today && s.workshop.kit == true}.count > 0 %>
-                  <% my_sessions.select { |s| s.date >= Date.today && s.workshop.kit == true}.sort_by { |s| s.date }.each do |session| %>
+                <% if my_sessions.select { |s| s.start_date >= Date.today && s.workshop.kit == true}.count > 0 %>
+                  <% my_sessions.select { |s| s.start_date >= Date.today && s.workshop.kit == true}.sort_by { |s| s.start_date }.each do |session| %>
 
                     <div class="dashboard-my-kits-sending-workshop">
                       <div class="dashboard-my-kits-sending-image">
@@ -737,7 +739,7 @@
                         <div>
                           <p class="dashboard-my-kits-sending-coming">
                             <i class="fas fa-clock mr-2"></i>
-                            Visio dans <%= ((session.date.to_time - Time.now.to_time) / 1.days).round %> jours
+                            Visio dans <%= ((session.start_date.to_time - Time.now.to_time) / 1.days).round %> jours
                           </p>
                           <p class="dashboard-my-kits-sending-participants">
                             <i class="fas fa-user-check mr-1"></i>
@@ -749,10 +751,10 @@
                             <% end %>
                           </h2>
                           <h3>
-                            <%= l(session.date, format: '%A %d %B %Y').capitalize %>
+                            <%= l(session.start_date, format: '%A %d %B %Y').capitalize %>
                           </h3>
-                          <h3>À <%= session.start_at %></h3>
-                          <h3>Clôture des réservations le <%= l((session.date - 7.days), format: '%d %B') %></h3>
+                          <h3>À <%= session.start_time %></h3>
+                          <h3>Clôture des réservations le <%= l((session.start_date - 7.days), format: '%d %B') %></h3>
                         </div>
                         <div class="mt-2 mb-1">
                           <%= link_to "Gérer l'expédition", session_expedition_kits_path(session), class: "dashboard-my-kits-sending-button" %>
@@ -905,8 +907,8 @@
                 <% end %>
               </div>
               <div class="dashboard-my-kpis-item" id="dashboard-my-kpis-sessions">
-                <h2><%= my_sessions.select { |s| s.date >= Date.today && s.workshop.verified == true }.count %></h2>
-                <% if my_sessions.select { |s| s.date >= Date.today && s.workshop.verified == true }.count > 1 %>
+                <h2><%= my_sessions.select { |s| s.start_date >= Date.today && s.workshop.verified == true }.count %></h2>
+                <% if my_sessions.select { |s| s.start_date >= Date.today && s.workshop.verified == true }.count > 1 %>
                   <h3>créneaux à venir</h3>
                 <% else %>
                   <h3>créneau à venir</h3>

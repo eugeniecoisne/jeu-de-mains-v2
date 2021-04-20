@@ -35,7 +35,7 @@
           </tr>
           <tr>
             <th scope="row">Session</th>
-            <td style='text-align:right;'><%= link_to "#{@booking.session.date.strftime("%d/%m/%Y")} à #{@booking.session.start_at}", session_participants_path(@booking.session), target: "_blank" %></td>
+            <td style='text-align:right;'><%= link_to "#{@booking.session.start_date.strftime("%d/%m/%Y")} à #{@booking.session.start_time}", session_participants_path(@booking.session), target: "_blank" %></td>
           </tr>
           <tr>
             <th scope="row">Nb place(s)</th>

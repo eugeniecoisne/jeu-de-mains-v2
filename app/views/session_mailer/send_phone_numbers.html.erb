@@ -81,7 +81,7 @@
     <div class="block-grid mixed-two-up" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff; padding-top: 10px;">
       <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
         <p class="mobile-align-center" style="font-size: 16px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0; color: #235B6A"><%= link_to workshop_url(@session.workshop), target: "_blank" do %>Atelier <%= @session.workshop.title %><% end %></p>
-        <p class="mobile-align-center" style="font-size: 16px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0; color: #235B6A">Du <%= l(@session.date, format: '%A %d %b %Y') %> à <%= @session.start_at %></p>
+        <p class="mobile-align-center" style="font-size: 16px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0; color: #235B6A">Du <%= l(@session.start_date, format: '%A %d %b %Y') %> à <%= @session.start_time %></p>
       </div>
     </div>
   </div>

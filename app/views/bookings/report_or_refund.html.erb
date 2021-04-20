@@ -2,14 +2,14 @@
 <h2><%= @booking.session.workshop.title %></h2>
 
 <h3>Montant de la réservation : <%= @booking.amount %> € TTC</h3>
-<% session_start_time = Time.new(@booking.session.date.strftime('%Y').to_i, @booking.session.date.strftime('%m').to_i, @booking.session.date.strftime('%d').to_i, @booking.session.start_at[0..1], @booking.session.start_at[-2..-1], 0, "+01:00") %>
+<% session_start_time = Time.new(@booking.session.start_date.strftime('%Y').to_i, @booking.session.start_date.strftime('%m').to_i, @booking.session.start_date.strftime('%d').to_i, @booking.session.start_time[0..1], @booking.session.start_time[-2..-1], 0, "+01:00") %>
 <% cancel_time = Time.now %>
 
 <p>Bonjour <%= current_user.first_name %>,<br>
 
   <!-- ANNULATION PAR L'ORGANISATEUR -->
   <% if @booking.session.reason.present? && @booking.session.db_status == false %>
-    Votre atelier du <%= l(@booking.session.date, format: '%A %d %B %Y').capitalize %> a malheureusement été annulé. <%= @booking.session.workshop.place.user.profile.company %> et Jeu de Mains vous présentent leurs excuses pour ce désagrément.<br>
+    Votre atelier du <%= l(@booking.session.start_date, format: '%A %d %B %Y').capitalize %> a malheureusement été annulé. <%= @booking.session.workshop.place.user.profile.company %> et Jeu de Mains vous présentent leurs excuses pour ce désagrément.<br>
     Nous vous proposons deux options : choisir une nouvelle date disponible pour cet atelier ou demander le remboursement de votre réservation sur le moyen de paiement utilisé. <br>
     Si aucune date n'est proposée dans le menu déroulant ci-dessous ou si aucune de ces dates ne vous convient, n'hésitez pas à appeler <%= @booking.session.workshop.place.user.profile.company %> au <%= @booking.session.workshop.place.user.profile.phone_number %> pour ouvrir une nouvelle date d'atelier. <br>
     À bientôt sur jeudemains.com !
@@ -23,7 +23,7 @@
 
   <!-- ANNULATION PAR LE CLIENT / RAPPEL DES CGV -->
 
-    Vous vous apprêtez à reporter ou demander le remboursement de votre atelier du <%= l(@booking.session.date, format: '%A %d %B %Y').capitalize %>.<br>
+    Vous vous apprêtez à reporter ou demander le remboursement de votre atelier du <%= l(@booking.session.start_date, format: '%A %d %B %Y').capitalize %>.<br>
     <% if @booking.session.workshop.visio_with_kit? %>
       Avant de procéder à l'une de ces actions, nous vous remercions de prendre connaissance des conditions d'annulation spécifiques aux ateliers visio avec expédition de kits, à savoir que votre kit est expédié par l'organisateur à peu près 7 jours avant l'atelier : <br>
       <br>
@@ -53,7 +53,7 @@
 <% if (((session_start_time - cancel_time) / 1.hours) >= 4) || (@booking.session.reason.present? && @booking.session.db_status == false) %>
 
   <!-- CAS REPORT -->
-  <% @sessions = @booking.session.workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today && session.available >= @booking.quantity && (session.id != @booking.session.id) } %>
+  <% @sessions = @booking.session.workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today && session.available >= @booking.quantity && (session.id != @booking.session.id) } %>
 
   <a href="#reportBookingModal" class="button mr-2 mt-2" data-toggle="modal" data-whatever="@mdo">
     Reporter
@@ -81,9 +81,9 @@
                 <div class="form-group select required">
                   <select class="form-control select required" name="session" id="session_id">
                     <option value="" disabled selected>Sélectionnez une date</option>
-                    <% @booking.session.workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today && session.available >= @booking.quantity && (session.id != @booking.session.id) }.sort_by { |session| session.date }.each do |session| %>
+                    <% @booking.session.workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today && session.available >= @booking.quantity && (session.id != @booking.session.id) }.sort_by { |session| session.start_date }.each do |session| %>
                       <option value="<%= session.id %>">
-                        <%= l(session.date, format: '%A %d/%m/%y').capitalize %> à <%= session.start_at %>
+                        <%= l(session.start_date, format: '%A %d/%m/%y').capitalize %> à <%= session.start_time %>
                       </option>
                     <% end %>
                   </select>

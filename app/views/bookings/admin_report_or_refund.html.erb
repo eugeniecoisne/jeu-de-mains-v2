@@ -25,9 +25,9 @@
       <div class="form-group select required">
         <select class="form-control select required" name="session" id="session_id">
           <option value="" disabled selected>Sélectionnez une date</option>
-          <% @booking.session.workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today && session.available >= @booking.quantity && (session.id != @booking.session.id) }.sort_by { |session| session.date }.each do |session| %>
+          <% @booking.session.workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today && session.available >= @booking.quantity && (session.id != @booking.session.id) }.sort_by { |session| session.start_date }.each do |session| %>
             <option value="<%= session.id %>">
-              <%= l(session.date, format: '%A %d/%m/%y').capitalize %> à <%= session.start_at %>
+              <%= l(session.start_date, format: '%A %d/%m/%y').capitalize %> à <%= session.start_time %>
             </option>
           <% end %>
         </select>
@@ -46,7 +46,7 @@
   <p><strong>Réservation :</strong> <%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %> <em>- id : <%= @booking.id %></em></p>
   <p><strong>Lien vers la fiche réservation :</strong> <%= link_to "Voir la fiche", booking_path(@booking) %> </p>
   <p><strong>Client :</strong> <%= @booking.user.fullname %> <em>- id : <%= @booking.user.id %></em></p>
-  <p><strong>Session :</strong> <%= @booking.session.date.strftime("%d/%m/%y") %> à <%= @booking.session.start_at %> <em>- id : <%= @booking.session.id %></em></p>
+  <p><strong>Session :</strong> <%= @booking.session.start_date.strftime("%d/%m/%y") %> à <%= @booking.session.start_time %> <em>- id : <%= @booking.session.id %></em></p>
   <p><strong>Atelier :</strong> <%= @booking.session.workshop.title %> <em>- id : <%= @booking.session.workshop.id %></em></p>
   <p><strong>Organisateur :</strong> <%= @booking.session.workshop.place.user.profile.company %> <em>- id : <%= @booking.session.workshop.place.user.profile.id %></em></p>
   <br>

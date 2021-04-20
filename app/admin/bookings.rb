@@ -2,7 +2,7 @@ ActiveAdmin.register Booking do
   menu parent: "Achats"
   config.per_page = 50
   permit_params :quantity, :status, :amount, :user_id, :user, :session_id, :session, :db_status, :workshop, :address, :address_complement, :zip_code, :city, :phone_number, :kit_expedition_status, :kit_expedition_link, :refund_rate, :workshop_unit_price, :fee
-  BOOKING_SESSIONS = Session.all.where(db_status: true).sort_by { |s| s.date }.map { |s| ["#{s.id} - #{s.date.strftime("%d/%m/%y")} à #{s.start_at} - #{s.workshop.title} chez #{s.workshop.place.name} - #{s.available} places restantes", s.id] }.to_h
+  BOOKING_SESSIONS = Session.all.where(db_status: true).sort_by { |s| s.start_date }.map { |s| ["#{s.id} - #{s.start_date.strftime("%d/%m/%y")} à #{s.start_time} - #{s.workshop.title} chez #{s.workshop.place.name} - #{s.available} places restantes", s.id] }.to_h
   BOOKING_USERS = User.all.select { |u| u.profile.company.present? == false }.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
   index do
@@ -18,7 +18,7 @@ ActiveAdmin.register Booking do
       link_to "#{booking.session.workshop.title}", "#{admin_workshop_path(booking.session.workshop)}"
     end
     column :session do |booking|
-      link_to "#{booking.session.date.strftime('%d/%m/%y')} à #{booking.session.start_at}", "#{admin_session_path(booking.session)}"
+      link_to "#{booking.session.start_date.strftime('%d/%m/%y')} à #{booking.session.start_time}", "#{admin_session_path(booking.session)}"
     end
     column :quantity
     column :amount
@@ -86,10 +86,10 @@ ActiveAdmin.register Booking do
       booking.session.workshop.title
     end
     column "Date de l'atelier" do |booking|
-      booking.session.date.strftime('%d/%m/%y')
+      booking.session.start_date.strftime('%d/%m/%y')
     end
     column "Heure de l'atelier" do |booking|
-      booking.session.start_at
+      booking.session.start_time
     end
     column :quantity
     column :amount
@@ -151,7 +151,7 @@ ActiveAdmin.register Booking do
         link_to "#{booking.session.workshop.title}", "#{admin_workshop_path(booking.session.workshop)}"
       end
       row :session do |booking|
-        link_to "#{booking.session.date.strftime('%d/%m/%y')} à #{booking.session.start_at}", "#{admin_session_path(booking.session)}"
+        link_to "#{booking.session.start_date.strftime('%d/%m/%y')} à #{booking.session.start_time}", "#{admin_session_path(booking.session)}"
       end
       row :quantity
       row :amount
@@ -207,8 +207,8 @@ ActiveAdmin.register Booking do
 
   form do |f|
     f.inputs "Session et acheteur" do
-      f.input :session, collection: BOOKING_SESSIONS
-      f.input :user, collection: BOOKING_USERS
+      f.input :session, collection: BOOKING_SESSIONS, value: :session
+      f.input :user, collection: BOOKING_USERS, value: :user
     end
     f.inputs "Quantité & commission" do
       f.input :quantity

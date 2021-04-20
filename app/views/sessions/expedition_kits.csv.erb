@@ -1,8 +1,8 @@
 <%= ["Date de session", "Heure de session", "Atelier", "Numero de reservation", "Nom", "Prenom", "Adresse", "Complement adresse", "Code postal", "Ville", "Telephone", "Date de reservation", "Quantites de kits", "Statut", "Lien de suivi" ].to_csv({col_sep: ";"}) %>
 <% @bookings.each do |booking| %>
   <% array = [] %>
-  <% array << booking.session.date.strftime("%d/%m/%y") %>
-  <% array << booking.session.start_at %>
+  <% array << booking.session.start_date.strftime("%d/%m/%y") %>
+  <% array << booking.session.start_time %>
   <% array << booking.session.workshop.title.parameterize(separator:' ').capitalize %>
   <% array << booking.id %>
   <% array << (booking.user.last_name.present? ? booking.user.last_name.parameterize(separator:' ').capitalize : "-") %>

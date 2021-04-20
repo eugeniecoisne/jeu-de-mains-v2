@@ -14,14 +14,14 @@ class SessionMailer < ApplicationMailer
 
       mail(
         bcc: "#{@organizer}, #{@animator}",
-        subject:  "Annulation de l'atelier #{@session.workshop.title} du #{@session.date.strftime("%d/%m/%y")}",
+        subject:  "Annulation de l'atelier #{@session.workshop.title} du #{@session.start_date.strftime("%d/%m/%y")}",
         track_opens: 'true',
         message_stream: 'outbound')
     else
 
       mail(
         to:       @organizer,
-        subject:  "Annulation de l'atelier #{@session.workshop.title} du #{@session.date.strftime("%d/%m/%y")}",
+        subject:  "Annulation de l'atelier #{@session.workshop.title} du #{@session.start_date.strftime("%d/%m/%y")}",
         track_opens: 'true',
         message_stream: 'outbound')
     end

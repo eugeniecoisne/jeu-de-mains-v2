@@ -21,9 +21,9 @@
         <% end %>
       </h2>
 
-      <% session_start_time = Time.new(Date.today.strftime('%Y').to_i, Date.today.strftime('%m').to_i, Date.today.strftime('%d').to_i, @booking.session.start_at[0..1], @booking.session.start_at[-2..-1], 0, "+01:00") %>
+      <% session_start_time = Time.new(Date.today.strftime('%Y').to_i, Date.today.strftime('%m').to_i, Date.today.strftime('%d').to_i, @booking.session.start_time[0..1], @booking.session.start_time[-2..-1], 0, "+01:00") %>
       <% session_end_time = session_start_time + @booking.session.workshop.duration.minutes %>
-      <h2>Session du <%= l(@booking.session.date, format: '%A %d %b %Y').capitalize %> de <%= session_start_time.strftime("%Hh%M") %> à <%= session_end_time.strftime("%Hh%M") %></h2>
+      <h2>Session du <%= l(@booking.session.start_date, format: '%A %d %b %Y').capitalize %> de <%= session_start_time.strftime("%Hh%M") %> à <%= session_end_time.strftime("%Hh%M") %></h2>
       <p class="mt-1">
         <%= link_to profile_public_path(@booking.session.workshop.place.user.profile) do %>
           Organisé par <%= @booking.session.workshop.place.user.profile.company %>
@@ -67,13 +67,13 @@
   <div title="Add to Calendar" data-styling="none" class="addeventatc success-add-to-calendar">
     <button id="success-add-to-calendar-btn">Ajouter à mon agenda</button>
     <span class="start">
-      <%= @booking.session.date.strftime('%m/%d/%Y') %>
-      <%= @booking.session.start_at[0..1] %>:<%= @booking.session.start_at[3..4] %>
+      <%= @booking.session.start_date.strftime('%m/%d/%Y') %>
+      <%= @booking.session.start_time[0..1] %>:<%= @booking.session.start_time[3..4] %>
     </span>
     <span class="end">
-      <% start_in_minutes = (@booking.session.start_at[0..1].to_i * 60) + @booking.session.start_at[3..4].to_i %>
+      <% start_in_minutes = (@booking.session.start_time[0..1].to_i * 60) + @booking.session.start_time[3..4].to_i %>
       <% end_in_minutes = start_in_minutes + @booking.session.workshop.duration %>
-      <%= @booking.session.date.strftime('%m/%d/%Y') %>
+      <%= @booking.session.start_date.strftime('%m/%d/%Y') %>
       <%= end_in_minutes.fdiv(60).round.to_i %>:<%= end_in_minutes%60 > 0 ? end_in_minutes%60 : "00" %>
     </span>
     <span class="timezone">Europe/Paris</span>

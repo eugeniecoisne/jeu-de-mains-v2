@@ -10,12 +10,12 @@ class PagesController < ApplicationController
     @last_minute = []
     Session.all.where(db_status: true).select { |s| s.workshop.place.user.profile.db_status == true }.each do |session|
       if session.workshop.db_status == true && session.workshop.status == "en ligne"
-        if session.date >= Date.today && session.available > 0
+        if session.start_date >= Date.today && session.available > 0
           @last_minute << session
         end
       end
     end
-    @last_minute = @last_minute.sort_by { |session| session.date }
+    @last_minute = @last_minute.sort_by { |session| session.start_date }
   end
 
   def autour_du_fil
@@ -178,7 +178,7 @@ class PagesController < ApplicationController
         participants: params[:entreprise][:participants],
         date: params[:entreprise][:date],
         type: params[:entreprise][:type],
-        thematics: params[:entreprise][:thematics],
+        thematics: params[:entreprise][:thematics].reject(&:empty?),
         company: params[:entreprise][:company],
         phone_number: params[:entreprise][:phone_number],
         message: params[:entreprise][:message]

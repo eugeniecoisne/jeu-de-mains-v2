@@ -3,7 +3,7 @@ class SendReminderEmailJob < ApplicationJob
 
   def perform
 
-    @sessions = Session.all.where(db_status: true).select {|s| s.reason.nil? && s.date == (Date.today + 1) }
+    @sessions = Session.all.where(db_status: true).select {|s| s.reason.nil? && s.start_date == (Date.today + 1) }
 
     if @sessions
       @sessions.each do |s|

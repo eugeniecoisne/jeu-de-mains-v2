@@ -18,8 +18,8 @@
   </tr>
   <% @bookings.each do |booking| %>
   <tr>
-    <td><%= booking.session.date.strftime("%d/%m/%y") %></td>
-    <td><%= booking.session.start_at %></td>
+    <td><%= booking.session.start_date.strftime("%d/%m/%y") %></td>
+    <td><%= booking.session.start_time %></td>
     <td><%= booking.session.workshop.title.parameterize(separator:' ').capitalize %></td>
     <td><%= booking.id %></td>
     <td><%= booking.user.last_name.present? ? booking.user.last_name.parameterize(separator:' ').capitalize : "-" %></td>

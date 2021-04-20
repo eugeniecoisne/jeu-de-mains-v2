@@ -30,13 +30,15 @@
             <% if @workshop.sessions.present? %>
               <div class="session_success">
                 <p>Votre première date a bien été ajoutée :</p>
-                <p><%= l(@workshop.sessions.last.date, format: '%A %d %b %Y').capitalize %> à <%=@workshop.sessions.last.start_at%> - capacité : <%= @workshop.sessions.last.capacity %> place(s)</p>
+                <p><%= l(@workshop.sessions.last.start_date, format: '%A %d %b %Y').capitalize %> à <%=@workshop.sessions.last.start_time%> - capacité : <%= @workshop.sessions.last.capacity %> place(s)</p>
               </div>
             <% else %>
               <div class="session_form_container">
                 <%= simple_form_for([@workshop, @session]) do |f| %>
-                  <%= f.input :date, required: true, label: "Première date d'atelier" %>
-                  <%= f.input :start_at, required: true, label: "Heure de début", collection: Session::STARTS_AT %>
+                  <%= f.input :start_date, required: true, label: "Début de la première session d'atelier" %>
+                  <%= f.input :start_time, required: true, label: "Heure de début", collection: Session::STARTS_AT %>
+                  <%= f.input :end_date, required: true, label: "Fin de la première session d'atelier" %>
+                  <%= f.input :end_time, required: true, label: "Heure de fin", collection: Session::ENDS_AT %>
                   <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier (sinon laisser vide)" %>
 
                   <%= f.submit 'Ajouter', class: "button" %>

@@ -45,7 +45,7 @@
                 <td><%= b[:label] %></td>
                 <td><%= b[:booking_number] %></td>
                 <td><%= link_to b[:workshop].title, workshop_path(b[:workshop]), target: "_blank" %></td>
-                <td><%= link_to "#{b[:session].date.strftime("%d/%m/%y")} à #{b[:session].start_at}", session_participants_path(b[:session]), target: "_blank" %></td>
+                <td><%= link_to "#{b[:session].start_date.strftime("%d/%m/%y")} à #{b[:session].start_time}", session_participants_path(b[:session]), target: "_blank" %></td>
                 <% if b[:status] == "success" %>
                   <td style="text-align:right;"><%= b[:amount].to_s.gsub(".",",") %></td>
                   <td style="text-align:right;">- <%= (b[:amount] * b[:fee_rate]).round(2).to_s.gsub(".",",") %></td>

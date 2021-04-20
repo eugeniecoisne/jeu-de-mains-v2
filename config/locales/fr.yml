@@ -123,8 +123,10 @@ fr:
         cgu_agreement: Accord CGU/V
         created_by_admin: Créé par l'admin
       session:
-        date: Date de session
-        start_at: Commence à
+        start_date: Date début de session
+        start_time: Commence à
+        end_date: Date fin de session
+        end_time: Finit à
         capacity: Capacité
         workshop: Atelier
         workshop_id: ID Atelier

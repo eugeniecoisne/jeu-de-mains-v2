@@ -37,8 +37,8 @@
                           <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 50, :height => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
                         </button>
 
-                        <%= f.input :date, required: true, label: "Date de l'atelier" %>
-                        <%= f.input :start_at, required: true, label: "Heure de début", collection: Session::STARTS_AT %>
+                        <%= f.input :start_date, required: true, label: "Date de l'atelier" %>
+                        <%= f.input :start_time, required: true, label: "Heure de début", collection: Session::STARTS_AT %>
                         <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier" %>
 
                         <div class="d-flex justify-content-center">
@@ -53,10 +53,10 @@
             </div>
           <% end %>
 
-          <% @sessions.select {|session| session.date >= Date.today}.sort_by { |session| session.date }.each_with_index do |session, index| %>
+          <% @sessions.select {|session| session.start_date >= Date.today}.sort_by { |session| session.start_date }.each_with_index do |session, index| %>
             <div class="sessions-index-one-session">
               <div>
-                <h3><%= l(session.date, format: '%A %d %B %Y').capitalize %> à <%= session.start_at %></h3>
+                <h3><%= l(session.start_date, format: '%A %d %B %Y').capitalize %> à <%= session.start_time %></h3>
                 <h3 class="sessions-index-sessions-available"><%= session.available %> places restantes sur <%= session.capacity %></h3>
               </div>
               <% if @workshop.place.user == current_user && @workshop.db_status == true || current_user.admin? %>

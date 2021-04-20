@@ -59,9 +59,9 @@
           <% @profile.user.bookings.each do |booking| %>
             <% if booking.db_status == true && booking.status == "refunded" %>
               <% my_cancellations << booking %>
-            <% elsif booking.session.date >= Date.today && booking.db_status == true && booking.status == "paid" %>
+            <% elsif booking.session.start_date >= Date.today && booking.db_status == true && booking.status == "paid" %>
               <% my_coming_bookings << booking %>
-            <% elsif booking.session.date < Date.today && booking.db_status == true && booking.status == "paid" %>
+            <% elsif booking.session.start_date < Date.today && booking.db_status == true && booking.status == "paid" %>
               <% my_older_bookings << booking %>
             <% end %>
           <% end %>
@@ -74,11 +74,11 @@
             <% if my_coming_bookings.count > 0 %>
 
               <div class="my-bookings-cards">
-                <% my_coming_bookings.sort_by { |booking| booking.session.date }.each_with_index do |booking, index| %>
+                <% my_coming_bookings.sort_by { |booking| booking.session.start_date }.each_with_index do |booking, index| %>
 
                   <div class="my-booking-date-photo-and-info">
                     <div class="my-booking-date">
-                      <%= l(booking.session.date, format: '%A %d %b %Y').capitalize %> - <%=booking.session.start_at%>
+                      <%= l(booking.session.start_date, format: '%A %d %b %Y').capitalize %> - <%=booking.session.start_time%>
                     </div>
 
                     <%= link_to workshop_path(booking.session.workshop) do %>
@@ -126,13 +126,13 @@
                             <div title="Add to Calendar" data-styling="none" class="addeventatc mt-2">
                               <i class="far fa-calendar-plus"></i>
                               <span class="start">
-                                <%= booking.session.date.strftime('%m/%d/%Y') %>
-                                <%= booking.session.start_at[0..1] %>:<%= booking.session.start_at[3..4] %>
+                                <%= booking.session.start_date.strftime('%m/%d/%Y') %>
+                                <%= booking.session.start_time[0..1] %>:<%= booking.session.start_time[3..4] %>
                               </span>
                               <span class="end">
-                                <% start_in_minutes = (booking.session.start_at[0..1].to_i * 60) + booking.session.start_at[3..4].to_i %>
+                                <% start_in_minutes = (booking.session.start_time[0..1].to_i * 60) + booking.session.start_time[3..4].to_i %>
                                 <% end_in_minutes = start_in_minutes + booking.session.workshop.duration %>
-                                <%= booking.session.date.strftime('%m/%d/%Y') %>
+                                <%= booking.session.start_date.strftime('%m/%d/%Y') %>
                                 <%= end_in_minutes.fdiv(60).round.to_i %>:<%= end_in_minutes%60 > 0 ? end_in_minutes%60 : "00" %>
                               </span>
                               <span class="timezone">Europe/Paris</span>
@@ -167,11 +167,11 @@
             <% if my_older_bookings.count > 0 %>
 
               <div class="my-bookings-cards">
-                <% my_older_bookings.sort_by { |booking| booking.session.date }.reverse.each do |booking| %>
+                <% my_older_bookings.sort_by { |booking| booking.session.start_date }.reverse.each do |booking| %>
 
                   <div class="my-booking-date-photo-and-info">
                     <div class="my-booking-date">
-                      <%= l(booking.session.date, format: '%A %d %b %Y').capitalize %> - <%=booking.session.start_at%>
+                      <%= l(booking.session.start_date, format: '%A %d %b %Y').capitalize %> - <%=booking.session.start_time%>
                     </div>
 
                     <div class="my-bookings-ws-card">
@@ -265,7 +265,7 @@
                           <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                             Organisé par <%= booking.session.workshop.place.user.profile.company %>
                           <% end %>
-                          <p>Session du <%= l(booking.session.date, format: '%d %b %Y').capitalize %> à <%=booking.session.start_at%></p>
+                          <p>Session du <%= l(booking.session.start_date, format: '%d %b %Y').capitalize %> à <%=booking.session.start_time%></p>
                           <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€ TTC</p>
                           <p>Taux de remboursement : <%= (booking.refund_rate * 100).round %>%</p>
                           <p class="mb-3">Montant remboursé : <%= booking.amount * booking.refund_rate %>€ TTC</p>

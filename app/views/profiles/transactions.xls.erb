@@ -18,7 +18,7 @@
         <td><%= b[:label] %></td>
         <td><%= b[:booking_number] %></td>
         <td><%= b[:workshop].title %></td>
-        <td><%= b[:session].date.strftime("%d/%m/%y") %> à <%= b[:session].start_at %></td>
+        <td><%= b[:session].start_date.strftime("%d/%m/%y") %> à <%= b[:session].start_time %></td>
         <% if b[:status] == "success" %>
           <td><%= b[:amount].to_s.gsub(".",",") %></td>
           <td>- <%= (b[:amount] * b[:fee_rate]).round(2).to_s.gsub(".",",") %></td>
