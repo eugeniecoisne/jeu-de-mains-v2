@@ -1,7 +1,7 @@
 ActiveAdmin.register Session do
   menu parent: "Fiches"
   config.per_page = 50
-  permit_params :date, :start_at, :capacity, :workshop_id, :workshop, :db_status, :reason
+  permit_params :start_date, :start_time, :end_time, :end_date, :capacity, :workshop_id, :workshop, :db_status, :reason
   SESSION_WORKSHOPS = Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} par #{w.place.user.profile.company} - capacité #{w.capacity} places", w.id] }.to_h
 
   index do
@@ -12,8 +12,10 @@ ActiveAdmin.register Session do
     column "En ligne ?" do |session|
       session.start_date >= Date.today && session.workshop.status == "en ligne" && session.db_status == true ? true : false
     end
-    column :date
-    column :start_at
+    column :start_date
+    column :start_time
+    column :end_date
+    column :end_time
     column "Durée" do |session|
       session.workshop.duration
     end
@@ -64,8 +66,10 @@ ActiveAdmin.register Session do
     column "En ligne ?" do |session|
       session.start_date >= Date.today && session.workshop.status == "en ligne" && session.db_status == true ? true : false
     end
-    column :date
-    column :start_at
+    column :start_date
+    column :start_time
+    column :end_date
+    column :end_time
     column "Durée" do |session|
       session.workshop.duration
     end
@@ -133,10 +137,14 @@ ActiveAdmin.register Session do
       row "Ville" do |session|
         session.workshop.place.city
       end
-      row :date do |session|
+      row :start_date do |session|
         session.start_date.strftime('%d/%m/%Y')
       end
-      row :start_at
+      row :start_time
+      row :end_date do |session|
+        session.end_date.strftime('%d/%m/%Y')
+      end
+      row :end_time
       row :capacity
       row "Places vendues" do |session|
         session.capacity - session.available
@@ -174,8 +182,10 @@ ActiveAdmin.register Session do
       f.input :workshop, collection: SESSION_WORKSHOPS, value: :workshop
     end
     f.inputs "Date et heure" do
-      f.input :date
-      f.input :start_at, collection: Session::STARTS_AT
+      f.input :start_date
+      f.input :start_time, collection: Session::STARTS_AT
+      f.input :end_date
+      f.input :end_time, collection: Session::ENDS_AT
     end
     f.inputs "Capacité (obligatoire)" do
       f.input :capacity

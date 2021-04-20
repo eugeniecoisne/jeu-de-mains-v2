@@ -20,7 +20,7 @@ ActiveAdmin.register Review do
       link_to "#{review.booking.session.workshop.title}", "#{admin_workshop_path(review.booking.session.workshop)}"
     end
     column "Session" do |review|
-      link_to "#{review.booking.session.date.strftime('%d/%m/%y')} à #{review.booking.session.start_at}", "#{admin_session_path(review.booking.session)}"
+      link_to "#{review.booking.session.start_date.strftime('%d/%m/%y')} à #{review.booking.session.start_time}", "#{admin_session_path(review.booking.session)}"
     end
     column "Lieu" do |review|
       link_to "#{review.booking.session.workshop.place.name}", "#{admin_place_path(review.booking.session.workshop.place)}"
@@ -65,10 +65,10 @@ ActiveAdmin.register Review do
       review.booking.session.workshop.title
     end
     column "Date de session" do |review|
-      review.booking.session.date.strftime('%d/%m/%y')
+      review.booking.session.start_date.strftime('%d/%m/%y')
     end
     column "Heure de session" do |review|
-      review.booking.session.start_at
+      review.booking.session.start_time
     end
     column "Lieu" do |review|
       review.booking.session.workshop.place.name
@@ -118,7 +118,7 @@ ActiveAdmin.register Review do
       end
       row :booking
       row "Session" do |review|
-        link_to "#{review.booking.session.date.strftime('%d/%m/%y')} à #{review.booking.session.start_at}", "#{admin_session_path(review.booking.session)}"
+        link_to "#{review.booking.session.start_date.strftime('%d/%m/%y')} à #{review.booking.session.start_time}", "#{admin_session_path(review.booking.session)}"
       end
       row :content
       row :rating
