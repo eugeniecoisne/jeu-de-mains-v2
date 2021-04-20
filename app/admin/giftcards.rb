@@ -118,7 +118,7 @@ ActiveAdmin.register Giftcard do
 
   form do |f|
     f.inputs "Acheteur" do
-      f.input :user, collection: GIFTCARD_USERS
+      f.input :user, collection: GIFTCARD_USERS, value: :user
     end
     f.inputs "Montant" do
       f.input :amount, as: :select, collection: [20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150]

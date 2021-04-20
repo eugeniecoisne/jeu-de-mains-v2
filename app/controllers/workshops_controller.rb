@@ -75,7 +75,6 @@ class WorkshopsController < ApplicationController
         @workshops.paginate(page: params[:page], per_page: 20)
       end
 
-
       if params[:search][:ephemeral].present?
         if params[:search][:ephemeral] == 'false'
           @workshops = @workshops.select { |w| w.ephemeral == false }.paginate(page: params[:page], per_page: 20)
@@ -169,7 +168,7 @@ class WorkshopsController < ApplicationController
   def destroy
     ws_bookings = []
     @workshop.sessions.where(db_status: true).each do |session|
-      if session.date >= Date.today - 7
+      if session.start_date >= Date.today - 7
         session.bookings.where(db_status: true, status: "paid").each do |booking|
           ws_bookings << booking
         end
@@ -261,7 +260,7 @@ class WorkshopsController < ApplicationController
   def send_verification_mail
     @workshop = Workshop.find(params[:id])
     authorize @workshop
-    if @workshop && @workshop.completed? && @workshop.place.user.profile.db_status == true && @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.present?
+    if @workshop && @workshop.completed? && @workshop.place.user.profile.db_status == true && @workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today }.present?
       @workshop.update(status: "vérification")
       mail = WorkshopMailer.with(workshop: @workshop).ask_for_check_up
       mail.deliver_later

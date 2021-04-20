@@ -3,7 +3,7 @@ class SendAskReviewEmailJob < ApplicationJob
 
   def perform
 
-    @sessions = Session.all.where(db_status: true).select {|s| s.reason.nil? && ((s.date + 2.days) == Date.today) }
+    @sessions = Session.all.where(db_status: true).select {|s| s.reason.nil? && ((s.end_date + 1.day) == Date.today) }
 
     if @sessions
       @sessions.each do |s|

@@ -11,8 +11,8 @@
     <% else %>
       <p>Au <%= @workshop.place.address %> <%= @workshop.place.zip_code %> <%= @workshop.place.city %></p>
     <% end %>
-    <% session = @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.last %>
-    <p>Première session le <%= l(session.date, format: '%A %d %b %Y').capitalize %> à <%= session.start_at %></p>
+    <% session = @workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today }.last %>
+    <p>Première session le <%= l(session.start_date, format: '%A %d %b %Y').capitalize %> à <%= session.start_time %></p>
     <% if @workshop.animators.where(db_status: true).present? %>
       <p>Animé par <%= @workshop.animators.where(db_status: true).last.user.profile.company %></p>
     <% end %>

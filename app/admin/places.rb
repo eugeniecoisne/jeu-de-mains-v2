@@ -23,11 +23,11 @@ ActiveAdmin.register Place do
       Workshop.all.where(db_status: true, status: "en ligne").select { |w| w.place == place}.count
     end
     column "Nb sessions en ligne" do |place|
-      Session.all.where(db_status: true).select { |s| s.workshop.place == place && s.date > Date.today }.count
+      Session.all.where(db_status: true).select { |s| s.workshop.place == place && s.start_date > Date.today }.count
     end
     column "Participants reçus" do |place|
       participants = 0
-      Session.all.select { |s| s.workshop.place == place && s.date < Date.today }.each { |s| participants += s.sold }
+      Session.all.select { |s| s.workshop.place == place && s.start_date < Date.today }.each { |s| participants += s.sold }
       participants
     end
     column :created_at
@@ -55,11 +55,11 @@ ActiveAdmin.register Place do
       Workshop.all.where(db_status: true, status: "en ligne").select { |w| w.place == place}.count
     end
     column "Nb sessions en ligne" do |place|
-      Session.all.where(db_status: true).select { |s| s.workshop.place == place && s.date > Date.today }.count
+      Session.all.where(db_status: true).select { |s| s.workshop.place == place && s.start_date > Date.today }.count
     end
     column "Participants reçus" do |place|
       participants = 0
-      Session.all.select { |s| s.workshop.place == place && s.date < Date.today }.each { |s| participants += s.sold }
+      Session.all.select { |s| s.workshop.place == place && s.start_date < Date.today }.each { |s| participants += s.sold }
       participants
     end
     column :created_at
@@ -81,7 +81,7 @@ ActiveAdmin.register Place do
         Workshop.all.where(db_status: true, status: "en ligne").select { |w| w.place == place}.count
       end
       row "Nb sessions en ligne" do |place|
-        Session.all.where(db_status: true).select { |s| s.workshop.place == place && s.date > Date.today }.count
+        Session.all.where(db_status: true).select { |s| s.workshop.place == place && s.start_date > Date.today }.count
       end
       row :created_at
       row :updated_at
@@ -106,7 +106,7 @@ ActiveAdmin.register Place do
           end
           column :ephemeral
           column "Nb sessions en ligne" do |workshop|
-            workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
+            workshop.sessions.where(db_status: true).select { |s| s.start_date > Date.today }.count
           end
           column :status
           column :db_status
@@ -117,7 +117,7 @@ ActiveAdmin.register Place do
 
   form do |f|
     f.inputs "Propriétaire et nom du lieu" do
-      f.input :user, collection: PLACE_USERS
+      f.input :user, collection: PLACE_USERS, value: :user
       f.input :name
     end
     f.inputs "Adresse" do

@@ -15,7 +15,7 @@
         <% end %>
       </div>
 
-      <h2 class="sign-title" id="annulation-title">Annulation de l'atelier <span><%= @session.workshop.title %> du <%= l(@session.date, format: '%A %d %B %Y').capitalize %> à <%= @session.start_at %></span></h2>
+      <h2 class="sign-title" id="annulation-title">Annulation de l'atelier <span><%= @session.workshop.title %> du <%= l(@session.start_date, format: '%A %d %B %Y').capitalize %> à <%= @session.start_time %></span></h2>
 
         <div>
           <p>

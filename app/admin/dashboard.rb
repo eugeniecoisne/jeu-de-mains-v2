@@ -157,8 +157,8 @@ ActiveAdmin.register_page "Dashboard" do
       column do
         h4 "SESSIONS"
 
-        sessions_to_come = Session.all.where(db_status: true).select { |s| s.date >= Date.today && s.workshop.status == "en ligne" }
-        passed_sessions = Session.all.select { |s| s.bookings.where(db_status: true, status: "paid").present? == true }.select { |s| s.bookings.where(db_status: true, status: "paid").count > 0 && s.date < Date.today }
+        sessions_to_come = Session.all.where(db_status: true).select { |s| s.start_date >= Date.today && s.workshop.status == "en ligne" }
+        passed_sessions = Session.all.select { |s| s.bookings.where(db_status: true, status: "paid").present? == true }.select { |s| s.bookings.where(db_status: true, status: "paid").count > 0 && s.start_date < Date.today }
 
         panel "SESSIONS EN LIGNE" do
           h2 "#{sessions_to_come.count}"
@@ -168,15 +168,15 @@ ActiveAdmin.register_page "Dashboard" do
           columns do
             column do
               para "7 jrs"
-              h2 "#{Session.all.select { |s| s.bookings.where(db_status: true, status: "paid").present? == true }.select { |s| s.bookings.where(db_status: true, status: "paid").count > 0 && s.date < Date.today && s.date > (Date.today - 7.day) }.count }"
+              h2 "#{Session.all.select { |s| s.bookings.where(db_status: true, status: "paid").present? == true }.select { |s| s.bookings.where(db_status: true, status: "paid").count > 0 && s.start_date < Date.today && s.start_date > (Date.today - 7.day) }.count }"
             end
             column do
               para "30 jrs"
-              h2 "#{Session.all.select { |s| s.bookings.where(db_status: true, status: "paid").present? == true }.select { |s| s.bookings.where(db_status: true, status: "paid").count > 0 && s.date < Date.today && s.date > (Date.today - 30.day) }.count }"
+              h2 "#{Session.all.select { |s| s.bookings.where(db_status: true, status: "paid").present? == true }.select { |s| s.bookings.where(db_status: true, status: "paid").count > 0 && s.start_date < Date.today && s.start_date > (Date.today - 30.day) }.count }"
             end
             column do
               para "Début"
-              h2 "#{Session.all.select { |s| s.bookings.where(db_status: true, status: "paid").present? == true }.select { |s| s.bookings.where(db_status: true, status: "paid").count > 0 && s.date < Date.today }.count }"
+              h2 "#{Session.all.select { |s| s.bookings.where(db_status: true, status: "paid").present? == true }.select { |s| s.bookings.where(db_status: true, status: "paid").count > 0 && s.start_date < Date.today }.count }"
             end
           end
         end
@@ -185,15 +185,15 @@ ActiveAdmin.register_page "Dashboard" do
           columns do
             column do
               para "7 jrs"
-              h2 "#{Session.all.select { |s| s.date < Date.today && s.date > Date.today - 7.day }.select { |s| s.bookings.where(db_status: true, status: "paid").count == 0 || s.reason.present? == true }.count }"
+              h2 "#{Session.all.select { |s| s.start_date < Date.today && s.start_date > Date.today - 7.day }.select { |s| s.bookings.where(db_status: true, status: "paid").count == 0 || s.reason.present? == true }.count }"
             end
             column do
               para "30 jrs"
-              h2 "#{Session.all.select { |s| s.date < Date.today && s.date > Date.today - 30.day }.select { |s| s.bookings.where(db_status: true, status: "paid").count == 0 || s.reason.present? == true }.count }"
+              h2 "#{Session.all.select { |s| s.start_date < Date.today && s.start_date > Date.today - 30.day }.select { |s| s.bookings.where(db_status: true, status: "paid").count == 0 || s.reason.present? == true }.count }"
             end
             column do
               para "Début"
-              h2 "#{Session.all.select { |s| s.date < Date.today }.select { |s| s.bookings.where(db_status: true, status: "paid").count == 0 || s.reason.present? == true }.count }"
+              h2 "#{Session.all.select { |s| s.start_date < Date.today }.select { |s| s.bookings.where(db_status: true, status: "paid").count == 0 || s.reason.present? == true }.count }"
             end
           end
         end
@@ -202,15 +202,15 @@ ActiveAdmin.register_page "Dashboard" do
           columns do
             column do
               para "7 jrs"
-              h2 "#{Session.all.select { |s| s.date < Date.today && s.date > Date.today - 7.day }.select { |s| s.reason.present? == true }.count }"
+              h2 "#{Session.all.select { |s| s.start_date < Date.today && s.start_date > Date.today - 7.day }.select { |s| s.reason.present? == true }.count }"
             end
             column do
               para "30 jrs"
-              h2 "#{Session.all.select { |s| s.date < Date.today && s.date > Date.today - 30.day }.select { |s| s.reason.present? == true }.count }"
+              h2 "#{Session.all.select { |s| s.start_date < Date.today && s.start_date > Date.today - 30.day }.select { |s| s.reason.present? == true }.count }"
             end
             column do
               para "Début"
-              h2 "#{Session.all.select { |s| s.date < Date.today }.select { |s| s.reason.present? == true }.count }"
+              h2 "#{Session.all.select { |s| s.start_date < Date.today }.select { |s| s.reason.present? == true }.count }"
             end
           end
         end

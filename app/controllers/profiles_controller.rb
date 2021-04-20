@@ -125,35 +125,29 @@ class ProfilesController < ApplicationController
     if Profile.friendly.find(params[:id]).user.admin == true && current_user.admin == true
       @profile = Profile.friendly.find(params[:id])
       authorize @profile
-      key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
-      Stripe.api_key = key
       @payments = []
       Booking.all.select { |b| b.status == "paid" || b.status == "refunded" }.each do |b|
-        # payment = Stripe::PaymentIntent.retrieve(b.payment_intent_id)
-        # if payment[:status] == "succeeded"
-          # fee = Stripe::ApplicationFee.retrieve(payment[:charges][:data][0][:application_fee])
-          @success = {
+        @success = {
+          id: b.id,
+          amount_ttc: b.amount,
+          amount_ht: b.amount / 1.2,
+          fee_ht: (b.amount / 1.2) * b.fee,
+          fee_tva: (b.amount * b.fee) - ((b.amount / 1.2) * b.fee),
+          fee_ttc: b.amount * b.fee,
+          created: b.created_at.to_time,
+          type: 'success'
+        }
+        if b.status == "refunded"
+          @refund = {
             id: b.id,
-            amount_ttc: b.amount,
-            amount_ht: b.amount / 1.2,
-            fee_ht: (b.amount / 1.2) * b.fee,
-            fee_tva: (b.amount * b.fee) - ((b.amount / 1.2) * b.fee),
-            fee_ttc: b.amount * b.fee,
-            created: b.created_at.to_time,
-            type: 'success'
+            amount_ttc: b.amount * b.refund_rate * -1,
+            amount_ht: (b.amount / 1.2) * b.refund_rate * -1,
+            fee_ht: ((b.amount / 1.2) * b.refund_rate * -1) * b.fee,
+            fee_tva: ((b.amount * b.refund_rate * -1) * b.fee) - (((b.amount / 1.2) * b.refund_rate * -1) * b.fee),
+            fee_ttc: (b.amount * b.refund_rate * -1) * b.fee,
+            created: b.cancelled_at.to_time,
+            type: 'refund'
           }
-          if b.status == "refunded"
-            @refund = {
-              id: b.id,
-              amount_ttc: b.amount * b.refund_rate * -1,
-              amount_ht: (b.amount / 1.2) * b.refund_rate * -1,
-              fee_ht: ((b.amount / 1.2) * b.refund_rate * -1) * b.fee,
-              fee_tva: ((b.amount * b.refund_rate * -1) * b.fee) - (((b.amount / 1.2) * b.refund_rate * -1) * b.fee),
-              fee_ttc: (b.amount * b.refund_rate * -1) * b.fee,
-              created: b.cancelled_at.to_time,
-              type: 'refund'
-            }
-
         end
         @payments << @success if @success
         @payments << @refund if @refund
@@ -170,8 +164,6 @@ class ProfilesController < ApplicationController
     if Profile.friendly.find(params[:id]).user.admin == true && current_user.admin == true
       @profile = Profile.friendly.find(params[:id])
       authorize @profile
-      key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
-      Stripe.api_key = key
       @giftcards = []
       Giftcard.all.select { |g| g.status == "paid" || g.status == "refunded" }.each do |g|
         @g_success = {

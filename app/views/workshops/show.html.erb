@@ -34,9 +34,9 @@
           <div class="form-group select required">
             <select class="form-control select required" name="session" id="session_id">
               <option value="" disabled selected>Sélectionnez une date</option>
-              <% @workshop.sessions.where(db_status: true).select { |session| session.date >= Date.today }.sort_by { |session| session.date }.each do |session| %>
+              <% @workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today }.sort_by { |session| session.start_date }.each do |session| %>
                 <option value="<%= session.id %>">
-                  <%= session.available == 0 ? "#{l(session.date, format: '%A %d/%m/%y').capitalize} à #{session.start_at} - Complet" : "#{l(session.date, format: '%A %d/%m/%y').capitalize} à #{session.start_at}" %>
+                  <%= session.available == 0 ? "#{l(session.start_date, format: '%A %d/%m/%y').capitalize} à #{session.start_time} - Complet" : "#{l(session.start_date, format: '%A %d/%m/%y').capitalize} à #{session.start_time}" %>
                 </option>
               <% end %>
             </select>

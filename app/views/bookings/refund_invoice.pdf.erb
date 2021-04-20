@@ -92,7 +92,7 @@
           <td class="short-column bordered"><%= @booking.cancelled_at.strftime("%d/%m/%y") %></td>
           <td class="large-column bordered">Remboursement réservation pour l'atelier créatif
             <br><%= @booking.session.workshop.title %><br>
-            <br>Session du <%= l(@booking.session.date, format: '%A %d %b %Y').capitalize %> à <%=@booking.session.start_at%>
+            <br>Session du <%= l(@booking.session.start_date, format: '%A %d %b %Y').capitalize %> à <%=@booking.session.start_time%>
           </td>
           <td class="short-column bordered"><%= @booking.quantity %> place(s)</td>
           <td class="short-column bordered"><%= (@booking.amount).round(2) %> €</td>

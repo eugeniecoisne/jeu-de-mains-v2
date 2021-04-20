@@ -71,7 +71,7 @@ class Workshop < ApplicationRecord
 
   def dates
     dates = []
-    sessions.where(db_status: true).each { |s| dates << s.date }
+    sessions.where(db_status: true).each { |s| dates << s.start_date }
     dates
   end
 

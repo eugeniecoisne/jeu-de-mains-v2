@@ -71,7 +71,7 @@ class BookingsController < ApplicationController
     # REPORT À UNE AUTRE SESSION
 
     elsif booking_params.include?(:confirm_report)
-        session_start_time = Time.new(@booking.session.date.strftime('%Y').to_i, @booking.session.date.strftime('%m').to_i, @booking.session.date.strftime('%d').to_i, @booking.session.start_at[0..1], @booking.session.start_at[-2..-1], 0, "+01:00")
+        session_start_time = Time.new(@booking.session.start_date.strftime('%Y').to_i, @booking.session.start_date.strftime('%m').to_i, @booking.session.start_date.strftime('%d').to_i, @booking.session.start_time[0..1], @booking.session.start_time[-2..-1], 0, "+01:00")
         cancel_time = Time.now
       # Vérification que le booking peut bien être reporté (+ de 48h ou + de 7j ou annulation par le partenaire)
       if (@booking.session.reason.present? && @booking.session.db_status == false) || (((session_start_time - cancel_time) / 1.hours) >= 168) || (@booking.session.workshop.kit == false && ((session_start_time - cancel_time) / 1.hours) >= 48) || booking_params.include?(:admin_report)
@@ -182,7 +182,7 @@ class BookingsController < ApplicationController
       @booking = Booking.find(params[:cancel][:booking_id])
     end
     authorize @booking
-    booking_start_time = Time.new(@booking.session.date.strftime('%Y').to_i, @booking.session.date.strftime('%m').to_i, @booking.session.date.strftime('%d').to_i, @booking.session.start_at[0..1], @booking.session.start_at[-2..-1], 0, "+01:00")
+    booking_start_time = Time.new(@booking.session.start_date.strftime('%Y').to_i, @booking.session.start_date.strftime('%m').to_i, @booking.session.start_date.strftime('%d').to_i, @booking.session.start_time[0..1], @booking.session.start_time[-2..-1], 0, "+01:00")
     cancel_time = Time.now
 
     if @booking.session.reason.present? && @booking.session.db_status == false

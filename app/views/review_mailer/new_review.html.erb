@@ -62,7 +62,7 @@
                       <% if @review.booking.session.workshop.animators.where(db_status: true).present? %>
                         animé par <%= @review.booking.session.workshop.animators.where(db_status: true).last.user.profile.company %><br>
                       <% end %>
-                      le <%= l(@review.booking.session.date, format: '%A %d %b %Y') %> à <%= @review.booking.session.start_at[0..1] %>:<%= @review.booking.session.start_at[3..4] %>
+                      le <%= l(@review.booking.session.start_date, format: '%A %d %b %Y') %> à <%= @review.booking.session.start_time[0..1] %>:<%= @review.booking.session.start_time[3..4] %>
                     </span>
                   </p>
                 </div>

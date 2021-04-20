@@ -59,7 +59,7 @@ class SessionsController < ApplicationController
       # mail btob confirmation annulation session
       SessionMailer.with(session: @session).cancel_session_by_partner_btob.deliver_now
 
-      session_start_time = Time.new(@session.date.strftime('%Y').to_i, @session.date.strftime('%m').to_i, @session.date.strftime('%d').to_i, @session.start_at[0..1], @session.start_at[-2..-1], 0, "+01:00")
+      session_start_time = Time.new(@session.start_date.strftime('%Y').to_i, @session.start_date.strftime('%m').to_i, @session.start_date.strftime('%d').to_i, @session.start_time[0..1], @session.start_time[-2..-1], 0, "+01:00")
       cancel_time = Time.now
       if (4..47.99).include?(( session_start_time - cancel_time) / 1.hours)
         mail_phone_numbers = SessionMailer.with(session: @session).send_phone_numbers
@@ -109,6 +109,6 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:session).permit(:date, :start_at, :capacity, :reason)
+    params.require(:session).permit(:start_date, :end_date, :start_time, :end_time, :capacity, :reason)
   end
 end

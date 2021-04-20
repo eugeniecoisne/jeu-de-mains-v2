@@ -59,8 +59,8 @@ ActiveAdmin.register Animator do
 
   form do |f|
     f.inputs "Ajouter un animateur à un atelier :" do
-      f.input :workshop, collection: ANIMATOR_WORKSHOPS
-      f.input :user, collection: ANIMATOR_USERS
+      f.input :workshop, collection: ANIMATOR_WORKSHOPS, value: :workshop
+      f.input :user, collection: ANIMATOR_USERS, value: :user
       f.input :db_status
     end
     f.actions

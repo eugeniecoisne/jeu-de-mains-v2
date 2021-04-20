@@ -76,14 +76,14 @@ class BookingMailer < ApplicationMailer
 
       mail(
         bcc: "#{@organizer.email}, #{@animator}",
-        subject:  "#{@booking.user.first_name} a reporté sa réservation d'atelier au #{@booking.session.date.strftime("%d/%m/%y")}",
+        subject:  "#{@booking.user.first_name} a reporté sa réservation d'atelier au #{@booking.session.start_date.strftime("%d/%m/%y")}",
         track_opens: 'true',
         message_stream: 'outbound')
     else
 
       mail(
         to:       @organizer.email,
-        subject:  "#{@booking.user.first_name} a reporté sa réservation d'atelier au #{@booking.session.date.strftime("%d/%m/%y")}",
+        subject:  "#{@booking.user.first_name} a reporté sa réservation d'atelier au #{@booking.session.start_date.strftime("%d/%m/%y")}",
         track_opens: 'true',
         message_stream: 'outbound')
     end
