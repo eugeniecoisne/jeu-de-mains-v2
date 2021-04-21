@@ -1,7 +1,7 @@
 ActiveAdmin.register User do
   config.per_page = 50
   remove_filter :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :confirmation_token, :confirmation_sent_at, :uid
-  permit_params :id, :first_name, :last_name, :email, :password, :password_confirmation, :created_by_admin, :newsletter_agreement, :cgu_agreement, :db_status
+  permit_params :id, :first_name, :last_name, :email, :password, :password_confirmation, :created_by_admin, :newsletter_agreement, :cgu_agreement, :db_status, :stripe_uid, :access_code, :publishable_key, :stripe_provider
 
   index do
     selectable_column
@@ -71,6 +71,10 @@ ActiveAdmin.register User do
       row :confirmed_at
       row :updated_at
       row :provider
+      row :stripe_uid
+      row :access_code
+      row :publishable_key
+      row :stripe_provider
     end
 
     GIFTCARDS_OFFERED = Giftcard.all.where(db_status: true).select { |g| g.buyer == user.id }
@@ -150,6 +154,12 @@ ActiveAdmin.register User do
     end
     f.inputs "Statut" do
       f.input :db_status
+    end
+    f.inputs "Stripe" do
+      f.input :stripe_uid
+      f.input :access_code
+      f.input :publishable_key
+      f.input :stripe_provider
     end
     f.inputs "Créé par l'admin" do
       f.input :created_by_admin, value: true

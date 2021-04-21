@@ -10,6 +10,12 @@ class SessionsController < ApplicationController
     authorize @session
     @session.workshop = Workshop.friendly.find(params[:workshop_id])
     @session.capacity = @session.workshop.capacity if @session.capacity.nil?
+    if session_params.include?(:one_day)
+      @session.end_date = @session.start_date
+      session_start_time = Time.new(@session.start_date.strftime('%Y').to_i, @session.start_date.strftime('%m').to_i, @session.start_date.strftime('%d').to_i, @session.start_time[0..1], @session.start_time[-2..-1], 0, "+01:00")
+      session_end_time = session_start_time + @session.workshop.duration.minutes
+      @session.end_time = session_end_time.strftime("%Hh%M")
+    end
     if @session.save
       flash[:notice] = "Votre session a bien été ajoutée !"
     else
@@ -109,6 +115,6 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:session).permit(:start_date, :end_date, :start_time, :end_time, :capacity, :reason)
+    params.require(:session).permit(:start_date, :end_date, :start_time, :end_time, :capacity, :reason, :one_day)
   end
 end

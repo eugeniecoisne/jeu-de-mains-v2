@@ -30,15 +30,28 @@
             <% if @workshop.sessions.present? %>
               <div class="session_success">
                 <p>Votre première date a bien été ajoutée :</p>
-                <p><%= l(@workshop.sessions.last.start_date, format: '%A %d %b %Y').capitalize %> à <%=@workshop.sessions.last.start_time%> - capacité : <%= @workshop.sessions.last.capacity %> place(s)</p>
+                <p>
+                  <strong>
+                    <% if @workshop.sessions.last.start_date == @workshop.sessions.last.end_date %>
+                      Le <%= l(@workshop.sessions.last.start_date, format: '%A %d %b %Y') %> de <%= @workshop.sessions.last.start_time %> à <%= @workshop.sessions.last.end_time %>
+                    <% else %>
+                      Du <%= l(@workshop.sessions.last.start_date, format: '%d %b %Y') %> à <%= @workshop.sessions.last.start_time %> au <%= l(@workshop.sessions.last.end_date, format: '%d %b %Y') %> à <%= @workshop.sessions.last.end_time %>
+                    <% end %>
+                    - capacité : <%= @workshop.sessions.last.capacity %> place(s)</p>
+                  </strong>
+                </p>
               </div>
             <% else %>
               <div class="session_form_container">
                 <%= simple_form_for([@workshop, @session]) do |f| %>
                   <%= f.input :start_date, required: true, label: "Début de la première session d'atelier" %>
                   <%= f.input :start_time, required: true, label: "Heure de début", collection: Session::STARTS_AT %>
+                <% if @workshop.duration >= 1440 %>
                   <%= f.input :end_date, required: true, label: "Fin de la première session d'atelier" %>
                   <%= f.input :end_time, required: true, label: "Heure de fin", collection: Session::ENDS_AT %>
+                <% else %>
+                  <%= f.hidden_field :one_day, value: true %>
+                <% end %>
                   <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier (sinon laisser vide)" %>
 
                   <%= f.submit 'Ajouter', class: "button" %>

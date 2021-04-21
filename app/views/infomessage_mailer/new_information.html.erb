@@ -149,7 +149,18 @@
               <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:0px;padding-bottom:10px;padding-left:0px;">
                 <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
                   <p class="mobile-align-center" style="font-size: 14px; text-transform: uppercase; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;"><%= link_to workshop_url(@infomessage.session.workshop), target: "_blank" do %>Atelier <%= @infomessage.session.workshop.title %><% end %></p>
-                  <p class="mobile-align-center" style="font-size: 14px; text-transform: uppercase; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;"><%= l(@infomessage.session.start_date, format: '%A %d %b %Y') %> à <%= @infomessage.session.start_time[0..1] %>:<%= @infomessage.session.start_time[3..4] %></p>
+                  <% if @infomessage.session.start_date == @infomessage.session.end_date %>
+                    <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;">
+                      Le <%= l(@infomessage.session.start_date, format: '%A %d %b %Y') %> de <%= @infomessage.session.start_time %> à <%= @infomessage.session.end_time %>
+                    </p>
+                  <% else %>
+                    <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;">
+                      Du <%= l(@infomessage.session.start_date, format: '%A %d %b %Y') %> à <%= @infomessage.session.start_time %>
+                    </p>
+                    <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;">
+                      Au <%= l(@infomessage.session.end_date, format: '%A %d %b %Y') %> à <%= @infomessage.session.end_time %>
+                    </p>
+                  <% end %>
                 </div>
               </div>
               <div style="color:#1C1C1C;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.5;padding-top:5px;padding-right:0px;padding-bottom:5px;padding-left:0px;">

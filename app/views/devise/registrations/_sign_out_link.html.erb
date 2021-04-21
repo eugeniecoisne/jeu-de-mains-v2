@@ -3,7 +3,7 @@
 
 <% if current_user.bookings.present? && current_user.bookings.where(status: "paid", db_status: true).present? %>
   <% current_user.bookings.where(status: "paid", db_status: true).each do |b| %>
-    <% if b.session.date > Date.today %>
+    <% if b.session.start_date > Date.today %>
       <% bookings_to_come += 1 %>
     <% end %>
   <% end %>

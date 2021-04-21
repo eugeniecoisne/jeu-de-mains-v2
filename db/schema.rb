@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_20_160705) do
+ActiveRecord::Schema.define(version: 2021_04_21_082221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,6 +233,7 @@ ActiveRecord::Schema.define(version: 2021_04_20_160705) do
     t.string "stripe_price_id"
     t.string "end_time"
     t.date "end_date"
+    t.boolean "one_day", default: false
     t.index ["workshop_id"], name: "index_sessions_on_workshop_id"
   end
 

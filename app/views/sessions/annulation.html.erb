@@ -15,14 +15,22 @@
         <% end %>
       </div>
 
-      <h2 class="sign-title" id="annulation-title">Annulation de l'atelier <span><%= @session.workshop.title %> du <%= l(@session.start_date, format: '%A %d %B %Y').capitalize %> à <%= @session.start_time %></span></h2>
+      <h2 class="sign-title" id="annulation-title">Annulation de l'atelier <br>
+        <span><%= @session.workshop.title %> du
+          <% if @session.start_date == @session.end_date %>
+            <%= l(@session.start_date, format: '%A %d %b %Y') %> de <%= @session.start_time %> à <%= @session.end_time %>
+          <% else %>
+            <%= l(@session.start_date, format: '%d %b %Y') %> à <%= @session.start_time %> au <%= l(@session.end_date, format: '%d %b %Y') %> à <%= @session.end_time %>
+          <% end %>
+        </span>
+      </h2>
 
         <div>
           <p>
             ⚠️ Vous vous apprétez à annuler une session à laquelle <strong><%= @session.sold %> participant.s se sont déjà inscrit.s. </strong><br>
             Souhaitez-vous annuler cette session et inviter le(s) participant(s) à reporter ou demander le remboursement de leur(s) réservation(s) ? <br>
           </p>
-          <p>Merci de formuler la raison de l'annulation qui sera mentionnée dans le mail envoyé aux participants :</p>
+          <p>Merci de formuler la raison de l'annulation qui sera mentionnée dans l'e-mail envoyé aux participants :</p>
 
             <%= simple_form_for([@workshop, @session], :method => :delete) do |f| %>
               <%= f.input :reason, required: true, as: :text, :input_html => {:rows => 4}, label: "Raison", placeholder: "Exemple: Importante grève dans le quartier..." %>

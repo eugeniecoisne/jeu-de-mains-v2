@@ -57,7 +57,7 @@
                 <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
                   <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
                     <span style="color: #1C1C1C; font-size: 15px;">Donnez-nous votre avis au sujet de l'atelier
-                      <strong><%= link_to @booking.session.workshop.title, workshop_url(@booking.session.workshop), target: "_blank" %></strong> auquel vous avez participé hier !
+                      <strong><%= link_to @booking.session.workshop.title, workshop_url(@booking.session.workshop), target: "_blank" %></strong> auquel vous avez participé le <%= l(@booking.session.start_date, format: '%A %d %B %Y') %> !
                       Votre avis pourra nous aider à améliorer nos services et sera aussi très utile pour partager votre expérience avec les utilisateurs de notre site.
                     </span>
                   </p>

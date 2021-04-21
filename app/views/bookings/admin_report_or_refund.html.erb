@@ -15,7 +15,7 @@
   </div>
 
   <div class="refund-container p-3 mb-5" style='background-color:#F2F2F2;'>
-    <h2 style="font-size:18px;">Repor manuel :</h2>
+    <h2 style="font-size:18px;">Report manuel :</h2>
 
     <p style="font-size:15px;">Une fois ce formulaire rempli avec la nouvelle date de session, des e-mails automatiques de report de session seront envoyés au client et au partenaire. Si aucune date n'apparaît c'est que l'atelier ne propose pas de session prochaine ou que les sessions prochaines sont complètes.</p>
 
@@ -26,9 +26,15 @@
         <select class="form-control select required" name="session" id="session_id">
           <option value="" disabled selected>Sélectionnez une date</option>
           <% @booking.session.workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today && session.available >= @booking.quantity && (session.id != @booking.session.id) }.sort_by { |session| session.start_date }.each do |session| %>
-            <option value="<%= session.id %>">
-              <%= l(session.start_date, format: '%A %d/%m/%y').capitalize %> à <%= session.start_time %>
-            </option>
+            <% if @booking.session.workshop.duration >= 1440 %>
+              <option value="<%= session.id %>">
+                <%= "Du #{l(session.start_date, format: '%A %d %B %Y')} à #{session.start_time} au #{l(session.end_date, format: '%A %d %B %Y')} à #{session.end_time}" %>
+              </option>
+            <% else %>
+              <option value="<%= session.id %>">
+                <%= "#{l(session.start_date, format: '%A %d %B %Y').capitalize} de #{session.start_time} à #{session.end_time}" %>
+              </option>
+            <% end %>
           <% end %>
         </select>
       </div>
@@ -46,7 +52,13 @@
   <p><strong>Réservation :</strong> <%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %> <em>- id : <%= @booking.id %></em></p>
   <p><strong>Lien vers la fiche réservation :</strong> <%= link_to "Voir la fiche", booking_path(@booking) %> </p>
   <p><strong>Client :</strong> <%= @booking.user.fullname %> <em>- id : <%= @booking.user.id %></em></p>
-  <p><strong>Session :</strong> <%= @booking.session.start_date.strftime("%d/%m/%y") %> à <%= @booking.session.start_time %> <em>- id : <%= @booking.session.id %></em></p>
+  <p><strong>Session :</strong>
+    <% if @booking.session.start_date == @booking.session.end_date %>
+      <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>
+    <% else %>
+      <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %> au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %>
+    <% end %>
+    - id : <%= @booking.session.id %></em></p>
   <p><strong>Atelier :</strong> <%= @booking.session.workshop.title %> <em>- id : <%= @booking.session.workshop.id %></em></p>
   <p><strong>Organisateur :</strong> <%= @booking.session.workshop.place.user.profile.company %> <em>- id : <%= @booking.session.workshop.place.user.profile.id %></em></p>
   <br>

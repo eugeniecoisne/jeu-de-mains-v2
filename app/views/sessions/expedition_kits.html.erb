@@ -10,7 +10,13 @@
     <div class="expedition-kits-title">
       <h1>Expédition de vos kits</h1>
       <h2>Pour le visio "<%= @session.workshop.title %>"</h2>
-      <h2>Du <%= l(@session.start_date, format: '%A %d %B %Y') %></h2>
+      <h2>Du
+        <% if @session.start_date == @session.end_date %>
+          <%= l(@session.start_date, format: '%A %d %b %Y') %> de <%= @session.start_time %> à <%= @session.end_time %>
+        <% else %>
+          <%= l(@session.start_date, format: '%d %b %Y') %> à <%= @session.start_time %> au <%= l(@session.end_date, format: '%d %b %Y') %> à <%= @session.end_time %>
+        <% end %>
+      </h2>
     </div>
 
     <div class="expedition-kits-quantities">

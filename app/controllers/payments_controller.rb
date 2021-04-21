@@ -42,7 +42,7 @@ class PaymentsController < ApplicationController
             amount: amount,
             currency: "eur",
             description: "#{@booking.session.workshop.program[0..150]}(...)",
-            name: "Atelier #{@booking.session.workshop.title} du #{@booking.session.start_date.strftime("%d/%m/%y")} à #{@booking.session.start_time}",
+            name: "Atelier #{@booking.session.workshop.title} qui débute le #{l(@booking.session.start_date, format: '%A %d %b %Y')} à #{@booking.session.start_time}",
             quantity: 1,
             images: [@booking.session.workshop.photos[0].service_url]
           }],
