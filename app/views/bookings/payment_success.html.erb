@@ -21,9 +21,11 @@
         <% end %>
       </h2>
 
-      <% session_start_time = Time.new(Date.today.strftime('%Y').to_i, Date.today.strftime('%m').to_i, Date.today.strftime('%d').to_i, @booking.session.start_time[0..1], @booking.session.start_time[-2..-1], 0, "+01:00") %>
-      <% session_end_time = session_start_time + @booking.session.workshop.duration.minutes %>
-      <h2>Session du <%= l(@booking.session.start_date, format: '%A %d %b %Y').capitalize %> de <%= session_start_time.strftime("%Hh%M") %> à <%= session_end_time.strftime("%Hh%M") %></h2>
+      <% if @booking.session.workshop.duration > 1440 %>
+        <h2>Du <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %> au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %></h2>
+      <% else %>
+        <h2>Le <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %></h2>
+      <% end %>
       <p class="mt-1">
         <%= link_to profile_public_path(@booking.session.workshop.place.user.profile) do %>
           Organisé par <%= @booking.session.workshop.place.user.profile.company %>
@@ -64,6 +66,7 @@
     </tbody>
   </table>
 
+  <!-- Add To Calendar -->
   <div title="Add to Calendar" data-styling="none" class="addeventatc success-add-to-calendar">
     <button id="success-add-to-calendar-btn">Ajouter à mon agenda</button>
     <span class="start">
@@ -71,10 +74,8 @@
       <%= @booking.session.start_time[0..1] %>:<%= @booking.session.start_time[3..4] %>
     </span>
     <span class="end">
-      <% start_in_minutes = (@booking.session.start_time[0..1].to_i * 60) + @booking.session.start_time[3..4].to_i %>
-      <% end_in_minutes = start_in_minutes + @booking.session.workshop.duration %>
-      <%= @booking.session.start_date.strftime('%m/%d/%Y') %>
-      <%= end_in_minutes.fdiv(60).round.to_i %>:<%= end_in_minutes%60 > 0 ? end_in_minutes%60 : "00" %>
+      <%= @booking.session.end_date.strftime('%m/%d/%Y') %>
+      <%= @booking.session.end_time[0..1] %>:<%= @booking.session.end_time[3..4] %>
     </span>
     <span class="timezone">Europe/Paris</span>
     <span class="title">Atelier "<%= @booking.session.workshop.title %>"</span>
@@ -87,8 +88,9 @@
       Au programme : <br>
       <%= @booking.session.workshop.program %>
       </span>
-    <span class="location"><%= @booking.session.workshop.place.full_address %></span>
+    <span class="location"><%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city.capitalize %></span>
   </div>
+  <!-- Add To Calendar - end -->
 
   <div class="payment-success-error-cta">
     <%= link_to "Voir & gérer mes réservations", tableau_de_bord_profile_url(current_user.profile) %>

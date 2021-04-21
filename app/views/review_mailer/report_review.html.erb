@@ -13,7 +13,12 @@ Note : <%= @review.rating %> / 5 <br>
 Message : <%= @review.content %> <br>
 <br>
 Réservation_ID : <%= @review.booking.id %> <br>
-N° de réservation : <%= @review.booking.created_at.strftime("%Y%m") %><%= @review.booking.id %>
+N° de réservation : <%= @review.booking.created_at.strftime("%Y%m") %><%= @review.booking.id %> <br>
 Atelier : <%= @review.booking.session.workshop.title %> <br>
-Session : <%= @review.booking.session.start_date.strftime("%d/%m/%Y") %> à <%= @review.booking.session.start_time %> <br>
+Session :
+<% if @review.booking.session.start_date == @review.booking.session.end_date %>
+  <%= l(@review.booking.session.start_date, format: '%A %d %b %Y') %> de <%= @review.booking.session.start_time %> à <%= @review.booking.session.end_time %><br>
+<% else %>
+  <%= l(@review.booking.session.start_date, format: '%d %b %Y') %> à <%= @review.booking.session.start_time %> au <%= l(@review.booking.session.end_date, format: '%d %b %Y') %> à <%= @review.booking.session.end_time %><br>
+<% end %>
 Type : <%= @review.booking.session.workshop.visio == true ? "en visioconférence" : "en présentiel" %> <br>

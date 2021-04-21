@@ -1,4 +1,10 @@
-<h1>Vous avez annulé votre session <%= @session.start_date.strftime("%d/%m/%y") %></h1>
+<h1>Vous avez annulé votre session
+  <% if @session.start_date == @session.end_date %>
+   du <%= l(@session.start_date, format: '%A %d %b %Y') %> de <%= @session.start_time %> à <%= @session.end_time %>
+  <% else %>
+   du <%= l(@session.start_date, format: '%d %b %Y') %> à <%= @session.start_time %> au <%= l(@session.end_date, format: '%d %b %Y') %> à <%= @session.end_time %>
+  <% end %>
+</h1>
 <h2><%= @session.reason %></h2>
 <h3>Tous les participants ont reçu un e-mail les invitant à choisir une nouvelle date ou à demander le remboursement intégral. <br>
 N'oubliez pas de mettre quelques dates d'atelier en ligne afin de favoriser un report qui vous permet d'éviter de rembourser.</h3>

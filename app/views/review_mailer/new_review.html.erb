@@ -62,19 +62,15 @@
                       <% if @review.booking.session.workshop.animators.where(db_status: true).present? %>
                         animé par <%= @review.booking.session.workshop.animators.where(db_status: true).last.user.profile.company %><br>
                       <% end %>
-                      le <%= l(@review.booking.session.start_date, format: '%A %d %b %Y') %> à <%= @review.booking.session.start_time[0..1] %>:<%= @review.booking.session.start_time[3..4] %>
+                      <% if @review.booking.session.start_date == @review.booking.session.end_date %>
+                        le <%= l(@review.booking.session.start_date, format: '%A %d %b %Y') %> de <%= @review.booking.session.start_time %> à <%= @review.booking.session.end_time %><br>
+                      <% else %>
+                        du <%= l(@review.booking.session.start_date, format: '%d %b %Y') %> à <%= @review.booking.session.start_time %> au <%= l(@review.booking.session.end_date, format: '%d %b %Y') %> à <%= @review.booking.session.end_time %><br>
+                      <% end %>
                     </span>
                   </p>
                 </div>
               </div>
-              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
-                <tbody>
-                  <tr style="vertical-align: top;" valign="top">
-                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px;" valign="top">
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
             </div>
           </div>
         </div>
@@ -90,26 +86,6 @@
         <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
           <div style="width:100% !important;">
             <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
-
-              <!-- LINE -->
-
-              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
-                <tbody>
-                  <tr style="vertical-align: top;" valign="top">
-                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
-                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid #52828D; width: 100%;" valign="top" width="100%">
-                        <tbody>
-                          <tr style="vertical-align: top;" valign="top">
-                            <td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top">
-                              <span></span>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
 
               <!-- WHITE SPACE -->
 
@@ -240,14 +216,13 @@
               <!-- CALL TO ACTION - MANAGE MY BOOKING -->
 
               <div align="center" class="button-container" style="padding-top:25px;padding-right:10px;padding-bottom:30px;padding-left:10px;">
-                <%= link_to workshop_url(@review.booking.session.workshop), style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #fff; background-color: #52828D; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
+                <%= link_to tableau_de_bord_profile_url(@review.booking.session.workshop.place.user.profile), style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #fff; background-color: #52828D; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
                   <span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
                     <span style="font-size: 14px; line-height: 2; word-break: break-word; color: #fff; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 32px;">
-                      <strong>VOIR LES AVIS DE L'ATELIER</strong>
+                      <strong>MON TABLEAU DE BORD</strong>
                     </span>
                   </span>
                 <% end %>
-
               </div>
             </div>
           </div>

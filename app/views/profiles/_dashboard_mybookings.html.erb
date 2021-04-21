@@ -59,9 +59,9 @@
           <% @profile.user.bookings.each do |booking| %>
             <% if booking.db_status == true && booking.status == "refunded" %>
               <% my_cancellations << booking %>
-            <% elsif booking.session.start_date >= Date.today && booking.db_status == true && booking.status == "paid" %>
+            <% elsif booking.session.end_date >= Date.today && booking.db_status == true && booking.status == "paid" %>
               <% my_coming_bookings << booking %>
-            <% elsif booking.session.start_date < Date.today && booking.db_status == true && booking.status == "paid" %>
+            <% elsif booking.session.end_date < Date.today && booking.db_status == true && booking.status == "paid" %>
               <% my_older_bookings << booking %>
             <% end %>
           <% end %>
@@ -78,7 +78,11 @@
 
                   <div class="my-booking-date-photo-and-info">
                     <div class="my-booking-date">
-                      <%= l(booking.session.start_date, format: '%A %d %b %Y').capitalize %> - <%=booking.session.start_time%>
+                      <% if booking.session.start_date == booking.session.end_date %>
+                        <%= l(booking.session.start_date, format: '%A %d %b %Y') %> de <%= booking.session.start_time %> à <%= booking.session.end_time %>
+                      <% else %>
+                        <%= l(booking.session.start_date, format: '%d %b %Y') %> à <%= booking.session.start_time %> au <%= l(booking.session.end_date, format: '%d %b %Y') %> à <%= booking.session.end_time %>
+                      <% end %>
                     </div>
 
                     <%= link_to workshop_path(booking.session.workshop) do %>
@@ -93,8 +97,8 @@
                         <div class="my-booking-ws-info">
                           <p class="my-booking-order-nb">Réservation n°<%= booking.created_at.strftime("%Y%m") %><%= booking.id %></p>
                           <p class="my-booking-ws-title">
-                            <% if booking.session.workshop.title.size > 33 %>
-                              <%= booking.session.workshop.title[0..31] %>...
+                            <% if booking.session.workshop.title.size > 31 %>
+                              <%= booking.session.workshop.title[0..29] %>...
                             <% else %>
                               <%= booking.session.workshop.title %>
                             <% end %>
@@ -123,6 +127,9 @@
                             <%= link_to "https://www.google.fr/maps/search/#{booking.session.workshop.place.address}, #{booking.session.workshop.place.zip_code} #{booking.session.workshop.place.city.upcase}", target: "_blank", class: "localize-btn mt-2" do %>
                               <i class="fas fa-map-marker-alt"></i>
                             <% end %>
+
+
+                            <!-- Add To Calendar -->
                             <div title="Add to Calendar" data-styling="none" class="addeventatc mt-2">
                               <i class="far fa-calendar-plus"></i>
                               <span class="start">
@@ -130,10 +137,8 @@
                                 <%= booking.session.start_time[0..1] %>:<%= booking.session.start_time[3..4] %>
                               </span>
                               <span class="end">
-                                <% start_in_minutes = (booking.session.start_time[0..1].to_i * 60) + booking.session.start_time[3..4].to_i %>
-                                <% end_in_minutes = start_in_minutes + booking.session.workshop.duration %>
-                                <%= booking.session.start_date.strftime('%m/%d/%Y') %>
-                                <%= end_in_minutes.fdiv(60).round.to_i %>:<%= end_in_minutes%60 > 0 ? end_in_minutes%60 : "00" %>
+                                <%= booking.session.end_date.strftime('%m/%d/%Y') %>
+                                <%= booking.session.end_time[0..1] %>:<%= booking.session.end_time[3..4] %>
                               </span>
                               <span class="timezone">Europe/Paris</span>
                               <span class="title">Atelier "<%= booking.session.workshop.title %>"</span>
@@ -148,6 +153,8 @@
                                 </span>
                               <span class="location"><%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city.capitalize %></span>
                             </div>
+                            <!-- Add To Calendar - end -->
+
                           </div>
                         </div>
                       </div>
@@ -171,7 +178,11 @@
 
                   <div class="my-booking-date-photo-and-info">
                     <div class="my-booking-date">
-                      <%= l(booking.session.start_date, format: '%A %d %b %Y').capitalize %> - <%=booking.session.start_time%>
+                      <% if booking.session.start_date == booking.session.end_date %>
+                        <%= l(booking.session.start_date, format: '%A %d %b %Y') %> de <%= booking.session.start_time %> à <%= booking.session.end_time %>
+                      <% else %>
+                        <%= l(booking.session.start_date, format: '%d %b %Y') %> à <%= booking.session.start_time %> au <%= l(booking.session.end_date, format: '%d %b %Y') %> à <%= booking.session.end_time %>
+                      <% end %>
                     </div>
 
                     <div class="my-bookings-ws-card">
@@ -184,7 +195,13 @@
                       </div>
                       <div class="my-booking-ws-info">
                         <p class="my-booking-order-nb">Réservation n°<%= booking.created_at.strftime("%Y%m") %><%= booking.id %></p>
-                        <p class="my-booking-ws-title"><%= booking.session.workshop.title %></p>
+                        <p class="my-booking-ws-title">
+                          <% if booking.session.workshop.title.size > 31 %>
+                            <%= booking.session.workshop.title[0..29] %>...
+                          <% else %>
+                            <%= booking.session.workshop.title %>
+                          <% end %>
+                        </p>
                         <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                           Organisé par <%= booking.session.workshop.place.user.profile.company %>
                         <% end %>
@@ -261,11 +278,23 @@
                       <%= link_to workshop_path(booking.session.workshop) do %>
                         <div class="my-booking-ws-info">
                           <p class="my-booking-order-nb">Réservation n°<%= booking.created_at.strftime("%Y%m") %><%= booking.id %></p>
-                          <p class="my-booking-ws-title"><%= booking.session.workshop.title %></p>
+                          <p class="my-booking-ws-title">
+                            <% if booking.session.workshop.title.size > 31 %>
+                              <%= booking.session.workshop.title[0..29] %>...
+                            <% else %>
+                              <%= booking.session.workshop.title %>
+                            <% end %>
+                          </p>
                           <%= link_to profile_public_path(booking.session.workshop.place.user.profile), class: "my-bookings-organized-by" do %>
                             Organisé par <%= booking.session.workshop.place.user.profile.company %>
                           <% end %>
-                          <p>Session du <%= l(booking.session.start_date, format: '%d %b %Y').capitalize %> à <%=booking.session.start_time%></p>
+                          <p>Session du
+                            <% if booking.session.start_date == booking.session.end_date %>
+                              <%= l(booking.session.start_date, format: '%A %d %b %Y') %> de <%= booking.session.start_time %> à <%= booking.session.end_time %>
+                            <% else %>
+                              <%= l(booking.session.start_date, format: '%d %b %Y') %> à <%= booking.session.start_time %> au <%= l(booking.session.end_date, format: '%d %b %Y') %> à <%= booking.session.end_time %>
+                            <% end %>
+                          </p>
                           <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€ TTC</p>
                           <p>Taux de remboursement : <%= (booking.refund_rate * 100).round %>%</p>
                           <p class="mb-3">Montant remboursé : <%= booking.amount * booking.refund_rate %>€ TTC</p>

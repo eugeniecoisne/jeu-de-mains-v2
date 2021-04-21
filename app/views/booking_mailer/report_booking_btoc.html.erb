@@ -1,3 +1,13 @@
 <h1>Nous vous confirmons le report de votre atelier <%= @booking.session.workshop.title %> au <%= @booking.session.start_date.strftime("%d/%m/%y") %></h1>
-<h2>Ancienne date : <%= Session.find(@old_session_id).start_date.strftime("%d/%m/%y") %> à <%= Session.find(@old_session_id).start_time %></h2>
-<h2>Nouvelle date : <%= @booking.session.start_date.strftime("%d/%m/%y") %> à <%= @booking.session.start_time %></h2>
+<h2>Ancienne date :
+  <% if Session.find(@old_session_id).start_date == Session.find(@old_session_id).end_date %>
+    <%= l(Session.find(@old_session_id).start_date, format: '%A %d %b %Y') %> de <%= Session.find(@old_session_id).start_time %> à <%= Session.find(@old_session_id).end_time %>.</h2>
+  <% else %>
+    <%= l(Session.find(@old_session_id).start_date, format: '%A %d %b %Y') %> à <%= Session.find(@old_session_id).start_time %> au <%= l(Session.find(@old_session_id).end_date, format: '%A %d %b %Y') %> à <%= Session.find(@old_session_id).end_time %>.</h2>
+  <% end %>
+<h2>Nouvelle date :
+  <% if @booking.session.start_date == @booking.session.end_date %>
+    <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>.</h2>
+  <% else %>
+    <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %> au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %>.</h2>
+  <% end %>

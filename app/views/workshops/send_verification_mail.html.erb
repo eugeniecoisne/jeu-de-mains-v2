@@ -12,7 +12,13 @@
       <p>Au <%= @workshop.place.address %> <%= @workshop.place.zip_code %> <%= @workshop.place.city %></p>
     <% end %>
     <% session = @workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today }.last %>
-    <p>Première session le <%= l(session.start_date, format: '%A %d %b %Y').capitalize %> à <%= session.start_time %></p>
+    <p>Première session
+       <% if session.start_date == session.end_date %>
+          le <%= l(session.start_date, format: '%A %d %b %Y') %> de <%= session.start_time %> à <%= session.end_time %>
+        <% else %>
+          du <%= l(session.start_date, format: '%d %b %Y') %> à <%= session.start_time %> au <%= l(session.end_date, format: '%d %b %Y') %> à <%= session.end_time %>
+        <% end %>
+    </p>
     <% if @workshop.animators.where(db_status: true).present? %>
       <p>Animé par <%= @workshop.animators.where(db_status: true).last.user.profile.company %></p>
     <% end %>

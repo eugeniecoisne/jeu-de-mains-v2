@@ -1,4 +1,10 @@
-<h1>Annulation de votre atelier <%= @booking.session.workshop.title %> du <%= @booking.session.start_date.strftime("%d/%m/%y") %> par l'organisateur</h1>
+<h1>Annulation de votre atelier <%= @booking.session.workshop.title %> du
+  <% if @booking.session.start_date == @booking.session.end_date %>
+    <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>
+  <% else %>
+    <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %> au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %>
+  <% end %>
+  par l'organisateur</h1>
 <h2>Motif : <%= @booking.session.reason %></h2>
 <h2>Vous pouvez choisir une nouvelle date ou demander le remboursement en cliquant sur le bouton :</h2>
 <%= link_to "Report ou remboursement", booking_report_or_refund_url(@booking) %>

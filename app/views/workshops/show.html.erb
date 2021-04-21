@@ -35,9 +35,15 @@
             <select class="form-control select required" name="session" id="session_id">
               <option value="" disabled selected>Sélectionnez une date</option>
               <% @workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today }.sort_by { |session| session.start_date }.each do |session| %>
-                <option value="<%= session.id %>">
-                  <%= session.available == 0 ? "#{l(session.start_date, format: '%A %d/%m/%y').capitalize} à #{session.start_time} - Complet" : "#{l(session.start_date, format: '%A %d/%m/%y').capitalize} à #{session.start_time}" %>
-                </option>
+                <% if @workshop.duration >= 1440 %>
+                  <option value="<%= session.id %>">
+                    <%= session.available == 0 ? "Du #{l(session.start_date, format: '%A %d %B %Y')} à #{session.start_time} au #{l(session.end_date, format: '%A %d %B %Y')} à #{session.end_time} - Complet" : "Du #{l(session.start_date, format: '%A %d %B %Y')} à #{session.start_time} au #{l(session.end_date, format: '%A %d %B %Y')} à #{session.end_time}" %>
+                  </option>
+                <% else %>
+                  <option value="<%= session.id %>">
+                    <%= session.available == 0 ? "#{l(session.start_date, format: '%A %d %B %Y').capitalize} de #{session.start_time} à #{session.end_time} - Complet" : "#{l(session.start_date, format: '%A %d %B %Y').capitalize} de #{session.start_time} à #{session.end_time}" %>
+                  </option>
+                <% end %>
               <% end %>
             </select>
           </div>
