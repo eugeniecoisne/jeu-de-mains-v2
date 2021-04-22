@@ -8,6 +8,14 @@ class WorkshopPolicy < ApplicationPolicy
     true
   end
 
+  def privatisation?
+    true
+  end
+
+  def privatisation_envoyee?
+    true
+  end
+
   def create?
     (user.profile.role.present? && user.can_receive_payments? && user.profile.db_status == true) || user.admin?
   end

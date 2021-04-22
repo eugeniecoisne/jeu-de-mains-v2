@@ -1,9 +1,10 @@
 require "open-uri"
+require 'json'
 require "will_paginate/array"
 
 class WorkshopsController < ApplicationController
-  # skip_before_action :authenticate_user!, only: %i(index show)
-  before_action :set_workshop, only: %i(show edit update finalisation confirmation destroy)
+  # skip_before_action :authenticate_user!, only: %i(index show privatisation privatisation_envoyee)
+  before_action :set_workshop, only: %i(show edit update finalisation confirmation privatisation privatisation_envoyee destroy)
 
   def index
     if params[:search].present?
@@ -301,6 +302,35 @@ class WorkshopsController < ApplicationController
     end
   end
 
+  def privatisation
+  end
+
+  def privatisation_envoyee
+     captcha_privatisation_status = verify_google_recaptcha(ENV['RECAPTCHA_GOOGLE_PRIVATE_KEY'], params['g-recaptcha-response'])
+
+    if captcha_privatisation_status == true && params[:privatisation].present? && params[:privatisation][:email].present? && params[:privatisation][:email].match(/^\S+@\S+\.\S+$/) != nil && params[:privatisation][:capacity].present? && params[:privatisation][:first_date].present?
+      @privatisation = {
+        email: params[:privatisation][:email],
+        first_name: params[:privatisation][:first_name],
+        last_name: params[:privatisation][:last_name],
+        message: params[:privatisation][:message],
+        first_date: params[:privatisation][:first_date],
+        second_date: params[:privatisation][:second_date],
+        third_date: params[:privatisation][:third_date],
+        capacity: params[:privatisation][:capacity],
+        workshop: @workshop
+      }
+      flash[:notice] = "Votre demande de privatisation a bien été envoyée !"
+      partner_email_privatisation = PrivatisationMailer.with(privatisation: @privatisation, workshop: @workshop).send_form_btob
+      partner_email_privatisation.deliver_later
+      client_email_privatisation = PrivatisationMailer.with(privatisation: @privatisation, workshop: @workshop).confirm_form_btoc
+      client_email_privatisation.deliver_later
+    else
+      flash[:alert] = "Oups, le formulaire est incomplet ou votre e-mail est incorrect"
+      render 'privatisation'
+    end
+  end
+
   private
 
   def set_workshop
@@ -311,6 +341,13 @@ class WorkshopsController < ApplicationController
   end
 
   def workshop_params
-    params.require(:workshop).permit(:place_id, :thematic, :title, :program, :final_product, :level, :duration, :price, :status, :db_status, :capacity, :verified, :recommendable, :ephemeral, :kit, :kit_description, :visio, :slug, photos: [])
+    params.require(:workshop).permit(:place_id, :thematic, :title, :program, :final_product, :level, :duration, :price, :status, :db_status, :capacity, :verified, :recommendable, :ephemeral, :kit, :kit_description, :visio, :kit_shipping_price, :privatization, :slug, photos: [])
+  end
+
+  def verify_google_recaptcha(secret_key,response)
+    status = "https://www.google.com/recaptcha/api/siteverify?secret=#{secret_key}&response=#{response}"
+    serialized_status = open(status).read
+    hash = JSON.parse(serialized_status)
+    hash["success"] == true ? true : false
   end
 end

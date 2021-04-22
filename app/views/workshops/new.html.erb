@@ -29,13 +29,13 @@
         <div id="collapse-1" class="collapse collapse-1 show" data-parent="#accordionNewWs">
           <div class="card-body">
             <strong>Vous vous apprêtez à créer ici une fiche atelier.</strong><br>
-            Vous n'avez qu'une partie des informations ? Pas d'inquiétude, remplissez le lieu, le titre et les champs dont vous avez connaissance. Validez le formulaire, cela sauvegardera votre fiche et vous pourrez la compléter plus tard &#128293; <br>
+            Vous n'avez qu'une partie des informations ? Pas d'inquiétude, remplissez le lieu, le titre, la durée et les champs dont vous avez connaissance. Validez le formulaire, cela sauvegardera votre fiche et vous pourrez la compléter plus tard &#128293; <br>
             Un atelier est mis en ligne dès lors que tous les champs sont complétés et que des dates d'atelier sont proposées. <br>
             Vous pouvez trouver vos ateliers “en ligne” et “hors ligne” dans votre <strong><%= link_to "tableau de bord", tableau_de_bord_profile_path(current_user.profile) %></strong>.
             <br><br>
 
             <div class="form-group select required workshop_place_id">
-              <label class="select optional" for="workshop_place">Sélectionnez ou créez l'adresse postale du lieu où se déroulera l'atelier<br>Sélectionnez "atelier en visio" si l'atelier est en ligne, à distance</label>
+              <label class="select optional" for="workshop_place">Sélectionnez ou créez l'adresse postale du lieu recevant du public où se déroulera l'atelier.<br>Sélectionnez "Atelier en visio" si l'atelier est en visioconférence.</label>
 
               <div class="new-ws-select-or-add-new-address">
                 <select class="form-control select required" name="workshop[place_id]" id="workshop_place_id">
@@ -75,12 +75,12 @@
             <strong>On continue avec les filtres !</strong><br>
             Reseignez la thématique de l'atelier, le niveau requis pour participer à l'atelier, le nombre de places disponibles à la réservation, la durée et enfin le prix. <br>
             N'hésitez pas à justifier le niveau requis dans la partie "Programme" (étape suivante) &#128521; <br>
-            <strong>Important :</strong> le prix fixé se doit d'être identique à celui affiché sur vos autres supports (boutique, site, autres plateformes).
+            <strong>Important :</strong> le prix fixé se doit d'être aligné sur celui affiché sur vos propres site et boutique.
             <br><br>
-            <%= f.input :thematic, as: :check_boxes, multiple: true, label: "Type d'atelier", collection: Workshop::THEMATICS %>
-            <%= f.input :level, required: true, label: "Niveau requis pour participer", collection: Workshop::LEVELS %>
-            <%= f.input :capacity, required: false, label: "Nombre de places proposées" %>
-            <%= f.input :duration, collection: Workshop::DURATIONS, required: false, label: "Durée de l'atelier" %>
+            <%= f.input :thematic, required: false, as: :check_boxes, multiple: true, label: "Thématique(s) d'atelier (plusieurs choix possibles)", collection: Workshop::THEMATICS %>
+            <%= f.input :level, required: false, label: "Niveau requis pour participer", collection: Workshop::LEVELS %>
+            <%= f.input :capacity, required: false, label: "Nombre de places proposées (à titre indicatif, vous pourrez ensuite personnaliser pour chaque date le nombre de pers. max par session)" %>
+            <%= f.input :duration, collection: Workshop::DURATIONS, required: true, label: "Durée de l'atelier" %>
             <%= f.input :price, required: false, label: "Prix par personne TTC" %>
             <%= f.input :ephemeral, required: false, label: "Cet atelier est éphémère (organisé à l'occasion d'un événement par exemple)" %>
 
@@ -105,7 +105,7 @@
             <strong>Sortez votre plume &#128521;</strong><br>
             Raconter ici tout ce que les utilisateurs doivent savoir sur votre atelier : l'univers de l'animateur et du lieu, le déroulé, avec quel objet ils repartent... Plus vous en dites, plus les utilisateurs seront rassurés et convaincus !
             <br><br>
-            <%= f.input :program, required: false, label: "Programme", :input_html => {:rows => 8}, placeholder: "Parlez ici en détails du déroulé, de l'ambiance, de l'univers de l'animateur, des éventuelles collations incluses..." %>
+            <%= f.input :program, required: false, label: "Programme (En cas d'atelier sur plusieurs jours, préciser ce qui n'est pas inclus dans l'Atelier : hébergement, transport, repas...)", :input_html => {:rows => 8}, placeholder: "Parlez ici en détails du déroulé, de l'ambiance, de l'univers de l'animateur, des éventuelles collations incluses..." %>
             <%= f.input :final_product, required: false, label: "Repartez avec", :input_html => {:rows => 3}, placeholder: "Parlez ici de l'objet et tout autre matériel créatif avec lequel le client repart ;)" %>
 
             <div class="next-previous">
@@ -116,20 +116,19 @@
         </div>
       </div>
 
-      <!-- KIT -->
+      <!-- PRIVATIZATION-->
 
       <div class="card">
         <div class="card-header card-header-4 collapsed" data-toggle="collapse" data-target="#collapse-4" aria-expanded="false" aria-controls="collapse-4">
-          <span class="title">Kit (atelier visio uniquement)</span>
+          <span class="title">Privatisation</span>
           <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
         </div>
         <div id="collapse-4" class="collapse collapse-4" data-parent="#accordionNewWs">
           <div class="card-body">
-            <strong>Votre atelier est en visio ?</strong><br>
-            Indiquez si oui ou non vous prévoyez d'envoyer un kit par voie postale en amont de l'atelier ! Si la réponse est positive, décrivez le contenu de ce kit &#128521;
+            <strong>Proposez-vous la privatisation de votre atelier ?</strong><br>
+            Indiquez aux visiteurs du site si vous acceptez la privatisation pour les événements tels que les EVJF et anniversaires. Nous vous proposons de le mettre en évidence sur votre annonce avec un formulaire de prise de contact qui vous permettra de recevoir les demandes sur votre adresse e-mail. Ce service d'acheminement des demandes est 100% gratuit.
             <br><br>
-            <%= f.input :kit, required: false, as: :radio_buttons,label: "Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
-            <%= f.input :kit_description, :input_html => {:rows => 4}, required: false, label: "Si oui, décrivez le contenu du kit, la date d'envoi du kit (exemple J-7) et par quel transporteur il sera livré. La livraison se veut déjà incluse dans le prix de l'atelier fixé par vos soins et se fera obligatoirement à domicile.", placeholder: "Décrivez ici le contenu du kit que vous enverrez par voie postale..." %>
+              <%= f.input :privatization,as: :radio_buttons, required: false, label: false %>
 
             <div class="next-previous">
               <a class="next-previous-button btnPrevious" id="previous-4" >Retour</a>
@@ -139,23 +138,21 @@
         </div>
       </div>
 
-      <!-- PHOTOS -->
+      <!-- KIT -->
 
       <div class="card">
         <div class="card-header card-header-5 collapsed" data-toggle="collapse" data-target="#collapse-5" aria-expanded="false" aria-controls="collapse-5">
-          <span class="title">Photos de l'atelier</span>
+          <span class="title">Kit (atelier visio uniquement)</span>
           <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
         </div>
         <div id="collapse-5" class="collapse collapse-5" data-parent="#accordionNewWs">
           <div class="card-body">
-            <strong>Promis c'est la dernière étape !</strong><br>
-            Chargez ici vos photos de l'atelier. La première photo sera la plus représentative de l'atelier, veillez à bien sélectionner les photos dans l'ordre d'apparition prévu.<br>
-            Convaincre les utilisateurs passe en grande partie par le visuel. Prenez des clichés jolis, épurés du lieu, de l'objet à créer, du matériel utilisé afin que les utilisateurs puissent se projeter &#128521; <br>
+            <strong>Votre atelier est en visio ?</strong><br>
+            Indiquez si oui ou non vous prévoyez d'envoyer un kit par voie postale en amont de l'atelier ! Si la réponse est positive, décrivez le contenu de ce kit et indiquez les frais de livraison estimés &#128521;
             <br><br>
-
-            <%= f.input :photos, required: false, as: :file, label: "Minimum 1 photo - Poids max de l'ensemble : 15 Mo", input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" } %>
-            <p id="bytesSize"></p>
-            <div id="preview"></div>
+            <%= f.input :kit, required: false, as: :radio_buttons,label: "Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
+            <%= f.input :kit_description, :input_html => {:rows => 4}, required: false, label: "Si oui, décrivez le contenu du kit, la date d'envoi du kit (exemple J-7) et par quel transporteur il sera livré. La livraison se veut déjà incluse dans le prix de l'atelier fixé par vos soins et se fera obligatoirement à domicile (pas de points relais etc).", placeholder: "Décrivez ici le contenu du kit que vous enverrez par voie postale..." %>
+            <%= f.input :kit_shipping_price, as: :select, required: false, collection: Workshop::KIT_SHIPPING, label: "Si oui, indiquez les frais de livraison du kit en euros TTC estimés qui sont déjà compris dans le prix global de l'atelier. La loi nous oblige à les indiquer clairement aux consommateurs." %>
 
             <div class="next-previous">
               <a class="next-previous-button btnPrevious" id="previous-5" >Retour</a>
@@ -165,14 +162,41 @@
         </div>
       </div>
 
-      <!-- SUBMIT -->
+      <!-- PHOTOS -->
 
       <div class="card">
-        <div class="card-header card-header-6 collapsed" data-toggle="collapse" data-target="#collapse-6" aria-expanded="false">
-          <span class="title">Validation</span>
+        <div class="card-header card-header-6 collapsed" data-toggle="collapse" data-target="#collapse-6" aria-expanded="false" aria-controls="collapse-6">
+          <span class="title">Photos de l'atelier</span>
           <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
         </div>
         <div id="collapse-6" class="collapse collapse-6" data-parent="#accordionNewWs">
+          <div class="card-body">
+            <strong>Promis c'est la dernière étape !</strong><br>
+            Chargez ici vos photos de l'atelier. La première photo sera la plus représentative de l'atelier, veillez à bien sélectionner les photos dans l'ordre d'apparition prévu.<br>
+            Convaincre les utilisateurs passe en grande partie par le visuel. Prenez des clichés jolis, épurés du lieu, de l'objet à créer, du matériel utilisé afin que les utilisateurs puissent se projeter &#128521; <br>
+            Vous assurez être propriétaire de ces photos, avoir les autorisations de droit à l'image de toute personne reconnaissable et confirmez qu'elles ne sont pas issues d'une prise de vue par une plateforme concurrente.
+            <br><br>
+
+            <%= f.input :photos, required: false, as: :file, label: "Minimum 1 photo - Poids max de l'ensemble : 15 Mo", input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" } %>
+            <p id="bytesSize"></p>
+            <div id="preview"></div>
+
+            <div class="next-previous">
+              <a class="next-previous-button btnPrevious" id="previous-6" >Retour</a>
+              <a class="next-previous-button btnNext" id="next-6" >Suivant</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBMIT -->
+
+      <div class="card">
+        <div class="card-header card-header-7 collapsed" data-toggle="collapse" data-target="#collapse-7" aria-expanded="false">
+          <span class="title">Validation</span>
+          <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
+        </div>
+        <div id="collapse-7" class="collapse collapse-7" data-parent="#accordionNewWs">
           <div class="card-body">
             <strong>Il est temps de valider</strong><br>
             Une fois le bouton "valider" cliqué vous serez redirigé vers une page de finalisation.<br>
@@ -181,7 +205,7 @@
               <%= f.submit 'Valider', class: "new-edit-ws-submit" %>
             </div>
             <div class="next-previous">
-              <a class="next-previous-button btnPrevious" id="previous-6" >Retour</a>
+              <a class="next-previous-button btnPrevious" id="previous-7" >Retour</a>
             </div>
           </div>
         </div>

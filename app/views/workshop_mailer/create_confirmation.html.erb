@@ -187,11 +187,7 @@
                   <% end %>
                   <% if @workshop.duration.present? %>
                     <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">
-                      <% if @workshop.duration%60 == 0 %>
-                        Durée : <%= @workshop.duration/60 %> heures
-                      <% else %>
-                        Durée : <%= @workshop.duration/60 %> heures <%= @workshop.duration%60 %>
-                      <% end %>
+                      Durée : <%= Workshop::DURATIONS.key(@workshop.duration).remove(" consécutifs") %>
                     </p>
                   <% end %>
                   <% if @workshop.price.present? %>

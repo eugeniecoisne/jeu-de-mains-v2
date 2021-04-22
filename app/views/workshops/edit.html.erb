@@ -17,20 +17,21 @@
   <div class="edit-ws-container">
     <% if @workshop.status == 'en ligne' && current_user.admin == false %>
 
-      <h3>Votre atelier est déjà en ligne. Vous pouvez modifier les premiers champs ci-dessous uniquement. Si vous souhaitez modifier d'autres champs et que vous n'avez pas encore de réservation pour cet atelier, il est possible de passer votre atelier en statut "hors ligne" dans votre tableau de bord.</h3>
+      <h3>Votre atelier est déjà en ligne. Vous pouvez modifier les premiers champs ci-dessous uniquement. Si vous souhaitez modifier d'autres champs et que vous n'avez pas encore de réservation pour cet atelier, il est possible de passer votre atelier en statut "hors ligne" dans votre tableau de bord. Si vous souhaitez modifier le prix sans passer par le statut "hors ligne" vous pouvez contacter le service client Jeu de Mains.</h3>
       <%= simple_form_for(@workshop) do |f| %>
 
         <%= f.input :title, label: "Intitulé de l'atelier" %>
-        <%= f.input :thematic, as: :check_boxes, multiple: true, label: "Type d'atelier", collection: Workshop::THEMATICS %>
+        <%= f.input :thematic, as: :check_boxes, multiple: true, label: "Thématique(s) d'atelier (plusieurs choix possibles)", collection: Workshop::THEMATICS %>
         <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS, class: "updatable" %>
         <%= f.input :ephemeral, as: :radio_buttons, label: "Cet atelier est éphémère (organisé à l'occasion d'un événement par exemple)", class: "updatable" %>
-        <%= f.input :capacity, label: "Nombre de places proposées (vous pourrez toujours personnaliser le nombre de places pour chaque session)" %>
-        <%= f.input :program, label: "Programme", :input_html => {:rows => 8}, class: "updatable" %>
+        <%= f.input :capacity, label: "Nombre de places proposées (à titre indicatif, vous pourrez ensuite personnaliser pour chaque date le nombre de pers. max par session)" %>
+        <%= f.input :privatization,as: :radio_buttons, required: false, label: "Privatisation possible de votre atelier pour événements EVJF, anniversaires etc ?" %>
+        <%= f.input :program, label: "Programme (En cas d'atelier sur plusieurs jours, préciser ce qui n'est pas inclus dans l'Atelier : hébergement, transport, repas...)", :input_html => {:rows => 8}, class: "updatable" %>
         <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3}, class: "updatable" %>
         <%= f.input :photos, as: :file, input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" }, label: "Photos de l'atelier" %>
         <p id="bytesSize"></p>
 
-        <p>Voici les photos actuelles de l'atelier, si vous souhaitez en ajouter/remplacer, chargez l'ensemble des photos souhaitées dans l'ordre désiré avec la première photo représentative de l'atelier, vos photos actuelles ne seront pas sauvegardées.</p>
+        <p>Voici les photos actuelles de l'atelier, si vous souhaitez en ajouter/remplacer, chargez l'ensemble des photos souhaitées dans l'ordre désiré avec la première photo représentative de l'atelier, vos photos actuelles ne seront pas sauvegardées. Vous assurez être propriétaire de ces photos, avoir les autorisations de droit à l'image de toute personne reconnaissable et confirmez qu'elles ne sont pas issues d'une prise de vue par une plateforme concurrente.</p>
           <div class="edit-ws-photos d-flex mb-4">
             <% @workshop.photos.each do |photo| %>
                 <%= cl_image_tag photo.key, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}", loading: "lazy", width: 80, crop: :fill, class: "mr-1"  %>
@@ -53,7 +54,8 @@
         <% end %>
         <% if @workshop.place.name == "Atelier en visio" %>
           <%= f.input :kit, disabled: true, as: :radio_buttons, label: "Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
-          <%= f.input :kit_description, disabled: true, :input_html => {:rows => 4}, label: "Description du contenu du kit, la date d'envoi du kit (exemple J-7) et par quel transporteur il sera livré. La livraison se veut déjà incluse dans le prix de l'atelier fixé par vos soins et se fera obligatoirement à domicile." %>
+          <%= f.input :kit_description, disabled: true, :input_html => {:rows => 4}, label: "Votre atelier est en visio ? Description du contenu du kit, la date d'envoi du kit (exemple J-7) et par quel transporteur il sera livré. La livraison se veut déjà incluse dans le prix de l'atelier fixé par vos soins et se fera obligatoirement à domicile." %>
+          <%= f.input :kit_shipping_price, disabled: true, collection: Workshop::KIT_SHIPPING, label: "Votre atelier est en visio ? Indiquez les frais de livraison du kit en euros TTC estimés qui sont déjà compris dans le prix global de l'atelier. La loi nous oblige à les indiquer clairement aux consommateurs." %>
         <% end %>
         <%= f.input :duration, collection: Workshop::DURATIONS, disabled: true, label: "Durée de l'atelier" %>
         <%= f.input :price, disabled: true, label: "Prix par personne TTC" %>
@@ -69,8 +71,7 @@
       <%= simple_form_for(@workshop) do |f| %>
 
         <div class="form-group select is-valid required workshop_place_id form-group-valid">
-          <label class="select optional" for="workshop_place">Sélectionnez ou créez l'adresse postale du lieu où se déroulera l'atelier<br>Sélectionnez "atelier en visio" si l'atelier est en ligne, à distance</label>
-
+          <label class="select optional" for="workshop_place">Sélectionnez ou créez l'adresse postale du lieu recevant du public où se déroulera l'atelier.<br>Sélectionnez "Atelier en visio" si l'atelier est en visioconférence.</label>
           <div class="d-flex">
             <select class="form-control is-valid select required" name="workshop[place_id]" id="workshop_place_id">
               <option value="<%= @workshop.place.id %>" selected><%= @workshop.place.name %></option>
@@ -86,19 +87,19 @@
 
         </div>
 
-
-
-        <%= f.input :title, label: "Intitulé de l'atelier" %>
-        <%= f.input :thematic, as: :check_boxes, multiple: true, label: "Type d'atelier", collection: Workshop::THEMATICS %>
+        <%= f.input :title, required: true, label: "Intitulé de l'atelier" %>
+        <%= f.input :thematic, as: :check_boxes, multiple: true, label: "Thématique(s) d'atelier (plusieurs choix possibles)", collection: Workshop::THEMATICS %>
         <%= f.input :level, label: "Niveau requis pour participer", collection: Workshop::LEVELS %>
         <%= f.input :ephemeral, as: :radio_buttons, label: "Cet atelier est éphémère (organisé à l'occasion d'un événement par exemple)" %>
-        <%= f.input :duration, collection: Workshop::DURATIONS, required: false, label: "Durée de l'atelier" %>
-        <%= f.input :price, label: "Prix par personne" %>
-        <%= f.input :capacity, label: "Nombre de places proposées" %>
-        <%= f.input :program, label: "Programme", :input_html => {:rows => 8} %>
-        <%= f.input :final_product, label: "Repartez avec", :input_html => {:rows => 3} %>
+        <%= f.input :duration, collection: Workshop::DURATIONS, required: true, label: "Durée de l'atelier" %>
+        <%= f.input :price, label: "Prix par personne TTC" %>
+        <%= f.input :capacity, label: "Nombre de places proposées (à titre indicatif, vous pourrez ensuite personnaliser pour chaque date le nombre de pers. max par session)" %>
+        <%= f.input :privatization,as: :radio_buttons, required: false, label: "Privatisation possible de votre atelier pour événements EVJF, anniversaires etc ?" %>
+        <%= f.input :program, required: false, label: "Programme (En cas d'atelier sur plusieurs jours, préciser ce qui n'est pas inclus dans l'Atelier : hébergement, transport, repas...)", :input_html => {:rows => 8}, placeholder: "Parlez ici en détails du déroulé, de l'ambiance, de l'univers de l'animateur, des éventuelles collations incluses..." %>
+        <%= f.input :final_product, required: false, label: "Repartez avec", :input_html => {:rows => 3}, placeholder: "Parlez ici de l'objet et tout autre matériel créatif avec lequel le client repart ;)" %>
         <%= f.input :kit, as: :radio_buttons, label: "Votre atelier est en visio ? Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
-        <%= f.input :kit_description, :input_html => {:rows => 4}, label: "Description du contenu du kit, la date d'envoi du kit (exemple J-7) et par quel transporteur il sera livré. La livraison se veut déjà incluse dans le prix de l'atelier fixé par vos soins et se fera obligatoirement à domicile." %>
+        <%= f.input :kit_description, :input_html => {:rows => 4}, required: false, label: "Votre atelier est en visio ? Décrivez le contenu du kit, la date d'envoi du kit (exemple J-7) et par quel transporteur il sera livré. La livraison se veut déjà incluse dans le prix de l'atelier fixé par vos soins et se fera obligatoirement à domicile (pas de points relais etc).", placeholder: "Décrivez ici le contenu du kit que vous enverrez par voie postale..." %>
+        <%= f.input :kit_shipping_price, as: :select, required: false, collection: Workshop::KIT_SHIPPING, label: "Votre atelier est en visio ? Indiquez les frais de livraison du kit en euros TTC estimés qui sont déjà compris dans le prix global de l'atelier. La loi nous oblige à les indiquer clairement aux consommateurs." %>
 
         <%= f.input :photos, as: :file, label: "Photos de l'atelier", input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" } %>
         <p id="bytesSize"></p>
@@ -110,6 +111,9 @@
                 <%= cl_image_tag photo.key, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}", loading: "lazy", width: 80, crop: :fill, class: "mr-1"  %>
             <% end %>
           </div>
+        <% else %>
+          <p>Vous n'avez pas encore chargé vos photos. La première photo sera la plus représentative de l'atelier, veillez à bien sélectionner les photos dans l'ordre d'apparition prévu. Vous assurez être propriétaire de ces photos, avoir les autorisations de droit à l'image de toute personne reconnaissable et confirmez qu'elles ne sont pas issues d'une prise de vue par une plateforme concurrente.
+        </p>
         <% end %>
 
         <%= f.submit 'Valider', class: "new-edit-ws-submit" %>

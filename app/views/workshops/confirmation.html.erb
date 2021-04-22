@@ -1,7 +1,6 @@
 <div class="confirmation-ws-container">
 
   <% if @workshop.completed? && @workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today }.present? %>
-
     <h1>Félicitation, votre nouvel atelier est prêt à être mis en ligne !</h1>
     <p>Vous pouvez demander sa mise en ligne dès à présent en cliquant sur le bouton en bas de la page ou le faire ultérieurement depuis votre <strong><%= link_to "tableau de bord", tableau_de_bord_profile_path(current_user.profile) %></strong> où votre projet d’atelier reste sauvegardé en attendant.</p>
     <br>
@@ -83,6 +82,10 @@
         <% if @workshop.price.present? == false || @workshop.price == 0 %><li><p>Prix par personne</p></li><% end %>
         <% if @workshop.program.present? == false %><li><p>Programme</p></li><% end %>
         <% if @workshop.final_product.present? == false %><li><p>Repartez avec</p></li><% end %>
+        <% if @workshop.kit == true %>
+          <% if @workshop.kit_description.present? == false %><li><p>Description du kit</p></li><% end %>
+          <% if @workshop.kit_shipping_price.present? == false %><li><p>Frais livraison estimés du kit</p></li><% end %>
+        <% end %>
       </ul>
     <% end %>
     <p>Pour finaliser votre atelier et demander sa mise en ligne, c’est très simple, il ne vous reste plus qu’à vous rendre sur votre tableau de bord où votre projet d’atelier reste sauvegardé en attendant :</p><br>

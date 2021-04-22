@@ -180,6 +180,7 @@
                     <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
                   <% end %>
                   <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Contact : <%= @booking.session.workshop.place.phone_number %></p>
+
                   <% if @booking.session.workshop.animators.where(db_status: true).present? %>
                     <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Animé par <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %></p>
                   <% end %>
@@ -398,7 +399,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -435,6 +435,9 @@
                 <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
                   <p style="font-size: 13px; line-height: 1.5; word-break: break-word; text-align: center; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 20px; mso-ansi-font-size: 14px; margin: 0;">
                     <span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">
+                      <% if @booking.session.workshop.kit_shipping_price.present? && @booking.session.workshop.kit == true %>
+                        Frais de livraison d'un kit estimés à <%= @booking.session.workshop.kit_shipping_price %> euros ttc inclus dans le prix de l'atelier.
+                      <% end %>
                     Lorem ipsum mention légale informations d'annulation
                   </span>
                 </p>

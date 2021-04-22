@@ -1,0 +1,23 @@
+<% @footer = false %>
+
+<p>Bonjour <%= @workshop.place.user.first_name %>,</p>
+<p>Vous avez reçu une demande de privatisation pour votre atelier <strong><%= @workshop.title %></strong> :</p>
+
+<p><strong>Nom </strong>: <%= @privatisation[:first_name] %> <br>
+<strong>Prénom </strong>: <%= @privatisation[:last_name] %><br>
+<strong>E-mail </strong>: <%= @privatisation[:email] %><br>
+<strong>Effectif </strong>: <%= @privatisation[:capacity] %><br>
+<strong>Date souhaitée option 1 </strong>: <%= @privatisation[:first_date] %><br>
+<strong>Date souhaitée option 2 </strong>: <%= @privatisation[:second_date] %><br>
+<strong>Date souhaitée option 3 </strong>: <%= @privatisation[:third_date] %><br>
+<% if @privatisation[:message].present? %>
+  <strong>Message additionnel </strong>: <%= @privatisation[:message] %></p>
+<% else %>
+  </p>
+<% end %>
+
+<p>Nous vous invitons à prendre contact avec le client directement par e-mail sans passer par la plateforme Jeu de Mains.<br>
+Aucune commission ou frais ne sont pris sur ce service d'envoi des demandes de privatisation :)</p>
+<p>L'équipe Jeu de Mains</p>
+
+<img alt="jeu de mains" src="https://res.cloudinary.com/jeudemains/image/upload/v1602490393/logo-bleu-fonce-jeu-de-mains.png" style="height: auto; width: 100%; max-width: 120px;" title="jeu de mains" width="120"/>

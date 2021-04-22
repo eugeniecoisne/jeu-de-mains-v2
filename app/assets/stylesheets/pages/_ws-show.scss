@@ -257,6 +257,42 @@
   }
 }
 
+// PRIVATIZATION
+
+.ws-show-informations-privatization {
+  background-color: $light-blue;
+  padding: 1rem;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  span {
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 0px;
+    margin-right: 30px;
+  }
+  a {
+    background-color: white;
+    color: $light-blue;
+    font-weight: 700;
+    font-family: 'Montserrat', Helvetica, 'sans-serif';
+    font-size: 14.5px;
+    text-transform: uppercase;
+    border: unset;
+    padding: 4px 10px;
+    max-width: 240px;
+    min-width: 160px;
+    border-radius: 30px;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+  }
+  a:hover {
+    color: $blue;
+  }
+}
+
 // PROGRAM & TAGS
 
 .ws-show-informations-program {
@@ -522,6 +558,25 @@
       padding-right: 1em;
     }
   }
+
+  // privatization
+
+  .ws-show-informations-privatization {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  span {
+    margin-bottom: 20px;
+    margin-right: 0px;
+    font-size: 15px;
+  }
+  a {
+    max-width: unset;
+    width: 300px;
+    font-size: 14px;
+  }
+}
 
   // cancel policy
 
