@@ -76,6 +76,8 @@ Rails.application.routes.draw do
       get 'send_verification_mail'
       get 'mark_as_verified_or_unverified'
       get 'invitation'
+      get 'privatisation'
+      get 'privatisation_envoyee'
     end
   end
 

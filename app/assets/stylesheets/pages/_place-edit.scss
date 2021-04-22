@@ -1,13 +1,17 @@
 .edit-place-container {
-  margin: 4em 8em;
+  margin: 4em 14em;
 
-  h3 {
-    font-weight: 500;
-    font-size: 15px;
+  h2 {
+    font-weight: 600;
+    font-size: 16px;
     color: $dark-blue;
+    margin-bottom: 1rem;
   }
 
   .simple_form {
+    .form-group {
+      margin-bottom: 0.4rem;
+    }
     .form-control {
       font-size: 15px;
     }
@@ -22,30 +26,17 @@
       opacity: 0.8;
       margin-top: 1em;
     }
-    input[type=file]::-webkit-file-upload-button {
-      color: $blue;
-      font-weight: 600;
-      font-size: 14px;
-      border: 1.5px solid $blue;
-      padding: 4px 14px;
-      border-radius: 4px;
-      background: transparent;
-      cursor: pointer;
-      outline: none;
-    }
     p {
-      font-size: 15px;
+      font-size: 13px;
+      font-style: italic;
     }
-  }
-}
-
-.edit-place-photos {
-  flex-wrap: wrap;
-  img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    margin-top: 0.3em;
+    .new-edit-ws-submit {
+      background-color: $light-blue;
+      letter-spacing: 1px;
+    }
+    .new-edit-ws-submit:hover {
+      background-color: $blue;
+    }
   }
 }
 
@@ -55,19 +46,13 @@
 @media (min-width: 100px) and (max-width: 575px) {
   .edit-place-container {
     margin: 1.5em 1.5em 3em 1.5em;
-    h3 {
-      font-size: 14px;
+    h2 {
+      font-size: 15px;
     }
     .simple_form {
       label {
         font-size: 15px;
       }
-    }
-  }
-  .edit-place-photos {
-    img {
-      width: 65px;
-      height: 65px;
     }
   }
 }
@@ -81,7 +66,9 @@
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px)  {
-
+  .edit-place-container {
+    margin: 4em 4em;
+  }
 }
 
 // Large devices (desktops, 992px and up)

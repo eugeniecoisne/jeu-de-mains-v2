@@ -68,10 +68,7 @@
         <p id="ws-show-giftcard">Vous avez reçu une carte cadeau ?<br>Rendez-vous à l'étape suivante pour l'utiliser!</p>
       </div>
 
-
-
     <!-- LEFT SIDE -->
-
 
     <div class="container-ws-show-infos" id="hideShowInformation">
 
@@ -164,9 +161,11 @@
         </div>
       <% end %>
 
+
       <!-- WORKSHOP SHOW INFORMATIONS PROGRAM-->
 
       <div class="ws-show-informations-program-reviews">
+
 
         <div class="ws-show-informations-program">
           <h2>Programme de l'atelier</h2>
@@ -221,11 +220,7 @@
             <% end %>
             <% if @workshop.duration.present? %>
               <div class='informations-tag' id="informations-tag-unclickable">
-                <% if @workshop.duration%60 == 0 %>
-                  <%= @workshop.duration/60 %> heures
-                <% else %>
-                  <%= @workshop.duration/60 %> heures <%= @workshop.duration%60 %>
-                <% end %>
+                <%= Workshop::DURATIONS.key(@workshop.duration).remove(" consécutifs") %>
               </div>
             <% end %>
           </div>
@@ -242,6 +237,15 @@
           <% end %>
         </div>
 
+        <!-- PRIVATISATION -->
+
+        <% if @workshop.privatization == true %>
+          <div class="ws-show-informations-privatization">
+            <span>Cet atelier accepte la privatisation pour vos événements tels que les EVJF et anniversaires !</span>
+            <%= link_to "Je privatise !", privatisation_workshop_path(@workshop) %>
+          </div>
+        <% end %>
+
 
         <% if @workshop.visio == true && @workshop.kit == true %>
 
@@ -251,10 +255,11 @@
             <h2>Contenu du kit expédié</h2>
             <p>Vous recevrez votre kit à l'adresse postale que vous aurez indiquée au plus tard la veille de l'atelier avec le matériel nécessaire.
             <% if @workshop.kit_description.present? %>
-              <%= @workshop.kit_description %></p>
+              <%= @workshop.kit_description %><br>
             <% else %>
-              Le contenu de ce kit n'a pas été renseigné par l'organisateur.</p>
+              Le contenu de ce kit n'a pas été renseigné par l'organisateur.<br>
             <% end %>
+            <em>Les frais de livraison du kit son estimés à <%= @workshop.kit_shipping_price %> euros TTC, déjà inclus dans le prix total de l'atelier.</em></p>
           </div>
 
         <% end %>

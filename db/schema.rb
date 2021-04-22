@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_21_082221) do
+ActiveRecord::Schema.define(version: 2021_04_21_180015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -289,6 +289,8 @@ ActiveRecord::Schema.define(version: 2021_04_21_082221) do
     t.boolean "kit", default: false
     t.text "kit_description"
     t.boolean "visio", default: false
+    t.float "kit_shipping_price"
+    t.boolean "privatization", default: false
     t.index ["place_id"], name: "index_workshops_on_place_id"
     t.index ["slug"], name: "index_workshops_on_slug", unique: true
   end

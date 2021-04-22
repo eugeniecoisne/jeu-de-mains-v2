@@ -1,0 +1,92 @@
+<% if @workshop %>
+
+  <% if @workshop.db_status == true && @workshop.status == "en ligne" %>
+    <% content_for :meta_title, "Jeu de Mains | Privatisation #{@workshop.title[0..30]}" %>
+    <% content_for :meta_description, @workshop.program[0..160] %>
+    <% if @workshop.photos.attached? %>
+      <% content_for :meta_image, "#{cl_image_path @workshop.photos[0].key, width: 1200, height: 630, crop: :fill}" %>
+    <% end %>
+  <% end %>
+
+  <div class="ws-privatisation-container">
+    <div class="ws-privatisation-form">
+      <div class="ws-privatisation-title">
+        <h1>Demande de privatisation</h1>
+        <h2>Pour l'atelier <%= @workshop.title %></h2>
+        <div class="ws-privatisation-ws-photo">
+          <% if @workshop.photos.attached? %>
+            <%= cl_image_tag @workshop.photos[0].key, loading: "lazy", alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}" , width: 200, height: 160, crop: :fill %>
+          <% else %>
+            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 200, :height => 160, :crop => :fill, :alt => "jeu-de-mains-#{@workshop.title}", :title => "jeu-de-mains-#{@workshop.title}") %>
+          <% end %>
+        </div>
+        <h3>Vous souhaitez privatiser cet atelier pour un événement entre amis ou en famille ?<br>
+          Remplissez le formulaire ci-dessous avec vos informations et dates souhaitées. <%= @workshop.place.user.profile.company %> recevra votre demande et y répondra dans les meilleurs délais directement par e-mail.</h3>
+      </div>
+      <div class="ws-privatisation-form-form">
+        <%= simple_form_for :privatisation, url: privatisation_envoyee_workshop_path, method: :get do |f| %>
+          <div class="ws-privatisation-two-fields">
+            <% if params[:privatisation].present? && params[:privatisation][:last_name].present? %>
+              <%= f.input :last_name, required: false, label: false, placeholder: "Nom", input_html: { value: params[:privatisation][:last_name], id: "privatisation_last_name_1" } %>
+            <% else %>
+              <%= f.input :last_name, required: false, label: false, placeholder: "Nom", input_html: { id: "privatisation_last_name_2" } %>
+            <% end %>
+            <% if params[:privatisation].present? && params[:privatisation][:first_name].present? %>
+              <%= f.input :first_name, required: false, label: false, placeholder: "Prénom", input_html: { value: params[:privatisation][:first_name], id: "privatisation_first_name_1" } %>
+            <% else %>
+              <%= f.input :first_name, required: false, label: false, placeholder: "Prénom", input_html: { id: "privatisation_first_name_2" } %>
+            <% end %>
+          </div>
+
+          <% if params[:privatisation].present? && params[:privatisation][:email].present? %>
+            <%= f.input :email, required: true, label: false, placeholder: "E-mail*", input_html: { value: params[:privatisation][:email], id: "privatisation_email_1" } %>
+          <% else %>
+            <%= f.input :email, required: true, label: false, placeholder: "E-mail*", input_html: { id: "privatisation_email_2" } %>
+          <% end %>
+
+          <% if params[:privatisation].present? && params[:privatisation][:capacity].present? %>
+            <%= f.input :capacity, collection: Workshop::PRIVATISATION_CAPACITIES, required: true, label: false, prompt: "Nombre de personnes*", input_html: { value: params[:privatisation][:capacity], id: "privatisation_capacity_1" } %>
+          <% else %>
+            <%= f.input :capacity, collection: Workshop::PRIVATISATION_CAPACITIES, required: true, label: false, prompt: "Nombre de personnes*", input_html: { id: "privatisation_capacity_2" } %>
+          <% end %>
+          <p class="ws-privatisation-capacity-info">Attention la capacité d'accueil maximale de cet atelier est de <%= @workshop.capacity %> personnes</p>
+
+          <% if params[:privatisation].present? && params[:privatisation][:first_date].present? %>
+            <%= f.input :first_date, as: :string, required: true, input_html: {class: "datepicker datepicker_first_date", value: Date.strptime(params[:privatisation][:first_date], '%Y-%m-%d'), id: "privatisation_first_date_1"}, placeholder: "Date souhaitée option 1*", label: false %>
+          <% else %>
+            <%= f.input :first_date, as: :string, required: true, input_html: {class: "datepicker datepicker_first_date", id: "privatisation_first_date_2"}, placeholder: "Date souhaitée option 1*", label: false %>
+          <% end %>
+
+          <% if params[:privatisation].present? && params[:privatisation][:second_date].present? %>
+            <%= f.input :second_date, as: :string, required: false, input_html: {class: "datepicker datepicker_second_date", value: Date.strptime(params[:privatisation][:second_date], '%Y-%m-%d'), id: "privatisation_second_date_1"}, placeholder: "Date souhaitée option 2", label: false %>
+          <% else %>
+            <%= f.input :second_date, as: :string, required: false, input_html: {class: "datepicker datepicker_second_date", id: "privatisation_second_date_2"}, placeholder: "Date souhaitée option 2", label: false %>
+          <% end %>
+
+          <% if params[:privatisation].present? && params[:privatisation][:third_date].present? %>
+            <%= f.input :third_date, as: :string, required: false, input_html: {class: "datepicker datepicker_third_date", value: Date.strptime(params[:privatisation][:third_date], '%Y-%m-%d'), id: "privatisation_third_date_1"}, placeholder: "Date souhaitée option 3", label: false %>
+          <% else %>
+            <%= f.input :third_date, as: :string, required: false, input_html: {class: "datepicker datepicker_third_date", id: "privatisation_third_date_2"}, placeholder: "Date souhaitée option 3", label: false %>
+          <% end %>
+
+          <% if params[:privatisation].present? && params[:privatisation][:message].present? %>
+            <%= f.input :message, as: :text, required: false, label: false, placeholder: "J'écris un message ou donne des informations complémentaires (optionnel)", input_html: { value: params[:privatisation][:message], id: "privatisation_message_1", rows: 10 } %>
+          <% else %>
+            <%= f.input :message, as: :text, required: false, label: false, placeholder: "J'écris un message ou donne des informations complémentaires (optionnel)", input_html: { id: "privatisation_message_2", rows: 10 } %>
+          <% end %>
+
+          <p class="ws-privatisation-data-privacy">En validant ce formulaire je donne mon accord à <%= @workshop.place.user.profile.company %> pour conserver les données renseignées le temps de répondre à mon message. Pour plus d'informations sur le traitement de mes données : <%= link_to "politique de confidentialité", politique_de_confidentialite_path, target: '_blank' %>.</p>
+
+          <%= recaptcha_tags ajax: true %>
+          <div class="d-flex mt-2">
+            <%= f.submit "Envoyer", class: "btn"%>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+    <div class="ws-privatisation-picture">
+      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1612889842/jeu-de-mains-do-it-yourself.svg", :width => 1000, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-illustration", :title => "jeu-de-mains-illustration") %>
+    </div>
+  </div>
+<% end %>

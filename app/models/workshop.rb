@@ -10,15 +10,17 @@ class Workshop < ApplicationRecord
   has_many :reviews, through: :sessions
 
   validates :title, presence: true, allow_blank: false
+  validates :duration, presence: true, allow_blank: false
   validates :level, inclusion: { in: ['Débutant', 'Intermédiaire', 'Avancé'] }
   validates :recommendable, inclusion: { in: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
   validate :attachments_size
 
   serialize :thematic, Array
-  # validates :thematic, inclusion: { in: ['Autour du fil', 'Végétal', 'Papier & Calligraphie', 'Céramique & Modelage', 'Bijoux', 'Cosmétique & Entretien', 'Peinture & Dessin', 'Meuble & Décoration', 'Travail du cuir'] }
 
   THEMATICS = ['Autour du fil', 'Végétal', 'Papier & Calligraphie', 'Céramique & Modelage', 'Bijoux', 'Cosmétique & Entretien', 'Peinture & Dessin', 'Meuble & Décoration', 'Travail du cuir']
   LEVELS = ['Débutant', 'Intermédiaire', 'Avancé']
+  PRIVATISATION_CAPACITIES = ["2 personnes", "3 personnes", "4 personnes", "5 personnes", "6 personnes", "7 personnes", "8 personnes", "9 personnes", "10 personnes", "11 personnes", "12 personnes", "13 personnes", "14 personnes", "15 personnes", "16 personnes", "17 personnes", "18 personnes", "19 personnes", "20 personnes", "21 personnes", "22 personnes", "23 personnes", "24 personnes", "25 personnes", "Plus de 25 personnes"]
+
   DURATIONS = {
     "15 minutes" => 15,
     "30 minutes" => 30,
@@ -58,6 +60,40 @@ class Workshop < ApplicationRecord
     "5 jours consécutifs" => 7200
   }
 
+  KIT_SHIPPING = {
+    "0 euro TTC" => 0.0,
+    "0.50 euro TTC" => 0.5,
+    "1.00 euro TTC" => 1.0,
+    "1.50 euros TTC" => 1.5,
+    "2.00 euros TTC" => 2.0,
+    "2.50 euros TTC" => 2.5,
+    "3.00 euros TTC" => 3.0,
+    "3.50 euros TTC" => 3.5,
+    "4.00 euros TTC" => 4.0,
+    "4.50 euros TTC" => 4.5,
+    "5.00 euros TTC" => 5.0,
+    "5.50 euros TTC" => 5.5,
+    "6.00 euros TTC" => 6.0,
+    "6.50 euros TTC" => 6.5,
+    "7.00 euros TTC" => 7.0,
+    "7.50 euros TTC" => 7.5,
+    "8.00 euro TTC" => 8.0,
+    "8.50 euros TTC" => 8.5,
+    "9.00 euros TTC" => 9.0,
+    "9.50 euros TTC" => 9.5,
+    "10.00 euros TTC" => 10.0,
+    "10.50 euros TTC" => 10.5,
+    "11.00 euros TTC" => 11.0,
+    "11.50 euros TTC" => 11.5,
+    "12.00 euros TTC" => 12.0,
+    "12.50 euros TTC" => 12.5,
+    "13.00 euros TTC" => 13.0,
+    "13.50 euros TTC" => 13.5,
+    "14.00 euros TTC" => 14.0,
+    "14.50 euros TTC" => 14.5,
+    "15.00 euros TTC" => 15.0
+  }
+
   include PgSearch::Model
     pg_search_scope :global_search,
       against: [ :title, :program, :final_product, :thematic ],
@@ -95,7 +131,11 @@ class Workshop < ApplicationRecord
   end
 
   def completed?
-    program? && final_product? && title? && capacity? && duration? && thematic? && level? && price? && price > 0 && photos.attached?
+    if kit?
+      program? && final_product? && title? && capacity? && duration? && thematic? && level? && price? && price > 0 && photos.attached? && kit_shipping_price? && kit_description?
+    else
+      program? && final_product? && title? && capacity? && duration? && thematic? && level? && price? && price > 0 && photos.attached?
+    end
   end
 
   private

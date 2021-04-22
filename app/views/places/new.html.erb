@@ -14,16 +14,19 @@
 <div class="edit-place-container">
 
   <%= simple_form_for(@place) do |f| %>
+    <h2>En créant une nouvelle adresse, vous certifiez qu'il s'agit d'un lieu recevant du public.</h2>
 
-    <%= f.input :name, required: true, label: "Nom de l'adresse (non communiqué au public)" %>
-    <%= f.input :phone_number, required: true, label: "N° de téléphone partagé aux participants en cas de besoin au sujet de cet atelier", placeholder: "N° au format 0606060606 tout attaché sans point ou virgule" %>
-    <%= f.input :address, required: true, label: "Adresse postale (n° et rue)" %>
-    <%= f.input :zip_code, required: true, label: "Code postal" %>
-    <%= f.input :city, required: true, label: "Ville" %>
+    <%= f.input :name, required: true, label: false, placeholder: "Nom de l'adresse" %>
+    <p>Pour votre répertoire d'adresses, non communiqué.</p>
+    <%= f.input :phone_number, required: true, label: false, placeholder: "N° de téléphone" %>
+    <p>Au format 0XXXXXXXXX tout attaché sans point ou virgule. Le numéro de téléphone indiqué sera publiquement affiché sur l'annonce de l'Atelier et dans les e-mails transactionnels liés aux réservations des participants.</p>
+    <%= f.input :address, required: true, label: false, placeholder: "Adresse postale (n° et rue)" %>
+    <%= f.input :zip_code, required: true, label: false, placeholder: "Code postal" %>
+    <%= f.input :city, required: true, label: false, placeholder: "Ville" %>
 
 
     <div class="d-flex justify-content-center mt-5">
-      <%= f.submit 'Créer', class: "new-edit-ws-submit" %>
+      <%= f.submit "Créer l'adresse", class: "new-edit-ws-submit" %>
     </div>
 
   <% end %>
