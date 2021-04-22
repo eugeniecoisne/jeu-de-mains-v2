@@ -6,21 +6,33 @@ class SessionsController < ApplicationController
   skip_after_action :verify_authorized, only: [:update]
 
   def create
-    @session = Session.new(session_params)
-    authorize @session
-    @session.workshop = Workshop.friendly.find(params[:workshop_id])
-    @session.capacity = @session.workshop.capacity if @session.capacity.nil?
-    if session_params.include?(:one_day)
-      @session.end_date = @session.start_date
-      session_start_time = Time.new(@session.start_date.strftime('%Y').to_i, @session.start_date.strftime('%m').to_i, @session.start_date.strftime('%d').to_i, @session.start_time[0..1], @session.start_time[-2..-1], 0, "+01:00")
-      session_end_time = session_start_time + @session.workshop.duration.minutes
-      @session.end_time = session_end_time.strftime("%Hh%M")
-    end
-    if @session.save
-      flash[:notice] = "Votre session a bien été ajoutée !"
-    else
-      flash[:notice] = "Votre session n'a pas pu être ajoutée, remplissez bien les champs obligatoires."
-    end
+      if params[:session]["start_date(3i)"].present? && params[:session]["end_date(3i)"].present?
+        start_session_date = Date.parse("#{params[:session]["start_date(3i)"]}-#{params[:session]["start_date(2i)"]}-#{params[:session]["start_date(1i)"]}")
+        end_session_date = Date.parse("#{params[:session]["end_date(3i)"]}-#{params[:session]["end_date(2i)"]}-#{params[:session]["end_date(1i)"]}")
+        distance_in_hours = ((end_session_date.to_time - start_session_date.to_time) / 1.minutes).to_i + 1440
+      end
+
+      if start_session_date.present? && end_session_date.present? && start_session_date > end_session_date
+        @session = Session.new
+      elsif distance_in_hours.present? && (Workshop.friendly.find(params[:workshop_id]).duration.to_i != distance_in_hours)
+        @session = Session.new
+      else
+        @session = Session.new(session_params)
+      end
+      authorize @session
+      @session.workshop = Workshop.friendly.find(params[:workshop_id])
+      @session.capacity = @session.workshop.capacity if @session.capacity.nil?
+      if session_params.include?(:one_day)
+        @session.end_date = @session.start_date
+        session_start_time = Time.new(@session.start_date.strftime('%Y').to_i, @session.start_date.strftime('%m').to_i, @session.start_date.strftime('%d').to_i, @session.start_time[0..1], @session.start_time[-2..-1], 0, "+01:00")
+        session_end_time = session_start_time + @session.workshop.duration.minutes
+        @session.end_time = session_end_time.strftime("%Hh%M")
+      end
+      if @session.save
+        flash[:notice] = "Votre session a bien été ajoutée !"
+      else
+        flash[:alert] = "Votre session n'a pas pu être ajoutée, vos informations sont incomplètes ou incorrectes."
+      end
     redirect_back fallback_location: root_path
   end
 
