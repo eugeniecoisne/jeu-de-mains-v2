@@ -2,7 +2,7 @@ ActiveAdmin.register Session do
   menu parent: "Fiches"
   config.per_page = 50
   permit_params :start_date, :start_time, :end_time, :end_date, :capacity, :workshop_id, :workshop, :db_status, :reason
-  SESSION_WORKSHOPS = Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} par #{w.place.user.profile.company} - capacité #{w.capacity} places", w.id] }.to_h
+  SESSION_WORKSHOPS = Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} par #{w.place.user.profile.company} - capacité #{w.capacity} pl. - #{Workshop::DURATIONS.key(w.duration)}", w.id] }.to_h
 
   index do
     selectable_column
@@ -181,14 +181,14 @@ ActiveAdmin.register Session do
     f.inputs "Atelier" do
       f.input :workshop, collection: SESSION_WORKSHOPS, value: :workshop
     end
+    f.inputs "Capacité (obligatoire)" do
+      f.input :capacity, value: 0
+    end
     f.inputs "Date et heure" do
       f.input :start_date
       f.input :start_time, collection: Session::STARTS_AT
       f.input :end_date
       f.input :end_time, collection: Session::ENDS_AT
-    end
-    f.inputs "Capacité (obligatoire)" do
-      f.input :capacity
     end
     f.inputs "Raison en cas d'annulation" do
       f.input :reason

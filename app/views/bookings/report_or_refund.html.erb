@@ -20,7 +20,7 @@
     Si aucune date n'est proposée dans le menu déroulant ci-dessous ou si aucune de ces dates ne vous convient, n'hésitez pas à appeler <%= @booking.session.workshop.place.user.profile.company %> au <%= @booking.session.workshop.place.user.profile.phone_number %> pour ouvrir une nouvelle date d'atelier. <br>
     À bientôt sur jeudemains.com !
   <!-- ANNULATION INPOSSIBLE -->
-  <% elsif ((session_start_time - cancel_time) / 1.hours) < 4 %>
+  <% elsif ((session_start_time - cancel_time) / 1.hours) < 24 %>
     Votre atelier a lieu dans moins de 4 heures ou a déjà eu lieu. <br>
     Conformément à nos <%= link_to "conditions générales de vente", cgv_path, target: "_blank" %>, vous ne pouvez obtenir report ou remboursement de votre atelier. <br>
     Nous vous remercions de votre compréhension. <br>
@@ -39,19 +39,19 @@
       Avant de procéder à l'une de ces actions, nous vous remercions de prendre connaissance des conditions d'annulation spécifiques aux ateliers visio avec expédition de kits, à savoir que votre kit est expédié par l'organisateur à peu près 7 jours avant l'atelier : <br>
       <br>
       <strong>Vous annulez jusqu'à 7 jours avant l'atelier :</strong><br>
-      100% de votre réservation est remboursée et le kit ne vous est pas envoyé par voie postale. <br><br>
-      <strong>Vous annulez moins de 7 jours et jusqu'à 4 heures avant l'atelier :</strong><br>
+      vous pouvez reporter votre réservation à une autre date proposée ou avoir 100% de votre réservation remboursée ; le kit ne vous est pas envoyé par voie postale.<br><br>
+      <strong>Vous annulez moins de 7 jours et jusqu'à 24 heures avant l'atelier :</strong><br>
       50% de votre réservation est remboursée et le kit vous est envoyé par voie postale.<br><br>
-      <strong>Vous annulez moins de 4 heures avant l'atelier :</strong><br>
+      <strong>Vous annulez moins de 24 heures avant l'atelier :</strong><br>
       votre réservation ne vous sera pas remboursée mais le kit vous est envoyé par voie postale.
     <% else %>
       Avant de procéder à l'une de ces actions, nous vous remercions de prendre connaissance des conditions d'annulation : <br>
       <br>
-      <strong>Vous annulez jusqu'à 48 heures avant l'atelier :</strong><br>
-      100% de votre réservation est remboursée. <br><br>
-      <strong>Vous annulez moins de 48 heures et jusqu'à 4 heures avant l'atelier :</strong><br>
+      <strong>Vous annulez jusqu'à 72 heures avant l'atelier :</strong><br>
+      vous pouvez reporter votre réservation à une autre date proposée ou avoir 100% de votre réservation remboursée. <br><br>
+      <strong>Vous annulez moins de 72 heures et jusqu'à 24 heures avant l'atelier :</strong><br>
       50% de votre réservation est remboursée. <br><br>
-      <strong>Vous annulez moins de 4 heures avant l'atelier :</strong><br>
+      <strong>Vous annulez moins de 24 heures avant l'atelier :</strong><br>
       votre réservation ne vous sera pas remboursée.
     <% end %>
     <br>
@@ -61,7 +61,7 @@
 
 <!-- CAS REPORT & REMBOURSEMENT POSSIBLES (4 heures avant ou plus OU annulation par l'organisateur)-->
 
-<% if (((session_start_time - cancel_time) / 1.hours) >= 4) || (@booking.session.reason.present? && @booking.session.db_status == false) %>
+<% if (((session_start_time - cancel_time) / 1.hours) >= 24) || (@booking.session.reason.present? && @booking.session.db_status == false) %>
 
   <!-- CAS REPORT -->
   <% @sessions = @booking.session.workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today && session.available >= @booking.quantity && (session.id != @booking.session.id) } %>
@@ -76,9 +76,9 @@
       <div class="modal-content">
         <div class="form-group">
 
-          <!-- Cas annulation par l'organisateur ou annulation + de 7 jours avant ou annulation + de 48h avant pour atelier présentiel ou visio sans kit -->
+          <!-- Cas annulation par l'organisateur ou annulation + de 7 jours avant ou annulation + de 72h avant pour atelier présentiel ou visio sans kit -->
 
-          <% if (@sessions.size > 0 && @booking.session.reason.present? && @booking.session.db_status == false) || (@sessions.size > 0 && ((session_start_time - cancel_time) / 1.hours) >= 168) || (@sessions.size > 0 && @booking.session.workshop.kit == false && ((session_start_time - cancel_time) / 1.hours) >= 48) %>
+          <% if (@sessions.size > 0 && @booking.session.reason.present? && @booking.session.db_status == false) || (@sessions.size > 0 && ((session_start_time - cancel_time) / 1.hours) >= 168) || (@sessions.size > 0 && @booking.session.workshop.kit == false && ((session_start_time - cancel_time) / 1.hours) >= 72) %>
 
 
             <%= simple_form_for(@booking) do |f| %>
@@ -153,20 +153,20 @@
 
               <!-- Remboursement car annulation par l'organisateur -->
               <% if @booking.session.reason.present? && @booking.session.db_status == false %>
-                Votre atelier a été annulé par l'organisateur, vous recevrez donc un remboursement intégral sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation. <br><br>
+                Votre atelier a été annulé par l'organisateur, vous recevrez donc un remboursement intégral de 100% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation. <br><br>
                 Soit <strong><%= @booking.amount %> € TTC</strong>
               <% else %>
-                <!-- Moins de 48h avant et plus de 4h avant, sans kit -->
-                <% if (4..47.99).include?((session_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == false %>
-                  Votre atelier a lieu dans moins de 48 heures et plus de 4 heures, vous recevrez donc un remboursement de 50% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation. <br><br>
+                <!-- Moins de 72h avant et plus de 24h avant, sans kit -->
+                <% if (24..71.99).include?((session_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == false %>
+                  Votre atelier a lieu dans moins de trois jours et jusqu'à 24 heures avant, vous recevrez donc un remboursement de 50% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation. <br><br>
                   Soit <strong><%= @booking.amount * 0.5 %></strong> € TTC
-                <!-- Moins de 7j avant et plus de 4h avant, avec kit -->
-                <% elsif (4..167.99).include?((session_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == true %>
-                  Votre atelier en visioconférence avec kit a lieu dans moins de 7 jours et plus de 4 heures, vous recevrez donc un remboursement de 50% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation et recevrez tout de même votre kit par voie postale. <br><br>
+                <!-- Moins de 7j avant et plus de 24h avant, avec kit -->
+                <% elsif (24..167.99).include?((session_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == true %>
+                  Votre atelier en visioconférence avec kit a lieu dans moins de 7 jours et jusqu'à 24 heures avant, vous recevrez donc un remboursement de 50% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation et recevrez tout de même votre kit par voie postale. <br><br>
                   Soit <strong><%= @booking.amount * 0.5 %></strong> € TTC
                 <!-- Plus de 48h ou 7j avant -->
                 <% else %>
-                  Votre atelier a lieu dans plus de <%= @booking.session.workshop.kit == true ? "sept jours" : "48 heures" %>, vous recevrez donc un remboursement de 100% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation. <br><br>
+                  Votre atelier a lieu dans plus de <%= @booking.session.workshop.kit == true ? "sept jours" : "trois jours" %>, vous recevrez donc un remboursement intégral de 100% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation. <br><br>
                   Soit <strong><%= @booking.amount %> € TTC</strong>
                 <% end %>
               <% end %>

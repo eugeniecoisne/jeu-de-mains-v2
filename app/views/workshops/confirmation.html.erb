@@ -83,7 +83,7 @@
         <% if @workshop.program.present? == false %><li><p>Programme</p></li><% end %>
         <% if @workshop.final_product.present? == false %><li><p>Repartez avec</p></li><% end %>
         <% if @workshop.kit == true %>
-          <% if @workshop.kit_description.present? == false %><li><p>Description du kit</p></li><% end %>
+          <% if @workshop.kit_description.present? == false || @workshop.kit_description.size == 0 %><li><p>Description du kit</p></li><% end %>
           <% if @workshop.kit_shipping_price.present? == false %><li><p>Frais livraison estimés du kit</p></li><% end %>
         <% end %>
       </ul>

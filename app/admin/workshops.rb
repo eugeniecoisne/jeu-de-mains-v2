@@ -2,7 +2,7 @@ ActiveAdmin.register Workshop do
   menu parent: "Fiches"
   config.per_page = 50
   remove_filter :slug, :photos_attachments, :photos_blobs
-  permit_params :title, :ephemeral, :thematic, :level, :duration, :capacity, :price, :program, :final_product, :recommendable, :verified, :status, :db_status, :slug, :place, :place_id, :kit, :kit_description, :visio, photos:[]
+  permit_params :title, :ephemeral, :thematic, :level, :duration, :capacity, :price, :program, :final_product, :recommendable, :verified, :status, :db_status, :slug, :place, :place_id, :kit, :kit_description, :kit_shipping_price, :privatization, :visio, photos:[]
 
   action_item "Ajouter un animateur" do
     link_to("Ajouter un animateur", new_admin_animator_path, class: :button)
@@ -29,7 +29,9 @@ ActiveAdmin.register Workshop do
     column :title
     column :thematic
     column :visio
+    column :kit
     column :ephemeral
+    column :privatization
     column :place do |workshop|
       link_to workshop.place.name, "#{admin_place_path(workshop.place)}"
     end
@@ -64,12 +66,14 @@ ActiveAdmin.register Workshop do
     column :final_product do |workshop|
       workshop.final_product.present? ? true : false
     end
+    column :kit_description
+    column :kit_shipping_price
     column "Sessions en ligne" do |workshop|
-      workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
+      workshop.sessions.where(db_status: true).select { |s| s.start_date > Date.today }.count
     end
     column "Participants reçus" do |workshop|
       participants = 0
-      Session.all.select { |s| s.workshop == workshop && s.date < Date.today }.each { |s| participants += s.sold }
+      Session.all.select { |s| s.workshop == workshop && s.start_date < Date.today }.each { |s| participants += s.sold }
       participants
     end
     column :created_at
@@ -130,7 +134,9 @@ ActiveAdmin.register Workshop do
     column :title
     column :thematic
     column :visio
+    column :kit
     column :ephemeral
+    column :privatization
     column :place do |workshop|
       workshop.place.name
     end
@@ -168,12 +174,14 @@ ActiveAdmin.register Workshop do
     column :final_product do |workshop|
       workshop.final_product
     end
+    column :kit_description
+    column :kit_shipping_price
     column "Sessions en ligne" do |workshop|
-      workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
+      workshop.sessions.where(db_status: true).select { |s| s.start_date > Date.today }.count
     end
     column "Participants reçus" do |workshop|
       participants = 0
-      Session.all.select { |s| s.workshop == workshop && s.date < Date.today }.each { |s| participants += s.sold }
+      Session.all.select { |s| s.workshop == workshop && s.start_date < Date.today }.each { |s| participants += s.sold }
       participants
     end
     column :created_at
@@ -234,25 +242,29 @@ ActiveAdmin.register Workshop do
           link_to workshop.animators.where(db_status: true).last.id, "#{admin_animator_path(workshop.animators.where(db_status: true).last)}"
         end
       end
+      row :privatization
       row :program
       row :final_product
       row :thematic
       row :visio
+      row :kit
       row :level
       row :duration
       row :capacity
       row :ephemeral
       row :price
+      row :kit_description
+      row :kit_shipping_price
       row :rating
       row "Nombre d'avis" do |workshop|
         Review.all.where(db_status: true).select { |r| r.booking.session.workshop == workshop }.count
       end
       row "Sessions en ligne" do |workshop|
-        workshop.sessions.where(db_status: true).select { |s| s.date > Date.today }.count
+        workshop.sessions.where(db_status: true).select { |s| s.start_date > Date.today }.count
       end
       row "Participants reçus" do |workshop|
         participants = 0
-        Session.all.select { |s| s.workshop == workshop && s.date < Date.today }.each { |s| participants += s.sold }
+        Session.all.select { |s| s.workshop == workshop && s.start_date < Date.today }.each { |s| participants += s.sold }
         participants
       end
       row :recommendable
