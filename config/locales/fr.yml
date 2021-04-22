@@ -96,6 +96,9 @@ fr:
         place: Lieu
         thematic: Thématique
         level: Niveau
+        kit_description: Description du kit
+        kit_shipping_price: Frais livraison du kit
+        privatization: Privatisation
         duration: Durée
         capacity: Capacité
         price: Prix

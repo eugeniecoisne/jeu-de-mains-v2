@@ -296,22 +296,22 @@
             <div class="ws-show-cancel-option">
               <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614613961/remboursement-100.svg", :width => 80, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-remboursement-integral", :title => "jeu-de-mains-remboursement-integral") %>
               <% if @workshop.kit == true %>
-                <p>Vous annulez plus de 7 jours avant l'atelier, vous êtes intégralement remboursé du montant de la réservation sur le moyen de paiement utilisé.</p>
+                <p>Vous annulez jusqu'à 7 jours avant l'atelier, vous pouvez reporter à une date ultérieure ou être intégralement remboursé du montant de la réservation sur le moyen de paiement utilisé.</p>
               <% else %>
-                <p>Vous annulez plus de 48 heures avant l'atelier, vous êtes intégralement remboursé du montant de la réservation sur le moyen de paiement utilisé.</p>
+                <p>Vous annulez jusqu'à 3 jours avant l'atelier, vous pouvez reporter à une date ultérieure ou être intégralement remboursé du montant de la réservation sur le moyen de paiement utilisé.</p>
               <% end %>
             </div>
             <div class="ws-show-cancel-option">
               <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614614195/remboursement-50.svg", :width => 80, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-remboursement-partiel", :title => "jeu-de-mains-remboursement-partiel") %>
               <% if @workshop.kit == true %>
-                <p>Vous annulez moins de 7 jours et plus de 4 heures avant l'atelier, vous êtes remboursé à hauteur de 50% du montant de la réservation sur le moyen de paiement utilisé.</p>
+                <p>Vous annulez moins de 7 jours et jusqu'à 24 heures avant l'atelier, vous êtes remboursé à hauteur de 50% du montant de la réservation sur le moyen de paiement utilisé. Aucun report ne vous sera proposé.</p>
               <% else %>
-                <p>Vous annulez moins de 48 heures et plus de 4 heures avant l'atelier, vous êtes remboursé à hauteur de 50% du montant de la réservation sur le moyen de paiement utilisé.</p>
+                <p>Vous annulez moins de 3 jours et jusqu'à 24 heures avant l'atelier, vous êtes remboursé à hauteur de 50% du montant de la réservation sur le moyen de paiement utilisé. Aucun report ne vous sera proposé.</p>
               <% end %>
             </div>
             <div class="ws-show-cancel-option" id="last-ws-show-cancel-option">
               <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614618109/remboursement-0.svg", :width => 80, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-aucun-remboursement", :title => "jeu-de-mains-aucun-remboursement") %>
-              <p>Vous annulez 4 heures ou moins avant l'atelier, vous ne serez pas remboursé et aucun report ne vous sera proposé.</p>
+              <p>Vous annulez moins de 24 heures avant l'atelier, vous ne serez pas remboursé et aucun report ne vous sera proposé.</p>
             </div>
           </div>
         </div>

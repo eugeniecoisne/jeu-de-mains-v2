@@ -132,7 +132,7 @@ class Workshop < ApplicationRecord
 
   def completed?
     if kit?
-      program? && final_product? && title? && capacity? && duration? && thematic? && level? && price? && price > 0 && photos.attached? && kit_shipping_price? && kit_description?
+      program? && final_product? && title? && capacity? && duration? && thematic? && level? && price? && price > 0 && photos.attached? && kit_shipping_price? && (kit_description? || kit_description.size > 0)
     else
       program? && final_product? && title? && capacity? && duration? && thematic? && level? && price? && price > 0 && photos.attached?
     end

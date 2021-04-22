@@ -73,8 +73,8 @@ class BookingsController < ApplicationController
     elsif booking_params.include?(:confirm_report)
         session_start_time = Time.new(@booking.session.start_date.strftime('%Y').to_i, @booking.session.start_date.strftime('%m').to_i, @booking.session.start_date.strftime('%d').to_i, @booking.session.start_time[0..1], @booking.session.start_time[-2..-1], 0, "+01:00")
         cancel_time = Time.now
-      # Vérification que le booking peut bien être reporté (+ de 48h ou + de 7j ou annulation par le partenaire)
-      if (@booking.session.reason.present? && @booking.session.db_status == false) || (((session_start_time - cancel_time) / 1.hours) >= 168) || (@booking.session.workshop.kit == false && ((session_start_time - cancel_time) / 1.hours) >= 48) || booking_params.include?(:admin_report)
+      # Vérification que le booking peut bien être reporté (+ de 72h ou + de 7j ou annulation par le partenaire)
+      if (@booking.session.reason.present? && @booking.session.db_status == false) || (((session_start_time - cancel_time) / 1.hours) >= 168) || (@booking.session.workshop.kit == false && ((session_start_time - cancel_time) / 1.hours) >= 72) || booking_params.include?(:admin_report)
         @old_session_id = @booking.session.id
         @booking.update(session_id: params[:session].to_i)
         flash[:notice] = "Votre atelier a bien été reporté, vous allez recevoir un e-mail de confirmation du report."
@@ -190,11 +190,11 @@ class BookingsController < ApplicationController
     elsif params[:cancel][:refund_rate].present?
       @booking.refund_rate = params[:cancel][:refund_rate].to_f
     else
-      if (0..3.99).include?((booking_start_time - cancel_time) / 1.hours)
+      if (0..23.99).include?((booking_start_time - cancel_time) / 1.hours)
         @booking.refund_rate = 0.0
-      elsif (4..47.99).include?((booking_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == false
+      elsif (24..71.99).include?((booking_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == false
         @booking.refund_rate = 0.5
-      elsif (4..167.99).include?((booking_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == true
+      elsif (24..167.99).include?((booking_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == true
         @booking.refund_rate = 0.5
       else
         @booking.refund_rate = 1.0

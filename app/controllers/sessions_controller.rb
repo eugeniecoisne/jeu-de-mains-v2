@@ -67,7 +67,7 @@ class SessionsController < ApplicationController
 
       session_start_time = Time.new(@session.start_date.strftime('%Y').to_i, @session.start_date.strftime('%m').to_i, @session.start_date.strftime('%d').to_i, @session.start_time[0..1], @session.start_time[-2..-1], 0, "+01:00")
       cancel_time = Time.now
-      if (4..47.99).include?(( session_start_time - cancel_time) / 1.hours)
+      if (0..47.99).include?(( session_start_time - cancel_time) / 1.hours)
         mail_phone_numbers = SessionMailer.with(session: @session).send_phone_numbers
         mail_phone_numbers.deliver_later
       end
