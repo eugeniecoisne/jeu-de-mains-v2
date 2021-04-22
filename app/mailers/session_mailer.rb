@@ -39,4 +39,15 @@ class SessionMailer < ApplicationMailer
       track_opens: 'true',
       message_stream: 'outbound')
   end
+
+  def send_kits_alert
+    @session = params[:session]
+    @organizer = @session.workshop.place.user.email
+
+    mail(
+      to:       @organizer,
+      subject:  "Il est temps d'envoyer vos kits pour l'atelier #{@session.workshop.title}",
+      track_opens: 'true',
+      message_stream: 'outbound')
+  end
 end

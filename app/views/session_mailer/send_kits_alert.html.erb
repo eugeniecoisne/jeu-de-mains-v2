@@ -1,0 +1,7 @@
+<h1>Il est temps d'envoyer vos kits pour l'atelier <br>
+<%= @session.workshop.title %></h1>
+
+<h2>Les inscriptions ont été cloturées le <%= l((Date.today - 1), format: '%A %d %b %Y') %></h2>
+<h3><%= @session.sold %> participant(s)</h3>
+
+<%= link_to "voir le listing d'envois", session_expedition_kits_url(@session)%>
