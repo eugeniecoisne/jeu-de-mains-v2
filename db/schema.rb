@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_21_180015) do
+ActiveRecord::Schema.define(version: 2021_04_23_123348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2021_04_21_180015) do
     t.float "refund_rate", default: 1.0
     t.float "fee", default: 0.2
     t.float "workshop_unit_price"
+    t.boolean "tva_applicable"
     t.index ["session_id"], name: "index_bookings_on_session_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -204,6 +205,7 @@ ActiveRecord::Schema.define(version: 2021_04_21_180015) do
     t.string "accountant_phone_number"
     t.float "fee", default: 0.2
     t.text "legal_mention"
+    t.boolean "tva_applicable", default: false
     t.index ["slug"], name: "index_profiles_on_slug", unique: true
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end

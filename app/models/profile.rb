@@ -134,6 +134,74 @@ class Profile < ApplicationRecord
     return reviews
   end
 
+  def invoice_number_for(booking_id)
+    all_bookings = []
+    user.places.each do |p|
+      p.workshops.each do |w|
+        w.sessions.each do |s|
+          s.bookings.sort.each do |b|
+            if b.status == "refunded" || b.status == 'paid'
+              all_bookings << b
+            end
+          end
+        end
+      end
+    end
+    increment = 1
+    all_sorted_bookings = {}
+    all_bookings.sort.each do |b|
+      all_sorted_bookings[b.id] = increment
+      increment += 1
+    end
+    if all_sorted_bookings[booking_id].present?
+      if all_sorted_bookings[booking_id].to_s.size == 1
+        return "0000#{all_sorted_bookings[booking_id]}"
+      elsif all_sorted_bookings[booking_id].to_s.size == 2
+        return "000#{all_sorted_bookings[booking_id]}"
+      elsif all_sorted_bookings[booking_id].to_s.size == 3
+        return "00#{all_sorted_bookings[booking_id]}"
+      elsif all_sorted_bookings[booking_id].to_s.size == 4
+        return "0#{all_sorted_bookings[booking_id]}"
+      elsif all_sorted_bookings[booking_id].to_s.size == 5
+        return "#{all_sorted_bookings[booking_id]}"
+      end
+    end
+  end
+
+  def refund_invoice_number_for(booking_id)
+    all_refund_bookings = []
+    user.places.each do |p|
+      p.workshops.each do |w|
+        w.sessions.each do |s|
+          s.bookings.sort.each do |b|
+            if b.status == "refunded"
+              all_refund_bookings << b
+            end
+          end
+        end
+      end
+    end
+    increment = 1
+    all_refund_sorted_bookings = {}
+    all_refund_bookings.sort.each do |b|
+      all_refund_sorted_bookings[b.id] = increment
+      increment += 1
+    end
+    if all_refund_sorted_bookings[booking_id].present?
+      if all_refund_sorted_bookings[booking_id].to_s.size == 1
+        return "0000#{all_refund_sorted_bookings[booking_id]}"
+      elsif all_refund_sorted_bookings[booking_id].to_s.size == 2
+        return "000#{all_refund_sorted_bookings[booking_id]}"
+      elsif all_refund_sorted_bookings[booking_id].to_s.size == 3
+        return "00#{all_refund_sorted_bookings[booking_id]}"
+      elsif all_refund_sorted_bookings[booking_id].to_s.size == 4
+        return "0#{all_refund_sorted_bookings[booking_id]}"
+      elsif all_refund_sorted_bookings[booking_id].to_s.size == 5
+        return "#{all_refund_sorted_bookings[booking_id]}"
+      end
+    end
+  end
+
   def true_and_false_reviews
     true_and_false_reviews = []
     if user.animators.count > 0

@@ -3,6 +3,7 @@
     <th>Date</th>
     <th>Libellé</th>
     <th>Réservation n°</th>
+    <th>Facture n°</th>
     <th>Atelier</th>
     <th>Session</th>
     <th>Montant (euros TTC)</th>
@@ -17,6 +18,11 @@
         <td><%= b[:date].strftime('%d/%m/%y') %></td>
         <td><%= b[:label] %></td>
         <td><%= b[:booking_number] %></td>
+        <% if b[:status] == "success" %>
+          <td>F<%= @profile.id %>-<%= @profile.invoice_number_for(b[:booking].id) %></td>
+        <% else %>
+          <td>A<%= @profile.id %>-<%= @profile.refund_invoice_number_for(b[:booking].id) %></td>
+        <% end %>
         <td><%= b[:workshop].title %></td>
         <td>
           <% if b[:session].start_date == b[:session].end_date %>

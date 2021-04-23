@@ -1,0 +1,240 @@
+<!DOCTYPE HTML>
+
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <title>facture-P-<%= DateTime.new(params[:year].to_i, params[:month].to_i, 1).strftime("%Y%m")%><%= @profile.id %></title>
+    <style type="text/css">
+
+      body {
+        background-color: white;
+        font-family: Helvetica, sans-serif;
+        margin: 0;
+      }
+
+      table, .bordered {
+        padding: 10px;
+        border: 1px solid #1C1C1C;
+        border-collapse: collapse;
+      }
+
+      th {
+        text-align: left;
+        color: #235B6A;
+        font-size:14px;
+        padding: 10px;
+      }
+
+      td {
+        text-align: left;
+        color: black;
+        font-size: 14px;
+        font-weight: 400;
+        padding: 10px;
+
+      }
+
+      .short-column {
+        width: 150px;
+      }
+      .large-column {
+        width: 550px;
+      }
+
+      .logo {
+        width: 200px;
+        height: auto;
+        object-fit: cover;
+        margin-bottom: 30px;
+      }
+
+      p {
+        font-size: 16px;
+        color: black;
+        font-weight: normal;
+        margin-bottom: 0;
+      }
+
+      p strong {
+        font-weight: bolder;
+      }
+
+      .all-commissions {
+        page-break-before: always;
+      }
+
+    </style>
+    <script type="text/javascript" src="051a640c-7c48-11eb-8b25-0cc47a792c0a_id_051a640c-7c48-11eb-8b25-0cc47a792c0a_files/wz_jsgraphics.js"></script>
+  </head>
+
+  <% if @commission_bookings.present? && @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
+
+    <body>
+      <div>
+        <div>
+          <img class="logo" src="https://res.cloudinary.com/jeudemains/image/upload/v1593180301/jeu-de-mains-logo-bleu-fonce.svg">
+        </div>
+        <div style="text-align:left;">
+          <p><strong>Jeu de Mains</strong></p>
+          <p>9 ter, rue Baliat, 92400 Courbevoie</p>
+          <p>contact@jeudemains.com</p>
+          <p>SIRET: 88449865000016</p>
+          <p>Enregistrée au RCS de Nanterre</p>
+          <p>TVA Intracommunautaire: FR46884498650</p>
+        </div>
+        <div style="text-align:right;">
+          <p style="margin-bottom:35px;"><em>À l'attention de</em></p>
+          <p><strong><%= @profile.accountant_company %></strong></p>
+          <p><%= @profile.accountant_address %></p>
+          <p><%= @profile.accountant_zip_code %> <%= @profile.accountant_city %></p>
+          <p>SIRET: <%= @profile.siret_number %></p>
+        </div>
+        <div style='text-align:left;'>
+          <p style="font-size:18px;text-transform:uppercase;"><strong>Facture des commissions du <%= DateTime.new(params[:year].to_i, params[:month].to_i, 1).strftime("%d/%m/%y") %> au <%= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i).strftime("%d/%m/%y") %></p>
+        </div>
+        <div style='text-align:left;margin-bottom:45px;'>
+          <p><strong>Facture n° P-<%= DateTime.new(params[:year].to_i, params[:month].to_i, 1).strftime("%Y%m")%><%= @profile.id %></strong></p>
+          <p>Facturé le : <%= (DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) + 1.day).strftime("%d/%m/%y") %></p>
+        </div>
+      </div>
+      <div>
+        <table align="center" class="table">
+          <tr>
+            <th class="large-column">Libellé</th>
+            <th class="short-column">Volume d'affaires TTC à titre informatif</th>
+            <th class="short-column">Montant HT</th>
+            <th class="short-column">TVA</th>
+            <th class="short-column">Montant TTC</th>
+          </tr>
+          <% if @commission_bookings.present? && @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
+            <% @total_sum_HT = 0 %>
+            <% @total_sum_TVA = 0 %>
+            <% @total_sum_TTC = 0 %>
+
+            <% @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.map { |b| b[:fee_rate]}.uniq!.each do |f| %>
+              <% @payments_amounts = 0 %>
+              <% @sum_HT = 0 %>
+              <% @sum_TVA = 0 %>
+              <% @sum_TTC = 0 %>
+              <% @refunds_amounts = 0 %>
+              <% @refunds_sum_HT = 0 %>
+              <% @refunds_sum_TVA = 0 %>
+              <% @refunds_sum_TTC = 0 %>
+              <% @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.select { |b| b[:fee_rate] == f }.each do |b| %>
+                <% if b[:status] == "success" %>
+                  <% @payments_amounts += b[:amount] %>
+                  <% @sum_HT += b[:fee_rate] * b[:amount] / 1.2 %>
+                  <% @sum_TVA += (b[:fee_rate] * b[:amount]) - (b[:fee_rate] * b[:amount] / 1.2) %>
+                  <% @sum_TTC += b[:fee_rate] * b[:amount] %>
+                <% else %>
+                  <% @refunds_amounts += b[:amount] * b[:refund_rate] %>
+                  <% @refunds_sum_HT += (b[:fee_rate] * b[:amount] * b[:refund_rate] / 1.2) %>
+                  <% @refunds_sum_TVA += ((b[:fee_rate] * b[:amount] * b[:refund_rate]) - (b[:fee_rate] * b[:amount] * b[:refund_rate] / 1.2)) %>
+                  <% @refunds_sum_TTC += (b[:fee_rate] * b[:amount] * b[:refund_rate]) %>
+                <% end %>
+              <% end %>
+              <% @total_sum_HT += (@sum_HT - @refunds_sum_HT) %>
+              <% @total_sum_TVA += (@sum_TVA - @refunds_sum_TVA) %>
+              <% @total_sum_TTC += (@sum_TTC - @refunds_sum_TTC) %>
+              <tr>
+                <td class="bordered large-column" style="text-align:left;">Paiements commission au taux de <%= f * 100 %>%</td>
+                <td class="bordered short-column" style="text-align:right;"><%= @payments_amounts.round(2) %> €</td>
+                <td class="bordered short-column" style="text-align:right;"><%= @sum_HT.round(2) %> €</td>
+                <td class="bordered short-column" style="text-align:right;"><%= @sum_TVA.round(2) %> €</td>
+                <td class="bordered short-column" style="text-align:right;"><%= @sum_TTC.round(2) %> €</td>
+              </tr>
+              <tr>
+                <td class="bordered large-column" style="text-align:left;">Remboursements commission au taux de <%= f * 100 %>%</td>
+                <td class="bordered short-column" style="text-align:right;">- <%= @refunds_amounts.round(2) %> €</td>
+                <td class="bordered short-column" style="text-align:right;">- <%= @refunds_sum_HT.round(2) %> €</td>
+                <td class="bordered short-column" style="text-align:right;">- <%= @refunds_sum_TVA.round(2) %> €</td>
+                <td class="bordered short-column" style="text-align:right;">- <%= @refunds_sum_TTC.round(2) %> €</td>
+              </tr>
+            <% end %>
+
+            <tr style='border-left: 1px solid #fff;'>
+              <td class="large-column"></td>
+              <td class="short-column"></td>
+              <td class="short-column"></td>
+              <td class="bordered short-column" style="text-align:right;">Total HT</td>
+              <td class="bordered short-column" style="text-align:right;"><%= @total_sum_HT.round(2) %> €</td>
+            </tr>
+            <tr style='border-left: 1px solid #fff;'>
+              <td class="large-column"></td>
+              <td class="short-column"></td>
+              <td class="short-column"></td>
+              <td class="bordered short-column" style="text-align:right;">TVA 20%</td>
+              <td class="bordered short-column" style="text-align:right;"><%= @total_sum_TVA.round(2) %> €</td>
+            </tr>
+            <tr style='border-left: 1px solid #fff;'>
+              <td class="large-column" style='border-bottom: 1px solid #fff;'></td>
+              <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
+              <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
+              <td class="bordered short-column" style="text-align:right;"><strong>Total TTC</strong></td>
+              <td class="bordered short-column" style="text-align:right;"><strong><%= @total_sum_TTC.round(2) %> €</strong></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <div style="margin-top:65px;">
+        <p style="font-size:14px;width:500px;line-height:1.2;font-style:italic;">Sauf incident informatique, cette facture est déjà payée grâce au Prestataire de Service de Paiements Stripe Connect utilisé par la plateforme Jeu de Mains.</p>
+      </div>
+
+      <!-- tableau de toutes les commissions du mois -->
+      <div class="all-commissions">
+        <div>
+          <p style="font-size:18px;text-transform:uppercase;"><strong>Relevé de toutes les opérations de commission du <%= DateTime.new(params[:year].to_i, params[:month].to_i, 1).strftime("%d/%m/%y") %> au <%= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i).strftime("%d/%m/%y") %></strong></p>
+        </div>
+
+        <div style='margin-top:65px;'>
+          <table align="center" class="table">
+            <tr>
+              <th style='font-size:13px;'>Date</th>
+              <th style='font-size:13px;'>Facture <br>client n°</th>
+              <th style='font-size:13px;'>Libellé</th>
+              <th style='font-size:13px;'>Montant TTC</th>
+              <th style='font-size:13px;'>Taux de<br> commission</th>
+              <th style='font-size:13px;'>Commission <br>HT</th>
+              <th style='font-size:13px;'>TVA</th>
+              <th style='font-size:13px;'>Commission <br>TTC</th>
+            </tr>
+            <% if @commission_bookings.present? && @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
+              <% @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.sort_by { |b| b[:date].to_date }.each do |b| %>
+                <tr>
+                  <td class="bordered" style='font-size:13px;'><%= b[:date].strftime('%d/%m/%y') %></td>
+                  <% if b[:status] == "success" %>
+                    <td class="bordered" style='font-size:13px;'>F<%= @profile.id %>-<%= @profile.invoice_number_for(b[:booking].id) %></td>
+                  <% else %>
+                    <td class="bordered" style='font-size:13px;'>A<%= @profile.id %>-<%= @profile.refund_invoice_number_for(b[:booking].id) %></td>
+                  <% end %>
+                  <td class="bordered" style='font-size:13px;'><%= b[:label] %></td>
+                  <% if b[:status] == "success" %>
+                    <td class="bordered" style="text-align:right;font-size:13px;"><%= b[:amount].round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;"><%= b[:fee_rate] * 100 %>%</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;"><%= (b[:fee_rate] * b[:amount] / 1.2).round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;"><%= ((b[:fee_rate] * b[:amount]) - (b[:fee_rate] * b[:amount] / 1.2)).round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;"><%= (b[:fee_rate] * b[:amount]).round(2) %> €</td>
+                  <% else %>
+                    <td class="bordered" style="text-align:right;font-size:13px;">- <%= (b[:amount] * b[:refund_rate]).round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;"><%= b[:fee_rate] * 100 %>%</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;">- <%= (b[:fee_rate] * b[:amount] * b[:refund_rate] / 1.2).round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;">- <%= ((b[:fee_rate] * b[:amount] * b[:refund_rate]) - (b[:fee_rate] * b[:amount] * b[:refund_rate] / 1.2)).round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;">- <%= (b[:fee_rate] * b[:amount] * b[:refund_rate]).round(2) %> €</td>
+                  <% end %>
+                </tr>
+              <% end %>
+            <% end %>
+          </table>
+        </div>
+
+      </div>
+    </body>
+  <% else %>
+  <body>
+    <p>Vous n'avez pas d'opération(s) ce mois-ci.</p>
+  </body>
+  <% end %>
+</html>
+
+
+

@@ -19,7 +19,8 @@ class BookingsController < ApplicationController
         workshop_unit_price: @workshop.price,
         session: session,
         user: current_user,
-        fee: @workshop.place.user.profile.fee
+        fee: @workshop.place.user.profile.fee,
+        tva_applicable: @workshop.place.user.profile.tva_applicable
         )
       authorize @booking
       CheckBookingStatusJob.set(wait: 20.minutes).perform_later(@booking)
@@ -145,10 +146,11 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:booking_id])
     authorize @booking
     @partner = @booking.session.workshop.place.user.profile
+    @invoice_number =
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "facture-jdm-#{@booking.created_at.strftime("%Y%m")}#{@booking.id}",
+        render pdf: "facture-F#{@partner.id}-#{@partner.invoice_number_for(@booking.id)}",
               margin:  { top:0,bottom:0,left:0,right:0}
       end
     end
@@ -164,7 +166,7 @@ class BookingsController < ApplicationController
     @partner = @booking.session.workshop.place.user.profile
     respond_to do |format|
       format.pdf do
-        render pdf: "avoir-jdm-#{@booking.created_at.strftime("%Y%m")}#{@booking.id}",
+        render pdf: "avoir-A#{@partner.id}-#{@partner.refund_invoice_number_for(@booking.id)}",
               margin:  { top:0,bottom:0,left:0,right:0}
       end
     end
@@ -297,7 +299,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard, :phone_number, :address, :address_complement, :zip_code, :city, :kit_expedition_status, :kit_expedition_link, :refund_rate, :workshop_unit_price, :confirm_report, :admin_report , :fee)
+    params.require(:booking).permit(:quantity, :status, :amount, :user_id, :session_id, :db_status, :checkout_session_id, :payment_intent_id, :charge_id, :refund_id, :cgv_agreement, :giftcard_id, :giftcard_amount_spent, :cancelled_at, :stripe_giftcard_transfer, :confirm_giftcard, :phone_number, :address, :address_complement, :zip_code, :city, :kit_expedition_status, :kit_expedition_link, :refund_rate, :workshop_unit_price, :confirm_report, :admin_report , :fee, :tva_applicable)
   end
 
 end
