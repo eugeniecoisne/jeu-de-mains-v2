@@ -4,7 +4,7 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8">
-    <title>facture-jdm-<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %></title>
+    <title>facture-F<%= @partner.id%>-<%=@partner.invoice_number_for(@booking.id)%></title>
     <style type="text/css">
 
       body {
@@ -66,10 +66,13 @@
         <p><%= @partner.accountant_address %></p>
         <p><%= @partner.accountant_zip_code %> <%= @partner.accountant_city %></p>
         <p>SIRET: <%= @partner.siret_number %></p>
+        <% if @booking.tva_applicable == false %>
+          <p>TVA non applicable selon l'article 293B du CGI</p>
+        <% end %>
       </div>
     </div>
     <div style='margin-left:45px;margin-right:45px;'>
-      <p>Numéro de facture : JDM-<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %></p>
+      <p>Numéro de facture : F<%= @partner.id %>-<%= @partner.invoice_number_for(@booking.id) %></p>
       <p>Facturé le : <%= @booking.created_at.strftime("%d/%m/%Y") %></p>
     </div>
 
@@ -80,8 +83,8 @@
           <th><strong>Date</strong></td>
           <th><strong>Libellé</strong></td>
           <th><strong>Quantité</strong></td>
-          <th><strong>Prix unitaire HT</strong></td>
-          <th><strong>Total HT</strong></td>
+          <th><strong><%= @booking.tva_applicable == true ? "Prix unitaire HT" : "Prix unitaire TTC" %></strong></td>
+          <th><strong><%= @booking.tva_applicable == true ? "Total HT" : "Total TTC" %></strong></td>
         </tr>
 
       </thead>
@@ -97,30 +100,37 @@
             <% end %>
           </td>
           <td class="short-column bordered"><%= @booking.quantity %> place(s)</td>
-          <td class="short-column bordered" style="text-align:right;"><%= (@booking.workshop_unit_price / 1.2).round(2) %> €</td>
-          <td class="short-column bordered" style="text-align:right;"><%= ((@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2) %> €</td>
+          <% if @booking.tva_applicable == true %>
+            <td class="short-column bordered" style="text-align:right;"><%= (@booking.workshop_unit_price / 1.2).round(2) %> €</td>
+            <td class="short-column bordered" style="text-align:right;"><%= ((@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2) %> €</td>
+          <% else %>
+            <td class="short-column bordered" style="text-align:right;"><%= @booking.workshop_unit_price.round(2) %> €</td>
+            <td class="short-column bordered" style="text-align:right;"><%= (@booking.workshop_unit_price * @booking.quantity) %> €</td>
+          <% end %>
         </tr>
-        <tr style='border-left: 1px solid #fff;'>
-          <td class="short-column"></td>
-          <td class="large-column"></td>
-          <td class="short-column"></td>
-          <td class="short-column bordered" style="text-align:right;">Total HT</td>
-          <td class="short-column bordered" style="text-align:right;"><%= ((@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2) %> €</td>
-        </tr>
-        <tr style='border-left: 1px solid #fff;'>
-          <td class="short-column"></td>
-          <td class="large-column"></td>
-          <td class="short-column"></td>
-          <td class="short-column bordered" style="text-align:right;">TVA 20%</td>
-          <td class="short-column bordered" style="text-align:right;"><%= ((@booking.workshop_unit_price * @booking.quantity) - (@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2) %> €</td>
-        </tr>
-        <tr style='border-left: 1px solid #fff;'>
-          <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
-          <td class="large-column" style='border-bottom: 1px solid #fff;'></td>
-          <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
-          <td class="short-column bordered" style="text-align:right;">Total TTC</td>
-          <td class="short-column bordered" style="text-align:right;"><%= (@booking.workshop_unit_price * @booking.quantity).round(2) %> €</td>
-        </tr>
+        <% if @booking.tva_applicable == true %>
+          <tr style='border-left: 1px solid #fff;'>
+            <td class="short-column"></td>
+            <td class="large-column"></td>
+            <td class="short-column"></td>
+            <td class="short-column bordered" style="text-align:right;">Total HT</td>
+            <td class="short-column bordered" style="text-align:right;"><%= ((@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2) %> €</td>
+          </tr>
+          <tr style='border-left: 1px solid #fff;'>
+            <td class="short-column"></td>
+            <td class="large-column"></td>
+            <td class="short-column"></td>
+            <td class="short-column bordered" style="text-align:right;">TVA 20%</td>
+            <td class="short-column bordered" style="text-align:right;"><%= ((@booking.workshop_unit_price * @booking.quantity) - (@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2) %> €</td>
+          </tr>
+          <tr style='border-left: 1px solid #fff;'>
+            <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
+            <td class="large-column" style='border-bottom: 1px solid #fff;'></td>
+            <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
+            <td class="short-column bordered" style="text-align:right;">Total TTC</td>
+            <td class="short-column bordered" style="text-align:right;"><%= (@booking.workshop_unit_price * @booking.quantity).round(2) %> €</td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
     <div style="position:absolute;left:45px;right:45px;top:1150px">

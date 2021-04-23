@@ -26,6 +26,10 @@
             <td style='text-align:right;'><%= @booking.user.first_name %> <%= @booking.user.last_name[0] %>.</td>
           </tr>
           <tr>
+            <th scope="row">Numéro de facture</th>
+            <td style='text-align:right;'>F<%= @booking.session.workshop.place.user.profile.id %>-<%= @booking.session.workshop.place.user.profile.invoice_number_for(@booking.id) %></td>
+          </tr>
+          <tr>
             <th scope="row">Numéro de réservation</th>
             <td style='text-align:right;'><%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %></td>
           </tr>
@@ -99,6 +103,10 @@
               <td style='text-align:right;'>
                 <%= @booking.session.reason.present? ? "vous" : "le participant" %>
               </td>
+            </tr>
+            <tr>
+              <th scope="row">Numéro de facture</th>
+              <td style='text-align:right;'>A<%= @booking.session.workshop.place.user.profile.id %>-<%= @booking.session.workshop.place.user.profile.refund_invoice_number_for(@booking.id) %></td>
             </tr>
             <tr>
               <th scope="row">Pourcentage remboursement au client</th>

@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     member do
       get 'tableau_de_bord'
       get 'transactions'
+      get 'releve_de_commissions'
       get 'comptabilite_reservations'
       get 'comptabilite_cartes_cadeaux'
       get 'mes_cartes_cadeaux'

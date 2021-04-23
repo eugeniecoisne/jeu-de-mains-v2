@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <title>releve-facturation-clients-<%= @profile.accountant_company.parameterize %>-de-<%= l(DateTime.new(params[:year].to_i, params[:month].to_i, 1), format: "%B-%Y") %></title>
+    <style type="text/css">
+
+      body {
+        background-color: white;
+        font-family: Helvetica, sans-serif;
+        margin: 0;
+      }
+
+      table, .bordered {
+        padding: 10px;
+        border: 1px solid #1C1C1C;
+        border-collapse: collapse;
+      }
+
+      th {
+        text-align: left;
+        color: #235B6A;
+        font-size:14px;
+        padding: 10px;
+      }
+
+      td {
+        text-align: left;
+        color: black;
+        font-size: 14px;
+        font-weight: 400;
+        padding: 10px;
+
+      }
+
+      .short-column {
+        width: 150px;
+      }
+      .large-column {
+        width: 470px;
+      }
+
+      .logo {
+        width: 200px;
+        height: auto;
+        object-fit: cover;
+        margin-bottom: 30px;
+      }
+
+      p {
+        font-size: 16px;
+        color: black;
+      }
+
+      p strong {
+        font-weight: bolder;
+      }
+
+    </style>
+    <script type="text/javascript" src="051a640c-7c48-11eb-8b25-0cc47a792c0a_id_051a640c-7c48-11eb-8b25-0cc47a792c0a_files/wz_jsgraphics.js"></script>
+  </head>
+
+  <% if @transaction_bookings.present? && @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
+
+    <body>
+      <div>
+        <div>
+          <img class="logo" src="https://res.cloudinary.com/jeudemains/image/upload/v1593180301/jeu-de-mains-logo-bleu-fonce.svg">
+          <p style="font-size:20px;text-transform:uppercase;"><strong>Relevé de facturation clients du mois de <%= l(DateTime.new(params[:year].to_i, params[:month].to_i, 1), format: "%B %Y") %></strong></p>
+        </div>
+        <div style="text-align:left;margin-bottom:45px;">
+          <p style="margin-bottom:60px;">Édité le <%= (DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) + 1.day).strftime("%d/%m/%y") %></p>
+          <p>Concerne la période du <%= DateTime.new(params[:year].to_i, params[:month].to_i, 1).strftime("%d/%m/%y") %> au <%= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i).strftime("%d/%m/%y") %> et le partenaire vendeur :</p>
+          <p><strong><%= @profile.accountant_company %></strong></p>
+          <p><%= @profile.accountant_address %></p>
+          <p><%= @profile.accountant_zip_code %> <%= @profile.accountant_city %></p>
+          <p>SIRET: <%= @profile.siret_number %></p>
+
+          <% if @transaction_bookings.present? && @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
+            <% unless @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.select {|b| b[:tva_applicable] == true }.present? %>
+              <p>TVA non applicable selon l'article 293B du CGI</p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <table align="center" class="table">
+          <tr>
+            <th>Date</th>
+            <th>Facture n°</th>
+            <th>Libellé</th>
+            <th>Montant HT</th>
+            <th>TVA</th>
+            <th>Montant TTC</th>
+          </tr>
+          <% if @transaction_bookings.present? && @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
+            <% @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.sort_by { |b| b[:date].to_date }.each do |b| %>
+              <tr>
+                <td class="bordered"><%= b[:date].strftime('%d/%m/%y') %></td>
+                <% if b[:status] == "success" %>
+                  <td class="bordered" style="width:130px;">F<%= @profile.id %>-<%= @profile.invoice_number_for(b[:booking].id) %></td>
+                <% else %>
+                  <td class="bordered" style="width:130px;">A<%= @profile.id %>-<%= @profile.refund_invoice_number_for(b[:booking].id) %></td>
+                <% end %>
+                <td class="bordered" style="width:360px;"><%= b[:label] %> - <%= b[:workshop].title[0..18] %>...</td>
+                <% if b[:status] == "success" %>
+                  <% if b[:tva_applicable] == true %>
+                    <td class="bordered" style="text-align:right;"><%= (b[:amount] / 1.2).round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;"><%= (b[:amount] - (b[:amount] / 1.2)).round(2) %> €</td>
+                  <% else %>
+                    <td class="bordered" style="text-align:right;"></td>
+                    <td class="bordered" style="text-align:right;"></td>
+                  <% end %>
+                  <td class="bordered" style="text-align:right;"><%= b[:amount].round(2) %> €</td>
+
+                <% else %>
+                  <% if b[:tva_applicable] == true %>
+                    <td class="bordered" style="text-align:right;">- <%= (b[:amount] * b[:refund_rate] / 1.2).round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;">- <%= ((b[:amount] * b[:refund_rate]) - (b[:amount] * b[:refund_rate] / 1.2)).round(2) %> €</td>
+                  <% else %>
+                    <td class="bordered" style="text-align:right;"></td>
+                    <td class="bordered" style="text-align:right;"></td>
+                  <% end %>
+                  <td class="bordered" style="text-align:right;">- <%= (b[:amount] * b[:refund_rate]).round(2) %> €</td>
+                <% end %>
+              </tr>
+            <% end %>
+          <% end %>
+          <% if @transaction_bookings.present? && @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
+            <tr>
+              <% @transactions_sum_ht = 0 %>
+              <% @transactions_sum_tva = 0 %>
+              <% @transactions_sum_ttc = 0 %>
+              <% @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.each do |b| %>
+                <% if b[:status] == "success" %>
+                  <% if b[:tva_applicable] == true %>
+                    <% @transactions_sum_ht += b[:amount] / 1.2 %>
+                    <% @transactions_sum_tva += (b[:amount] - (b[:amount] / 1.2)) %>
+                  <% end %>
+                  <% @transactions_sum_ttc += b[:amount] %>
+                <% else%>
+                  <% if b[:tva_applicable] == true %>
+                    <% @transactions_sum_ht += (b[:amount] * b[:refund_rate] / 1.2 * -1) %>
+                    <% @transactions_sum_tva += (((b[:amount] * b[:refund_rate]) - (b[:amount] * b[:refund_rate] / 1.2)) * - 1) %>
+                  <% end %>
+                  <% @transactions_sum_ttc += (b[:amount] * b[:refund_rate] * -1) %>
+                <% end %>
+              <% end %>
+              <td></td>
+              <td style="width:130px;"></td>
+              <td style="width:360px;"></td>
+              <% if @transaction_bookings.present? && @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
+                <% if @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.select {|b| b[:tva_applicable] == true }.present? %>
+                  <td class="bordered" style="text-align:right;"><strong><%= @transactions_sum_ht.round(2) %> €</strong></td>
+                  <td class="bordered" style="text-align:right;"><strong><%= @transactions_sum_tva.round(2) %> €</strong></td>
+                <% else %>
+                  <td class="bordered" style="text-align:right;"><strong>-</strong></td>
+                  <td class="bordered" style="text-align:right;"><strong>-</strong></td>
+                <% end %>
+              <% end %>
+              <td class="bordered" style="text-align:right;"><strong><%= @transactions_sum_ttc.round(2) %> €</strong></td>
+              <!-- row totaux -->
+            </tr>
+          <% end %>
+
+        </table>
+      </div>
+
+      <div style="text-align:left;margin-top:80px;">
+        <p style="font-size:15px;">
+          Relevé de facturation clients établi au nom et pour le compte de <%= @profile.accountant_company %> par:
+        </p>
+      </div>
+
+      <div style="text-align: left;">
+        <p style="font-size:15px;">Jeu de Mains</p>
+        <p style="font-size:15px;">9 ter, rue Baliat, 92400 Courbevoie</p>
+        <p style="font-size:15px;">SIRET: 88449865000016</p>
+        <p style="font-size:15px;">TVA Intracommunautaire: FR46884498650</p>
+      </div>
+    </body>
+  <% else %>
+    <body>
+      <p>Vous n'avez pas d'opération(s) ce mois-ci.</p>
+    </body>
+  <% end %>
+</html>
+
+
+

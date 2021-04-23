@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   # skip_before_action :authenticate_user!, only: %i(public)
   before_action :set_profile, only: %i(edit update messagerie send_finalisation_partner_email)
-  before_action :set_profile_and_verify, only: %i(show tableau_de_bord transactions)
+  before_action :set_profile_and_verify, only: %i(show tableau_de_bord transactions releve_de_commissions)
 
   def index
     @profile = current_user.profile
@@ -55,12 +55,13 @@ class ProfilesController < ApplicationController
         @b_refund = {
           booking: b,
           date: b.cancelled_at.to_date,
-          label: "Paiement remboursé à #{(b.refund_rate * 100).round}%",
+          label: "Remboursement - base #{(b.refund_rate * 100).round}%",
           workshop: b.session.workshop,
           session: b.session,
           booking_number: "#{b.created_at.strftime("%Y%m")}#{b.id}",
           amount: b.amount,
           fee_rate: b.fee,
+          tva_applicable: b.tva_applicable,
           refund_rate: b.refund_rate,
           status: "refunded"
         }
@@ -69,21 +70,73 @@ class ProfilesController < ApplicationController
       @b_success = {
         booking: b,
         date: b.created_at.to_date,
-        label: "Paiement réussi",
+        label: "Paiement reçu",
         workshop: b.session.workshop,
         session: b.session,
         booking_number: "#{b.created_at.strftime("%Y%m")}#{b.id}",
         amount: b.amount,
         fee_rate: b.fee,
+        tva_applicable: b.tva_applicable,
         status: "success"
       }
       @transaction_bookings << @b_success
     end
+
     @transaction_bookings.sort_by { |b| b[:date] }
 
     respond_to do |format|
       format.html
       format.xls
+      format.pdf do
+        render pdf: "releve-facturation-clients-#{@profile.accountant_company.parameterize}-de-#{l(DateTime.new(params[:year].to_i, params[:month].to_i, 1), format: "%B-%Y")}",
+              margin:  { top:10,bottom:10,left:10,right:10},
+              footer: { right: 'Page [page] sur [topage]', font_size: 10 }
+      end
+    end
+  end
+
+  def releve_de_commissions
+    @commission_bookings = []
+    Booking.all.where(db_status: true).select { |b| b.status == "paid" || b.status == "refunded"}.select { |b| b.session.workshop.place.user.profile == @profile }.each do |b|
+      if b.status == "refunded"
+        @b_refund = {
+          booking: b,
+          date: b.cancelled_at.to_date,
+          label: "Remboursement - base #{(b.refund_rate * 100).round}%",
+          workshop: b.session.workshop,
+          session: b.session,
+          booking_number: "#{b.created_at.strftime("%Y%m")}#{b.id}",
+          amount: b.amount,
+          fee_rate: b.fee,
+          tva_applicable: b.tva_applicable,
+          refund_rate: b.refund_rate,
+          status: "refunded"
+        }
+        @commission_bookings << @b_refund
+      end
+      @b_success = {
+        booking: b,
+        date: b.created_at.to_date,
+        label: "Paiement reçu",
+        workshop: b.session.workshop,
+        session: b.session,
+        booking_number: "#{b.created_at.strftime("%Y%m")}#{b.id}",
+        amount: b.amount,
+        fee_rate: b.fee,
+        tva_applicable: b.tva_applicable,
+        status: "success"
+      }
+      @commission_bookings << @b_success
+    end
+
+    @commission_bookings.sort_by { |b| b[:date] }
+
+    respond_to do |format|
+      format.pdf do
+        render pdf: "facture-P-#{DateTime.new(params[:year].to_i, params[:month].to_i, 1).strftime("%Y%m")}#{@profile.id}",
+              margin:  { top:10,bottom:10,left:10,right:10},
+              footer: { right: 'Page [page] sur [topage]', font_size: 10 }
+      end
     end
   end
 
@@ -213,6 +266,6 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:address, :zip_code, :city, :phone_number, :company, :siret_number, :website, :instagram, :role, :description, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :fee, :legal_mention, :photo)
+    params.require(:profile).permit(:address, :zip_code, :city, :phone_number, :company, :siret_number, :website, :instagram, :role, :description, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :fee, :legal_mention, :tva_applicable, :photo)
   end
 end

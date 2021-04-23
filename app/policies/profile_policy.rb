@@ -24,6 +24,10 @@ class ProfilePolicy < ApplicationPolicy
     update?
   end
 
+  def releve_de_commissions?
+    update?
+  end
+
   def messagerie?
     update?
   end
