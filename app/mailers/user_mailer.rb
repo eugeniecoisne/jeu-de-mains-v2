@@ -58,4 +58,91 @@ class UserMailer < ApplicationMailer
       message_stream: 'outbound')
   end
 
+  def partner_weekly_client_invoices
+    @user = params[:user]
+    @new_bookings = params[:new_bookings]
+    @refunded_bookings = params[:refunded_bookings]
+    @partner = @user.profile
+
+    @new_bookings.each do |b|
+      @booking = b
+      attachments["facture-F#{@partner.id}-#{@partner.invoice_number_for(@booking.id)}.pdf"] = WickedPdf.new.pdf_from_string(
+      render_to_string(template: 'bookings/payment_success.pdf.erb', locals: {partner: @partner, booking: @booking})
+      )
+    end
+    @refunded_bookings.each do |b|
+      @booking = b
+      attachments["avoir-A#{@partner.id}-#{@partner.refund_invoice_number_for(@booking.id)}.pdf"] = WickedPdf.new.pdf_from_string(
+      render_to_string(template: 'bookings/refund_invoice.pdf.erb', locals: {partner: @partner, booking: @booking})
+      )
+    end
+
+    mail(from: 'contact@jeudemains.com',
+      to: @user.email,
+      subject: "Vos factures clients du #{l((Date.today - 7.days), format: '%A %d %b %Y')} au #{l((Date.today - 1.day), format: '%A %d %b %Y')}",
+      track_opens: 'true',
+      message_stream: 'outbound')
+  end
+
+  def partner_monthly_facturation
+    @user = params[:user]
+    @profile = @user.profile
+    @year = (Date.today - 10.days).strftime("%Y")
+    @month = (Date.today - 10.days).strftime("%m")
+    @end = (Date.today - 10.days).end_of_month.strftime("%d")
+    # facture de commission
+    # relevé des transactions clients
+    @transaction_bookings = []
+    Booking.all.where(db_status: true).select { |b| b.status == "paid" || b.status == "refunded"}.select { |b| b.session.workshop.place.user.profile == @profile }.each do |b|
+      if b.status == "refunded"
+        @b_refund = {
+          booking: b,
+          date: b.cancelled_at.to_date,
+          label: "Remboursement - base #{(b.refund_rate * 100).round}%",
+          workshop: b.session.workshop,
+          session: b.session,
+          booking_number: "#{b.created_at.strftime("%Y%m")}#{b.id}",
+          amount: b.amount,
+          fee_rate: b.fee,
+          tva_applicable: b.tva_applicable,
+          refund_rate: b.refund_rate,
+          status: "refunded"
+        }
+        @transaction_bookings << @b_refund
+      end
+      @b_success = {
+        booking: b,
+        date: b.created_at.to_date,
+        label: "Paiement reçu",
+        workshop: b.session.workshop,
+        session: b.session,
+        booking_number: "#{b.created_at.strftime("%Y%m")}#{b.id}",
+        amount: b.amount,
+        fee_rate: b.fee,
+        tva_applicable: b.tva_applicable,
+        status: "success"
+      }
+      @transaction_bookings << @b_success
+    end
+
+    if @transaction_bookings.size > 0
+
+      attachments["releve-facturation-clients-#{@profile.accountant_company.parameterize}-de-#{l((Date.today - 10.days), format: "%B-%Y")}"] = WickedPdf.new.pdf_from_string(
+      render_to_string(template: 'profiles/transactions.pdf.erb', locals: {profile: @profile, transaction_bookings: @transaction_bookings, month: @month, year: @year, end: @end})
+      )
+
+      @commission_bookings = @transaction_bookings
+      attachments["facture-P-#{@year}#{@month}#{@profile.id}"] = WickedPdf.new.pdf_from_string(
+      render_to_string(template: 'profiles/releve_de_commissions.pdf.erb', locals: {profile: @profile, commission_bookings: @commission_bookings, month: @month, year: @year, end: @end})
+      )
+    end
+
+    mail(from: 'contact@jeudemains.com',
+      to: @user.email,
+      bcc: 'contact@jeudemains.com',
+      subject: "Facture de commission et relevé de facturation clients du mois de #{l((Date.today - 10.days), format: "%B %Y")}",
+      track_opens: 'true',
+      message_stream: 'outbound')
+
+  end
 end

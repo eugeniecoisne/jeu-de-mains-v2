@@ -1,7 +1,7 @@
 ActiveAdmin.register Booking do
   menu parent: "Achats"
   config.per_page = 50
-  permit_params :quantity, :status, :amount, :user_id, :user, :session_id, :session, :db_status, :workshop, :address, :address_complement, :zip_code, :city, :phone_number, :kit_expedition_status, :kit_expedition_link, :refund_rate, :workshop_unit_price, :fee
+  permit_params :quantity, :status, :amount, :user_id, :user, :session_id, :session, :db_status, :workshop, :address, :address_complement, :zip_code, :city, :phone_number, :kit_expedition_status, :kit_expedition_link, :refund_rate, :workshop_unit_price, :tva_applicable, :fee
   BOOKING_SESSIONS = Session.all.where(db_status: true).sort_by { |s| s.start_date }.map { |s| ["#{s.id} - #{s.start_date.strftime("%d/%m/%y")} à #{s.start_time} - #{s.workshop.title} chez #{s.workshop.place.name} - #{s.available} places restantes", s.id] }.to_h
   BOOKING_USERS = User.all.select { |u| u.profile.company.present? == false }.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
@@ -24,6 +24,7 @@ ActiveAdmin.register Booking do
     column :amount
     column :fee
     column :workshop_unit_price
+    column :tva_applicable
     column :created_at
     column :updated_at
     column :cancelled_at
@@ -95,6 +96,7 @@ ActiveAdmin.register Booking do
     column :amount
     column :fee
     column :workshop_unit_price
+    column :tva_applicable
     column :created_at
     column :updated_at
     column :cancelled_at
@@ -157,6 +159,7 @@ ActiveAdmin.register Booking do
       row :amount
       row :fee
       row :workshop_unit_price
+      row :tva_applicable
       row :created_at
       row :updated_at
       row :cancelled_at

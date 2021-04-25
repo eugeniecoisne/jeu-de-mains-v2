@@ -1,7 +1,7 @@
 ActiveAdmin.register Profile do
   menu parent: "Fiches"
   config.per_page = 50
-  permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :fee, :legal_mention, :photo
+  permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :fee, :legal_mention, :tva_applicable, :photo
   PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name} #{u.id}", u.id] }.to_h
 
   controller do
@@ -27,6 +27,7 @@ ActiveAdmin.register Profile do
     column :role
     column :company
     column :siret_number
+    column :tva_applicable
     column :description do |profile|
       profile.description.present? ? true : false
     end
@@ -70,6 +71,7 @@ ActiveAdmin.register Profile do
     column :role
     column :company
     column :siret_number
+    column :tva_applicable
     column :description
     column :address
     column :zip_code
@@ -114,6 +116,7 @@ ActiveAdmin.register Profile do
       row :city
       row :phone_number
       row :siret_number
+      row :tva_applicable
       row :accountant_company
       row :accountant_address
       row :accountant_zip_code
@@ -281,6 +284,7 @@ ActiveAdmin.register Profile do
       f.input :company
       f.input :accountant_company
       f.input :siret_number
+      f.input :tva_applicable
       f.input :role, collection: Profile::ROLES, value: :role
     end
     f.inputs "Adresse & coordonnées comptables" do

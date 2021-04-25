@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_23_123348) do
+ActiveRecord::Schema.define(version: 2021_04_25_204259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_123348) do
     t.string "giftcard_id"
     t.float "giftcard_amount_spent"
     t.string "stripe_giftcard_transfer"
-    t.date "cancelled_at"
+    t.datetime "cancelled_at"
     t.string "address"
     t.string "zip_code"
     t.string "city"
