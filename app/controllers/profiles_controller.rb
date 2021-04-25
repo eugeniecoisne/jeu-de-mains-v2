@@ -54,7 +54,7 @@ class ProfilesController < ApplicationController
       if b.status == "refunded"
         @b_refund = {
           booking: b,
-          date: b.cancelled_at.to_date,
+          date: b.cancelled_at,
           label: "Remboursement - base #{(b.refund_rate * 100).round}%",
           workshop: b.session.workshop,
           session: b.session,
@@ -69,7 +69,7 @@ class ProfilesController < ApplicationController
       end
       @b_success = {
         booking: b,
-        date: b.created_at.to_date,
+        date: b.created_at,
         label: "Paiement reçu",
         workshop: b.session.workshop,
         session: b.session,
@@ -101,7 +101,7 @@ class ProfilesController < ApplicationController
       if b.status == "refunded"
         @b_refund = {
           booking: b,
-          date: b.cancelled_at.to_date,
+          date: b.cancelled_at,
           label: "Remboursement - base #{(b.refund_rate * 100).round}%",
           workshop: b.session.workshop,
           session: b.session,
@@ -116,7 +116,7 @@ class ProfilesController < ApplicationController
       end
       @b_success = {
         booking: b,
-        date: b.created_at.to_date,
+        date: b.created_at,
         label: "Paiement reçu",
         workshop: b.session.workshop,
         session: b.session,

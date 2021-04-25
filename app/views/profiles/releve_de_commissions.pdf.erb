@@ -3,7 +3,12 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8">
-    <title>facture-P-<%= DateTime.new(params[:year].to_i, params[:month].to_i, 1).strftime("%Y%m")%><%= @profile.id %></title>
+    <% if params[:year].present? && params[:month].present? && params[:end].present? %>
+      <% @year = params[:year] %>
+      <% @month = params[:month] %>
+      <% @end = params[:end] %>
+    <% end %>
+    <title>facture-P-<%= DateTime.new(@year.to_i, @month.to_i, 1).strftime("%Y%m")%><%= @profile.id %></title>
     <style type="text/css">
 
       body {
@@ -67,7 +72,7 @@
     <script type="text/javascript" src="051a640c-7c48-11eb-8b25-0cc47a792c0a_id_051a640c-7c48-11eb-8b25-0cc47a792c0a_files/wz_jsgraphics.js"></script>
   </head>
 
-  <% if @commission_bookings.present? && @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
+  <% if @commission_bookings.present? && @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(@year.to_i, @month.to_i, 1) && b[:date].to_date <= DateTime.new(@year.to_i, @month.to_i, @end.to_i) }.present? %>
 
     <body>
       <div>
@@ -90,11 +95,11 @@
           <p>SIRET: <%= @profile.siret_number %></p>
         </div>
         <div style='text-align:left;'>
-          <p style="font-size:18px;text-transform:uppercase;"><strong>Facture des commissions du <%= DateTime.new(params[:year].to_i, params[:month].to_i, 1).strftime("%d/%m/%y") %> au <%= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i).strftime("%d/%m/%y") %></p>
+          <p style="font-size:18px;text-transform:uppercase;"><strong>Facture des commissions du <%= DateTime.new(@year.to_i, @month.to_i, 1).strftime("%d/%m/%y") %> au <%= DateTime.new(@year.to_i, @month.to_i, @end.to_i).strftime("%d/%m/%y") %></p>
         </div>
         <div style='text-align:left;margin-bottom:45px;'>
-          <p><strong>Facture n° P-<%= DateTime.new(params[:year].to_i, params[:month].to_i, 1).strftime("%Y%m")%><%= @profile.id %></strong></p>
-          <p>Facturé le : <%= (DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) + 1.day).strftime("%d/%m/%y") %></p>
+          <p><strong>Facture n° P-<%= DateTime.new(@year.to_i, @month.to_i, 1).strftime("%Y%m")%><%= @profile.id %></strong></p>
+          <p>Facturé le : <%= (DateTime.new(@year.to_i, @month.to_i, @end.to_i) + 1.day).strftime("%d/%m/%y") %></p>
         </div>
       </div>
       <div>
@@ -106,12 +111,12 @@
             <th class="short-column">TVA</th>
             <th class="short-column">Montant TTC</th>
           </tr>
-          <% if @commission_bookings.present? && @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
+          <% if @commission_bookings.present? && @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(@year.to_i, @month.to_i, 1) && b[:date].to_date <= DateTime.new(@year.to_i, @month.to_i, @end.to_i) }.present? %>
             <% @total_sum_HT = 0 %>
             <% @total_sum_TVA = 0 %>
             <% @total_sum_TTC = 0 %>
 
-            <% @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.map { |b| b[:fee_rate]}.uniq!.each do |f| %>
+            <% @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(@year.to_i, @month.to_i, 1) && b[:date].to_date <= DateTime.new(@year.to_i, @month.to_i, @end.to_i) }.map { |b| b[:fee_rate]}.uniq!.each do |f| %>
               <% @payments_amounts = 0 %>
               <% @sum_HT = 0 %>
               <% @sum_TVA = 0 %>
@@ -120,7 +125,7 @@
               <% @refunds_sum_HT = 0 %>
               <% @refunds_sum_TVA = 0 %>
               <% @refunds_sum_TTC = 0 %>
-              <% @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.select { |b| b[:fee_rate] == f }.each do |b| %>
+              <% @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(@year.to_i, @month.to_i, 1) && b[:date].to_date <= DateTime.new(@year.to_i, @month.to_i, @end.to_i) }.select { |b| b[:fee_rate] == f }.each do |b| %>
                 <% if b[:status] == "success" %>
                   <% @payments_amounts += b[:amount] %>
                   <% @sum_HT += b[:fee_rate] * b[:amount] / 1.2 %>
@@ -183,7 +188,7 @@
       <!-- tableau de toutes les commissions du mois -->
       <div class="all-commissions">
         <div>
-          <p style="font-size:18px;text-transform:uppercase;"><strong>Relevé de toutes les opérations de commission du <%= DateTime.new(params[:year].to_i, params[:month].to_i, 1).strftime("%d/%m/%y") %> au <%= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i).strftime("%d/%m/%y") %></strong></p>
+          <p style="font-size:18px;text-transform:uppercase;"><strong>Relevé de toutes les opérations de commission du <%= DateTime.new(@year.to_i, @month.to_i, 1).strftime("%d/%m/%y") %> au <%= DateTime.new(@year.to_i, @month.to_i, @end.to_i).strftime("%d/%m/%y") %></strong></p>
         </div>
 
         <div style='margin-top:65px;'>
@@ -198,8 +203,8 @@
               <th style='font-size:13px;'>TVA</th>
               <th style='font-size:13px;'>Commission <br>TTC</th>
             </tr>
-            <% if @commission_bookings.present? && @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
-              <% @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.sort_by { |b| b[:date].to_date }.each do |b| %>
+            <% if @commission_bookings.present? && @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(@year.to_i, @month.to_i, 1) && b[:date].to_date <= DateTime.new(@year.to_i, @month.to_i, @end.to_i) }.present? %>
+              <% @commission_bookings.select { |b| b[:date].to_date >= DateTime.new(@year.to_i, @month.to_i, 1) && b[:date].to_date <= DateTime.new(@year.to_i, @month.to_i, @end.to_i) }.sort_by { |b| b[:date] }.each do |b| %>
                 <tr>
                   <td class="bordered" style='font-size:13px;'><%= b[:date].strftime('%d/%m/%y') %></td>
                   <% if b[:status] == "success" %>
