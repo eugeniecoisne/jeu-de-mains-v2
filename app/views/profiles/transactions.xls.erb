@@ -12,8 +12,8 @@
     <th>Plus d'infos</th>
   </tr>
 
-  <% if @transaction_bookings.present? && @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
-    <% @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.sort_by { |b| b[:date] }.reverse.each do |b| %>
+  <% if @transaction_bookings.present? && @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1,0,0,0,"+02:00") && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i,23,59,59,"+02:00") }.present? %>
+    <% @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(params[:year].to_i, params[:month].to_i, 1,0,0,0,"+02:00") && b[:date].to_date <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i,23,59,59,"+02:00") }.sort_by { |b| b[:date] }.reverse.each do |b| %>
       <tr>
         <td><%= b[:date].strftime('%d/%m/%y') %></td>
         <td><%= b[:label] %></td>

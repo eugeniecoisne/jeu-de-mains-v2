@@ -5,6 +5,7 @@ class Profile < ApplicationRecord
 
   has_one_attached :photo
   belongs_to :user
+  has_many :fee_invoices
   validate :attachment_size
 
   ROLES = ["Boutique / atelier", "Animation d'ateliers", "Organisation d'événements"]

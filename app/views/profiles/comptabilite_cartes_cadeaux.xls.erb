@@ -9,8 +9,8 @@
     <th scope="col">Paiement net euros ttc</th>
     <th scope="col">Montant restant sur carte</th>
   </tr>
-  <% if @giftcards.present? && @giftcards.uniq.select { |g| g[:created].to_datetime >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && g[:created].to_datetime <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.present? %>
-    <% @giftcards.uniq.select { |g| g[:created].to_datetime >= DateTime.new(params[:year].to_i, params[:month].to_i, 1) && g[:created].to_datetime <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i) }.sort_by {|g| g[:created]}.each do |g| %>
+  <% if @giftcards.present? && @giftcards.uniq.select { |g| g[:created].to_datetime >= DateTime.new(params[:year].to_i, params[:month].to_i, 1,0,0,0,"+02:00") && g[:created].to_datetime <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i,23,59,59,"+02:00") }.present? %>
+    <% @giftcards.uniq.select { |g| g[:created].to_datetime >= DateTime.new(params[:year].to_i, params[:month].to_i, 1,0,0,0,"+02:00") && g[:created].to_datetime <= DateTime.new(params[:year].to_i, params[:month].to_i, params[:end].to_i,23,59,59,"+02:00") }.sort_by {|g| g[:created]}.each do |g| %>
       <% giftcard = Giftcard.find(g[:id]) %>
       <tr>
         <td><%= Time.at(g[:created]).strftime("%d/%m/%Y") %></td>
