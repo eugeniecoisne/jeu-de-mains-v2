@@ -53,6 +53,7 @@ class UserMailer < ApplicationMailer
 
     mail(from: 'contact@jeudemains.com',
       to: @user.email,
+      bcc: 'eugenie@jeudemains.com',
       subject: 'Votre bilan mensuel sur Jeu de Mains',
       track_opens: 'true',
       message_stream: 'outbound')
@@ -79,6 +80,7 @@ class UserMailer < ApplicationMailer
 
     mail(from: 'contact@jeudemains.com',
       to: @user.email,
+      bcc: 'eugenie@jeudemains.com',
       subject: "Vos factures clients du #{l((Date.today - 7.days), format: '%A %d %b %Y')} au #{l((Date.today - 1.day), format: '%A %d %b %Y')}",
       track_opens: 'true',
       message_stream: 'outbound')
@@ -132,14 +134,16 @@ class UserMailer < ApplicationMailer
       )
 
       @commission_bookings = @transaction_bookings
-      attachments["facture-P-#{@year}#{@month}#{@profile.id}"] = WickedPdf.new.pdf_from_string(
+      @fee_invoice = FeeInvoice.all.where(profile_id: @profile.id).select { |f| f.start_date == Date.new(@year.to_i, @month.to_i, 1) }.last
+
+      attachments["facture-P-#{Array.new((6-(@fee_invoice.id.to_s.size)), "0").join('')}#{@fee_invoice.id}"] = WickedPdf.new.pdf_from_string(
       render_to_string(template: 'profiles/releve_de_commissions.pdf.erb', locals: {profile: @profile, commission_bookings: @commission_bookings, month: @month, year: @year, end: @end})
       )
     end
 
     mail(from: 'contact@jeudemains.com',
       to: @user.email,
-      bcc: 'contact@jeudemains.com',
+      bcc: 'eugenie@jeudemains.com',
       subject: "Facture de commission et relevé de facturation clients du mois de #{l((Date.today - 10.days), format: "%B %Y")}",
       track_opens: 'true',
       message_stream: 'outbound')

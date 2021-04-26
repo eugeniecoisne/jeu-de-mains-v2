@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'fee_invoices/create'
   ActiveAdmin.routes(self)
   get 'giftcards/new'
   get 'giftcards/create'
@@ -114,6 +115,8 @@ Rails.application.routes.draw do
   resources :reviews, :path => :avis, :as => :reviews, only: %i(destroy) do
     get 'report_review'
   end
+
+  resources :fee_invoices, only: %i(create destroy)
 
   resources :animators, :path => :animateurs, :as => :animators, only: %i(edit update)
 

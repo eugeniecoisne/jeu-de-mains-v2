@@ -133,7 +133,12 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       format.pdf do
-        render pdf: "facture-P-#{DateTime.new(params[:year].to_i, params[:month].to_i, 1).strftime("%Y%m")}#{@profile.id}",
+        if params[:year].present? && params[:month].present?
+          @year = params[:year]
+          @month = params[:month]
+        end
+        @fee_invoice = FeeInvoice.all.where(profile_id: @profile.id).select { |f| f.start_date == Date.new(@year.to_i, @month.to_i, 1) }.last
+        render pdf: "facture-P-#{Array.new((6-(@fee_invoice.id.to_s.size)), "0").join('')}#{@fee_invoice.id}",
               margin:  { top:10,bottom:10,left:10,right:10},
               footer: { right: 'Page [page] sur [topage]', font_size: 10 }
       end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_25_204259) do
+ActiveRecord::Schema.define(version: 2021_04_26_075202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,15 @@ ActiveRecord::Schema.define(version: 2021_04_25_204259) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user1"
     t.integer "user2"
+  end
+
+  create_table "fee_invoices", force: :cascade do |t|
+    t.bigint "profile_id", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["profile_id"], name: "index_fee_invoices_on_profile_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -302,6 +311,7 @@ ActiveRecord::Schema.define(version: 2021_04_25_204259) do
   add_foreign_key "animators", "workshops"
   add_foreign_key "bookings", "sessions"
   add_foreign_key "bookings", "users"
+  add_foreign_key "fee_invoices", "profiles"
   add_foreign_key "giftcards", "users"
   add_foreign_key "infomessages", "sessions"
   add_foreign_key "informations", "sessions"
