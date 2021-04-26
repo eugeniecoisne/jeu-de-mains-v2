@@ -54,6 +54,11 @@ fr:
         many: Discussions
         few : Discussions
         other: Discussions
+      fee_invoice:
+        one: N° facture de commission
+        many: N° factures de commission
+        few : N° factures de commission
+        other: N° factures de commission
 
     attributes:
       profile:
@@ -188,5 +193,11 @@ fr:
         room_name: Nom de la discussion
         user1: Chateur 1
         user2: Chateur 2
+        created_at: Créé le
+        updated_at: Modifié le
+      fee_invoice:
+        start_date: Date premier jour du mois
+        end_date: Date dernier jour du mois
+        profile: Partenaire
         created_at: Créé le
         updated_at: Modifié le

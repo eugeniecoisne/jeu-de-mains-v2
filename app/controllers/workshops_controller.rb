@@ -88,6 +88,12 @@ class WorkshopsController < ApplicationController
         end
       end
 
+      if params[:search][:privatization].present?
+        if params[:search][:privatization] == 'true'
+          @workshops = @workshops.select { |w| w.privatization == true }.paginate(page: params[:page], per_page: 20)
+        end
+      end
+
       if params[:search][:order].present?
         case params[:search][:order]
         when 'Aléatoire'

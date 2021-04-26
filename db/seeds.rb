@@ -517,16 +517,16 @@ puts "CREATION DE 21 SESSIONS"
 # LES HERBES HAUTES - COURONNE DE FLEURS
 puts "Sessions atelier couronne de fleurs"
 workshop1_session1 = Session.new(
-  date: Date.today + 30,
-  start_at: '14h00'
+  start_date: Date.today + 30,
+  start_time: '14h00'
 )
 workshop1_session1.workshop = workshop1
 workshop1_session1.capacity = workshop1_session1.workshop.capacity
 workshop1_session1.save!
 
 workshop1_session2 = Session.new(
-  date: Date.today + 45,
-  start_at: '10h00'
+  start_date: Date.today + 45,
+  start_time: '10h00'
 )
 workshop1_session2.workshop = workshop1
 workshop1_session2.capacity = workshop1_session1.workshop.capacity
@@ -539,16 +539,16 @@ workshop1_session2.save!
 # LES HERBES HAUTES - BOUQUET FLEURS SECHEES
 puts "Sessions atelier bouquet fleurs sechees"
 workshop3_session1 = Session.new(
-  date: Date.today + 15,
-  start_at: '10h00'
+  start_date: Date.today + 15,
+  start_time: '10h00'
 )
 workshop3_session1.workshop = workshop3
 workshop3_session1.capacity = workshop3_session1.workshop.capacity
 workshop3_session1.save!
 
 workshop3_session2 = Session.new(
-  date: Date.today + 40,
-  start_at: '17h00'
+  start_date: Date.today + 40,
+  start_time: '17h00'
 )
 workshop3_session2.workshop = workshop3
 workshop3_session2.capacity = workshop3_session2.workshop.capacity
@@ -558,16 +558,16 @@ workshop3_session2.save!
 # JULIE WEAVES - TISSAGE MURAL
 puts "Sessions atelier tissage mural"
 workshop4_session1 = Session.new(
-  date: Date.today + 16,
-  start_at: '18h00'
+  start_date: Date.today + 16,
+  start_time: '18h00'
 )
 workshop4_session1.workshop = workshop4
 workshop4_session1.capacity = workshop4_session1.workshop.capacity
 workshop4_session1.save!
 
 workshop4_session2 = Session.new(
-  date: Date.today + 33,
-  start_at: '18h00'
+  start_date: Date.today + 33,
+  start_time: '18h00'
 )
 workshop4_session2.workshop = workshop4
 workshop4_session2.capacity = workshop4_session2.workshop.capacity
@@ -577,24 +577,24 @@ workshop4_session2.save!
 # JULIE WEAVES - TISSAGE MURAL 2
 puts "Sessions atelier tissage mural 2"
 workshop5_session1 = Session.new(
-  date: Date.today + 70,
-  start_at: '15h00'
+  start_date: Date.today + 70,
+  start_time: '15h00'
 )
 workshop5_session1.workshop = workshop5
 workshop5_session1.capacity = workshop5_session1.workshop.capacity
 workshop5_session1.save!
 
 workshop5_session2 = Session.new(
-  date: Date.today + 71,
-  start_at: '15h00'
+  start_date: Date.today + 71,
+  start_time: '15h00'
 )
 workshop5_session2.workshop = workshop5
 workshop5_session2.capacity = workshop5_session2.workshop.capacity
 workshop5_session2.save!
 
 workshop5_session3 = Session.new(
-  date: Date.today + 72,
-  start_at: '15h00'
+  start_date: Date.today + 72,
+  start_time: '15h00'
 )
 workshop5_session3.workshop = workshop5
 workshop5_session3.capacity = workshop5_session3.workshop.capacity
@@ -604,8 +604,8 @@ workshop5_session3.save!
 # AMELIES WORKSHOP - LETTERING & AQUARELLE
 puts "Sessions atelier lettering & aquarelle"
 workshop6_session1 = Session.new(
-  date: Date.today + 25,
-  start_at: '17h00'
+  start_date: Date.today + 25,
+  start_time: '17h00'
 )
 workshop6_session1.workshop = workshop6
 workshop6_session1.capacity = workshop6_session1.workshop.capacity
@@ -613,8 +613,8 @@ workshop6_session1.save!
 
 puts "Sessions atelier lettering & aquarelle 2"
 workshop7_session1 = Session.new(
-  date: Date.today + 30,
-  start_at: '17h00'
+  start_date: Date.today + 30,
+  start_time: '17h00'
 )
 workshop7_session1.workshop = workshop7
 workshop7_session1.capacity = workshop7_session1.workshop.capacity
@@ -622,8 +622,8 @@ workshop7_session1.save!
 
 puts "Sessions atelier lettering & aquarelle 3"
 workshop8_session1 = Session.new(
-  date: Date.today + 35,
-  start_at: '17h00'
+  start_date: Date.today + 35,
+  start_time: '17h00'
 )
 workshop8_session1.workshop = workshop8
 workshop8_session1.capacity = workshop8_session1.workshop.capacity
@@ -631,16 +631,16 @@ workshop8_session1.save!
 
 puts "Sessions atelier lettering & aquarelle 4"
 workshop9_session1 = Session.new(
-  date: Date.today + 10,
-  start_at: '18h00'
+  start_date: Date.today + 10,
+  start_time: '18h00'
 )
 workshop9_session1.workshop = workshop9
 workshop9_session1.capacity = workshop9_session1.workshop.capacity
 workshop9_session1.save!
 
 workshop9_session2 = Session.new(
-  date: Date.today + 40,
-  start_at: '18h00'
+  start_date: Date.today + 40,
+  start_time: '18h00'
 )
 workshop9_session2.workshop = workshop9
 workshop9_session2.capacity = workshop9_session2.workshop.capacity
@@ -650,24 +650,24 @@ workshop9_session2.save!
 # MY HOMEFACTORY - COSMETIQUE
 puts "Sessions atelier cosmetique zero dechet"
 workshop10_session1 = Session.new(
-  date: Date.today + 70,
-  start_at: '18h00'
+  start_date: Date.today + 70,
+  start_time: '18h00'
 )
 workshop10_session1.workshop = workshop10
 workshop10_session1.capacity = workshop10_session1.workshop.capacity
 workshop10_session1.save!
 
 workshop10_session2 = Session.new(
-  date: Date.today + 71,
-  start_at: '18h00'
+  start_date: Date.today + 71,
+  start_time: '18h00'
 )
 workshop10_session2.workshop = workshop10
 workshop10_session2.capacity = workshop10_session2.workshop.capacity
 workshop10_session2.save!
 
 workshop10_session3 = Session.new(
-  date: Date.today + 72,
-  start_at: '18h00'
+  start_date: Date.today + 72,
+  start_time: '18h00'
 )
 workshop10_session3.workshop = workshop10
 workshop10_session3.capacity = workshop10_session3.workshop.capacity
@@ -675,16 +675,16 @@ workshop10_session3.save!
 
 puts "Sessions atelier cosmetique zero dechet 2"
 workshop11_session1 = Session.new(
-  date: Date.today + 52,
-  start_at: '15h00'
+  start_date: Date.today + 52,
+  start_time: '15h00'
 )
 workshop11_session1.workshop = workshop11
 workshop11_session1.capacity = workshop11_session1.workshop.capacity
 workshop11_session1.save!
 
 workshop11_session2 = Session.new(
-  date: Date.today + 52,
-  start_at: '15h00'
+  start_date: Date.today + 52,
+  start_time: '15h00'
 )
 workshop11_session2.workshop = workshop11
 workshop11_session2.capacity = workshop11_session2.workshop.capacity
@@ -692,16 +692,16 @@ workshop11_session2.save!
 
 puts "Sessions atelier beauté visage"
 workshop12_session1 = Session.new(
-  date: Date.today + 70,
-  start_at: '12h00'
+  start_date: Date.today + 70,
+  start_time: '12h00'
 )
 workshop12_session1.workshop = workshop12
 workshop12_session1.capacity = workshop12_session1.workshop.capacity
 workshop12_session1.save!
 
 workshop12_session2 = Session.new(
-  date: Date.today + 71,
-  start_at: '12h00'
+  start_date: Date.today + 71,
+  start_time: '12h00'
 )
 workshop12_session2.workshop = workshop12
 workshop12_session2.capacity = workshop1_session2.workshop.capacity
