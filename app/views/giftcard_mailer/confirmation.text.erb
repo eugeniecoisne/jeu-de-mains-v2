@@ -1,0 +1,28 @@
+<% @footer = true %>
+
+Merci pour votre achat !
+Bonne nouvelle, nous vous confirmons votre achat d'une carte cadeau d'une valeur de <%= @giftcard.initial_amount.round %> euros !
+Retrouvez en pièce-jointe de ce mail la carte cadeau digitale ou dans votre espace "Mes Cartes Cadeaux" sur le site jeudemains.com.
+
+Pour : <%= @giftcard.receiver_name %>
+Offert par : <%= @giftcard.buyer_name %>
+Valeur : <%= @giftcard.initial_amount.round %> euros
+Expire le : <%= @giftcard.deadline_date.strftime("%d/%m/%Y")%>
+<% if @giftcard.message.present? %>
+Message : <%= @giftcard.message %>
+<% end %>
+
+
+DÉTAILS COMMANDE N°<%= @giftcard.id %>
+
+Carte cadeau Jeu de Mains x 1 = <%= @giftcard.initial_amount %> € TTC
+TOTAL PAYÉ = <%= @giftcard.initial_amount %> € TTC
+
+
+VOIR MES CARTES CADEAUX : https://www.jeudemains.com/membres/<%= @giftcard.user.profile.id %>/mes_cartes_cadeaux
+
+
+Conformément aux Conditions Générales d'Utilisation et de Vente de Jeu de Mains :
+La Carte Cadeau a une durée de douze (12) mois à compter de sa date d’achat. À l’issue de la période de validité, la Carte Cadeau ne pourra plus être utilisée. Le solde restant sur la Carte Cadeau sera alors perdu. La Carte Cadeau ne sera, par ailleurs, ni renouvelée, ni échangée.
+La Carte Cadeau devra être activée par le Bénéficiaire en indiquant le code d’activation indiqué sur celle-ci. Le Bénéficiaire devra créer un Compte Utilisateur afin de pouvoir entrer le code d’activation et effectuer une réservation. Pour connaître le montant ou le solde restant sur la Carte Cadeau, le Bénéficiaire peut se rendre dans son espace « Mes Cartes Cadeaux » sur la Plateforme.
+La Carte Cadeau peut être utilisée comme moyen de paiement, en une ou plusieurs fois, pendant sa durée de validité, uniquement pour payer une réservation d’Atelier effectuée sur la Plateforme et dans la limite de son montant ou du solde restant. Une seule Carte Cadeau peut être utilisée par réservation d’Atelier. La Carte Cadeau ne peut être ni échangée, cédée, ou revendue, et ne pourra donner lieu à aucune contrepartie monétaire.

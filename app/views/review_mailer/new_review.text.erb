@@ -1,3 +1,28 @@
-Review#new_review
+<% @footer = true %>
 
-<%= @greeting %>, find me in app/views/review_mailer/new_review.text.erb
+Vous avez reçu un nouvel avis !
+Pour l'atelier <%= @review.booking.session.workshop.title %>
+organisé par <%= @review.booking.session.workshop.place.user.profile.company %>
+<% if @review.booking.session.workshop.animators.where(db_status: true).present? %>
+animé par <%= @review.booking.session.workshop.animators.where(db_status: true).last.user.profile.company %>
+<% end %>
+<% if @review.booking.session.start_date == @review.booking.session.end_date %>
+le <%= l(@review.booking.session.start_date, format: '%A %d %b %Y') %> de <%= @review.booking.session.start_time %> à <%= @review.booking.session.end_time %><br>
+<% else %>
+du <%= l(@review.booking.session.start_date, format: '%d %b %Y') %> à <%= @review.booking.session.start_time %> au <%= l(@review.booking.session.end_date, format: '%d %b %Y') %> à <%= @review.booking.session.end_time %><br>
+<% end %>
+
+
+Avis de <%= @review.user.first_name %> <%= @review.user.last_name[0] %>.
+Reçu le <%= l(@review.user.created_at, format: '%A %d %b %Y') %>
+Note : <%= @review.rating %> / 5
+Avis : " <%= @review.content %> "
+
+
+MON TABLEAU DE BORD : https://www.jeudemains.com/membres/<%= @review.booking.session.workshop.place.user.profile.slug %>/tableau_de_bord
+
+
+Conformément aux Conditions d'Utilisation Partenaires concernant les avis publiés sur la plateforme : <br>
+Article 13.2. Le PARTENAIRE accepte que les Avis soient affichés sur la Plateforme et visibles par tous les internautes.
+Article 13.3. JEU DE MAINS procède à une modération des Avis selon des Conditions Générales consultables sur la Plateforme. JEU DE MAINS ne vérifiera pas l’exactitude des Avis.
+Article 13.4. Le PARTENAIRE faisant l’objet d’un Avis ou dont l’Atelier fait l’objet d’un Avis peut adresser gratuitement à JEU DE MAINS un signalement motivé, via son Compte Partenaire, s’il a un doute sur l’authenticité de cet avis, si celui-ci comporte une notation de une ou deux étoile(s), ou par email dans les autres cas. JEU DE MAINS prendra alors connaissance du signalement et pourra décider de supprimer l’avis litigieux après échange avec l’auteur de l’avis.

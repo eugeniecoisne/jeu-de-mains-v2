@@ -1,3 +1,30 @@
-Infomessage#new_information
+<% @footer = true %>
 
-<%= @greeting %>, find me in app/views/infomessage_mailer/new_information.text.erb
+Vous avez reçu un message !
+Vous avez prochainement un atelier <%= @infomessage.session.workshop.title %> et l'organisateur a un message pour vous :
+
+"<%= @infomessage.content %>"
+
+Concernant l'atelier <%= @infomessage.session.workshop.title %> : https://www.jeudemains.com/ateliers/<%= @infomessage.session.workshop.slug %>
+
+<% if @infomessage.session.start_date == @infomessage.session.end_date %>
+Le <%= l(@infomessage.session.start_date, format: '%A %d %b %Y') %> de <%= @infomessage.session.start_time %> à <%= @infomessage.session.end_time %>
+<% else %>
+Du <%= l(@infomessage.session.start_date, format: '%A %d %b %Y') %> à <%= @infomessage.session.start_time %>
+Au <%= l(@infomessage.session.end_date, format: '%A %d %b %Y') %> à <%= @infomessage.session.end_time %>
+<% end %>
+Organisé par <%= @infomessage.session.workshop.place.user.profile.company %>
+<% if @infomessage.session.workshop.visio == true %>
+En visioconférence<%= " avec kit" if @infomessage.session.workshop.kit == true %>
+<% else %>
+Au <%= @infomessage.session.workshop.place.address %> <%= @infomessage.session.workshop.place.zip_code %> <%= @infomessage.session.workshop.place.city %>
+Itinéraire : https://www.google.fr/maps/search/<%= @infomessage.session.workshop.place.address %>, <%= @infomessage.session.workshop.place.zip_code %> <%= @infomessage.session.workshop.place.city.upcase %>
+<% end %>
+Contact : <%= @infomessage.session.workshop.place.phone_number %>
+<% if @infomessage.session.workshop.animators.where(db_status: true).present? %>
+Animé par <%= @infomessage.session.workshop.animators.where(db_status: true).last.user.profile.company %>
+<% end %>
+
+
+
+Vous recevez cet email dans le cadre de votre réservation. Retrouvez et gérez vos réservation dans l'onglet "Mes réservations" de la plateforme Jeu de Mains.

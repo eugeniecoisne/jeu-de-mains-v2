@@ -1,3 +1,8 @@
-Message#new_message
+<% @footer = true %>
 
-<%= @greeting %>, find me in app/views/message_mailer/new_message.text.erb
+Vous avez un nouveau message de <%= @message.user.profile.company %>
+Reçu le <%= l(@message.created_at, format: '%d %b %Y').capitalize %> à <%= @message.created_at.strftime('%H:%M') %>
+
+LIRE LE MESSAGE : https://www.jeudemains.com/conversations/<%= @message.id %>
+
+Pour discuter avec les autres Partenaires Jeu de Mains et peut-être envisager des collaborations entre vous, rendez-vous dans l'annuaire des Partenaires (https://www.jeudemains.com/partenaires) et cliquez sur "Contacter" pour démarrer une conversation.

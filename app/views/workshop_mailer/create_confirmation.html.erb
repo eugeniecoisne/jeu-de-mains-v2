@@ -160,7 +160,7 @@
                   <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;"><%= link_to workshop_url(@workshop), target: "_blank" do %>Atelier <%= @workshop.title %><% end %></p>
                   <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;">
                     <% if @workshop.visio == true && @workshop.kit == true %>
-                      En visoconférence avec kit
+                      En visioconférence avec kit
                     <% elsif @workshop.visio == true %>
                       En visioconférence sans kit
                     <% else %>
@@ -194,6 +194,7 @@
                     <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Prix : <%= @workshop.price %> euros</p>
                   <% end %>
                   <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Éphémère : <%= @workshop.ephemeral == true ? "oui" : "non" %></p>
+                  <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Privatisable : <%= @workshop.privatization == true ? "oui" : "non" %></p>
                 </div>
               </div>
             </div>
@@ -251,6 +252,9 @@
                       </span><br>
                       <span style="color: #1C1C1C; font-size: 15px;">
                         <%= @workshop.kit_description.present? ? @workshop.kit_description : "Non renseigné" %>
+                      </span><br>
+                      <span style="color: #1C1C1C; font-size: 15px;">
+                        <%= @workshop.kit_shipping_price.present? ? "Frais de livraison estimés : #{@workshop.kit_shipping_price} euros ttc" : "Non renseigné" %>
                       </span>
                     </p>
                   </div>
@@ -381,7 +385,7 @@
                 <%= link_to workshop_url(@workshop), style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #52828D; background-color: #fff; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
                   <span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
                     <span style="font-size: 14px; line-height: 2; word-break: break-word; color: #52828D; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 32px;">
-                      <strong>VISUALISER MA FUTURE PAGE ATELIER</strong>
+                      <strong>PRÉVISUALISER LA PAGE ATELIER</strong>
                     </span>
                   </span>
                 <% end %>

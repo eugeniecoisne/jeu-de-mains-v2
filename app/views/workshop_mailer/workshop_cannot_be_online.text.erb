@@ -1,0 +1,10 @@
+<% @footer = true %>
+
+Votre atelier <%= @workshop.title %> n'a pas pu être mis en ligne.
+
+Nous n'avons pas pu valider votre atelier, voici le problème rencontré :
+
+<%= @message %>
+
+MODIFIER L'ATELIER : https://www.jeudemains.com/ateliers/<%= @workshop.slug %>/edit
+PRÉVISUALISER LA PAGE ATELIER : https://www.jeudemains.com/ateliers/<%= @workshop.slug %>

@@ -1,0 +1,19 @@
+<% @footer = true %>
+
+Vous avez annulé votre session <%= @session.start_date == @session.end_date ? "du #{l(@session.start_date, format: '%A %d %b %Y')} de #{@session.start_time} à #{@session.end_time}" : "du #{l(@session.start_date, format: '%d %b %Y')} à #{@session.start_time} au #{l(@session.end_date, format: '%d %b %Y')} à #{@session.end_time}" %>
+
+Vous avez annulé pour la raison suivante qui a été renseignée aux participants :
+<%= @session.reason %>
+
+Tous les participants ont reçu un e-mail les invitant à choisir une nouvelle date ou à demander le remboursement intégral.
+N'oubliez pas de mettre quelques dates d'atelier en ligne afin de favoriser un report qui vous permet d'éviter de procéder à des remboursements.
+
+MON TABLEAU DE BORD : https://www.jeudemains.com/membres/<%= @session.workshop.place.user.profile.slug %>/tableau_de_bord
+GÉRER LES SESSIONS DE L'ATELIER : https://www.jeudemains.com/ateliers/<%= @session.workshop.slug %>/sessions
+
+
+Conformément aux Conditions d'Utilisation Partenaires concernant l'annulation d'une Session par le Partenaire :
+
+Article 10.8. [...] Un email automatique sera alors généré et envoyé au Client qui pourra choisir entre le report de sa réservation à une des autres dates proposées par le PARTENAIRE pour le même Atelier ou le remboursement intégral. En cas d’annulation moins de quarante-huit heures avant l’Atelier, le PARTENAIRE s’engage à contacter le Client par téléphone ou par SMS pour l’informer de l’annulation.
+Article 10.9. En cas de remboursement du Client, le PARTENAIRE sera remboursé de la commission de JEU DE MAINS.
+Article 10.10. En cas d’annulation du PARTENAIRE répétées et/ou non justifiées, JEU DE MAINS se réserve le droit de résilier le Contrat, dans les conditions prévues à l’article « résiliation pour faute » du Contrat de Marketplace.

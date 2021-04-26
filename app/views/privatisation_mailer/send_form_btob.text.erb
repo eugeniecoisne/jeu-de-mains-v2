@@ -1,0 +1,19 @@
+<% @footer = false %>
+
+Bonjour <%= @workshop.place.user.first_name %>,
+Vous avez reçu une demande de privatisation pour votre atelier <%= @workshop.title %> :
+
+Nom : <%= @privatisation[:first_name] %>
+Prénom : <%= @privatisation[:last_name] %>
+E-mail : <%= @privatisation[:email] %>
+Effectif : <%= @privatisation[:capacity] %>
+Date souhaitée option 1 : <%= @privatisation[:first_date] %>
+Date souhaitée option 2 : <%= @privatisation[:second_date] %>
+Date souhaitée option 3 : <%= @privatisation[:third_date] %>
+<% if @privatisation[:message].present? %>
+Message additionnel : <%= @privatisation[:message] %>
+<% end %>
+
+Nous vous invitons à prendre contact avec le client directement par e-mail sans passer par la plateforme Jeu de Mains.
+Aucune commission ou frais ne sont pris sur ce service d'envoi des demandes de privatisation :)
+L'équipe Jeu de Mains

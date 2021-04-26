@@ -1,0 +1,17 @@
+<% @footer = true %>
+
+Vous avez annulé votre session moins de 48 heures avant.
+Conformément aux Conditions d'Utilisation Partenaires, merci de vérifier auprès de chaque participant listé ci-dessous par appel téléphonique ou sms qu'il a bien été notifié par e-mail de l'annulation de la session.
+
+Atelier <%= @session.workshop.title %>
+<% if @session.start_date == @session.end_date %>
+Le <%= l(@session.start_date, format: '%A %d %b %Y') %> de <%= @session.start_time %> à <%= @session.end_time %>
+<% else %>
+Du <%= l(@session.start_date, format: '%A %d %b %Y') %> à <%= @session.start_time %>
+Au <%= l(@session.end_date, format: '%A %d %b %Y') %> à <%= @session.end_time %>
+<% end %>
+
+<% @session.bookings.where(status: "paid", db_status: true).each do |b| %>
+<%= b.user.first_name %> <%= b.user.last_name[0] %>. : <%= b.phone_number %>
+<% end %>
+
