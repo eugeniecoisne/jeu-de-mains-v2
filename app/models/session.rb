@@ -46,7 +46,7 @@ class Session < ApplicationRecord
               '22h00', '22h15', '22h30', '22h45',
             ]
 
-  MOMENTS = ["Matin", "Après-midi", "Fin de journée"]
+  MOMENTS = ["Matin", "Après-midi", "Fin de journée", "Plusieurs jours"]
 
   def available
     counter = 0
@@ -73,17 +73,25 @@ class Session < ApplicationRecord
         '08h00', '08h15', '08h30', '08h45',
         '09h00', '09h15', '09h30', '09h45',
         '10h00', '10h15', '10h30', '10h45',
-        '11h00', '11h15', '11h30', '11h45'].include?(start_at)
+        '11h00', '11h15', '11h30', '11h45'].include?(start_time) && start_date == end_date
         "Matin"
     elsif ['12h00', '12h15', '12h30', '12h45',
             '13h00', '13h15', '13h30', '13h45',
             '14h00', '14h15', '14h30', '14h45',
             '15h00', '15h15', '15h30', '15h45',
             '16h00', '16h15', '16h30', '16h45',
-            '17h00', '17h15'].include?(start_at)
+            '17h00', '17h15'].include?(start_time) && start_date == end_date
         "Après-midi"
-    else
+    elsif ['17h30', '17h45',
+            '18h00', '18h15', '18h30', '18h45',
+            '19h00', '19h15', '19h30', '19h45',
+            '20h00', '20h15', '20h30', '20h45',
+            '21h00', '21h15', '21h30', '21h45',
+            '22h00', '22h15', '22h30', '22h45',
+            ].include?(start_time) && start_date == end_date
       "Fin de journée"
+    elsif start_date != end_date
+      "Plusieurs jours"
     end
   end
 

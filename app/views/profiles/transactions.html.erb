@@ -7,8 +7,8 @@
 <div class="transactions-container">
   <h2>Télécharger mes relevés de facturation clients (pdf)</h2>
   <div class="transactions-exports">
-    <% t = Time.new(2021, 1, 1, 0, 0, 1) %>
-    <% number_of_month = ((Time.now - t) / 1.month).round - 1 %>
+    <% t = @profile.created_at.to_time.beginning_of_month %>
+    <% number_of_month = ((Time.now - t) / 1.month).to_i - 1 %>
     <% months = (0..number_of_month).to_a %>
     <% months.reverse.each do |m| %>
       <% time = t + (m.to_i).month %>
@@ -20,9 +20,9 @@
   </div>
   <h2>Télécharger ma facture mensuelle de commissions (pdf)</h2>
   <div class="transactions-exports">
-    <% t = Time.new(2021, 1, 1, 0, 0, 1) %>
-    <% number_of_month = ((Time.now - t) / 1.month).round - 1 %>
-    <% months = (0..number_of_month).to_a %>
+    <% t = @profile.created_at.to_time.beginning_of_month %>
+    <% number_of_month = ((Time.now - t) / 1.month).to_i - 1 %>
+    <% months = (0..(number_of_month)).to_a %>
     <% months.reverse.each do |m| %>
       <% time = t + (m.to_i).month %>
       <%= link_to releve_de_commissions_profile_path(format: :pdf, month: time.strftime("%m") , year: time.strftime("%Y"), end: time.end_of_month.strftime("%d")), class: "transactions-export-xls" do %>
@@ -33,8 +33,8 @@
   </div>
   <h2>Télécharger mes transactions par mois (xls)</h2>
   <div class="transactions-exports">
-    <% t = Time.new(2021, 1, 1, 0, 0, 1) %>
-    <% number_of_month = ((Time.now - t) / 1.month).round - 1 %>
+    <% t = @profile.created_at.to_time.beginning_of_month %>
+    <% number_of_month = ((Time.now - t) / 1.month).to_i - 1 %>
     <% months = (0..number_of_month).to_a %>
     <% months.reverse.each do |m| %>
       <% time = t + (m.to_i).month %>
