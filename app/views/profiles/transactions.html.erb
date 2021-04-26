@@ -13,7 +13,7 @@
     <% months.reverse.each do |m| %>
       <% time = t + (m.to_i).month %>
       <%= link_to transactions_profile_path(format: :pdf, month: time.strftime("%m") , year: time.strftime("%Y"), end: time.end_of_month.strftime("%d")), class: "transactions-export-xls" do %>
-        <%=l(time, format: '%B').capitalize %> <%= time.strftime("%Y") %>
+        <%=l(time, format: '%b').capitalize %> <%= time.strftime("%Y") %>
         <i class="fas fa-upload ml-1"></i>
       <% end %>
     <% end %>
@@ -26,7 +26,7 @@
     <% months.reverse.each do |m| %>
       <% time = t + (m.to_i).month %>
       <%= link_to releve_de_commissions_profile_path(format: :pdf, month: time.strftime("%m") , year: time.strftime("%Y"), end: time.end_of_month.strftime("%d")), class: "transactions-export-xls" do %>
-        <%=l(time, format: '%B').capitalize %> <%= time.strftime("%Y") %>
+        <%=l(time, format: '%b').capitalize %> <%= time.strftime("%Y") %>
         <i class="fas fa-upload ml-1"></i>
       <% end %>
     <% end %>
@@ -39,7 +39,7 @@
     <% months.reverse.each do |m| %>
       <% time = t + (m.to_i).month %>
       <%= link_to transactions_profile_path(format: :xls, month: time.strftime("%m") , year: time.strftime("%Y"), end: time.end_of_month.strftime("%d")), class: "transactions-export-xls" do %>
-        <%=l(time, format: '%B').capitalize %> <%= time.strftime("%Y") %>
+        <%=l(time, format: '%b').capitalize %> <%= time.strftime("%Y") %>
         <i class="fas fa-upload ml-1"></i>
       <% end %>
     <% end %>

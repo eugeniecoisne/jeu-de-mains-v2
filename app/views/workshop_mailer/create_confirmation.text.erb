@@ -1,3 +1,52 @@
-Workshop#create_confirmation
+<% @footer = true %>
+Vous avez créé un atelier, mettez-le en ligne !
 
-<%= @greeting %>, find me in app/views/workshop_mailer/create_confirmation.text.erb
+Votre atelier <%= @workshop.title %> a bien été créé, mettez-le en ligne !
+Voici les informations que vous avez renseignées :
+
+<% if @workshop.visio == true && @workshop.kit == true %>
+En visioconférence avec kit
+<% elsif @workshop.visio == true %>
+En visioconférence sans kit
+<% else %>
+  Au <%= @workshop.place.address %>, <%= @workshop.place.zip_code %> <%= @workshop.place.city %>
+<% end %>
+Tél. : <%= @workshop.place.phone_number %>
+<% if @workshop.visio == true && @workshop.kit == true %>
+Envoi de kit : oui
+<% elsif @workshop.visio == true  %>
+Envoi de kit : non
+<% end %>
+
+<% if @workshop.capacity.present? %>
+Capacité : <%= @workshop.capacity %> personnes
+<% end %>
+<% if @workshop.level.present? %>
+Niveau : <%= @workshop.level %>
+<% end %>
+<% if @workshop.duration.present? %>
+Durée : <%= Workshop::DURATIONS.key(@workshop.duration).remove(" consécutifs") %>
+<% end %>
+<% if @workshop.price.present? %>
+Prix : <%= @workshop.price %> euros
+<% end %>
+Éphémère : <%= @workshop.ephemeral == true ? "oui" : "non" %>
+Privatisable : <%= @workshop.privatization == true ? "oui" : "non" %>
+
+Thématique(s) : <%= @workshop.thematic.join(", ") %>
+
+Programme : <%= @workshop.program %>
+
+Repartez avec : <%= @workshop.final_product %>
+
+<% if @workshop.visio == true && @workshop.kit == true %>
+Description du kit :
+<%= @workshop.kit_description.present? ? @workshop.kit_description : "Non renseigné" %>
+<%= @workshop.kit_shipping_price.present? ? "Frais de livraison estimés : #{@workshop.kit_shipping_price} euros ttc" : "Non renseigné" %>
+<% end %>
+
+Rendez-vous sur votre tableau de bord pour ajouter une première session, ajouter un animateur (optionnel) et mettre en ligne votre atelier !
+
+MON TABLEAU DE BORD : https://www.jeudemains.com/membres/<%= @workshop.place.user.profile.slug %>/tableau_de_bord
+
+PRÉVISUALISER LA PAGE ATELIER : https://www.jeudemains.com/<%= @workshop.slug %>

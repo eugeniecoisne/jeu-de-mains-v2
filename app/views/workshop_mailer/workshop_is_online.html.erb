@@ -44,7 +44,7 @@
                   <p style="font-size: 18px; font-weight:600; line-height: 1.2; text-align: center; word-break: break-word; mso-line-height-alt: 29px; margin: 0;">
                     <span style="font-size: 18px; font-weight:600;">
                       <span style="color: #2b303a;">
-                        Félicitations, votre atelier <span style='color: #52828D'><%= @workshop.title %></span> est en ligne !
+                        Félicitations, votre atelier <%= @workshop.title %> est en ligne !
                       </span>
                     </span>
                   </p>
@@ -92,9 +92,9 @@
         <!-- MESSAGE USER IMAGE -->
           <%= link_to workshop_url(@workshop), target: "_blank" do %>
             <% if @workshop.photos.attached? %>
-              <%= cl_image_tag @workshop.photos[0].key, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}", loading: "lazy", width: 100, height: 100, crop: :fill, border: "0", class: "left fixedwidth", style: "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 100px; border-radius: 5px; display: block;" %>
+              <%= cl_image_tag @workshop.photos[0].key, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}", loading: "lazy", width: 200, height: 200, crop: :fill, border: "0", class: "left fixedwidth", style: "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 200px; border-radius: 5px; display: block;" %>
             <% else %>
-              <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :alt => "jeu-de-mains-#{@workshop.title}", :title => "jeu-de-mains-#{@workshop.title}", :loading => "lazy", :width => 100, :height => 100, :crop => :fill, :border => "0", :class => "left fixedwidth", :style => "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border-radius: 5px; border: 0; width: 100%; max-width: 100px; display: block;") %>
+              <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :alt => "jeu-de-mains-#{@workshop.title}", :title => "jeu-de-mains-#{@workshop.title}", :loading => "lazy", :width => 200, :height => 200, :crop => :fill, :border => "0", :class => "left fixedwidth", :style => "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border-radius: 5px; border: 0; width: 100%; max-width: 200px; display: block;") %>
             <% end %>
           <% end %>
         </div>
@@ -108,7 +108,7 @@
     <div class="block-grid mixed-two-up" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff; padding-top: 10px;">
       <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
         <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; margin-bottom: 10px;text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 21px; font-weight: 600;">
-          Félicitation, votre atelier est en ligne ! Gérez cet atelier et vos autres ateliers à partir de votre tableau de bord.
+          Félicitation, votre atelier est en ligne ! <br>Gérez cet atelier et vos autres ateliers à partir de votre tableau de bord.
         </p>
         <% if @message.present? %>
           <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">

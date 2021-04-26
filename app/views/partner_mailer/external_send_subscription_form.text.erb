@@ -1,0 +1,27 @@
+<% @footer = true %>
+
+Nous avons bien reçu votre demande d'inscription partenaire !
+Nous allons traiter votre inscription dans les meilleurs délais.
+Voici le récapitulatif des informations que nous avons reçues :
+
+Société : <%= @partner[:company] %>
+SIRET : <%= @partner[:siret_number] %>
+Nom : <%= @partner[:last_name] %>
+Prénom : <%= @partner[:first_name] %>
+Poste : <%= @partner[:position] %>
+Email : <%= @partner[:email] %>
+N° de téléphone : <%= @partner[:phone_number] %>
+---
+Adresse : <%= @partner[:address] %>
+Code Postal : <%= @partner[:zip_code] %>
+Ville : <%= @partner[:city] %>
+---
+Rôle : <%= @partner[:role] %>
+Site web : <%= @partner[:website].present? ? @partner[:website] : "Non renseigné" %>
+Instagram : <%= @partner[:instagram].present? ? @partner[:instagram] : "Non renseigné" %>
+<% if @partner[:message].present? %>
+---
+Message / questions : <%= @partner[:message] %>
+<% end %>
+
+À bientôt sur Jeu de Mains !

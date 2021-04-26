@@ -1,0 +1,14 @@
+<% @footer = true %>
+
+Félicitations, votre atelier <%= @workshop.title %> est en ligne !
+
+Félicitation, votre atelier est en ligne !
+Gérez cet atelier et vos autres ateliers à partir de votre tableau de bord.
+
+<% if @message.present? %>
+<%= @message %>
+<% end %>
+
+MON TABLEAU DE BORD : https://www.jeudemains.com/membres/<%= @workshop.place.user.profile.slug %>/tableau_de_bord
+VOIR LA PAGE ATELIER : https://www.jeudemains.com/ateliers/<%= @workshop.slug %>
+

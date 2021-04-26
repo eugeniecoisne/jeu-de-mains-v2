@@ -1,0 +1,21 @@
+<% @footer = false %>
+
+Bonjour
+Nous vous confirmons la réception et la transmission de votre demande de privatisation reçue pour l'atelier <%= @workshop.title %>.
+
+Rappel de vos informations communiquées :
+Nom : <%= @privatisation[:first_name] %>
+Prénom : <%= @privatisation[:last_name] %>
+E-mail : <%= @privatisation[:email] %>
+Effectif : <%= @privatisation[:capacity] %>
+Date souhaitée option 1 : <%= @privatisation[:first_date] %>
+Date souhaitée option 2 : <%= @privatisation[:second_date] %>
+Date souhaitée option 3 : <%= @privatisation[:third_date] %>
+<% if @privatisation[:message].present? %>
+Message additionnel : <%= @privatisation[:message] %>
+<% end %>
+
+Revoir la page de l'atelier :  https://www.jeudemains.com/ateliers/<%= @workshop.slug %>
+
+<%= @workshop.place.user.profile.company %> prendra contact avec vous directement par e-mail dans les meilleurs délais.
+À bientôt ! L'équipe Jeu de Mains

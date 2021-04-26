@@ -1,3 +1,11 @@
-<h1>Demande de vérification de l'atelier <%= @workshop.id %> - <%= @workshop.title %></h1>
-<h2>Créé par <%= @workshop.place.user.profile.id %> - <%= @workshop.place.user.profile.company %></h2>
-<%= link_to "Vérifier l'atelier", workshop_url(@workshop) %>
+Demande de vérification d'atelier :
+
+
+Atelier : <%= @workshop.title %> - ID <%= @workshop.id %>
+Créé par : <%= @workshop.place.user.profile.company %> - ID <%= @workshop.place.user.profile.id %>
+Créé le : <%= @workshop.created_at.strftime("%d/%m/%y") %>
+Mis à jour le : <%= @workshop.updated_at.strftime("%d/%m/%y") %>
+Type : <%= @workshop.visio == true ? "visioconférence" : "présentiel" %>
+
+Vérifier l'atelier : https://www.jeudemains.com/ateliers/<%= @workshop.slug %>
+

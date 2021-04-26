@@ -1,0 +1,13 @@
+<% @footer = true %>
+
+Il est temps d'envoyer vos kits pour l'atelier <%= @session.workshop.title %> !
+
+Les inscriptions ont été cloturées le <%= l((Date.today - 1), format: '%A %d %b %Y') %>.
+Participants inscrits : <%= @session.sold %> participant(s)
+
+VOIR LA LISTE D'ENVOI DES KITS : https://www.jeudemains.com/sessions/<%= @session.id %>/expedition_kits
+
+Conformément aux Conditions d'Utilisation Partenaires concernant l'expédition des kits:
+Article 10.5. Pour tout Atelier en visioconférence avec livraison d’un Kit, aucune réservation ne sera possible dans les sept jours précédant la date de l’Atelier, afin de laisser le temps au PARTENAIRE d’effectuer la livraison des Kits.
+Article 12.3. Le PARTENAIRE s’engage à effectuer une livraison à domicile, à l’adresse communiquée par le Client.
+Article 12.5. Dès l’expédition du colis, le PARTENAIRE s’engage à se rendre sur son Compte Partenaire et à indiquer le statut « Expédié » du Kit, et renseigne le cas échéant, le lien de suivi du colis. Le Client sera alors automatiquement informé par email de l’envoi du Kit.
