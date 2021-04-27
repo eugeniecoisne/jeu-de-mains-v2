@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_26_075202) do
+ActiveRecord::Schema.define(version: 2021_04_27_075016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,6 +215,10 @@ ActiveRecord::Schema.define(version: 2021_04_26_075202) do
     t.float "fee", default: 0.2
     t.text "legal_mention"
     t.boolean "tva_applicable", default: false
+    t.string "tva_intra"
+    t.string "rcs_or_rm"
+    t.string "company_type"
+    t.string "company_capital"
     t.index ["slug"], name: "index_profiles_on_slug", unique: true
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end

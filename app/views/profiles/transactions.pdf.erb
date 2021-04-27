@@ -78,15 +78,23 @@
           <p style="margin-bottom:60px;">Édité le <%= (DateTime.new(@year.to_i, @month.to_i, @end.to_i,23,59,59,"+02:00") + 1.day).strftime("%d/%m/%y") %></p>
           <p>Concerne la période du <%= DateTime.new(@year.to_i, @month.to_i, 1,0,0,0,"+02:00").strftime("%d/%m/%y") %> au <%= DateTime.new(@year.to_i, @month.to_i, @end.to_i,23,59,59,"+02:00").strftime("%d/%m/%y") %> et le partenaire vendeur :</p>
           <p><strong><%= @profile.accountant_company %></strong></p>
-          <p><%= @profile.accountant_address %></p>
-          <p><%= @profile.accountant_zip_code %> <%= @profile.accountant_city %></p>
-          <p>SIRET: <%= @profile.siret_number %></p>
-
+          <p><%= @profile.accountant_address %> <%= @profile.accountant_zip_code %> <%= @profile.accountant_city %></p>
+          <p>SIRET: <%= @profile.siret_number %> - <%= @profile.rcs_or_rm if @profile.rcs_or_rm.present? %></p>
+          <% if @profile.company_type.present? %>
+            <p><%= @profile.company_type %> <%= "au capital de #{@profile.company_capital}" if @profile.company_capital.present? %>
+          <% end %>
           <% if @transaction_bookings.present? && @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(@year.to_i, @month.to_i, 1,0,0,0,"+02:00") && b[:date].to_date <= DateTime.new(@year.to_i, @month.to_i, @end.to_i,23,59,59,"+02:00") }.present? %>
-            <% unless @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(@year.to_i, @month.to_i, 1,0,0,0,"+02:00") && b[:date].to_date <= DateTime.new(@year.to_i, @month.to_i, @end.to_i,23,59,59,"+02:00") }.select {|b| b[:tva_applicable] == true }.present? %>
+            <% if @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(@year.to_i, @month.to_i, 1,0,0,0,"+02:00") && b[:date].to_date <= DateTime.new(@year.to_i, @month.to_i, @end.to_i,23,59,59,"+02:00") }.select {|b| b[:tva_applicable] == true }.present? %>
+              <% if @profile.tva_intra.present? %>
+                <p>TVA Intracommunautaire: <%= @profile.tva_intra %></p>
+              <% end %>
+            <% else %>
               <p>TVA non applicable selon l'article 293B du CGI</p>
             <% end %>
           <% end %>
+
+
+
         </div>
       </div>
       <div>
@@ -181,7 +189,8 @@
       <div style="text-align: left;">
         <p style="font-size:15px;">Jeu de Mains</p>
         <p style="font-size:15px;">9 ter, rue Baliat, 92400 Courbevoie</p>
-        <p style="font-size:15px;">SIRET: 88449865000016</p>
+        <p style="font-size:15px;">SIRET: 88449865000016 - RCS Nanterre 884498650</p>
+        <p style="font-size:15px;">Société par Action Simplifiée au capital de 1.000 €</p>
         <p style="font-size:15px;">TVA Intracommunautaire: FR46884498650</p>
       </div>
     </body>

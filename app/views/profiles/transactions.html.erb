@@ -12,7 +12,7 @@
     <% months = (0..number_of_month).to_a %>
     <% months.reverse.each do |m| %>
       <% time = t + (m.to_i).month %>
-      <%= link_to transactions_profile_path(format: :pdf, month: time.strftime("%m") , year: time.strftime("%Y"), end: time.end_of_month.strftime("%d")), class: "transactions-export-xls" do %>
+      <%= link_to transactions_profile_path(format: :pdf, month: time.strftime("%m") , year: time.strftime("%Y"), end: time.end_of_month.strftime("%d")), class: "transactions-export-xls", target: "_blank" do %>
         <%=l(time, format: '%b').capitalize %> <%= time.strftime("%Y") %>
         <i class="fas fa-upload ml-1"></i>
       <% end %>
@@ -25,7 +25,7 @@
     <% months = (0..(number_of_month)).to_a %>
     <% months.reverse.each do |m| %>
       <% time = t + (m.to_i).month %>
-      <%= link_to releve_de_commissions_profile_path(format: :pdf, month: time.strftime("%m") , year: time.strftime("%Y"), end: time.end_of_month.strftime("%d")), class: "transactions-export-xls" do %>
+      <%= link_to releve_de_commissions_profile_path(format: :pdf, month: time.strftime("%m") , year: time.strftime("%Y"), end: time.end_of_month.strftime("%d")), class: "transactions-export-xls", target: "_blank" do %>
         <%=l(time, format: '%b').capitalize %> <%= time.strftime("%Y") %>
         <i class="fas fa-upload ml-1"></i>
       <% end %>
@@ -38,7 +38,7 @@
     <% months = (0..number_of_month).to_a %>
     <% months.reverse.each do |m| %>
       <% time = t + (m.to_i).month %>
-      <%= link_to transactions_profile_path(format: :xls, month: time.strftime("%m") , year: time.strftime("%Y"), end: time.end_of_month.strftime("%d")), class: "transactions-export-xls" do %>
+      <%= link_to transactions_profile_path(format: :xls, month: time.strftime("%m") , year: time.strftime("%Y"), end: time.end_of_month.strftime("%d")), class: "transactions-export-xls", target: "_blank" do %>
         <%=l(time, format: '%b').capitalize %> <%= time.strftime("%Y") %>
         <i class="fas fa-upload ml-1"></i>
       <% end %>
