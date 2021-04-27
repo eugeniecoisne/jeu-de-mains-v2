@@ -236,38 +236,80 @@
                 <li class="list-group-item my-informations-item" id="first-item">
                   <div class="my-informations-text">
                     <span><strong>Raison sociale</strong></span>
-                    <span><%= @profile.accountant_company %></span>
+                    <span><%= @profile.accountant_company if @profile.accountant_company.present? %></span>
                   </div>
                 </li>
                 <li class="list-group-item my-informations-item">
                   <div class="my-informations-text">
                     <span><strong>SIRET</strong></span>
-                    <span><%= @profile.siret_number %></span>
+                    <span><%= @profile.siret_number if @profile.siret_number.present? %></span>
                   </div>
                 </li>
                 <li class="list-group-item my-informations-item">
                   <div class="my-informations-text">
-                    <span><strong>Adresse société</strong></span>
+                    <span><strong>Immatriculation</strong></span>
+                    <span><%= @profile.rcs_or_rm if @profile.rcs_or_rm.present? %></span>
+                  </div>
+                </li>
+                <% if @profile.company_type.present? %>
+                  <li class="list-group-item my-informations-item">
+                    <div class="my-informations-text">
+                      <span><strong>Forme juridique</strong></span>
+                        <span><%= @profile.company_type %></span>
+                    </div>
+                  </li>
+                <% end %>
+                <% if @profile.company_capital.present? %>
+                  <li class="list-group-item my-informations-item">
+                    <div class="my-informations-text">
+                      <span><strong>Capital social</strong></span>
+                        <span><%= @profile.company_capital%></span>
+                    </div>
+                  </li>
+                <% end %>
+                <li class="list-group-item my-informations-item">
+                  <div class="my-informations-text">
+                    <span><strong>Redevable de la TVA</strong></span>
+                      <span><%= @profile.tva_applicable == true ? "oui" : "non" %></span>
+                  </div>
+                </li>
+                <% if @profile.tva_intra.present? %>
+                  <li class="list-group-item my-informations-item">
+                    <div class="my-informations-text">
+                      <span><strong>TVA intracommunautaire</strong></span>
+                        <span><%= @profile.tva_intra %></span>
+                    </div>
+                  </li>
+                <% end %>
+                <li class="list-group-item my-informations-item">
+                  <div class="my-informations-text">
+                    <span><strong>Adresse siège social</strong></span>
                     <% if @profile.accountant_address.present? %>
                       <span><%= @profile.accountant_address %>, <%= @profile.accountant_zip_code %> <%= @profile.accountant_city %></span>
                     <% else %>
                       <span>Non renseignée</span>
                     <% end %>
                   </div>
-                  <a href="#companyAccountantAddressModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
-                  <%= render 'update_accountant_company_modal', profile: @profile %>
                 </li>
-                <li class="list-group-item my-informations-item" id="last-my-informations-item">
+                <li class="list-group-item my-informations-item">
                   <div class="my-informations-text">
-                    <span><strong>Téléphone société</strong></span>
+                    <span><strong>Téléphone siège social (pour Jeu de Mains uniquement)</strong></span>
                     <% if @profile.accountant_phone_number.present? %>
                       <span><%= @profile.accountant_phone_number %></span>
                     <% else %>
                       <span>Non renseigné</span>
                     <% end %>
                   </div>
-                  <a href="#companyAccountantPhoneNumberModal" class="my-informations-button" data-toggle="modal" data-whatever="@mdo">Modifier</a>
-                  <%= render 'update_accountant_company_modal', profile: @profile %>
+                </li>
+                <li class="list-group-item my-informations-item" id="last-my-informations-item">
+                  <div class="my-informations-text">
+                    <span><strong>Mention légale page partenaire</strong></span>
+                    <% if @profile.legal_mention.present? %>
+                      <span><%= @profile.legal_mention %></span>
+                    <% else %>
+                      <span>Non renseignée</span>
+                    <% end %>
+                  </div>
                 </li>
               </ul>
             </div>
