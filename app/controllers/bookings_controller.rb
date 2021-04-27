@@ -151,7 +151,7 @@ class BookingsController < ApplicationController
       format.html
       format.pdf do
         render pdf: "facture-F#{@partner.id}-#{@partner.invoice_number_for(@booking.id)}",
-              margin:  { top:0,bottom:0,left:0,right:0}
+              margin:  { top:10,bottom:10,left:10,right:10}
       end
     end
   end
@@ -167,7 +167,7 @@ class BookingsController < ApplicationController
     respond_to do |format|
       format.pdf do
         render pdf: "avoir-A#{@partner.id}-#{@partner.refund_invoice_number_for(@booking.id)}",
-              margin:  { top:0,bottom:0,left:0,right:0}
+              margin:  { top:10,bottom:10,left:10,right:10}
       end
     end
   end

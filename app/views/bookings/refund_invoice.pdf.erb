@@ -56,28 +56,32 @@
   </head>
 
   <body>
-    <div style="height:420px;">
-      <div style="position:absolute;left:45px;top:340px;width:800px;">
-        <p><strong>À l'attention de <%= @booking.user.fullname %></strong></p>
-      </div>
-      <div style="position:absolute;right:45px;top:90px;width:800px;text-align:right;">
-        <p style="margin-bottom:30px;"><em>Avoir émis par Jeu de Mains au nom de :</em></p>
+    <div>
+      <div style="text-align:right;margin-right:2px;">
+        <p style="margin-bottom:30px;margin-right:1px;"><em>Avoir émis par Jeu de Mains au nom de :</em></p>
         <p><strong><%= @partner.accountant_company %></strong></p>
-        <p><%= @partner.accountant_address %></p>
-        <p><%= @partner.accountant_zip_code %> <%= @partner.accountant_city %></p>
-        <p>SIRET: <%= @partner.siret_number %></p>
+        <p><%= @partner.accountant_address %> <%= @partner.accountant_zip_code %> <%= @partner.accountant_city %></p>
+        <p>SIRET: <%= @partner.siret_number %> - <%= @partner.rcs_or_rm if @partner.rcs_or_rm.present? %></p>
+        <% if @partner.company_type.present? %>
+          <p><%= @partner.company_type %> <%= "au capital de #{@partner.company_capital}" if @partner.company_capital.present? %>
+        <% end %>
         <% if @booking.tva_applicable == false %>
           <p>TVA non applicable selon l'article 293B du CGI</p>
+        <% elsif @partner.tva_intra.present? %>
+          <p>TVA Intracommunautaire: <%= @partner.tva_intra %></p>
         <% end %>
       </div>
     </div>
-    <div style='margin-left:45px;margin-right:45px;'>
+    <div style="margin-bottom:35px;margin-top:25px;">
+      <p><strong>À l'attention de <%= @booking.user.fullname %></strong></p>
+    </div>
+    <div>
       <p><strong>AVOIR N° : A<%= @partner.id %>-<%= @partner.refund_invoice_number_for(@booking.id) %></strong></p>
       <p>Date de l'avoir : <%= @booking.cancelled_at.strftime("%d/%m/%Y") %></p>
       <p>Concernant la facture : F<%= @partner.id %>-<%= @partner.invoice_number_for(@booking.id) %></p>
     </div>
 
-    <table align="center" class="table" style='margin-left:45px;margin-right:45px;margin-top:40px;'>
+    <table align="center" class="table" style='margin-top:20px;'>
 
       <thead>
         <tr>
@@ -140,7 +144,7 @@
     </table>
 
     <% if (@booking.amount * @booking.refund_rate) > 0 %>
-      <table align="center" class="table" style='margin-left:45px;margin-right:45px;margin-top:60px;'>
+      <table align="center" class="table" style='margin-top:60px;'>
         <thead>
           <tr>
             <th class="bordered"><strong>Remboursement sur</strong></td>
@@ -169,16 +173,22 @@
       </table>
     <% end %>
 
+    <div style="margin-top:40px;">
+      <p>
+        Le remboursement sera effectif au plus tard dans les 14 (quatorze) jours suivant la date d'émission de cette facture d'avoir.
+      </p>
+    </div>
 
-    <div style="position:absolute;left:45px;right:45px;top:1050px">
+    <div style='margin-top:90px;'>
       <p style="font-size:15px;">
         Avoir établi au nom et pour le compte de <%= @partner.accountant_company %> par:
       </p>
     </div>
-    <div style="position:absolute;left:45px;right:45px;top:1100px">
+    <div style='margin-top:25px;'>
       <p style="font-size:15px;">Jeu de Mains</p>
       <p style="font-size:15px;">9 ter, rue Baliat, 92400 Courbevoie</p>
-      <p style="font-size:15px;">SIRET: 88449865000016</p>
+      <p style="font-size:15px;">SIRET: 88449865000016 - RCS Nanterre 884498650</p>
+      <p style="font-size:15px;">Société par Action Simplifiée au capital de 1.000 €</p>
       <p style="font-size:15px;">TVA Intracommunautaire: FR46884498650</p>
     </div>
   </body>

@@ -85,15 +85,18 @@
           <p>9 ter, rue Baliat, 92400 Courbevoie</p>
           <p>contact@jeudemains.com</p>
           <p>SIRET: 88449865000016</p>
-          <p>Enregistrée au RCS de Nanterre</p>
+          <p>RCS Nanterre 884498650</p>
+          <p>Société par Action Simplifiée au capital de 1.000 €</p>
           <p>TVA Intracommunautaire: FR46884498650</p>
         </div>
-        <div style="text-align:right;">
-          <p style="margin-bottom:35px;"><em>À l'attention de</em></p>
+        <div style="text-align:right;margin-bottom:45px;margin-right:2px;">
+          <p style="margin-bottom:30px;margin-right:1px;"><em>À l'attention de</em></p>
           <p><strong><%= @profile.accountant_company %></strong></p>
-          <p><%= @profile.accountant_address %></p>
-          <p><%= @profile.accountant_zip_code %> <%= @profile.accountant_city %></p>
-          <p>SIRET: <%= @profile.siret_number %></p>
+          <p><%= @profile.accountant_address %> <%= @profile.accountant_zip_code %> <%= @profile.accountant_city %></p>
+          <p>SIRET: <%= @profile.siret_number %> - <%= @profile.rcs_or_rm if @profile.rcs_or_rm.present? %></p>
+        <% if @profile.company_type.present? %>
+          <p><%= @profile.company_type %> <%= "au capital de #{@profile.company_capital}" if @profile.company_capital.present? %>
+        <% end %>
         </div>
         <div style='text-align:left;'>
           <p style="font-size:18px;text-transform:uppercase;"><strong>Facture des commissions du <%= DateTime.new(@year.to_i, @month.to_i, 1,0,0,0,"+02:00").strftime("%d/%m/%y") %> au <%= DateTime.new(@year.to_i, @month.to_i, @end.to_i,23,59,59,"+02:00").strftime("%d/%m/%y") %></p>
@@ -184,7 +187,7 @@
         </table>
       </div>
       <div style="margin-top:65px;">
-        <p style="font-size:14px;width:500px;line-height:1.2;font-style:italic;">Sauf incident informatique, cette facture est déjà payée grâce au Prestataire de Service de Paiements Stripe Connect utilisé par la plateforme Jeu de Mains.</p>
+        <p style="font-size:14px;width:500px;line-height:1.2;font-style:italic;">Modalités et échéance de paiement : sauf incident informatique, cette facture a déjà payée automatiquement au cours du mois via le Prestataire de Service de Paiements Stripe Connect utilisé par la plateforme Jeu de Mains.</p>
       </div>
 
       <!-- tableau de toutes les commissions du mois -->
