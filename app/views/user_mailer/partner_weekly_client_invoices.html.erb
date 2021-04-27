@@ -1,10 +1,10 @@
 <% @footer = false %>
 
 <p>Bonjour <%= @partner.user.first_name %>,</p>
-<p>Vous trouverez ci-joint vos factures & factures d'avoir clients du <%= l((Date.today - 7.days), format: '%A %d %b %Y') %> au <%= l((Date.today - 1.day), format: '%A %d %b %Y') %>. <br>
+<p>Vous trouverez ci-joint vos factures & factures d'avoir (i.e. remboursements) clients du <%= l((Date.today - 7.days), format: '%A %d %b %Y') %> au <%= l((Date.today - 1.day), format: '%A %d %b %Y') %>. <br>
 Veuillez les conserver pour votre comptabilité. <br>
 Pour rappel, vous recevez le premier de chaque mois un relevé de facturation clients du mois passé vous permettant de suivre au mieux votre comptabilité. <br>
-Enfin, vous pouvez accéder à l'état de vos transactions et tout vos relevés de facturation clients et factures mensuelles de commission Jeu de Mains dans votre espace "Mes transactions" accessible : <strong style="color:blue;text-decoration:underline;"><%= link_to "ici", transactions_profile_url(@partner) %></strong><p>
+Enfin, vous pouvez accéder à l'état de vos transactions et tout vos relevés de facturation clients et factures mensuelles de commission Jeu de Mains dans votre espace "Mes transactions" accessible : <strong style="color:#52828D;"><%= link_to "ici", transactions_profile_url(@partner) %></strong><p>
 <p>N'hésitez surtout pas si vous avez des questions sur tous ces documents.</p>
 <p>À très vite !</p>
 <p><strong>L'équipe Jeu de Mains</strong></p>

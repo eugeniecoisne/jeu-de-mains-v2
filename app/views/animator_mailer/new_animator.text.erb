@@ -1,3 +1,16 @@
-Animator#new_animator
+<% @footer = true %>
 
-<%= @greeting %>, find me in app/views/animator_mailer/new_animator.text.erb
+Félicitations, vous avez été nommé.e animateur de l'atelier <%= @animator.workshop.title %>
+Organisé par <%= @animator.workshop.place.user.profile.company %>
+<% if @animator.workshop.visio == true %>
+en visioconférence
+<% else %>
+au <%= @animator.workshop.place.address %> <%= @animator.workshop.place.zip_code %> <%= @animator.workshop.place.city %>
+lien google maps : https://www.google.fr/maps/search/<%= @animator.workshop.place.address %>, <%= @animator.workshop.place.zip_code %> <%= @animator.workshop.place.city.upcase %>
+<% end %>
+
+VOIR LA PAGE ATELIER : https://www.jeudemains.com/ateliers/<%= @animator.workshop.slug %>
+MON TABLEAU DE BORD : https://www.jeudemains.com/membres/<%= @animator.user.profile.slug %>/tableau_de_bord
+
+Si vous n'êtes pas au courant de cette collaboration, merci de nous le signaler à contact@jeudemains.com afin que nous en informions l'organisateur.
+En devenant animateur de cet atelier vous êtes au courant des inscriptions et désistements pour chaque session, chaque session s'ajoute à votre agenda et les avis collectés pour cet atelier seront affichés sur votre profil public Partenaire et intégrés à votre note publique.

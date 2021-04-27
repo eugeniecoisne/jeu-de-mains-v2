@@ -119,7 +119,7 @@
     <div class="block-grid mixed-two-up" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff; padding-top: 30px; padding-bottom: 10px;">
       <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
         <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-weight: 600; mso-line-height-alt: 21px; margin: 0;">
-          <%= link_to place_url(@animator.workshop.place), target: "_blank" do %>
+          <%= link_to profile_public_url(@animator.workshop.place.user.profile), target: "_blank" do %>
             Organisé par <%= @animator.workshop.place.user.profile.company %>
           <% end %>
         </p>
@@ -199,14 +199,10 @@
       <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
         <div style="width:100% !important;">
           <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
-            <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
-              <tbody>
-                <tr style="vertical-align: top;" valign="top">
-                  <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 25px; padding-right: 25px; padding-bottom: 25px; padding-left: 25px;" valign="top">
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <p class="mobile-align-center" style="font-size: 13px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 21px; margin-top:10px;margin-bottom:30px;">
+              Si vous n'êtes pas au courant de cette collaboration, merci de nous le signaler à contact@jeudemains.com afin que nous en informions l'organisateur. <br>
+              En devenant animateur de cet atelier vous êtes au courant des inscriptions et désistements pour chaque session, chaque session s'ajoute à votre agenda et les avis collectés pour cet atelier seront affichés sur votre profil public Partenaire et intégrés à votre note publique.
+            </p>
 
             <!-- LINE -->
 

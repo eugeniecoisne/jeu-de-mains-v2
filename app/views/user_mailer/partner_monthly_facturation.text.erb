@@ -1,0 +1,18 @@
+<% @footer = false %>
+
+Bonjour <%= @user.first_name %>,
+
+Veuillez trouver ci-joint :
+
+• Votre facture de commissions Jeu de Mains de ce mois
+• Votre relevé mensuel de facturation clients de ce mois
+
+Tout est déjà réglé automatiquement grâce à notre partenaire Stripe Connect qui distribue les flux de transactions.
+Retrouvez toutes vos transactions, vos suivis de facturation clients et vos anciennes factures de commissions Jeu de Mains dans votre espace Mes Transactions :
+https://www.jeudemains.com/membres/<%= @user.profile.slug %>/transactions
+
+N'hésitez surtout pas si vous avez des questions, une réclamation ou souhaitez convenir d'un appel téléphonique !
+À très vite !
+L'équipe Jeu de Mains
+
+https://www.jeudemains.com

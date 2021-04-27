@@ -1,3 +1,16 @@
-<h1>Bonjour, relevé de factu et fact de commission</h1>
+<% @footer = false %>
 
-<p>Faire un if else si il y a eu ou pas des opérations. Pas de PJ si pas de transactions du tout ce mois-ci.</p>
+<p>Bonjour <%= @user.first_name %>,</p>
+
+<p>Veuillez trouver ci-joint :</p>
+<ul>
+  <li>Votre <strong>facture de commissions Jeu de Mains</strong> de ce mois</li>
+  <li>Votre <strong>relevé mensuel de facturation clients</strong> de ce mois</li>
+</ul>
+<p>Tout est déjà réglé automatiquement grâce à notre partenaire Stripe Connect qui distribue les flux de transactions. <br>
+Retrouvez toutes vos transactions, vos suivis de facturation clients et vos anciennes factures de commissions Jeu de Mains dans votre espace <strong><%= link_to "Mes Transactions", transactions_profile_url(@user.profile), target: "_blank" %></strong>.</p>
+<p>N'hésitez surtout pas si vous avez des questions, une réclamation ou souhaitez convenir d'un appel téléphonique !</p>
+<p>À très vite !</p>
+<p>L'équipe Jeu de Mains</p>
+<br>
+<img alt="jeu de mains" src="https://res.cloudinary.com/jeudemains/image/upload/v1602490393/logo-bleu-fonce-jeu-de-mains.png" style="height: auto; width: 100%; max-width: 120px;" title="jeu de mains" width="120"/>

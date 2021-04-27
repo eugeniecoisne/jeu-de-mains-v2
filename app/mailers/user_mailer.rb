@@ -139,14 +139,16 @@ class UserMailer < ApplicationMailer
       attachments["facture-P-#{Array.new((6-(@fee_invoice.id.to_s.size)), "0").join('')}#{@fee_invoice.id}"] = WickedPdf.new.pdf_from_string(
       render_to_string(template: 'profiles/releve_de_commissions.pdf.erb', locals: {profile: @profile, commission_bookings: @commission_bookings, month: @month, year: @year, end: @end})
       )
+
+      mail(from: 'contact@jeudemains.com',
+        to: @user.email,
+        bcc: 'eugenie@jeudemains.com',
+        subject: "Votre facture de commissions et votre relevé de facturation clients du mois de #{l((Date.today - 10.days), format: "%B %Y")}",
+        track_opens: 'true',
+        message_stream: 'outbound')
+
     end
 
-    mail(from: 'contact@jeudemains.com',
-      to: @user.email,
-      bcc: 'eugenie@jeudemains.com',
-      subject: "Facture de commission et relevé de facturation clients du mois de #{l((Date.today - 10.days), format: "%B %Y")}",
-      track_opens: 'true',
-      message_stream: 'outbound')
 
   end
 end

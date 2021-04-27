@@ -1,0 +1,31 @@
+<% @footer = false %>
+
+Demande de devis offre entreprise
+
+<% if @entreprise[:company].present? %>
+Entreprise : <%= @entreprise[:company] %>
+<% end %>
+<% if @entreprise[:email].present? %>
+Email : <%= @entreprise[:email] %>
+<% end %>
+<% if @entreprise[:phone_number].present? %>
+Téléphone : <%= @entreprise[:phone_number] %>
+<% end %>
+<% if @entreprise[:date].present? %>
+Date de l'événement / team building : <%= @entreprise[:date] %>
+<% end %>
+<% if @entreprise[:participants].present? %>
+Nombre de participants : <%= @entreprise[:participants] %>
+<% end %>
+<% if @entreprise[:type].present? %>
+Présentiel ou à distance : <%= @entreprise[:type] %>
+<% end %>
+<% if @entreprise[:thematics].present? %>
+Thématiques envisagées : <% @entreprise[:thematics].each do |t| %><%= "#{t}, " %><% end %>
+<% end %>
+<% if @entreprise[:message].present? %>
+Complément d'informations : <%= @entreprise[:message] %>
+<% end %>
+
+
+
