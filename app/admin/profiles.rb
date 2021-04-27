@@ -1,7 +1,7 @@
 ActiveAdmin.register Profile do
   menu parent: "Fiches"
   config.per_page = 50
-  permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :fee, :legal_mention, :tva_applicable, :photo
+  permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :fee, :legal_mention, :tva_applicable, :tva_intra, :company_type, :company_capital, :rcs_or_rm, :photo
   PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name} #{u.id}", u.id] }.to_h
 
   controller do
@@ -53,6 +53,10 @@ ActiveAdmin.register Profile do
     column :accountant_city
     column :accountant_phone_number
     column :legal_mention
+    column :tva_intra
+    column :rcs_or_rm
+    column :company_type
+    column :company_capital
   end
 
   # CSV
@@ -90,6 +94,10 @@ ActiveAdmin.register Profile do
     column :accountant_city
     column :accountant_phone_number
     column :legal_mention
+    column :tva_intra
+    column :rcs_or_rm
+    column :company_type
+    column :company_capital
   end
 
   show :title => :company do
@@ -131,6 +139,10 @@ ActiveAdmin.register Profile do
       row :updated_at
       row :slug
       row :legal_mention
+      row :tva_intra
+      row :rcs_or_rm
+      row :company_type
+      row :company_capital
       row "Envoyer e-mail demande de derniers docs partenaire" do
         link_to "Envoyer e-mail demande de derniers docs partenaire", "#{send_finalisation_partner_email_profile_path(profile)}", target: "_blank"
       end
@@ -279,25 +291,29 @@ ActiveAdmin.register Profile do
   end
 
   form do |f|
-    f.inputs "Utilisateur, nom d'entreprise et rôle" do
+    f.inputs "Utilisateur, infos légales d'entreprise et rôle" do
       f.input :user, collection: PROFILE_USERS, value: :user
-      f.input :company
-      f.input :accountant_company
+      f.input :company, hint: "Nom de la société affiché sur la plateforme"
+      f.input :accountant_company, hint: "Nom de la société telle qu'écrite sur le KBIS"
       f.input :siret_number
-      f.input :tva_applicable
+      f.input :tva_applicable, hint: "Vérifier si le partenaire est redevable de la TVA ou exonéré"
+      f.input :tva_intra, hint: "Ne remplir que si la case précédente est cochée"
+      f.input :company_type, hint: "SAS, SARL, EURL, etc - Ne remplir que si c'est une société (pas auto entrepreneur ou entreprise individuelle)"
+      f.input :company_capital, hint: "Exemple : 1.000 €, bien indiquer points entre milliers et le symbole €"
+      f.input :rcs_or_rm, hint: "Format d'écriture : RCS [Ville] [Numéro] ou RM [Ville] [Numéro]"
       f.input :role, collection: Profile::ROLES, value: :role
     end
     f.inputs "Adresse & coordonnées comptables" do
       f.input :accountant_address
       f.input :accountant_zip_code
       f.input :accountant_city
-      f.input :accountant_phone_number
+      f.input :accountant_phone_number, hint: "Numéro uniquement utilisé avec Jeu de Mains"
     end
     f.inputs "Adresse & coordonnées publiques" do
       f.input :address
       f.input :zip_code
       f.input :city
-      f.input :phone_number
+      f.input :phone_number, hint: "Numéro affiché publiquement"
     end
     f.inputs "Sites web" do
       f.input :website
@@ -308,14 +324,14 @@ ActiveAdmin.register Profile do
       f.input :photo, as: :file, input_html: { accept: "image/*"}
     end
     f.inputs "Commission" do
-      f.input :fee
+      f.input :fee, hint: "Commission négociée dans le contrat : sous forme 0.X"
     end
     f.inputs "Statut" do
       f.input :db_status, as: :boolean
-      f.input :ready, as: :boolean
+      f.input :ready, as: :boolean, hint: "Prêt à être mis en ligne, à cocher une fois tout le profil intégralement complété"
     end
     f.inputs "Mention légale page partenaire" do
-      f.input :legal_mention
+      f.input :legal_mention, hint: "Exemple, reprendre et adapter : Société XXXXX, SARL, immatriculée au registre du commerce et des sociétés de PARIS sous le numéro 823 975 529, TVA intracommunautaire FR36823975529, sous contrat d'assurance auprès de AXA Assurances à Paris."
     end
     f.actions
   end

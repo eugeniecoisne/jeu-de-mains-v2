@@ -81,6 +81,10 @@ fr:
         created_at: Créé le
         updated_at: Modifié le
         fee: Commission JDM
+        tva_intra: TVA intracommunautaire
+        company_type: Forme juridique
+        company_capital: Capital social
+        rcs_or_rm: Immatriculation RCS / RM
       place:
         name: Nom du lieu
         address: Adresse postale
