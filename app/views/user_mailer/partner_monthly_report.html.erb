@@ -60,7 +60,7 @@
                     <span style="color: #1C1C1C; font-size: 15px;">
                       Bonjour <%= @user.profile.company %>, voici votre bilan mensuel du mois de <%= l(@start_last_month, format: '%B') %>.
                       Rendez-vous sur votre <strong style="color:#52828D"><%= link_to "tableau de bord", tableau_de_bord_profile_url(@user.profile), target: "_blank" %></strong>
-                      dans les rubriques mes chiffres clés et mes transactions pour plus d'informations !</p>
+                      et votre espace <strong style="color:#52828D"><%= link_to "mes transactions", transactions_profile_url(@user.profile), target: "_blank" %></strong> pour plus d'informations !</p>
                     </span>
                   </p>
                 </div>
@@ -94,7 +94,7 @@
                   <%= @success_organized_and_animated_bookings.present? ? @success_organized_and_animated_bookings.count : 0 %>
                 </p>
                 <p style="font-size: 15px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
-                  <strong>nouvelles réservations</strong><br> pour des ateliers organisés et / ou animés par vous
+                  <strong>nouvelle.s réservation.s</strong><br> pour des ateliers organisés et / ou animés par vous
                 </p>
               </div>
 
@@ -103,7 +103,7 @@
                   <%= @refund_organized_and_animated_bookings.present? ? @refund_organized_and_animated_bookings.count : 0 %>
                 </p>
                 <p style="font-size: 15px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
-                  <strong>nouvelles annulations</strong><br> pour des ateliers organisés et / ou animés par vous
+                  <strong>nouvelle.s annulation.s</strong><br> pour des ateliers organisés et / ou animés par vous
                 </p>
               </div>
 
@@ -112,7 +112,7 @@
                   <%= @reviews.count %>
                 </p>
                 <p style="font-size: 15px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
-                  <strong>nouveaux avis reçus</strong><br>
+                  <strong>nouveau.x avis reçu.s</strong><br>
                   <%= "avec une moyenne de ces avis de #{(@reviews.sum { |r| r.rating } / @reviews.count).round(2)} / 5" if @reviews.count > 0 %>
                 </p>
               </div>
@@ -131,7 +131,7 @@
                   <%= @success_organized_bookings.present? ? @success_organized_bookings.count : 0 %>
                 </p>
                 <p style="font-size: 15px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
-                  <strong>nouvelles réservations</strong><br> pour des ateliers que vous organisez
+                  <strong>nouvelle.s réservation.s</strong><br> pour des ateliers que vous organisez
                 </p>
               </div>
 
@@ -140,7 +140,7 @@
                   <%= @refund_organized_bookings.present? ? @refund_organized_bookings.count : 0 %>
                 </p>
                 <p style="font-size: 15px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
-                  <strong>nouvelles annulations</strong><br> pour des ateliers que vous organisez
+                  <strong>nouvelle.s annulation.s</strong><br> pour des ateliers que vous organisez
                 </p>
               </div>
 
@@ -174,14 +174,14 @@
                   <% end %>
                 </p>
                 <p style="font-size: 14px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
-                  <strong>TTC</strong> perçus ce mois-ci pour les réservations des ateliers que vous organisez
+                  <strong>TTC</strong> perçus ce mois-ci pour les réservations des ateliers que vous organisez avant déduction des éventuels remboursements
                 </p>
               </div>
 
               <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:20px;">
                 <p style="font-size: 18px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
                   <% if @refund_organized_bookings.present? %>
-                    - <%= @refund_organized_bookings.sum { |b| b.amount * (b.refund_rate * (1 - b.fee)).round(2)} %> <span style="font-size:14px;">€*</span>
+                    - <%= @refund_organized_bookings.sum { |b| (b.amount * b.refund_rate * (1 - b.fee)).round(2)} %> <span style="font-size:14px;">€*</span>
                   <% else %>
                     0 <span style="font-size:14px;">€*</span>
                   <% end %>

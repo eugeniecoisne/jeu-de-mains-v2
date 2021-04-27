@@ -3,7 +3,7 @@ class WeeklySendPartnerClientInvoicesJob < ApplicationJob
 
   def perform
 
-    Profile.all.where(db_status: true).select { |p| p.role.present? }.each do |p|
+    Profile.all.where(db_status: true).select { |p| p.role.present? && p.ready == true }.each do |p|
       @refunded_bookings = []
       @new_bookings = []
       Booking.all.where(db_status: true).select { |b| b.status == "paid" || b.status == "refunded"}.select { |b| b.session.workshop.place.user.profile == p }.each do |b|

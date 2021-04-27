@@ -1,0 +1,79 @@
+<% @footer = true %>
+
+Votre bilan du mois de <%= l(@start_last_month, format: '%B') %>
+
+Bonjour <%= @user.profile.company %>, voici votre bilan mensuel du mois de <%= l(@start_last_month, format: '%B') %>.
+
+Rendez-vous sur votre tableau de bord : https://www.jeudemains.com/membres/<%= @user.profile.slug %>/tableau_de_bord
+et votre espace mes transactions : https://www.jeudemains.com/membres/<%= @user.profile.slug %>/transactions
+pour plus d'informations !
+
+-------------------------------
+
+Vos ateliers organisés et / ou animés :
+
+<%= @success_organized_and_animated_bookings.present? ? @success_organized_and_animated_bookings.count : 0 %> nouvelle.s réservation.s pour des ateliers organisés et / ou animés par vous
+<%= @refund_organized_and_animated_bookings.present? ? @refund_organized_and_animated_bookings.count : 0 %> nouvelle.s annulation.s pour des ateliers organisés et / ou animés par vous
+<%= @reviews.count %> nouveau.x avis reçu.s <%= "avec une moyenne de ces avis de #{(@reviews.sum { |r| r.rating } / @reviews.count).round(2)} / 5" if @reviews.count > 0 %>
+
+-------------------------------
+
+Vos ateliers organisés
+
+<%= @success_organized_bookings.present? ? @success_organized_bookings.count : 0 %> nouvelle.s réservation.s pour des ateliers que vous organisez
+<%= @refund_organized_bookings.present? ? @refund_organized_bookings.count : 0 %> nouvelle.s annulation.s pour des ateliers que vous organisez
+
+<% if @success_organized_bookings.present? && @refund_organized_bookings.present? %>
+<%= ((@success_organized_bookings.sum { |b| b.amount * (1 - b.fee)}) - (@refund_organized_bookings.sum { |b| b.amount * b.refund_rate * (1 - b.fee)})).round(2) %> €*
+<% elsif @success_organized_bookings.present? %>
+<%= @success_organized_bookings.sum { |b| b.amount * (1 - b.fee)}.round(2) %> €*
+<% elsif @refund_organized_bookings.present? %>
+<%= 0 - @refund_organized_bookings.sum { |b| b.amount * b.refund_rate * (1 - b.fee)}.round(2) %> €*
+<% else %>
+0 €*
+<% end %>
+TTC perçus ce mois-ci pour les ateliers que vous organisez après soustraction des remboursements
+
+
+<% if @success_organized_bookings.present? %>
+<%= @success_organized_bookings.sum { |b| (b.amount * (1 - b.fee)).round(2)} %> €*
+<% else %>
+0 €*
+<% end %>
+TTC perçus ce mois-ci pour les réservations des ateliers que vous organisez avant déduction des éventuels remboursements
+
+<% if @refund_organized_bookings.present? %>
+- <%= @refund_organized_bookings.sum { |b| (b.amount * b.refund_rate * (1 - b.fee)).round(2)} %> €*
+<% else %>
+0 €*
+<% end %>
+TTC remboursés ce mois-ci pour les annulations de réservations d'ateliers que vous organisez
+
+<% if @refund_organized_bookings.present? %>
+<%= @refund_organized_bookings.select { |b| b.refund_rate == 1}.count %>
+<% else %>
+0
+<% end %>
+annulation.s remboursée.s sur une base de 100%
+
+<% if @refund_organized_bookings.present? %>
+<%= @refund_organized_bookings.select { |b| b.refund_rate == 0.5}.count %>
+<% else %>
+0
+<% end %>
+annulation.s remboursée.s sur une base de 50%
+
+<% if @refund_organized_bookings.present? %>
+<%= @refund_organized_bookings.select { |b| b.refund_rate == 0}.count %>
+<% else %>
+0
+<% end %>
+annulation.s non remboursée.s (taux 0%)
+
+
+*Commission Jeu de Mains déjà déduite
+
+
+Vous avez une question à nous poser ?
+Vous pouvez nous écrire directement en réponse à cet e-mail !
+À bientôt, l'équipe Jeu de Mains.

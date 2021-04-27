@@ -1,0 +1,12 @@
+<% @footer = false %>
+
+Message reçu ce jour par le formulaire de contact :
+
+Nom : <%= @contact[:last_name] if @contact[:last_name].present? %>
+
+Prénom : <%= @contact[:first_name] if @contact[:first_name].present? %>
+
+E-mail : <%= @email %>
+
+Message : <%= @contact[:message] %>
+
