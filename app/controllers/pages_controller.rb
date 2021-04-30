@@ -260,7 +260,8 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "cgv-jdm-#{Date.today.strftime("%d-%m-%y")}"
+        render pdf: "cgv-jdm-#{Date.today.strftime("%d-%m-%y")}",
+                margin:  { top:15,bottom:15,left:15,right:15}
       end
     end
   end
