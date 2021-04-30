@@ -13,7 +13,7 @@ class Place < ApplicationRecord
 
   BIG_CITIES = {
     "06" => "Nice",
-    "13" => "Marseille",
+    "13" => "Marseille / Aix",
     "21" => "Dijon",
     "31" => "Toulouse",
     "33" => "Bordeaux",
