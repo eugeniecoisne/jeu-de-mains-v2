@@ -1,0 +1,32 @@
+<% @footer = true %>
+
+Votre kit créatif est en route !
+
+Bonne nouvelle, <%= @booking.session.workshop.place.user.profile.company %> vous informe que votre kit créatif pour l'atelier <%= @booking.session.workshop.title %> a bien été expédié ! Vous le recevrez d'ici quelques jours.
+
+<% if @booking.kit_expedition_link.present? %>
+Suivre mon colis en cliquant sur le lien suivant : <%= @booking.kit_expedition_link %>
+<% end %>
+
+Atelier : https://www.jeudemains.com/ateliers/<%= @booking.session.workshop.slug%>
+<% if @booking.session.start_date == @booking.session.end_date %>
+Le <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>
+<% else %>
+Du <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %>
+Au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %>
+<% end %>
+Organisé par <%= @booking.session.workshop.place.user.profile.company %>
+En visioconférence avec kit
+Contact : <%= @booking.session.workshop.place.phone_number %>
+<% if @booking.session.workshop.animators.where(db_status: true).present? %>
+Animé par <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %>
+<% end %>
+Quantité : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %>
+
+-------------------------------------------
+
+VOIR MA RÉSERVATION : https://www.jeudemains.com/membres/<%= @booking.user.profile.id %>/tableau_de_bord
+
+Vous recevez cet e-mail dans le cadre de votre réservation.
+Votre réservation est confirmée et le paiement est validé.
+Vous pouvez la reporter ou demander le remboursement intégral jusqu’à 7 jours avant l’Atelier, vous pouvez ensuite demander le remboursement partiel à 50% jusqu’à 24 heures avant l’Atelier. Toute demande de remboursement ou report dans les 24 heures avant l’Atelier ne sera pas prise en compte. Pour plus d’informations, lire nos Conditions Générales d'Utilisation et de Vente.

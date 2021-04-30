@@ -1,3 +1,60 @@
-Booking#new_booking_btoc
+<% @footer = true %>
 
-<%= @greeting %>, find me in app/views/booking_mailer/new_booking_btoc.text.erb
+Merci pour votre réservation !
+
+Bonne nouvelle, nous vous confirmons votre réservation pour l'atelier <%= @booking.session.workshop.title %> <%= "en visio" if @booking.session.workshop.visio == true %> !
+<%= "Vous recevrez votre kit par voie postale en amont de l'atelier, un e-mail vous sera envoyé pour vous prévenir une fois le kit expédié par l'organisateur. Le prix du kit et les frais de livraison de #{@booking.session.workshop.kit_shipping_price} euros ttc sont inclus dans le montant global de la réservation." if @booking.session.workshop.kit == true %>
+
+Voici le détail de votre réservation :
+
+Atelier : https://www.jeudemains.com/ateliers/<%= @booking.session.workshop.slug%>
+<% if @booking.session.start_date == @booking.session.end_date %>
+Le <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>
+<% else %>
+Du <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %>
+Au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %>
+<% end %>
+Organisé par <%= @booking.session.workshop.place.user.profile.company %>
+<% if @booking.session.workshop.visio == true %>
+En visioconférence<%= " avec kit" if @booking.session.workshop.kit == true %>
+<% else %>
+Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %>
+<% end %>
+Contact : <%= @booking.session.workshop.place.phone_number %>
+<% if @booking.session.workshop.animators.where(db_status: true).present? %>
+Animé par <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %>
+<% end %>
+Quantité : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %>
+
+<% if @booking.session.workshop.visio_with_kit? %>
+------------------------------------------
+
+Mes coordonnées postales transmises pour le kit :
+Nom : <%= @booking.user.last_name %>
+Prénom : <%= @booking.user.first_name %>
+Adresse : <%= @booking.address %>
+<% if @booking.address_complement.present? %>
+  Complément d'adresse : <%= @booking.address_complement %>
+<% end %>
+Code postal : <%= @booking.zip_code %>
+Ville : <%= @booking.city %>
+<% end %>
+
+------------------------------------------
+
+DÉTAILS RÉSERVATION N°<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %>
+
+Prix unitaire <%= @booking.workshop_unit_price %>€ x <%= @booking.quantity %> = <%= @booking.workshop_unit_price * @booking.quantity %> € TTC
+<% if @booking.giftcard_amount_spent.present? %>
+  Carte cadeau = - <%= @booking.giftcard_amount_spent %> € TTC
+<% end %>
+TOTAL PAYÉ = <%= @booking.giftcard_amount_spent.present? ? ((@booking.workshop_unit_price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount %> € TTC
+
+------------------------------------------
+
+GÉRER MA RÉSERVATION : https://www.jeudemains.com/membres/<%= @booking.user.profile.id %>/tableau_de_bord
+
+Vous recevez cet e-mail dans le cadre de votre réservation.
+Votre réservation est confirmée et le paiement est validé.
+Vous pouvez la reporter ou demander le remboursement intégral jusqu’à <%= @booking.session.workshop.kit == true ? "7 jours" : "72 heures" %> avant l’Atelier, vous pouvez ensuite demander le remboursement partiel à 50% jusqu’à 24 heures avant l’Atelier. Toute demande de remboursement ou report dans les 24 heures avant l’Atelier ne sera pas prise en compte. Pour plus d’informations, lire nos Conditions Générales d'Utilisation et de Vente.
+

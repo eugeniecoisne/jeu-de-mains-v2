@@ -1,0 +1,49 @@
+<% @footer = true %>
+
+Vous avez un report de réservation
+
+Nous vous informons que <%= @booking.user.first_name %> <%= @booking.user.last_name.first %>. a reporté sa réservation pour l'atelier <%= @booking.session.workshop.title %> au <%= @booking.session.start_date.strftime("%d/%m/%y") %>.
+La réservation comprend <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %>.
+
+Atelier : https://www.jeudemains.com/ateliers/<%= @booking.session.workshop.slug%>
+Organisé par <%= @booking.session.workshop.place.user.profile.company %>
+<% if @booking.session.workshop.visio == true %>
+En visioconférence<%= " avec kit" if @booking.session.workshop.kit == true %>
+<% else %>
+Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %>
+<% end %>
+Contact : <%= @booking.session.workshop.place.phone_number %>
+<% if @booking.session.workshop.animators.where(db_status: true).present? %>
+Animé par <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %>
+<% end %>
+Quantité : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %>
+
+-----------------------------------------
+
+Nouvelle date :
+<% if @booking.session.start_date == @booking.session.end_date %>
+<%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>
+<% else %>
+<%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %> au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %>
+<% end %>
+------
+Vous avez à present <%= @booking.session.bookings.where(db_status: true, status: "paid").map { |booking| booking.quantity }.sum %> participant(s) sur <%= @booking.session.capacity %> places proposées pour cette session.
+
+
+Ancienne date :
+<% if Session.find(@old_session_id).start_date == Session.find(@old_session_id).end_date %>
+<%= l(Session.find(@old_session_id).start_date, format: '%A %d %b %Y') %> de <%= Session.find(@old_session_id).start_time %> à <%= Session.find(@old_session_id).end_time %>
+<% else %>
+<%= l(Session.find(@old_session_id).start_date, format: '%A %d %b %Y') %> à <%= Session.find(@old_session_id).start_time %> au <%= l(Session.find(@old_session_id).end_date, format: '%A %d %b %Y') %> à <%= Session.find(@old_session_id).end_time %>
+<% end %>
+------
+<% if Session.find(@old_session_id).db_status == false && Session.find(@old_session_id).reason.present? %>
+Vous avez annulé cette session
+<% else %>
+Vous avez à présent <%= Session.find(@old_session_id).bookings.where(db_status: true, status: "paid").map { |booking| booking.quantity }.sum %> participant(s) sur <%= Session.find(@old_session_id).capacity %> places proposées pour cette session.
+<% end %>
+
+-----------------------------------------
+
+GÉRER MES SESSIONS : https://www.jeudemains.com/ateliers/<%= @booking.session.workshop.slug %>/sessions
+

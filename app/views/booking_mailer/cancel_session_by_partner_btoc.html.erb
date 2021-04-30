@@ -1,10 +1,211 @@
-<h1>Annulation de votre atelier <%= @booking.session.workshop.title %> du
-  <% if @booking.session.start_date == @booking.session.end_date %>
-    <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>
-  <% else %>
-    <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %> au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %>
-  <% end %>
-  par l'organisateur</h1>
-<h2>Motif : <%= @booking.session.reason %></h2>
-<h2>Vous pouvez choisir une nouvelle date ou demander le remboursement en cliquant sur le bouton :</h2>
-<%= link_to "Report ou remboursement", booking_report_or_refund_url(@booking) %>
+<% @footer = true %>
+<!-- LOGO -->
+
+<div style="background-color:#fff;">
+  <div class="block-grid" style="margin: 0 auto; margin-top: 40px; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+      <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+        <div style="width:100% !important;">
+          <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+            <div align="center" class="img-container center fixedwidth" style="padding-right: 0px;padding-left: 0px;">
+              <div style="font-size:1px;line-height:22px">
+              </div>
+              <img align="center" alt="Jeu de Mains" border="0" class="center fixedwidth" src="https://res.cloudinary.com/jeudemains/image/upload/v1602490393/logo-bleu-jeu-de-mains.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 160px; display: block;" title="Jeu de Mains" width="160"/>
+              <div style="font-size:1px;line-height:25px"> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TITLE -->
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 30px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- TITLE -->
+
+              <div style="color:#527776;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.2;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
+                <div style="line-height: 1.2; font-size: 12px; color: #527776; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14px;">
+                  <p style="font-size: 23px; font-weight:600; line-height: 1.2; text-align: center; word-break: break-word; mso-line-height-alt: 29px; margin: 0;">
+                    <span style="font-size: 23px; font-weight:600;">
+                      <span style="color: #2b303a;">
+                        Votre atelier a été annulé par l'organisateur
+                      </span>
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- INTRO -->
+
+              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
+                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                  <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
+                    <span style="color: #1C1C1C; font-size: 15px;">
+                      Votre atelier <strong><%= link_to @booking.session.workshop.title, workshop_url(@booking.session.workshop), target: "_blank" %></strong>
+                      <% if @booking.session.start_date == @booking.session.end_date %>
+                        du <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>
+                      <% else %>
+                        du <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %> au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %>
+                      <% end %>
+                      vient malheureusement d'être annulé par l'organisateur. <br>
+                      <%= @booking.session.workshop.place.user.profile.company %> vous présente ses excuses et vous a laissé un message pour vous expliquer le motif cette annulation :
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px;" valign="top">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINE & WHITE SPACE -->
+
+  <div style="background-color:#ffffff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #ffffff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#ffffff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 30px; padding-left: 30px;">
+
+              <div style="color:#1C1C1C;background-color:#90c1ca;border-radius:2px;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:25px;padding-right:40px;padding-bottom:25px;padding-left:40px;">
+                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                  <p style="font-size: 15px; font-weight:500; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
+                    <span style="color: #fff; font-size: 15px;">
+                      "<%= @booking.session.reason %>"
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- WHITE SPACE -->
+
+              <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
+                <tbody>
+                  <tr style="vertical-align: top;" valign="top">
+                    <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 25px; padding-right: 25px; padding-bottom: 25px; padding-left: 25px;" valign="top">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKSHOP IMAGE -->
+
+  <div style="background-color:#ffffff;">
+    <div class="block-grid mixed-two-up" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div align="center" class="img-container center fixedwidth" style="padding-right: 0px;padding-left: 0px;">
+        <!-- MESSAGE USER IMAGE -->
+          <%= link_to workshop_url(@booking.session.workshop), target: "_blank" do %>
+            <% if @booking.session.workshop.photos.attached? %>
+              <%= cl_image_tag @booking.session.workshop.photos[0].key, alt: "jeu-de-mains-#{@booking.session.workshop.title}", title: "jeu-de-mains-#{@booking.session.workshop.title}", loading: "lazy", width: 200, height: 200, crop: :fill, border: "0", class: "left fixedwidth", style: "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 200px; border-radius: 5px; display: block;" %>
+            <% else %>
+              <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :alt => "jeu-de-mains-#{@booking.session.workshop.title}", :title => "jeu-de-mains-#{@booking.session.workshop.title}", :loading => "lazy", :width => 200, :height => 200, :crop => :fill, :border => "0", :class => "left fixedwidth", :style => "text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border-radius: 5px; border: 0; width: 100%; max-width: 200px; display: block;") %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div style="background-color:#fff;">
+    <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+          <div style="width:100% !important;">
+            <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:30px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
+                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
+                  <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
+                    <span style="color: #1C1C1C; font-size: 15px;">
+                      Vous pouvez choisir une nouvelle date ou demander le remboursement intégral en cliquant sur "Report ou remboursement" ci-dessous :
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+    <div style="background-color:#fff;">
+      <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+        <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+          <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+            <div style="width:100% !important;">
+              <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+
+                <!-- CALL TO ACTION - New date or refund -->
+
+                <div align="center" class="button-container" style="padding-top:25px;padding-right:10px;padding-bottom:15px;padding-left:10px;">
+                  <%= link_to booking_report_or_refund_url(@booking), style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #fff; background-color: #52828D; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
+                    <span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
+                      <span style="font-size: 14px; line-height: 2; word-break: break-word; color: #fff; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 32px;">
+                        <strong>REPORT OU REMBOURSEMENT</strong>
+                      </span>
+                    </span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+  <div style="background-color:#ffffff;">
+    <div class="block-grid mixed-two-up" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff; padding-top: 10px;padding-bottom:10px;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <p class="mobile-align-center" style="font-size: 12px; font-weight:500; line-height: 1.5; margin-bottom: 10px;text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 21px;">
+          Vous recevez cet e-mail dans le cadre de votre réservation.
+          Vous avez le choix entre le report à une nouvelle date d'Atelier ou le remboursement intégral de votre réservation.
+          En cas de remboursement, conformément aux <strong style="color:#52828D;"><%= link_to "Conditions Générales d'Utilisation et de Vente", cgv_url, target: "_blank" %></strong>, nous vous remboursons les sommes versées lors de la réservation de l’Atelier dans les meilleurs délais et au plus tard dans les 14 (quatorze) jours. Le remboursement se fera sur le même moyen de paiement que celui utilisé pour votre transaction initiale. En cas d’annulation d’une réservation réglée en tout ou partie avec la Carte Cadeau, le remboursement sera effectué sur la Carte Cadeau qui sera automatiquement re-créditée, dans la limite de la somme initialement réglée par ce même moyen de paiement. Dans le cas où la durée de validité de la Carte Cadeau aurait expiré, la Carte Cadeau sera réactivée pour une durée de un (1) mois.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+

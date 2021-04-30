@@ -358,19 +358,6 @@
                   </tr>
                 </tbody>
               </table>
-
-              <!-- CONDITIONS -->
-
-              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:35px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
-                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
-                  <p style="font-size: 13px; line-height: 1.5; word-break: break-word; text-align: center; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 20px; mso-ansi-font-size: 14px; margin: 0;">
-                    <span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">
-                    Lorem ipsum mention légale informations d'annulation remboursement carte bleue etc, dans un délai de X jours
-                  </span>
-                </p>
-                </div>
-              </div>
-
             </div>
           </div>
         </div>
@@ -399,6 +386,22 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background-color:#ffffff;">
+    <div class="block-grid mixed-two-up" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff; padding-top: 10px;padding-bottom:10px;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <p class="mobile-align-center" style="font-size: 12px; font-weight:500; line-height: 1.5; margin-bottom: 10px;text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 21px;">
+          *Conformément aux conditions de remboursement des Conditions Générales d'Utilisation et de Vente de Jeu de Mains.
+          Vous recevez cet e-mail dans le cadre de votre réservation. <br>
+          <% if @booking.refund_rate > 0 %>
+            Vous avez procédé à l’annulation de votre réservation avec un taux de remboursement de <%= (@booking.refund_rate * 100).round %>%. Conformément aux CGV, nous vous remboursons les sommes versées lors de la réservation de l’Atelier dans les meilleurs délais et au plus tard dans les 14 (quatorze) jours. Le remboursement se fera sur le même moyen de paiement que celui utilisé pour votre transaction initiale. En cas d’annulation d’une réservation réglée en tout ou partie avec la Carte Cadeau, le remboursement sera effectué sur la Carte Cadeau qui sera automatiquement re-créditée, dans la limite de la somme initialement réglée par ce même moyen de paiement. Dans le cas où la durée de validité de la Carte Cadeau aurait expiré, la Carte Cadeau sera réactivée pour une durée de un (1) mois.
+          <% else %>
+            Vous avez procédé à l’annulation de votre réservation. Conformément aux <strong style="color:#52828D;"><%= link_to "Conditions Générales d'Utilisation et de Vente", cgv_url, target: "_blank" %></strong>, Article 11.2, votre annulation ayant lieu moins de 24 heures avant l’Atelier, vous ne bénéficiez d’aucun remboursement. Pour toute réclamation, contactez le service client contact@jeudemains.com .
+          <% end %>
+        </p>
       </div>
     </div>
   </div>

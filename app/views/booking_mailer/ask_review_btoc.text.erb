@@ -1,0 +1,20 @@
+<% @footer = true %>
+
+Nous aimerions connaître votre avis !
+
+Donnez-nous votre avis au sujet de l'atelier <%= @booking.session.workshop.title %> auquel vous avez participé le <%= l(@booking.session.start_date, format: '%A %d %B %Y') %> !
+Votre avis pourra nous aider à améliorer nos services et sera aussi très utile pour partager votre expérience avec les utilisateurs de notre site.
+
+★★★★★ Très bien
+★★★★ Bien
+★★★ Moyen
+★★ Mauvais
+★ Très mauvais
+
+DONNER MON AVIS : https://www.jeudemains.com/reservations/<%= @booking.id %>/avis/new
+
+
+Votre avis sera publié avec votre prénom et la première lettre de votre nom de famille et conformément aux Conditions Générales d'Utilisation et de Vente de Jeu de Mains :
+Article 10.1. [...] Tout avis sera publié et conservé pour la durée pendant laquelle le Partenaire est présent sur la Plateforme. Par ailleurs, tout auteur d’un avis peut supprimer celui-ci via son Compte Utilisateur.
+Article 10.2. [...] Les avis sont classés, sur l’Annonce de l’Atelier concerné, par ordre chronologique, du plus récent au plus ancien.
+

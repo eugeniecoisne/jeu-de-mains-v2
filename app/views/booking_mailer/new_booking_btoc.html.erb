@@ -58,7 +58,7 @@
                   <p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;">
                     <span style="color: #1C1C1C; font-size: 15px;">Bonne nouvelle, nous vous confirmons votre réservation pour l'atelier
                       <strong><%= link_to @booking.session.workshop.title, workshop_url(@booking.session.workshop), target: "_blank" %></strong> <%= "en visio" if @booking.session.workshop.visio == true %> !
-                      <%= "Vous recevrez votre kit par voie postale en amont de l'atelier, un e-mail vous sera envoyé pour vous prévenir une fois le kit expédié par l'organisateur." if @booking.session.workshop.kit == true %><br><br>
+                      <%= "Vous recevrez votre kit par voie postale en amont de l'atelier, un e-mail vous sera envoyé pour vous prévenir une fois le kit expédié par l'organisateur. Le prix du kit et les frais de livraison de #{@booking.session.workshop.kit_shipping_price} euros ttc sont inclus dans le montant global de la réservation." if @booking.session.workshop.kit == true %><br><br>
                       Voici le détail de votre réservation :
                     </span>
                   </p>
@@ -428,22 +428,6 @@
                   </tr>
                 </tbody>
               </table>
-
-              <!-- CONDITIONS -->
-
-              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:35px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
-                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
-                  <p style="font-size: 13px; line-height: 1.5; word-break: break-word; text-align: center; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 20px; mso-ansi-font-size: 14px; margin: 0;">
-                    <span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">
-                      <% if @booking.session.workshop.kit_shipping_price.present? && @booking.session.workshop.kit == true %>
-                        Frais de livraison d'un kit estimés à <%= @booking.session.workshop.kit_shipping_price %> euros ttc inclus dans le prix de l'atelier.
-                      <% end %>
-                    Lorem ipsum mention légale informations d'annulation
-                  </span>
-                </p>
-                </div>
-              </div>
-
             </div>
           </div>
         </div>
@@ -473,6 +457,17 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div style="background-color:#ffffff;">
+    <div class="block-grid mixed-two-up" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff; padding-top: 10px;padding-bottom:10px;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <p class="mobile-align-center" style="font-size: 12px; font-weight:500; line-height: 1.5; margin-bottom: 10px;text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 21px;">
+          Vous recevez cet e-mail dans le cadre de votre réservation.
+          Votre réservation est confirmée et le paiement est validé.
+          Vous pouvez la reporter ou demander le remboursement intégral jusqu’à <%= @booking.session.workshop.kit == true ? "7 jours" : "72 heures" %> avant l’Atelier, vous pouvez ensuite demander le remboursement partiel à 50% jusqu’à 24 heures avant l’Atelier. Toute demande de remboursement ou report dans les 24 heures avant l’Atelier ne sera pas prise en compte. Pour plus d’informations, lire nos <strong style="color:#52828D;"><%= link_to "Conditions Générales d'Utilisation et de Vente", cgv_url, target: "_blank" %></strong>.
+        </p>
       </div>
     </div>
   </div>

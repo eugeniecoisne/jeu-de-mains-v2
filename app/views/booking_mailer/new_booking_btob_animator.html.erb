@@ -333,19 +333,6 @@
                   </tr>
                 </tbody>
               </table>
-
-              <!-- CONDITIONS -->
-
-              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:35px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
-                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
-                  <p style="font-size: 13px; line-height: 1.5; word-break: break-word; text-align: center; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 20px; mso-ansi-font-size: 14px; margin: 0;">
-                    <span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">
-                    Lorem ipsum mention légale informations d'annulation
-                  </span>
-                </p>
-                </div>
-              </div>
-
             </div>
           </div>
         </div>
@@ -375,6 +362,50 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+ <% if @booking.session.workshop.kit == true %>
+    <div style="background-color:#fff;">
+      <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff;">
+        <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+          <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
+            <div style="width:100% !important;">
+              <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+
+                <!-- CALL TO ACTION - SEE KIT SENDING ADDRESSES -->
+
+                <div align="center" class="button-container" style="padding-top:5px;padding-right:10px;padding-bottom:30px;padding-left:10px;">
+                  <%= link_to session_expedition_kits_url(@booking.session), style: "-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #52828D; background-color:unset; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; width: auto; border-top: 1px solid #52828D; border-right: 1px solid #52828D; border-bottom: 1px solid #52828D; border-left: 1px solid #52828D; padding-top: 5px; padding-bottom: 5px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;", target: "_blank" do %>
+                    <span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
+                      <span style="font-size: 14px; line-height: 2; word-break: break-word; color: #52828D; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 32px;">
+                        <strong>LISTING POUR ENVOI DES KITS</strong>
+                      </span>
+                    </span>
+                  <% end %>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div style="background-color:#ffffff;">
+    <div class="block-grid mixed-two-up" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff; padding-top: 10px;padding-bottom:10px;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <p class="mobile-align-center" style="font-size: 12px; font-weight:500; line-height: 1.5; margin-bottom: 10px;text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 21px;">
+          <% if @booking.session.workshop.kit == true %>
+            <strong>Les inscrits ont jusqu'à 7 jours avant l'atelier pour demander le remboursement intégral de leur réservation, attendez de préférence la clôture des réservations de la session (à J-7) pour procéder à l'envoi de vos kits. Sauf incident technique, un e-mail vous sera envoyé à la clôture des inscriptions.</strong> <br><br>
+          <% end %>
+          <% if @booking.session.workshop.kit_shipping_price.present? && @booking.session.workshop.kit == true %>
+            Frais de livraison d'un kit estimés par l'organisateur à <%= @booking.session.workshop.kit_shipping_price %> euros ttc inclus dans le prix de l'atelier. <br>
+          <% end %>
+          En tant qu'animateur, vous avez uniquement des accès de consultation à certaines informations sur les ateliers que vous animez. Toute la partie suivi des transactions et facturation est gérée avec le Partenaire organisateur de l'Atelier.
+        </p>
       </div>
     </div>
   </div>

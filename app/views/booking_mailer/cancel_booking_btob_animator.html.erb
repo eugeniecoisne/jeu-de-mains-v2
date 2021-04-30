@@ -181,7 +181,8 @@
                     <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;"><strong>En visioconférence<%= " avec kit" if @booking.session.workshop.kit == true %></strong></p>
                   <% else %>
                     <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %></p>
-                  <% end %>                    <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Contact : <%= @booking.session.workshop.place.phone_number %></p>
+                  <% end %>
+                  <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Contact : <%= @booking.session.workshop.place.phone_number %></p>
                   <% if @booking.session.workshop.animators.where(db_status: true).present? %>
                     <p class="mobile-align-center" style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21px; margin: 0;">Animé par <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %></p>
                   <% end %>
@@ -337,19 +338,6 @@
                   </tr>
                 </tbody>
               </table>
-
-              <!-- CONDITIONS -->
-
-              <div style="color:#1C1C1C;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:1.5;padding-top:35px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
-                <div style="line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px;">
-                  <p style="font-size: 13px; line-height: 1.5; word-break: break-word; text-align: center; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 20px; mso-ansi-font-size: 14px; margin: 0;">
-                    <span style="color: #1C1C1C; font-size: 13px; mso-ansi-font-size: 14px;">
-                    Lorem ipsum mention légale informations d'annulation
-                  </span>
-                </p>
-                </div>
-              </div>
-
             </div>
           </div>
         </div>
@@ -379,6 +367,15 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div style="background-color:#ffffff;">
+    <div class="block-grid mixed-two-up" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #fff; padding-top: 10px;padding-bottom:10px;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#fff;">
+        <p class="mobile-align-center" style="font-size: 12px; font-weight:500; line-height: 1.5; margin-bottom: 10px;text-align: center; word-break: break-word; font-family: Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 21px;">
+          En tant qu'animateur, vous avez uniquement des accès de consultation à certaines informations sur les ateliers que vous animez. Toute la partie suivi des transactions et facturation est gérée avec le Partenaire organisateur de l'Atelier.
+        </p>
       </div>
     </div>
   </div>

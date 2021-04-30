@@ -44,10 +44,21 @@ class SessionMailer < ApplicationMailer
     @session = params[:session]
     @organizer = @session.workshop.place.user.email
 
-    mail(
-      to:       @organizer,
-      subject:  "Il est temps d'envoyer vos kits pour l'atelier #{@session.workshop.title}",
-      track_opens: 'true',
-      message_stream: 'outbound')
+    if @session.workshop.animators.where(db_status: true).present?
+      @animator = @session.workshop.animators.where(db_status: true).last.user.email
+
+      mail(
+        bcc: "#{@organizer}, #{@animator}",
+        subject:  "Il est temps d'envoyer vos kits pour l'atelier #{@session.workshop.title}",
+        track_opens: 'true',
+        message_stream: 'outbound')
+    else
+
+      mail(
+        to:       @organizer,
+        subject:  "Il est temps d'envoyer vos kits pour l'atelier #{@session.workshop.title}",
+        track_opens: 'true',
+        message_stream: 'outbound')
+    end
   end
 end
