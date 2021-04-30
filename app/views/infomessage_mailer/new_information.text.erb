@@ -18,7 +18,6 @@ Organisé par <%= @infomessage.session.workshop.place.user.profile.company %>
 En visioconférence<%= " avec kit" if @infomessage.session.workshop.kit == true %>
 <% else %>
 Au <%= @infomessage.session.workshop.place.address %> <%= @infomessage.session.workshop.place.zip_code %> <%= @infomessage.session.workshop.place.city %>
-Itinéraire : https://www.google.fr/maps/search/<%= @infomessage.session.workshop.place.address %>, <%= @infomessage.session.workshop.place.zip_code %> <%= @infomessage.session.workshop.place.city.upcase %>
 <% end %>
 Contact : <%= @infomessage.session.workshop.place.phone_number %>
 <% if @infomessage.session.workshop.animators.where(db_status: true).present? %>
@@ -27,4 +26,4 @@ Animé par <%= @infomessage.session.workshop.animators.where(db_status: true).la
 
 
 
-Vous recevez cet email dans le cadre de votre réservation. Retrouvez et gérez vos réservation dans l'onglet "Mes réservations" de la plateforme Jeu de Mains.
+Vous recevez cet e-mail dans le cadre de votre réservation. Retrouvez et gérez vos réservation dans l'onglet "Mes réservations" de la plateforme Jeu de Mains.

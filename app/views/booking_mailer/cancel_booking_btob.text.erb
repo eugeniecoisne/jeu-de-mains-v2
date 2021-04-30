@@ -1,3 +1,53 @@
-Booking#cancel_booking_btob
+<% @footer = true %>
 
-<%= @greeting %>, find me in app/views/booking_mailer/cancel_booking_btob.text.erb
+Snif, vous avez une annulation
+
+Vous avez une annulation de réservation pour l'atelier <%= @booking.session.workshop.title %>
+<% if @booking.session.start_date == @booking.session.end_date %>
+du <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>.
+<% else %>
+du <%= l(@booking.session.start_date, format: '%d %b %Y') %> à <%= @booking.session.start_time %> au <%= l(@booking.session.end_date, format: '%d %b %Y') %> à <%= @booking.session.end_time %>.
+<% end %>
+
+Voici l'atelier concerné par l'annulation et le récapitulatif d'annulation :
+
+Atelier : https://www.jeudemains.com/ateliers/<%= @booking.session.workshop.slug%>
+<% if @booking.session.start_date == @booking.session.end_date %>
+Le <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>
+<% else %>
+Du <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %>
+Au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %>
+<% end %>
+Organisé par <%= @booking.session.workshop.place.user.profile.company %>
+<% if @booking.session.workshop.visio == true %>
+En visioconférence<%= " avec kit" if @booking.session.workshop.kit == true %>
+<% else %>
+Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %>
+<% end %>
+Contact : <%= @booking.session.workshop.place.phone_number %>
+<% if @booking.session.workshop.animators.where(db_status: true).present? %>
+Animé par <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %>
+<% end %>
+Quantité : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %>
+
+---------------------------------------------
+
+DÉTAILS ANNULATION DE RÉSERVATION N°<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %>
+<% cancel_fee = @booking.amount * (1.0 - @booking.refund_rate) %>
+<% jdm_fee = (@booking.amount - cancel_fee) * @booking.fee %>
+<% partner_refund_total = @booking.amount - jdm_fee - cancel_fee %>
+Client : <%= @booking.user.first_name %> <%= @booking.user.last_name[0] %>.
+Réservé le <%= @booking.created_at.strftime('%d/%m/%Y') %>
+Annulé le <%= @booking.cancelled_at.strftime('%d/%m/%Y') %>
+Nombre de places : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %>
+Montant résa = <%= @booking.amount %>€ TTC
+Frais d'annul. client <%= (100 - (@booking.refund_rate * 100)).round %>% = - <%= cancel_fee.round(2) %>€ TTC
+Commission JDM <%= (@booking.fee * 100).round %>% = - <%= jdm_fee.round(2) %>€ TTC
+Remboursé par vous = <%= partner_refund_total.round(2) %>€ TTC
+
+---------------------------------------------
+
+VOIR MES TRANSACTIONS : https://www.jeudemains.com/membres/<%= @booking.session.workshop.place.user.profile.slug %>/transactions
+
+
+Aucune action de votre part n’est nécessaire. Si un remboursement client est mentionné dans cet e-mail, il sera automatiquement généré par la plateforme Jeu de Mains et son partenaire Stripe Connect. Comme indiqué, Jeu de Mains vous rembourse tout ou partie de la commission (50% de la commission en cas de remboursement client 50%, 100% de la commission en cas de remboursement client intégral). Plus d’informations sur les conditions d’annulation et de remboursement du client dans nos CGV. Si vous avez une question ou une réclamation, contactez-nous sur contact@jeudemains.com .

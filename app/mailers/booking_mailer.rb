@@ -145,7 +145,7 @@ class BookingMailer < ApplicationMailer
     if @booking.db_status == true && @booking.status == "paid" && @booking.user.db_status == true
       mail(
         to:       @booking.user.email,
-        subject:  "Donnez-nous votre avis sur l'atelier d'hier",
+        subject:  "Votre avis sur l'atelier '#{@booking.session.workshop.title}' nous intéresse",
         track_opens: 'true',
         message_stream: 'outbound')
     end

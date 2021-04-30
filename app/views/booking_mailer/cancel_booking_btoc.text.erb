@@ -1,3 +1,55 @@
-Booking#cancel_booking_btoc
+<% @footer = true %>
 
-<%= @greeting %>, find me in app/views/booking_mailer/cancel_booking_btoc.text.erb
+Annulation de votre réservation
+
+Nous vous confirmons l'annulation de votre réservation pour l'atelier <%= @booking.session.workshop.title %> <%= "en visio" if @booking.session.workshop.visio == true %>
+Voici le rappel de votre réservation et le récapitulatif de l'annulation :
+
+Atelier : https://www.jeudemains.com/ateliers/<%= @booking.session.workshop.slug%>
+<% if @booking.session.start_date == @booking.session.end_date %>
+Le <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>
+<% else %>
+Du <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %>
+Au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %>
+<% end %>
+Organisé par <%= @booking.session.workshop.place.user.profile.company %>
+<% if @booking.session.workshop.visio == true %>
+En visioconférence<%= " avec kit" if @booking.session.workshop.kit == true %>
+<% else %>
+Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %>
+<% end %>
+Contact : <%= @booking.session.workshop.place.phone_number %>
+<% if @booking.session.workshop.animators.where(db_status: true).present? %>
+Animé par <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %>
+<% end %>
+Quantité : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %>
+
+---------------------------------------------
+
+ANNULATION DE VOTRE RÉSERVATION N°<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %>
+
+Montant : <%= @booking.amount %>€ TTC
+Réglé par : <%= @booking.giftcard_id.present? ? "carte cadeau" : "carte bancaire" %>
+<% if @booking.giftcard_amount_spent.present? && (@booking.giftcard_amount_spent < @booking.amount) %>
+et : carte bancaire
+<% end %>
+Frais d'annulation <%= (100 - (@booking.refund_rate * 100)).round %>%* = - <%= @booking.amount * (1.0 - @booking.refund_rate)%>€ TTC
+<% if @booking.giftcard_id.present? && @booking.giftcard_amount_spent.present? %>
+Remboursé carte cadeau = <%= @booking.giftcard_amount_spent * @booking.refund_rate %>€ TTC
+<% end %>
+<% unless @booking.giftcard_amount_spent.present? && (@booking.amount == @booking.giftcard_amount_spent) %>
+Remboursé carte bancaire = <%= @booking.giftcard_amount_spent.present? ? ((@booking.amount - @booking.giftcard_amount_spent) * @booking.refund_rate) : (@booking.amount * @booking.refund_rate) %>€ TTC
+<% end %>
+
+---------------------------------------------
+
+RÉSERVER UNE AUTRE DATE : https://www.jeudemains.com/ateliers/<%= @booking.session.workshop.slug %>
+
+
+*Conformément aux conditions de remboursement des Conditions Générales d'Utilisation et de Vente de Jeu de Mains.
+Vous recevez cet e-mail dans le cadre de votre réservation.
+<% if @booking.refund_rate > 0 %>
+Vous avez procédé à l’annulation de votre réservation avec un taux de remboursement de <%= (@booking.refund_rate * 100).round %>%. Conformément aux CGV, nous vous remboursons les sommes versées lors de la réservation de l’Atelier dans les meilleurs délais et au plus tard dans les 14 (quatorze) jours. Le remboursement se fera sur le même moyen de paiement que celui utilisé pour votre transaction initiale. En cas d’annulation d’une réservation réglée en tout ou partie avec la Carte Cadeau, le remboursement sera effectué sur la Carte Cadeau qui sera automatiquement re-créditée, dans la limite de la somme initialement réglée par ce même moyen de paiement. Dans le cas où la durée de validité de la Carte Cadeau aurait expiré, la Carte Cadeau sera réactivée pour une durée de un (1) mois.
+<% else %>
+Vous avez procédé à l’annulation de votre réservation. Conformément aux CGV, Article 11.2, votre annulation ayant lieu moins de 24 heures avant l’Atelier, vous ne bénéficiez d’aucun remboursement. Pour toute réclamation, contactez le service client contact@jeudemains.com .
+<% end %>

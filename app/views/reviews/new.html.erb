@@ -16,14 +16,14 @@
       <%= simple_form_for([@booking, @review]) do |f| %>
 
         <div class="form-inputs" id="new-review-form-inputs">
-          <p>
+          <%= f.input :rating, required: true, collection: (1..5).to_a, label: "Votre Note" %>
+          <p> Pour info :
             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star mr-1"></i>Très bien /
             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star mr-1"></i>Bien /
             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star mr-1"></i>Moyen /
             <i class="fas fa-star"></i><i class="fas fa-star mr-1"></i>Mauvais /
-            <i class="fas fa-star mr-1"></i> Très mauvais
+            <i class="fas fa-star mr-1"></i>Très mauvais
            </p>
-          <%= f.input :rating, required: true, collection: (1..5).to_a, label: false %>
           <%= f.input :content, required: true, label: false, placeholder: "Rédigez un commentaire sur l'atelier (ambiance, qualité de l'enseignement, fournitures, etc", input_html: { minlength: "20", rows: 8 } %>
         </div>
 

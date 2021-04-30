@@ -1,0 +1,39 @@
+<% @footer = true %>
+
+Confirmation du report de votre réservation
+
+Nous vous confirmons le report de votre réservation n°<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %> pour l'atelier <%= @booking.session.workshop.title %> au <%= @booking.session.start_date.strftime("%d/%m/%y") %>.
+Voici le récapitulatif de votre report :
+
+Atelier : https://www.jeudemains.com/ateliers/<%= @booking.session.workshop.slug%>
+Organisé par <%= @booking.session.workshop.place.user.profile.company %>
+<% if @booking.session.workshop.visio == true %>
+En visioconférence<%= " avec kit" if @booking.session.workshop.kit == true %>
+<% else %>
+Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %>
+<% end %>
+Contact : <%= @booking.session.workshop.place.phone_number %>
+<% if @booking.session.workshop.animators.where(db_status: true).present? %>
+Animé par <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %>
+<% end %>
+Quantité : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %>
+
+-------------------------------
+
+NOUVELLE DATE :
+<% if @booking.session.start_date == @booking.session.end_date %>
+<%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>.
+<% else %>
+<%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %> au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %>
+<% end %>
+
+Ancienne date :
+<% if Session.find(@old_session_id).start_date == Session.find(@old_session_id).end_date %>
+<%= l(Session.find(@old_session_id).start_date, format: '%A %d %b %Y') %> de <%= Session.find(@old_session_id).start_time %> à <%= Session.find(@old_session_id).end_time %>
+<% else %>
+<%= l(Session.find(@old_session_id).start_date, format: '%A %d %b %Y') %> à <%= Session.find(@old_session_id).start_time %> au <%= l(Session.find(@old_session_id).end_date, format: '%A %d %b %Y') %> à <%= Session.find(@old_session_id).end_time %>
+<% end %>
+
+-------------------------------
+
+VOIR MES RÉSERVATIONS : https://www.jeudemains.com/membres/<%= @booking.user.profile.id %>/tableau_de_bord

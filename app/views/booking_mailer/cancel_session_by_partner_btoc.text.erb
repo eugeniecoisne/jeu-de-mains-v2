@@ -1,0 +1,24 @@
+<% @footer = true %>
+
+Votre atelier a été annulé par l'organisateur
+
+Votre atelier <%= @booking.session.workshop.title %>
+<% if @booking.session.start_date == @booking.session.end_date %>
+du <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>
+<% else %>
+du <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %> au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %>
+<% end %>
+vient malheureusement d'être annulé par l'organisateur.
+<%= @booking.session.workshop.place.user.profile.company %> vous présente ses excuses et vous a laissé un message pour vous expliquer le motif cette annulation :
+
+"<%= @booking.session.reason %>"
+
+
+Vous pouvez choisir une nouvelle date ou demander le remboursement intégral en cliquant sur "Report ou remboursement" ci-dessous :
+
+REPORT OU REMBOURSEMENT : https://www.jeudemains.com/reservations/<%= @booking.id %>/report_or_refund
+
+
+Vous recevez cet e-mail dans le cadre de votre réservation.
+Vous avez le choix entre le report à une nouvelle date d'Atelier ou le remboursement intégral de votre réservation.
+En cas de remboursement, conformément aux Conditions Générales d'Utilisation et de Vente, nous vous remboursons les sommes versées lors de la réservation de l’Atelier dans les meilleurs délais et au plus tard dans les 14 (quatorze) jours. Le remboursement se fera sur le même moyen de paiement que celui utilisé pour votre transaction initiale. En cas d’annulation d’une réservation réglée en tout ou partie avec la Carte Cadeau, le remboursement sera effectué sur la Carte Cadeau qui sera automatiquement re-créditée, dans la limite de la somme initialement réglée par ce même moyen de paiement. Dans le cas où la durée de validité de la Carte Cadeau aurait expiré, la Carte Cadeau sera réactivée pour une durée de un (1) mois.

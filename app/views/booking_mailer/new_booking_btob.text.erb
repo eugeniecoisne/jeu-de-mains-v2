@@ -1,3 +1,62 @@
-Booking#new_booking_btob
+<% @footer = true %>
 
-<%= @greeting %>, find me in app/views/booking_mailer/new_booking_btob.text.erb
+Vous avez une nouvelle réservation !
+
+Bonne nouvelle, vous avez une nouvelle réservation pour l'atelier <%= @booking.session.workshop.title %>
+<% if @booking.session.start_date == @booking.session.end_date %>
+du <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>.
+<% else %>
+du <%= l(@booking.session.start_date, format: '%d %b %Y') %> à <%= @booking.session.start_time %> au <%= l(@booking.session.end_date, format: '%d %b %Y') %> à <%= @booking.session.end_time %>.
+<% end %>
+
+Voici le détail de cette réservation :
+
+Atelier : https://www.jeudemains.com/ateliers/<%= @booking.session.workshop.slug%>
+<% if @booking.session.start_date == @booking.session.end_date %>
+Le <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> de <%= @booking.session.start_time %> à <%= @booking.session.end_time %>
+<% else %>
+Du <%= l(@booking.session.start_date, format: '%A %d %b %Y') %> à <%= @booking.session.start_time %>
+Au <%= l(@booking.session.end_date, format: '%A %d %b %Y') %> à <%= @booking.session.end_time %>
+<% end %>
+Organisé par <%= @booking.session.workshop.place.user.profile.company %>
+<% if @booking.session.workshop.visio == true %>
+En visioconférence<%= " avec kit" if @booking.session.workshop.kit == true %>
+<% else %>
+Au <%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city %>
+<% end %>
+Contact : <%= @booking.session.workshop.place.phone_number %>
+<% if @booking.session.workshop.animators.where(db_status: true).present? %>
+Animé par <%= @booking.session.workshop.animators.where(db_status: true).last.user.profile.company %>
+<% end %>
+Quantité : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %>
+
+----------------------------------------
+
+DÉTAILS RÉSERVATION N°<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %>
+
+Réservé par <%= @booking.user.first_name %> <%= @booking.user.last_name[0] %>.
+Réservé le <%= @booking.created_at.strftime('%d/%m/%Y') %>
+Nombre de places : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %>
+Réglé en paiement sécurisé = <%= @booking.giftcard_amount_spent.present? ? ((@booking.workshop_unit_price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount %> € TTC
+Réglé en carte cadeau = <%= @booking.giftcard_amount_spent.present? ? @booking.giftcard_amount_spent : 0.0 %> € TTC
+Montant ( <%= @booking.workshop_unit_price %>€ x <%= @booking.quantity %> ) = <%= @booking.amount %> € TTC
+Commission JDM <%= (@booking.fee * 100).round %>% = - <%= (@booking.amount * @booking.fee).round(2) %> € TTC
+
+VOTRE GAIN = <%= (@booking.amount * (1 - @booking.fee)).round(2) %>€ TTC
+
+----------------------------------------
+
+VOIR LES PARTICIPANTS : https://www.jeudemains.com/sessions/<%= @booking.session.id %>/participants
+<% if @booking.session.workshop.kit == true %>
+LISTING POUR ENVOI DES KITS : https://www.jeudemains.com/sessions/<%= @booking.session.id %>/expedition_kits
+<% end %>
+
+<% if @booking.session.workshop.kit == true %>
+Les inscrits ont jusqu'à 7 jours avant l'atelier pour demander le remboursement intégral de leur réservation, attendez de préférence la clôture des réservations de la session (à J-7) pour procéder à l'envoi de vos kits. Sauf incident technique, un e-mail vous sera envoyé à la clôture des inscriptions.
+
+<% end %>
+<% if @booking.session.workshop.kit_shipping_price.present? && @booking.session.workshop.kit == true %>
+Frais de livraison d'un kit estimés par vous à <%= @booking.session.workshop.kit_shipping_price %> euros ttc inclus dans le prix de l'atelier.
+<% end %>
+En cas de force majeure ou d’un nombre d’inscrits trop faible, vous pouvez annuler la session en vous rendant dans le gestionnaire de sessions de votre Atelier accessible depuis votre tableau de bord. Vous serez invité à indiquer le motif de l’annulation avec un message courtois qui sera envoyé automatiquement par e-mail aux participants inscrits. Ces participants pourront choisir entre le report de leur réservation à une des autres dates proposées par vous-même pour le même Atelier ou le remboursement intégral. En cas d’annulation moins de quarante-huit heures avant l’Atelier, vous recevrez un e-mail vous invitant à contacter les participants inscrits par téléphone ou par SMS afin de les informer de l’annulation tardive en complément de l’e-mail automatique qu’ils auront reçu.
+
