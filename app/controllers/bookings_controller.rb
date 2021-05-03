@@ -42,6 +42,7 @@ class BookingsController < ApplicationController
 
       key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
       Stripe.api_key = key
+      Stripe.api_version = '2020-08-27'
 
       charge = Stripe::PaymentIntent.retrieve(@giftcard.payment_intent_id).charges.first
 
@@ -205,6 +206,7 @@ class BookingsController < ApplicationController
 
     key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
     Stripe.api_key = key
+    Stripe.api_version = '2020-08-27'
 
     # Retrouver si paiement que en carte bancaire ou CC + CB ou CC uniquement
     # Prévoir aussi règles de J-2 avant événement, 50% remboursés etc

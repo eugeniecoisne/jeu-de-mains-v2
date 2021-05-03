@@ -3,20 +3,20 @@ require 'securerandom'
 class GiftcardsController < ApplicationController
 
   GIFTCARD_PRICES = {
-    "20" => "price_1I6IFKHxDdHs6IJaiX4W3lGo",
-    "30" => "price_1I6IGCHxDdHs6IJaIjJ0B0oh",
-    "40" => "price_1I6IGoHxDdHs6IJa1aaAockR",
-    "50" => "price_1I6IHOHxDdHs6IJa04G2uBgA",
-    "60" => "price_1I6IHmHxDdHs6IJayuTVH3SH",
-    "70" => "price_1I6IIDHxDdHs6IJaztx4DWOK",
-    "80" => "price_1I6IIcHxDdHs6IJaK9wPpnpC",
-    "90" => "price_1I6IJAHxDdHs6IJa9DwcRt5Z",
-    "100" => "price_1I6IJgHxDdHs6IJat618000c",
-    "110" => "price_1I6IK9HxDdHs6IJanmPc3c24",
-    "120" => "price_1I6IKUHxDdHs6IJanNh8WW1C",
-    "130" => "price_1I6IL3HxDdHs6IJauOvzUjXA",
-    "140" => "price_1I6ILRHxDdHs6IJafDX666yl",
-    "150" => "price_1I6ILrHxDdHs6IJaAJ8JqmNU"
+    "20" => "price_1In3LrHxDdHs6IJawLPNUHYU",
+    "30" => "price_1In3M9HxDdHs6IJakhX45g2e",
+    "40" => "price_1In3MEHxDdHs6IJaIGYN85XV",
+    "50" => "price_1In3MZHxDdHs6IJamUxLtDqh",
+    "60" => "price_1In3MgHxDdHs6IJax54SYRth",
+    "70" => "price_1In3MmHxDdHs6IJa2v6eHFN6",
+    "80" => "price_1In3MsHxDdHs6IJaTmtJzkrF",
+    "90" => "price_1In3MxHxDdHs6IJaPmUb4iDz",
+    "100" => "price_1In3N1HxDdHs6IJaJ4LzY28y",
+    "110" => "price_1In3N6HxDdHs6IJaR1YhQs4M",
+    "120" => "price_1In3NBHxDdHs6IJaQEmSfHwJ",
+    "130" => "price_1In3NFHxDdHs6IJasGopIf7b",
+    "140" => "price_1In3NKHxDdHs6IJalJwf0dxD",
+    "150" => "price_1In3NOHxDdHs6IJaU6LHSBF1"
   }
 
   def show
@@ -42,6 +42,7 @@ class GiftcardsController < ApplicationController
 
     key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
     Stripe.api_key = key
+    Stripe.api_version = '2020-08-27'
 
     price = Stripe::Price.retrieve(GIFTCARD_PRICES["#{@giftcard.amount.to_i}"])
 
@@ -119,6 +120,7 @@ class GiftcardsController < ApplicationController
     # vérifier que la giftcard amount est tjs = au initial amount donc inutilisée
     key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
     Stripe.api_key = key
+    Stripe.api_version = '2020-08-27'
 
     refund = Stripe::Refund.create({
       payment_intent: @giftcard.payment_intent_id,
