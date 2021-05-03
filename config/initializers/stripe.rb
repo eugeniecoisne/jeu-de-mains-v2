@@ -9,13 +9,6 @@ Stripe.api_version = '2020-08-27'
 StripeEvent.signing_secret = Rails.configuration.stripe[:signing_secret]
 
 StripeEvent.configure do |events|
-  events.subscribe 'checkout.session.completed' do |event|
-    StripeCheckoutSessionService.new
-  end
-end
-
-StripeEvent.configure do |events|
-  events.subscribe 'charge.refunded' do |event|
-    StripeRefundService.new
-  end
+  events.subscribe 'checkout.session.completed', StripeCheckoutSessionService.new
+  events.subscribe 'charge.refunded', StripeRefundService.new
 end

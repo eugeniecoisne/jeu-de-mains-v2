@@ -94,6 +94,16 @@ class GiftcardsController < ApplicationController
   def confirmation_achat
     @giftcard = Giftcard.find(params[:giftcard_id])
     authorize @giftcard
+    key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
+    Stripe.api_key = key
+    Stripe.api_version = '2020-08-27'
+    if @giftcard.checkout_session_id.present? && payment_intent_id.nil?
+      if Stripe::Checkout::Session.retrieve(@giftcard.checkout_session_id)[:payment_status] == "paid"
+        @giftcard.update(status: 'paid', payment_intent_id: event.data.object.payment_intent)
+        mail_giftcard_btoc = GiftcardMailer.with(giftcard: @giftcard).confirmation
+        mail_giftcard_btoc.deliver_later
+      end
+    end
     respond_to do |format|
       format.html
       format.pdf do
