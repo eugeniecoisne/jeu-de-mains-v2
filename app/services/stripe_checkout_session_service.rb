@@ -14,6 +14,7 @@ class StripeCheckoutSessionService
 
         key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
         Stripe.api_key = key
+        Stripe.api_version = '2020-08-27'
 
         charge = Stripe::PaymentIntent.retrieve(giftcard.payment_intent_id).charges.first
 

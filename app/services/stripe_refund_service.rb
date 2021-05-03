@@ -8,6 +8,7 @@ class StripeRefundService
       if @booking.giftcard_amount_spent.present?
         key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
         Stripe.api_key = key
+        Stripe.api_version = '2020-08-27'
 
         # ETAPE 2
         # JDM reprend à l'organisateur le montant de la carte cadeau utilisé sans la commission.

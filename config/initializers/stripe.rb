@@ -5,6 +5,7 @@ Rails.configuration.stripe = {
 }
 
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
+Stripe.api_version = '2020-08-27'
 StripeEvent.signing_secret = Rails.configuration.stripe[:signing_secret]
 
 StripeEvent.configure do |events|
