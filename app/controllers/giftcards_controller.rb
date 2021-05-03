@@ -99,7 +99,7 @@ class GiftcardsController < ApplicationController
     Stripe.api_version = '2020-08-27'
     if @giftcard.checkout_session_id.present? && payment_intent_id.nil?
       if Stripe::Checkout::Session.retrieve(@giftcard.checkout_session_id)[:payment_status] == "paid"
-        @giftcard.update(status: 'paid', payment_intent_id: event.data.object.payment_intent)
+        @giftcard.update(status: 'paid', payment_intent_id: Stripe::Checkout::Session.retrieve(@giftcard.checkout_session_id)[:payment_intent])
         mail_giftcard_btoc = GiftcardMailer.with(giftcard: @giftcard).confirmation
         mail_giftcard_btoc.deliver_later
       end
