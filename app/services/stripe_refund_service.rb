@@ -1,3 +1,5 @@
+require 'stripe'
+
 class StripeRefundService
   def call(event)
 
