@@ -3,6 +3,7 @@ require 'securerandom'
 class GiftcardsController < ApplicationController
 
   GIFTCARD_PRICES = {
+    "1" => "price_1In5EsHxDdHs6IJaokcgq4kC",
     "20" => "price_1In3LrHxDdHs6IJawLPNUHYU",
     "30" => "price_1In3M9HxDdHs6IJakhX45g2e",
     "40" => "price_1In3MEHxDdHs6IJaIGYN85XV",
