@@ -3,7 +3,6 @@ ActiveAdmin.register FeeInvoice do
   config.per_page = 50
 
   permit_params :profile_id, :profile, :start_date, :end_date
-  FEE_INVOICE_PROFILES = Profile.all.select { |p| p.role.present? == true }.map { |p| ["#{p.company}", p.id] }.to_h if Profile.all.select { |p| p.role.present? == true }.size > 0
 
   index do
     selectable_column
@@ -38,7 +37,7 @@ ActiveAdmin.register FeeInvoice do
 
   form do |f|
     f.inputs "Entreprise" do
-      f.input :profile, collection: FEE_INVOICE_PROFILES, value: :profile
+      f.input :profile, collection: (Profile.all.select { |p| p.role.present? == true }.map { |p| ["#{p.company}", p.id] }.to_h if Profile.all.select { |p| p.role.present? == true }.size > 0), value: :profile
     end
     f.inputs "Dates" do
       f.input :start_date

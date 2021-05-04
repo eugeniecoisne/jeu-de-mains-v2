@@ -135,6 +135,26 @@ class Profile < ApplicationRecord
     return reviews
   end
 
+  def all_reviews_db
+
+    all_reviews_db = []
+    if user.animators.count > 0
+      user.animators.each do |animator|
+        if animator.workshop.reviews.count > 0
+          animator.workshop.reviews.each { |r| all_reviews_db << r }
+        end
+      end
+    end
+    if user.places.select { |place| place.workshops.present? }.each { |place| place.workshops }.count > 0
+      user.places.select { |place| place.workshops.present? }.each { |place| place.workshops.each { |workshop|
+        if workshop.reviews.count > 0
+          workshop.reviews.each { |r| all_reviews_db << r }
+        end
+      }}
+    end
+    return all_reviews_db
+  end
+
   def invoice_number_for(booking_id)
     all_bookings = []
     user.places.each do |p|

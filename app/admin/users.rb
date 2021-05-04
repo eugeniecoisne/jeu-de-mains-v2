@@ -77,11 +77,10 @@ ActiveAdmin.register User do
       row :stripe_provider
     end
 
-    GIFTCARDS_OFFERED = Giftcard.all.where(db_status: true).select { |g| g.buyer == user.id }
 
-    if GIFTCARDS_OFFERED.count > 0
+    if Giftcard.all.where(db_status: true).select { |g| g.buyer == user.id }.count > 0
       panel "Cartes cadeaux offertes" do
-        table_for GIFTCARDS_OFFERED do
+        table_for (Giftcard.all.where(db_status: true).select { |g| g.buyer == user.id }) do
           column :id do |giftcard|
             link_to giftcard.id, "#{admin_giftcard_path(giftcard)}"
           end
@@ -107,11 +106,9 @@ ActiveAdmin.register User do
       end
     end
 
-    GIFTCARDS_RECEIVED = Giftcard.all.where(db_status: true).select { |g| g.receiver == user.id }
-
-    if GIFTCARDS_RECEIVED.count > 0
+    if Giftcard.all.where(db_status: true).select { |g| g.receiver == user.id }.count > 0
       panel "Cartes cadeaux reçues" do
-        table_for GIFTCARDS_RECEIVED do
+        table_for (Giftcard.all.where(db_status: true).select { |g| g.receiver == user.id }) do
           column :id do |giftcard|
             link_to giftcard.id, "#{admin_giftcard_path(giftcard)}"
           end

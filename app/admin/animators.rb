@@ -2,8 +2,6 @@ ActiveAdmin.register Animator do
   menu parent: "Fiches"
   config.per_page = 50
   permit_params :user_id, :workshop_id, :workshop, :user, :db_status
-  ANIMATOR_WORKSHOPS = Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} chez #{w.place.name} - créé le #{w.created_at.strftime("%d/%m/%y")}", w.id] }.to_h if Workshop.all.where(db_status: true).size > 0
-  ANIMATOR_USERS = User.all.select { |u| u.profile.role.present? }.map { |u| ["#{u.fullname} - #{u.profile.company}", u.id] }.to_h if User.all.select { |u| u.profile.role.present? }.size > 0
 
   index do
     selectable_column
@@ -59,8 +57,8 @@ ActiveAdmin.register Animator do
 
   form do |f|
     f.inputs "Ajouter un animateur à un atelier :" do
-      f.input :workshop, collection: ANIMATOR_WORKSHOPS, value: :workshop
-      f.input :user, collection: ANIMATOR_USERS, value: :user
+      f.input :workshop, collection: (Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} chez #{w.place.name} - créé le #{w.created_at.strftime("%d/%m/%y")}", w.id] }.to_h if Workshop.all.where(db_status: true).size > 0), value: :workshop
+      f.input :user, collection: (User.all.select { |u| u.profile.role.present? }.map { |u| ["#{u.fullname} - #{u.profile.company}", u.id] }.to_h if User.all.select { |u| u.profile.role.present? }.size > 0), value: :user
       f.input :db_status
     end
     f.actions

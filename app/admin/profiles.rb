@@ -2,7 +2,6 @@ ActiveAdmin.register Profile do
   menu parent: "Fiches"
   config.per_page = 50
   permit_params :address, :zip_code, :city, :phone_number, :role, :company, :siret_number, :website, :instagram, :description, :user_id, :user, :db_status, :slug, :ready, :accountant_company, :accountant_address, :accountant_zip_code, :accountant_city, :accountant_phone_number, :fee, :legal_mention, :tva_applicable, :tva_intra, :company_type, :company_capital, :rcs_or_rm, :photo
-  PROFILE_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name} #{u.id}", u.id] }.to_h
 
   controller do
     def find_resource
@@ -157,6 +156,8 @@ ActiveAdmin.register Profile do
           column :created_at do |place|
             place.created_at.strftime('%d/%m/%Y')
           end
+          column :address
+          column :zip_code
           column :city
           column :db_status
         end
@@ -247,31 +248,9 @@ ActiveAdmin.register Profile do
       end
     end
 
-    PROFILE_REVIEWS = []
-
-    if User.find(profile.id).animators.count > 0
-      User.find(profile.id).animators.each do |animator|
-        if animator.workshop.sessions.map { |s| s.bookings.each {|b| b.reviews}}.count > 0
-          animator.workshop.sessions.map { |s| s.bookings.each {|b| b.reviews.each { |r| PROFILE_REVIEWS << r }}}
-        end
-      end
-    end
-
-    if User.find(profile.id).places.select { |p| p.workshops.present? }.map { |p| p.workshops }.count > 0
-      User.find(profile.id).places.select { |p| p.workshops.present? }.each do |place|
-        if place.workshops.present?
-          place.workshops.each do |workshop|
-            if workshop.sessions.present? && workshop.sessions.map { |s| s.bookings.each {|b| b.reviews}}.count > 0
-              workshop.sessions.map { |s| s.bookings.each {|b| b.reviews.each { |r| PROFILE_REVIEWS << r }}}
-            end
-          end
-        end
-      end
-    end
-
-    if PROFILE_REVIEWS.count > 0
-      panel "Avis animateur" do
-        table_for PROFILE_REVIEWS do
+    if Profile.find(profile.id).all_reviews_db.count > 0
+      panel "Tous les avis" do
+        table_for Profile.find(profile.id).all_reviews_db do
           column "Avis" do |review|
             link_to "Avis ##{review.id}", "#{admin_review_path(review)}"
           end
@@ -292,7 +271,6 @@ ActiveAdmin.register Profile do
 
   form do |f|
     f.inputs "Utilisateur, infos légales d'entreprise et rôle" do
-      f.input :user, collection: PROFILE_USERS, value: :user
       f.input :company, hint: "Nom de la société affiché sur la plateforme"
       f.input :accountant_company, hint: "Nom de la société telle qu'écrite sur le KBIS"
       f.input :siret_number

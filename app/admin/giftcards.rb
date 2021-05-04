@@ -2,7 +2,6 @@ ActiveAdmin.register Giftcard do
   menu parent: "Achats"
   config.per_page = 50
   permit_params :amount, :initial_amount, :code, :buyer, :receiver, :status, :db_status, :user_id, :receiver_name, :buyer_name, :message, :cgv_agreement, :refunded_at
-  GIFTCARD_USERS = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
   index do
     selectable_column
@@ -118,7 +117,7 @@ ActiveAdmin.register Giftcard do
 
   form do |f|
     f.inputs "Acheteur" do
-      f.input :user, collection: GIFTCARD_USERS, value: :user
+      f.input :user, collection: (User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h), value: :user
     end
     f.inputs "Montant" do
       f.input :amount, as: :select, collection: [20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150]

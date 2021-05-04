@@ -2,8 +2,6 @@ ActiveAdmin.register Booking do
   menu parent: "Achats"
   config.per_page = 50
   permit_params :quantity, :status, :amount, :user_id, :user, :session_id, :session, :db_status, :workshop, :address, :address_complement, :zip_code, :city, :phone_number, :kit_expedition_status, :kit_expedition_link, :refund_rate, :workshop_unit_price, :tva_applicable, :fee
-  BOOKING_SESSIONS = Session.all.where(db_status: true).sort_by { |s| s.start_date }.map { |s| ["#{s.id} - #{s.start_date.strftime("%d/%m/%y")} à #{s.start_time} - #{s.workshop.title} chez #{s.workshop.place.name} - #{s.available} places restantes", s.id] }.to_h if Session.all.where(db_status: true).size > 0
-  BOOKING_USERS = User.all.select { |u| u.profile.company.present? == false }.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
 
   index do
     selectable_column
@@ -209,10 +207,23 @@ ActiveAdmin.register Booking do
   end
 
   form do |f|
-    f.inputs "Session et acheteur" do
-      f.input :session, collection: BOOKING_SESSIONS, value: :session
-      f.input :user, collection: BOOKING_USERS, value: :user
+    unless params[:id].present?
+      f.inputs "Session et acheteur" do
+        f.input :session, value: :session
+        f.input :user, value: :user
+      end
     end
+    if params[:id].present?
+      f.inputs "session" do
+        "#{Booking.find(params[:id]).session.start_date.strftime("%d/%m/%y")} à #{Booking.find(params[:id]).session.start_time} au #{Booking.find(params[:id]).session.end_date.strftime("%d/%m/%y")} à #{Booking.find(params[:id]).session.end_time}"
+      end
+    end
+    if params[:id].present?
+      f.inputs "acheteur" do
+        "#{Booking.find(params[:id]).user.fullname} - id #{Booking.find(params[:id]).user.id}"
+      end
+    end
+
     f.inputs "Quantité & commission" do
       f.input :quantity
     end
