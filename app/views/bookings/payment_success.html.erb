@@ -66,36 +66,64 @@
     </tbody>
   </table>
 
-  <!-- Add To Calendar -->
-  <div title="Add to Calendar" data-styling="none" class="addeventatc success-add-to-calendar">
-    <button id="success-add-to-calendar-btn">Ajouter à mon agenda</button>
-    <span class="start">
-      <%= @booking.session.start_date.strftime('%m/%d/%Y') %>
-      <%= @booking.session.start_time[0..1] %>:<%= @booking.session.start_time[3..4] %>
-    </span>
-    <span class="end">
-      <%= @booking.session.end_date.strftime('%m/%d/%Y') %>
-      <%= @booking.session.end_time[0..1] %>:<%= @booking.session.end_time[3..4] %>
-    </span>
-    <span class="timezone">Europe/Paris</span>
-    <span class="title">Atelier "<%= @booking.session.workshop.title %>"</span>
-    <span class="organizer">jeudemains.com</span>
-    <span class="description">
-      Atelier "<%= @booking.session.workshop.title %>"<br>
-      Organisé par <%= @booking.session.workshop.place.user.profile.company %><br>
-      Réservé sur https://www.jeudemains.com/<br><br>
-      ----- <br><br>
-      Au programme : <br>
-      <%= @booking.session.workshop.program %>
-      </span>
-    <span class="location"><%= @booking.session.workshop.place.address %> <%= @booking.session.workshop.place.zip_code %> <%= @booking.session.workshop.place.city.capitalize %></span>
+  <div class="success-add-to-calendar">
+    <a href="#addToCalendarModal" class="button mr-1" data-toggle="modal" data-whatever="@mdo" id="success-add-to-calendar-btn">
+      Ajouter à mon agenda
+    </a>
+
+    <div class="modal fade add-to-calendar-modal" id="addToCalendarModal" tabindex="-1" role="dialog" aria-labelledby="addToCalendarModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="form-group">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-bleu.svg", :width => 40, :height => 40, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer") %>
+            </button>
+            <p>Ajouter à mon agenda</p>
+            <div class="modal-body">
+
+              <% @start = "#{@booking.session.start_date.strftime('%Y/%m/%d')} #{@booking.session.start_time[0..1]}:#{@booking.session.start_time[3..4]}" %>
+              <% @end = "#{@booking.session.end_date.strftime('%Y/%m/%d')} #{@booking.session.end_time[0..1]}:#{@booking.session.end_time[3..4]}" %>
+              <% @timezone = "Europe/Paris" %>
+              <% @title = "Atelier #{@booking.session.workshop.title}" %>
+              <% if @booking.session.workshop.visio == true %>
+                <% @location = "En visioconférence" %>
+              <% else %>
+                <% @location = "#{@booking.session.workshop.place.address} #{@booking.session.workshop.place.zip_code} #{@booking.session.workshop.place.city.capitalize}" %>
+              <% end %>
+              <% @description = "Atelier #{@booking.session.workshop.title} organisé par #{@booking.session.workshop.place.user.profile.company}, mis en ligne sur https://jeudemains.com." %>
+              <a href="https://calndr.link/d/event/?service=apple&start=<%=@start%>&end=<%=@end%>&title=<%=@title%>&timezone=<%=@timezone%>&location=<%=@location%>&description=<%=@description%>" target="_blank">
+                <span>Apple</span>
+                <%= cl_image_tag('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-apple-t5_u07ftt.svg', :loading => "lazy", :width => 25, :crop => :fill, :alt => "google", :title => "google") %>
+              </a>
+              <a href="https://calndr.link/d/event/?service=google&start=<%=@start%>&end=<%=@end%>&title=<%=@title%>&timezone=<%=@timezone%>&location=<%=@location%>&description=<%=@description%>" target="_blank">
+                <span>Google</span>
+                <%= cl_image_tag('https://res.cloudinary.com/jeudemains/image/upload/v1597244597/icon-google-t5_hhelnn.svg', :loading => "lazy", :width => 20, :crop => :fill, :alt => "google", :title => "google") %>
+              </a>
+              <a href="https://calndr.link/d/event/?service=outlook&start=<%=@start%>&end=<%=@end%>&title=<%=@title%>&timezone=<%=@timezone%>&location=<%=@location%>&description=<%=@description%>" target="_blank">
+                <span>Outlook</span>
+                <%= cl_image_tag('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-outlook-t5_jyiicm.svg', :loading => "lazy", :width => 20, :crop => :fill, :alt => "google", :title => "google") %>
+              </a>
+              <a href="https://calndr.link/d/event/?service=outlookcom&start=<%=@start%>&end=<%=@end%>&title=<%=@title%>&timezone=<%=@timezone%>&location=<%=@location%>&description=<%=@description%>" target="_blank">
+                <span>Outlook.com</span>
+                <%= cl_image_tag('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-outlookcom-t5_lnfvvs.svg', :loading => "lazy", :width => 20, :crop => :fill, :alt => "google", :title => "google") %>
+              </a>
+              <a href="https://calndr.link/d/event/?service=office365&start=<%=@start%>&end=<%=@end%>&title=<%=@title%>&timezone=<%=@timezone%>&location=<%=@location%>&description=<%=@description%>" target="_blank">
+                <span>Office 365</span>
+                <%= cl_image_tag('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-office365-t5_qtmqxl.svg', :loading => "lazy", :width => 18, :crop => :fill, :alt => "google", :title => "google") %>
+              </a>
+              <a href="https://calndr.link/d/event/?service=yahoo&start=<%=@start%>&end=<%=@end%>&title=<%=@title%>&timezone=<%=@timezone%>&location=<%=@location%>&description=<%=@description%>" target="_blank">
+                <span>Yahoo</span>
+                <%= cl_image_tag('https://res.cloudinary.com/jeudemains/image/upload/v1597244597/icon-yahoo-t5_uvgnsf.svg', :loading => "lazy", :width => 18, :crop => :fill, :alt => "google", :title => "google") %>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <!-- Add To Calendar - end -->
 
   <div class="payment-success-error-cta">
     <%= link_to "Voir & gérer mes réservations", tableau_de_bord_profile_url(current_user.profile) %>
   </div>
 
 </div>
-<script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
-
