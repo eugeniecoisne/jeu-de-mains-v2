@@ -1,36 +1,55 @@
 // ADD TO AGENDA BUTTON FOR MY BOOKINGS
 
-.addeventatc              {display:inline-block;position:relative;cursor:pointer;color:$blue!important;font-weight:500;font-size:23px;text-decoration:none;cursor:pointer;margin-right: 0.8em;-webkit-font-smoothing:antialiased!important;outline:none;}
-.addeventatc:hover            {color:$light-blue!important;text-decoration:none;}
-.addeventatc-selected           {color:$light-blue!important;}
-.addeventatc .start, .addeventatc .end, .addeventatc .timezone, .addeventatc .title, .addeventatc .description, .addeventatc .location, .addeventatc .organizer, .addeventatc .organizer_email, .addeventatc .facebook_event, .addeventatc .all_day_event, .addeventatc .date_format, .addeventatc .alarm_reminder, .addeventatc .recurring, .addeventatc .attendees, .addeventatc .calname, .addeventatc .uid, .addeventatc .status, .addeventatc .method, .addeventatc .client, .addeventatc .transp {display:none!important;}
-.addeventatc br             {display:none;}
-
-/* Drop down */
-.addeventatc_dropdown           {width:230px;position:absolute;padding:6px 0px 0px 0px;font-family:"Raleway",sans-serif;color:$gray!important;font-weight:600;line-height:100%;background:#fff;font-size:14px;text-decoration:none;text-align:left;margin-left:-1px;display:none;-webkit-box-shadow:rgba(0,0,0,0.4) 0px 10px 26px;-moz-box-shadow:rgba(0,0,0,0.4) 0px 10px 26px;box-shadow:rgba(0,0,0,0.4) 0px 10px 26px;transform:scale(.98,.98) translateY(5px);z-index:20;transition:transform .15s ease;-webkit-user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
-.addeventatc_dropdown.topdown       {transform:scale(.98,.98) translateY(-5px)!important;}
-.addeventatc_dropdown span        {display:block;line-height:100%;background:#fff;text-decoration:none;cursor:pointer;font-size:15px;color:#333;font-weight:600;padding:14px 10px 14px 55px;margin:-2px 0px;}
-.addeventatc_dropdown span:hover    {background-color:#f4f4f4;color:#000;text-decoration:none;font-size:15px;}
-.addeventatc_dropdown em        {display: none;}
-.addeventatc_dropdown .frs a      {background:#fff;color:#cacaca!important;cursor:pointer;font-size:9px!important;font-style:normal!important;font-weight:400!important;line-height:110%!important;padding-left:10px;position:absolute;right:10px;text-align:right;text-decoration:none;top:5px;z-index:101;}
-.addeventatc_dropdown .frs a:hover    {color:#999!important;}
-.addeventatc_dropdown .ateappleical   {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-apple-t5_u07ftt.svg') 18px 40% no-repeat;background-size:22px 100%;}
-.addeventatc_dropdown .ategoogle    {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244597/icon-google-t5_hhelnn.svg') 18px 50% no-repeat;background-size:22px 100%;}
-.addeventatc_dropdown .ateoffice365   {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-office365-t5_qtmqxl.svg') 19px 50% no-repeat;background-size:18px 100%;}
-.addeventatc_dropdown .ateoutlook     {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-outlook-t5_jyiicm.svg') 18px 50% no-repeat;background-size:22px 100%;}
-.addeventatc_dropdown .ateoutlookcom  {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244595/icon-outlookcom-t5_lnfvvs.svg') 18px 50% no-repeat;background-size:22px 100%;}
-.addeventatc_dropdown .ateyahoo     {background:url('https://res.cloudinary.com/jeudemains/image/upload/v1597244597/icon-yahoo-t5_uvgnsf.svg') 18px 50% no-repeat;background-size:22px 100%;}
-.addeventatc_dropdown .copyx      {height:21px;display:block;position:relative;cursor:default;}
-.addeventatc_dropdown .brx        {height:1px;overflow:hidden;background:#e8e8e8;position:absolute;z-index:100;left:10px;right:10px;top:9px;}
-.addeventatc_dropdown.addeventatc-selected {transform:scale(1,1) translateY(0px);z-index:99999999999;}
-.addeventatc_dropdown.topdown.addeventatc-selected {transform:scale(1,1) translateY(0px)!important;}
-.addeventatc_dropdown .drop_markup    {background-color:#f4f4f4;}
-
-// RESPONSIVE ADD TO CALENDAR//
-
-// Smallest device
-@media (min-width: 100px) and (max-width: 575px) {
-  .addeventatc {
-    font-size: 21px;
+.add-to-calendar-modal {
+  .modal-dialog {
+    display: flex;
+    justify-content: center;
+  }
+  .close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 360px;
+    padding: 15px;
+    p {
+      font-size: 15px;
+      font-weight: 600;
+      color: $dark-blue;
+      text-align: center;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      padding: unset;
+    }
+    a {
+      display: flex;
+      align-items: center;
+      margin-bottom: 17px;
+      span {
+        margin-right: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: $dark-gray;
+      }
+      img {
+        padding-top: unset;
+      }
+    }
+    a:hover {
+      span {
+        color: $blue;
+        text-decoration: none;
+      }
+    }
   }
 }

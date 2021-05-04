@@ -296,8 +296,9 @@
 }
 
 #add-to-agenda-organizer-button {
-  font-weight: 600;
-  padding: 2px 14px;
+  font-weight: 500;
+  padding: 4.5px 14px;
+  margin-bottom: 5px;
 }
 
 .mobile-dashboard-my-agenda-workshop {
@@ -341,6 +342,8 @@
 
 .mobile-dashboard-my-agenda-workshop-participants {
   margin-top: 1em;
+  display: flex;
+  flex-wrap: wrap;
   .button {
     background-color: unset;
     color: $blue;
@@ -348,6 +351,7 @@
     border: 1px solid $blue;
     font-size: 12.5px;
     padding: 3px 14px;
+    margin-bottom: 5px;
   }
   .button:hover {
     text-decoration: none;
