@@ -3,6 +3,7 @@ require 'open-uri'
 
 class PagesController < ApplicationController
   # skip_before_action :authenticate_user!, only: %i(home offer_giftcard register_giftcard become_partner welcome_partner entreprises entreprises_sent about ranking contact contact_us_sent legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijoux papier_et_calligraphie ceramique_et_modelage meuble_et_decoration peinture_et_dessin travail_du_cuir)
+  skip_before_action :authenticate_user!, only: %i(become_partner welcome_partner)
 
   def home
     dates = (Date.today..Date.today + 1.year).to_a
