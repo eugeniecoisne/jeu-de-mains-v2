@@ -279,8 +279,6 @@ ActiveAdmin.register Workshop do
       end
     end
 
-    WORKSHOP_REVIEWS = Review.all.where(db_status: true).select { |r| r.booking.session.workshop == workshop }.sort_by { |r| r.created_at }
-
     if workshop.sessions.present?
       panel "Sessions" do
         table_for workshop.sessions.sort_by { |session| session.start_date } do
@@ -309,9 +307,9 @@ ActiveAdmin.register Workshop do
         end
       end
     end
-    if WORKSHOP_REVIEWS.size > 0
+    if Review.all.where(db_status: true).select { |r| r.booking.session.workshop == workshop }.sort_by { |r| r.created_at }.size > 0
       panel "Avis" do
-        table_for WORKSHOP_REVIEWS do
+        table_for (Review.all.where(db_status: true).select { |r| r.booking.session.workshop == workshop }.sort_by { |r| r.created_at }) do
           column "Avis" do |review|
             link_to "Voir", "#{admin_review_path(review)}"
           end

@@ -1,8 +1,6 @@
 ActiveAdmin.register Review do
   config.per_page = 50
   permit_params :content, :rating, :user_id, :booking_id, :db_status
-  REVIEW_USERS = User.all.select { |u| u.profile.company.present? == false }.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h
-  REVIEW_BOOKINGS = Booking.all.where(db_status: true, status: "paid").select { |b| b.reviews.present? == false }.map { |b| ["Réservation n° #{b.id} du #{b.created_at} de #{b.user.fullname}", b.id] }.to_h if Booking.all.where(db_status: true, status: "paid").size > 0
 
   index do
     selectable_column
@@ -133,8 +131,8 @@ ActiveAdmin.register Review do
 
   form do |f|
     f.inputs "Auteur et Réservation" do
-      f.input :user, collection: REVIEW_USERS, value: :user
-      f.input :booking, collection: REVIEW_BOOKINGS, value: :booking
+      f.input :user, collection: (User.all.select { |u| u.profile.company.present? == false }.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }.to_h), value: :user
+      f.input :booking, collection: (Booking.all.where(db_status: true, status: "paid").select { |b| b.reviews.present? == false }.map { |b| ["Réservation n° #{b.id} du #{b.created_at} de #{b.user.fullname}", b.id] }.to_h if Booking.all.where(db_status: true, status: "paid").size > 0), value: :booking
     end
     f.inputs "Contenu et Note" do
       f.input :content

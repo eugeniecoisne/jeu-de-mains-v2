@@ -2,7 +2,6 @@ ActiveAdmin.register Session do
   menu parent: "Fiches"
   config.per_page = 50
   permit_params :start_date, :start_time, :end_time, :end_date, :capacity, :workshop_id, :workshop, :db_status, :reason
-  SESSION_WORKSHOPS = Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} par #{w.place.user.profile.company} - capacité #{w.capacity} pl. - #{Workshop::DURATIONS.key(w.duration)}", w.id] }.to_h if Workshop.all.where(db_status: true).size > 0
 
   index do
     selectable_column
@@ -179,7 +178,7 @@ ActiveAdmin.register Session do
 
   form do |f|
     f.inputs "Atelier" do
-      f.input :workshop, collection: SESSION_WORKSHOPS, value: :workshop
+      f.input :workshop, collection: (Workshop.all.where(db_status: true).sort.map { |w| ["#{w.id} - #{w.title} par #{w.place.user.profile.company} - capacité #{w.capacity} pl. - #{Workshop::DURATIONS.key(w.duration)}", w.id] }.to_h if Workshop.all.where(db_status: true).size > 0), value: :workshop
     end
     f.inputs "Capacité (obligatoire)" do
       f.input :capacity, value: 0

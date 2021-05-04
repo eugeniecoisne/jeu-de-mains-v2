@@ -3,7 +3,6 @@ ActiveAdmin.register Place do
   config.per_page = 50
   remove_filter :latitude, :longitude
   preserve_default_filters!
-  PLACE_USERS = User.all.select { |u| u.profile.company.present? == true }.map { |u| [u.profile.company, u.id] }.to_h if User.all.select { |u| u.profile.company.present? == true }.size > 0
 
   index do
 
@@ -69,6 +68,7 @@ ActiveAdmin.register Place do
   show do |place|
 
     attributes_table do
+      row :id
       row :name
       row "Auteur" do |place|
         link_to "#{place.user.fullname} / #{place.user.profile.company}", "#{admin_user_path(place.user)}"
@@ -117,7 +117,7 @@ ActiveAdmin.register Place do
 
   form do |f|
     f.inputs "Propriétaire et nom du lieu" do
-      f.input :user, collection: PLACE_USERS, value: :user
+      f.input :user, collection: (User.all.select { |u| u.profile.company.present? == true }.map { |u| [u.profile.company, u.id] }.to_h if User.all.select { |u| u.profile.company.present? == true }.size > 0), value: :user
       f.input :name
     end
     f.inputs "Adresse" do
