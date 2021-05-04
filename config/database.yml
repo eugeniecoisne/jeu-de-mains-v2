@@ -76,10 +76,10 @@ test:
 # You can use this database configuration with:
 #
 #   production:
-#     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: jeu_de_mains_v2_production
-  username: jeu_de_mains_v2
-  password: <%= ENV['JEU_DE_MAINS_V2_DATABASE_PASSWORD'] %>
+  # <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+  # database: jeu_de_mains_v2_production
+  # username: jeu_de_mains_v2
+  # password: <%= ENV['JEU_DE_MAINS_V2_DATABASE_PASSWORD'] %>
