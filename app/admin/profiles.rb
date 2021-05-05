@@ -51,7 +51,6 @@ ActiveAdmin.register Profile do
     column :accountant_zip_code
     column :accountant_city
     column :accountant_phone_number
-    column :legal_mention
     column :tva_intra
     column :rcs_or_rm
     column :company_type
@@ -92,7 +91,6 @@ ActiveAdmin.register Profile do
     column :accountant_zip_code
     column :accountant_city
     column :accountant_phone_number
-    column :legal_mention
     column :tva_intra
     column :rcs_or_rm
     column :company_type
@@ -277,8 +275,8 @@ ActiveAdmin.register Profile do
       f.input :tva_applicable, hint: "Vérifier si le partenaire est redevable de la TVA ou exonéré"
       f.input :tva_intra, hint: "Ne remplir que si la case précédente est cochée"
       f.input :company_type, hint: "SAS, SARL, EURL, etc - Ne remplir que si c'est une société (pas auto entrepreneur ou entreprise individuelle)"
-      f.input :company_capital, hint: "Exemple : 1.000 €, bien indiquer points entre milliers et le symbole €"
-      f.input :rcs_or_rm, hint: "Format d'écriture : RCS [Ville] [Numéro] ou RM [Ville] [Numéro]"
+      f.input :company_capital, hint: "Exemple : 1.000 €, bien indiquer points entre milliers et le symbole € - Ne remplir que si c'est une société (pas auto entrepreneur ou entreprise individuelle)"
+      f.input :rcs_or_rm, hint: "Format d'écriture : RCS [Ville] [Numéro] ou RM [Ville] [Numéro] ou 'dispensée d’immatriculation au RCS et au RM'"
       f.input :role, collection: Profile::ROLES, value: :role
     end
     f.inputs "Adresse & coordonnées comptables" do
@@ -309,7 +307,7 @@ ActiveAdmin.register Profile do
       f.input :ready, as: :boolean, hint: "Prêt à être mis en ligne, à cocher une fois tout le profil intégralement complété"
     end
     f.inputs "Mention légale page partenaire" do
-      f.input :legal_mention, hint: "Exemple, reprendre et adapter : Société XXXXX, SARL, immatriculée au registre du commerce et des sociétés de PARIS sous le numéro 823 975 529, TVA intracommunautaire FR36823975529, sous contrat d'assurance auprès de AXA Assurances à Paris."
+      f.input :legal_mention, hint: "Exemple, reprendre et adapter : Société XXXXX, SARL, immatriculée au registre du commerce et des sociétés de PARIS sous le numéro 823 975 529, TVA intracommunautaire FR36823975529, sous contrat d'assurance auprès de AXA Assurances à Paris. / Reprendre ou adapter : XXXX par Prénom Nom, entrepreneur individuel, SIRET XXX, sous contrat d'assurance de responsabilité civile auprès de XXX à Paris."
     end
     f.actions
   end
