@@ -307,7 +307,7 @@ ActiveAdmin.register Profile do
       f.input :ready, as: :boolean, hint: "Prêt à être mis en ligne, à cocher une fois tout le profil intégralement complété"
     end
     f.inputs "Mention légale page partenaire" do
-      f.input :legal_mention, hint: "Exemple, reprendre et adapter : Société XXXXX, SARL, immatriculée au registre du commerce et des sociétés de PARIS sous le numéro 823 975 529, TVA intracommunautaire FR36823975529, sous contrat d'assurance auprès de AXA Assurances à Paris. / Reprendre ou adapter : XXXX par Prénom Nom, entrepreneur individuel, SIRET XXX, sous contrat d'assurance de responsabilité civile auprès de XXX à Paris."
+      f.input :legal_mention, hint: "Exemple, reprendre et adapter : Société XXXXX, SARL, immatriculée au registre du commerce et des sociétés de PARIS sous le numéro 823 975 529, TVA intracommunautaire FR36823975529, sous contrat d'assurance auprès de AXA Assurances à Paris. / Reprendre et adapter : XXXX par Prénom Nom, entrepreneur individuel, SIRET XXX, sous contrat d'assurance de responsabilité civile auprès de XXX à Paris."
     end
     f.actions
   end
