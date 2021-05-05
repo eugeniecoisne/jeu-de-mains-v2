@@ -37,21 +37,21 @@ ActiveAdmin.register_page "Dashboard" do
         h4 "MEMBRES BtoC"
 
         panel "MEMBRES BtoC" do
-          h2 "#{User.all.select { |u| u.confirmed? && u.db_status == true && u.profile.role.nil? }.count}"
+          h2 "#{User.all.select { |u| u.confirmed? && u.db_status == true && u.profile.role.nil? && u.admin == false }.count}"
         end
         panel "NOUVEAUX MEMBRES BtoC" do
           columns do
             column do
               para "7 jrs"
-              h2 "#{User.all.select { |u| u.confirmed? && u.db_status == true && u.profile.role.nil? }.select { |u| u.confirmed_at > (Date.today - 7.day) }.count}"
+              h2 "#{User.all.select { |u| u.confirmed? && u.db_status == true && u.profile.role.nil? && u.admin == false }.select { |u| u.confirmed_at > (Date.today - 7.day) }.count}"
             end
             column do
               para "30 jrs"
-              h2 "#{User.all.select { |u| u.confirmed? && u.db_status == true && u.profile.role.nil? }.select { |u| u.confirmed_at > (Date.today - 30.day) }.count}"
+              h2 "#{User.all.select { |u| u.confirmed? && u.db_status == true && u.profile.role.nil? && u.admin == false }.select { |u| u.confirmed_at > (Date.today - 30.day) }.count}"
             end
             column do
               para "Début"
-              h2 "#{User.all.select { |u| u.confirmed? && u.db_status == true && u.profile.role.nil? }.count}"
+              h2 "#{User.all.select { |u| u.confirmed? && u.db_status == true && u.profile.role.nil? && u.admin == false }.count}"
             end
           end
         end
@@ -59,15 +59,15 @@ ActiveAdmin.register_page "Dashboard" do
           columns do
             column do
               para "7 jrs"
-              h2 "#{User.all.select { |u| u.db_status == false && u.profile.role.nil? }.select { |u| u.updated_at > (Date.today - 7.day) }.count}"
+              h2 "#{User.all.select { |u| u.db_status == false && u.profile.role.nil? && u.admin == false }.select { |u| u.updated_at > (Date.today - 7.day) }.count}"
             end
             column do
               para "30 jrs"
-              h2 "#{User.all.select { |u| u.db_status == false && u.profile.role.nil? }.select { |u| u.updated_at > (Date.today - 30.day) }.count}"
+              h2 "#{User.all.select { |u| u.db_status == false && u.profile.role.nil? && u.admin == false }.select { |u| u.updated_at > (Date.today - 30.day) }.count}"
             end
             column do
               para "Début"
-              h2 "#{User.all.select { |u| u.db_status == false && u.profile.role.nil? }.count}"
+              h2 "#{User.all.select { |u| u.db_status == false && u.profile.role.nil? && u.admin == false }.count}"
             end
           end
         end
