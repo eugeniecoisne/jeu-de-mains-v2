@@ -25,8 +25,9 @@ class ProfilesController < ApplicationController
   def update
     @profile.update(profile_params)
     if @profile.role.present?
-      if (@profile.user.places.present? && @profile.user.places.where(name: "Atelier en visio").count == 0) || @profile.user.places.nil?
-        @place = Place.new(name: "Atelier en visio", address: "Visio", zip_code: "Visio", city: "Visio")
+      if (@profile.user.places.present? && @profile.user.places.where(name: "Atelier en visio").count == 0) || (@profile.user.places.present? == false)
+        @profile.phone_number.present? (@phone_number = @profile.phone_number) : (@phone_number = @profile.accountant_phone_number)
+        @place = Place.new(name: "Atelier en visio", address: "Visio", zip_code: "Visio", city: "Visio", phone_number: @phone_number)
         @place.user = @profile.user
         @place.save
       end
