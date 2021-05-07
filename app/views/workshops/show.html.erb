@@ -374,7 +374,7 @@
                           <div class="ws-card-tag ws-card-rating" id="show-ws-card-rating">
                             <i class="fas fa-star"></i><span><%= workshop.rating %></span>
                           </div>
-                        <% elsif workshop.created_at > Date.today - 1.month %>
+                        <% elsif workshop.created_at > Date.today - 2.months %>
                           <div class="ws-card-tag ws-card-rating" id="show-ws-card-rating">
                             <span>nouveau</span>
                           </div>
@@ -417,20 +417,26 @@
                         <div class="ws-card-price" id="show-ws-card-price">
                           <%= workshop.price %> €
                         </div>
-                         <% if workshop.visio == true %>
-                          <div class="ws-card-visio">
-                            <span>en visio</span>
+                        <div class="ws-card-duration-and-city">
+                          <div class="ws-card-duration">
+                            <span><%= Workshop::SHORT_DURATIONS.key(workshop.duration) %></span>
+                            <i class="fas fa-clock"></i>
                           </div>
-                        <% else %>
-                          <div class="ws-card-city" id="show-ws-card-city">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <% if workshop.place.city.size >= 11 %>
-                              <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
-                            <% else %>
-                              <span id="city-name"><%= workshop.place.city.capitalize %></span>
-                            <% end %>
-                          </div>
-                        <% end %>
+                          <% if workshop.visio == true %>
+                            <div class="ws-card-visio">
+                              <span>en visio</span>
+                            </div>
+                          <% else %>
+                            <div class="ws-card-city">
+                              <% if workshop.place.city.size >= 11 %>
+                                <span id="city-name"><%= workshop.place.city[0..11].capitalize %>...</span>
+                              <% else %>
+                                <span id="city-name"><%= workshop.place.city.capitalize %></span>
+                              <% end %>
+                              <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                          <% end %>
+                        </div>
                       </div>
                     </div>
                   <% end %>
