@@ -78,7 +78,7 @@
     <div>
       <p>Numéro de facture : F<%= @partner.id %>-<%= @partner.invoice_number_for(@booking.id) %></p>
       <p>Facturé le : <%= @booking.created_at.strftime("%d/%m/%Y") %></p>
-      <p>Réglée le : <%= @booking.created_at.strftime("%d/%m/%Y") %></p>
+      <p>Réglé le : <%= @booking.created_at.strftime("%d/%m/%Y") %></p>
     </div>
 
     <table align="center" class="table" style="margin-top:60px;">

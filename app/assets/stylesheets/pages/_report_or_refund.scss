@@ -1,0 +1,109 @@
+.report-or-refund-container {
+  margin: 2rem 3rem 3rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.report-or-refund-title {
+  h1 {
+    font-size: 36px;
+    font-weight: bolder;
+    color: $dark-blue;
+    margin-bottom: 6px;
+    font-family: "Amiri", "Times New Roman", serif;
+    text-align: center;
+    line-height: 1.0;
+  }
+  h2 {
+    text-align: center;
+    a {
+      font-size: 16px;
+      font-weight: 600px;
+      color: $blue;
+    }
+    a:hover {
+      color: $blue;
+      text-decoration: none;
+      outline: none;
+    }
+    margin-bottom: 6px;
+  }
+  h3 {
+    text-align: center;
+    font-size: 16px;
+    color: $blue;
+    margin-bottom: 6px;
+  }
+}
+
+.report-or-refund-image {
+  margin: 2rem 0;
+  img {
+    border-radius: 6px;
+    object-fit: cover;
+  }
+}
+
+.report-or-refund-text {
+  p {
+    text-align: center;
+    font-weight: 500;
+    font-size: 15px;
+    max-width: 550px;
+  }
+
+}
+
+.report-or-refund-buttons {
+  margin: 2rem 0;
+  .button {
+    border-radius: 30px;
+    padding: 4px 14px;
+    background-color: $blue;
+    color: white;
+    text-decoration: none;
+    outline: none;
+  }
+  .button:hover {
+    background-color: $dark-blue;
+    color: white;
+    text-decoration: none;
+    outline: none;
+  }
+}
+
+// RESPONSIVE REPORT & REFUND//
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .report-or-refund-container {
+    margin: 1.5rem;
+  }
+  .report-or-refund-title {
+    h1 {
+      font-size: 28px;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
