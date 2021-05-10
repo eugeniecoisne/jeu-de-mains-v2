@@ -7,12 +7,12 @@ class ProfilesController < ApplicationController
     @profile = current_user.profile
     authorize @profile
     @chatroom = Chatroom.new
-    @profiles = policy_scope(Profile).where(db_status: true, ready: true).select { |profile| profile.role.present? }
+    @profiles = policy_scope(Profile).where(db_status: true, ready: true).select { |profile| profile.role.present? }.shuffle
     if params[:search].present?
-      @profiles = @profiles.select { |profile| profile.company.include?(params[:search][:company])} if params[:search][:company].present? && params[:search][:company].include?("Tous les partenaires") == false
-      @profiles = @profiles.select { |profile| profile.role.include?(params[:search][:role])} if params[:search][:role].present? && params[:search][:role].include?("Tous profils") == false
-      @profiles = @profiles.select { |profile| profile.thematics.include?(params[:search][:keyword])} if params[:search][:keyword].present? && params[:search][:keyword].include?("Toutes thématiques") == false
-      @profiles = @profiles.select { |profile| profile.district == params[:search][:place] || profile.big_city == params[:search][:place] } if params[:search][:place].present? && params[:search][:place].include?("Toutes les villes") == false
+      @profiles = @profiles.select { |profile| profile.company.include?(params[:search][:company])}.shuffle if params[:search][:company].present? && params[:search][:company].include?("Tous les partenaires") == false
+      @profiles = @profiles.select { |profile| profile.role.include?(params[:search][:role])}.shuffle if params[:search][:role].present? && params[:search][:role].include?("Tous profils") == false
+      @profiles = @profiles.select { |profile| profile.thematics.include?(params[:search][:keyword])}.shuffle if params[:search][:keyword].present? && params[:search][:keyword].include?("Toutes thématiques") == false
+      @profiles = @profiles.select { |profile| profile.district == params[:search][:place] || profile.big_city == params[:search][:place] }.shuffle if params[:search][:place].present? && params[:search][:place].include?("Toutes les villes") == false
     end
   end
 

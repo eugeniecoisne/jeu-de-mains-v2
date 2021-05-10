@@ -52,10 +52,9 @@
             </select>
           </div>
         <% end %>
-        <% if @workshop.place.name == "Atelier en visio" %>
-          <%= f.input :kit, disabled: true, as: :radio_buttons, label: "Un kit sera envoyé par voie postale aux participants en amont de l'atelier" %>
-          <%= f.input :kit_description, disabled: true, :input_html => {:rows => 4}, label: "Votre atelier est en visio ? Description du contenu du kit, la date d'envoi du kit (exemple J-7) et par quel transporteur il sera livré. La livraison se veut déjà incluse dans le prix de l'atelier fixé par vos soins et se fera obligatoirement à domicile." %>
-          <%= f.input :kit_shipping_price, disabled: true, collection: Workshop::KIT_SHIPPING, label: "Votre atelier est en visio ? Indiquez les frais de livraison du kit en euros TTC estimés qui sont déjà compris dans le prix global de l'atelier. La loi nous oblige à les indiquer clairement aux consommateurs." %>
+        <% if @workshop.place.name == "Atelier en visio" && @workshop.kit == true %>
+          <%= f.input :kit_description, disabled: true, :input_html => {:rows => 4}, label: "Votre atelier est en visio avec kit ? Description du contenu du kit, la date d'envoi du kit (exemple J-7) et par quel transporteur il sera livré. La livraison se veut déjà incluse dans le prix de l'atelier fixé par vos soins et se fera obligatoirement à domicile." %>
+          <%= f.input :kit_shipping_price, disabled: true, collection: Workshop::KIT_SHIPPING, label: "Votre atelier est en visio avec kit ? Indiquez les frais de livraison du kit en euros TTC estimés qui sont déjà compris dans le prix global de l'atelier. La loi nous oblige à les indiquer clairement aux consommateurs." %>
         <% end %>
         <%= f.input :duration, collection: Workshop::DURATIONS, disabled: true, label: "Durée de l'atelier" %>
         <%= f.input :price, disabled: true, label: "Prix par personne TTC" %>
