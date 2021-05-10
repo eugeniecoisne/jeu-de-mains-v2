@@ -108,11 +108,11 @@
                     </div>
                     <div class="place-anim-card-info-tags">
 
-                      <% if profile.thematics.size <= 3 %>
+                      <% if profile.thematics.present? && profile.thematics.size <= 3 %>
                         <% profile.thematics.each do |thematic| %>
                           <div class='informations-tag'><%= thematic %></div>
                         <% end %>
-                      <% else %>
+                      <% elsif profile.thematics.present? && profile.thematics.size > 3 %>
                         <div class='informations-tag'>Plusieurs thématiques</div>
                       <% end %>
                     </div>
