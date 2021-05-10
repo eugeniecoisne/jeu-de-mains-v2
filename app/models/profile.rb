@@ -7,6 +7,7 @@ class Profile < ApplicationRecord
   belongs_to :user
   has_many :fee_invoices
   validate :attachment_size
+  after_update :should_generate_new_friendly_id?
 
   ROLES = ["Boutique / atelier", "Animation d'ateliers", "Organisation d'événements"]
 
@@ -60,15 +61,26 @@ class Profile < ApplicationRecord
   end
 
   def thematics
-    thematics = user.animators.map { |animator| animator.workshop.thematic if animator.workshop.db_status == true }.flatten(1)
-    user.places.each do |place|
-      place.workshops.where(db_status: true).each do |workshop|
-        workshop.thematic.each do |t|
-          thematics << t
+    if user.animators.present? && user.animators.map { |animator| animator.workshop.thematic if animator.workshop.db_status == true }.present?
+      thematics = user.animators.map { |animator| animator.workshop.thematic if animator.workshop.db_status == true }.flatten(1)
+    else
+      thematics = []
+    end
+    if user.places.present?
+      user.places.each do |place|
+        if place.workshops.where(db_status: true).present?
+          place.workshops.where(db_status: true).each do |workshop|
+            workshop.thematic.each do |t|
+              thematics << t
+            end
+          end
         end
       end
     end
     thematics.uniq
+    if thematics.present?
+      thematics.compact
+    end
   end
 
   def self.thematics
@@ -251,6 +263,10 @@ class Profile < ApplicationRecord
         errors.add(:attachments, "limite de poids max 3 Mo")
       end
     end
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || company_changed?
   end
 
 end

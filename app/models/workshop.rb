@@ -15,6 +15,8 @@ class Workshop < ApplicationRecord
   validates :recommendable, inclusion: { in: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
   validate :attachments_size
 
+  after_update :should_generate_new_friendly_id?
+
   serialize :thematic, Array
 
   THEMATICS = ['Autour du fil', 'Végétal', 'Papier & Calligraphie', 'Céramique & Modelage', 'Bijoux', 'Cosmétique & Entretien', 'Peinture & Dessin', 'Meuble & Décoration', 'Travail du cuir']
@@ -188,4 +190,7 @@ class Workshop < ApplicationRecord
     end
   end
 
+  def should_generate_new_friendly_id?
+    slug.blank? || title_changed?
+  end
 end

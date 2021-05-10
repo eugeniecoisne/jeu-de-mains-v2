@@ -885,9 +885,9 @@
                       <div id="collapse<%= index %>" class="collapse" aria-labelledby="heading<%= index %>" data-parent="#accordionDashboardReviews">
                         <div class="card-body">
                           <strong>Atelier</strong><br>
-                          <%= review.booking.session.workshop.title %><br>
-                          <strong>Lieu</strong><br>
-                          <%= review.booking.session.workshop.place.name %><br>
+                          <%= review.booking.session.workshop.title %> du <%= review.booking.session.start_date.strftime("%d/%m/%y")%> à <%= review.booking.session.start_time %><br>
+                          <strong>Organisateur & lieu</strong><br>
+                          Organisé par <%= review.booking.session.workshop.place.user.profile.company %> dans le lieu <%= review.booking.session.workshop.place.name %><br>
                           <strong>Message</strong><br>
                           <%= review.content %>
                         </div>
