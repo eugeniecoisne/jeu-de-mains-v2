@@ -130,6 +130,13 @@
 
                 <li class="list-group-item my-informations-item" id="first-item">
                   <div class="my-informations-text">
+                    <span><strong>Voir ma page partenaire</strong></span>
+                  </div>
+                  <%= link_to "Voir", profile_public_path(@profile), class: "my-informations-button" %>
+                </li>
+
+                <li class="list-group-item my-informations-item" id="first-item">
+                  <div class="my-informations-text">
                     <span><strong>Photo de profil</strong></span>
                     <% if @profile.photo.attached? %>
                       <%=cl_image_tag @profile.photo.key, loading: "lazy", alt: "jeu-de-mains-ma-photo", title: "jeu-de-mains-ma-photo", width: 100, height: 100, crop: :fill %>
