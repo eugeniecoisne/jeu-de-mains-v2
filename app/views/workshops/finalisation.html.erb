@@ -27,7 +27,7 @@
             Vous pouvez trouver vos ateliers “en ligne” et “hors ligne” dans votre <strong><%= link_to "tableau de bord", tableau_de_bord_profile_path(current_user.profile) %></strong>.
             <br><br>
 
-            <% if @workshop.sessions.present? %>
+            <% if @workshop.sessions.where(db_status: true).present? %>
               <div class="session_success">
                 <p>Votre première date a bien été ajoutée :</p>
                 <p>
@@ -54,7 +54,10 @@
                 <% end %>
                   <%= f.input :capacity, label: "Nombre de places si différent de celui indiqué dans la fiche atelier (sinon laisser vide)" %>
 
-                  <%= f.submit 'Ajouter', class: "button" %>
+                  <div id="add-session-to-finalisation-ws">
+                    <span>Cliquez sur <strong>"Ajouter"</strong> avant de poursuivre : </span>
+                    <%= f.submit 'Ajouter', class: "button mt-1", id: "add-session-to-finalisation-ws" %>
+                  </div>
                 <% end %>
               </div>
             <% end %>
