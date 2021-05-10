@@ -78,7 +78,7 @@ class Profile < ApplicationRecord
       end
     end
     thematics.uniq
-    if thematics.present?
+    if thematics.present? && thematics.include?(nil)
       thematics.compact
     end
   end
@@ -86,7 +86,9 @@ class Profile < ApplicationRecord
   def self.thematics
     self_thematics = []
     Profile.all.where(db_status: true, ready: true).each do |p|
-      self_thematics.concat(p.thematics)
+      if p.thematics.present?
+        self_thematics.concat(p.thematics)
+      end
     end
     self_thematics.uniq
   end
