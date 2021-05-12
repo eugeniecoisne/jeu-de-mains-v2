@@ -1,3 +1,10 @@
+<% if @workshop.completed? && @workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today }.present? %>
+  <% content_for :meta_title, "Jeu de Mains | Votre atelier est prêt" %>
+<% else %>
+  <% content_for :meta_title, "Jeu de Mains | Votre atelier est presque prêt" %>
+<% end %>
+
+
 <div class="confirmation-ws-container">
 
   <% if @workshop.completed? && @workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today }.present? %>

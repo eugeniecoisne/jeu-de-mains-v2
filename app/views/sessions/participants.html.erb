@@ -3,6 +3,10 @@
 <% if @session.db_status == true %>
 
   <% content_for :meta_title, "Jeu de Mains | Participants | #{@session.workshop.title[0..30]}" %>
+  <% content_for :meta_description, "#{@session.workshop.program[0..157]}..." %>
+  <% if @session.workshop.photos.attached? %>
+    <% content_for :meta_image, "#{cl_image_path @session.workshop.photos[0].key, width: 1200, height: 630, crop: :fill}" %>
+  <% end %>
 
   <div class="sign-container" id="session-participants-container">
 
