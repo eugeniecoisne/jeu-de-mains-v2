@@ -4,7 +4,8 @@
     <th>Numero de reservation</th>
     <th>Partenaire</th>
     <th>Moyen de paiement</th>
-    <th>Moyen de paiement complémentaire</th>
+    <th>Payé en carte bancaire</th>
+    <th>Payé en carte cadeau</th>
     <th>Reservation TTC</th>
     <th>Remboursement TTC</th>
     <th>Taux de commission %</th>
@@ -23,29 +24,40 @@
 
         <% if b.giftcard_amount_spent.present? && (b.amount - b.giftcard_amount_spent == 0) %>
           <td>carte cadeau</td>
-          <td></td>
         <% elsif b.giftcard_amount_spent.present? && (b.amount - b.giftcard_amount_spent > 0) %>
-          <td>carte bancaire</td>
-          <td>carte cadeau</td>
+          <td>carte bancaire & carte cadeau</td>
         <% else %>
           <td>carte bancaire</td>
-          <td></td>
         <% end %>
 
         <% if p[:type] == "success" %>
-          <td><%= p[:amount_ttc].round(3).to_s.gsub(".",",") %></td>
+          <% if b.giftcard_amount_spent.present? %>
+            <td><%= ((b.workshop_unit_price * b.quantity) - b.giftcard_amount_spent).round(2).to_s.gsub(".",",") %></td>
+            <td><%= b.giftcard_amount_spent.round(2).to_s.gsub(".",",") %></td>
+          <% else %>
+            <td><%= b.amount.round(2).to_s.gsub(".",",") %></td>
+            <td>0</td>
+          <% end %>
+          <td><%= p[:amount_ttc].round(2).to_s.gsub(".",",") %></td>
           <td>0</td>
           <td><%= b.fee.to_s.gsub(".",",") %></td>
-          <td><%= p[:fee_ht].round(3).to_s.gsub(".",",") %></td>
-          <td><%= p[:fee_tva].round(3).to_s.gsub(".",",") %></td>
-          <td><%= p[:fee_ttc].round(3).to_s.gsub(".",",") %></td>
+          <td><%= p[:fee_ht].round(2).to_s.gsub(".",",") %></td>
+          <td><%= p[:fee_tva].round(2).to_s.gsub(".",",") %></td>
+          <td><%= p[:fee_ttc].round(2).to_s.gsub(".",",") %></td>
         <% else %>
+          <% if b.giftcard_amount_spent.present? %>
+            <td><%= ((b.amount - b.giftcard_amount_spent) * b.refund_rate * -1).round(2).to_s.gsub(".",",") %></td>
+            <td><%= ((b.giftcard_amount_spent * b.refund_rate) * -1).round(2).to_s.gsub(".",",") %></td>
+          <% else %>
+            <td><%= (b.amount * b.refund_rate * -1).round(2).to_s.gsub(".",",") %></td>
+            <td>0</td>
+          <% end %>
           <td>0</td>
-          <td><%= p[:amount_ttc].round(3).to_s.gsub(".",",") %></td>
+          <td><%= p[:amount_ttc].round(2).to_s.gsub(".",",") %></td>
           <td><%= b.fee.to_s.gsub(".",",") %></td>
-          <td><%= p[:fee_ht].round(3).to_s.gsub(".",",") %></td>
-          <td><%= p[:fee_tva].round(3).to_s.gsub(".",",") %></td>
-          <td><%= p[:fee_ttc].round(3).to_s.gsub(".",",") %></td>
+          <td><%= p[:fee_ht].round(2).to_s.gsub(".",",") %></td>
+          <td><%= p[:fee_tva].round(2).to_s.gsub(".",",") %></td>
+          <td><%= p[:fee_ttc].round(2).to_s.gsub(".",",") %></td>
         <% end %>
       </tr>
     <% end %>

@@ -1,5 +1,9 @@
 <% if current_user.admin == true %>
+
+  <% content_for :meta_title, "Jeu de Mains | Comptabilité Réservations" %>
+
   <div class="container-comptabilite">
+
     <h1>Comptabilité réservations</h1>
 
     <div class="comptabilite-exports">
@@ -23,7 +27,8 @@
             <th scope="col">Numero de reservation</th>
             <th scope="col">Partenaire</th>
             <th scope="col">Moyen de paiement</th>
-            <th scope="col">Moyen de paiement complémentaire</th>
+            <th scope="col">Payé en carte bancaire</th>
+            <th scope="col">Payé en carte cadeau</th>
             <th scope="col">Reservation TTC</th>
             <th scope="col">Remboursement TTC</th>
             <th scope="col">Taux de commission %</th>
@@ -43,16 +48,21 @@
 
               <% if b.giftcard_amount_spent.present? && (b.amount - b.giftcard_amount_spent == 0) %>
                 <td>carte cadeau</td>
-                <td></td>
               <% elsif b.giftcard_amount_spent.present? && (b.amount - b.giftcard_amount_spent > 0) %>
-                <td>carte bancaire</td>
-                <td>carte cadeau</td>
+                <td>carte bancaire & carte cadeau</td>
               <% else %>
                 <td>carte bancaire</td>
-                <td></td>
               <% end %>
 
+
               <% if p[:type] == "success" %>
+                <% if b.giftcard_amount_spent.present? %>
+                  <td><%= ((b.workshop_unit_price * b.quantity) - b.giftcard_amount_spent) %></td>
+                  <td><%= b.giftcard_amount_spent %></td>
+                <% else %>
+                  <td><%= b.amount %></td>
+                  <td>0.0</td>
+                <% end %>
                 <td><%= p[:amount_ttc].round(2) %></td>
                 <td>0</td>
                 <td><%= b.fee * 100 %>%</td>
@@ -60,6 +70,13 @@
                 <td><%= p[:fee_tva].round(2) %></td>
                 <td><%= p[:fee_ttc].round(2) %></td>
               <% else %>
+                <% if b.giftcard_amount_spent.present? %>
+                  <td><%= (b.amount - b.giftcard_amount_spent) * b.refund_rate * -1 %></td>
+                  <td><%= (b.giftcard_amount_spent * b.refund_rate) * -1 %></td>
+                <% else %>
+                  <td><%= b.amount * b.refund_rate * -1 %></td>
+                  <td>0.0</td>
+                <% end %>
                 <td>0</td>
                 <td><%= p[:amount_ttc].round(2) %></td>
                 <td><%= b.fee * 100 %>%</td>

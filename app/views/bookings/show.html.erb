@@ -1,3 +1,6 @@
+<% content_for :meta_title, "Jeu de Mains | Réservation #{@booking.created_at.strftime("%Y%m")}#{@booking.id}" %>
+
+
 <div class="show-booking-container">
 
   <h1>Réservation n°<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %></h1>

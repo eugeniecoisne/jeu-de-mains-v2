@@ -1,6 +1,8 @@
 
 <% if @chatroom %>
 
+  <% content_for :meta_title, "Jeu de Mains | Conversation avec #{User.find(@chatroom.user1) == current_user ? User.find(@chatroom.user2).profile.company : User.find(@chatroom.user1).profile.company}" %>
+
   <div class="chatroom-show">
 
     <div class="back-button">
