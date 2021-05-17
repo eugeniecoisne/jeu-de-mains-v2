@@ -26,11 +26,11 @@
       <tbody>
         <tr id="booking-options-table-first-row">
           <td>Carte cadeau x 1</td>
-          <td style="text-align: right"><%= @giftcard.initial_amount %> € TTC</td>
+          <td style="text-align: right"><%= @giftcard.initial_amount.to_i %> € TTC</td>
         </tr>
         <tr>
           <td><strong>TOTAL</strong></td>
-          <td style="text-align: right"><strong><%= @giftcard.initial_amount %> € TTC</strong></td>
+          <td style="text-align: right"><strong><%= @giftcard.initial_amount.to_i %> € TTC</strong></td>
         </tr>
       </tbody>
     </table>

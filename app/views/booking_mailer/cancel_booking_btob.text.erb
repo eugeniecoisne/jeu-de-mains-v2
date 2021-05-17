@@ -40,10 +40,10 @@ Client : <%= @booking.user.first_name %> <%= @booking.user.last_name[0] %>.
 Réservé le <%= @booking.created_at.strftime('%d/%m/%Y') %>
 Annulé le <%= @booking.cancelled_at.strftime('%d/%m/%Y') %>
 Nombre de places : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %>
-Montant résa = <%= @booking.amount %>€ TTC
-Frais d'annul. client <%= (100 - (@booking.refund_rate * 100)).round %>% = - <%= cancel_fee.round(2) %>€ TTC
-Commission JDM <%= (@booking.fee * 100).round %>% = - <%= jdm_fee.round(2) %>€ TTC
-Remboursé par vous = <%= partner_refund_total.round(2) %>€ TTC
+Montant résa = <%= sprintf("%.2f", @booking.amount.round(2)) %>€ TTC
+Frais d'annul. client <%= (100 - (@booking.refund_rate * 100)).round %>% = - <%= sprintf("%.2f", cancel_fee.round(2)) %>€ TTC
+Commission JDM <%= (@booking.fee * 100).round %>% = - <%= sprintf("%.2f", jdm_fee.round(2)) %>€ TTC
+Remboursé par vous = <%= sprintf("%.2f", partner_refund_total.round(2)) %>€ TTC
 
 ---------------------------------------------
 

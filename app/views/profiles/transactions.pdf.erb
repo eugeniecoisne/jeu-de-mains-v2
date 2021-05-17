@@ -119,23 +119,23 @@
                 <td class="bordered" style="width:360px;"><%= b[:label] %> - <%= b[:workshop].title[0..18] %>...</td>
                 <% if b[:status] == "success" %>
                   <% if b[:tva_applicable] == true %>
-                    <td class="bordered" style="text-align:right;"><%= (b[:amount] / 1.2).round(2) %> €</td>
-                    <td class="bordered" style="text-align:right;"><%= (b[:amount] - (b[:amount] / 1.2)).round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;"><%= sprintf("%.2f", (b[:amount] / 1.2).round(2)) %> €</td>
+                    <td class="bordered" style="text-align:right;"><%= sprintf("%.2f", (b[:amount] - (b[:amount] / 1.2)).round(2)) %> €</td>
                   <% else %>
                     <td class="bordered" style="text-align:right;"></td>
                     <td class="bordered" style="text-align:right;"></td>
                   <% end %>
-                  <td class="bordered" style="text-align:right;"><%= b[:amount].round(2) %> €</td>
+                  <td class="bordered" style="text-align:right;"><%= sprintf("%.2f", b[:amount].round(2)) %> €</td>
 
                 <% else %>
                   <% if b[:tva_applicable] == true %>
-                    <td class="bordered" style="text-align:right;">- <%= (b[:amount] * b[:refund_rate] / 1.2).round(2) %> €</td>
-                    <td class="bordered" style="text-align:right;">- <%= ((b[:amount] * b[:refund_rate]) - (b[:amount] * b[:refund_rate] / 1.2)).round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;">- <%= sprintf("%.2f", (b[:amount] * b[:refund_rate] / 1.2).round(2)) %> €</td>
+                    <td class="bordered" style="text-align:right;">- <%= sprintf("%.2f", ((b[:amount] * b[:refund_rate]) - (b[:amount] * b[:refund_rate] / 1.2)).round(2)) %> €</td>
                   <% else %>
                     <td class="bordered" style="text-align:right;"></td>
                     <td class="bordered" style="text-align:right;"></td>
                   <% end %>
-                  <td class="bordered" style="text-align:right;">- <%= (b[:amount] * b[:refund_rate]).round(2) %> €</td>
+                  <td class="bordered" style="text-align:right;">- <%= sprintf("%.2f", (b[:amount] * b[:refund_rate]).round(2)) %> €</td>
                 <% end %>
               </tr>
             <% end %>
@@ -165,14 +165,14 @@
               <td style="width:360px;"></td>
               <% if @transaction_bookings.present? && @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(@year.to_i, @month.to_i, 1,0,0,0,"+02:00") && b[:date].to_date <= DateTime.new(@year.to_i, @month.to_i, @end.to_i,23,59,59,"+02:00") }.present? %>
                 <% if @transaction_bookings.select { |b| b[:date].to_date >= DateTime.new(@year.to_i, @month.to_i, 1,0,0,0,"+02:00") && b[:date].to_date <= DateTime.new(@year.to_i, @month.to_i, @end.to_i,23,59,59,"+02:00") }.select {|b| b[:tva_applicable] == true }.present? %>
-                  <td class="bordered" style="text-align:right;"><strong><%= @transactions_sum_ht.round(2) %> €</strong></td>
-                  <td class="bordered" style="text-align:right;"><strong><%= @transactions_sum_tva.round(2) %> €</strong></td>
+                  <td class="bordered" style="text-align:right;"><strong><%= sprintf("%.2f", @transactions_sum_ht.round(2)) %> €</strong></td>
+                  <td class="bordered" style="text-align:right;"><strong><%= sprintf("%.2f", @transactions_sum_tva.round(2)) %> €</strong></td>
                 <% else %>
                   <td class="bordered" style="text-align:right;"><strong>-</strong></td>
                   <td class="bordered" style="text-align:right;"><strong>-</strong></td>
                 <% end %>
               <% end %>
-              <td class="bordered" style="text-align:right;"><strong><%= @transactions_sum_ttc.round(2) %> €</strong></td>
+              <td class="bordered" style="text-align:right;"><strong><%= sprintf("%.2f", @transactions_sum_ttc.round(2)) %> €</strong></td>
               <!-- row totaux -->
             </tr>
           <% end %>

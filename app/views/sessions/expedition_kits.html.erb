@@ -47,6 +47,7 @@
             <th scope="col">Prénom</th>
             <th scope="col">Adresse</th>
             <th scope="col">Téléphone</th>
+            <th scope="col">E-mail</th>
             <th scope="col">Quantité</th>
             <th scope="col">Statut</th>
             <th scope="col">Lien suivi</th>
@@ -59,6 +60,7 @@
               <td><%= booking.user.first_name %></td>
               <td><%= booking.address %><br><%= "#{booking.address_complement}<br>" if booking.address_complement.present? %><%= booking.zip_code %> <%= booking.city %></td>
               <td><%= booking.phone_number %></td>
+              <td><%= booking.user.email %></td>
               <td><%= booking.quantity > 1 ? "#{booking.quantity} kits" : "#{booking.quantity} kit"  %></td>
               <td>
                 <p class="mb-2"><%= booking.kit_expedition_status %></p>

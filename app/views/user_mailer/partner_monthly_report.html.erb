@@ -147,13 +147,13 @@
               <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:20px;">
                 <p style="font-size: 30px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
                   <% if @success_organized_bookings.present? && @refund_organized_bookings.present? %>
-                    <%= ((@success_organized_bookings.sum { |b| b.amount * (1 - b.fee)}) - (@refund_organized_bookings.sum { |b| b.amount * b.refund_rate * (1 - b.fee)})).round(2) %> <span style="font-size:20px;">€*</span>
+                    <%= sprintf("%.2f", (@success_organized_bookings.sum { |b| b.amount * (1 - b.fee)} - @refund_organized_bookings.sum { |b| b.amount * b.refund_rate * (1 - b.fee)}).round(2)) %> <span style="font-size:20px;">€*</span>
                   <% elsif @success_organized_bookings.present? %>
-                    <%= @success_organized_bookings.sum { |b| b.amount * (1 - b.fee)}.round(2) %> <span style="font-size:20px;">€*</span>
+                    <%= sprintf("%.2f", @success_organized_bookings.sum { |b| b.amount * (1 - b.fee)}.round(2)) %> <span style="font-size:20px;">€*</span>
                   <% elsif @refund_organized_bookings.present? %>
-                    <%= 0 - @refund_organized_bookings.sum { |b| b.amount * b.refund_rate * (1 - b.fee)}.round(2) %> <span style="font-size:20px;">€*</span>
+                    <%= sprintf("%.2f", (0 - @refund_organized_bookings.sum { |b| b.amount * b.refund_rate * (1 - b.fee)}).round(2)) %> <span style="font-size:20px;">€*</span>
                   <% else %>
-                    0 <span style="font-size:20px;">€*</span>
+                    <%= sprintf("%.2f", 0.0) %> <span style="font-size:20px;">€*</span>
                   <% end %>
                 </p>
                 <p style="font-size: 15px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
@@ -168,9 +168,9 @@
               <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:20px;padding-bottom:20px;">
                 <p style="font-size: 18px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
                   <% if @success_organized_bookings.present? %>
-                    <%= @success_organized_bookings.sum { |b| (b.amount * (1 - b.fee)).round(2)} %> <span style="font-size:14px;">€*</span>
+                    <%= sprintf("%.2f", @success_organized_bookings.sum { |b| b.amount * (1 - b.fee)}.round(2)) %> <span style="font-size:14px;">€*</span>
                   <% else %>
-                    0 <span style="font-size:14px;">€*</span>
+                    <%= sprintf("%.2f", 0.0) %> <span style="font-size:14px;">€*</span>
                   <% end %>
                 </p>
                 <p style="font-size: 14px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">
@@ -181,9 +181,9 @@
               <div style="text-align: center; line-height: 1.5; font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #1C1C1C; mso-line-height-alt: 18px; word-break: break-word; padding-top:5px;padding-bottom:20px;">
                 <p style="font-size: 18px; color: #1C1C1C; font-weight:700; mso-line-height-alt: 23px; margin: 0;">
                   <% if @refund_organized_bookings.present? %>
-                    - <%= @refund_organized_bookings.sum { |b| (b.amount * b.refund_rate * (1 - b.fee)).round(2)} %> <span style="font-size:14px;">€*</span>
+                    - <%= sprintf("%.2f", @refund_organized_bookings.sum { |b| b.amount * b.refund_rate * (1 - b.fee)}.round(2)) %> <span style="font-size:14px;">€*</span>
                   <% else %>
-                    0 <span style="font-size:14px;">€*</span>
+                    <%= sprintf("%.2f", 0.0) %> <span style="font-size:14px;">€*</span>
                   <% end %>
                 </p>
                 <p style="font-size: 14px; color: #1C1C1C; mso-line-height-alt: 23px; margin: 0;">

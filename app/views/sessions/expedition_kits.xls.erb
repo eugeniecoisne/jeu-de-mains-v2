@@ -11,6 +11,7 @@
     <th>Code postal</th>
     <th>Ville</th>
     <th>Telephone</th>
+    <th>E-mail</th>
     <th>Date de réservation</th>
     <th>Quantites de kits</th>
     <th>Statut</th>
@@ -29,6 +30,7 @@
     <td><%= booking.zip_code.present? ? booking.zip_code : "-" %></td>
     <td><%= booking.city.present? ? booking.city.parameterize(separator:' ').capitalize : "-" %></td>
     <td><%= booking.phone_number.present? ? booking.phone_number : "-" %></td>
+    <td><%= booking.user.email.present? ? booking.user.email : "-" %></td>
     <td><%= booking.created_at.strftime("%d/%m/%y") %></td>
     <td><%= booking.quantity %></td>
     <td><%= booking.kit_expedition_status.present? ? booking.kit_expedition_status.parameterize(separator:' ').capitalize : "-" %></td>

@@ -53,7 +53,13 @@
             </select>
           </div>
           <div class="d-flex ws-price">
-            <span id="ws-booking-price"><%= @workshop.price %> €</span>
+            <span id="ws-booking-price">
+              <% if @workshop.price.modulo(1).zero? %>
+                <%= @workshop.price.round %> €
+              <% else %>
+                <%= sprintf("%.2f", @workshop.price) %> €
+              <% end %>
+            </span>
             <span>/pers</span>
           </div>
           <% if current_user.present? && current_user.profile.role.present? %>
@@ -415,7 +421,11 @@
                       </div>
                       <div class="ws-card-price-and-city" id="show-ws-card-price-and-city">
                         <div class="ws-card-price" id="show-ws-card-price">
-                          <%= workshop.price %> €
+                          <% if workshop.price.modulo(1).zero? %>
+                            <%= workshop.price.round %> €
+                          <% else %>
+                            <%= sprintf("%.2f", workshop.price) %> €
+                          <% end %>
                         </div>
                         <div class="ws-card-duration-and-city">
                           <div class="ws-card-duration">

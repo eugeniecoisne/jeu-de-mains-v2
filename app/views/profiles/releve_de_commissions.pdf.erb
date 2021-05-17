@@ -148,17 +148,17 @@
               <% @total_sum_TTC += (@sum_TTC - @refunds_sum_TTC) %>
               <tr>
                 <td class="bordered large-column" style="text-align:left;">Paiements commission au taux de <%= f * 100 %>%</td>
-                <td class="bordered short-column" style="text-align:right;"><%= @payments_amounts.round(2) %> €</td>
-                <td class="bordered short-column" style="text-align:right;"><%= @sum_HT.round(2) %> €</td>
-                <td class="bordered short-column" style="text-align:right;"><%= @sum_TVA.round(2) %> €</td>
-                <td class="bordered short-column" style="text-align:right;"><%= @sum_TTC.round(2) %> €</td>
+                <td class="bordered short-column" style="text-align:right;"><%= sprintf("%.2f", @payments_amounts.round(2)) %> €</td>
+                <td class="bordered short-column" style="text-align:right;"><%= sprintf("%.2f", @sum_HT.round(2)) %> €</td>
+                <td class="bordered short-column" style="text-align:right;"><%= sprintf("%.2f", @sum_TVA.round(2)) %> €</td>
+                <td class="bordered short-column" style="text-align:right;"><%= sprintf("%.2f", @sum_TTC.round(2)) %> €</td>
               </tr>
               <tr>
                 <td class="bordered large-column" style="text-align:left;">Remboursements commission au taux de <%= f * 100 %>%</td>
-                <td class="bordered short-column" style="text-align:right;">- <%= @refunds_amounts.round(2) %> €</td>
-                <td class="bordered short-column" style="text-align:right;">- <%= @refunds_sum_HT.round(2) %> €</td>
-                <td class="bordered short-column" style="text-align:right;">- <%= @refunds_sum_TVA.round(2) %> €</td>
-                <td class="bordered short-column" style="text-align:right;">- <%= @refunds_sum_TTC.round(2) %> €</td>
+                <td class="bordered short-column" style="text-align:right;">- <%= sprintf("%.2f", @refunds_amounts.round(2)) %> €</td>
+                <td class="bordered short-column" style="text-align:right;">- <%= sprintf("%.2f", @refunds_sum_HT.round(2)) %> €</td>
+                <td class="bordered short-column" style="text-align:right;">- <%= sprintf("%.2f", @refunds_sum_TVA.round(2)) %> €</td>
+                <td class="bordered short-column" style="text-align:right;">- <%= sprintf("%.2f", @refunds_sum_TTC.round(2)) %> €</td>
               </tr>
             <% end %>
 
@@ -167,21 +167,21 @@
               <td class="short-column"></td>
               <td class="short-column"></td>
               <td class="bordered short-column" style="text-align:right;">Total HT</td>
-              <td class="bordered short-column" style="text-align:right;"><%= @total_sum_HT.round(2) %> €</td>
+              <td class="bordered short-column" style="text-align:right;"><%= sprintf("%.2f", @total_sum_HT.round(2)) %> €</td>
             </tr>
             <tr style='border-left: 1px solid #fff;'>
               <td class="large-column"></td>
               <td class="short-column"></td>
               <td class="short-column"></td>
               <td class="bordered short-column" style="text-align:right;">TVA 20%</td>
-              <td class="bordered short-column" style="text-align:right;"><%= @total_sum_TVA.round(2) %> €</td>
+              <td class="bordered short-column" style="text-align:right;"><%= sprintf("%.2f", @total_sum_TVA.round(2)) %> €</td>
             </tr>
             <tr style='border-left: 1px solid #fff;'>
               <td class="large-column" style='border-bottom: 1px solid #fff;'></td>
               <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
               <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
               <td class="bordered short-column" style="text-align:right;"><strong>Total TTC</strong></td>
-              <td class="bordered short-column" style="text-align:right;"><strong><%= @total_sum_TTC.round(2) %> €</strong></td>
+              <td class="bordered short-column" style="text-align:right;"><strong><%= sprintf("%.2f", @total_sum_TTC.round(2)) %> €</strong></td>
             </tr>
           <% end %>
         </table>
@@ -219,17 +219,17 @@
                   <% end %>
                   <td class="bordered" style='font-size:13px;'><%= b[:label] %></td>
                   <% if b[:status] == "success" %>
-                    <td class="bordered" style="text-align:right;font-size:13px;"><%= b[:amount].round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;"><%= sprintf("%.2f", b[:amount].round(2)) %> €</td>
                     <td class="bordered" style="text-align:right;font-size:13px;"><%= b[:fee_rate] * 100 %>%</td>
-                    <td class="bordered" style="text-align:right;font-size:13px;"><%= (b[:fee_rate] * b[:amount] / 1.2).round(2) %> €</td>
-                    <td class="bordered" style="text-align:right;font-size:13px;"><%= ((b[:fee_rate] * b[:amount]) - (b[:fee_rate] * b[:amount] / 1.2)).round(2) %> €</td>
-                    <td class="bordered" style="text-align:right;font-size:13px;"><%= (b[:fee_rate] * b[:amount]).round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;"><%= sprintf("%.2f", (b[:fee_rate] * b[:amount] / 1.2).round(2)) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;"><%= sprintf("%.2f", ((b[:fee_rate] * b[:amount]) - (b[:fee_rate] * b[:amount] / 1.2)).round(2)) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;"><%= sprintf("%.2f", (b[:fee_rate] * b[:amount]).round(2)) %> €</td>
                   <% else %>
-                    <td class="bordered" style="text-align:right;font-size:13px;">- <%= (b[:amount] * b[:refund_rate]).round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;">- <%= sprintf("%.2f", (b[:amount] * b[:refund_rate]).round(2)) %> €</td>
                     <td class="bordered" style="text-align:right;font-size:13px;"><%= b[:fee_rate] * 100 %>%</td>
-                    <td class="bordered" style="text-align:right;font-size:13px;">- <%= (b[:fee_rate] * b[:amount] * b[:refund_rate] / 1.2).round(2) %> €</td>
-                    <td class="bordered" style="text-align:right;font-size:13px;">- <%= ((b[:fee_rate] * b[:amount] * b[:refund_rate]) - (b[:fee_rate] * b[:amount] * b[:refund_rate] / 1.2)).round(2) %> €</td>
-                    <td class="bordered" style="text-align:right;font-size:13px;">- <%= (b[:fee_rate] * b[:amount] * b[:refund_rate]).round(2) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;">- <%= sprintf("%.2f", (b[:fee_rate] * b[:amount] * b[:refund_rate] / 1.2).round(2)) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;">- <%= sprintf("%.2f", ((b[:fee_rate] * b[:amount] * b[:refund_rate]) - (b[:fee_rate] * b[:amount] * b[:refund_rate] / 1.2)).round(2)) %> €</td>
+                    <td class="bordered" style="text-align:right;font-size:13px;">- <%= sprintf("%.2f", (b[:fee_rate] * b[:amount] * b[:refund_rate]).round(2)) %> €</td>
                   <% end %>
                 </tr>
               <% end %>

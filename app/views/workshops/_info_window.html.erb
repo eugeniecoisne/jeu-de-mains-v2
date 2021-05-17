@@ -23,7 +23,13 @@
                 <h3><%= workshop.title %></h3>
               </div>
             </div>
-            <span class="popup-workshop-price"><%= workshop.price %> €</span>
+            <span class="popup-workshop-price">
+              <% if workshop.price.modulo(1).zero? %>
+                <%= workshop.price.round %> €
+              <% else %>
+                <%= sprintf("%.2f", workshop.price) %> €
+              <% end %>
+            </span>
           </div>
           <div class="popup-workshop-right-side">
             <div class="popup-workshop-rating-tag-container">

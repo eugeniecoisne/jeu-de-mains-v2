@@ -105,13 +105,13 @@
             <% end %>
           </td>
           <td class="short-column bordered"><%= @booking.quantity %> place(s)</td>
-          <td class="short-column bordered"><%= (@booking.amount).round(2) %> €</td>
+          <td class="short-column bordered"><%= sprintf("%.2f", (@booking.amount).round(2)) %> €</td>
           <td class="short-column bordered" style="text-align:right;"><%= @booking.refund_rate * 100 %>%</td>
 
           <% if @booking.tva_applicable == true %>
-            <td class="short-column bordered" style="text-align:right;">- <%= ((@booking.amount * @booking.refund_rate) / 1.2).round(2) %> €</td>
+            <td class="short-column bordered" style="text-align:right;">- <%= sprintf("%.2f", ((@booking.amount * @booking.refund_rate) / 1.2).round(2)) %> €</td>
           <% else %>
-            <td class="short-column bordered" style="text-align:right;">- <%= (@booking.amount * @booking.refund_rate).round(2) %> €</td>
+            <td class="short-column bordered" style="text-align:right;">- <%= sprintf("%.2f", (@booking.amount * @booking.refund_rate).round(2)) %> €</td>
           <% end %>
         </tr>
         <% if @booking.tva_applicable == true %>
@@ -121,7 +121,7 @@
             <td class="short-column"></td>
             <td class="short-column"></td>
             <td class="short-column bordered" style="text-align:right;">Total HT</td>
-            <td class="short-column bordered" style="text-align:right;">- <%= ((@booking.amount * @booking.refund_rate) / 1.2).round(2) %> €</td>
+            <td class="short-column bordered" style="text-align:right;">- <%= sprintf("%.2f", ((@booking.amount * @booking.refund_rate) / 1.2).round(2)) %> €</td>
           </tr>
           <tr style='border-left: 1px solid #fff;'>
             <td class="short-column"></td>
@@ -129,7 +129,7 @@
             <td class="short-column"></td>
             <td class="short-column"></td>
             <td class="short-column bordered" style="text-align:right;">TVA 20%</td>
-            <td class="short-column bordered" style="text-align:right;">- <%= ((@booking.amount * @booking.refund_rate) - (@booking.amount * @booking.refund_rate / 1.2)).round(2) %> €</td>
+            <td class="short-column bordered" style="text-align:right;">- <%= sprintf("%.2f", ((@booking.amount * @booking.refund_rate) - (@booking.amount * @booking.refund_rate / 1.2)).round(2)) %> €</td>
           </tr>
           <tr style='border-left: 1px solid #fff;'>
             <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
@@ -137,7 +137,7 @@
             <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
             <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
             <td class="short-column bordered" style="text-align:right;">Total TTC</td>
-            <td class="short-column bordered" style="text-align:right;">- <%= (@booking.amount * @booking.refund_rate).round(2) %> €</td>
+            <td class="short-column bordered" style="text-align:right;">- <%= sprintf("%.2f", (@booking.amount * @booking.refund_rate).round(2)) %> €</td>
           </tr>
         <% end %>
       </tbody>
@@ -155,18 +155,18 @@
           <% if @booking.giftcard_amount_spent.present? %>
             <tr>
               <td class="bordered large-column">Carte Cadeau utilisée</td>
-              <td class="bordered large-column"><%= (@booking.giftcard_amount_spent * @booking.refund_rate).round(2) %> €</td>
+              <td class="bordered large-column"><%= sprintf("%.2f", (@booking.giftcard_amount_spent * @booking.refund_rate).round(2)) %> €</td>
             </tr>
             <% if @booking.amount > @booking.giftcard_amount_spent %>
               <tr>
                 <td class="bordered large-column">Carte bancaire utilisée</td>
-                <td class="bordered large-column"><%= ((@booking.amount - @booking.giftcard_amount_spent) * @booking.refund_rate).round(2) %> €</td>
+                <td class="bordered large-column"><%= sprintf("%.2f", ((@booking.amount - @booking.giftcard_amount_spent) * @booking.refund_rate).round(2)) %> €</td>
               </tr>
             <% end %>
           <% else %>
             <tr>
               <td class="bordered large-column">Carte bancaire utilisée</td>
-              <td class="bordered large-column"><%= (@booking.amount * @booking.refund_rate).round(2) %> €</td>
+              <td class="bordered large-column"><%= sprintf("%.2f", (@booking.amount * @booking.refund_rate).round(2)) %> €</td>
             </tr>
           <% end %>
         </tbody>

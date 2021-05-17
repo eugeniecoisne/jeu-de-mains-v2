@@ -44,11 +44,11 @@ Ville : <%= @booking.city %>
 
 DÉTAILS RÉSERVATION N°<%= @booking.created_at.strftime("%Y%m") %><%= @booking.id %>
 
-Prix unitaire <%= @booking.workshop_unit_price %>€ x <%= @booking.quantity %> = <%= @booking.workshop_unit_price * @booking.quantity %> € TTC
+Prix unitaire <%= sprintf("%.2f", @booking.workshop_unit_price.round(2)) %>€ x <%= @booking.quantity %> = <%= sprintf("%.2f", (@booking.workshop_unit_price * @booking.quantity).round(2)) %> € TTC
 <% if @booking.giftcard_amount_spent.present? %>
-  Carte cadeau = - <%= @booking.giftcard_amount_spent %> € TTC
+  Carte cadeau = - <%= sprintf("%.2f", @booking.giftcard_amount_spent.round(2)) %> € TTC
 <% end %>
-TOTAL PAYÉ = <%= @booking.giftcard_amount_spent.present? ? ((@booking.workshop_unit_price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount %> € TTC
+TOTAL PAYÉ = <%= sprintf("%.2f", (@booking.giftcard_amount_spent.present? ? ((@booking.workshop_unit_price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount).round(2)) %> € TTC
 
 ------------------------------------------
 

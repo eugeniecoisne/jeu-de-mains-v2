@@ -73,13 +73,13 @@
                 <div class="giftcard-confirmation-simulation-row">
                   <p>Montant</p>
                   <div class="giftcard-simulation-information">
-                    <%= giftcard.initial_amount.to_i %> euros ttc
+                    <%= sprintf("%.2f", giftcard.initial_amount.round(2)) %> euros ttc
                   </div>
                 </div>
                 <div class="giftcard-confirmation-simulation-row">
                   <p>Restant</p>
                   <div class="giftcard-simulation-information">
-                    <%= giftcard.amount.to_i %> euros ttc
+                    <%= sprintf("%.2f", giftcard.amount.round(2)) %> euros ttc
                   </div>
                 </div>
                 <div class="giftcard-confirmation-simulation-row">
@@ -99,7 +99,7 @@
               <% if giftcard.deadline_date >= Date.today && giftcard.amount.to_i > 0 %>
                 <div class="giftcard-activation-status" id="giftcard-valid">
                   <i class="fas fa-circle mr-2"></i>
-                  valide, <%= giftcard.amount %> euros disponibles
+                  valide, <%= sprintf("%.2f", giftcard.amount.round(2)) %> euros disponibles
                 </div>
               <% elsif giftcard.amount.to_i == 0 %>
                 <div class="giftcard-activation-status" id="giftcard-fully-spent">
@@ -147,7 +147,7 @@
                 <div class="giftcard-confirmation-simulation-row">
                   <p>Montant</p>
                   <div class="giftcard-simulation-information">
-                    <%= giftcard.initial_amount.to_i %> euros ttc
+                    <%= sprintf("%.2f", giftcard.initial_amount.round(2)) %> euros ttc
                   </div>
                 </div>
                 <div class="giftcard-confirmation-simulation-row">

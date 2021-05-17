@@ -91,7 +91,11 @@
                 </div>
                 <div class="ws-card-price-and-city" id="thematic-show-ws-card-price-and-city">
                   <div class="ws-card-price" id="thematic-show-ws-card-price">
-                    <%= workshop.price %> €
+                    <% if workshop.price.modulo(1).zero? %>
+                      <%= workshop.price.round %> €
+                    <% else %>
+                      <%= sprintf("%.2f", workshop.price) %> €
+                    <% end %>
                   </div>
 
                   <div class="ws-card-duration-and-city">
