@@ -8,7 +8,7 @@ class CheckWorkshopStatusJob < ActiveJob::Base
         w.dates.each do |date|
           to_come_dates_count += 1 if date >= Date.today
         end
-        w.update(status: 'hors ligne') if to_come_dates_count == 0
+        w.update(status: 'hors ligne', verified: false) if to_come_dates_count == 0
       end
     end
     reschedule_job
