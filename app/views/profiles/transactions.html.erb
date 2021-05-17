@@ -83,14 +83,14 @@
                 <% end %>
                 </td>
                 <% if b[:status] == "success" %>
-                  <td style="text-align:right;"><%= b[:amount].to_s.gsub(".",",") %></td>
-                  <td style="text-align:right;">- <%= (b[:amount] * b[:fee_rate]).round(2).to_s.gsub(".",",") %></td>
-                  <td style="text-align:right;"><%= (b[:amount] * (1 - b[:fee_rate])).round(2).to_s.gsub(".",",") %></td>
+                  <td style="text-align:right;"><%= sprintf("%.2f", b[:amount].round(2)) %></td>
+                  <td style="text-align:right;">- <%= sprintf("%.2f", (b[:amount] * b[:fee_rate]).round(2)) %></td>
+                  <td style="text-align:right;"><%= sprintf("%.2f", (b[:amount] * (1 - b[:fee_rate])).round(2)) %></td>
                 <% else %>
                   <% cancel_fee = b[:amount] * (1.0 - b[:refund_rate]) %>
-                  <td style="text-align:right;">- <%=((b[:amount] * b[:refund_rate]).round(2)).to_s.gsub(".",",") %></td>
-                  <td style="text-align:right;"><%= ((b[:amount] - cancel_fee) * b[:fee_rate]).round(2).to_s.gsub(".",",") %></td>
-                  <td style="text-align:right;">- <%= ((b[:amount] - cancel_fee) * (1 - b[:fee_rate])).round(2).to_s.gsub(".",",") %></td>
+                  <td style="text-align:right;">- <%= sprintf("%.2f", (b[:amount] * b[:refund_rate]).round(2)) %></td>
+                  <td style="text-align:right;"><%= sprintf("%.2f", ((b[:amount] - cancel_fee) * b[:fee_rate]).round(2)) %></td>
+                  <td style="text-align:right;">- <%= sprintf("%.2f", ((b[:amount] - cancel_fee) * (1 - b[:fee_rate])).round(2)) %></td>
                 <% end %>
                 <td style='padding-left:7px;'><%= link_to "Plus d'infos" , booking_path(b[:booking])  %></td>
               </tr>

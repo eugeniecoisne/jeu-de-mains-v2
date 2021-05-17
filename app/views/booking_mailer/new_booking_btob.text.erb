@@ -37,12 +37,12 @@ DÉTAILS RÉSERVATION N°<%= @booking.created_at.strftime("%Y%m") %><%= @booking
 Réservé par <%= @booking.user.first_name %> <%= @booking.user.last_name[0] %>.
 Réservé le <%= @booking.created_at.strftime('%d/%m/%Y') %>
 Nombre de places : <%= @booking.quantity > 1 ? "#{@booking.quantity} places" : "#{@booking.quantity} place" %>
-Réglé en paiement sécurisé = <%= @booking.giftcard_amount_spent.present? ? ((@booking.workshop_unit_price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount %> € TTC
-Réglé en carte cadeau = <%= @booking.giftcard_amount_spent.present? ? @booking.giftcard_amount_spent : 0.0 %> € TTC
-Montant ( <%= @booking.workshop_unit_price %>€ x <%= @booking.quantity %> ) = <%= @booking.amount %> € TTC
-Commission JDM <%= (@booking.fee * 100).round %>% = - <%= (@booking.amount * @booking.fee).round(2) %> € TTC
+Réglé en paiement sécurisé = <%= sprintf("%.2f", (@booking.giftcard_amount_spent.present? ? ((@booking.workshop_unit_price * @booking.quantity) - @booking.giftcard_amount_spent) : @booking.amount).round(2)) %> € TTC
+Réglé en carte cadeau = <%= sprintf("%.2f", (@booking.giftcard_amount_spent.present? ? @booking.giftcard_amount_spent : 0.0).round(2)) %> € TTC
+Montant ( <%= sprintf("%.2f", @booking.workshop_unit_price.round(2)) %>€ x <%= @booking.quantity %> ) = <%= sprintf("%.2f", @booking.amount.round(2)) %> € TTC
+Commission JDM <%= (@booking.fee * 100).round %>% = - <%= sprintf("%.2f", (@booking.amount * @booking.fee).round(2)) %> € TTC
 
-VOTRE GAIN = <%= (@booking.amount * (1 - @booking.fee)).round(2) %>€ TTC
+VOTRE GAIN = <%= sprintf("%.2f", (@booking.amount * (1 - @booking.fee)).round(2)) %> € TTC
 
 ----------------------------------------
 

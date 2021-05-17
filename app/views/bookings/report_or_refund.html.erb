@@ -13,7 +13,7 @@
   <div class="report-or-refund-title">
     <h1 id="report-or-refund-h1">Report ou annulation de votre atelier</h1>
     <h2><%= link_to @booking.session.workshop.title, workshop_path(@booking.session.workshop), target: "_blank" %></h2>
-    <h3>Montant de la réservation : <%= @booking.amount %> € TTC</h3>
+    <h3>Montant de la réservation : <%= sprintf("%.2f", @booking.amount.round(2)) %> € TTC</h3>
   </div>
 
   <div class="report-or-refund-image">
@@ -182,20 +182,20 @@
                   <!-- Remboursement car annulation par l'organisateur -->
                   <% if @booking.session.reason.present? && @booking.session.db_status == false %>
                     Votre atelier a été annulé par l'organisateur, vous recevrez donc un remboursement intégral de 100% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation. <br><br>
-                    Soit <strong><%= @booking.amount %> € TTC</strong>
+                    Soit <strong><%= sprintf("%.2f", @booking.amount.round(2)) %> € TTC</strong>
                   <% else %>
                     <!-- Moins de 72h avant et plus de 24h avant, sans kit -->
                     <% if (24..71.99).include?((session_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == false %>
                       Votre atelier a lieu dans moins de trois jours et jusqu'à 24 heures avant, vous recevrez donc un remboursement de 50% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation. <br><br>
-                      Soit <strong><%= @booking.amount * 0.5 %></strong> € TTC
+                      Soit <strong><%= sprintf("%.2f", (@booking.amount * 0.5).round(2)) %></strong> € TTC
                     <!-- Moins de 7j avant et plus de 24h avant, avec kit -->
                     <% elsif (24..167.99).include?((session_start_time - cancel_time) / 1.hours) && @booking.session.workshop.kit == true %>
                       Votre atelier en visioconférence avec kit a lieu dans moins de 7 jours et jusqu'à 24 heures avant, vous recevrez donc un remboursement de 50% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation et recevrez tout de même votre kit par voie postale. <br><br>
-                      Soit <strong><%= @booking.amount * 0.5 %></strong> € TTC
+                      Soit <strong><%= sprintf("%.2f", (@booking.amount * 0.5).round(2)) %></strong> € TTC
                     <!-- Plus de 48h ou 7j avant -->
                     <% else %>
                       Votre atelier a lieu dans plus de <%= @booking.session.workshop.kit == true ? "sept jours" : "trois jours" %>, vous recevrez donc un remboursement intégral de 100% sur le moyen de paiement (carte bancaire, carte cadeau...) utilisé lors de votre réservation. <br><br>
-                      Soit <strong><%= @booking.amount %> € TTC</strong>
+                      Soit <strong><%= sprintf("%.2f", @booking.amount.round(2)) %> € TTC</strong>
                     <% end %>
                   <% end %>
                   <%= f.hidden_field :booking_id, value: @booking.id %>

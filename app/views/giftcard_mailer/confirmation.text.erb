@@ -15,8 +15,8 @@ Message : <%= @giftcard.message %>
 
 DÉTAILS COMMANDE N°<%= @giftcard.id %>
 
-Carte cadeau Jeu de Mains x 1 = <%= @giftcard.initial_amount %> € TTC
-TOTAL PAYÉ = <%= @giftcard.initial_amount %> € TTC
+Carte cadeau Jeu de Mains x 1 = <%= @giftcard.initial_amount.round.to_i %> € TTC
+TOTAL PAYÉ = <%= @giftcard.initial_amount.round.to_i %> € TTC
 
 
 VOIR MES CARTES CADEAUX : https://www.jeudemains.com/membres/<%= @giftcard.user.profile.id %>/mes_cartes_cadeaux

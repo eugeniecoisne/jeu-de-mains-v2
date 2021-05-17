@@ -1,4 +1,4 @@
-<%= ["Date de session", "Heure de session", "Atelier", "Numero de reservation", "Nom", "Prenom", "Adresse", "Complement adresse", "Code postal", "Ville", "Telephone", "Date de reservation", "Quantites de kits", "Statut", "Lien de suivi" ].to_csv({col_sep: ";"}) %>
+<%= ["Date de session", "Heure de session", "Atelier", "Numero de reservation", "Nom", "Prenom", "Adresse", "Complement adresse", "Code postal", "Ville", "Telephone", "E-mail", "Date de reservation", "Quantites de kits", "Statut", "Lien de suivi" ].to_csv({col_sep: ";"}) %>
 <% @bookings.each do |booking| %>
   <% array = [] %>
   <% array << booking.session.start_date.strftime("%d/%m/%y") %>
@@ -12,6 +12,7 @@
   <% array << (booking.zip_code.present? ? booking.zip_code : "-") %>
   <% array << (booking.city.present? ? booking.city.parameterize(separator:' ').capitalize : "-") %>
   <% array << (booking.phone_number.present? ? booking.phone_number : "-") %>
+  <% array << (booking.user.email.present? ? booking.user.email : "-") %>
   <% array << booking.created_at.strftime("%d/%m/%y") %>
   <% array << booking.quantity %>
   <% array << (booking.kit_expedition_status.present? ? booking.kit_expedition_status.parameterize(separator:' ').capitalize : "-") %>

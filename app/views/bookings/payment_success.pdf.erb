@@ -106,11 +106,11 @@
           </td>
           <td class="short-column bordered"><%= @booking.quantity %> place(s)</td>
           <% if @booking.tva_applicable == true %>
-            <td class="short-column bordered" style="text-align:right;"><%= (@booking.workshop_unit_price / 1.2).round(2) %> €</td>
-            <td class="short-column bordered" style="text-align:right;"><%= ((@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2) %> €</td>
+            <td class="short-column bordered" style="text-align:right;"><%= sprintf("%.2f", (@booking.workshop_unit_price / 1.2).round(2)) %> €</td>
+            <td class="short-column bordered" style="text-align:right;"><%= sprintf("%.2f", ((@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2)) %> €</td>
           <% else %>
-            <td class="short-column bordered" style="text-align:right;"><%= @booking.workshop_unit_price.round(2) %> €</td>
-            <td class="short-column bordered" style="text-align:right;"><%= (@booking.workshop_unit_price * @booking.quantity) %> €</td>
+            <td class="short-column bordered" style="text-align:right;"><%= sprintf("%.2f", @booking.workshop_unit_price.round(2)) %> €</td>
+            <td class="short-column bordered" style="text-align:right;"><%= sprintf("%.2f", (@booking.workshop_unit_price * @booking.quantity)) %> €</td>
           <% end %>
         </tr>
         <% if @booking.tva_applicable == true %>
@@ -119,21 +119,21 @@
             <td class="large-column"></td>
             <td class="short-column"></td>
             <td class="short-column bordered" style="text-align:right;">Total HT</td>
-            <td class="short-column bordered" style="text-align:right;"><%= ((@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2) %> €</td>
+            <td class="short-column bordered" style="text-align:right;"><%= sprintf("%.2f", ((@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2)) %> €</td>
           </tr>
           <tr style='border-left: 1px solid #fff;'>
             <td class="short-column"></td>
             <td class="large-column"></td>
             <td class="short-column"></td>
             <td class="short-column bordered" style="text-align:right;">TVA 20%</td>
-            <td class="short-column bordered" style="text-align:right;"><%= ((@booking.workshop_unit_price * @booking.quantity) - (@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2) %> €</td>
+            <td class="short-column bordered" style="text-align:right;"><%= sprintf("%.2f", ((@booking.workshop_unit_price * @booking.quantity) - (@booking.workshop_unit_price * @booking.quantity) / 1.2).round(2)) %> €</td>
           </tr>
           <tr style='border-left: 1px solid #fff;'>
             <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
             <td class="large-column" style='border-bottom: 1px solid #fff;'></td>
             <td class="short-column" style='border-bottom: 1px solid #fff;'></td>
             <td class="short-column bordered" style="text-align:right;">Total TTC</td>
-            <td class="short-column bordered" style="text-align:right;"><%= (@booking.workshop_unit_price * @booking.quantity).round(2) %> €</td>
+            <td class="short-column bordered" style="text-align:right;"><%= sprintf("%.2f", (@booking.workshop_unit_price * @booking.quantity).round(2)) %> €</td>
           </tr>
         <% end %>
       </tbody>

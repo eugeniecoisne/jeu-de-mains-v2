@@ -73,7 +73,7 @@
                       <p class="booking-options-giftcard-title">Carte cadeau de <%= giftcard.initial_amount.to_i %> euros</p>
                       <p>Offerte par <%= giftcard.buyer_name %></p>
                       <p>Valable jusqu'au <%= (giftcard.deadline_date).strftime("%d/%m/%Y") %></p>
-                      <p>Montant restant : <%= giftcard.amount %> euros ttc</p>
+                      <p>Montant restant : <%= sprintf("%.2f", giftcard.amount.round(2)) %> euros ttc</p>
                     </div>
                   </label>
                 </div>
@@ -91,29 +91,29 @@
           </div>
         <% end %>
       <% elsif @booking.giftcard_amount_spent.present? %>
-        <p>Vous avez choisi d'utiliser une carte cadeau qui contenait : <%= Giftcard.find(@booking.giftcard_id.to_i).amount %> € ttc</p>
-        <p>Après votre réservation, le montant restant sur cette carte sera de : <%= Giftcard.find(@booking.giftcard_id.to_i).amount > @booking.giftcard_amount_spent ? (Giftcard.find(@booking.giftcard_id.to_i).amount - @booking.giftcard_amount_spent) : 0.0 %> € ttc</p>
+        <p>Vous avez choisi d'utiliser une carte cadeau qui contenait : <%= sprintf("%.2f", Giftcard.find(@booking.giftcard_id.to_i).amount.round(2)) %> € ttc</p>
+        <p>Après votre réservation, le montant restant sur cette carte sera de : <%= sprintf("%.2f", (Giftcard.find(@booking.giftcard_id.to_i).amount > @booking.giftcard_amount_spent ? (Giftcard.find(@booking.giftcard_id.to_i).amount - @booking.giftcard_amount_spent) : 0.0).round(2)) %> € ttc</p>
       <% end %>
     </div>
 
     <table class="table booking-options-quantities-and-amount">
       <tbody>
         <tr id="booking-options-table-first-row">
-          <td>Prix unitaire <%= @booking.workshop_unit_price %> € x <%= @booking.quantity %> place(s)</td>
-          <td style="text-align: right"><%= @booking.workshop_unit_price * @booking.quantity %> € TTC</td>
+          <td>Prix unitaire <%= sprintf("%.2f", @booking.workshop_unit_price.round(2)) %> € x <%= @booking.quantity %> place(s)</td>
+          <td style="text-align: right"><%= sprintf("%.2f", (@booking.workshop_unit_price * @booking.quantity).round(2)) %> € TTC</td>
         </tr>
         <% if @booking.giftcard_amount_spent.present? %>
           <tr>
             <td>Carte cadeau</td>
-            <td style="text-align: right">- <%= @booking.giftcard_amount_spent %> € TTC</td>
+            <td style="text-align: right">- <%= sprintf("%.2f", @booking.giftcard_amount_spent.round(2)) %> € TTC</td>
           </tr>
         <% end %>
         <tr>
           <td><strong>TOTAL</strong></td>
         <% if @booking.giftcard_amount_spent.present? %>
-          <td style="text-align: right"><strong><%= (@booking.workshop_unit_price * @booking.quantity) - @booking.giftcard_amount_spent %> € TTC</strong></td>
+          <td style="text-align: right"><strong><%= sprintf("%.2f", ((@booking.workshop_unit_price * @booking.quantity) - @booking.giftcard_amount_spent).round(2)) %> € TTC</strong></td>
         <% else %>
-          <td style="text-align: right"><strong><%= @booking.amount %> € TTC</strong></td>
+          <td style="text-align: right"><strong><%= sprintf("%.2f", @booking.amount.round(2)) %> € TTC</strong></td>
         <% end %>
         </tr>
       </tbody>

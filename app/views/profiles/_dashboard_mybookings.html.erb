@@ -115,7 +115,7 @@
                           <% end %>
                           <!-- statut envoi du kit -->
                           <!-- lien de suivi -->
-                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€ TTC</p>
+                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= sprintf("%.2f", booking.amount.round(2)) %>€ TTC</p>
                           <div class="d-flex justify-content-left align-items-center flex-wrap">
 
                             <%= link_to "Ma facture", booking_payment_success_path(booking, format: :pdf), class: "button mr-2 mt-2", target: "_blank" %>
@@ -240,7 +240,7 @@
                               Au <%= booking.session.workshop.place.address %> <%= booking.session.workshop.place.zip_code %> <%= booking.session.workshop.place.city %>
                             <% end %>
                           <% end %>
-                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€ TTC</p>
+                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= sprintf("%.2f", booking.amount.round(2)) %>€ TTC</p>
                         <div class="d-flex justify-content-left align-items-center flex-wrap">
                           <% if booking.session.workshop.db_status == true && booking.session.workshop.status == "en ligne" && booking.session.workshop.place.user.profile.db_status == true %>
                             <%= link_to "Revoir", workshop_path(booking.session.workshop), class: "button mr-2 mt-2" %>
@@ -323,9 +323,9 @@
                               <%= l(booking.session.start_date, format: '%d %b %Y') %> à <%= booking.session.start_time %> au <%= l(booking.session.end_date, format: '%d %b %Y') %> à <%= booking.session.end_time %>
                             <% end %>
                           </p>
-                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= booking.amount %>€ TTC</p>
+                          <p class="my-booking-amount"><%= booking.quantity > 1 ? "#{booking.quantity} places" : "#{booking.quantity} place" %>, <%= sprintf("%.2f", booking.amount.round(2)) %>€ TTC</p>
                           <p>Taux de remboursement : <%= (booking.refund_rate * 100).round %>%</p>
-                          <p class="mb-3">Montant remboursé : <%= booking.amount * booking.refund_rate %>€ TTC</p>
+                          <p class="mb-3">Montant remboursé : <%= sprintf("%.2f", (booking.amount * booking.refund_rate).round(2)) %>€ TTC</p>
 
                           <div class="d-flex justify-content-left align-items-center flex-wrap">
                             <% if booking.session.workshop.db_status == true && booking.session.workshop.status == "en ligne" %>

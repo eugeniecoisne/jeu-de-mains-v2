@@ -31,9 +31,9 @@
       <div class="public-profile-header">
         <div class="public-profile-picture">
           <% if @profile.photo.attached? %>
-            <%= cl_image_tag @profile.photo.key, loading: "lazy", width: 300, crop: :fill, alt: "jeu-de-mains-#{@profile.company}", title: "jeu-de-mains-#{@profile.company}" %>
+            <%= cl_image_tag @profile.photo.key, loading: "lazy", width: 500, crop: :fill, alt: "jeu-de-mains-#{@profile.company}", title: "jeu-de-mains-#{@profile.company}" %>
           <% else %>
-            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 300, :crop => :fill, :alt => "jeu-de-mains-#{@profile.company}", :title => "jeu-de-mains-#{@profile.company}") %>
+            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1603197853/jeu-de-mains-profil.jpg", :loading => "lazy", :width => 500, :crop => :fill, :alt => "jeu-de-mains-#{@profile.company}", :title => "jeu-de-mains-#{@profile.company}") %>
           <% end %>
         </div>
         <div class="public-profile-header-text">
@@ -177,7 +177,11 @@
                         </div>
                         <div class="ws-card-price-and-city">
                           <div class="ws-card-price">
-                            <%= workshop.price %> €
+                            <% if workshop.price.modulo(1).zero? %>
+                              <%= workshop.price.round %> €
+                            <% else %>
+                              <%= sprintf("%.2f", workshop.price) %> €
+                            <% end %>
                           </div>
                           <div class="ws-card-duration-and-city">
                             <div class="ws-card-duration">
