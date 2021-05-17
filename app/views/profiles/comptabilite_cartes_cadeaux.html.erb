@@ -5,8 +5,8 @@
     <h1>Comptabilité cartes cadeaux</h1>
 
     <div class="comptabilite-exports">
-      <% t = Time.new(2021, 1, 1, 0, 0, 1) %>
-      <% number_of_month = ((Time.now - Time.new(2021, 1, 1, 0, 0, 1)) / 1.month).round %>
+      <% t = Time.new(2021, 5, 1, 0, 0, 1) %>
+      <% number_of_month = ((Time.now - Time.new(2021, 5, 1, 0, 0, 1)) / 1.month).round %>
       <% months = (0..number_of_month).to_a %>
       <% months.reverse.each do |m| %>
         <% time = t + (m.to_i).month %>
