@@ -385,7 +385,8 @@
                             <%= f.hidden_field :title, value: workshop.title %>
                             <%= f.hidden_field :program, value: workshop.program %>
                             <%= f.hidden_field :final_product, value: workshop.final_product %>
-                            <%= f.hidden_field :thematic, value: workshop.thematic %>
+                            <%= f.hidden_field :initial_ws_id, value: workshop.id %>
+                            <%= f.hidden_field :thematic, value: workshop.thematic.join(',') %>
                             <%= f.hidden_field :level, value: workshop.level %>
                             <%= f.hidden_field :duration, value: workshop.duration %>
                             <%= f.hidden_field :price, value: workshop.price %>
