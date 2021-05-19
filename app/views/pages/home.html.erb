@@ -55,8 +55,163 @@
     </div>
   </div>
 
+  <!-- WORKSHOP CARDS LAST MINUTE -->
+
+  <div class="home-ws-cards-container">
+    <% if @last_minute.size > 0 %>
+      <div>
+        <h2 class="home-category-title">C’est maintenant ou jamais !</h2>
+        <h3 class="home-category-subtitle">Réservez les dernières places disponibles des prochaines dates</h3>
+
+        <div class="home-ws-cards home-ws-cards-last-minute">
+          <% @last_minute.first(6).each do |session| %>
+              <div class="ws-card" id="home-ws-card">
+                <%= link_to(session.workshop, data: { turbolinks: false }, title: "#{session.workshop.title}") do  %>
+                  <div class="ws-card-image-and-rating" id="home-ws-card-image-and-rating">
+                    <div class="ws-card-tags" id="home-ws-card-tags-last-minute">
+                      <div class="ws-card-tag ws-card-last-minute-tickets" id="home-ws-card-tickets">
+                        <span><%= session.available %> places restantes</span>
+                      </div>
+                      <div class="ws-card-tag ws-card-last-minute-date" id="home-ws-card-date">
+                        <span><%= session.start_date.strftime('%d/%m/%Y') %></span>
+                      </div>
+                    </div>
+                    <%= render "workshops/ws-index-carousel", workshop: session.workshop %>
+                  </div>
+                <% end %>
+                <%= link_to(session.workshop, data: { turbolinks: false }, title: "#{session.workshop.title}") do  %>
+                  <div class="ws-card-infos" id="home-ws-card-infos">
+                    <div>
+                      <div class="ws-card-organizer" id="home-ws-card-organizer-desktop">
+                        <% if session.workshop.place.user.profile.company.size > 25 %>
+                          <span><%= session.workshop.place.user.profile.company[0..24] %>...</span>
+                        <% else %>
+                          <span><%= session.workshop.place.user.profile.company %></span>
+                        <% end %>
+                      </div>
+                      <div class="ws-card-organizer" id="home-ws-card-organizer-mobile">
+                        <% if session.workshop.place.user.profile.company.size > 17 %>
+                          <span><%= session.workshop.place.user.profile.company[0..16] %>...</span>
+                        <% else %>
+                          <span><%= session.workshop.place.user.profile.company %></span>
+                        <% end %>
+                      </div>
+                      <div class="ws-card-title" id="home-ws-card-title">
+                        <% if session.workshop.title.size > 33 %>
+                          <h4><%= session.workshop.title[0..31] %>...</h4>
+                        <% else %>
+                          <h4><%= session.workshop.title %></h4>
+                        <% end %>
+                      </div>
+                    </div>
+                    <div class="ws-card-price-and-city" id="home-ws-card-price-and-city">
+                      <div class="ws-card-price" id="home-ws-card-price">
+                        <% if session.workshop.price.modulo(1).zero? %>
+                          <%= session.workshop.price.round %> €
+                        <% else %>
+                          <%= sprintf("%.2f", session.workshop.price) %> €
+                        <% end %>
+                      </div>
+                      <div class="ws-card-duration-and-city">
+                        <div class="ws-card-duration">
+                          <span><%= Workshop::SHORT_DURATIONS.key(session.workshop.duration) %></span>
+                          <i class="fas fa-clock"></i>
+                        </div>
+                        <% if session.workshop.visio == true %>
+                          <div class="ws-card-visio">
+                            <span>en visio</span>
+                          </div>
+                        <% else %>
+                          <div class="ws-card-city">
+                            <% if session.workshop.place.city.size >= 11 %>
+                              <span id="city-name"><%= session.workshop.place.city[0..11].capitalize %>...</span>
+                            <% else %>
+                              <span id="city-name"><%= session.workshop.place.city.capitalize %></span>
+                            <% end %>
+                            <i class="fas fa-map-marker-alt"></i>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- TRENDS SELECTION -->
+
+  <div class="home-selection-cards">
+
+    <!-- THEMATICS SELECTION -->
+
+    <%= link_to cosmetique_et_entretien_path do %>
+      <div class="home-selection-card" id="home-thematic-first">
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_500/v1621426384/jeu-de-mains-tendance-cosmetique-et-entretien-2.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-cosmetique-entretien", :title => "jeu-de-mains-ateliers-cosmetique-entretien") %>
+        <div class="home-selection-text">
+          <div>
+            <h2>Je prends soin de moi</h2>
+            <h3>Vous avez envie de protéger et prendre soin de votre peau et votre intérieur ? Découvrez nos ateliers cosmétiques, parfums et entretien maison</h3>
+          </div>
+          <div class="mb-2">
+            <span class="home-selection-btn pb-2">Voir la sélection</span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to autour_du_fil_path do %>
+      <div class="home-selection-card" id="home-thematic-second">
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_500/v1621426792/jeu-de-mains-tendance-autour-du-fil.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-autour-du-fil", :title => "jeu-de-mains-ateliers-autour-du-fil") %>
+        <div class="home-selection-text">
+          <div>
+            <h2>De fil en aiguilles</h2>
+            <h3>Initiez-vous ou perfectionnez-vous en couture, tissage, tricot, broderie, punch needle, macramé... Découvrez nos ateliers autour du fil</h3>
+          </div>
+          <div class="mb-2">
+            <span class="home-selection-btn pb-2">Voir la sélection</span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to vegetal_path do %>
+      <div class="home-selection-card" id="home-thematic-third">
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_500/v1621428402/jeu-de-mains-tendance-vegetal.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-vegetal", :title => "jeu-de-mains-ateliers-vegetal") %>
+        <div class="home-selection-text">
+          <div>
+            <h2>La belle nature</h2>
+            <h3>Ateliers herbier, couronne de fleurs, cloche florale, bouquet, terrarium... Découvrez nos ateliers d’art végétal</h3>
+          </div>
+          <div class="mb-2">
+            <span class="home-selection-btn pb-2">Voir la sélection</span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to bijoux_path do %>
+      <div class="home-selection-card" id="home-thematic-fourth">
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_500/v1621427758/jeu-de-mains-tendance-bijoux.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-bijoux", :title => "jeu-de-mains-ateliers-bijoux") %>
+        <div class="home-selection-text">
+          <div>
+            <h2>Mon précieux</h2>
+            <h3>Vous aimez vous démarquer avec des accessoires uniques ? Découvrez nos ateliers bijoux et créez des bijoux qui vous ressemblent</h3>
+          </div>
+          <div class="mb-2">
+            <span class="home-selection-btn pb-2">Voir la sélection</span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+
   <!-- WORKSHOP CARDS FAVORITE -->
-  <% if @best_workshops.count > 0 %>
+  <% if @best_workshops.count > 5 %>
 
     <div class="home-ws-cards-container" id="home-ws-cards-best-ratings-container">
 
@@ -150,160 +305,6 @@
       </div>
     </div>
   <% end %>
-
-  <!-- TRENDS SELECTION -->
-
-  <div class="home-selection-cards">
-    <div class="home-selection-card" id="home-selection-first">
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_400/v1593179636/jeu-de-mains-selection-estivale.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-selection-estivale", :title => "jeu-de-mains-selection-estivale") %>
-      <div class="home-selection-text">
-        <div>
-          <h2>Ça sent bon l’été</h2>
-          <h3>Ateliers couture de maillot de bain, customisation de lunettes de soleil, broderie de pochette de plage… Découvrez notre sélection <em>Ça sent bon l’été</em></h3>
-        </div>
-        <div>
-          <%= simple_form_for :search, url: workshops_path, html: {class: "selected-ws-1"}, method: :get do |f| %>
-            <%= f.hidden_field :selection, value: 'maillot', id: "search_selection_1" %>
-            <%= f.submit 'Voir la sélection', class: "home-selection-btn" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-    <div class="home-selection-card" id="home-selection-second">
-      <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_400/v1593179634/jeu-de-mains-selection-masque.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-selection-masque", :title => "jeu-de-mains-selection-masque") %>
-      <div class="home-selection-text">
-        <div>
-          <h2>Bal masqué</h2>
-          <h3>Le masque est devenu un indispensable dans nos vies alors que diriez-vous de coudre votre propre masque ? Découvrez notre sélection d’ateliers couture de masques en tissu</h3>
-        </div>
-        <div>
-          <%= simple_form_for :search, url: workshops_path, html: {class: "selected-ws-2"}, method: :get do |f| %>
-            <%= f.hidden_field :selection, value: 'masque', id: "search_selection_2" %>
-            <%= f.submit 'Voir la sélection', class: "home-selection-btn" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-    <!-- THEMATICS SELECTION -->
-    <%= link_to vegetal_path do %>
-      <div class="home-selection-card" id="home-thematic-first">
-        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_500/v1614360750/jeu-de-mains-vegetal.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-vegetal", :title => "jeu-de-mains-ateliers-vegetal") %>
-        <div class="home-selection-text">
-          <div>
-            <h2>La belle nature</h2>
-            <h3>Ateliers herbier, couronne de fleurs, cloche florale, bouquet, terrarium … Découvrez nos ateliers d’art végétal</h3>
-          </div>
-          <div class="mb-2">
-            <span class="home-selection-btn pb-2">Voir la sélection</span>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
-    <%= link_to cosmetique_et_entretien_path do %>
-      <div class="home-selection-card" id="home-thematic-second">
-        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/c_fill,w_500/v1614359941/jeu-de-mains-cosmetique-et-entretien.jpg", :loading => "lazy", :width => 250, :crop => :fill, :alt => "jeu-de-mains-ateliers-cosmetique-entretien", :title => "jeu-de-mains-ateliers-cosmetique-entretien") %>
-        <div class="home-selection-text">
-          <div>
-            <h2>Je prends soin de moi</h2>
-            <h3>Vous avez envie de respecter votre peau, vos vêtements, votre maison, avec des produits 100% naturels ? Pourquoi pas les formuler vous-mêmes ! Découvrez nos ateliers cosmétiques et entretien maison</h3>
-          </div>
-          <div class="mb-2">
-            <span class="home-selection-btn pb-2">Voir la sélection</span>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <!-- WORKSHOP CARDS LAST MINUTE -->
-
-  <div class="home-ws-cards-container">
-    <% if @last_minute.size > 0 %>
-      <div>
-        <h2 class="home-category-title">C’est maintenant ou jamais !</h2>
-        <h3 class="home-category-subtitle">Réservez les dernières places disponibles des prochaines dates</h3>
-
-        <div class="home-ws-cards home-ws-cards-last-minute">
-          <% @last_minute.first(6).each do |session| %>
-              <div class="ws-card" id="home-ws-card">
-                <%= link_to(session.workshop, data: { turbolinks: false }, title: "#{session.workshop.title}") do  %>
-                  <div class="ws-card-image-and-rating" id="home-ws-card-image-and-rating">
-                    <div class="ws-card-tags" id="home-ws-card-tags-last-minute">
-                      <div class="ws-card-tag ws-card-last-minute-tickets" id="home-ws-card-tickets">
-                        <span><%= session.available %> places restantes</span>
-                      </div>
-                      <div class="ws-card-tag ws-card-last-minute-date" id="home-ws-card-date">
-                        <span><%= session.start_date.strftime('%d/%m/%Y') %></span>
-                      </div>
-                    </div>
-                    <%= render "workshops/ws-index-carousel", workshop: session.workshop %>
-                  </div>
-                <% end %>
-                <%= link_to(session.workshop, data: { turbolinks: false }, title: "#{session.workshop.title}") do  %>
-                  <div class="ws-card-infos" id="home-ws-card-infos">
-                    <div>
-                      <div class="ws-card-organizer" id="home-ws-card-organizer-desktop">
-                        <% if session.workshop.place.user.profile.company.size > 25 %>
-                          <span><%= session.workshop.place.user.profile.company[0..24] %>...</span>
-                        <% else %>
-                          <span><%= session.workshop.place.user.profile.company %></span>
-                        <% end %>
-                      </div>
-                      <div class="ws-card-organizer" id="home-ws-card-organizer-mobile">
-                        <% if session.workshop.place.user.profile.company.size > 17 %>
-                          <span><%= session.workshop.place.user.profile.company[0..16] %>...</span>
-                        <% else %>
-                          <span><%= session.workshop.place.user.profile.company %></span>
-                        <% end %>
-                      </div>
-                      <div class="ws-card-title" id="home-ws-card-title">
-                        <% if session.workshop.title.size > 33 %>
-                          <h4><%= session.workshop.title[0..31] %>...</h4>
-                        <% else %>
-                          <h4><%= session.workshop.title %></h4>
-                        <% end %>
-                      </div>
-                    </div>
-                    <div class="ws-card-price-and-city" id="home-ws-card-price-and-city">
-                      <div class="ws-card-price" id="home-ws-card-price">
-                        <% if session.workshop.price.modulo(1).zero? %>
-                          <%= session.workshop.price.round %> €
-                        <% else %>
-                          <%= sprintf("%.2f", session.workshop.price) %> €
-                        <% end %>
-                      </div>
-                      <div class="ws-card-duration-and-city">
-                        <div class="ws-card-duration">
-                          <span><%= Workshop::SHORT_DURATIONS.key(session.workshop.duration) %></span>
-                          <i class="fas fa-clock"></i>
-                        </div>
-                        <% if session.workshop.visio == true %>
-                          <div class="ws-card-visio">
-                            <span>en visio</span>
-                          </div>
-                        <% else %>
-                          <div class="ws-card-city">
-                            <% if session.workshop.place.city.size >= 11 %>
-                              <span id="city-name"><%= session.workshop.place.city[0..11].capitalize %>...</span>
-                            <% else %>
-                              <span id="city-name"><%= session.workshop.place.city.capitalize %></span>
-                            <% end %>
-                            <i class="fas fa-map-marker-alt"></i>
-                          </div>
-                        <% end %>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  </div>
 
   <!-- HOME GIFTCARD -->
 
