@@ -201,19 +201,20 @@ class WorkshopsController < ApplicationController
     # duplicate
 
     if params[:commit].present? && params[:commit] == "Dupliquer"
-      @workshop = Workshop.new(workshop_params)
+      @workshop = Workshop.new(workshop_params.except(:thematic, :initial_ws_id))
       authorize @workshop
-      @workshop.thematic = params[:workshop][:thematic].reject(&:empty?)
+      @workshop.thematic = params[:workshop][:thematic].split(",")
       @workshop.place = Place.find(params[:workshop][:place_id])
-      all_initial_ws = Workshop.all.select { |workshop| workshop.title == @workshop.title }
-      if all_initial_ws.select { |workshop| workshop.place.user == @workshop.place.user }.present?
-        initial_ws = all_initial_ws.select { |workshop| workshop.place.user == @workshop.place.user }.first
+      workshop_initial = Workshop.find(params[:workshop][:initial_ws_id].to_i)
+      if workshop_initial.present?
         initial_ws_files = []
-        initial_ws.photos.each do |file|
-          initial_ws_files << URI.open(file.service_url)
-        end
-        (0..initial_ws_files.size - 1).each do |i|
-          @workshop.photos.attach([io: initial_ws_files[i], filename: initial_ws.photos[i].filename, content_type: initial_ws.photos[i].content_type])
+        if workshop_initial.photos.attached?
+          workshop_initial.photos.each do |file|
+            initial_ws_files << URI.open(file.service_url)
+          end
+          (0..initial_ws_files.size - 1).each do |i|
+            @workshop.photos.attach([io: initial_ws_files[i], filename: workshop_initial.photos[i].filename, content_type: workshop_initial.photos[i].content_type])
+          end
         end
       end
       @workshop.status = 'hors ligne'
@@ -347,7 +348,7 @@ class WorkshopsController < ApplicationController
   end
 
   def workshop_params
-    params.require(:workshop).permit(:place_id, :thematic, :title, :program, :final_product, :level, :duration, :price, :status, :db_status, :capacity, :verified, :recommendable, :ephemeral, :kit, :kit_description, :visio, :kit_shipping_price, :privatization, :slug, photos: [])
+    params.require(:workshop).permit(:place_id, :thematic, :title, :program, :final_product, :level, :duration, :price, :status, :db_status, :capacity, :verified, :recommendable, :ephemeral, :kit, :kit_description, :visio, :kit_shipping_price, :privatization, :slug, :initial_ws_id, photos: [])
   end
 
   def verify_google_recaptcha(secret_key,response)
