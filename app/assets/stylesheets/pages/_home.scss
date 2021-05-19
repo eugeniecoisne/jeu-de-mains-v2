@@ -112,9 +112,6 @@
 
 #home-selection-first {
   background-color: $light-blue;
-  img {
-    object-position: top;
-  }
 }
 
 #home-selection-second {
@@ -122,10 +119,18 @@
 }
 
 #home-thematic-first {
-  background-color: $blue;
+  background-color: $light-blue;
 }
 
 #home-thematic-second {
+  background-color: $light-blue;
+}
+
+#home-thematic-third {
+  background-color: $blue;
+}
+
+#home-thematic-fourth {
   background-color: $blue;
 }
 
