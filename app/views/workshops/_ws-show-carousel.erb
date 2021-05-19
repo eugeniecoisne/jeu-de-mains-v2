@@ -8,18 +8,18 @@
         <% else %>
           <div class="ws-show-carousel-item carousel-item">
         <% end %>
-            <%= cl_image_tag photo.key, loading: "lazy", width: 800, crop: :fill, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}" %>
+            <%= cl_image_tag photo.key, loading: "lazy", width: 1000, crop: :fill, alt: "jeu-de-mains-#{@workshop.title}", title: "jeu-de-mains-#{@workshop.title}" %>
           </div>
       <% end %>
     <% else %>
       <div class="ws-show-carousel-item carousel-item active">
-        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 800, :crop => :fill, :alt => "jeu-de-mains", :title => "jeu-de-mains") %>
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 1000, :crop => :fill, :alt => "jeu-de-mains", :title => "jeu-de-mains") %>
       </div>
       <div class="ws-show-carousel-item carousel-item">
-        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 800, :crop => :fill, :alt => "jeu-de-mains", :title => "jeu-de-mains") %>
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 1000, :crop => :fill, :alt => "jeu-de-mains", :title => "jeu-de-mains") %>
       </div>
       <div class="ws-show-carousel-item carousel-item">
-        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 800, :crop => :fill, :alt => "jeu-de-mains", :title => "jeu-de-mains") %>
+        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 1000, :crop => :fill, :alt => "jeu-de-mains", :title => "jeu-de-mains") %>
       </div>
     <% end %>
     <% if @workshop.ephemeral == true || @workshop.visio == true %>
