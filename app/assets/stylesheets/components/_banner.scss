@@ -226,8 +226,17 @@
 }
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1310px) {
+@media (min-width: 1310px) and (max-width: 1699px) {
   .homebanner {
-    height: 38em;
+    height: 43em;
+  }
+}
+
+@media (min-width: 1700px) {
+  .homebanner {
+    height: 54em;
+  }
+  .homebanner-title {
+    margin: 0 15em 0 15em;
   }
 }

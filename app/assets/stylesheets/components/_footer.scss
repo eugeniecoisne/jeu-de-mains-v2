@@ -68,12 +68,18 @@
   }
 }
 
+.footer-informations {
+  display: flex;
+  justify-content: center;
+}
+
 .footer-columns {
   display: grid;
   grid-template-columns: 2fr 5fr 3fr 2fr;
   grid-gap: 1.5em;
   font-size: 90%;
   font-weight: 500;
+  max-width: 1400px;
 }
 
 .footer-column {
@@ -371,9 +377,27 @@
 }
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
+@media (min-width: 1200px) and (max-width: 1399px) {
   .footer-newsletter-inputs {
     display: flex;
   }
 }
+
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1400px) {
+  .footer-newsletter-inputs {
+    display: flex;
+  }
+  .footer-newsletter-subcontainer {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+  #mc_embed_signup {
+    min-width: 600px;
+  }
+}
+
 

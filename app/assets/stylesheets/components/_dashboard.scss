@@ -159,3 +159,9 @@
     display: none;
   }
 }
+
+@media (min-width: 1700px) {
+  .dashboard-container {
+    margin: 2em 10em;
+  }
+}

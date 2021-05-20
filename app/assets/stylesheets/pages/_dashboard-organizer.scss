@@ -877,3 +877,9 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
+
+@media (min-width: 1700px) {
+  .dashboard-organizer-container {
+    margin: 2em 10em;
+  }
+}

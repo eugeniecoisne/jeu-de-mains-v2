@@ -336,7 +336,24 @@
 }
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
+@media (min-width: 1200px) and (max-width: 1599px) {
 
 }
+
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1600px) {
+
+  .home-search-container {
+    margin-right: 10rem;
+    margin-left: 10rem;
+    display: flex;
+    justify-content: center;
+  }
+  .home-search {
+    height: 7em;
+    min-width: 1400px;
+  }
+}
+
 

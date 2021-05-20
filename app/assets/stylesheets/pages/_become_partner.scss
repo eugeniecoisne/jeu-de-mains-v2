@@ -1,6 +1,10 @@
 .become-partner-container {
   padding: 0 3rem;
   min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .become-partner-banner {
@@ -47,6 +51,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 4em;
+  max-width: 1400px;
 }
 
 .become-partner-why-argument {
@@ -75,6 +80,8 @@
   background-color: $light-blue;
   margin: 0 3rem;
   padding: 2.5em 4em 1.5em 4em;
+  max-width: 1400px;
+
   h3 {
     color: white;
     margin-top: 0;
@@ -169,6 +176,7 @@
   background-size: cover;
   background-position: top;
   display: flex;
+  justify-content: center;
 }
 
 .become-partner-form-form {
@@ -504,6 +512,21 @@
 @media (min-width: 1250px) {
   .become-partner-form {
     margin: 2rem 15rem 3rem 15rem;
+  }
+  .become-partner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .become-partner-title {
+    margin: 0 10em 0 10em;
+  }
+  .become-partner-subtitle {
+    max-width: 1400px;
+  }
+  .become-partner-banner {
+    height: 18em;
+    background-position: 0% 50%;
   }
 }
 

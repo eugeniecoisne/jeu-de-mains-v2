@@ -355,13 +355,9 @@
 }
 
 
-@media (min-width: 1250px) {
+@media (min-width: 1250px) and (max-width: 1399px) {
   .offer-register-new-giftcard {
     margin: 2rem 7rem;
-  }
-  .offer-register-new-giftcard-banner-search-and-title {
-    left: 8rem;
-    width: 365px;
   }
   #new-giftcard-banner {
     grid-template-columns: 1fr 1fr;
@@ -369,7 +365,40 @@
   #new-giftcard-text-side {
     width: 520px;
   }
+  .offer-register-new-giftcard-banner-search-and-title {
+    left: 8rem;
+    width: 30vw;
+  }
+  #new-giftcard-text-side {
+    width: 30vw;
+  }
 }
+
+@media (min-width: 1400px) {
+  .offer-register-new-giftcard {
+    margin: 2rem 7rem;
+  }
+  .offer-register-new-giftcard {
+    min-height: 1000px;
+  }
+  #new-giftcard-banner {
+    grid-template-columns: 1fr 1fr;
+  }
+  .offer-register-new-giftcard-banner-image {
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .offer-register-new-giftcard-banner-search-and-title {
+    left: 8rem;
+    width: 30vw;
+  }
+  #new-giftcard-text-side {
+    width: 30vw;
+  }
+}
+
 
 
 

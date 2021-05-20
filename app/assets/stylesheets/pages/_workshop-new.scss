@@ -4,6 +4,9 @@
 
 .new-ws-container {
   margin: 2em 0 8em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 // BACK BUTTON
@@ -287,6 +290,20 @@
 }
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
+@media (min-width: 1200px) and (max-width: 1499px) {
+  .new-ws-container {
+    .card{
+      margin: 0 15em;
+    }
+  }
+}
 
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1500px) {
+  .new-ws-container {
+    .card {
+      margin: unset;
+      width: 1300px;
+    }
+  }
 }

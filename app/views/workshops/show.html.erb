@@ -1,18 +1,19 @@
 <% if @workshop %>
 
-    <% if @workshop.db_status == true && @workshop.status == "en ligne" %>
-      <% content_for :meta_title, "Jeu de Mains | #{@workshop.title[0..45]}" %>
-      <% content_for :meta_description, "#{@workshop.program[0..157]}..." %>
-      <% if @workshop.photos.attached? %>
-        <% content_for :meta_image, "#{cl_image_path @workshop.photos[0].key, width: 1200, height: 630, crop: :fill}" %>
-      <% end %>
+  <% if @workshop.db_status == true && @workshop.status == "en ligne" %>
+    <% content_for :meta_title, "Jeu de Mains | #{@workshop.title[0..45]}" %>
+    <% content_for :meta_description, "#{@workshop.program[0..157]}..." %>
+    <% if @workshop.photos.attached? %>
+      <% content_for :meta_image, "#{cl_image_path @workshop.photos[0].key, width: 1200, height: 630, crop: :fill}" %>
     <% end %>
+  <% end %>
 
-    <% if (@workshop.status != "en ligne" && (@workshop.place.user == current_user || (@workshop.animators.where(db_status: true).last.user == current_user if @workshop.animators.where(db_status: true).present?))) || (@workshop.status == "en ligne" && @workshop.place.user.profile.db_status == false) %>
-        <div class="ws-show-offline-warning"><i class="fas fa-exclamation-circle mr-1"></i> Votre atelier n'est pas encore en ligne,<br>ceci est une prévisualisation.</div>
-    <% end %>
+  <% if (@workshop.status != "en ligne" && (@workshop.place.user == current_user || (@workshop.animators.where(db_status: true).last.user == current_user if @workshop.animators.where(db_status: true).present?))) || (@workshop.status == "en ligne" && @workshop.place.user.profile.db_status == false) %>
+      <div class="ws-show-offline-warning"><i class="fas fa-exclamation-circle mr-1"></i> Votre atelier n'est pas encore en ligne,<br>ceci est une prévisualisation.</div>
+  <% end %>
 
-    <!-- WORKSHOP SHOW -->
+  <!-- WORKSHOP SHOW -->
+  <div class="big-container-ws-show">
 
     <div class="container-ws-show">
 
@@ -265,7 +266,7 @@
             <% else %>
               Le contenu de ce kit n'a pas été renseigné par l'organisateur.<br>
             <% end %>
-            <em>Les frais de livraison du kit son estimés à <%= @workshop.kit_shipping_price %> euros TTC, déjà inclus dans le prix total de l'atelier.</em></p>
+            <em>Les frais de livraison du kit sont estimés à <%= @workshop.kit_shipping_price %> euros TTC, déjà inclus dans le prix total de l'atelier.</em></p>
           </div>
 
         <% end %>
@@ -458,7 +459,7 @@
 
       </div>
     </div>
-
+  </div>
 <% end %>
 
 

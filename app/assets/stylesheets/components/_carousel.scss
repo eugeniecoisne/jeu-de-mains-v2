@@ -164,8 +164,38 @@
 
 }
 
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
-
+// Large devices (desktops, 992px and up)
+@media (min-width: 1200px) and (max-width: 1399px)  {
+  .ws-show-carousel-item {
+    img {
+      height: 34em;
+    }
+  }
 }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1400px) and (max-width: 1999px) {
+  .ws-show-carousel-item {
+    img {
+      height: 40em;
+    }
+  }
+}
+
+@media (min-width: 2000px) and (max-width: 2399px) {
+  .ws-show-carousel-item {
+    img {
+      height: 45em;
+    }
+  }
+}
+
+@media (min-width: 2400px) {
+  .ws-show-carousel-item {
+    img {
+      height: 50em;
+    }
+  }
+}
+
 

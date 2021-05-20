@@ -358,7 +358,7 @@
 }
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
+@media (min-width: 1200px) and (max-width: 1599px) {
   #index-ws-card-organizer-mobile {
     display: none;
   }
@@ -367,5 +367,37 @@
   }
   #listButton {
     display: none;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1600px) and (max-width: 2199px) {
+  #index-ws-card-organizer-mobile {
+    display: none;
+  }
+  #mapButton {
+    display: none;
+  }
+  #listButton {
+    display: none;
+  }
+  .index-ws-cards {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 2200px) {
+  #index-ws-card-organizer-mobile {
+    display: none;
+  }
+  #mapButton {
+    display: none;
+  }
+  #listButton {
+    display: none;
+  }
+  .index-ws-cards {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }
