@@ -174,10 +174,19 @@
 }
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1400px) and (max-width: 1999px) {
+@media (min-width: 1400px) and (max-width: 1599px) {
   .ws-show-carousel-item {
     img {
-      height: 40em;
+      height: 32em;
+    }
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1600px) and (max-width: 1999px) {
+  .ws-show-carousel-item {
+    img {
+      height: 36em;
     }
   }
 }
@@ -185,7 +194,7 @@
 @media (min-width: 2000px) and (max-width: 2399px) {
   .ws-show-carousel-item {
     img {
-      height: 45em;
+      height: 43em;
     }
   }
 }

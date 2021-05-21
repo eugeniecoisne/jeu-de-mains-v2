@@ -63,6 +63,24 @@
   }
 }
 
+#about-our-values {
+  margin: 4rem 10rem;
+  div {
+    margin-bottom: 2rem;
+  }
+  h2 {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  h3 {
+    color: $blue;
+    text-align: center;
+  }
+  p {
+    text-align: center;
+  }
+}
+
 
 
 // RESPONSIVE ABOUT US //
@@ -108,6 +126,12 @@
       display: none;
     }
   }
+  #about-our-values {
+    margin: 2rem;
+    p {
+      text-align: justify;
+    }
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -140,6 +164,13 @@
     }
     img {
       display: none;
+    }
+  }
+
+  #about-our-values {
+    margin: 4rem 3rem;
+    p {
+      text-align: justify;
     }
   }
 
@@ -181,6 +212,10 @@
     }
   }
 
+  #about-our-values {
+    margin: 4rem 3rem;
+
+  }
 }
 
 // Large devices (desktops, 992px and up)
@@ -213,6 +248,9 @@
     width: 1200px;
   }
   #about-blue-strip {
+    width: 1200px;
+  }
+  #about-our-values {
     width: 1200px;
   }
 }
