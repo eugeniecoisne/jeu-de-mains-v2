@@ -1,1 +1,11 @@
-# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+User-agent: *
+Disallow: /cyberworld/map/
+Disallow: /tmp/
+Disallow: /foo.html
+Disallow: /reservations*
+Disallow: /sessions*
+Disallow: /ateliers/new
+Disallow: /lieux/new
+Disallow: /carte_cadeau*
+
+Sitemap: https://jeudemains.com/sitemap.xml
