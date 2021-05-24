@@ -66,6 +66,9 @@
   #entreprises {
     color: $dark-blue;
   }
+  #offer-giftcard-navbar {
+    color: $dark-blue;
+  }
 }
 
 .navbar-buttons-other {
@@ -97,6 +100,15 @@
   #entreprises:hover {
     border-bottom: 2px solid white;
   }
+  #offer-giftcard-navbar {
+    color: white;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+  }
+  #offer-giftcard-navbar:hover {
+    border-bottom: 2px solid white;
+  }
+
   #menuButton {
     border: transparent 2px solid;
     img {
@@ -120,6 +132,9 @@
     display: none;
   }
   #entreprises {
+    display: none;
+  }
+  #offer-giftcard-navbar {
     display: none;
   }
   .navbar-brand-homepage img {
@@ -153,6 +168,9 @@
   #entreprises {
     display: none;
   }
+  #offer-giftcard-navbar {
+    display: none;
+  }
   .navbar-brand-homepage img {
     width: 8em;
     margin-left: 8px;
@@ -169,6 +187,9 @@
 @media (min-width: 768px) and (max-width: 991px)  {
   .navbar-brand-homepage img {
     visibility: hidden;
+  }
+  #offer-giftcard-navbar {
+    display: none;
   }
 }
 
