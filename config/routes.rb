@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  get 'sitemaps/sitemap'
+  get 'sitemap', to: 'sitemaps#sitemap'
+
   get 'fee_invoices/create'
   ActiveAdmin.routes(self)
   get 'giftcards/new'
