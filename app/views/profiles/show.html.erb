@@ -104,7 +104,11 @@
                 <li class="list-group-item my-informations-item">
                   <div class="my-informations-text">
                     <span><strong>Inscription à la newsletter</strong></span>
-                    <%= @profile.user.newsletter_agreement == true ? "oui" : "non" %>
+                    <% if @profile.user.newsletter_agreement == true %>
+                      <span>oui</span>
+                    <% else %>
+                      <span>non</span>
+                    <% end %>
                   </div>
                   <%= link_to "Modifier", edit_user_registration_path, class: "my-informations-button" %>
                 </li>
