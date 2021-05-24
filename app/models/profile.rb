@@ -61,10 +61,15 @@ class Profile < ApplicationRecord
   end
 
   def thematics
-    if user.animators.present? && user.animators.map { |animator| animator.workshop.thematic if animator.workshop.db_status == true }.present?
-      thematics = user.animators.map { |animator| animator.workshop.thematic if animator.workshop.db_status == true }.flatten(1)
-    else
-      thematics = []
+    thematics = []
+    if user.animators.present?
+      user.animators.each do |animator|
+        if animator.workshop.db_status == true
+          animator.workshop.thematic.each do |t|
+            thematics << t
+          end
+        end
+      end
     end
     if user.places.present?
       user.places.each do |place|
@@ -78,9 +83,6 @@ class Profile < ApplicationRecord
       end
     end
     thematics.uniq
-    if thematics.present? && thematics.include?(nil)
-      thematics.compact
-    end
   end
 
   def self.thematics
