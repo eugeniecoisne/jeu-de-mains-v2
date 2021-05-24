@@ -39,16 +39,15 @@
             <% end %>
           </div>
         </li>
-        <% if (current_user.profile.role.present? && current_user.can_receive_payments?) %>
-          <li class="list-group-item">
-            <div class="list-item-menu">
-              <%= link_to new_workshop_path, class: "menu-blue-link" do %>
-                <i class="fas fa-plus menu-icon menu-blue-icon mr-2"></i>
-                Proposer mon atelier
-              <% end %>
-            </div>
-          </li>
-        <% elsif current_user.profile.role.nil? %>
+        <li class="list-group-item">
+          <div class="list-item-menu">
+            <%= link_to offrir_une_carte_cadeau_path, class: "menu-blue-link" do %>
+              <i class="fas fa-gift menu-icon menu-blue-icon mr-2"></i>
+              Offrir une carte cadeau
+            <% end %>
+          </div>
+        </li>
+        <% if current_user.profile.role.nil? %>
           <li class="list-group-item">
             <div class="list-item-menu">
               <%= link_to devenir_partenaire_path, class: "menu-blue-link" do %>
@@ -72,6 +71,16 @@
               <%= link_to profiles_path, class: "menu-blue-link" do %>
                 <i class="fas fa-graduation-cap menu-icon menu-blue-icon mr-1"></i>
                 Découvrir les partenaires
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+        <% if (current_user.profile.role.present? && current_user.can_receive_payments?) %>
+          <li class="list-group-item">
+            <div class="list-item-menu">
+              <%= link_to new_workshop_path, class: "menu-blue-link" do %>
+                <i class="fas fa-plus menu-icon menu-blue-icon mr-2"></i>
+                Proposer mon atelier
               <% end %>
             </div>
           </li>
@@ -147,6 +156,14 @@
             <%= link_to workshops_path, data: { turbolinks: false }, class: "menu-blue-link" do %>
               <i class="far fa-eye menu-icon menu-blue-icon mr-1"></i>
               Tous les ateliers
+            <% end %>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="list-item-menu">
+            <%= link_to offrir_une_carte_cadeau_path, class: "menu-blue-link" do %>
+              <i class="fas fa-gift menu-icon menu-blue-icon mr-2"></i>
+              Offrir une carte cadeau
             <% end %>
           </div>
         </li>
