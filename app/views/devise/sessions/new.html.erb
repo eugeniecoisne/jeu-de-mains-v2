@@ -8,8 +8,6 @@
 
     <h2 class="sign-title">Connexion</h2>
 
-    <% if current_user.present? %>
-
       <div class="omniauth-container">
         <div class="omniauth-box omniauth-box-facebook">
           <%= link_to user_facebook_omniauth_authorize_path do %>
@@ -30,8 +28,6 @@
         <span class="authentication-or">ou</span>
         <div class="authentication-or-right"></div>
       </div>
-
-    <% end %>
 
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="form-inputs">
