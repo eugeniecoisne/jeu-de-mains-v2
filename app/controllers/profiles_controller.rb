@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  # skip_before_action :authenticate_user!, only: %i(public)
+  skip_before_action :authenticate_user!, only: %i(public)
   before_action :set_profile, only: %i(edit update messagerie send_finalisation_partner_email)
   before_action :set_profile_and_verify, only: %i(show tableau_de_bord transactions releve_de_commissions)
 
