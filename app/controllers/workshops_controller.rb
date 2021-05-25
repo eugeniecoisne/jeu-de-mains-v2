@@ -3,7 +3,7 @@ require 'json'
 require "will_paginate/array"
 
 class WorkshopsController < ApplicationController
-  # skip_before_action :authenticate_user!, only: %i(index show privatisation privatisation_envoyee)
+  skip_before_action :authenticate_user!, only: %i(index show privatisation privatisation_envoyee)
   before_action :set_workshop, only: %i(show edit update finalisation confirmation privatisation privatisation_envoyee destroy)
 
   def index
