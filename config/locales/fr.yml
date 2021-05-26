@@ -1,12 +1,4 @@
 fr:
-  will_paginate:
-    previous_label: "◀"
-    next_label: "▶"
-    previous: "précédent"
-    next: "suivant"
-    page_aria_label: "page"
-    page_gap: "..."
-fr:
   activerecord:
     models:
       place:

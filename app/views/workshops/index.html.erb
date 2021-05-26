@@ -863,8 +863,8 @@
                     <% end %>
                   </div>
                   <div class="ws-card-title" id="index-ws-card-title">
-                    <% if workshop.title.size > 33 %>
-                      <h4><%= workshop.title[0..31] %>...</h4>
+                    <% if workshop.title.size > 31 %>
+                      <h4><%= workshop.title[0..27] %>...</h4>
                     <% else %>
                       <h4><%= workshop.title %></h4>
                     <% end %>
@@ -909,7 +909,7 @@
       </div>
 
       <% unless @workshops.empty? %>
-        <%= will_paginate @workshops.paginate(page: params[:page], per_page: 20), inner_window: 1, outer_window: 0 %>
+        <%= will_paginate @workshops, inner_window: 1, outer_window: 0 %>
       <% end %>
     </div>
     <% unless @workshops.empty? %>
