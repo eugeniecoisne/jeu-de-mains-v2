@@ -98,8 +98,8 @@
                           <% end %>
                         </div>
                         <div class="ws-card-title" id="home-ws-card-title">
-                          <% if session.workshop.title.size > 33 %>
-                            <h4><%= session.workshop.title[0..31] %>...</h4>
+                          <% if session.workshop.title.size > 31 %>
+                            <h4><%= session.workshop.title[0..27] %>...</h4>
                           <% else %>
                             <h4><%= session.workshop.title %></h4>
                           <% end %>
