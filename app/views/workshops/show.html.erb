@@ -428,8 +428,8 @@
                           <% end %>
                         </div>
                         <div class="ws-card-title" id="show-ws-card-title">
-                          <% if workshop.title.size > 33 %>
-                            <h4><%= workshop.title[0..31] %>...</h4>
+                          <% if workshop.title.size > 31 %>
+                            <h4><%= workshop.title[0..27] %>...</h4>
                           <% else %>
                             <h4><%= workshop.title %></h4>
                           <% end %>
