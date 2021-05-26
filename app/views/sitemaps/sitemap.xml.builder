@@ -34,14 +34,14 @@ xml.tag! 'urlset', 'xmlns' => 'https://www.sitemaps.org/schemas/sitemap/0.9' do
     xml.url do
       xml.loc workshop_url(workshop)
       xml.priority 1.0
-      xml.lastmod Time.at(workshop.updated_at)
+      xml.lastmod Time.at(workshop.updated_at).iso8601(9)
     end
   end
   @partners.each do |partner|
     xml.url do
       xml.loc profile_public_url(partner)
       xml.priority 1.0
-      xml.lastmod Time.at(partner.updated_at)
+      xml.lastmod Time.at(partner.updated_at).iso8601(9)
     end
   end
   xml.url do
