@@ -194,6 +194,7 @@
   .index-ws-cards {
     grid-template-columns: 1fr;
     grid-row-gap: 1rem;
+    padding-bottom: 4rem;
   }
   #index-ws-card-organizer-mobile {
     display: none;
@@ -205,6 +206,7 @@
     grid-template-columns: 1fr 1fr;
     grid-row-gap: 1.2em;
     grid-column-gap: 1em;
+    padding-bottom: 4rem;
   }
   #index-ws-card-organizer-desktop {
     display: none;
@@ -237,6 +239,9 @@
       font-size: 17px;
       font-weight: 600;
       margin-bottom: 1em;
+    }
+    .pagination {
+      padding: 1em 1em 4em 1em;
     }
   }
   .index-ws-cards-map-container.fullmap {
