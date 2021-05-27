@@ -174,7 +174,18 @@
 }
 
 .home-ws-cards-last-minute {
-  margin-bottom: 3.5em;
+  margin-bottom: 2.5em;
+}
+
+.home-cta-workshops {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+  a {
+    font-size: 17px;
+  }
 }
 
 // Home giftcard presentation

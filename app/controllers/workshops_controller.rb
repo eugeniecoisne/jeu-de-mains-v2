@@ -129,7 +129,7 @@ class WorkshopsController < ApplicationController
 
     dates = (Date.today..Date.today + 1.year).to_a
     @suggested_workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 && workshop.place.user.profile.db_status == true }.shuffle.first(12)
-
+    @workshops_count = @workshops.count
   end
 
   def show

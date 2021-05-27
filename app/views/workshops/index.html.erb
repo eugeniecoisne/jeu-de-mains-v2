@@ -806,10 +806,10 @@
     <div class="index-ws-left-side scroller-workshops">
       <h1 id="index-ws-title">Ateliers</h1>
       <h2 id="index-ws-description">Trouvez ici l’atelier créatif qui correspond à vos attentes ! Couture, fleurs, broderie, cosmétique, upcycling, herbier, bijoux, aquarelle, maroquinerie, tricot, céramique, lettering, décoration... Réalisez un objet tendance par vous-même et profitez d’une pause conviviale et créative !</h2>
-      <% if @workshops.count > 1 %>
-        <h3 class="index-ws-results">> Nous avons trouvé <span><%= @workshops.count %> ateliers créatifs</span> correspondant à votre recherche</h3>
-      <% elsif @workshops.count == 1 %>
-        <h3 class="index-ws-results">> Nous avons trouvé <span><%= @workshops.count %> atelier créatif</span> correspondant à votre recherche</h3>
+      <% if @workshops_count > 1 %>
+        <h3 class="index-ws-results">> Nous avons trouvé <span><%= @workshops_count %> ateliers créatifs</span> correspondant à votre recherche</h3>
+      <% elsif @workshops_count == 1 %>
+        <h3 class="index-ws-results">> Nous avons trouvé <span><%= @workshops_count %> atelier créatif</span> correspondant à votre recherche</h3>
       <% else %>
         <h3 class="index-ws-results mt-4"><strong>> Nous n'avons trouvé aucun atelier créatif correspondant à votre recherche.</strong></h3>
         <h3 class="index-ws-results mt-3" id="index-ws-no-result-suggestions"><strong>Voici nos suggestions :</strong></h3>
