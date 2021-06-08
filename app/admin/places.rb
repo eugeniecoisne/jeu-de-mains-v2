@@ -17,6 +17,8 @@ ActiveAdmin.register Place do
     column :address
     column :zip_code
     column :city
+    column :latitude
+    column :longitude
     column :phone_number
     column "Nb ateliers en ligne" do |place|
       Workshop.all.where(db_status: true, status: "en ligne").select { |w| w.place == place}.count
@@ -49,6 +51,8 @@ ActiveAdmin.register Place do
     column :address
     column :zip_code
     column :city
+    column :latitude
+    column :longitude
     column :phone_number
     column "Nb ateliers en ligne" do |place|
       Workshop.all.where(db_status: true, status: "en ligne").select { |w| w.place == place}.count
@@ -124,6 +128,8 @@ ActiveAdmin.register Place do
       f.input :address
       f.input :zip_code
       f.input :city
+      f.input :latitude
+      f.input :longitude
     end
     f.inputs "Coordonnées" do
       f.input :phone_number
