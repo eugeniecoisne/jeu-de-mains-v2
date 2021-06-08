@@ -38,11 +38,23 @@
               <% @workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today }.sort_by { |session| session.start_date }.each do |session| %>
                 <% if @workshop.duration >= 1440 %>
                   <option value="<%= session.id %>">
-                    <%= session.available == 0 ? "Du #{l(session.start_date, format: '%A %d %B %Y')} à #{session.start_time} au #{l(session.end_date, format: '%A %d %B %Y')} à #{session.end_time} - Complet" : "Du #{l(session.start_date, format: '%A %d %B %Y')} à #{session.start_time} au #{l(session.end_date, format: '%A %d %B %Y')} à #{session.end_time}" %>
+                    <% if session.available == 0 %>
+                      Du <%= l(session.start_date, format: '%A %d %B %Y') %> à <%= session.start_time %> au <%= l(session.end_date, format: '%A %d %B %Y') %> à <%= session.end_time %> - Complet
+                    <% elsif session.workshop.kit == true && ((session.start_date - 6.days) < Date.today) %>
+                      Du <%= l(session.start_date, format: '%A %d %B %Y') %> à <%= session.start_time %> au <%= l(session.end_date, format: '%A %d %B %Y') %> à <%= session.end_time %> - Indisponible
+                    <% else %>
+                      Du <%= l(session.start_date, format: '%A %d %B %Y') %> à <%= session.start_time %> au <%= l(session.end_date, format: '%A %d %B %Y') %> à <%= session.end_time %>
+                    <% end %>
                   </option>
                 <% else %>
                   <option value="<%= session.id %>">
-                    <%= session.available == 0 ? "#{l(session.start_date, format: '%A %d %B %Y').capitalize} de #{session.start_time} à #{session.end_time} - Complet" : "#{l(session.start_date, format: '%A %d %B %Y').capitalize} de #{session.start_time} à #{session.end_time}" %>
+                    <% if session.available == 0 %>
+                      <%= l(session.start_date, format: '%A %d %B %Y').capitalize %> de <%= session.start_time %> à <%= session.end_time %> - Complet
+                    <% elsif session.workshop.kit == true && ((session.start_date - 6.days) < Date.today) %>
+                      <%= l(session.start_date, format: '%A %d %B %Y').capitalize %> de <%= session.start_time %> à <%= session.end_time %> - Indisponible
+                    <% else %>
+                      <%= l(session.start_date, format: '%A %d %B %Y').capitalize %> de <%= session.start_time %> à <%= session.end_time %>
+                    <% end %>
                   </option>
                 <% end %>
               <% end %>

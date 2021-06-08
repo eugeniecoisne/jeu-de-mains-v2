@@ -91,7 +91,11 @@ class SessionsController < ApplicationController
   def search_places
     @session = Session.find(params[:session_id])
     authorize @session
-    @number = @session.available
+    if @session.workshop.kit == true && (@session.start_date - 6.days) < Date.today
+      @number = 0
+    else
+      @number = @session.available
+    end
     render json: @number
   end
 
