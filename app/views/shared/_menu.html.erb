@@ -8,7 +8,7 @@
         <% if current_user.admin %>
           <li class="list-group-item">
             <div class="list-item-menu">
-              <%= link_to admin_dashboard_path, class: "menu-blue-link" do %>
+              <%= link_to admin_dashboard_path, data: { turbolinks: false }, class: "menu-blue-link" do %>
                 <i class="fas fa-tachometer-alt menu-icon menu-blue-icon mr-2"></i>
                 Portail admin
               <% end %>
@@ -16,7 +16,7 @@
           </li>
           <li class="list-group-item">
             <div class="list-item-menu">
-              <%= link_to comptabilite_reservations_profile_path(current_user.profile), class: "menu-blue-link" do %>
+              <%= link_to comptabilite_reservations_profile_path(current_user.profile), data: { turbolinks: false }, class: "menu-blue-link" do %>
                 <i class="fas fa-tachometer-alt menu-icon menu-blue-icon mr-2"></i>
                 Compta réservations
               <% end %>
@@ -24,7 +24,7 @@
           </li>
           <li class="list-group-item">
             <div class="list-item-menu">
-              <%= link_to comptabilite_cartes_cadeaux_profile_path(current_user.profile), class: "menu-blue-link" do %>
+              <%= link_to comptabilite_cartes_cadeaux_profile_path(current_user.profile), data: { turbolinks: false }, class: "menu-blue-link" do %>
                 <i class="fas fa-tachometer-alt menu-icon menu-blue-icon mr-2"></i>
                 Compta cartes cadeaux
               <% end %>
@@ -41,7 +41,7 @@
         </li>
         <li class="list-group-item">
           <div class="list-item-menu">
-            <%= link_to offrir_une_carte_cadeau_path, class: "menu-blue-link" do %>
+            <%= link_to offrir_une_carte_cadeau_path, data: { turbolinks: false },class: "menu-blue-link" do %>
               <i class="fas fa-gift menu-icon menu-blue-icon mr-2"></i>
               Offrir une carte cadeau
             <% end %>
@@ -50,7 +50,7 @@
         <% if current_user.profile.role.nil? %>
           <li class="list-group-item">
             <div class="list-item-menu">
-              <%= link_to devenir_partenaire_path, class: "menu-blue-link" do %>
+              <%= link_to devenir_partenaire_path, data: { turbolinks: false }, class: "menu-blue-link" do %>
                 <i class="fas fa-user-shield menu-icon menu-blue-icon mr-1"></i>
                 Devenir partenaire
               <% end %>
@@ -59,7 +59,7 @@
         <% end %>
         <li class="list-group-item">
           <div class="list-item-menu">
-            <%= link_to entreprises_path, class: "menu-blue-link" do %>
+            <%= link_to entreprises_path, data: { turbolinks: false },class: "menu-blue-link" do %>
               <i class="fas fa-building menu-icon menu-blue-icon mr-2"></i>
               Entreprises
             <% end %>
@@ -68,7 +68,7 @@
         <% if current_user.profile.role.present? || current_user.admin == true %>
           <li class="list-group-item">
             <div class="list-item-menu">
-              <%= link_to profiles_path, class: "menu-blue-link" do %>
+              <%= link_to profiles_path, data: { turbolinks: false }, class: "menu-blue-link" do %>
                 <i class="fas fa-graduation-cap menu-icon menu-blue-icon mr-1"></i>
                 Découvrir les partenaires
               <% end %>
@@ -78,7 +78,7 @@
         <% if (current_user.profile.role.present? && current_user.can_receive_payments?) %>
           <li class="list-group-item">
             <div class="list-item-menu">
-              <%= link_to new_workshop_path, class: "menu-blue-link" do %>
+              <%= link_to new_workshop_path, data: { turbolinks: false }, class: "menu-blue-link" do %>
                 <i class="fas fa-plus menu-icon menu-blue-icon mr-2"></i>
                 Proposer mon atelier
               <% end %>
@@ -88,7 +88,7 @@
         <% unless current_user.admin == true %>
           <li class="list-group-item">
             <div class="list-item-menu">
-              <%= link_to tableau_de_bord_profile_path(current_user.profile), class: "menu-blue-link" do %>
+              <%= link_to tableau_de_bord_profile_path(current_user.profile), data: { turbolinks: false }, class: "menu-blue-link" do %>
                 <% if current_user.profile.role %>
                   <i class="fas fa-chart-bar menu-icon menu-blue-icon mr-1"></i>
                   Mon tableau de bord
@@ -103,7 +103,7 @@
         <% if current_user.profile.role.present? %>
           <li class="list-group-item">
             <div class="list-item-menu">
-              <%= link_to transactions_profile_path(current_user.profile), class: "menu-blue-link" do %>
+              <%= link_to transactions_profile_path(current_user.profile), data: { turbolinks: false }, class: "menu-blue-link" do %>
                 <i class="far fa-credit-card menu-icon menu-blue-icon mr-1"></i>
                 Mes transactions
               <% end %>
@@ -113,7 +113,7 @@
         <% if current_user.profile.role.nil? && current_user.admin == false %>
           <li class="list-group-item">
             <div class="list-item-menu">
-              <%= link_to mes_cartes_cadeaux_profile_path(current_user.profile), class: "menu-blue-link" do %>
+              <%= link_to mes_cartes_cadeaux_profile_path(current_user.profile), data: { turbolinks: false }, class: "menu-blue-link" do %>
                 <i class="fas fa-gift menu-icon menu-blue-icon mr-2"></i>
                 Mes cartes cadeaux
               <% end %>
@@ -123,7 +123,7 @@
         <% if current_user.profile.role %>
           <li class="list-group-item">
             <div class="list-item-menu">
-              <%= link_to messagerie_profile_path(current_user.profile), class: "menu-blue-link" do %>
+              <%= link_to messagerie_profile_path(current_user.profile), data: { turbolinks: false }, class: "menu-blue-link" do %>
                 <i class="fas fa-envelope menu-icon menu-blue-icon mr-2"></i>
                 Ma messagerie
               <% end %>
@@ -132,7 +132,7 @@
         <% end %>
         <li class="list-group-item">
           <div class="list-item-menu">
-            <%= link_to profile_path(current_user.profile), class: "menu-blue-link" do %>
+            <%= link_to profile_path(current_user.profile), data: { turbolinks: false }, class: "menu-blue-link" do %>
               <i class="far fa-user menu-icon menu-blue-icon mr-2"></i>
               Mon compte
             <% end %>
@@ -141,7 +141,7 @@
          <li class="list-group-item">
         </li>
         <li class="list-group-item">
-          <%= link_to deconnexion_path, method: :delete, id: "log-out-menu", class: "menu-white-link" do %>
+          <%= link_to deconnexion_path, method: :delete, data: { turbolinks: false }, id: "log-out-menu", class: "menu-white-link" do %>
             <div class="list-item-sign" id="sign-out">
               <i class="fas fa-sign-out-alt menu-icon menu-white-icon mr-1"></i>
               Me déconnecter
@@ -161,7 +161,7 @@
         </li>
         <li class="list-group-item">
           <div class="list-item-menu">
-            <%= link_to offrir_une_carte_cadeau_path, class: "menu-blue-link" do %>
+            <%= link_to offrir_une_carte_cadeau_path, data: { turbolinks: false }, class: "menu-blue-link" do %>
               <i class="fas fa-gift menu-icon menu-blue-icon mr-2"></i>
               Offrir une carte cadeau
             <% end %>
@@ -169,7 +169,7 @@
         </li>
         <li class="list-group-item">
           <div class="list-item-menu">
-            <%= link_to devenir_partenaire_path, class: "menu-blue-link" do %>
+            <%= link_to devenir_partenaire_path, data: { turbolinks: false }, class: "menu-blue-link" do %>
               <i class="fas fa-user-shield menu-icon menu-blue-icon mr-1"></i>
               Devenir partenaire
             <% end %>
@@ -177,7 +177,7 @@
         </li>
         <li class="list-group-item">
           <div class="list-item-menu">
-            <%= link_to entreprises_path, class: "menu-blue-link" do %>
+            <%= link_to entreprises_path, data: { turbolinks: false }, class: "menu-blue-link" do %>
               <i class="fas fa-building menu-icon menu-blue-icon mr-2"></i>
               Entreprises
             <% end %>
@@ -186,7 +186,7 @@
         <li class="list-group-item" aria-hidden="true">
         </li>
         <li class="list-group-item">
-          <%= link_to connexion_path, class: "menu-white-link" do %>
+          <%= link_to connexion_path, data: { turbolinks: false }, class: "menu-white-link" do %>
             <div class="list-item-sign" id="sign-in">
                 <i class="fas fa-sign-in-alt menu-icon menu-white-icon mr-2"></i>
                 Me connecter
@@ -194,7 +194,7 @@
           <% end %>
         </li>
         <li class="list-group-item">
-          <%= link_to inscription_path, class: "menu-white-link" do %>
+          <%= link_to inscription_path, data: { turbolinks: false }, class: "menu-white-link" do %>
             <div class="list-item-sign" id="sign-up">
                 <i class="fas fa-user-plus menu-icon menu-white-icon mr-2"></i>
                 M'inscrire
