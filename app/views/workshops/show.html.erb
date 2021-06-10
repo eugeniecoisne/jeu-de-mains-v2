@@ -261,7 +261,7 @@
         <% if @workshop.privatization == true %>
           <div class="ws-show-informations-privatization">
             <span>Cet atelier accepte la privatisation pour vos événements tels que les EVJF et anniversaires !</span>
-            <%= link_to "Je privatise !", privatisation_workshop_path(@workshop) %>
+            <%= link_to "Je privatise !", privatisation_workshop_path(@workshop), data: { turbolinks: false } %>
           </div>
         <% end %>
 
