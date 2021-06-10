@@ -1,6 +1,6 @@
 require "open-uri"
 require 'json'
-require "will_paginate/array"
+# require "will_paginate/array"
 
 class WorkshopsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(index show privatisation privatisation_envoyee)
@@ -128,7 +128,7 @@ class WorkshopsController < ApplicationController
     end
 
     @workshops_count = @workshops.count
-    @workshops = @workshops.paginate(page: params[:page], per_page: 20)
+    @workshops = @workshops
     dates = (Date.today..Date.today + 1.year).to_a
     @suggested_workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.dates.any? { |date| dates.include?(date) } && workshop.sessions.count > 0 && workshop.place.user.profile.db_status == true }.shuffle.first(12)
   end

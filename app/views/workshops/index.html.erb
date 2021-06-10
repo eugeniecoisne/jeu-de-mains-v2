@@ -908,9 +908,7 @@
         <% end %>
       </div>
 
-      <% unless @workshops.empty? %>
-        <%= will_paginate @workshops, inner_window: 1, outer_window: 0 %>
-      <% end %>
+
     </div>
     <% unless @workshops.empty? %>
       <div id="map" class="ws-map"
