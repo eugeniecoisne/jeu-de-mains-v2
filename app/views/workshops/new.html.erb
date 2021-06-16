@@ -177,7 +177,7 @@
             Vous assurez être propriétaire de ces photos, avoir les autorisations de droit à l'image de toute personne reconnaissable et confirmez qu'elles ne sont pas issues d'une prise de vue par une plateforme concurrente.
             <br><br>
 
-            <%= f.input :photos, required: false, as: :file, label: "Minimum 1 photo - Poids max de l'ensemble : 15 Mo", input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" } %>
+            <%= f.input :photos, required: false, as: :file, label: "Minimum 1 photo - Sélectionnez toutes les photos en une fois - Poids max de l'ensemble : 15 Mo", input_html: { multiple: true, accept: "image/*", id: "photos", onchange: "Filevalidation()" } %>
             <p id="bytesSize"></p>
             <div id="preview"></div>
 
