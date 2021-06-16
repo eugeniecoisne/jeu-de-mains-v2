@@ -489,4 +489,28 @@
   </div>
 <% end %>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<script>
+  contentStart = $("#bookingBox").offset().top ;
+  contentSize  = $("#bookingBox").height() ;
+
+  window.onscroll = function(){
+    if( window.XMLHttpRequest ) {
+        var position=window.pageYOffset;
+        // calculate the position of the footer and the actual seen window
+        var docViewTop = $(window).scrollTop();
+        var docViewBottom = docViewTop + $(window).height();
+        var elemTop = $("#footer").offset().top;
+
+         if ( !(docViewBottom >= elemTop + 40)) {
+             $('.container-ws-show-booking').css({'position':'fixed'});
+          } else {
+            $('.container-ws-show-booking').css({'position':'absolute'});
+         }
+    }
+}
+
+</script>
+
 

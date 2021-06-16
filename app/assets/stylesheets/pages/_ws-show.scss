@@ -433,6 +433,7 @@
 // COVID
 
 .ws-show-informations-more-info {
+  text-align: justify;
   p {
     margin-bottom: 1rem;
   }
@@ -516,7 +517,7 @@
     right: unset;
     width: 100vw;
     height: 100vh;
-    top: unset;
+    top: 0;
     border-radius: unset;
     padding-top: 7em;
     font-size: 85%;
@@ -577,21 +578,27 @@
   // privatization
 
   .ws-show-informations-privatization {
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1.5rem 1rem;
-  span {
-    margin-bottom: 20px;
-    margin-right: 0px;
-    font-size: 15px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    span {
+      margin-bottom: 20px;
+      margin-right: 0px;
+      font-size: 15px;
+    }
+    a {
+      max-width: unset;
+      width: 300px;
+      font-size: 14px;
+    }
   }
-  a {
-    max-width: unset;
-    width: 300px;
-    font-size: 14px;
+
+  .ws-show-informations-more-info {
+    li {
+      font-size: 15px;
+    }
   }
-}
 
   // cancel policy
 
