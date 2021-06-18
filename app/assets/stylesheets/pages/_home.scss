@@ -271,6 +271,61 @@
   }
 }
 
+// BLOG
+
+.home-blog-last-articles {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 1rem;
+  a {
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+.home-blog-one-article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  img {
+    object-fit: cover;
+    border-radius: 5px;
+  }
+}
+
+.home-blog-one-article:hover {
+  .home-blog-one-article-title {
+    display: block;
+  }
+}
+
+.home-blog-one-article-title {
+  position: absolute;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  font-size: 16px;
+  text-align: center;
+  top: 83%;
+  left:0;
+  right:0;
+  display: none;
+}
+
+
+.home-cta-blog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  a {
+    font-size: 17px;
+  }
+}
 
 
 // RESPONSIVE HOMEPAGE//
@@ -294,11 +349,17 @@
   #home-ws-card-organizer-desktop {
     display: none;
   }
+  .home-blog-one-article {
+    img {
+      width: 300px;
+      height: 300px;
+    }
+  }
 }
 
 @media (min-width: 100px) and (max-width: 575px) {
   .home-container {
-    margin: 0.8em 0.8em 4em 0.8em;
+    margin: 0.8em 0.8em 2em 0.8em;
   }
   .home-steps-title {
     margin-top: 2.5em;
@@ -399,6 +460,12 @@
       }
     }
   }
+  .home-blog-last-articles {
+    grid-template-columns: 1fr;
+  }
+  .home-blog-one-article-title {
+    display: block;
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -465,6 +532,9 @@
       width: auto;
     }
   }
+  .home-blog-last-articles {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 // Medium devices (tablets, 768px and up)
@@ -505,6 +575,9 @@
       width: 207px;
     }
   }
+  .home-blog-last-articles {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
 // Large devices (desktops, 992px and up)
@@ -540,12 +613,21 @@
       width: 250px;
     }
   }
+  .home-blog-last-articles {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
   #home-ws-card-organizer-mobile {
     display: none;
+  }
+}
+
+@media (min-width: 1300px) {
+  .home-blog-last-articles {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 }
 
