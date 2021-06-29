@@ -51,12 +51,14 @@ class UserMailer < ApplicationMailer
 
     @reviews = @user.profile.reviews.select { |r| r.created_at >= @start_last_month && r.created_at <= @end_last_month}
 
-    mail(from: 'contact@jeudemains.com',
-      to: @user.email,
-      bcc: 'eugenie@jeudemains.com',
-      subject: 'Votre bilan mensuel sur Jeu de Mains',
-      track_opens: 'true',
-      message_stream: 'outbound')
+    if (@success_organized_and_animated_bookings.present? && @success_organized_and_animated_bookings.size > 0) || (@refund_organized_and_animated_bookings.present? && @refund_organized_and_animated_bookings.size > 0)
+      mail(from: 'contact@jeudemains.com',
+        to: @user.email,
+        bcc: 'eugenie@jeudemains.com',
+        subject: 'Votre bilan mensuel sur Jeu de Mains',
+        track_opens: 'true',
+        message_stream: 'outbound')
+    end
   end
 
   def partner_weekly_client_invoices
