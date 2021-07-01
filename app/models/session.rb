@@ -44,6 +44,7 @@ class Session < ApplicationRecord
               '20h00', '20h15', '20h30', '20h45',
               '21h00', '21h15', '21h30', '21h45',
               '22h00', '22h15', '22h30', '22h45',
+              '23h00', '23h15', '23h30', '23h45'
             ]
 
   MOMENTS = ["Matin", "Après-midi", "Fin de journée", "Plusieurs jours"]
