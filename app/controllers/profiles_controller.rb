@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(public)
   before_action :set_profile, only: %i(edit update messagerie send_finalisation_partner_email)
-  before_action :set_profile_and_verify, only: %i(show tableau_de_bord transactions releve_de_commissions)
+  before_action :set_profile_and_verify, only: %i(show tableau_de_bord transactions releve_de_commissions social_media)
 
   def index
     @profile = current_user.profile
@@ -252,6 +252,20 @@ class ProfilesController < ApplicationController
       format.html
       format.xls
     end
+  end
+
+  def social_media
+    dates = (Date.today..Date.today + 1.year).to_a
+    @last_minute_sessions = []
+    Session.all.where(db_status: true).select { |s| s.workshop.place.user.profile.db_status == true }.each do |session|
+      if session.workshop.db_status == true && session.workshop.status == "en ligne"
+        if session.start_date >= Date.today && session.available > 0
+          @last_minute_sessions << session
+        end
+      end
+    end
+    @workshops = @last_minute_sessions.sort_by { |session| session.start_date }.map { |s| s.workshop }.uniq
+    @sessions = Session.all.where(db_status: true).select { |s| s.available > 0 && s.start_date >= Date.today }.sort_by { |s| s.start_date }
   end
 
   private
