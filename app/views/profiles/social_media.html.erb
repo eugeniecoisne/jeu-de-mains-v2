@@ -1,0 +1,95 @@
+<!-- <div>
+  <h1>Contenus réseaux sociaux</h1>
+
+  <ul>
+    <% @workshops.each do |w| %>
+      <div>
+        <h2><%= w.title %></h2>
+        <h3>Par <%= w.place.user.profile.company %></h3>
+        <h4>À <%= w.place.city %></h4>
+        <%= link_to workshop_path(w), class: "social-media-photo" do %>
+          <% if w.photos.attached? %>
+            <%= cl_image_tag w.photos[0].key, loading: "lazy", alt: "jeu-de-mains-#{w.title}", title: "jeu-de-mains-#{w.title}" , width: 120, height: 95, crop: :fill %>
+          <% else %>
+            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 120, :height => 95, :crop => :fill, :alt => "jeu-de-mains-#{w.title}", :title => "jeu-de-mains-#{w.title}") %>
+          <% end %>
+        <% end %>
+        <ul>
+          <% @sessions.select { |s| s.workshop == w }.first(5).each do |s| %>
+            <% if s.start_date >= Date.today && s.start_date <= (Date.today + 6.months) %>
+              <li><%= s.start_date %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </ul>
+</div> -->
+
+<div class="social-media-container">
+  <div id="socialMediaCarousel" class="carousel slide" data-interval="false">
+
+    <div class="carousel-inner">
+      <% @workshops.each_with_index do |workshop, index| %>
+        <% if index == 0 %>
+          <div class="social-media-carousel-item carousel-item active">
+        <% else %>
+          <div class="social-media-carousel-item carousel-item">
+        <% end %>
+
+        <!-- CARD -->
+        <div class="social-media-card">
+          <div class="social-media-booking-cta">
+            Réservez votre place pour l'atelier sur jeudemains.com !
+          </div>
+          <% if workshop.photos.attached? %>
+              <%= cl_image_tag workshop.photos[0].key, loading: "lazy", width: 400, crop: :fill, alt: "jeu-de-mains-#{workshop.title}", title: "jeu-de-mains-#{workshop.title}" %>
+          <% else %>
+              <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593177818/jeu-de-mains-atelier.jpg", :loading => "lazy", :width => 400, :crop => :fill, :alt => "jeu-de-mains", :title => "jeu-de-mains") %>
+          <% end %>
+          <h2><%= workshop.title %></h2>
+          <h3>Par <%= workshop.place.user.profile.company %></h3>
+          <% if workshop.visio == true && workshop.kit == true %>
+            <h4>En visio avec kit</h4>
+          <% elsif workshop.visio == true %>
+            <h4>En visio sans kit</h4>
+          <% else %>
+            <h4>À <%= workshop.place.city %></h4>
+          <% end %>
+          <h5><%= workshop.price.to_i %> euros</h5>
+          <% @sessions.select { |s| s.workshop == workshop }.first(3).each do |s| %>
+            <p>
+              <% if s.start_date >= Date.today && s.start_date <= (Date.today + 6.months) %>
+                <% if s.start_date == s.end_date %>
+                  <%= l(s.start_date, format: '%A %d %B') %> à <%= s.start_time %>
+                <% else %>
+                  <%= l(s.start_date, format: '%d %B') %> à <%= s.start_time %> au <%= l(s.end_date, format: '%d %B') %> à <%= s.end_time %>
+                <% end %>
+                <br>
+                <em>
+                  <%= s.available %> <%= s.available > 1 ? "places dispo" : "place dispo" %>
+                </em> <br>
+              <% end %>
+            </p>
+          <% end %>
+          <% if @sessions.select { |s| s.workshop == workshop }.size > 3 %>
+            <p><em>et encore d'autres dates !</em></p>
+          <% end %>
+        </div>
+
+        <!-- END OF CARD -->
+      </div>
+
+      <% end %>
+    </div>
+
+    <a class="carousel-control-prev" href="#socialMediaCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Précédent</span>
+    </a>
+    <a class="carousel-control-next" href="#socialMediaCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Suivant</span>
+    </a>
+  </div>
+</div>

@@ -81,6 +81,7 @@
         <%= render 'shared/navbar-homepage' %>
       <% elsif controller.controller_name == 'workshops' && controller.action_name == 'index' %>
         <%= render 'shared/navbar-ws-index' %>
+      <% elsif controller.controller_name == 'profiles' && controller.action_name == 'social_media' %>
       <% else %>
         <%= render 'shared/navbar-allpages' %>
       <% end %>
@@ -102,13 +103,14 @@
       <%= render 'shared/footer' %>
     <% elsif controller.controller_name == 'workshops' && controller.action_name == 'index' %>
     <% elsif controller.controller_name == 'chatrooms' && controller.action_name == 'show' %>
+    <% elsif controller.controller_name == 'profiles' && controller.action_name == 'social_media' %>
     <% else %>
       <%= render 'shared/footer' %>
     <% end %>
 
 
 
-    <% unless (controller.controller_name == 'workshops' && controller.action_name == 'index') || (controller.controller_name == 'profiles' && controller.action_name == 'messagerie') || (controller.controller_name == 'profiles' && controller.action_name == 'index') %>
+    <% unless (controller.controller_name == 'workshops' && controller.action_name == 'index') || (controller.controller_name == 'profiles' && controller.action_name == 'messagerie') || (controller.controller_name == 'profiles' && controller.action_name == 'index') || (controller.controller_name == 'profiles' && controller.action_name == 'social_media') %>
       <script type="text/plain" cookie-consent="strictly-necessary">
         (function() {
           window.sib = { equeue: [], client_key: "0fq0vp17o9c40pdismwye5oq" };

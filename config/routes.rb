@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       get 'mes_cartes_cadeaux'
       get 'messagerie'
       get 'send_finalisation_partner_email'
+      get 'social_media'
     end
   end
 

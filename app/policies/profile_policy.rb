@@ -48,6 +48,10 @@ class ProfilePolicy < ApplicationPolicy
     user.admin?
   end
 
+  def social_media?
+    user.admin?
+  end
+
   def public?
     true
   end
