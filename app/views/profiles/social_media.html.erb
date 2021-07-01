@@ -50,14 +50,19 @@
           <h2><%= workshop.title %></h2>
           <h3>Par <%= workshop.place.user.profile.company %></h3>
           <% if workshop.visio == true && workshop.kit == true %>
-            <h4>En visio avec kit</h4>
+            <h4>En visio avec livraison de kit</h4>
           <% elsif workshop.visio == true %>
             <h4>En visio sans kit</h4>
           <% else %>
             <h4>À <%= workshop.place.city %></h4>
           <% end %>
           <h5><%= workshop.price.to_i %> euros</h5>
-          <% @sessions.select { |s| s.workshop == workshop }.first(3).each do |s| %>
+          <% if workshop.kit == true %>
+            <% @w_sessions = @sessions.select { |s| s.workshop == workshop && s.start_date > (Date.today + 5.days) }.first(3) %>
+          <% else %>
+            <% @w_sessions = @sessions.select { |s| s.workshop == workshop }.first(3) %>
+          <% end %>
+          <% @w_sessions.each do |s| %>
             <p>
               <% if s.start_date >= Date.today && s.start_date <= (Date.today + 6.months) %>
                 <% if s.start_date == s.end_date %>
@@ -68,7 +73,13 @@
                 <br>
                 <em>
                   <%= s.available %> <%= s.available > 1 ? "places dispo" : "place dispo" %>
-                </em> <br>
+                </em>
+                <% if s.workshop.kit == true && s.start_date == Date.today + 6.days %>
+                 <em>- Dernier jour pour réserver</em>
+                <% elsif s.workshop.kit == true && s.start_date == Date.today + 7.days %>
+                  <em>- Avant-dernier jour pour réserver</em>
+                <% end %>
+                <br>
               <% end %>
             </p>
           <% end %>
