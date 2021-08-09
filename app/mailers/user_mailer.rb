@@ -131,14 +131,14 @@ class UserMailer < ApplicationMailer
 
     if @transaction_bookings.size > 0
 
-      attachments["releve-facturation-clients-#{@profile.accountant_company.parameterize}-de-#{l((Date.today - 10.days), format: "%B-%Y")}"] = WickedPdf.new.pdf_from_string(
+      attachments["releve-facturation-clients-#{@profile.accountant_company.parameterize}-de-#{l((Date.today - 10.days), format: "%B-%Y")}.pdf"] = WickedPdf.new.pdf_from_string(
       render_to_string(template: 'profiles/transactions.pdf.erb', locals: {profile: @profile, transaction_bookings: @transaction_bookings, month: @month, year: @year, end: @end})
       )
 
       @commission_bookings = @transaction_bookings
       @fee_invoice = FeeInvoice.all.where(profile_id: @profile.id).select { |f| f.start_date == Date.new(@year.to_i, @month.to_i, 1) }.last
 
-      attachments["facture-P-#{Array.new((6-(@fee_invoice.id.to_s.size)), "0").join('')}#{@fee_invoice.id}"] = WickedPdf.new.pdf_from_string(
+      attachments["facture-P-#{Array.new((6-(@fee_invoice.id.to_s.size)), "0").join('')}#{@fee_invoice.id}.pdf"] = WickedPdf.new.pdf_from_string(
       render_to_string(template: 'profiles/releve_de_commissions.pdf.erb', locals: {profile: @profile, commission_bookings: @commission_bookings, month: @month, year: @year, end: @end})
       )
 
