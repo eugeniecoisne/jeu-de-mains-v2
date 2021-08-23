@@ -11,6 +11,10 @@
     margin-bottom: unset;
     text-align: justify;
   }
+  strong {
+    font-weight: 600;
+    color: $dark-blue;
+  }
 }
 
 .about-two-columns-strip {
