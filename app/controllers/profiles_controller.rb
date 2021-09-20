@@ -259,13 +259,13 @@ class ProfilesController < ApplicationController
     @last_minute_sessions = []
     Session.all.where(db_status: true).select { |s| s.workshop.place.user.profile.db_status == true }.each do |session|
       if session.workshop.db_status == true && session.workshop.status == "en ligne"
-        if session.start_date >= Date.today && session.available > 0
+        if session.start_date >= Date.today
           @last_minute_sessions << session
         end
       end
     end
     @workshops = @last_minute_sessions.sort_by { |session| session.start_date }.map { |s| s.workshop }.uniq
-    @sessions = Session.all.where(db_status: true).select { |s| s.available > 0 && s.start_date >= Date.today }.sort_by { |s| s.start_date }
+    @sessions = Session.all.where(db_status: true).select { |s| s.start_date >= Date.today }.sort_by { |s| s.start_date }
   end
 
   private
