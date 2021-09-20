@@ -71,15 +71,17 @@
                   <%= l(s.start_date, format: '%d %B') %> à <%= s.start_time %> au <%= l(s.end_date, format: '%d %B') %> à <%= s.end_time %>
                 <% end %>
                 <br>
-                <em>
-                  <%= s.available %> <%= s.available > 1 ? "places dispo" : "place dispo" %>
-                </em>
+                <% if s.available == 0 %>
+                  <em>
+                    Complet
+                  </em>
+                <% end %>
                 <% if s.workshop.kit == true && s.start_date == Date.today + 6.days %>
                  <em>- Dernier jour pour réserver</em>
                 <% elsif s.workshop.kit == true && s.start_date == Date.today + 7.days %>
                   <em>- Avant-dernier jour pour réserver</em>
                 <% end %>
-                <br>
+
               <% end %>
             </p>
           <% end %>
