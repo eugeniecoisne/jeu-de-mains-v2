@@ -8,7 +8,6 @@ import "../plugins/flatpickr";
 import { French } from "flatpickr/dist/l10n/fr.js";
 import { initMenu } from '../plugins/init_menu';
 import { initPlaces } from '../plugins/init_places';
-import { initBooking } from '../plugins/init_booking';
 import { initMapbox } from '../plugins/init_mapbox';
 import { initFullMap } from '../plugins/init_fullmap';
 import { showMoreWs } from '../plugins/show_more_ws';
@@ -36,7 +35,6 @@ document.addEventListener('turbolinks:load', () => {
   initPlaces(); // Tickets available when booking in workshops#show
   initMapbox(); // Init Mapbox in workshops#index
   initFullMap(); // Toggle between map and list in mobile view of workshops#index
-  initBooking(); // Booking button in workshops#show
   showMoreWs(); // Show more or less workshops in profiles#public
   initRating(); // Dynamical rating in reviews#new
   showActions(); // Dashboard my workshops button to manage a ws and show actions in profiles#_dashboard_organizer

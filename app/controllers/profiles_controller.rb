@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(public)
-  before_action :set_profile, only: %i(edit update messagerie send_finalisation_partner_email)
+  before_action :set_profile, only: %i(edit update)
   before_action :set_profile_and_verify, only: %i(show tableau_de_bord transactions releve_de_commissions social_media)
 
   def index
@@ -154,16 +154,6 @@ class ProfilesController < ApplicationController
     @chatroom = Chatroom.new
   end
 
-  def messagerie
-    @user_chatrooms = []
-    Chatroom.all.each do |chatroom|
-      if User.find(chatroom.user1) == current_user || User.find(chatroom.user2) == current_user
-        @user_chatrooms << chatroom
-      end
-    end
-    @user_chatrooms
-  end
-
   def public
     if Profile.friendly.find(params[:profile_id]).db_status == true
       @profile = Profile.friendly.find(params[:profile_id])
@@ -173,12 +163,12 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def send_finalisation_partner_email
-    mail = PartnerMailer.with(profile: @profile).send_finalisation_email
-    mail.deliver_later
-    flash[:notice] = "L'e-mail a bien été envoyé !"
-    redirect_back fallback_location: root_path
-  end
+  # def send_finalisation_partner_email
+  #   mail = PartnerMailer.with(profile: @profile).send_finalisation_email
+  #   mail.deliver_later
+  #   flash[:notice] = "L'e-mail a bien été envoyé !"
+  #   redirect_back fallback_location: root_path
+  # end
 
   def comptabilite_reservations
     if Profile.friendly.find(params[:id]).user.admin == true && current_user.admin == true
