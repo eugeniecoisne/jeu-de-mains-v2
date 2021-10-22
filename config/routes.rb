@@ -12,10 +12,10 @@ Rails.application.routes.draw do
   get 'infomessages/create'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', confirmations: 'users/confirmations', registrations: 'users/registrations' }
   root to: 'pages#home'
-  get 'offrir-une-carte-cadeau', to: 'pages#offer_giftcard'
-  get 'enregistrer-une-carte-cadeau', to: 'pages#register_giftcard'
-  get 'devenir-partenaire', to: 'pages#become_partner'
-  get 'bienvenue-partenaire', to: 'pages#welcome_partner'
+  # get 'offrir-une-carte-cadeau', to: 'pages#offer_giftcard'
+  # get 'enregistrer-une-carte-cadeau', to: 'pages#register_giftcard'
+  # get 'devenir-partenaire', to: 'pages#become_partner'
+  # get 'bienvenue-partenaire', to: 'pages#welcome_partner'
   get 'entreprises', to: "pages#entreprises"
   get 'entreprises-message-envoye', to: 'pages#entreprises_sent'
   get 'a-propos', to: 'pages#about'
@@ -60,8 +60,6 @@ Rails.application.routes.draw do
       get 'comptabilite_reservations'
       get 'comptabilite_cartes_cadeaux'
       get 'mes_cartes_cadeaux'
-      get 'messagerie'
-      get 'send_finalisation_partner_email'
       get 'social_media'
     end
   end
@@ -72,7 +70,7 @@ Rails.application.routes.draw do
 
   resources :places, :path => :lieux, :as => :places, except: %i(show destroy index edit)
 
-  resources :workshops, :path => :ateliers, :as => :workshops, except: %i() do
+  resources :workshops, :path => :ateliers, :as => :workshops, except: %i(new create) do
     resources :sessions, only: %i(new create index update)
     resources :animators, :path => :animateurs, :as => :animators, only: %i(new create)
     resources :reviews, :path => :avis, :as => :reviews, only: %i(index)
@@ -101,13 +99,10 @@ Rails.application.routes.draw do
 
   resources :sessions, only: %i(destroy)
 
-  resources :bookings, :path => :reservations, :as => :bookings, only: %i(create show update destroy)
+  resources :bookings, :path => :reservations, :as => :bookings, only: %i(show update destroy)
 
   resources :bookings, :path => :reservations, :as => :bookings, only: %i() do
-    resources :payments, only: :new
     resources :reviews, :path => :avis, :as => :reviews, only: %i(new create)
-    get 'options'
-    get 'coordonnees'
     get 'payment_success'
     get 'payment_error'
     get 'refund_invoice'
@@ -124,16 +119,12 @@ Rails.application.routes.draw do
 
   resources :animators, :path => :animateurs, :as => :animators, only: %i(edit update)
 
-  resources :chatrooms, :path => :conversations, :as => :chatrooms, only: %i(show create update) do
-    resources :messages, only: :create
-  end
-
-  resources :giftcards, :path => :carte_cadeau, :as => :giftcards, only: %i(new create update destroy)
+  resources :giftcards, :path => :carte_cadeau, :as => :giftcards, only: %i(update destroy)
 
   resources :giftcards, :path => :carte_cadeau, :as => :giftcards, only: %i() do
     resources :giftcard_payments, only: :new
     get 'confirmation_achat'
-    get 'erreur_achat'
-    get 'confirmation_enregistrement'
+    # get 'erreur_achat'
+    # get 'confirmation_enregistrement'
   end
 end

@@ -2,7 +2,7 @@ require 'json'
 require 'open-uri'
 
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i(home offer_giftcard register_giftcard become_partner welcome_partner entreprises entreprises_sent about ranking contact contact_us_sent legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijoux papier_et_calligraphie ceramique_et_modelage meuble_et_decoration peinture_et_dessin travail_du_cuir)
+  skip_before_action :authenticate_user!, only: %i(home entreprises entreprises_sent about ranking contact contact_us_sent legal_notice privacy_policy cgv autour_du_fil vegetal cosmetique_et_entretien bijoux papier_et_calligraphie ceramique_et_modelage meuble_et_decoration peinture_et_dessin travail_du_cuir)
 
   def home
     dates = (Date.today..Date.today + 1.year).to_a
@@ -130,40 +130,40 @@ class PagesController < ApplicationController
     @workshops = policy_scope(Workshop).where(status: 'en ligne', db_status: true).select { |workshop| workshop.thematic.include?("Meuble & Décoration") && workshop.dates.any? { |date| dates.include?(date) } && workshop.place.user.profile.db_status == true && workshop.sessions.count > 0 }
   end
 
-  def become_partner
-  end
+  # def become_partner
+  # end
 
-  def welcome_partner
-    captcha_partner_status = verify_google_recaptcha(ENV['RECAPTCHA_GOOGLE_PRIVATE_KEY'], params['g-recaptcha-response'])
+  # def welcome_partner
+  #   captcha_partner_status = verify_google_recaptcha(ENV['RECAPTCHA_GOOGLE_PRIVATE_KEY'], params['g-recaptcha-response'])
 
-    if captcha_partner_status == true && params[:partner].present? && params[:partner][:company].present? && params[:partner][:siret_number].present? && params[:partner][:email].present? && params[:partner][:phone_number].present? && params[:partner][:address].present? && params[:partner][:zip_code].present? && params[:partner][:city].present? && params[:partner][:last_name].present? && params[:partner][:first_name].present? && params[:partner][:position].present?
+  #   if captcha_partner_status == true && params[:partner].present? && params[:partner][:company].present? && params[:partner][:siret_number].present? && params[:partner][:email].present? && params[:partner][:phone_number].present? && params[:partner][:address].present? && params[:partner][:zip_code].present? && params[:partner][:city].present? && params[:partner][:last_name].present? && params[:partner][:first_name].present? && params[:partner][:position].present?
 
-      @partner = {
-        company: params[:partner][:company],
-        siret_number: params[:partner][:siret_number],
-        email: params[:partner][:email],
-        phone_number: params[:partner][:phone_number],
-        address: params[:partner][:address],
-        zip_code: params[:partner][:zip_code],
-        city: params[:partner][:city],
-        role: params[:partner][:role],
-        first_name: params[:partner][:first_name],
-        last_name: params[:partner][:last_name],
-        position: params[:partner][:position],
-        website: params[:partner][:website],
-        instagram: params[:partner][:instagram],
-        message: params[:partner][:message],
-      }
-      internal_email = PartnerMailer.with(partner: @partner).internal_send_subscription_form
-      internal_email.deliver_later
-      external_email = PartnerMailer.with(partner: @partner).external_send_subscription_form
-      external_email.deliver_later
+  #     @partner = {
+  #       company: params[:partner][:company],
+  #       siret_number: params[:partner][:siret_number],
+  #       email: params[:partner][:email],
+  #       phone_number: params[:partner][:phone_number],
+  #       address: params[:partner][:address],
+  #       zip_code: params[:partner][:zip_code],
+  #       city: params[:partner][:city],
+  #       role: params[:partner][:role],
+  #       first_name: params[:partner][:first_name],
+  #       last_name: params[:partner][:last_name],
+  #       position: params[:partner][:position],
+  #       website: params[:partner][:website],
+  #       instagram: params[:partner][:instagram],
+  #       message: params[:partner][:message],
+  #     }
+  #     internal_email = PartnerMailer.with(partner: @partner).internal_send_subscription_form
+  #     internal_email.deliver_later
+  #     external_email = PartnerMailer.with(partner: @partner).external_send_subscription_form
+  #     external_email.deliver_later
 
-    else
-      flash[:alert] = "Oups, le formulaire est incomplet"
-      render 'become_partner'
-    end
-  end
+  #   else
+  #     flash[:alert] = "Oups, le formulaire est incomplet"
+  #     render 'become_partner'
+  #   end
+  # end
 
   def entreprises
   end
@@ -219,30 +219,30 @@ class PagesController < ApplicationController
     end
   end
 
-  def offer_giftcard
-  end
+  # def offer_giftcard
+  # end
 
-  def register_giftcard
-    if params[:giftcard].present?
-      if params[:giftcard][:code].present?
-        @giftcard = Giftcard.find_by(code: params[:giftcard][:code])
-        if @giftcard && @giftcard.receiver.present? == false && @giftcard.status == "paid"
-          @giftcard.update(user_id: current_user.id)
-          @giftcard.update(receiver: current_user.id)
-          @giftcard.save
-          if params[:giftcard][:booking].present?
-            redirect_back fallback_location: root_path
-            flash[:notice] = "Votre carte cadeau a bien été enregistrée !"
-          else
-            redirect_to giftcard_confirmation_enregistrement_path(@giftcard)
-          end
-        else
-          flash[:alert] = "Votre code est déjà utilisé ou erroné"
-          redirect_back fallback_location: root_path
-        end
-      end
-    end
-  end
+  # def register_giftcard
+  #   if params[:giftcard].present?
+  #     if params[:giftcard][:code].present?
+  #       @giftcard = Giftcard.find_by(code: params[:giftcard][:code])
+  #       if @giftcard && @giftcard.receiver.present? == false && @giftcard.status == "paid"
+  #         @giftcard.update(user_id: current_user.id)
+  #         @giftcard.update(receiver: current_user.id)
+  #         @giftcard.save
+  #         if params[:giftcard][:booking].present?
+  #           redirect_back fallback_location: root_path
+  #           flash[:notice] = "Votre carte cadeau a bien été enregistrée !"
+  #         else
+  #           redirect_to giftcard_confirmation_enregistrement_path(@giftcard)
+  #         end
+  #       else
+  #         flash[:alert] = "Votre code est déjà utilisé ou erroné"
+  #         redirect_back fallback_location: root_path
+  #       end
+  #     end
+  #   end
+  # end
 
   def about
   end

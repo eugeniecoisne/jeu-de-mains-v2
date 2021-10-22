@@ -24,55 +24,55 @@ class GiftcardsController < ApplicationController
     authorize @giftcard
   end
 
-  def new
-    if params[:giftcard][:amount].present?
-      @giftcard = Giftcard.new
-      @giftcard.amount = params[:giftcard][:amount].first(3).to_f
-      authorize @giftcard
-    end
-  end
+  # def new
+  #   if params[:giftcard][:amount].present?
+  #     @giftcard = Giftcard.new
+  #     @giftcard.amount = params[:giftcard][:amount].first(3).to_f
+  #     authorize @giftcard
+  #   end
+  # end
 
-  def create
-    @giftcard = Giftcard.new(giftcard_params)
-    authorize @giftcard
-    @giftcard.user = current_user
-    @giftcard.status = "pending"
-    @giftcard.code = "#{current_user.id}#{SecureRandom.hex(6)}"
-    @giftcard.save
+  # def create
+  #   @giftcard = Giftcard.new(giftcard_params)
+  #   authorize @giftcard
+  #   @giftcard.user = current_user
+  #   @giftcard.status = "pending"
+  #   @giftcard.code = "#{current_user.id}#{SecureRandom.hex(6)}"
+  #   @giftcard.save
 
-    key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
-    Stripe.api_key = key
-    Stripe.api_version = '2020-08-27'
+  #   key = "#{ENV['STRIPE_CONNECT_SECRET_KEY']}"
+  #   Stripe.api_key = key
+  #   Stripe.api_version = '2020-08-27'
 
-    price = Stripe::Price.retrieve(GIFTCARD_PRICES["#{@giftcard.amount.to_i}"])
+  #   price = Stripe::Price.retrieve(GIFTCARD_PRICES["#{@giftcard.amount.to_i}"])
 
-    customer = Stripe::Customer.create(email: current_user.email)
+  #   customer = Stripe::Customer.create(email: current_user.email)
 
-    current_user.update(stripe_id: customer.id)
+  #   current_user.update(stripe_id: customer.id)
 
-    session = Stripe::Checkout::Session.create(
-      payment_method_types: ['card'],
-      customer: customer,
-      payment_intent_data: {
-        transfer_group: "GIFTCARD_#{@giftcard.id}",
-        metadata: {
-          jdm_type: "giftcard",
-          jdm_id: @giftcard.id,
-          jdm_user_id: current_user.id
-        },
-      },
-      line_items: [{
-        price: price,
-        quantity: 1
-      }],
-      mode: 'payment',
-      success_url: giftcard_confirmation_achat_url(@giftcard),
-      cancel_url: giftcard_erreur_achat_url(@giftcard)
-    )
+  #   session = Stripe::Checkout::Session.create(
+  #     payment_method_types: ['card'],
+  #     customer: customer,
+  #     payment_intent_data: {
+  #       transfer_group: "GIFTCARD_#{@giftcard.id}",
+  #       metadata: {
+  #         jdm_type: "giftcard",
+  #         jdm_id: @giftcard.id,
+  #         jdm_user_id: current_user.id
+  #       },
+  #     },
+  #     line_items: [{
+  #       price: price,
+  #       quantity: 1
+  #     }],
+  #     mode: 'payment',
+  #     success_url: giftcard_confirmation_achat_url(@giftcard),
+  #     cancel_url: giftcard_erreur_achat_url(@giftcard)
+  #   )
 
-    @giftcard.update(checkout_session_id: session.id, deadline_date: (@giftcard.created_at + 1.year))
-    CheckGiftcardStatusJob.set(wait: 45.minutes).perform_later(@giftcard)
-    redirect_to new_giftcard_giftcard_payment_path(@giftcard)
+  #   @giftcard.update(checkout_session_id: session.id, deadline_date: (@giftcard.created_at + 1.year))
+  #   CheckGiftcardStatusJob.set(wait: 45.minutes).perform_later(@giftcard)
+  #   redirect_to new_giftcard_giftcard_payment_path(@giftcard)
 
 
     # if @giftcard.save
@@ -102,15 +102,15 @@ class GiftcardsController < ApplicationController
     end
   end
 
-  def erreur_achat
-    @giftcard = Giftcard.find(params[:giftcard_id])
-    authorize @giftcard
-  end
+  # def erreur_achat
+  #   @giftcard = Giftcard.find(params[:giftcard_id])
+  #   authorize @giftcard
+  # end
 
-  def confirmation_enregistrement
-    @giftcard = Giftcard.find(params[:giftcard_id])
-    authorize @giftcard
-  end
+  # def confirmation_enregistrement
+  #   @giftcard = Giftcard.find(params[:giftcard_id])
+  #   authorize @giftcard
+  # end
 
   # refund a giftcard
   def destroy

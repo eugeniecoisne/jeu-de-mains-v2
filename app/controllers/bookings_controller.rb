@@ -2,32 +2,6 @@ class BookingsController < ApplicationController
 
   skip_before_action :verify_authenticity_token, :only => :update
 
-  def create
-    session = Session.find(params[:session])
-    @workshop = session.workshop
-    if params[:booking].present? && params[:booking][:status].present? && params[:booking][:status] == "interdit"
-      @booking = Booking.new
-      authorize @booking
-      flash[:alert] = "Vous ne pouvez pas réserver d'atelier avec votre compte partenaire. Déconnectez-vous et créez un compte particulier ;)"
-      redirect_to workshop_path(@workshop)
-    else
-      quantity = params[:quantity].to_i
-      @booking = Booking.create!(
-        status: 'pending',
-        quantity: quantity,
-        amount: quantity * @workshop.price,
-        workshop_unit_price: @workshop.price,
-        session: session,
-        user: current_user,
-        fee: @workshop.place.user.profile.fee,
-        tva_applicable: @workshop.place.user.profile.tva_applicable
-        )
-      authorize @booking
-      CheckBookingStatusJob.set(wait: 20.minutes).perform_later(@booking)
-      redirect_to booking_coordonnees_path(@booking)
-    end
-  end
-
   def update
     @booking = Booking.find(params[:id])
     authorize @booking
@@ -115,27 +89,6 @@ class BookingsController < ApplicationController
         redirect_back fallback_location: root_path
       end
     end
-  end
-
-  def coordonnees
-    @booking = Booking.find(params[:booking_id])
-    authorize @booking
-    if params[:booking]
-      @booking.update(booking_params)
-      if (@booking.session.workshop.visio_with_kit? && @booking.contact_visio_completed?) || ((@booking.session.workshop.kit == false) && @booking.contact_completed?)
-        redirect_to booking_options_path(@booking)
-      else
-        flash[:alert] = "Vos coordonnées sont incomplètes."
-        redirect_back fallback_location: root_path
-      end
-    end
-  end
-
-  def options
-    @booking = Booking.find(params[:booking_id])
-    @booking.update(cgv_agreement: false)
-    authorize @booking
-    @my_giftcards = current_user.giftcards.select { |giftcard| giftcard.buyer != current_user.id && giftcard.amount.to_i > 0 && giftcard.deadline_date >= Date.today && giftcard.status == "paid" && giftcard.db_status == true }
   end
 
   def show

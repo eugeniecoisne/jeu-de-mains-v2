@@ -11,10 +11,7 @@
       </div>
       <div class="footer-column footer-first-list">
         <%= link_to "À propos", a_propos_path, data: { turbolinks: false } %>
-        <a href="https://blog.jeudemains.com", target="_blank", aria-label="Blog Jeu de Mains", rel="noopener">Blog</a>
-        <%= link_to "Devenir partenaire", devenir_partenaire_path, data: { turbolinks: false } %>
         <%= link_to "Offre entreprises", entreprises_path, data: { turbolinks: false } %>
-        <%= link_to "Carte cadeau", offrir_une_carte_cadeau_path, data: { turbolinks: false } %>
         <%= link_to "Nous contacter", nous_contacter_path, data: { turbolinks: false } %>
         <%= link_to "CGV", cgv_path, data: { turbolinks: false } %>
         <%= link_to "Classement des annonces", classement_des_annonces_path, data: { turbolinks: false } %>
@@ -29,14 +26,7 @@
             <a href="https://www.facebook.com/jeudemainscom", target="_blank", aria-label="Facebook Jeu de Mains", rel="noopener"><i class="fab fa-facebook-square"></i></a>
           </div>
         </div>
-        <div class="footer-payment">
-          <span>Paiement sécurisé</span>
-          <div>
-            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614602190/paiement-visa.svg", :width => 150, :crop => :fill, :loading => "lazy", :alt => "paiement-visa", :title => "paiement-visa") %>
-            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614602190/paiement-mastercard.svg", :width => 150, :crop => :fill, :loading => "lazy", :alt => "paiement-mastercard", :title => "paiement-mastercard") %>
-            <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614602190/paiement-american-express.svg", :width => 150, :crop => :fill, :loading => "lazy", :alt => "paiement-american-express", :title => "paiement-american-express") %>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>

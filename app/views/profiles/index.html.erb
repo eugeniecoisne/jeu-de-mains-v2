@@ -117,18 +117,8 @@
                       <% end %>
                     </div>
                     <div class="place-anim-card-links-mobile">
-                      <% if current_user.profile.role.present? %>
-                        <%= simple_form_for(@chatroom) do |f| %>
-                          <%= f.hidden_field :user1, value: current_user.id %>
-                          <%= f.hidden_field :user2, value: profile.user.id %>
-                          <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
-                            <i class="fas fa-comment-dots mr-2"></i><span>Contacter</span>
-                          </button>
-                        <% end %>
-                      <% else %>
-                        <%= link_to profile_public_path(profile), class: "place-anim-card-link", id: "anim-show-page" do %>
-                          <i class="fas fa-eye"></i>
-                        <% end %>
+                      <%= link_to profile_public_path(profile), class: "place-anim-card-link", id: "anim-show-page" do %>
+                        <i class="fas fa-eye"></i>
                       <% end %>
                       <%= link_to profile.instagram, class: "place-anim-card-link", target: "_blank" do %>
                         <i class="fab fa-instagram"></i>
@@ -139,15 +129,6 @@
               <% end %>
             </div>
             <div class="place-anim-card-links-desktop">
-              <% if current_user.profile.role.present?  %>
-                <%= simple_form_for(@chatroom) do |f| %>
-                  <%= f.hidden_field :user1, value: current_user.id %>
-                  <%= f.hidden_field :user2, value: profile.user.id %>
-                  <button type="submit" name="commit" class="place-anim-card-link" id="contact-place-link">
-                    <i class="fas fa-comment-dots"></i> Contacter
-                  </button>
-                <% end %>
-              <% end %>
               <%= link_to profile_public_path(profile), class: "place-anim-card-link", id: "anim-show-page" do %>
                 <i class="fas fa-eye mr-2"></i> Voir la page
               <% end %>

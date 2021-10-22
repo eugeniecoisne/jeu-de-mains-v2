@@ -155,15 +155,6 @@ ActiveRecord::Schema.define(version: 2021_04_27_075016) do
     t.index ["session_id"], name: "index_infomessages_on_session_id"
   end
 
-  create_table "informations", force: :cascade do |t|
-    t.string "subject"
-    t.text "content"
-    t.bigint "session_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["session_id"], name: "index_informations_on_session_id"
-  end
-
   create_table "messages", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -318,7 +309,6 @@ ActiveRecord::Schema.define(version: 2021_04_27_075016) do
   add_foreign_key "fee_invoices", "profiles"
   add_foreign_key "giftcards", "users"
   add_foreign_key "infomessages", "sessions"
-  add_foreign_key "informations", "sessions"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users"
   add_foreign_key "places", "users"

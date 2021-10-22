@@ -18,7 +18,7 @@
     <div class="container-ws-show">
 
       <div class="booking-mobile-button" id="bookingButton">
-        Je réserve
+        <%= link_to "Je réserve auprès du partenaire", profile_public_path(@workshop.place.user.profile) %>
       </div>
 
       <%= render 'pages/sign_in_up_modal' %>
@@ -26,65 +26,8 @@
       <!-- BOOKING-->
 
       <div class="container-ws-show-booking" id="bookingBox">
-        <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1593191048/jeu-de-mains-fermer-blanc.svg", :width => 50, :crop => :fill, :alt => "jeu-de-mains-fermer", :title => "jeu-de-mains-fermer", :id => "bookingExit") %>
-        <h3>Réservez l’atelier<br>“<%= @workshop.title %>"
-          <%= "en visio" if @workshop.visio == true %>
-        </h3>
-
-        <%= simple_form_for(@booking) do |f| %>
-          <div class="form-group select required">
-            <select class="form-control select required" name="session" id="session_id">
-              <option value="" disabled selected>Sélectionnez une date</option>
-              <% @workshop.sessions.where(db_status: true).select { |session| session.start_date >= Date.today }.sort_by { |session| session.start_date }.each do |session| %>
-                <% if @workshop.duration >= 1440 %>
-                  <option value="<%= session.id %>">
-                    <% if session.available == 0 %>
-                      Du <%= l(session.start_date, format: '%A %d %B %Y') %> à <%= session.start_time %> au <%= l(session.end_date, format: '%A %d %B %Y') %> à <%= session.end_time %> - Complet
-                    <% elsif session.workshop.kit == true && ((session.start_date - 6.days) < Date.today) %>
-                      Du <%= l(session.start_date, format: '%A %d %B %Y') %> à <%= session.start_time %> au <%= l(session.end_date, format: '%A %d %B %Y') %> à <%= session.end_time %> - Indisponible
-                    <% else %>
-                      Du <%= l(session.start_date, format: '%A %d %B %Y') %> à <%= session.start_time %> au <%= l(session.end_date, format: '%A %d %B %Y') %> à <%= session.end_time %>
-                    <% end %>
-                  </option>
-                <% else %>
-                  <option value="<%= session.id %>">
-                    <% if session.available == 0 %>
-                      <%= l(session.start_date, format: '%A %d %B %Y').capitalize %> de <%= session.start_time %> à <%= session.end_time %> - Complet
-                    <% elsif session.workshop.kit == true && ((session.start_date - 6.days) < Date.today) %>
-                      <%= l(session.start_date, format: '%A %d %B %Y').capitalize %> de <%= session.start_time %> à <%= session.end_time %> - Indisponible
-                    <% else %>
-                      <%= l(session.start_date, format: '%A %d %B %Y').capitalize %> de <%= session.start_time %> à <%= session.end_time %>
-                    <% end %>
-                  </option>
-                <% end %>
-              <% end %>
-            </select>
-          </div>
-          <div class="form-group select required">
-            <select class="form-control select required" name="quantity" id="workshop_level">
-                <option value="" disabled selected>Nombre de place(s)</option>
-            </select>
-          </div>
-          <div class="d-flex ws-price">
-            <span id="ws-booking-price">
-              <% if @workshop.price.modulo(1).zero? %>
-                <%= @workshop.price.round %> €
-              <% else %>
-                <%= sprintf("%.2f", @workshop.price) %> €
-              <% end %>
-            </span>
-            <span>/pers</span>
-          </div>
-          <% if current_user.present? && current_user.profile.role.present? %>
-            <%= f.hidden_field :status, value: "interdit"  %>
-          <% end %>
-          <% if user_signed_in? %>
-            <%= f.submit 'Je réserve', class: "white-btn" %>
-          <% else %>
-            <a href="#signInUpModal" class="white-btn booking-sign-in" data-toggle="modal" data-whatever="@mdo">Je réserve</a>
-          <% end %>
-        <% end %>
-        <p id="ws-show-giftcard">Vous avez reçu une carte cadeau ?<br>Rendez-vous à l'étape suivante pour l'utiliser!</p>
+        <h3>Je réserve l'atelier auprès du partenaire</h3>
+        <%= link_to "ICI", profile_public_path(@workshop.place.user.profile), class: "blue-btn" %>
       </div>
 
     <!-- LEFT SIDE -->
@@ -136,7 +79,14 @@
       <!-- WORKSHOP SHOW TITLE-->
 
       <div class="ws-show-informations-title">
-        <h1><%= @workshop.title %></h1>
+        <h1><%= @workshop.title %> -         <span id="ws-booking-price">
+              <% if @workshop.price.modulo(1).zero? %>
+                <%= @workshop.price.round %> €
+              <% else %>
+                <%= sprintf("%.2f", @workshop.price) %> €
+              <% end %>
+            </span>
+            <span>/pers</span></h1>
       </div>
 
       <!-- WORKSHOP SHOW INFORMATIONS ORGANIZERS-->
@@ -354,40 +304,6 @@
               <p>Cet atelier n'a pas encore d'avis.</p>
             </div>
           <% end %>
-        </div>
-
-        <!-- WORKSHOP SHOW CGV -->
-
-        <div class="ws-show-cancel-policy">
-          <h2>Politique d'annulation</h2>
-
-          <p>
-            <% if @workshop.kit == true %>
-            <strong>Spéciale ateliers en visio avec kit :</strong>
-            <% end %>
-            Votre réservation pour cet atelier est prise en compte dès que votre paiement par carte bancaire et/ou carte cadeau Jeu de Mains est accepté. Vous avez ensuite la possibilité d'annuler votre réservation sous les conditions suivantes spécifiques à ce type d'atelier, à savoir qu'une annulation provenant de l'organisateur implique automatiquement le remboursement intégral du montant de votre réservation :</p>
-          <div class="ws-show-cancel-options">
-            <div class="ws-show-cancel-option">
-              <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614613961/remboursement-100.svg", :width => 80, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-remboursement-integral", :title => "jeu-de-mains-remboursement-integral") %>
-              <% if @workshop.kit == true %>
-                <p>Vous annulez jusqu'à 7 jours avant l'atelier, vous pouvez reporter à une date ultérieure ou être intégralement remboursé du montant de la réservation sur le moyen de paiement utilisé.</p>
-              <% else %>
-                <p>Vous annulez jusqu'à 3 jours avant l'atelier, vous pouvez reporter à une date ultérieure ou être intégralement remboursé du montant de la réservation sur le moyen de paiement utilisé.</p>
-              <% end %>
-            </div>
-            <div class="ws-show-cancel-option">
-              <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614614195/remboursement-50.svg", :width => 80, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-remboursement-partiel", :title => "jeu-de-mains-remboursement-partiel") %>
-              <% if @workshop.kit == true %>
-                <p>Vous annulez moins de 7 jours et jusqu'à 24 heures avant l'atelier, vous êtes remboursé à hauteur de 50% du montant de la réservation sur le moyen de paiement utilisé. Aucun report ne vous sera proposé.</p>
-              <% else %>
-                <p>Vous annulez moins de 3 jours et jusqu'à 24 heures avant l'atelier, vous êtes remboursé à hauteur de 50% du montant de la réservation sur le moyen de paiement utilisé. Aucun report ne vous sera proposé.</p>
-              <% end %>
-            </div>
-            <div class="ws-show-cancel-option" id="last-ws-show-cancel-option">
-              <%= cl_image_tag("https://res.cloudinary.com/jeudemains/image/upload/v1614618109/remboursement-0.svg", :width => 80, :crop => :fill, :loading => "lazy", :alt => "jeu-de-mains-aucun-remboursement", :title => "jeu-de-mains-aucun-remboursement") %>
-              <p>Vous annulez moins de 24 heures avant l'atelier, vous ne serez pas remboursé et aucun report ne vous sera proposé.</p>
-            </div>
-          </div>
         </div>
 
 
