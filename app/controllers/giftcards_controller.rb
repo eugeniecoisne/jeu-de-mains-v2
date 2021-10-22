@@ -82,7 +82,7 @@ class GiftcardsController < ApplicationController
     # else
     #   render 'new'
     # end
-  end
+  # end
 
   def update
     @giftcard = Giftcard.find(params[:id])
